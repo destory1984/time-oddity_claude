@@ -76,7 +76,7 @@
 ### 5.1 계산
 
 - astronomy-engine으로 그 순간 그 자리의 해, 달, 수성, 금성, 화성, 목성, 토성의 높이와 방위를 셈한다. 달은 위상각, 밝은 쪽이 기운 방향, 월식의 깊이(0 → 1)도 셈한다.
-- 별은 4.5등급보다 밝은 것 900개쯤이다. Yale Bright Star Catalog(공개 자료)에서 뽑아 `src/data/stars.json` 에 둔다. 뽑는 스크립트는 `tools/make-stars.mjs` 다.
+- 별은 4.5등급보다 밝은 것 900개쯤이다. Yale Bright Star Catalog(공개 자료)에서 뽑아 `game/src/data/stars.json` 에 둔다. 뽑는 스크립트는 `tools/make-stars.mjs` 다.
 - 별은 J2000 자리를 그날의 적도 좌표로 돌린 뒤(세차와 장동, `Rotation_EQJ_EQD`) 높이와 방위로 바꾼다. 별마다의 제 움직임(고유운동)은 넣지 않는다.
 - 프레임마다 다시 셈한다. 하늘 한 장에 0.07밀리초였고, 별 900개의 회전을 더해도 1밀리초 안일 것으로 본다. 넘으면 별은 날짜가 바뀔 때만 셈한다.
 
@@ -93,7 +93,7 @@
 
 ## 6. 날짜와 때
 
-한 파일(`src/core/when.js`)에서만 날짜를 바꾼다.
+한 파일(`game/src/core/when.js`)에서만 날짜를 바꾼다.
 
 - 안에서 쓰는 때는 율리우스일(JD) 하나다.
 - 적는 해는 역사 연도다. 0년이 없다. 기원전 1년 다음이 1년이다. 다이얼의 눈금도 그렇다.
@@ -115,8 +115,8 @@
 ## 7. 코드의 짜임
 
 ```
-index.html
-src/
+game/index.html
+game/src/
   main.js              묶음들을 잇는다. 프레임마다 한 번 돈다
   core/
     when.js            날짜 변환. JD, 역사 연도, 두 달력, 그 자리 시각
@@ -167,6 +167,7 @@ play/                  지은 결과물. 커밋한다
 
 - GitHub Pages는 지금처럼 `main` 의 뿌리를 내보낸다. 설정을 바꾸지 않는다.
 - `vite build` 의 결과를 `play/` 에 넣고 커밋한다. Vite의 `base` 는 `./` 다.
+- 코드는 뿌리가 아니라 `game/` 에 둔다. `index.html` 이 저장소 뿌리에 있으면 Pages가 짓지 않은 그 파일을 사이트 첫 쪽으로 내보내기 때문이다.
 - 주소: `https://destory1984.github.io/time-oddity_claude/play/`
 - `.gitignore` 의 `dist/` 는 그대로 두고, `play/` 는 무시하지 않는다.
 - 올리기 전에 매번 사용자에게 묻는다.

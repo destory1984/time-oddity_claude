@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#050330">
+<title>시간 한량</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="stage">
+  <canvas id="globe"></canvas>
+  <div id="pins"></div>
+  <canvas id="sky"></canvas>
+  <div id="ground"></div>
+  <div id="glowSky"></div>
+  <img id="sora" src="./sora.png" alt="">
+  <div id="hud">
+    <div id="top"><span id="dots"><i></i><i></i><i></i></span><span id="name"></span></div>
+    <div id="date"><b id="dateText"></b><span id="placeText"></span><span id="subText"></span></div>
+    <button id="todayBtn" class="glass" type="button">오늘로</button>
+    <button id="leaveBtn" class="glass" type="button">떠나기</button>
+    <div id="bubble"></div>
+    <div id="memo"></div>
+    <div id="hint"></div>
+  </div>
+  <canvas id="dial"></canvas>
+  <div id="fade"></div>
+</div>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
