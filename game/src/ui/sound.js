@@ -5,6 +5,10 @@
 // A browser lets sound start only after a touch, so nothing is made until wake() is
 // called from one. Where there is no AudioContext, or it cannot be made, every call is
 // silently nothing.
+// The dial's tick at half the loudness it was settled at: the user, 2026.10.7, "다이얼 돌아가는
+// 소리는 절반으로 줄여줘".
+const TICK = 0.5;
+
 export function createSound(AudioContextClass = globalThis.AudioContext ?? globalThis.webkitAudioContext) {
   let ac = null;
   let noise = null;
@@ -77,9 +81,9 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
       if (now - lastTick < (dense ? 40 : 22)) return;
       lastTick = now;
       play((at) => {
-        if (dense) { hiss(at, { seconds: 0.04, from: 600, gain: 0.25 }); return; }
-        hiss(at, { seconds: 0.045, from: big ? 760 : 1200, gain: big ? 0.75 : 0.5 });
-        tone(at, { seconds: 0.04, from: big ? 240 : 340, to: big ? 130 : 190, gain: big ? 0.22 : 0.12 });
+        if (dense) { hiss(at, { seconds: 0.04, from: 600, gain: 0.25 * TICK }); return; }
+        hiss(at, { seconds: 0.045, from: big ? 760 : 1200, gain: (big ? 0.75 : 0.5) * TICK });
+        tone(at, { seconds: 0.04, from: big ? 240 : 340, to: big ? 130 : 190, gain: (big ? 0.22 : 0.12) * TICK });
       });
     },
     // The ground picture standing up: paper brushing paper.
