@@ -12,8 +12,11 @@ export const SLOW = 0.22;
 
 const far = (pin) => Math.hypot(pin.x, pin.y);
 
-// The id of the square under her, or null.
-export function pinUnder(pins) {
+// The id of the square under her, or null. prefer: the square she is flying to; where two
+// squares stand at one place (two days in one town) that one is hers to come down on.
+export function pinUnder(pins, prefer = null) {
+  const wanted = pins.find((pin) => pin.id === prefer);
+  if (wanted && wanted.z < 0 && far(wanted) <= NEAR) return wanted.id;
   let best = null;
   for (const pin of pins) {
     if (pin.z >= 0 || far(pin) > NEAR) continue;

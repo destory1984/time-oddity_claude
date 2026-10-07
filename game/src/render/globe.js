@@ -267,7 +267,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
       pin.button.style.setProperty('--drop', `${drop}px`);
       taken.push(boxAt(side, drop));
     }
-    underId = pinUnder(views);
+    underId = pinUnder(views, targetId);
     for (const pin of pins) {
       pin.button.classList.toggle('target', pin.square.id === targetId);
       pin.button.classList.toggle('under', pin.square.id === underId);
