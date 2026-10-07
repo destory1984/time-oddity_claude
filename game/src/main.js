@@ -11,7 +11,7 @@ import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, 
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
 import { soraPose } from './core/sora.js';
 import { guideLine } from './core/guide.js';
-import { countProgress, dotsOf, emptyProgress, fillDot, isComplete, markNoteRead, notesRead, quizSolved, solveQuiz } from './core/progress.js';
+import { countProgress, dotsOf, emptyProgress, fillDot, fullProgress, isComplete, markNoteRead, notesRead, quizSolved, solveQuiz } from './core/progress.js';
 import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { createSkyCanvas } from './render/skyCanvas.js';
@@ -22,6 +22,7 @@ import { createHud } from './ui/hud.js';
 import { createTouch } from './ui/touch.js';
 import { ZOOM_MAX, ZOOM_MIN, ZOOM_STEP } from './core/zoom.js';
 import { flyPose } from './core/flight.js';
+import { isLocalHost } from './core/host.js';
 import { createSound } from './ui/sound.js';
 import { createSettings } from './ui/settings.js';
 import { createMusic } from './ui/music.js';
@@ -32,7 +33,7 @@ import { readReply, sendCard, takeCard } from './core/postcard.js';
 import { createPager } from './ui/opening.js';
 import { OPENING } from './core/opening.js';
 import { NOTES, dueNote, noteById, notePages } from './core/notes.js';
-import {
+import { forgetOpened, keepProgressAside,
   loadCards, loadMusic, loadMuted, loadOpened, loadProgress, saveCards, saveMusic, saveMuted, saveOpened, saveProgress,
 } from './ui/storage.js';
 
@@ -516,6 +517,25 @@ function frame(now) {
   music.step(visit ? 'surface' : 'near');
   requestAnimationFrame(frame);
 }
+
+// The test buttons, as in volume 1 (the user, 2026.10.7: "우주 한량처럼, 화면 위에 저 버튼
+// 만들어줘. 이건 테스트 버전에서만 보이는거"). Only the maker sees them: on the dev server,
+// not on the public site or in the store app. The settings (sound, music, text size,
+// screen shape) stay as they are.
+$('testBar').hidden = !isLocalHost(location.hostname);
+$('testReset').addEventListener('click', () => {
+  saveProgress(emptyProgress());
+  saveCards({});
+  forgetOpened();
+  location.reload();
+});
+// And its opposite, for testing what comes after: every square done, every note read.
+$('testAll').addEventListener('click', () => {
+  keepProgressAside();
+  saveProgress(fullProgress(SQUARES.map((sq) => sq.id), NOTES.map((note) => note.id)));
+  saveOpened();
+  location.reload();
+});
 
 // Stills for screenshots: #shot=globe, or #shot=<id>,<then|sky|today>. #go=<id> starts
 // on that square.

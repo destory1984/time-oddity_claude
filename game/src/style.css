@@ -268,3 +268,9 @@ html.wide #stage{max-width:none}
 @keyframes pinTarget{50%{transform:scale(1.35)}}
 /* Looking up: the slip with what grandmother wrote of the sky sits under the date, clear of the low moon. */
 #memo.sky{top:178px}
+
+/* The test buttons at the very top (the maker's machine only), as in volume 1. */
+#testBar[hidden]{display:none}
+#testBar{position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:60;display:flex;gap:8px;pointer-events:none}
+#testBar button{flex:none;white-space:nowrap;min-height:0;height:15px;padding:0 10px;border:1px dashed #ff9d9d;border-radius:10px;background:#3a0f1acc;color:#ffd0d0;font:10px/13px var(--ui);pointer-events:auto}
+html.shell #testBar{display:none}

@@ -22,6 +22,13 @@ export const quizSolved = (progress, id) => of(progress, id).quiz;
 export const isComplete = (progress, id) => DOTS.every((dot) => of(progress, id)[dot]);
 export const isVisited = (progress, id) => of(progress, id).day;
 
+// For testing what comes after: every square with its three dots and its question
+// answered, every note read (the test button, main.js).
+export const fullProgress = (ids, noteIds) => ({
+  squares: Object.fromEntries(ids.map((id) => [id, { day: true, sky: true, remains: true, quiz: true }])),
+  notes: [...noteIds],
+});
+
 // ids: the squares that exist. Gives how many have each dot, how many have all three.
 export function countProgress(progress, ids) {
   const count = (key) => ids.filter((id) => of(progress, id)[key]).length;

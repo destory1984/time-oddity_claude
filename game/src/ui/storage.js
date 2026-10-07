@@ -35,3 +35,7 @@ export const saveTextSize = (size) => write(KEY.text, String(size));
 // On a PC: the phone-shaped frame (the default) or the whole window.
 export const loadScreen = () => (read(KEY.screen) === 'wide' ? 'wide' : 'phone');
 export const saveScreen = (choice) => write(KEY.screen, choice === 'wide' ? 'wide' : 'phone');
+// The test buttons (main.js, the maker's machine only). The opening is shown again after a wipe.
+export const forgetOpened = () => { try { localStorage.removeItem(KEY.opened); } catch { /* nothing to forget */ } };
+// The notebook as it was before "all done", kept under one more key to be put back by hand.
+export const keepProgressAside = () => write('timeoddity.progress.before-all', read(KEY.progress) ?? '');
