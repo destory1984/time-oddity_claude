@@ -10,8 +10,9 @@ const $ = (id) => document.getElementById(id);
 // onOpen, onClose: the game is held while the settings are open.
 // today: () => 'YYYY-MM-DD', the device's own day.
 // sound: { muted(), setMuted(on) }, the same switch as the speaker button.
+// music: { on(), setOn(on) }, the same switch as the note button.
 // version: the text for the head, such as 'v0.1.1 · 2026.10.7'.
-export function createSettings({ onOpen, onClose, today, sound, version }) {
+export function createSettings({ onOpen, onClose, today, sound, music, version }) {
   const dialog = $('settings');
   $('appVersion').textContent = version;
 
@@ -56,8 +57,11 @@ export function createSettings({ onOpen, onClose, today, sound, version }) {
 
   function renderSound() {
     $('soundNow').textContent = sound.muted() ? '지금은 꺼져 있습니다.' : '지금은 켜져 있습니다.';
-    $('soundSwitch').textContent = sound.muted() ? '소리 켜기' : '소리 끄기';
+    $('soundSwitch').textContent = sound.muted() ? '효과음 켜기' : '효과음 끄기';
+    $('musicNow').textContent = music.on() ? '지금은 켜져 있습니다.' : '지금은 꺼져 있습니다.';
+    $('musicSwitch').textContent = music.on() ? '배경 음악 끄기' : '배경 음악 켜기';
   }
+  $('musicSwitch').addEventListener('click', () => { music.setOn(!music.on()); renderSound(); });
   $('soundSwitch').addEventListener('click', () => { sound.setMuted(!sound.muted()); renderSound(); });
 
   $('settingsButton').addEventListener('click', () => {

@@ -66,6 +66,8 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
 
   return {
     wake,
+    // The AudioContext, once a touch has woken it: the music plays through the same one.
+    context: () => (failed ? null : ac),
     muted: () => muted,
     setMuted(on) { muted = Boolean(on); },
     // One tick of the dial. big: every tenth year, lower and louder. dense: many ticks

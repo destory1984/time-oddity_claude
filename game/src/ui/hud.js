@@ -12,12 +12,15 @@ export function createHud(el) {
   const sora = document.getElementById('sora');
   const shown = {};
 
+  // Her eight frames are fetched at the start so that none flickers in late.
+  for (const sheet of ['idle', 'see-hush']) for (let i = 1; i <= 4; i += 1) { const img = new Image(); img.src = `./sora/${sheet}-${i}.png`; }
+
   const changed = (key, value) => { if (shown[key] === value) return false; shown[key] = value; return true; };
   const text = (key, value) => { if (changed(key, value)) parts[key].textContent = value; };
   const glow = (node) => { node.classList.remove('glow'); node.getBoundingClientRect(); node.classList.add('glow'); };
 
   // state: { name, dateText, placeText, subText, dots: { day, sky, remains }, memo (text
-  // or null), memoPlain (true when the slip carries a plain note, not grandmother's words), bubble (text or null), todayLabel, showToday, showLeave, hint, soraFade,
+  // or null), memoPlain (true when the slip carries a plain note, not grandmother's words), bubble (text or null), todayLabel, showToday, showLeave, hint, soraFade, sora ({ sheet, frame }: which of her pictures is up),
   // glowSky (a count: glows once each time it goes up), glowToday (likewise) }
   function set(state) {
     text('name', state.name);
@@ -42,6 +45,7 @@ export function createHud(el) {
     if (changed('showToday', state.showToday)) parts.todayBtn.hidden = !state.showToday;
     if (changed('showLeave', state.showLeave)) parts.leaveBtn.hidden = !state.showLeave;
     if (changed('soraFade', Math.round(state.soraFade * 20))) sora.style.opacity = String(1 - state.soraFade);
+    if (state.sora && changed('soraPose', `${state.sora.sheet}-${state.sora.frame}`)) sora.src = `./sora/${state.sora.sheet}-${state.sora.frame}.png`;
     if (changed('glowSky', state.glowSky) && state.glowSky > 0) glow(glowSky);
     if (changed('glowToday', state.glowToday) && state.glowToday > 0) glow(parts.todayBtn);
   }

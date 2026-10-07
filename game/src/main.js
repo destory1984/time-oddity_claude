@@ -9,6 +9,7 @@ import { skyAt, skyLight } from './core/sky.js';
 import { formatDate, formatYear, todayDate } from './core/when.js';
 import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, stepDial } from './core/dial.js';
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
+import { soraPose } from './core/sora.js';
 import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { createSkyCanvas } from './render/skyCanvas.js';
@@ -19,7 +20,8 @@ import { createHud } from './ui/hud.js';
 import { createTouch } from './ui/touch.js';
 import { createSound } from './ui/sound.js';
 import { createSettings } from './ui/settings.js';
-import { loadMuted, saveMuted } from './ui/storage.js';
+import { createMusic } from './ui/music.js';
+import { loadMusic, loadMuted, saveMusic, saveMuted } from './ui/storage.js';
 
 const RISE_MS = 800;
 const MEMO_AT_MS = 1200;
@@ -66,6 +68,7 @@ let bubble = null;         // { text, until }
 let remainsAtMs = null;
 let glowSky = 0;
 let glowToday = 0;
+let hushAt = null;      // when Sora last put a finger to her lips
 let daylight = 0;       // how light the sky over the square is, for the dial's paper
 
 // The years with something to see, shown on the dial. Above the Earth: every square.
@@ -81,6 +84,7 @@ const globeMarks = () => [...SQUARES.map((sq) => ({ year: sq.date.year, label: s
 const soundSwitch = {
   muted: () => sound.muted(),
   setMuted(on) {
+    if (on && !sound.muted()) hushAt = performance.now();
     sound.setMuted(on);
     saveMuted(on);
     $('soundButton').classList.toggle('off', on);
@@ -90,6 +94,23 @@ const soundSwitch = {
 soundSwitch.setMuted(loadMuted());
 $('soundButton').addEventListener('click', () => { sound.wake(); soundSwitch.setMuted(!sound.muted()); });
 
+// Background music: volume 1's eleven tunes, with a switch of its own.
+const music = createMusic({ context: () => sound.context(), on: loadMusic() });
+const musicSwitch = {
+  on: () => music.on(),
+  setOn(on) {
+    if (!on && music.on()) hushAt = performance.now();
+    music.setOn(on);
+    saveMusic(on);
+    $('musicButton').classList.toggle('off', !on);
+    $('musicButton').title = on ? '배경 음악 끄기' : '배경 음악 켜기';
+  },
+};
+musicSwitch.setOn(music.on());
+$('musicButton').addEventListener('click', () => { sound.wake(); musicSwitch.setOn(!music.on()); });
+// Any first touch wakes the sound, so that the music can begin without a button.
+window.addEventListener('pointerdown', () => sound.wake(), { once: true, capture: true });
+
 const pad = (n) => String(n).padStart(2, '0');
 // The game is held while the settings are open (see frame()).
 const settings = createSettings({
@@ -97,6 +118,7 @@ const settings = createSettings({
   onClose: () => {},
   today: () => { const now = todayDate(); return `${now.year}-${pad(now.month)}-${pad(now.day)}`; },
   sound: soundSwitch,
+  music: musicSwitch,
   version: `v${__APP_VERSION__} · ${__APP_UPDATED__}`,
 });
 
@@ -238,6 +260,7 @@ function frameGround(dt) {
   if (!visit.dots.sky && visit.t >= HINT_SKY_AT_MS && visit.t - dt < HINT_SKY_AT_MS) glowSky += 1;
   if (!visit.dots.remains && visit.t >= HINT_TODAY_AT_MS && visit.t - dt < HINT_TODAY_AT_MS) glowToday += 1;
 
+  const pose = soraPose({ now: performance.now(), hushAt });
   let memo = null;
   if (visit.t >= MEMO_AT_MS && mode === 'ground') {
     if (silhouette > 0.5) memo = '이 해는 적어 둔 게 없구나';
@@ -248,17 +271,19 @@ function frameGround(dt) {
   hud.set({
     name: `${square.no} ${square.name}`, dateText, placeText: square.place,
     subText: visit.night > 0.5 ? '그날 밤 9시' : '',
-    dots: visit.dots, memo, memoPlain: memo === square.memoToday, bubble: bubble && visit.look < 0.5 ? bubble.text : null,
+    dots: visit.dots, memo, memoPlain: memo === square.memoToday,
+    bubble: pose.saying ?? (bubble && visit.look < 0.5 ? bubble.text : null), sora: pose,
     todayLabel: at === 'today' ? '그날로' : '오늘로', showToday: true, showLeave: true,
-    hint: '', soraFade: clamp01(visit.look * 1.6), glowSky, glowToday,
+    hint: '', soraFade: pose.saying ? 0 : clamp01(visit.look * 1.6), glowSky, glowToday,
   });
 }
 
 function frameGlobe(dt) {
   globe.render(dt);
+  const pose = soraPose({ now: performance.now(), hushAt });
   hud.set({
     name: '시간 한량 · 첫 토막', ...dateOnGlobe(), dots: { day: false, sky: false, remains: false },
-    memo: null, memoPlain: false, bubble: null, todayLabel: '오늘로', showToday: false, showLeave: false,
+    memo: null, memoPlain: false, bubble: pose.saying, sora: pose, todayLabel: '오늘로', showToday: false, showLeave: false,
     hint: mode === 'globe' ? '지구를 돌려 금색 점을 눌러 보렴' : '', soraFade: 0, glowSky: 0, glowToday: 0,
   });
 }
@@ -271,6 +296,7 @@ function frame(now) {
   if (visit && (mode === 'ground' || mode === 'leaving')) frameGround(dt);
   else frameGlobe(dt);
   dialView.draw(dial, marks, visit ? daylight : 0);
+  if (!settings.isOpen()) music.step(visit ? 'surface' : 'near');
   requestAnimationFrame(frame);
 }
 
