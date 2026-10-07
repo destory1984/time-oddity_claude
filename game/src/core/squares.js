@@ -264,3 +264,8 @@ export const squareById = (id) => SQUARES.find((s) => s.id === id);
 // notebook's 120) only keeps the order; shown, it read as a riddle (the user asked what it
 // meant, 2026.10.7). The first leaf says that it is the first leaf.
 export const squareTitle = (square) => (square.no === 0 ? `첫 장 ${square.name}` : square.name);
+
+// What grandmother wrote of that day's sky: the last sentence of her memo ("그날 달은 보름.",
+// or that she could not note it for want of the day). It is shown while Sora looks up,
+// so that it is plain what the sky is there for: the thing grandmother could only read of.
+export const skyMemoOf = (square) => square.noteMemo.slice(square.noteMemo.lastIndexOf('. ', square.noteMemo.length - 2) + 2);

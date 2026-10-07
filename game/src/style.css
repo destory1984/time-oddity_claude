@@ -266,3 +266,5 @@ html.wide #stage{max-width:none}
 @keyframes landGlow{50%{box-shadow:0 0 18px rgba(246,185,81,.75)}}
 #pins .pin.target::before{box-shadow:0 0 0 4px rgba(246,185,81,.5),0 0 0 9px rgba(246,185,81,.22),0 0 22px var(--gold);animation:pinTarget 1.1s ease-in-out infinite}
 @keyframes pinTarget{50%{transform:scale(1.35)}}
+/* Looking up: the slip with what grandmother wrote of the sky sits under the date, clear of the low moon. */
+#memo.sky{top:178px}

@@ -3,7 +3,7 @@
 // the picture that changes from the day to today.
 // Timings are from docs/상세-기획-2-칸-하나의-흐름.md section 3.
 import './style.css';
-import { SQUARES, squareById, squareTitle } from './core/squares.js';
+import { SQUARES, skyMemoOf, squareById, squareTitle } from './core/squares.js';
 import { momentJd } from './core/moment.js';
 import { skyAt, skyLight } from './core/sky.js';
 import { formatDate, formatYear, todayDate } from './core/when.js';
@@ -448,7 +448,10 @@ function frameGround(dt) {
   let memo = null;
   // The slip is put away while she looks up: the sky is what there is to see, and the
   // slip would lie over the low moon.
-  if (visit.t >= MEMO_AT_MS && mode === 'ground' && visit.look < 0.5) {
+  // Looking up on the day itself, the slip carries what she wrote of that sky instead.
+  const memoSky = mode === 'ground' && visit.look >= 0.5 && at === 'then';
+  if (memoSky) memo = skyMemoOf(square);
+  else if (visit.t >= MEMO_AT_MS && mode === 'ground' && visit.look < 0.5) {
     if (silhouette > 0.5) memo = '이 해는 적어 둔 게 없구나';
     else if (at === 'today' && visit.dots.remains && visit.t >= remainsAtMs + 200) memo = square.memoToday;
     else memo = square.memo;
@@ -456,8 +459,11 @@ function frameGround(dt) {
   const dateText = at === 'then' ? square.dateLabel : at === 'today' ? formatDate(today) : `${formatYear(dial.year)}년`;
   hud.set({
     name: squareTitle(square), dateText, placeText: square.place,
-    subText: visit.night > 0.5 ? '그날 밤 9시' : '',
-    dots: visit.dots, memo, memoPlain: memo === square.memoToday,
+    // While she looks up it says whose sky this is: computed for that day and that place.
+    subText: visit.look >= 0.5
+      ? (at === 'today' ? '오늘 이 자리의 하늘' : visit.night > 0.5 ? '그날 밤 9시, 이 자리의 하늘' : at === 'then' ? '그날 이 자리의 하늘' : '그해 이 자리의 하늘')
+      : visit.night > 0.5 ? '그날 밤 9시' : '',
+    dots: visit.dots, memo, memoPlain: memo === square.memoToday, memoSky,
     chips: mode === 'ground' && visit.t >= CHIPS_AT_MS && visit.look < 0.5,
     bubble: pose.saying ?? (bubble && (bubble.lookingUp || visit.look < 0.5) ? bubble.text : null), sora: pose,
     todayLabel: at === 'today' ? '그날로' : '오늘로', showToday: true, showLeave: true,
