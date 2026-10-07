@@ -14,7 +14,24 @@ export function maxPitchDeg(w, h) {
 }
 
 // alt, az in degrees. Returns screen x, y and whether the point is in front of the eye.
-export function project(alt, az, { facingAz, pitch, w, h }) {
+//
+// camera: { yaw, pitch (degrees, up from level), fovY (radians) } is a free eye instead,
+// as a place seen in three dimensions has (render/site.js): the middle of the screen is
+// straight ahead and fovY is the angle from its top to its bottom.
+export function project(alt, az, { facingAz, pitch, w, h, camera = null }) {
+  if (camera) {
+    const f = h / 2 / Math.tan(camera.fovY / 2);
+    const tilt = camera.pitch * RAD;
+    const around = (az - camera.yaw) * RAD;
+    const right = Math.cos(alt * RAD) * Math.sin(around);
+    const up = Math.sin(alt * RAD);
+    const ahead = Math.cos(alt * RAD) * Math.cos(around);
+    const depth = ahead * Math.cos(tilt) + up * Math.sin(tilt);
+    const height = up * Math.cos(tilt) - ahead * Math.sin(tilt);
+    const front = depth > 1e-6;
+    const d = front ? depth : 1e-6;
+    return { x: w / 2 + (f * right) / d, y: h / 2 - (f * height) / d, front };
+  }
   const f = focal(w);
   const tilt = pitch * maxPitchDeg(w, h) * RAD;
   const around = (az - facingAz) * RAD;

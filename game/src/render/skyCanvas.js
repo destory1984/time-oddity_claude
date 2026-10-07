@@ -111,10 +111,11 @@ export function createSkyCanvas(canvas) {
 
   // view: { facingAz, pitch (0 to 1), dim (0 to 1: moon and planets faded while the dial
   // rolls), labels (0 to 1: opacity of the names) }
-  function draw(sky, { facingAz, pitch, dim = 0, labels = 0 }) {
-    const view = { facingAz, pitch, w, h };
+  // camera: a free eye ({ yaw, pitch, fovY }, core/project.js) in place of facingAz and pitch.
+  function draw(sky, { facingAz = 0, pitch = 0, dim = 0, labels = 0, camera = null }) {
+    const view = { facingAz, pitch, w, h, camera };
     const light = skyLight(sky.sun.alt, sky.sun.cover);
-    const horizonY = project(0, facingAz, view).y;
+    const horizonY = project(0, camera ? camera.yaw : facingAz, view).y;
     c.globalCompositeOperation = 'source-over';
     c.globalAlpha = 1;
     backdrop(light.day, horizonY);

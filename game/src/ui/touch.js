@@ -1,11 +1,14 @@
 // Fingers. Where a finger first lands decides what it does until it lifts: the bottom
 // 140 px is the dial (sideways), anything above is the sky look (up and down) on the
 // ground or the globe (any way) above the Earth; a second finger on the globe pinches
-// it closer or farther. Buttons take their own taps.
+// it closer or farther. At a place in three dimensions (mode 'site') one finger above the
+// dial turns the view; two fingers slide her about, and parting them lifts her.
+// Buttons take their own taps.
 const DIAL_HEIGHT = 140;
 
 export function createTouch(el, {
   mode, onDialGrab, onDialDrag, onDialRelease, onDialTap, onLookDrag, onLookEnd, onGlobeDrag, onGlobeEnd, onGlobeZoom,
+  onSiteLook = () => {}, onSiteSlide = () => {}, onSiteLift = () => {},
 }) {
   let held = null;   // { id, zone, x, y, t, v }
   let second = null; // a second finger on the globe: { id, x, y }; the two pinch
@@ -14,7 +17,7 @@ export function createTouch(el, {
   el.addEventListener('pointerdown', (e) => {
     if (e.target.closest('button')) return;
     if (held) {
-      if (held.zone === 'globe' && !second) {
+      if ((held.zone === 'globe' || held.zone === 'site') && !second) {
         el.setPointerCapture(e.pointerId);
         second = { id: e.pointerId, x: e.clientX, y: e.clientY };
       }
@@ -24,8 +27,8 @@ export function createTouch(el, {
     // While travelling to a square or leaving one, nothing is held: a finger on the dial
     // would stop the roll that is taking the player there.
     const now = mode();
-    if (now !== 'ground' && now !== 'globe') return;
-    const zone = e.clientY > box.bottom - DIAL_HEIGHT ? 'dial' : now === 'ground' ? 'look' : 'globe';
+    if (now !== 'ground' && now !== 'globe' && now !== 'site') return;
+    const zone = e.clientY > box.bottom - DIAL_HEIGHT ? 'dial' : now === 'ground' ? 'look' : now === 'site' ? 'site' : 'globe';
     if (!zone) return;
     el.setPointerCapture(e.pointerId);
     held = {
@@ -40,8 +43,11 @@ export function createTouch(el, {
       // Two fingers: the globe comes closer as they part, and does not turn meanwhile.
       const before = apart();
       const finger = e.pointerId === held.id ? held : second;
+      const dx = e.clientX - finger.x;
+      const dy = e.clientY - finger.y;
       finger.x = e.clientX; finger.y = e.clientY;
-      if (before > 0) onGlobeZoom(apart() / before);
+      if (held.zone === 'site') { onSiteSlide(dx / 2, dy / 2); onSiteLift(apart() - before); }
+      else if (before > 0) onGlobeZoom(apart() / before);
       held.t = performance.now();
       return;
     }
@@ -56,6 +62,8 @@ export function createTouch(el, {
       onDialDrag(dx);
     } else if (held.zone === 'look') {
       onLookDrag(dy / held.height);
+    } else if (held.zone === 'site') {
+      onSiteLook(dx, dy);
     } else {
       onGlobeDrag(dx, dy);
     }
@@ -82,7 +90,7 @@ export function createTouch(el, {
     held = null;
     if (zone === 'dial') { onDialRelease(v); if (tap !== 0) onDialTap(tap); }
     else if (zone === 'look') onLookEnd();
-    else onGlobeEnd();
+    else if (zone !== 'site') onGlobeEnd();
   };
   el.addEventListener('pointerup', lift);
   el.addEventListener('pointercancel', lift);

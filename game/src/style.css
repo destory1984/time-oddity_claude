@@ -11,8 +11,21 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #stage{position:relative;width:100vw;height:100vh;height:100dvh;max-width:calc(100dvh * 375 / 812);overflow:hidden;background:var(--night);touch-action:none}
 @media (max-width:520px){#stage{max-width:none}}
 #stage>*{position:absolute}
-#globe,#sky,#ground,#pins,#hud,#dial,#fade{inset:0;width:100%;height:100%}
-#sky,#ground,#glowSky{visibility:hidden}
+#globe,#sky,#ground,#site,#pins,#hud,#dial,#fade{inset:0;width:100%;height:100%}
+#sky,#ground,#glowSky,#site{visibility:hidden}
+/* A place in three dimensions (render/site.js): its canvas lies over the sky, clear where the sky is. */
+#site{pointer-events:none}
+.on-site #site{visibility:visible}
+.on-ground.on-site #ground,.on-ground.on-site #glowSky{visibility:hidden}
+.on-site #dots,.on-site #quizChip,.on-site #findChip,.on-site #photoButton,.on-site #todayBtn,.on-site #hint{display:none !important}
+#flyHelp,#flyPad{display:none}
+.on-site #flyPad{display:flex;flex-direction:column;gap:8px;right:16px;bottom:206px}
+#flyPad button{width:var(--tap);height:var(--tap);padding:0;font-size:18px;touch-action:none;user-select:none;-webkit-user-select:none}
+.on-site #flyHelp{display:block;left:12px;right:12px;top:150px;text-align:center;font-size:12.5px;line-height:1.6;color:var(--white);text-shadow:0 1px 6px #050330;opacity:0;transition:opacity .6s;pointer-events:none}
+.on-site #flyHelp.on{opacity:.92}
+/* She is the one flying: small and to the side while she says her line, then put away. */
+.on-site #sora{left:8px;top:43%;width:92px}
+.on-site #bubble{left:104px;top:44%;max-width:56%}
 .on-ground #sky,.on-ground #ground,.on-ground #glowSky{visibility:visible}
 /* Above the Earth Sora flies over the middle of the globe, smaller than on the ground (she is high up): the place under her feet is where she is. */
 .on-globe #sora{left:calc(50% - 55px);top:calc(50% - 132px);width:110px}

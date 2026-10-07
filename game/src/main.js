@@ -16,6 +16,12 @@ import { findsOf } from './core/find.js';
 import { createFindGame } from './ui/find.js';
 import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
+import { SITES } from './core/sites.js';
+import { createFlier, farFrom, lookBy, nudgeFlier, stepFlier } from './core/fly.js';
+import { floorAt, inWall, toLocal } from './core/colosseum.js';
+import { createSite } from './render/site.js';
+import { createFlyKeys } from './ui/flyKeys.js';
+import { jdFromDate, utHour } from './core/when.js';
 import { createSkyCanvas } from './render/skyCanvas.js';
 import { createGround } from './render/ground.js';
 import { createGlobe } from './render/globe.js';
@@ -220,7 +226,12 @@ const findGame = createFindGame({
 });
 $('findChip').addEventListener('click', () => { if (mode === 'ground') { sound.wake(); findGame.enter(findsOf(square.id)); } });
 
-$('cardChip').addEventListener('click', () => { if (mode === 'ground') card.open(square, false); });
+$('cardChip').addEventListener('click', () => {
+  if (mode !== 'ground' && mode !== 'site') return;
+  card.open(square, false);
+  // At a place the card is only read: its question is put away for now.
+  $('cardQuiz').hidden = mode === 'site';
+});
 $('quizChip').addEventListener('click', () => { if (mode === 'ground') card.open(square, true); });
 
 const pad = (n) => String(n).padStart(2, '0');
@@ -240,11 +251,47 @@ const globe = createGlobe($('globe'), $('pins'), { squares: SQUARES, onPick: (id
 
 function layout() {
   skyCanvas.resize();
+  if (siteView) siteView.resize();
   dialView.resize();
   globe.resize();
 }
 // The stage, not the window: a phone's bars and a turned screen change it without a window resize.
 new ResizeObserver(layout).observe(stage);
+
+// A square that is a place in three dimensions (core/sites.js) is flown about instead of
+// looked at: no picture, no dots, no looking up. The first of them is the Colosseum
+// (docs/기획서-v2-열두-자리.md section 6).
+let site = null;            // { t, flier, def } while she is at such a place
+let siteView = null;        // its scene, built the first time it is needed
+const flyKeys = createFlyKeys({ active: () => mode === 'site', forwardButton: $('flyForward'), backButton: $('flyBack') });
+const sitePlace = () => ({
+  floorAt: (x, z, y) => { const l = toLocal(x, z); return floorAt(l.x, l.z, y, dial.year); },
+  inWall: (x, z, y) => { const l = toLocal(x, z); return inWall(l.x, l.z, y, dial.year); },
+});
+function showSite(sq) {
+  const def = SITES[sq.id];
+  square = sq;
+  visit = null;
+  if (!siteView) siteView = createSite($('site'));
+  site = { t: 0, def, flier: createFlier(def.start), moved: false };
+  // On the maker's machine the flier can be put anywhere from the console, to look the model over.
+  if (isLocalHost(location.hostname)) window.siteDebug = site;
+  flyKeys.clear();
+  bubble = null;
+  mark(def.marks.map((m) => ({ year: m.year === 'today' ? today.year : m.year, label: m.label })));
+  globe.setActive(false);
+  stage.className = 'on-ground on-site';
+  mode = 'site';
+  siteView.resize();
+  // Having stood here once, she comes straight back another time.
+  keep(fillDot(progress, sq.id, 'day'));
+  $('flyHelp').textContent = matchMedia('(pointer: coarse)').matches
+    ? '한 손가락으로 둘러보고, 두 손가락으로 날고, 벌리면 오른다'
+    : 'W A S D 로 날고, 끌어서 둘러본다 · Q E 돌기 · ↑ ↓ 오르내리기 · Shift 빠르게';
+  sound.paper();
+}
+// Standing on a square: on its ground picture, or at the place itself where there is one.
+const arrive = (sq) => (SITES[sq.id] ? showSite(sq) : showGround(sq));
 
 function showGround(sq) {
   square = sq;
@@ -273,7 +320,7 @@ async function travel(sq) {
     globe.faceNow(sq.lat, sq.lon);
     rollTo(dial, sq.date.year, 0.001);
     while (dial.rolling) await wait(30);
-    showGround(sq);
+    arrive(sq);
     $('fade').classList.remove('on');
     return;
   }
@@ -286,7 +333,7 @@ async function travel(sq) {
   }
   $('fade').classList.add('on');
   await wait(FADE_MS);
-  showGround(sq);
+  arrive(sq);
   $('fade').classList.remove('on');
 }
 
@@ -330,7 +377,7 @@ async function land(sq) {
   target = null;
   globe.setTarget(null);
   landing = false;
-  showGround(sq);
+  arrive(sq);
   globe.setZoom(zoomWas);
   showZoom(zoomWas);
   $('fade').classList.remove('on');
@@ -338,18 +385,21 @@ async function land(sq) {
 $('landButton').addEventListener('click', () => { const id = globe.under(); if (id) land(squareById(id)); });
 
 async function leave() {
-  if (mode !== 'ground') return;
+  if (mode !== 'ground' && mode !== 'site') return;
+  const fromSite = mode === 'site';
   if (photo.isOn()) photo.leave();
   findGame.leave();
+  flyKeys.clear();
   mode = 'leaving';
   leavingMs = 0;
-  await wait(LEAVE_MS);
+  if (!fromSite) await wait(LEAVE_MS);
   $('fade').classList.add('on');
   await wait(FADE_MS);
   globe.setActive(true);
   stage.className = 'on-globe';
   mode = 'globe';
   visit = null;
+  site = null;
   mark(globeMarks());
   $('fade').classList.remove('on');
 }
@@ -357,10 +407,10 @@ async function leave() {
 hud.leaveBtn.addEventListener('click', leave);
 // Rolls the dial to a year by itself. On the ground the picture melts along the way.
 function goTo(year) {
-  if (dial.rolling || year === dial.year || (mode !== 'ground' && mode !== 'globe')) return;
+  if (dial.rolling || year === dial.year || (mode !== 'ground' && mode !== 'globe' && mode !== 'site')) return;
   sound.wake();
   if (mode === 'ground') roll = { from: blend, to: year === today.year ? 1 : year === square.date.year ? 0 : blend };
-  rollTo(dial, year, mode === 'ground' && year === today.year ? TO_TODAY_S : TO_THEN_S);
+  rollTo(dial, year, mode === 'site' ? SITE_ROLL_S : mode === 'ground' && year === today.year ? TO_TODAY_S : TO_THEN_S);
 }
 hud.todayBtn.addEventListener('click', () => {
   if (mode === 'ground') goTo(dial.year !== today.year ? today.year : square.date.year);
@@ -378,7 +428,18 @@ createTouch(stage, {
   onGlobeDrag: (dx, dy) => globe.drag(dx, dy),
   onGlobeEnd: () => globe.release(),
   onGlobeZoom: (factor) => showZoom(globe.zoomBy(factor)),
+  // At a place: a finger turns the view as if it held the scene, two fingers carry her
+  // over the ground, and parting them lifts her.
+  onSiteLook: (dx, dy) => { if (site) { lookBy(site.flier, -dx * LOOK_DEG_PER_PX, dy * LOOK_DEG_PER_PX); site.moved = true; } },
+  onSiteSlide: (dx, dy) => { if (site) { nudgeFlier(site.flier, dy * SLIDE_M_PER_PX, -dx * SLIDE_M_PER_PX, 0, sitePlace()); site.moved = true; } },
+  onSiteLift: (px) => { if (site) nudgeFlier(site.flier, 0, 0, px * LIFT_M_PER_PX, sitePlace()); },
 });
+const SITE_ROLL_S = 3.5;         // the dial takes this long between two of a place's marked years
+const LOOK_DEG_PER_PX = 0.22;
+const SLIDE_M_PER_PX = 0.25;
+const LIFT_M_PER_PX = 0.3;
+const WHEEL_M = 8;
+const SITE_REACH = 600;          // flying this far from the middle of a place goes back to the globe
 
 // Closer and farther: two fingers, the wheel, or the two buttons at the right.
 function showZoom(zoom) {
@@ -388,6 +449,7 @@ function showZoom(zoom) {
 $('zoomIn').addEventListener('click', () => showZoom(globe.zoomBy(ZOOM_STEP)));
 $('zoomOut').addEventListener('click', () => showZoom(globe.zoomBy(1 / ZOOM_STEP)));
 stage.addEventListener('wheel', (e) => {
+  if (mode === 'site' && site && !e.target.closest('dialog')) { e.preventDefault(); nudgeFlier(site.flier, e.deltaY < 0 ? WHEEL_M : -WHEEL_M, 0, 0, sitePlace()); site.moved = true; return; }
   if (mode !== 'globe' || e.target.closest('dialog')) return;
   e.preventDefault();
   showZoom(globe.zoomBy(e.deltaY < 0 ? 1.15 : 1 / 1.15));
@@ -403,6 +465,41 @@ function tickSounds(years) {
 
 function dateOnGlobe() {
   return { dateText: `${formatYear(dial.year)}년`, placeText: '지구 위', subText: '' };
+}
+
+// One frame at a place in three dimensions: she flies, the parts follow the dial, the
+// computed sky is drawn behind as the eye sees it.
+function frameSite(dt) {
+  const { flier, def } = site;
+  site.t += dt;
+  const intent = flyKeys.intent();
+  if (intent.drive || intent.strafe || intent.rise || intent.turn) site.moved = true;
+  stepFlier(flier, dt, intent, sitePlace());
+  if (farFrom(flier) > SITE_REACH) { leave(); return; }
+  siteView.update(dial.year, dt);
+  // The hour is one and the same in every year: a little after sunset on the square's day.
+  const jd = jdFromDate({ year: dial.year, month: square.date.month, day: square.date.day, hour: utHour(def.hourLocal, square.lon) }, dial.year < 1583 ? 'julian' : 'gregorian');
+  skyCanvas.draw(skyAt(jd, square), { camera: { yaw: flier.yaw, pitch: flier.pitch, fovY: siteView.fovY() } });
+  siteView.render(flier);
+
+  if (site.t >= SORA_FROM_MS && site.t - dt < SORA_FROM_MS && dial.year === square.date.year) bubble = { text: square.sora, until: site.t + SORA_FOR_MS };
+  // Her line is about the day itself: turned away from it, it is put away.
+  if (bubble && (site.t > bubble.until || dial.year !== square.date.year)) bubble = null;
+  // Grandmother's slip follows the dial: what she wrote of the latest marked year reached.
+  let memo = null;
+  if (site.t >= MEMO_AT_MS) for (const m of def.marks) if (dial.year >= (m.year === 'today' ? today.year : m.year)) memo = m.memo ?? (m.year === 'today' ? square.memoToday : square.memo);
+  const pose = soraPose({ now: performance.now(), hushAt });
+  $('flyHelp').classList.toggle('on', site.t > 1500 && (site.t < 12000 || !site.moved));
+  hud.set({
+    name: squareTitle(square),
+    dateText: dial.year === square.date.year ? square.dateLabel : dial.year === today.year ? formatDate(today) : `${formatYear(dial.year)}년`,
+    placeText: square.place, subText: '', dots: { day: false, sky: false, remains: false },
+    memo, memoPlain: dial.year >= today.year, memoSky: false,
+    chips: site.t >= CHIPS_AT_MS, bubble: pose.saying ?? (bubble ? bubble.text : null), sora: pose,
+    todayLabel: '오늘로', showToday: false, showLeave: true, hint: null,
+    // She is the one flying: once she has said her line she is put away, out of the view.
+    soraFade: pose.saying || bubble ? 0 : clamp01((site.t - 6500) / 600), glowSky: 0, glowToday: 0,
+  });
 }
 
 function frameGround(dt) {
@@ -532,7 +629,8 @@ function frame(now) {
   const dt = held ? 0 : Math.min(50, now - last);
   last = now;
   tickSounds(stepDial(dial, dt));
-  if (visit && mode !== 'globe') frameGround(dt);
+  if (site && mode === 'site') frameSite(dt);
+  else if (visit && mode !== 'globe') frameGround(dt);
   else frameGlobe(dt);
   dialView.draw(dial, marks);
   music.step(visit ? 'surface' : 'near');
@@ -577,7 +675,7 @@ function still() {
     const sq = squareById(go[1]);
     globe.faceNow(sq.lat, sq.lon);
     rollTo(dial, sq.date.year, 0.001); stepDial(dial, 10);
-    showGround(sq);
+    arrive(sq);
     return;
   }
   if (!shot) return;
@@ -586,7 +684,9 @@ function still() {
   if (!sq) return;
   globe.faceNow(sq.lat, sq.lon);
   rollTo(dial, shot[2] === 'today' ? today.year : sq.date.year, 0.001); stepDial(dial, 10);
-  showGround(sq);
+  arrive(sq);
+  // A place in three dimensions has no stills of its own: she simply stands there.
+  if (!visit) { if (shot[2] === 'today') { rollTo(dial, today.year, 0.001); stepDial(dial, 10); } return; }
   // Run the visit forward without waiting: arrive, and for 'sky' hold the head up.
   const input = { dialYear: sq.date.year, dialResting: true, thisYear: today.year, lookTarget: 0 };
   for (let t = 0; t < 1200; t += 20) stepVisit(visit, 20, input);
