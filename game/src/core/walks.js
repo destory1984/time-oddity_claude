@@ -11,6 +11,8 @@
 // (memo) or makes Sora say something (sora). A named person of history is only ever a
 // spot: seen from afar, never spoken to, and what is said of them is on record.
 // Errands: grandmother's three; `at` is the people or spots any one of which does it.
+// A scene's `air` is what is heard there now and then (ui/sound.js AIRS) and `floor` what
+// her feet sound on: 'stone' (if not given), 'dirt' or 'wood'.
 //
 // A place has one of two looks (the plan's section 4 tries one each). Rome is all pixels.
 // Paris is `look: 'paper'`: flat drawings, with pieces that move on their own (a scene's
@@ -37,7 +39,7 @@ export const WALKS = {
     dir: 'rome',
     scenes: [
       {
-        id: 'market', name: '시장 거리', zoom: 1.25, ground: 0.765, scale: SHEET.market,
+        id: 'market', name: '시장 거리', zoom: 1.25, ground: 0.765, scale: SHEET.market, air: 'market',
         sora: '사람이 엄청 많아! 냄새도 나.',
         people: [
           { id: 'baker', name: '빵 장수', x: 0.11, w: 123, h: 284, lines: ['갓 구웠어요. 여덟 쪽으로 갈라 드셔요.', '경기장 덕에 오늘은 벌써 동났네.'] },
@@ -51,7 +53,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'plaza', name: '콜로세움 앞 광장', zoom: 1.6, ground: 0.79, scale: SHEET.plaza,
+        id: 'plaza', name: '콜로세움 앞 광장', zoom: 1.6, ground: 0.79, scale: SHEET.plaza, air: 'court',
         sora: '와, 진짜 새것이다. 하얘!',
         people: [
           { id: 'water', name: '물 장수', x: 0.11, w: 130, h: 265, lines: ['시원한 물이오! 안은 덥소.', '백 날을 한다니 백 날을 팔아야지.'] },
@@ -64,7 +66,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'inside', name: '경기장 안', zoom: 1.3, ground: 0.775, scale: SHEET.inside, murmur: 1,
+        id: 'inside', name: '경기장 안', zoom: 1.3, ground: 0.775, scale: SHEET.inside, air: 'arena',
         sora: '우와… 끝까지 다 사람이야.',
         people: [
           { id: 'usher', name: '자리 안내원', x: 0.17, w: 125, h: 300, lines: ['앞줄은 원로원 자리요. 저 위로.', '자리는 옷을 보고 정하오.'] },
@@ -93,7 +95,7 @@ export const WALKS = {
     dir: 'paris', look: 'paper', talk: 'face',
     scenes: [
       {
-        id: 'gate', name: '박람회 입구', zoom: 1.3, ground: 0.752, scale: 0.66,
+        id: 'gate', name: '박람회 입구', zoom: 1.3, ground: 0.752, scale: 0.66, air: 'street',
         sora: '깃발이 잔뜩! 저 끝에 탑이야.',
         // People pour in at the middle arch from both sides, and are lost behind its pillars.
         moving: [
@@ -111,7 +113,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'tower', name: '탑 아래', zoom: 1.2, ground: 0.733, scale: 0.62,
+        id: 'tower', name: '탑 아래', zoom: 1.2, ground: 0.733, scale: 0.62, air: 'court', floor: 'dirt',
         sora: '우와, 다리 하나가 집채만 해.',
         // The stair in the east leg, three flights of it: people go up one after another.
         moving: [
@@ -133,7 +135,7 @@ export const WALKS = {
         ],
       },
       {
-        id: 'hall', name: '기계관', zoom: 1.3, ground: 0.664, scale: 0.66, murmur: 0.4, engine: 1,
+        id: 'hall', name: '기계관', zoom: 1.3, ground: 0.664, scale: 0.66, air: 'works', floor: 'wood',
         sora: '쿵쿵쿵! 바퀴가 진짜 돌아가.',
         // The two flywheels, cut out of the picture itself (tools/walk-art.py disc), turn where they lie.
         moving: [
@@ -169,7 +171,7 @@ export const WALKS = {
     dir: 'hanyang', look: 'paper', talk: 'face',
     scenes: [
       {
-        id: 'market', name: '저잣거리', zoom: 1.3, ground: 0.674, scale: 0.66,
+        id: 'market', name: '저잣거리', zoom: 1.3, ground: 0.674, scale: 0.66, air: 'market', floor: 'dirt',
         sora: '감이 주렁주렁! 시끌시끌해.',
         moving: [
           { kind: 'drift', id: 'by', src: 'crowd', from: 0, to: 1, foot: 0.67, tall: 0.17, wide: 0.4115, gap: 0.12, speed: 0.028, bob: 0.003 },
@@ -185,7 +187,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'gate', name: '광화문 앞', zoom: 1.3, ground: 0.703, scale: 0.78,
+        id: 'gate', name: '광화문 앞', zoom: 1.3, ground: 0.703, scale: 0.78, air: 'court', floor: 'dirt',
         sora: '문이 엄청 커! 지붕이 두 층이야.',
         moving: [
           { kind: 'drift', id: 'parade', src: 'parade', from: 0, to: 1, foot: 0.7, tall: 0.2, wide: 0.3183, gap: 0.55, speed: 0.032, bob: 0.003 },
@@ -201,7 +203,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'hall', name: '집현전 뜰', zoom: 1.2, ground: 0.762, scale: 0.64,
+        id: 'hall', name: '집현전 뜰', zoom: 1.2, ground: 0.762, scale: 0.64, air: 'palace',
         sora: '책이 마당 가득이야. 조용해.',
         moving: [
           { kind: 'drift', id: 'books', src: 'scholars', from: 0, to: 1, foot: 0.758, tall: 0.17, wide: 0.282, gap: 0.6, speed: 0.026, bob: 0.003 },
@@ -238,7 +240,7 @@ export const WALKS = {
     dir: 'sf', look: 'paper', talk: 'face',
     scenes: [
       {
-        id: 'plaza', name: '다리 어귀', zoom: 1.3, ground: 0.735, scale: 0.66,
+        id: 'plaza', name: '다리 어귀', zoom: 1.3, ground: 0.735, scale: 0.66, air: 'street',
         sora: '다리가 빨개! 엄청 길다.',
         moving: [
           { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.731, tall: 0.17, wide: 0.396, gap: 0.05, speed: 0.03, bob: 0.003 },
@@ -254,7 +256,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'deck', name: '다리 위', zoom: 1.2, ground: 0.8, scale: 0.64,
+        id: 'deck', name: '다리 위', zoom: 1.2, ground: 0.8, scale: 0.64, air: 'bridge',
         sora: '차가 없으니까 운동장 같아.',
         // The crowd goes over on foot, and now and then those who cross some odd way.
         moving: [
@@ -272,7 +274,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'mid', name: '다리 한가운데', zoom: 1.25, ground: 0.755, scale: 0.74,
+        id: 'mid', name: '다리 한가운데', zoom: 1.25, ground: 0.755, scale: 0.74, air: 'bridge',
         sora: '바람이 세! 바다가 저 밑이야.',
         moving: [
           { kind: 'drift', id: 'east', src: 'crowd', from: 0, to: 1, foot: 0.74, tall: 0.16, wide: 0.373, gap: 0.3, speed: -0.025, bob: 0.003, flip: true },
@@ -307,7 +309,7 @@ export const WALKS = {
     dir: 'tokyo', look: 'paper', talk: 'face',
     scenes: [
       {
-        id: 'front', name: '도쿄역 앞', zoom: 1.3, ground: 0.75, scale: 0.66,
+        id: 'front', name: '도쿄역 앞', zoom: 1.3, ground: 0.75, scale: 0.66, air: 'street',
         sora: '벽돌 역이다! 깃발이 많아.',
         moving: [
           { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.746, tall: 0.17, wide: 0.388, gap: 0.1, speed: 0.032, bob: 0.003 },
@@ -323,7 +325,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'platform', name: '승강장', zoom: 1.3, ground: 0.693, scale: 0.66,
+        id: 'platform', name: '승강장', zoom: 1.3, ground: 0.693, scale: 0.66, air: 'station',
         sora: '우와, 진짜 온다! 코가 둥글어.',
         // The train comes out from behind the stall and is gone behind the stair, again and again.
         moving: [
@@ -340,7 +342,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'car', name: '달리는 차 안', zoom: 1.3, ground: 0.645, scale: 0.66, murmur: 0.3, engine: 0.45,
+        id: 'car', name: '달리는 차 안', zoom: 1.3, ground: 0.645, scale: 0.66, air: 'train', floor: 'wood',
         sora: '안 흔들려! 창밖이 휙휙 가.',
         // The land goes by behind the picture, seen through its six windows.
         moving: [
@@ -375,7 +377,7 @@ export const WALKS = {
     dir: 'yard', look: 'paper', talk: 'face', night: true,
     scenes: [
       {
-        id: 'lane', name: '마을 길', zoom: 1.3, ground: 0.698, scale: 0.66, murmur: 0.2,
+        id: 'lane', name: '마을 길', zoom: 1.3, ground: 0.698, scale: 0.66, air: 'night', floor: 'dirt',
         sora: '밤인데 다들 어디로 가?',
         // Children run along the lane and in at the open gate.
         moving: [
@@ -392,7 +394,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'yard', name: '이웃집 마당', zoom: 1.3, ground: 0.7, scale: 0.66, murmur: 0.35,
+        id: 'yard', name: '이웃집 마당', zoom: 1.3, ground: 0.7, scale: 0.66, air: 'tv', floor: 'dirt',
         sora: '다들 텔레비전만 봐. 조용해.',
         moving: [
           { kind: 'drift', id: 'in', src: 'villagers', from: 0, to: 1, foot: 0.696, tall: 0.17, wide: 0.29, gap: 0.8, speed: 0.024, bob: 0.003 },
@@ -411,7 +413,7 @@ export const WALKS = {
         ],
       },
       {
-        id: 'bank', name: '냇가 둑길', zoom: 1.25, ground: 0.74, scale: 0.86, murmur: 0.1,
+        id: 'bank', name: '냇가 둑길', zoom: 1.25, ground: 0.74, scale: 0.86, air: 'night', floor: 'dirt',
         sora: '달이 떴어. 조용하다.',
         moving: [
           { kind: 'drift', id: 'stroll', src: 'villagers', from: 0, to: 1, foot: 0.736, tall: 0.17, wide: 0.29, gap: 1.4, speed: -0.02, bob: 0.003, flip: true },

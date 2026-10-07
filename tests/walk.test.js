@@ -145,6 +145,8 @@ describe('the places that are walked about', () => {
         expect(scene.people.length, scene.id).toBeGreaterThanOrEqual(6);
         expect(scene.people.length, scene.id).toBeLessThanOrEqual(10);
         if (scene.sora) expect(scene.sora.length, scene.id).toBeLessThanOrEqual(25);
+        expect(typeof scene.air, scene.id).toBe('string');
+        expect(['stone', 'dirt', 'wood'], scene.id).toContain(scene.floor ?? 'stone');
         for (const person of scene.people) {
           expect(person.x > 0.03 && person.x < 0.97, person.id).toBe(true);
           expect(person.lines.length, person.id).toBe(2);

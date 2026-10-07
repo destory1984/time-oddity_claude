@@ -337,6 +337,9 @@ let replyUntil = 0;         // grandmother's answer shows until then
 let errandsFoldAt = 0;      // the slip of errands folds itself then
 let walkArrive = false;     // she is to be set down in a shaft of light on the next frame
 let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
+let walkStepMs = 0;         // how long she has walked since her last footfall
+let walkSteps = 0;
+const FOOTFALL_MS = 300;    // two frames of her walking (ui/walk.js STEP_MS)
 const walkView = createWalkView({
   onPerson: (id) => {
     if (!walk) return;
@@ -393,8 +396,7 @@ function enterScene() {
   const after = walk.place.scenes[walk.scene + 1];
   $('walkPrev').hidden = !before; if (before) $('walkPrev').textContent = `‹ ${before.name}`;
   $('walkNext').hidden = !after; if (after) $('walkNext').textContent = `${after.name} ›`;
-  sound.murmur(scene.murmur ?? 0.55);
-  sound.engine(scene.engine ?? 0);
+  sound.air(scene.air ?? null);
 }
 function showWalk(sq) {
   square = sq;
@@ -435,6 +437,12 @@ function frameWalk(dt) {
   walkT += dt;
   const out = stepWalk(walk, dt, walkWay || keyWay);
   if (out.scene !== 0) enterScene();
+  // Her footfalls, and the place's own sounds now and then.
+  if (walk.moving) {
+    walkStepMs += dt;
+    if (walkStepMs >= FOOTFALL_MS) { walkStepMs -= FOOTFALL_MS; walkSteps += 1; sound.step(sceneOf(walk).floor ?? 'stone', walkSteps); }
+  } else walkStepMs = FOOTFALL_MS * 0.6;
+  sound.airStep(dt);
   if (out.arrived && walkWant) { talk(walkWant); walkWant = null; }
   if (out.spot?.sora) walkSora = { text: out.spot.sora, until: walkT + SORA_FOR_MS, from: walkT };
   if (out.errands.length > 0) errandsDone();
@@ -608,8 +616,7 @@ async function leave() {
   if (mode !== 'ground' && mode !== 'site' && mode !== 'walk') return;
   const fromSite = mode === 'site' || mode === 'walk';
   const fromWalk = mode === 'walk';
-  sound.murmur(0);
-  sound.engine(0);
+  sound.air(null);
   if (photo.isOn()) photo.leave();
   findGame.leave();
   flyKeys.clear();

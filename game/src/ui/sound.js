@@ -89,78 +89,85 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     osc.start(at); osc.stop(at + seconds + 0.02);
   }
 
-  // The voices of a crowd, far enough off that no word is heard: noise through a narrow
-  // band where voices lie, swelling and falling a little. level 0 is silence, 1 a full
-  // arena. A placeholder until the user has heard it.
-  let crowd = null;
-  function murmur(level) {
-    if (!ac || failed) return;
-    try {
-      if (!crowd) {
-        const source = ac.createBufferSource();
-        const band = ac.createBiquadFilter();
-        const volume = ac.createGain();
-        source.buffer = noise; source.loop = true;
-        band.type = 'bandpass'; band.frequency.value = 520; band.Q.value = 0.7;
-        volume.gain.value = 0;
-        source.connect(band); band.connect(volume); volume.connect(ac.destination);
-        source.start();
-        crowd = { volume, band };
-      }
-      const now = ac.currentTime;
-      crowd.volume.gain.cancelScheduledValues(now);
-      crowd.volume.gain.setTargetAtTime(muted ? 0 : level * 0.05, now, 0.5);
-      crowd.level = level;
-    } catch { /* silence is fine */ }
+  // The air of a place that is walked about. There was a murmur of filtered noise under
+  // every scene; the user, 2026.10.8: "화이트 노이즈는 없애고, 차라리 시장이면 시장에
+  // 어울리는 효과음 넣는게". Now nothing sounds without end: a scene has a few small
+  // sounds of its own, each heard now and then (AIRS: for each, how long between two of
+  // them at least and at most, in ms, and what is played). All are placeholders until the
+  // user has heard them.
+  const ping = (at, freq, seconds, gain) => {
+    tone(at, { seconds, from: freq, gain, attack: 0.005 });
+    tone(at, { seconds: seconds * 0.4, from: freq * 2.76, gain: gain * 0.25, attack: 0.005 });
+  };
+  const knock = (at, freq, gain) => tone(at, { seconds: 0.07, from: freq, to: freq * 0.6, gain });
+  const birds = (at) => {
+    const base = 2600 + Math.random() * 900;
+    for (let i = 0; i < 2 + Math.floor(Math.random() * 3); i += 1) tone(at + i * 0.13, { seconds: 0.09, from: base, to: base * 1.25, gain: 0.03, attack: 0.01 });
+  };
+  const coins = (at) => { ping(at, 3100, 0.12, 0.035); ping(at + 0.07, 3700, 0.14, 0.03); };
+  const wood = (at) => { knock(at, 300, 0.09); knock(at + 0.16, 260, 0.07); };
+  const farBell = (at) => ping(at, 660, 1.6, 0.045);
+  const bikeBell = (at) => { for (let i = 0; i < 2; i += 1) for (let k = 0; k < 4; k += 1) ping(at + i * 0.32 + k * 0.045, 2300, 0.08, 0.03); };
+  const windBell = (at) => { const notes = [1568, 1760, 2093, 2349]; ping(at, notes[Math.floor(Math.random() * notes.length)], 1.1, 0.035); };
+  const drum = (at) => { [0, 0.4, 0.6, 0.8].forEach((t, i) => tone(at + t, { seconds: 0.22, from: i === 0 ? 95 : 80, to: 55, gain: 0.16 })); };
+  const horn = (at) => { [[262, 0], [330, 0.28], [392, 0.56]].forEach(([f, t]) => { tone(at + t, { seconds: t > 0.5 ? 0.7 : 0.26, from: f, gain: 0.05, attack: 0.04 }); tone(at + t, { seconds: 0.25, from: f * 2, gain: 0.02, attack: 0.04 }); }); };
+  const clank = (at) => { tone(at, { seconds: 0.12, from: 72, to: 50, gain: 0.2 }); ping(at + 0.21, 1900, 0.05, 0.02); };
+  const fogHorn = (at) => { tone(at, { seconds: 1.6, from: 110, gain: 0.07, attack: 0.25 }); tone(at + 2.1, { seconds: 2.0, from: 98, gain: 0.07, attack: 0.25 }); };
+  const gulls = (at) => { for (let i = 0; i < 3; i += 1) tone(at + i * 0.34, { seconds: 0.26, from: 1900, to: 1250, gain: 0.03, attack: 0.03 }); };
+  const chime = (at) => { [784, 659, 523, 659].forEach((f, i) => ping(at + i * 0.42, f, 0.8, 0.045)); };
+  const whistle = (at) => { tone(at, { seconds: 0.35, from: 2150, gain: 0.03, attack: 0.02 }); tone(at + 0.5, { seconds: 0.7, from: 2150, gain: 0.03, attack: 0.02 }); };
+  const rails = (at) => { [0, 0.13, 0.42, 0.55].forEach((t) => tone(at + t, { seconds: 0.06, from: 110, to: 70, gain: 0.13 })); };
+  const crickets = (at) => { const f = 4100 + Math.random() * 500; for (let i = 0; i < 9; i += 1) tone(at + i * 0.055, { seconds: 0.035, from: f, gain: 0.014, attack: 0.008 }); };
+  const frogs = (at) => { for (let i = 0; i < 2 + Math.floor(Math.random() * 2); i += 1) tone(at + i * 0.3, { seconds: 0.16, from: 250, to: 170, gain: 0.04, attack: 0.02 }); };
+  // The beep that ended each sentence from the Moon, as the television had it.
+  const moonBeep = (at) => tone(at, { seconds: 0.25, from: 2525, gain: 0.02, attack: 0.01 });
+  const AIRS = {
+    market: [[2600, 6000, coins], [3500, 8000, wood], [4000, 9000, birds]],
+    court: [[3000, 7000, birds], [9000, 18000, farBell]],
+    street: [[3500, 8000, birds], [7000, 15000, bikeBell], [12000, 22000, farBell]],
+    arena: [[5000, 9000, drum], [9000, 16000, horn]],
+    works: [[420, 420, clank]],
+    palace: [[2500, 6000, windBell], [5000, 11000, birds]],
+    bridge: [[9000, 16000, fogHorn], [4000, 9000, gulls]],
+    station: [[8000, 14000, chime], [10000, 18000, whistle]],
+    train: [[900, 900, rails]],
+    night: [[900, 2200, crickets], [5000, 11000, frogs]],
+    tv: [[1100, 2600, crickets], [3500, 7000, moonBeep]],
+  };
+  let airKind = null;
+  let airWait = [];
+  const between = ([least, most]) => least + Math.random() * (most - least);
+  // What a scene sounds like from now on (one of AIRS), or null for nothing.
+  function air(kind) {
+    airKind = AIRS[kind] ? kind : null;
+    // The first of each comes a little sooner than the rest.
+    airWait = airKind ? AIRS[airKind].map((voice) => between(voice) * 0.4) : [];
   }
-
-  // A hall of steam engines: a low beat that comes and goes a few times a second, with
-  // the chuff of steam on it. level 0 is silence. A placeholder until the user has heard it.
-  let works = null;
-  function engine(level) {
-    if (!ac || failed) return;
-    if (!works && level === 0) return;
-    try {
-      if (!works) {
-        const volume = ac.createGain();
-        volume.gain.value = 0;
-        volume.connect(ac.destination);
-        const beat = ac.createOscillator();
-        beat.frequency.value = 2.4;
-        const depth = ac.createGain();
-        depth.gain.value = 0.5;
-        beat.connect(depth);
-        const low = ac.createOscillator();
-        low.type = 'triangle'; low.frequency.value = 62;
-        const lowGain = ac.createGain();
-        lowGain.gain.value = 0.5;
-        depth.connect(lowGain.gain);
-        low.connect(lowGain); lowGain.connect(volume);
-        const steam = ac.createBufferSource();
-        steam.buffer = noise; steam.loop = true;
-        const band = ac.createBiquadFilter();
-        band.type = 'bandpass'; band.frequency.value = 1400; band.Q.value = 0.6;
-        const steamGain = ac.createGain();
-        steamGain.gain.value = 0.12;
-        depth.connect(steamGain.gain);
-        steam.connect(band); band.connect(steamGain); steamGain.connect(volume);
-        beat.start(); low.start(); steam.start();
-        works = { volume };
-      }
-      const now = ac.currentTime;
-      works.volume.gain.cancelScheduledValues(now);
-      works.volume.gain.setTargetAtTime(muted ? 0 : level * 0.09, now, 0.5);
-      works.level = level;
-    } catch { /* silence is fine */ }
+  // Called every frame at a place, with the time gone by: plays what has come due.
+  function airStep(dtMs) {
+    if (!airKind) return;
+    AIRS[airKind].forEach((voice, i) => {
+      airWait[i] -= dtMs;
+      if (airWait[i] > 0) return;
+      airWait[i] = between(voice);
+      play((at) => voice[2](at));
+    });
+  }
+  // A footfall as she walks, on stone, earth or boards; left and right differ a little.
+  function step(floor, n) {
+    play((at) => {
+      const side = n % 2 === 0 ? 1 : 0.9;
+      if (floor === 'wood') { tone(at, { seconds: 0.07, from: 250 * side, to: 150, gain: 0.11 }); tone(at, { seconds: 0.02, from: 520, gain: 0.025 }); }
+      else if (floor === 'dirt') { tone(at, { seconds: 0.08, from: 150 * side, to: 80, gain: 0.1 }); }
+      else { tone(at, { seconds: 0.03, from: 950 * side, to: 520, gain: 0.04 }); tone(at, { seconds: 0.055, from: 170 * side, to: 110, gain: 0.08 }); }
+    });
   }
 
   return {
     wake,
-    murmur,
-    engine,
+    air, airStep, step,
     // A wax cylinder heard through a small tube: the first line of "Au clair de la
-    // lune", thin and a little unsteady, under a crackle. A placeholder until the user
-    // has heard it.
+    // lune", thin and a little unsteady. A placeholder until the user has heard it.
     phonograph() {
       play((at) => {
         const C = 523.25, D = 587.33, E = 659.25;
@@ -184,7 +191,6 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
           osc.start(when); osc.stop(when + seconds);
           when += seconds;
         }
-        hiss(at, { seconds: when - at + 0.3, from: 5200, gain: 0.03, type: 'highpass' });
       });
     },
     // Going between the Earth and a place: volume 1's jump (oddity/src/ui/sound.js `warp`),
@@ -219,7 +225,7 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     // The AudioContext, once a touch has woken it: the music plays through the same one.
     context: () => (failed ? null : ac),
     muted: () => muted,
-    setMuted(on) { muted = Boolean(on); if (crowd) murmur(crowd.level ?? 0); if (works) engine(works.level ?? 0); },
+    setMuted(on) { muted = Boolean(on); },
     // One tick of the dial. big: every tenth year, lower and louder. dense: many ticks
     // are passing at once (a timed roll), so they are run together, low and soft.
     tick(big, dense) {

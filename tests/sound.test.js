@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createSound } from '../game/src/ui/sound.js';
 
-const playAll = (sound) => { sound.wake(); sound.tick(true, false); sound.tick(false, true); sound.paper(); sound.stamp(); sound.bell(); sound.page(); sound.murmur(1); sound.engine(1); sound.engine(0); sound.phonograph(); };
+const playAll = (sound) => { sound.wake(); sound.tick(true, false); sound.tick(false, true); sound.paper(); sound.stamp(); sound.bell(); sound.page(); sound.phonograph(); sound.step('stone', 0); sound.step('dirt', 1); sound.step('wood', 2); sound.air('market'); sound.airStep(60000); sound.air(null); sound.airStep(16); };
 
 describe('createSound', () => {
   it('stays silent without throwing when the browser has no AudioContext', () => {
@@ -48,10 +48,23 @@ describe('muting', () => {
     const quiet = nodes;
     sound.warp();
     expect(nodes - quiet).toBeGreaterThan(50);
-    sound.murmur(1);
+    // A place's own sounds come now and then, and footfalls as she walks.
+    for (const kind of ['market', 'court', 'street', 'arena', 'works', 'palace', 'bridge', 'station', 'train', 'night', 'tv']) {
+      const had = nodes;
+      sound.air(kind);
+      sound.airStep(60000);
+      expect(nodes, kind).toBeGreaterThan(had);
+    }
+    sound.air('nowhere');
+    const still = nodes;
+    sound.airStep(60000);
+    expect(nodes).toBe(still);
+    sound.step('stone', 0);
+    expect(nodes).toBeGreaterThan(still);
+    sound.air('market');
     const before = nodes;
     sound.setMuted(true);
-    sound.stamp(); sound.bell(); sound.page(); sound.warp();
+    sound.stamp(); sound.bell(); sound.page(); sound.warp(); sound.step('wood', 1); sound.airStep(60000);
     expect(nodes).toBe(before);
   });
 });
