@@ -100,5 +100,8 @@ export function createGround(el) {
     ctx.drawImage(sheet, 0, 0);
   }
 
-  return { show, set, paint };
+  // Where today's picture lies on the screen (the game of what has changed reads touches by it).
+  const pictureBox = () => today.img.getBoundingClientRect();
+
+  return { show, set, paint, pictureBox };
 }

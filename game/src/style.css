@@ -199,6 +199,22 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 #photoShutter{width:62px;height:62px;border-radius:50%;border:4px solid var(--white);background:rgba(251,248,249,.25);box-shadow:inset 0 0 0 4px rgba(5,3,48,.6)}
 /* While the frame is up, everything else on the screen is put away. */
 .photo #todayBtn,.photo #leaveBtn,.photo #photoButton,.photo #memo,.photo #chips,.photo #bubble,.photo #hint,.photo #sora,.photo #topButtons{visibility:hidden}
+/* What has changed: today's picture is touched where it differs from the day's. */
+.finding #todayBtn,.finding #leaveBtn,.finding #photoButton,.finding #memo,.finding #chips,.finding #bubble,.finding #hint,.finding #sora,.finding #topButtons{visibility:hidden}
+#findLayer,#findBar{display:none}
+.finding #findLayer{display:block;inset:0;pointer-events:auto;touch-action:none}
+.finding #findBar{display:flex;flex-direction:column;align-items:center;gap:8px;left:0;right:0;top:132px;pointer-events:none}
+#findBar b{font-size:calc(15px * var(--text,1));color:var(--white);text-shadow:0 1px 6px #050330}
+#findBar div{display:flex;gap:8px}
+#findBar button{pointer-events:auto;padding:8px 14px;font-size:12.5px;touch-action:none;user-select:none;-webkit-user-select:none}
+#findLayer i{position:absolute;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+#findLayer .ring{border:3px solid var(--gold);box-shadow:0 0 14px rgba(255,214,110,.8),inset 0 0 10px rgba(255,214,110,.35);animation:ringIn .35s ease-out}
+#findLayer.peeking .ring{opacity:.35}
+#findLayer .miss{border:2px solid rgba(251,248,249,.8);animation:missOut .5s ease-out forwards}
+#findLayer .hint{border:2px dashed rgba(255,214,110,.9);animation:hintGlow 1.6s ease-in-out forwards}
+@keyframes ringIn{from{transform:translate(-50%,-50%) scale(1.6);opacity:0}to{transform:translate(-50%,-50%) scale(1);opacity:1}}
+@keyframes missOut{from{transform:translate(-50%,-50%) scale(.4);opacity:.9}to{transform:translate(-50%,-50%) scale(1.3);opacity:0}}
+@keyframes hintGlow{0%,100%{opacity:0}40%,60%{opacity:.9}}
 #photoFlash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
 #photoFlash.on{animation:flash .35s ease-out}
 @keyframes flash{0%{opacity:.9}100%{opacity:0}}

@@ -11,7 +11,9 @@ import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, 
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
 import { soraPose } from './core/sora.js';
 import { guideLine } from './core/guide.js';
-import { countProgress, dotsOf, emptyProgress, fillDot, fullProgress, isComplete, markNoteRead, notesRead, quizSolved, solveQuiz } from './core/progress.js';
+import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markNoteRead, notesRead, quizSolved, solveFind, solveQuiz } from './core/progress.js';
+import { spotsOf } from './core/find.js';
+import { createFindGame } from './ui/find.js';
 import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { createSkyCanvas } from './render/skyCanvas.js';
@@ -201,6 +203,23 @@ const photo = createPhoto({
   },
 });
 
+// What has changed: on today's picture, the places that differ from the day's are touched.
+let peekThen = false;      // the day's picture is shown while its button is held
+const findGame = createFindGame({
+  stage,
+  pictureBox: () => ground.pictureBox(),
+  onPeek: (on) => { peekThen = on; },
+  onMode: (on) => { if (!on) peekThen = false; },
+  onMiss: () => sound.tick(false, false),
+  onFound: (all) => {
+    if (!all) { sound.stamp(); return; }
+    sound.bell();
+    keep(solveFind(progress, square.id));
+    bubble = { text: '다 찾았다! 이만큼 달라졌구나.', until: visit.t + SORA_FOR_MS + 1800 };
+  },
+});
+$('findChip').addEventListener('click', () => { if (mode === 'ground') { sound.wake(); findGame.enter(spotsOf(square.id)); } });
+
 $('cardChip').addEventListener('click', () => { if (mode === 'ground') card.open(square, false); });
 $('quizChip').addEventListener('click', () => { if (mode === 'ground') card.open(square, true); });
 
@@ -327,6 +346,7 @@ $('landButton').addEventListener('click', () => { const id = globe.under(); if (
 async function leave() {
   if (mode !== 'ground') return;
   if (photo.isOn()) photo.leave();
+  findGame.leave();
   mode = 'leaving';
   leavingMs = 0;
   await wait(LEAVE_MS);
@@ -430,7 +450,13 @@ function frameGround(dt) {
   const stageBox = { w: stage.clientWidth, h: stage.clientHeight };
   const level = project(0, square.facingAz, { facingAz: square.facingAz, pitch: 0, ...stageBox }).y;
   const raised = project(0, square.facingAz, { facingAz: square.facingAz, pitch: visit.look, ...stageBox }).y;
-  ground.set({ rise, blend, silhouette, dropPx: raised - level, day: light.day });
+  ground.set({ rise, blend: peekThen ? 0 : blend, silhouette, dropPx: raised - level, day: light.day });
+  // What has changed can be looked for once she has seen both the day and today, standing on today.
+  const canFind = at === 'today' && dial.resting && visit.dots.remains && spotsOf(square.id).length > 0;
+  if (!canFind && findGame.isOn()) findGame.leave();
+  if ($('findChip').hidden === canFind) $('findChip').hidden = !canFind;
+  const findLabel = findSolved(progress, square.id) ? '달라진 곳 ✓' : '달라진 곳 찾기';
+  if ($('findChip').textContent !== findLabel) $('findChip').textContent = findLabel;
 
   // A note that is due falls once the words about the last dot have been said.
   if (noteDueAtMs !== null && visit.t >= noteDueAtMs && mode === 'ground' && !dial.rolling) {
@@ -470,7 +496,7 @@ function frameGround(dt) {
     bubble: pose.saying ?? (bubble && (bubble.lookingUp || visit.look < 0.5) ? bubble.text : null), sora: pose,
     todayLabel: at === 'today' ? '그날로' : '오늘로', showToday: true, showLeave: true,
     hint: mode === 'ground' && visit.t >= GUIDE_AT_MS && dial.resting && !(bubble && visit.look < 0.5)
-      ? guideLine({ where: 'ground', dots: visit.dots, at, lookingUp: visit.look > 0.5, quizSolved: quizSolved(progress, square.id), hasCard: Boolean(cards[square.id]) })
+      ? guideLine({ where: 'ground', dots: visit.dots, at, lookingUp: visit.look > 0.5, quizSolved: quizSolved(progress, square.id), hasCard: Boolean(cards[square.id]), canFind: canFind && !findSolved(progress, square.id) })
       : null,
     soraFade: pose.saying || (bubble && bubble.lookingUp) ? 0 : clamp01(visit.look * 1.6), glowSky, glowToday,
   });

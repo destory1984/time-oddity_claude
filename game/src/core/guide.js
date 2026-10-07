@@ -7,8 +7,9 @@
 // three, at is 'then' | 'today' | 'other' (where the dial stands), lookingUp is whether
 // the head is raised, quizSolved whether its question was answered.
 // hasCard: whether a postcard of the square has been taken.
+// canFind: what has changed there can be looked for and has not been found yet.
 // target: a square has been chosen and she is flying to it; over: a square is under her.
-export function guideLine({ where, dots, at, lookingUp, quizSolved, hasCard = true, complete, visited, total, target = false, over = false }) {
+export function guideLine({ where, dots, at, lookingUp, quizSolved, hasCard = true, canFind = false, complete, visited, total, target = false, over = false }) {
   if (where === 'globe') {
     if (target) return over ? '다 왔으면 내려앉으렴' : '빛나는 자리 쪽으로 날아 보렴';
     if (over) return '여기 내려앉아도 된단다';
@@ -22,6 +23,7 @@ export function guideLine({ where, dots, at, lookingUp, quizSolved, hasCard = tr
   if (!dots.sky) return lookingUp ? '그대로 잠깐 올려다보렴' : '화면을 위로 밀어 하늘을 보렴';
   if (lookingUp) return null;
   if (!dots.remains) return '오늘은 어떤지, 오늘로 돌려 보렴';
+  if (canFind && at === 'today') return '그날과 달라진 곳을 찾아 보렴';
   if (!quizSolved) return '이야기 카드도 읽어 보렴';
   return hasCard ? '수첩을 펴서 다른 날로 가 보렴' : '사진기로 엽서를 한 장 찍어 보렴';
 }

@@ -13,7 +13,7 @@ describe('progress', () => {
     const start = emptyProgress();
     const p = fillDot(fillDot(start, 'khufu', 'day'), 'khufu', 'sky');
     expect(start).toEqual(emptyProgress());
-    expect(p.squares.khufu).toEqual({ day: true, sky: true, remains: false, quiz: false });
+    expect(p.squares.khufu).toEqual({ day: true, sky: true, remains: false, quiz: false, find: false });
     expect(countProgress(p, ids)).toMatchObject({ day: 1, sky: 1, remains: 0, complete: 0 });
     expect(isComplete(p, 'khufu')).toBe(false);
     expect(isComplete(fillDot(p, 'khufu', 'remains'), 'khufu')).toBe(true);
@@ -30,7 +30,7 @@ describe('progress', () => {
   it('keeps only what it knows when reading a record back', () => {
     const raw = JSON.stringify({ squares: { khufu: { day: true, sky: 'yes', extra: 1 }, atlantis: { day: true }, lunar1504: null } });
     const p = sanitizeProgress(raw, ids);
-    expect(p.squares).toEqual({ khufu: { day: true, sky: false, remains: false, quiz: false } });
+    expect(p.squares).toEqual({ khufu: { day: true, sky: false, remains: false, quiz: false, find: false } });
   });
   it('starts afresh from a record that cannot be read', () => {
     for (const raw of [null, '', 'not json', '[]', '{"squares":7}', '42']) expect(sanitizeProgress(raw, ids)).toEqual(emptyProgress());
