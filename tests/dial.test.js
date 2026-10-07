@@ -34,8 +34,22 @@ describe('letting go', () => {
     expect(d.offset).toBe(yearIndex(d.year));
     expect(d.year).toBeLessThan(1846);
   });
-  it('has stopped within 2 seconds of a 1 px/ms flick', () => {
-    const d = fresh(1851); grab(d); release(d, 1.0); run(d, 2000);
+  it('goes half as far again as the finger was going, and a second flick adds to the first', () => {
+    const one = fresh(1851); grab(one); release(one, 1.0);
+    expect(one.speed).toBeCloseTo(1.5, 9);
+    run(one, 6000);
+    // 1.5 px per ms dying away over 650 ms: about 975 px, 81 years.
+    expect(1851 - one.year).toBeGreaterThan(70);
+    expect(1851 - one.year).toBeLessThan(90);
+    const two = fresh(1851); grab(two); release(two, 1.0); run(two, 100); grab(two); release(two, 1.0);
+    expect(two.speed).toBeGreaterThan(2.3);
+    const back = fresh(1851); grab(back); release(back, 1.0); run(back, 100); grab(back); release(back, -1.0);
+    expect(back.speed).toBeCloseTo(-1.5, 9);
+    const most = fresh(1851); grab(most); release(most, 100);
+    expect(most.speed).toBe(6);
+  });
+  it('has stopped within 3.5 seconds of a 1 px/ms flick', () => {
+    const d = fresh(1851); grab(d); release(d, 1.0); run(d, 3500);
     const year = d.year; run(d, 1000);
     expect(d.year).toBe(year);
     expect(d.resting).toBe(true);

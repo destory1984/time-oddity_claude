@@ -11,8 +11,14 @@ export const PX_PER_YEAR = 12;
 // Every tenth year has a long tick and a lower sound. By the year, not by the dial's
 // gapless count, so that 2560 BC is one of them.
 export const isDecade = (year) => year % 10 === 0;
-const MAX_SPEED = 2.5;        // px per ms
-const GLIDE_MS = 500;         // the speed falls by 1/e in this long
+// A flick carries further than the finger moved, and a second flick while the dial is
+// still gliding adds to the first, so that centuries can be crossed by hand (the user,
+// 2026.10.8: "다이얼 가속을 조금 빠르게 해줘"). Until then a flick went at the finger's own
+// speed, 2.5 px per ms at most, and died away in 500 ms: about a hundred years.
+const FLICK = 1.5;            // the dial leaves the finger this many times as fast as the finger went
+const CARRY = 0.8;            // share of the glide still running that a new flick the same way keeps
+const MAX_SPEED = 6;          // px per ms
+const GLIDE_MS = 650;         // the speed falls by 1/e in this long
 const STOP_SPEED = 0.015;     // px per ms; below this the glide is over
 const SETTLE_RATE = 0.012;    // share of the gap to the tick closed per ms
 const MARK_PULL = 2;          // a dial coming to rest this many ticks from a marked year lands on it
@@ -24,7 +30,7 @@ export function createDial({ year, minYear = -2600, maxYear }) {
   return {
     year, offset: at, resting: true, rolling: false,
     min: yearIndex(minYear), max: yearIndex(maxYear),
-    held: false, speed: 0, reported: at, roll: null, marks: [],
+    held: false, speed: 0, carry: 0, reported: at, roll: null, marks: [],
   };
 }
 
@@ -58,6 +64,7 @@ export function grab(dial) {
   dial.resting = false;
   dial.rolling = false;
   dial.roll = null;
+  dial.carry = dial.speed;
   dial.speed = 0;
 }
 
@@ -69,7 +76,9 @@ export function drag(dial, dxPx) {
 // vPxPerMs is the finger's speed as it left; 0 when the touch was cancelled.
 export function release(dial, vPxPerMs) {
   dial.held = false;
-  dial.speed = clamp(vPxPerMs, -MAX_SPEED, MAX_SPEED);
+  const carried = Math.sign(dial.carry ?? 0) === Math.sign(vPxPerMs) ? (dial.carry ?? 0) * CARRY : 0;
+  dial.speed = clamp(vPxPerMs * FLICK + carried, -MAX_SPEED, MAX_SPEED);
+  dial.carry = 0;
 }
 
 // Rolls to the year in exactly this many seconds: speeding up over the first sixth,
