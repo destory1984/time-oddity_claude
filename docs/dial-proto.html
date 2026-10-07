@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>시간 한량 다이얼 손맛 시험</title>
+<style>
+/* 손맛만 보려고 만든 시험판이다. 게임 코드가 아니다. */
+:root{--night:#050330;--navy:#1a2894;--gold:#f6b951;--white:#fbf8f9;--lav:#e2daf6;--paper:#f2e6c8;--ink:#3b2a1a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:#15122b;overflow:hidden;overscroll-behavior:none}
+body{display:grid;place-items:center;font-family:"Malgun Gothic",system-ui,sans-serif;color:var(--white);user-select:none;-webkit-user-select:none}
+#ph{position:relative;width:min(100vw,420px);height:min(100dvh,860px);overflow:hidden;
+  background:linear-gradient(#070640 0%,#141c7c 40%,#3a45a8 62%)}
+#ph>*{position:absolute}
+canvas{inset:0;width:100%;height:100%;pointer-events:none}
+.glass{background:rgba(5,3,48,.6);border:1px solid rgba(226,218,246,.45);border-radius:16px}
+#tabs{top:10px;left:10px;right:10px;display:flex;gap:6px}
+#tabs button{flex:1;height:38px;color:var(--white);font:inherit;font-size:13px}
+#tabs button.on{border-color:var(--gold);color:var(--gold)}
+#date{top:60px;left:16px;pointer-events:none}
+#date b{display:block;font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+#date span{font-size:13px}
+#gain{top:124px;left:16px;font-size:11px;opacity:.75;pointer-events:none}
+#land{left:0;right:0;bottom:0;height:46%;border-top:2px dashed var(--ink);pointer-events:none}
+#land div{position:absolute;inset:0;display:grid;place-items:start center;padding-top:84px;color:var(--ink);font-size:13px}
+#now{background:repeating-linear-gradient(45deg,#b9cf9a 0 12px,#accf8c 12px 24px)}
+#then{background:repeating-linear-gradient(45deg,#bfe3e0 0 12px,#a9d6d2 12px 24px)}
+#land i{font-style:normal;background:var(--paper);padding:3px 10px;border:1px dashed var(--ink)}
+#sora{left:50%;top:34%;margin-left:-34px;width:68px;height:88px;border:1.5px dashed var(--lav);border-radius:14px;
+  display:grid;place-items:center;font-size:11px;background:rgba(226,218,246,.15);pointer-events:none}
+#bubble{left:50%;top:28%;margin-left:20px;background:var(--white);color:#1b1730;padding:6px 10px;border-radius:12px 12px 12px 2px;
+  font-size:12.5px;white-space:nowrap;transition:opacity .25s;pointer-events:none}
+#memo{left:14px;top:55.5%;max-width:62%;background:var(--paper);color:var(--ink);padding:6px 10px;transform:rotate(-1.5deg);
+  font-family:"Gowun Batang",serif;font-size:13px;line-height:1.35;box-shadow:1px 2px 0 rgba(59,42,26,.4);transition:opacity .25s;pointer-events:none}
+#jump{right:14px;top:60px;padding:9px 14px;color:var(--gold);border-color:var(--gold);font:inherit;font-size:13px}
+#joy{left:16px;width:66px;height:66px;border-radius:50%;display:grid;place-items:center;pointer-events:none}
+#joy::after{content:"";width:28px;height:28px;border-radius:50%;background:rgba(226,218,246,.55)}
+#move{display:grid;gap:6px;pointer-events:none}
+#move span{padding:7px 13px;font-size:12px}
+#hit{touch-action:none;cursor:grab}
+#hit:active{cursor:grabbing}
+</style>
+</head>
+<body>
+<div id="ph">
+  <canvas id="sky"></canvas>
+  <div id="land"><div id="now"><i>땅 그림 자리: 오늘 (잔디밭)</i></div><div id="then"><i>땅 그림 자리: 그때 (수정궁)</i></div></div>
+  <div id="sora">소라</div>
+  <div id="bubble"></div>
+  <div id="memo"></div>
+  <canvas id="dial"></canvas>
+  <div id="date"><b></b><span>하이드파크, 런던 · 밤 9시</span></div>
+  <div id="gain"></div>
+  <div id="joy" class="glass"></div>
+  <div id="move"><span class="glass">전진</span><span class="glass">정지</span></div>
+  <div id="hit"></div>
+  <button id="jump" class="glass"></button>
+  <div id="tabs">
+    <button class="glass" data-m="3">3 큰 호</button>
+    <button class="glass" data-m="4">4 세로 띠</button>
+    <button class="glass" data-m="9">9 필름 띠</button>
+  </div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const ph = $('ph'), sky = $('sky'), dial = $('dial'), hit = $('hit');
+const EV = 1851 + 120 / 365;        // 1851.5.1
+const TODAY = 2026 + 279 / 365;     // 2026.10.7
+const MIN = -2559, MAX = 2061.6;    // 기원전 2560 → 2061
+const DAY = 1 / 365;
+const FW = 88;                      // 필름 한 칸의 너비
+const STOPS = [1700, 1800, 1850, EV, 1852.5, 1900, 1950, 2000, TODAY];
+
+let W = 0, H = 0, mode = 3;
+let y = EV;            // 지금 보고 있는 때(소수점 있는 해)
+let vp = 0;            // 손가락 속도(픽셀/밀리초)
+let g = DAY;           // 1픽셀이 몇 해인가
+let p = 3;             // 필름 위치(칸 번호)
+let dragging = false, lastX = 0, lastY = 0, lastT = 0, target = null;
+
+// 손이 느리면 1픽셀이 하루, 빠르면 5년까지 늘어난다.
+const gain = v => Math.min(5, (1 + Math.pow(Math.abs(v) * 8, 3)) * DAY);
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+
+function filmYear(q) {
+  q = clamp(q, 0, STOPS.length - 1);
+  const i = Math.min(STOPS.length - 2, Math.floor(q));
+  return STOPS[i] + (STOPS[i + 1] - STOPS[i]) * (q - i);
+}
+function filmPos(yr) {
+  if (yr <= STOPS[0]) return 0;
+  for (let i = 0; i < STOPS.length - 1; i++)
+    if (yr <= STOPS[i + 1]) return i + (yr - STOPS[i]) / (STOPS[i + 1] - STOPS[i]);
+  return STOPS.length - 1;
+}
+
+const yearName = Y => Y <= 0 ? `기원전 ${1 - Y}` : `${Y}`;
+function dateText(v, coarse) {
+  const Y = Math.floor(v);
+  if (coarse) return yearName(Y) + '년';
+  let d = Math.floor((v - Y) * 365 + 1e-6), m = 0;
+  const ML = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  while (d >= ML[m]) d -= ML[m++];
+  return `${yearName(Y)}.${m + 1}.${d + 1}`;
+}
+function gainText() {
+  const d = g * 365;
+  if (d < 1.5) return '1픽셀 = 하루';
+  if (d < 45) return `1픽셀 = ${Math.round(d)}일`;
+  if (d < 360) return `1픽셀 = ${Math.round(d / 30)}달`;
+  return `1픽셀 = ${Math.round(g)}년`;
+}
+
+function layout() {
+  const r = ph.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  W = r.width; H = r.height;
+  for (const c of [sky, dial]) { c.width = W * dpr; c.height = H * dpr; c.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0); }
+  const bottom = mode === 3 ? 122 : mode === 9 ? 116 : 24;
+  $('joy').style.bottom = bottom + 'px';
+  $('move').style.cssText = `bottom:${bottom}px;right:${mode === 4 ? 78 : 16}px`;
+  hit.style.cssText = mode === 4 ? 'right:0;top:120px;bottom:120px;width:84px'
+    : `left:0;right:0;bottom:0;height:${mode === 3 ? 116 : 110}px`;
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', +b.dataset.m === mode));
+}
+
+// 손가락
+hit.addEventListener('pointerdown', e => {
+  hit.setPointerCapture(e.pointerId);
+  dragging = true; target = null; vp = 0;
+  lastX = e.clientX; lastY = e.clientY; lastT = performance.now();
+});
+hit.addEventListener('pointermove', e => {
+  if (!dragging) return;
+  const now = performance.now(), dt = Math.max(4, now - lastT);
+  const d = mode === 4 ? e.clientY - lastY : e.clientX - lastX;
+  vp += (d / dt - vp) * 0.35;
+  step(d);
+  lastX = e.clientX; lastY = e.clientY; lastT = now;
+});
+const up = () => { dragging = false; };
+hit.addEventListener('pointerup', up);
+hit.addEventListener('pointercancel', up);
+
+// d 픽셀만큼 끌었을 때 때를 옮긴다. 오른쪽이나 아래로 끌면 옛날이 온다.
+function step(d) {
+  if (mode === 9) { p = clamp(p - d / FW, 0, STOPS.length - 1); y = filmYear(p); return; }
+  g += (gain(vp) - g) * 0.3;
+  y = clamp(y - d * g, MIN, MAX);
+}
+
+function tick(dt) {
+  if (dragging) return;
+  if (target !== null) {
+    y += (target - y) * Math.min(1, dt * 0.008);
+    if (Math.abs(target - y) < DAY / 4) { y = target; target = null; }
+    p = filmPos(y);
+    return;
+  }
+  if (Math.abs(vp) > 0.03) { step(vp * dt); vp *= Math.exp(-dt / 200); return; }
+  vp = 0; g += (DAY - g) * 0.15;
+  if (mode === 9) {
+    const q = Math.round(p);
+    if (Math.abs(q - p) > 0.002) { p += (q - p) * Math.min(1, dt * 0.012); y = filmYear(p); } else if (p !== q) { p = q; y = filmYear(p); }
+  } else {
+    // 사건 칸에서 30일 안이면 그날에 걸린다.
+    for (const s of [EV, TODAY]) if (y !== s && Math.abs(y - s) < 30 * DAY) target = s;
+  }
+}
+
+// 하늘: 별은 한 해에 한 바퀴 돌고, 달은 29.53일에 한 번 찬다. 어림 계산이다.
+const STARS = Array.from({ length: 150 }, (_, i) => {
+  const r = (Math.sin(i * 12.9898) * 43758.5453) % 1, a = (Math.sin(i * 78.233) * 12543.123) % 1;
+  return { r: 0.12 + Math.abs(r) * 1.1, a: Math.abs(a) * 6.2832, s: 0.5 + (i % 5) * 0.22 };
+});
+function drawSky() {
+  const c = sky.getContext('2d'); c.clearRect(0, 0, W, H);
+  const rot = (y - Math.floor(y)) * 6.2832, px = W * 0.5, py = H * 0.05;
+  c.fillStyle = 'rgba(251,248,249,.9)';
+  for (const s of STARS) {
+    const x = px + Math.cos(s.a + rot) * s.r * W, yy = py + Math.sin(s.a + rot) * s.r * W;
+    if (yy < H * 0.56 && yy > 0) c.fillRect(x, yy, s.s * 1.6, s.s * 1.6);
+  }
+  const jd = 2451545 + (y - 2000) * 365.25;
+  let f = ((jd - 2451550.1) / 29.530588) % 1; if (f < 0) f += 1;   // 0 삭, 0.5 보름
+  const R = 21, k = Math.cos(f * 6.2832), wax = f < 0.5;
+  c.save(); c.translate(W * 0.72, H * 0.22);
+  c.shadowColor = 'rgba(255,255,255,.45)'; c.shadowBlur = 16 * (1 - Math.abs(k)) + 2;
+  c.fillStyle = '#232a72'; c.beginPath(); c.arc(0, 0, R, 0, 6.2832); c.fill();
+  c.shadowBlur = 0; c.fillStyle = '#f4f1ff';
+  c.beginPath(); c.arc(0, 0, R, -Math.PI / 2, Math.PI / 2, !wax); c.fill();
+  c.fillStyle = k < 0 ? '#f4f1ff' : '#232a72';
+  c.beginPath(); c.ellipse(0, 0, Math.abs(k) * R, R, 0, 0, 6.2832); c.fill();
+  c.restore();
+}
+
+// 눈금: 화면에 보이는 간격에 맞춰 달, 해, 10년, 100년, 1000년 가운데서 고른다.
+function ticks(span, each) {
+  const z = 1 / g, U = [1 / 12, 1, 10, 100, 1000];
+  const minor = U.find(u => u * z >= 7) || 1000, major = U.find(u => u * z >= 58) || 1000;
+  const n = Math.round(major / minor), a = Math.ceil((y - span / z) / minor), b = Math.floor((y + span / z) / minor);
+  for (let k = a; k <= b && k - a < 600; k++) {
+    const Y = k * minor, big = ((k % n) + n) % n === 0;
+    let label = '';
+    if (big) {
+      const yr = Math.floor(Y + 1e-6), mo = Math.round((Y - yr) * 12);
+      label = major < 1 ? (mo === 0 ? yearName(yr) : `${mo + 1}월`) : yearName(yr);
+    }
+    each((Y - y) * z, big, label);
+  }
+}
+
+function drawDial() {
+  const c = dial.getContext('2d'); c.clearRect(0, 0, W, H);
+  c.font = '11px "Malgun Gothic",sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
+  if (mode === 3) {
+    const R = W * 1.15, cx = W / 2, cy = H - 100 + R;
+    c.fillStyle = 'rgba(5,3,48,.78)'; c.beginPath(); c.arc(cx, cy, R, 0, 6.2832); c.fill();
+    c.strokeStyle = '#f6b951'; c.lineWidth = 2; c.stroke();
+    ticks(R * 0.7, (d, big, label) => {
+      const a = d / R; c.save(); c.translate(cx, cy); c.rotate(a);
+      c.fillStyle = 'rgba(251,248,249,.9)'; c.fillRect(-(big ? 1 : 0.5), -R + 2, big ? 2 : 1, big ? 18 : 9);
+      if (label) c.fillText(label, 0, -R + 34);
+      c.restore();
+    });
+    c.fillStyle = '#f6b951'; c.beginPath(); c.moveTo(cx - 8, H - 114); c.lineTo(cx + 8, H - 114); c.lineTo(cx, H - 98); c.fill();
+  } else if (mode === 4) {
+    const x0 = W - 66, t = 120, b = H - 120, cy = (t + b) / 2;
+    c.save(); c.beginPath(); c.roundRect(x0, t, 80, b - t, 16); c.clip();
+    c.fillStyle = 'rgba(5,3,48,.7)'; c.fillRect(x0, t, 80, b - t);
+    ticks((b - t) / 2, (d, big, label) => {
+      c.fillStyle = 'rgba(251,248,249,.9)'; c.fillRect(W - (big ? 18 : 9), cy + d - (big ? 1 : 0.5), big ? 18 : 9, big ? 2 : 1);
+      if (label) c.fillText(label, x0 + 24, cy + d);
+    });
+    c.restore();
+    c.fillStyle = '#f6b951'; c.fillRect(x0 - 6, cy - 1, 72, 2);
+    c.beginPath(); c.moveTo(x0 - 14, cy - 7); c.lineTo(x0 - 14, cy + 7); c.lineTo(x0 - 2, cy); c.fill();
+  } else {
+    const top = H - 104, hgt = 88;
+    c.fillStyle = '#15122b'; c.fillRect(0, top, W, hgt);
+    c.fillStyle = '#f2e6c8';
+    const off = ((W / 2 - p * FW) % 14 + 14) % 14;
+    for (let x = off - 14; x < W + 14; x += 14) { c.fillRect(x, top + 4, 7, 5); c.fillRect(x, top + hgt - 9, 7, 5); }
+    STOPS.forEach((s, i) => {
+      const x = W / 2 + (i - p) * FW - FW / 2 + 4;
+      if (x > W || x < -FW) return;
+      const palace = smooth(1850.6, EV, s) * (1 - smooth(1852.2, 1852.9, s));
+      c.fillStyle = palace > 0.5 ? '#a9d6d2' : '#accf8c'; c.fillRect(x, top + 14, FW - 8, 46);
+      c.fillStyle = '#f2e6c8';
+      c.fillText(s === TODAY ? '오늘' : s === EV ? '1851.5.1' : Math.floor(s), x + (FW - 8) / 2, top + 69);
+    });
+    c.strokeStyle = '#f6b951'; c.lineWidth = 3; c.strokeRect(W / 2 - FW / 2 + 2, top + 12, FW - 4, 50);
+  }
+}
+
+function drawText() {
+  $('date').firstElementChild.textContent = dateText(y, mode !== 9 && g > 0.4);
+  $('gain').textContent = mode === 9 ? '칸에서 칸으로 넘어간다' : gainText();
+  const palace = smooth(1850.6, EV, y) * (1 - smooth(1852.2, 1852.9, y));
+  $('then').style.opacity = palace;
+  const atEv = Math.abs(y - EV) < DAY / 2, atNow = Math.abs(y - TODAY) < DAY / 2;
+  $('bubble').style.opacity = $('memo').style.opacity = atEv || atNow ? 1 : 0;
+  if (atEv) { $('bubble').textContent = '유리로 지은 집이다. 반짝반짝.'; $('memo').textContent = '1851.5.1 만국박람회 열림. 그날 달은 ○'; }
+  if (atNow) { $('bubble').textContent = '없어졌네.'; $('memo').textContent = '남은 것: 없음. 잔디밭뿐.'; }
+  $('jump').textContent = Math.abs(y - TODAY) < 1 ? '그날로' : '오늘로';
+}
+
+$('jump').onclick = () => { vp = 0; target = Math.abs(y - TODAY) < 1 ? EV : TODAY; };
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => { mode = +b.dataset.m; vp = 0; g = DAY; p = filmPos(y); layout(); });
+addEventListener('resize', layout);
+
+let prev = performance.now();
+function frame(now) {
+  const dt = Math.min(50, now - prev); prev = now;
+  tick(dt); drawSky(); drawDial(); drawText();
+  requestAnimationFrame(frame);
+}
+layout(); requestAnimationFrame(frame);
+</script>
+</body>
+</html>
