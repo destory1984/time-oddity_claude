@@ -17,6 +17,10 @@ import { createFindGame } from './ui/find.js';
 import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
+import { WALKS } from './core/walks.js';
+import { REACH, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk } from './core/walk.js';
+import { createWalkView } from './ui/walk.js';
+import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
 import { createSite } from './render/site.js';
 import { createFlyKeys } from './ui/flyKeys.js';
@@ -96,7 +100,21 @@ function keepCards(next) {
 }
 const dayToday = () => { const now = todayDate(); return `${now.year}-${String(now.month).padStart(2, '0')}-${String(now.day).padStart(2, '0')}`; };
 
-let mode = 'globe';        // 'globe' | 'travel' | 'ground' | 'leaving'
+let mode = 'globe';        // 'globe' | 'travel' | 'ground' | 'site' | 'walk' | 'leaving'
+
+// Plan v4 (docs/기획서-v4-사는-때로.md): she goes to times when people live. The squares
+// in play are the places that are walked about (core/walks.js) and the first leaf; the
+// rest of the first plan's squares are switched off, not taken out. Above the Earth the
+// dial turns by centuries, and only the centuries that have a place have a stop.
+const LIVE = SQUARES.filter((sq) => WALKS[sq.id] || sq.no === 0);
+const STOPS = centuryStops(LIVE);
+const eraDial = createDial({ year: STOPS.length, minYear: 1, maxYear: STOPS.length, px: 120 });
+eraDial.stops = STOPS.map((stop) => stop.label);
+let onEra = true;          // above the Earth the century dial is up; once a place is chosen, the year dial
+const overEarth = () => mode === 'globe' && onEra;
+const GUIDE_ON = false;    // the one line of guidance is switched off in plan v4
+const theDial = () => (overEarth() ? eraDial : dial);
+const eraStop = () => STOPS[eraDial.year - 1];
 let square = null;
 let visit = null;
 const look = createLook();
@@ -176,7 +194,7 @@ $('musicButton').addEventListener('click', () => { sound.wake(); musicSwitch.set
 window.addEventListener('pointerdown', () => sound.wake(), { once: true, capture: true });
 
 const journal = createJournal({
-  squares: SQUARES,
+  squares: LIVE,
   progress: () => progress,
   onGo: (id) => pick(squareById(id)),
   onSolve: (id) => { sound.stamp(); keep(solveQuiz(progress, id)); },
@@ -246,7 +264,7 @@ const settings = createSettings({
   version: `v${__APP_VERSION__} · ${__APP_UPDATED__}`,
 });
 
-const globe = createGlobe($('globe'), $('pins'), { squares: SQUARES, onPick: (id) => pick(squareById(id)) });
+const globe = createGlobe($('globe'), $('pins'), { squares: LIVE, onPick: (id) => pick(squareById(id)) });
 
 function layout() {
   skyCanvas.resize();
@@ -301,7 +319,136 @@ function showSite(sq) {
   sound.paper();
 }
 // Standing on a square: on its ground picture, or at the place itself where there is one.
-const arrive = (sq) => (SITES[sq.id] ? showSite(sq) : showGround(sq));
+const arrive = (sq) => (WALKS[sq.id] ? showWalk(sq) : SITES[sq.id] ? showSite(sq) : showGround(sq));
+
+// A place where people live, walked about (core/walk.js, ui/walk.js): scenes joined end
+// to end, people who say a line, three errands from grandmother.
+let walk = null;
+let walkT = 0;
+let walkWay = 0;            // the way a finger or a button holds her going: -1, 0, 1
+let keyWay = 0;             // the same, by the keys
+let walkWant = null;        // the person she was sent to speak to
+let walkSora = null;        // { text, until }: what she says, while it shows
+let replyUntil = 0;         // grandmother's answer shows until then
+let errandsFoldAt = 0;      // the slip of errands folds itself then
+const walkView = createWalkView({
+  onPerson: (id) => {
+    if (!walk) return;
+    const person = sceneOf(walk).people.find((p) => p.id === id);
+    if (Math.abs(person.x - walk.x) <= REACH) { talk(id); return; }
+    // Touched from afar: she goes to stand beside them, then speaks.
+    sendTo(walk, person.x + (walk.x < person.x ? -1 : 1) * REACH * 0.6);
+    walkWant = id;
+  },
+  onWay: (way) => { walkWay = way; if (way !== 0) walkWant = null; },
+});
+function showErrands() {
+  const list = $('errands');
+  list.replaceChildren();
+  const head = document.createElement('b');
+  const left = walk.place.errands.length - walk.done.length;
+  head.textContent = left > 0 ? `할머니의 심부름 · ${left}개 남음` : '할머니의 심부름 · 다 했다';
+  list.append(head);
+  for (const errand of walk.place.errands) {
+    const row = document.createElement('li');
+    row.textContent = errand.text;
+    row.classList.toggle('done', walk.done.includes(errand.id));
+    list.append(row);
+  }
+}
+// The slip is read on arriving, then folds to its heading; a touch opens and folds it.
+$('errands').addEventListener('click', () => $('errands').classList.toggle('folded'));
+const ERRANDS_OPEN_MS = 7000;
+function errandsDone() {
+  showErrands();
+  $('errands').classList.remove('folded');
+  errandsFoldAt = walkT + 3500;
+  sound.stamp();
+  if (!allDone(walk)) return;
+  // All three: the square is filled and grandmother writes back.
+  for (const dot of ['sky', 'remains']) keep(fillDot(progress, square.id, dot));
+  setTimeout(() => { if (walk) { sound.bell(); replyUntil = walkT + 10000; } }, 1200);
+}
+function talk(id = null) {
+  if (!walk) return;
+  const said = speak(walk, id);
+  if (!said) return;
+  sound.wake();
+  sound.tick(true, false);
+  if (said.errands.length > 0) errandsDone();
+}
+function enterScene() {
+  const scene = sceneOf(walk);
+  walkView.showScene(walk.place, walk.scene);
+  walkSora = scene.sora && !walk.told.includes(scene.id) ? { text: scene.sora, until: walkT + 900 + SORA_FOR_MS, from: walkT + 900 } : null;
+  if (!walk.told.includes(scene.id)) walk.told.push(scene.id);
+  const before = walk.place.scenes[walk.scene - 1];
+  const after = walk.place.scenes[walk.scene + 1];
+  $('walkPrev').hidden = !before; if (before) $('walkPrev').textContent = `‹ ${before.name}`;
+  $('walkNext').hidden = !after; if (after) $('walkNext').textContent = `${after.name} ›`;
+  sound.murmur(scene.id === 'inside' ? 1 : 0.55);
+}
+function showWalk(sq) {
+  square = sq;
+  visit = null; site = null;
+  walk = createWalk(WALKS[sq.id]);
+  walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyUntil = 0;
+  $('errands').classList.remove('folded');
+  errandsFoldAt = ERRANDS_OPEN_MS;
+  if (isLocalHost(location.hostname)) window.walkDebug = walk;
+  globe.setActive(false);
+  stage.className = 'on-ground on-walk';
+  mode = 'walk';
+  keep(fillDot(progress, sq.id, 'day'));
+  showErrands();
+  enterScene();
+  sound.paper();
+}
+// The two buttons at the foot walk her on toward the scene beside this one while held.
+for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
+  $(id).addEventListener('pointerdown', (e) => { $(id).setPointerCapture?.(e.pointerId); walkWay = way; walkWant = null; });
+  for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) $(id).addEventListener(name, () => { walkWay = 0; });
+}
+$('talkButton').addEventListener('click', () => talk());
+window.addEventListener('keydown', (e) => {
+  if (mode !== 'walk' || e.ctrlKey || e.altKey || e.metaKey) return;
+  if (e.code === 'ArrowLeft' || e.code === 'KeyA') { keyWay = -1; walkWant = null; e.preventDefault(); }
+  else if (e.code === 'ArrowRight' || e.code === 'KeyD') { keyWay = 1; walkWant = null; e.preventDefault(); }
+  else if (e.code === 'Space' && !e.repeat && !e.target.closest?.('button')) { talk(); e.preventDefault(); }
+});
+window.addEventListener('keyup', (e) => {
+  if ((e.code === 'ArrowLeft' || e.code === 'KeyA') && keyWay < 0) keyWay = 0;
+  if ((e.code === 'ArrowRight' || e.code === 'KeyD') && keyWay > 0) keyWay = 0;
+});
+window.addEventListener('blur', () => { keyWay = 0; walkWay = 0; });
+
+function frameWalk(dt) {
+  walkT += dt;
+  const out = stepWalk(walk, dt, walkWay || keyWay);
+  if (out.scene !== 0) enterScene();
+  if (out.arrived && walkWant) { talk(walkWant); walkWant = null; }
+  if (out.spot?.sora) walkSora = { text: out.spot.sora, until: walkT + SORA_FOR_MS, from: walkT };
+  if (out.errands.length > 0) errandsDone();
+  if (walkSora && walkT > walkSora.until) walkSora = null;
+  if (errandsFoldAt > 0 && walkT >= errandsFoldAt) { errandsFoldAt = 0; $('errands').classList.add('folded'); }
+
+  // The sky of that day and hour, as computed, behind the roofs.
+  skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });
+  walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null);
+
+  const near = walk.moving ? null : nearby(walk);
+  const label = near ? `${near.name}에게 말 걸기` : '';
+  if ($('talkButton').hidden !== !near) $('talkButton').hidden = !near;
+  if (near && $('talkButton').textContent !== label) $('talkButton').textContent = label;
+  // Grandmother's slip: what she wrote of the one seen from afar, or her answer.
+  const memo = spotAt(walk)?.memo ?? (walkT < replyUntil ? walk.place.reply : null);
+  hud.set({
+    name: squareTitle(square), dateText: square.dateLabel, placeText: sceneOf(walk).name, subText: '',
+    dots: { day: false, sky: false, remains: false }, memo, memoPlain: false, memoSky: false,
+    chips: walkT >= CHIPS_AT_MS, bubble: null, sora: soraPose({ now: performance.now(), hushAt }),
+    todayLabel: '오늘로', showToday: false, showLeave: true, hint: null, soraFade: 1, glowSky: 0, glowToday: 0,
+  });
+}
 
 function showGround(sq) {
   square = sq;
@@ -364,8 +511,27 @@ function aim(sq) {
   if (dial.year !== sq.date.year && !dial.rolling) rollTo(dial, sq.date.year, TRAVEL_ROLL_S);
 }
 
+// A place is chosen above the Earth: the century dial gives way to the year dial, set at
+// the century's first year, and whatever rolls it on (aim, travel, land) draws it tight
+// to the exact year, tick by tick.
+function tighten(sq) {
+  if (!overEarth()) return;
+  onEra = false;
+  rollTo(dial, centuryStart(centuryOf(sq.date.year)), 0.001);
+  stepDial(dial, 10);
+  mark([{ year: sq.date.year, label: sq.name }]);
+}
+// Back above the Earth with the century dial, at the century of the place she was at.
+function loosen(sq = null) {
+  onEra = true;
+  target = null;
+  globe.setTarget(null);
+  if (sq) { const at = STOPS.findIndex((stop) => stop.ids.includes(sq.id)); if (at >= 0) { rollTo(eraDial, at + 1, 0.001); stepDial(eraDial, 10); } }
+}
+
 function pick(sq) {
   if (mode !== 'globe' && mode !== 'ground') return;
+  tighten(sq);
   if (dotsOf(progress, sq.id).day) { target = null; globe.setTarget(null); travel(sq); return; }
   if (mode === 'ground') { if (square !== sq) leave().then(() => aim(sq)); return; }
   if (globe.under() === sq.id) land(sq);
@@ -395,8 +561,9 @@ async function land(sq) {
 $('landButton').addEventListener('click', () => { const id = globe.under(); if (id) land(squareById(id)); });
 
 async function leave() {
-  if (mode !== 'ground' && mode !== 'site') return;
-  const fromSite = mode === 'site';
+  if (mode !== 'ground' && mode !== 'site' && mode !== 'walk') return;
+  const fromSite = mode === 'site' || mode === 'walk';
+  sound.murmur(0);
   if (photo.isOn()) photo.leave();
   findGame.leave();
   flyKeys.clear();
@@ -410,6 +577,8 @@ async function leave() {
   mode = 'globe';
   visit = null;
   site = null;
+  walk = null;
+  loosen(square);
   mark(globeMarks());
   $('fade').classList.remove('on');
 }
@@ -428,10 +597,15 @@ hud.todayBtn.addEventListener('click', () => {
 
 createTouch(stage, {
   mode: () => mode,
-  onDialGrab: () => { sound.wake(); roll = null; grab(dial); },
-  onDialDrag: (dx) => drag(dial, dx),
-  onDialRelease: (v) => release(dial, v),
-  onDialTap: (side) => { const year = nextMark(dial, side); if (year !== null) goTo(year); },
+  // Above the Earth it is the century dial that is turned. A hand on the dial while she
+  // is on her way to a place calls that off and gives the centuries back.
+  onDialGrab: () => { sound.wake(); roll = null; if (mode === 'globe' && !onEra) loosen(); grab(theDial()); },
+  onDialDrag: (dx) => drag(theDial(), dx),
+  onDialRelease: (v) => release(theDial(), v),
+  onDialTap: (side) => {
+    if (overEarth()) { const to = eraDial.year + side; if (to >= 1 && to <= STOPS.length) rollTo(eraDial, to, 0.35); return; }
+    const year = nextMark(dial, side); if (year !== null) goTo(year);
+  },
   // Pushing the finger up raises the head; it stays where it was left, up or down.
   onLookDrag: (dyShare) => { if (photo.isOn()) photo.drag(dyShare); else dragLook(look, dyShare); },
   onLookEnd: () => { if (!photo.isOn()) endLook(look); },
@@ -472,7 +646,7 @@ function tickSounds(years) {
 }
 
 function dateOnGlobe() {
-  return { dateText: `${formatYear(dial.year)}년`, placeText: '지구 위', subText: '' };
+  return { dateText: overEarth() ? eraStop().label : `${formatYear(dial.year)}년`, placeText: '지구 위', subText: '' };
 }
 
 // One frame at a place in three dimensions: the eye goes where it is wanted, the parts
@@ -604,7 +778,7 @@ function frameGround(dt) {
   });
 }
 
-const squareIds = SQUARES.map((sq) => sq.id);
+const squareIds = LIVE.map((sq) => sq.id);
 function globeCount() {
   const count = countProgress(progress, squareIds);
   return { complete: count.complete, visited: count.day, total: count.total };
@@ -630,7 +804,7 @@ function frameGlobe(dt) {
   hud.set({
     name: '', ...dateOnGlobe(), dots: { day: false, sky: false, remains: false },
     memo: null, memoPlain: false, chips: false, bubble: pose.saying, sora: pose, todayLabel: '오늘로', showToday: false, showLeave: false,
-    hint: mode === 'globe' && !pose.saying ? guideLine({ where: 'globe', ...globeCount(), target: Boolean(target), over: target ? overId === target.id : Boolean(overId) }) : null, soraFade: 0, glowSky: 0, glowToday: 0,
+    hint: GUIDE_ON && mode === 'globe' && !pose.saying ? guideLine({ where: 'globe', ...globeCount(), target: Boolean(target), over: target ? overId === target.id : Boolean(overId) }) : null, soraFade: 0, glowSky: 0, glowToday: 0,
   });
 }
 
@@ -639,11 +813,14 @@ function frame(now) {
   const held = settings.isOpen() || journal.isOpen() || card.isOpen() || opening.isOpen();
   const dt = held ? 0 : Math.min(50, now - last);
   last = now;
-  tickSounds(stepDial(dial, dt));
-  if (site && mode === 'site') frameSite(dt);
+  tickSounds(stepDial(theDial(), dt));
+  // Only the places of the century the dial rests nearest are on the globe.
+  globe.setShown(overEarth() ? eraStop().ids : target ? [target.id] : LIVE.map((sq) => sq.id));
+  if (walk && mode === 'walk') frameWalk(dt);
+  else if (site && mode === 'site') frameSite(dt);
   else if (visit && mode !== 'globe') frameGround(dt);
   else frameGlobe(dt);
-  dialView.draw(dial, marks);
+  dialView.draw(theDial(), overEarth() ? [] : marks);
   music.step(visit ? 'surface' : 'near');
   requestAnimationFrame(frame);
 }

@@ -85,12 +85,38 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     osc.start(at); osc.stop(at + seconds + 0.02);
   }
 
+  // The voices of a crowd, far enough off that no word is heard: noise through a narrow
+  // band where voices lie, swelling and falling a little. level 0 is silence, 1 a full
+  // arena. A placeholder until the user has heard it.
+  let crowd = null;
+  function murmur(level) {
+    if (!ac || failed) return;
+    try {
+      if (!crowd) {
+        const source = ac.createBufferSource();
+        const band = ac.createBiquadFilter();
+        const volume = ac.createGain();
+        source.buffer = noise; source.loop = true;
+        band.type = 'bandpass'; band.frequency.value = 520; band.Q.value = 0.7;
+        volume.gain.value = 0;
+        source.connect(band); band.connect(volume); volume.connect(ac.destination);
+        source.start();
+        crowd = { volume, band };
+      }
+      const now = ac.currentTime;
+      crowd.volume.gain.cancelScheduledValues(now);
+      crowd.volume.gain.setTargetAtTime(muted ? 0 : level * 0.05, now, 0.5);
+      crowd.level = level;
+    } catch { /* silence is fine */ }
+  }
+
   return {
     wake,
+    murmur,
     // The AudioContext, once a touch has woken it: the music plays through the same one.
     context: () => (failed ? null : ac),
     muted: () => muted,
-    setMuted(on) { muted = Boolean(on); },
+    setMuted(on) { muted = Boolean(on); if (crowd) murmur(crowd.level ?? 0); },
     // One tick of the dial. big: every tenth year, lower and louder. dense: many ticks
     // are passing at once (a timed roll), so they are run together, low and soft.
     tick(big, dense) {

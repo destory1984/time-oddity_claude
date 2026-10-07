@@ -25,12 +25,14 @@ const MARK_PULL = 2;          // a dial coming to rest this many ticks from a ma
 
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
-export function createDial({ year, minYear = -2600, maxYear }) {
+// px: how far apart two ticks are on the screen (a year is 12 px; the stops of the
+// century dial are much further apart).
+export function createDial({ year, minYear = -2600, maxYear, px = PX_PER_YEAR }) {
   const at = yearIndex(year);
   return {
     year, offset: at, resting: true, rolling: false,
     min: yearIndex(minYear), max: yearIndex(maxYear),
-    held: false, speed: 0, carry: 0, reported: at, roll: null, marks: [],
+    held: false, speed: 0, carry: 0, reported: at, roll: null, marks: [], px,
   };
 }
 
@@ -70,7 +72,7 @@ export function grab(dial) {
 
 export function drag(dial, dxPx) {
   if (!dial.held) return;
-  moveTo(dial, dial.offset - dxPx / PX_PER_YEAR);
+  moveTo(dial, dial.offset - dxPx / dial.px);
 }
 
 // vPxPerMs is the finger's speed as it left; 0 when the touch was cancelled.
@@ -120,7 +122,7 @@ export function stepDial(dial, dtMs) {
   } else if (!dial.held && !dial.resting) {
     if (Math.abs(dial.speed) > STOP_SPEED) {
       const before = dial.offset;
-      moveTo(dial, dial.offset - (dial.speed * dtMs) / PX_PER_YEAR);
+      moveTo(dial, dial.offset - (dial.speed * dtMs) / dial.px);
       dial.speed *= Math.exp(-dtMs / GLIDE_MS);
       // Against an end of the range there is nowhere left to glide.
       if (dial.offset === before || dial.offset === dial.min || dial.offset === dial.max) dial.speed = 0;

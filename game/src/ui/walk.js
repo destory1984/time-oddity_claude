@@ -1,0 +1,145 @@
+// A place that is walked about, on the screen: the scene's picture three or four screens
+// wide, the people standing in it, Sora walking along the street, and what is said.
+// She walks here: among people she does not fly (the user, 2026.10.8: "여기서는 소라가
+// 날아다니면 안 되잖아").
+// The eye follows her. core/walk.js says where everyone is; this only draws it and tells
+// what was touched.
+const FOOT = 0.8;             // feet stand at this share of the screen's height
+const SORA_TALL = 176;        // she is this tall on a 812 px high screen, walking or standing
+const STEP_MS = 150;          // a frame of her walking, and of her standing, lasts this long
+const IDLE_MS = 260;
+const IDLE_ROOM = 256 / 244;  // her standing picture is this much taller than she is in it
+const IDLE_FOOT = 6 / 244;    // and her shoes end this far above its foot
+
+const $ = (id) => document.getElementById(id);
+
+// onPerson(id): a person was touched. onWay(way): a finger went down on the left (-1) or
+// right (1) of the scene, or lifted (0).
+export function createWalkView({ onPerson, onWay }) {
+  const root = $('walk');
+  const scroll = $('walkScene');
+  const picture = $('walkPicture');
+  const peopleEl = $('walkPeople');
+  const sora = $('walkSora');
+  const say = $('walkSay');
+  const soraSay = $('walkSoraSay');
+  let place = null;
+  let scene = null;
+  let nodes = new Map();      // person id → { img, person, left, top, wide, tall }
+  let size = { w: 1, h: 1, wide: 1, unit: 1 };
+  let camera = 0;
+
+  // Her frames are fetched at the start so that none flickers in late.
+  for (const sheet of ['walk', 'idle']) for (let i = 1; i <= 4; i += 1) { const img = new Image(); img.src = `./sora/${sheet}-${i}.png`; }
+
+  function measure() {
+    const h = root.clientHeight;
+    const w = root.clientWidth;
+    size = { w, h, unit: h / 812, wide: scene ? 1.5 * scene.zoom * h : w };
+  }
+
+  function layout() {
+    if (!scene) return;
+    measure();
+    const { h, wide, unit } = size;
+    scroll.style.width = `${wide}px`;
+    picture.style.height = `${scene.zoom * h}px`;
+    picture.style.top = `${(FOOT - scene.ground * scene.zoom) * h}px`;
+    // People stand along the street, those further right a little nearer the eye in turn,
+    // so that two who stand close do not hide each other's feet.
+    let lane = 0;
+    for (const node of nodes.values()) {
+      const { person } = node;
+      node.wide = person.w * scene.scale * unit;
+      node.tall = person.h * scene.scale * unit;
+      node.left = person.x * wide - node.wide / 2;
+      node.top = FOOT * h + (lane % 3) * 7 * unit - node.tall;
+      lane += 1;
+      node.img.style.width = `${node.wide}px`;
+      node.img.style.left = `${node.left}px`;
+      node.img.style.top = `${node.top}px`;
+      node.img.style.zIndex = String(10 + (lane % 3));
+    }
+  }
+
+  function showScene(walkPlace, index) {
+    place = walkPlace;
+    scene = place.scenes[index];
+    picture.src = `./walks/${place.dir}/${scene.id}.webp`;
+    peopleEl.replaceChildren();
+    nodes = new Map();
+    for (const person of scene.people) {
+      const img = document.createElement('img');
+      img.src = `./walks/${place.dir}/${person.id}.png`;
+      img.alt = person.name; img.draggable = false;
+      img.className = 'person';
+      // Each sways in a time of its own, so that the street does not move as one.
+      img.style.animationDelay = `${-((person.x * 7919) % 1600)}ms`;
+      img.addEventListener('pointerdown', (e) => { e.stopPropagation(); onPerson(person.id); });
+      peopleEl.append(img);
+      nodes.set(person.id, { img, person, left: 0, top: 0, wide: 0, tall: 0 });
+    }
+    say.classList.remove('on');
+    layout();
+  }
+
+  // A finger on the scene itself walks her that way for as long as it is held.
+  root.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('button')) return;
+    root.setPointerCapture?.(e.pointerId);
+    onWay(e.clientX < root.getBoundingClientRect().left + size.w / 2 ? -1 : 1);
+  });
+  for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) root.addEventListener(name, () => onWay(0));
+
+  function bubble(el, text, x, top) {
+    el.textContent = text;
+    el.classList.add('on');
+    // Over the speaker's head, kept inside what the eye sees.
+    const wide = Math.min(size.w * 0.7, 250 * size.unit + 40);
+    el.style.maxWidth = `${wide}px`;
+    const left = Math.max(camera + 8, Math.min(camera + size.w - wide - 8, x - wide / 2));
+    el.style.left = `${left}px`;
+    el.style.bottom = `${size.h - top + 6}px`;
+  }
+
+  // walk: core/walk.js's state. soraLine: what she is saying now, or null.
+  function update(walk, now, soraLine) {
+    if (!scene) return;
+    const { w, h, wide, unit } = size;
+    const x = walk.x * wide;
+    camera = Math.max(0, Math.min(wide - w, x - w / 2));
+    scroll.style.transform = `translateX(${-camera.toFixed(1)}px)`;
+
+    // Standing she is her usual picture (192 x 256 with room round her); walking, one of
+    // four steps, each cut to her own outline. Both are shown the same height, feet on the street.
+    const walking = walk.moving;
+    const frame = 1 + (Math.floor(now / (walking ? STEP_MS : IDLE_MS)) % 4);
+    const src = `./sora/${walking ? 'walk' : 'idle'}-${frame}.png`;
+    if (sora.dataset.src !== src) { sora.dataset.src = src; sora.src = src; }
+    const soraTall = SORA_TALL * unit;
+    // Her standing picture has empty rows above her crown and below her shoes.
+    // (The four steps were cut from one sheet, the tallest of them 320 px high.)
+    const shownTall = walking ? (soraTall * (sora.naturalHeight || 320)) / 320 : soraTall * IDLE_ROOM;
+    const soraWide = sora.naturalHeight > 0 ? (shownTall * sora.naturalWidth) / sora.naturalHeight : shownTall * 0.75;
+    const top = FOOT * h + 8 * unit - shownTall + (walking ? 0 : soraTall * IDLE_FOOT);
+    sora.style.height = `${shownTall}px`;
+    sora.style.width = `${soraWide}px`;
+    sora.style.left = `${x - soraWide / 2}px`;
+    sora.style.top = `${top}px`;
+    // The walking frames face right; standing she faces the eye.
+    sora.style.transform = walking && walk.facing < 0 ? 'scaleX(-1)' : '';
+
+    for (const node of nodes.values()) {
+      node.img.classList.toggle('near', Math.abs(node.person.x - walk.x) <= 0.05);
+      node.img.classList.toggle('speaking', walk.heard?.id === node.person.id);
+    }
+    if (walk.heard && nodes.has(walk.heard.id)) {
+      const node = nodes.get(walk.heard.id);
+      bubble(say, walk.heard.line, node.left + node.wide / 2, node.top);
+    } else say.classList.remove('on');
+    if (soraLine) bubble(soraSay, soraLine, x, FOOT * h - soraTall);
+    else soraSay.classList.remove('on');
+  }
+
+  return { showScene, layout, update };
+}

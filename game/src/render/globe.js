@@ -70,6 +70,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
   let span = 1;                          // the width the Earth is sized by, in px
   let zoom = 1;                          // how close: 1 the whole Earth (core/zoom.js)
   let targetId = null;                   // the square she is flying to (it shines)
+  let shownIds = null;                   // the squares whose pins are shown; null for all
   let underId = null;                    // the square under her, at the middle
   let views = [];                        // every pin as seen now: { id, x, y, z } (core/flight.js)
   let moved = { dx: 0, dy: 0 };          // how far the ground has moved on screen since last asked, px
@@ -240,6 +241,8 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     const shown = [];
     views = [];
     for (const pin of pins) {
+      // A pin of another century is not there: not seen, not flown to, not come down on.
+      if (shownIds && !shownIds.includes(pin.square.id)) { pin.button.style.display = 'none'; continue; }
       const at = worldOf(pin.node);
       views.push({ id: pin.square.id, x: at.x, y: at.y, z: at.z });
       const front = at.z < -0.12;
@@ -281,6 +284,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     resize, setActive, drag, release, zoomBy: zoomByFactor, zoom: () => zoom, setZoom, spinTo, faceNow, render, motion,
     // The square she is flying to (null for none), the one under her, and the arrow to the first.
     setTarget(id) { targetId = id; },
+    setShown(ids) { shownIds = ids; },
     under: () => underId,
     pointer: () => pointerTo(views.find((v) => v.id === targetId) ?? null),
   };

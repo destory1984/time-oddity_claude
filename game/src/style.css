@@ -11,13 +11,46 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #stage{position:relative;width:100vw;height:100vh;height:100dvh;max-width:calc(100dvh * 375 / 812);overflow:hidden;background:var(--night);touch-action:none}
 @media (max-width:520px){#stage{max-width:none}}
 #stage>*{position:absolute}
-#globe,#sky,#ground,#site,#pins,#hud,#dial,#fade{inset:0;width:100%;height:100%}
+#globe,#sky,#ground,#site,#walk,#pins,#hud,#dial,#fade{inset:0;width:100%;height:100%}
 #sky,#ground,#glowSky,#site{visibility:hidden}
 /* A place in three dimensions (render/site.js): its canvas lies over the sky, clear where the sky is. */
 #site{pointer-events:none}
 .on-site #site{visibility:visible}
 .on-ground.on-site #ground,.on-ground.on-site #glowSky{visibility:hidden}
 .on-site #dots,.on-site #quizChip,.on-site #findChip,.on-site #photoButton,.on-site #todayBtn,.on-site #hint{display:none !important}
+/* A place that is walked about (ui/walk.js): a wide scene that slides under the eye, people in it, Sora low over the street. */
+#walk{visibility:hidden;overflow:hidden;touch-action:none}
+.on-walk #walk{visibility:visible}
+.on-ground.on-walk #ground,.on-ground.on-walk #glowSky,.on-walk #dial,.on-walk #sora{visibility:hidden}
+.on-walk #dots,.on-walk #quizChip,.on-walk #findChip,.on-walk #photoButton,.on-walk #todayBtn,.on-walk #hint{display:none !important}
+#walkScene{position:absolute;left:0;top:0;height:100%;will-change:transform}
+#walkScene>*{position:absolute}
+#walkPicture{left:0;width:100%;image-rendering:pixelated;pointer-events:none}
+#walkPeople{inset:0}
+#walkPeople .person{position:absolute;height:auto;image-rendering:pixelated;transform-origin:50% 100%;animation:sway 1.6s ease-in-out infinite;cursor:pointer;-webkit-user-drag:none}
+#walkPeople .person.near{filter:drop-shadow(0 0 5px rgba(255,222,140,.95))}
+#walkPeople .person.speaking{animation:hop .35s ease-out 1}
+@keyframes sway{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.972)}}
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}
+#walkSora{image-rendering:pixelated;z-index:20;pointer-events:none}
+#walkSay,#walkSoraSay{z-index:30;display:none;padding:6px 11px;border-radius:12px;background:var(--white);color:#1b1730;font-size:calc(15px * var(--text,1));line-height:1.3;box-shadow:0 2px 8px #0006;pointer-events:none}
+#walkSay.on,#walkSoraSay.on{display:block}
+#walkSoraSay{font-family:var(--seora);font-size:calc(18px * var(--text,1));line-height:1.2}
+#errands,#talkButton,#walkPrev,#walkNext{display:none}
+.on-walk #errands{display:block;left:14px;top:150px;max-width:64%;margin:0;padding:6px 11px 7px;list-style:none;background:var(--paper);color:var(--ink);font-family:var(--hand);font-size:calc(17px * var(--text,1));line-height:1.12;box-shadow:0 2px 8px #0006;transform:rotate(-1deg);pointer-events:auto;cursor:pointer}
+/* Folded, the slip is only its heading with how many are left. */
+#errands.folded li{display:none}
+#errands.folded b{margin:0}
+#errands b{display:block;margin-bottom:2px;font:600 11px/1.4 "Pretendard Variable",Pretendard,sans-serif;opacity:.65}
+#errands li{margin:3px 0}
+#errands li.done{text-decoration:line-through;opacity:.45}
+.on-walk #talkButton:not([hidden]){display:block;left:50%;bottom:84px;transform:translateX(-50%);min-height:var(--tap);padding:0 18px;white-space:nowrap;font-size:15px;font-weight:600;border-color:var(--gold);color:var(--gold)}
+.on-walk #walkPrev:not([hidden]),.on-walk #walkNext:not([hidden]){display:block;bottom:26px;min-height:var(--tap);padding:0 12px;font-size:12.5px;touch-action:none;user-select:none;-webkit-user-select:none}
+.on-walk #walkPrev{left:10px}
+.on-walk #walkNext{right:10px}
+.on-walk #memo{top:auto;bottom:142px}
+.on-walk #chips{left:auto;right:16px;top:150px}
+.on-walk #leaveBtn{top:104px;bottom:auto}
 #flyHelp,#flyPad,#viewPad{display:none}
 .on-site #flyPad{display:flex;flex-direction:column;gap:8px;right:16px;bottom:206px}
 .on-site.standing #flyPad{display:none}

@@ -120,6 +120,7 @@ export function createDialView(canvas) {
 
   // marks: [{ year, label }], the years with something to see.
   function draw(dial, marks = []) {
+    const PX = dial.px ?? PX_PER_YEAR;
     c.clearRect(0, 0, w, h);
     const radius = w * 1.15;
     const cx = w / 2;
@@ -128,7 +129,7 @@ export function createDialView(canvas) {
     const disc = () => { c.beginPath(); c.arc(cx, cy, radius, 0, Math.PI * 2); };
     // Where year index i lies, `depth` px inside the rim.
     const at = (i, depth) => {
-      const a = ((i - dial.offset) * PX_PER_YEAR) / radius;
+      const a = ((i - dial.offset) * PX) / radius;
       return { x: cx + Math.sin(a) * (radius - depth), y: cy - Math.cos(a) * (radius - depth) };
     };
 
@@ -148,7 +149,7 @@ export function createDialView(canvas) {
     disc(); c.clip();
     ring(cx, cy, radius - 52, GOLD, 0.8, 0.35 + chart.line * 0.2, [5, 6]);
     ring(cx, cy, radius - 92, GOLD, 0.8, 0.25 + chart.line * 0.2, [2, 7]);
-    const span = Math.ceil(w / 2 / PX_PER_YEAR) + 6;
+    const span = Math.ceil(w / 2 / PX) + 6;
     const middle = Math.round(dial.offset);
     {
       c.fillStyle = '#ffffff';
@@ -167,7 +168,7 @@ export function createDialView(canvas) {
     for (let n = firstFigure; n <= lastFigure; n += 1) {
       const centre = n * DIPPER_EVERY + DIPPER_EVERY / 2;
       // East is to the left, which on the dial is toward earlier years.
-      const spot = ({ east, north }) => at(centre - (east * DIPPER_PX_PER_DEG) / PX_PER_YEAR, DIPPER_DEPTH - north * DIPPER_PX_PER_DEG);
+      const spot = ({ east, north }) => at(centre - (east * DIPPER_PX_PER_DEG) / PX, DIPPER_DEPTH - north * DIPPER_PX_PER_DEG);
       const stars = DIPPER.map(spot);
       c.strokeStyle = chart.colour; c.lineWidth = chart.line > 0.6 ? 1 : 0.7; c.globalAlpha = chart.line;
       c.beginPath();
@@ -216,7 +217,7 @@ export function createDialView(canvas) {
       owed = Math.min(6, owed + turned * SPARKS_PER_TICK);
       while (owed >= 1 && sparks.length < SPARKS_AT_MOST) {
         owed -= 1;
-        sparks.push({ tick: dial.offset + (Math.random() - 0.5) * (w / PX_PER_YEAR), depth: 4 + Math.random() * 86, size: 2.5 + Math.random() * 3.5, born: now });
+        sparks.push({ tick: dial.offset + (Math.random() - 0.5) * (w / PX), depth: 4 + Math.random() * 86, size: 2.5 + Math.random() * 3.5, born: now });
       }
       sparks = sparks.filter((spark) => now - spark.born < SPARK_MS);
       for (const spark of sparks) {
@@ -263,12 +264,25 @@ export function createDialView(canvas) {
 
     // Ticks in fine gold: one a year, longer every fifth, longest every tenth with its
     // year, upright.
-    const reach = Math.ceil((radius * 0.7) / PX_PER_YEAR);
+    const reach = Math.ceil((radius * 0.7) / PX);
     const first = Math.max(dial.min, middle - reach);
     const final = Math.min(dial.max, middle + reach);
     c.strokeStyle = GOLD_LIT; c.fillStyle = GOLD_LIT; c.lineCap = 'butt';
     c.font = `600 12px ${UI}`; c.textAlign = 'center'; c.textBaseline = 'middle';
     for (let i = first; i <= final; i += 1) {
+      // A dial of named stops (the centuries, core/century.js): every tick is a stop and
+      // carries its name.
+      if (dial.stops) {
+        const from = at(i, 11);
+        const to = at(i, 11 + 20);
+        c.globalAlpha = 1; c.lineWidth = 2.5;
+        c.beginPath(); c.moveTo(from.x, from.y); c.lineTo(to.x, to.y); c.stroke();
+        const p = at(i, 11 + 20 + 15);
+        c.font = `600 14px ${UI}`;
+        c.fillText(dial.stops[i - dial.min] ?? '', p.x, p.y);
+        c.font = `600 12px ${UI}`;
+        continue;
+      }
       const year = yearFromIndex(i);
       const long = isDecade(year) ? 18 : year % 5 === 0 ? 12 : 8;
       const from = at(i, 11);
@@ -301,7 +315,7 @@ export function createDialView(canvas) {
     for (const mark of marks) {
       const i = yearIndex(mark.year);
       const away = i - dial.offset;
-      if (Math.abs(away) * PX_PER_YEAR > w / 2 - 30) {
+      if (Math.abs(away) * PX > w / 2 - 30) {
         if (away < 0 && (!older || i > yearIndex(older.year))) older = mark;
         if (away > 0 && (!newer || i < yearIndex(newer.year))) newer = mark;
         continue;
@@ -317,7 +331,7 @@ export function createDialView(canvas) {
       star(top.x, top.y, 8); c.fill();
       c.restore();
       // The tag stands clear of the needle when the mark is under it.
-      const near = Math.abs(away) * PX_PER_YEAR < 26;
+      const near = Math.abs(away) * PX < 26;
       const label = at(i, -37);
       tag(mark.label, label.x + (near ? (away < 0 ? -30 : 30) : 0), label.y);
     }
