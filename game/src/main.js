@@ -157,6 +157,7 @@ createTouch(stage, {
 
 function tickSounds(years) {
   if (years.length === 0) return;
+  dialView.tick();
   if (years.length > 2) sound.tick(false, true);
   else for (const year of years) sound.tick(isDecade(year), false);
 }
