@@ -53,8 +53,10 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #memo.plain{font-family:var(--ui);font-size:calc(14px * var(--text,1));font-weight:500;line-height:1.35;padding:7px 12px}
 #memo.flip{animation:flip .4s}
 @keyframes flip{50%{transform:rotate(-1.5deg) scaleY(0)}}
-#hint{left:0;right:0;top:18%;text-align:center;font-size:14px;opacity:.85;text-shadow:0 1px 6px #050330}
-.on-ground #hint{display:none}
+/* The one line of guidance: a small dark pill under the date, in the screen's type. */
+#hint{left:50%;top:124px;transform:translateX(-50%);max-width:92%;padding:6px 14px;border-radius:14px;background:rgba(5,3,48,.62);border:1px solid rgba(226,218,246,.3);
+  font-size:calc(13.5px * var(--text,1));white-space:nowrap;opacity:0;transition:opacity .4s;pointer-events:none}
+#hint.on{opacity:1}
 .on-globe #todayBtn,.on-globe #leaveBtn,.on-globe #memo,.on-globe #dots{display:none}
 #pins .pin{position:absolute;width:44px;height:44px;margin:-22px;border:0;background:none;padding:0}
 #pins .pin::before{content:"";position:absolute;left:15px;top:15px;width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(246,185,81,.35),0 0 14px var(--gold)}

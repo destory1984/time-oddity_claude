@@ -28,7 +28,9 @@ export function createHud(el) {
     text('dateText', state.dateText);
     text('placeText', state.placeText);
     text('subText', state.subText);
-    text('hint', state.hint ?? '');
+    // The guidance fades out before its words change, so that a new line is noticed.
+    if (changed('hintOn', Boolean(state.hint))) parts.hint.classList.toggle('on', Boolean(state.hint));
+    if (state.hint) text('hint', state.hint);
     [state.dots.day, state.dots.sky, state.dots.remains].forEach((on, i) => {
       if (changed(`dot${i}`, on)) dots[i].classList.toggle('on', on);
     });

@@ -10,7 +10,8 @@ import { formatDate, formatYear, todayDate } from './core/when.js';
 import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, stepDial } from './core/dial.js';
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
 import { soraPose } from './core/sora.js';
-import { dotsOf, emptyProgress, fillDot, quizSolved, solveQuiz } from './core/progress.js';
+import { guideLine } from './core/guide.js';
+import { countProgress, dotsOf, emptyProgress, fillDot, quizSolved, solveQuiz } from './core/progress.js';
 import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { createSkyCanvas } from './render/skyCanvas.js';
@@ -31,6 +32,7 @@ const MEMO_AT_MS = 1200;
 const SORA_FROM_MS = 2500;
 const SORA_FOR_MS = 4000;
 const CHIPS_AT_MS = 3000;
+const GUIDE_AT_MS = 4500;        // the guidance waits until the arrival has played out
 const HINT_SKY_AT_MS = 9000;
 const HINT_TODAY_AT_MS = 15000;
 const TO_TODAY_S = 3;
@@ -317,8 +319,17 @@ function frameGround(dt) {
     chips: mode === 'ground' && visit.t >= CHIPS_AT_MS && visit.look < 0.5,
     bubble: pose.saying ?? (bubble && visit.look < 0.5 ? bubble.text : null), sora: pose,
     todayLabel: at === 'today' ? '그날로' : '오늘로', showToday: true, showLeave: true,
-    hint: '', soraFade: pose.saying ? 0 : clamp01(visit.look * 1.6), glowSky, glowToday,
+    hint: mode === 'ground' && visit.t >= GUIDE_AT_MS && !dial.rolling && !(bubble && visit.look < 0.5)
+      ? guideLine({ where: 'ground', dots: visit.dots, at, lookingUp: visit.look > 0.5, quizSolved: quizSolved(progress, square.id) })
+      : null,
+    soraFade: pose.saying ? 0 : clamp01(visit.look * 1.6), glowSky, glowToday,
   });
+}
+
+const squareIds = SQUARES.map((sq) => sq.id);
+function globeCount() {
+  const count = countProgress(progress, squareIds);
+  return { complete: count.complete, visited: count.day, total: count.total };
 }
 
 function frameGlobe(dt) {
@@ -327,7 +338,7 @@ function frameGlobe(dt) {
   hud.set({
     name: '시간 한량 · 첫 토막', ...dateOnGlobe(), dots: { day: false, sky: false, remains: false },
     memo: null, memoPlain: false, chips: false, bubble: pose.saying, sora: pose, todayLabel: '오늘로', showToday: false, showLeave: false,
-    hint: mode === 'globe' ? '지구를 돌려 금색 점을 눌러 보렴' : '', soraFade: 0, glowSky: 0, glowToday: 0,
+    hint: mode === 'globe' && !pose.saying ? guideLine({ where: 'globe', ...globeCount() }) : null, soraFade: 0, glowSky: 0, glowToday: 0,
   });
 }
 
