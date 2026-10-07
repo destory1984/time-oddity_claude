@@ -58,7 +58,22 @@ const sound = createSound();
 const skyCanvas = createSkyCanvas($('sky'));
 const ground = createGround($('ground'));
 // ?dial=1..5 tries one of the glass looks of the dial (ui/dialView.js) until one is chosen.
-const dialView = createDialView($('dial'), Number(new URLSearchParams(location.search).get('dial')) || 0);
+const dialParam = new URLSearchParams(location.search).get('dial');
+const dialView = createDialView($('dial'), Number(dialParam) || 0);
+// With ?dial in the address a row of buttons 1 to 5 switches the look on the spot, so
+// that the looks can be compared while the dial is being turned.
+if (dialParam !== null) {
+  const pick = $('dialPick');
+  pick.hidden = false;
+  const names = ['테에 맺힌 반짝임', '비스듬한 빛줄기', '가끔 스치는 빛', '굴리면 미끄러지는 빛', '속에서 배어 나오는 빛'];
+  const show = (n) => {
+    dialView.setStyle(n);
+    for (const b of pick.querySelectorAll('button')) b.setAttribute('aria-pressed', String(Number(b.dataset.n) === n));
+    $('dialPickName').textContent = `${n} ${names[n - 1]}`;
+  };
+  for (const b of pick.querySelectorAll('button')) b.addEventListener('click', () => show(Number(b.dataset.n)));
+  show(Math.min(5, Math.max(1, Number(dialParam) || 1)));
+}
 const hud = createHud($('hud'));
 const dial = createDial({ year: today.year, maxYear: today.year });
 

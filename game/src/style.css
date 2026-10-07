@@ -174,3 +174,11 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 #openingFoot span{flex:1;text-align:center;color:#9fb0dc;font-size:13px}
 #openingFoot button{min-height:46px;padding:8px 18px;border-radius:14px;border:1px solid rgba(226,218,246,.45);background:rgba(24,42,92,.6);color:#eef3ff;font:inherit}
 #openingFoot #openingNext{border-color:var(--gold);color:var(--gold);font-weight:700;min-width:104px}
+
+/* The row of buttons for choosing the dial's glass (?dial in the address). */
+#dialPick{left:0;right:0;bottom:176px;display:grid;justify-items:center;gap:6px;pointer-events:none}
+#dialPick[hidden]{display:none}
+#dialPick span{padding:4px 12px;border-radius:12px;background:rgba(5,3,48,.75);color:var(--gold);font-size:13px;font-weight:600}
+#dialPick div{display:flex;gap:8px}
+#dialPick button{pointer-events:auto;width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(226,218,246,.6);background:rgba(5,3,48,.8);color:var(--white);font:600 17px var(--ui)}
+#dialPick button[aria-pressed="true"]{border-color:var(--gold);background:var(--gold);color:#1b1730}
