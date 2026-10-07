@@ -7,7 +7,7 @@ const ids = SQUARES.map((s) => s.id);
 describe('progress', () => {
   it('starts with nothing filled', () => {
     const p = emptyProgress();
-    expect(countProgress(p, ids)).toEqual({ day: 0, sky: 0, remains: 0, complete: 0, quiz: 0, total: 4 });
+    expect(countProgress(p, ids)).toEqual({ day: 0, sky: 0, remains: 0, complete: 0, quiz: 0, total: SQUARES.length });
   });
   it('fills a dot of a square and counts it, without changing what it was given', () => {
     const start = emptyProgress();

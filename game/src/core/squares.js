@@ -1,4 +1,4 @@
-// The four squares of the first slice. date is a historical date in the square's own
+// The squares so far: the four of the first slice and three added on 2026.10.7. date is a historical date in the square's own
 // calendar; hourLocal is local mean time at the square's longitude (no time zones).
 // facingAz is the way the ground picture looks: 0 north, 90 east. nightOnLook squares
 // are daytime events whose sky is shown at 9 pm that day when the player looks up.
@@ -24,6 +24,19 @@ export const SQUARES = [
     quiz: { question: '새로 지은 피라미드의 겉은 어땠나?', answer: '흰 돌로 매끈했다', proof: '흰 석회암으로 매끈하게', wrong: ['금으로 덮였다', '붉게 칠했다'] }, // (placeholder)
   },
   {
+    no: 10, id: 'pharos', name: '파로스의 등대', dateLabel: '기원전 280년경', place: '알렉산드리아, 이집트',
+    lat: 31.214, lon: 29.885,
+    // The day is not recorded. An evening near the autumn equinox of 280 BC stands in for it.
+    date: { year: -280, month: 9, day: 23 }, calendar: 'julian', hourLocal: 21,
+    facingAz: 350, nightOnLook: false,
+    // All of this square's lines are placeholders, and its facts are from memory.
+    memo: '바다 끝에 높은 등대를 세움.', sora: '탑 꼭대기에서 연기가 나. 등대래!',
+    memoToday: '남은 것: 없음. 그 자리에 성채.', soraToday: '등대는 없고 성이 있네.',
+    noteMemo: '기원전 280년경. 섬 끝에 높은 등대를 세웠다고 책에서 읽음. 날을 몰라 달은 못 적음.',
+    card: '기원전 280년 무렵, 알렉산드리아 앞 파로스 섬에 높은 등대가 세워졌습니다. 등대는 천오백 년 넘게 배들에게 길을 알려 주다가 지진으로 무너졌습니다. 지금 그 자리에는 등대의 돌로 쌓았다는 성채가 서 있습니다.',
+    quiz: { question: '등대는 왜 사라졌나?', answer: '지진으로 무너졌다', proof: '지진으로 무너졌습니다', wrong: ['불에 탔다', '바다에 잠겼다'] },
+  },
+  {
     no: 39, id: 'lunar1504', name: '콜럼버스의 월식', dateLabel: '1504.2.29', place: '세인트앤스 만, 자메이카',
     lat: 18.44, lon: -77.20,
     // 19.52 h local is 1504.3.1 00:40 UT, the middle of the eclipse.
@@ -47,6 +60,18 @@ export const SQUARES = [
     quiz: { question: '수정궁은 무엇으로 지었나?', answer: '유리와 쇠', proof: '유리와 쇠', wrong: ['돌과 나무', '벽돌'] },
   },
   {
+    no: 75, id: 'eiffel', name: '에펠탑', dateLabel: '1889.3.31', place: '파리, 프랑스',
+    lat: 48.858, lon: 2.294,
+    date: { year: 1889, month: 3, day: 31 }, calendar: 'gregorian', hourLocal: 13.5,
+    facingAz: 315, nightOnLook: true,
+    // All of this square's lines are placeholders, and its facts are from memory.
+    memo: '쇠로 지은 높은 탑을 다 세움.', sora: '쇠로 뜬 레이스 같아. 엄청 높다!',
+    memoToday: '남은 것: 에펠탑. 그대로 서 있음.', soraToday: '둘레 건물만 없고 탑은 그대로네.',
+    noteMemo: '1889.3.31. 파리에 쇠로 지은 탑을 다 세웠다고 책에서 읽음. 그날 달은 없음(삭).',
+    card: '1889년 3월 31일, 파리에서 에펠탑이 다 지어졌습니다. 만국박람회의 문으로 세운 이 탑은 스무 해 뒤에 헐기로 되어 있었습니다. 탑은 전파를 보내는 안테나로 쓸모를 얻어 헐리지 않았고, 지금도 그 자리에 서 있습니다.',
+    quiz: { question: '헐기로 했던 탑이 왜 남았나?', answer: '전파를 보내는 데 쓰여서', proof: '전파를 보내는 안테나로', wrong: ['너무 무거워서', '왕이 아껴서'] },
+  },
+  {
     no: 82, id: 'kittyHawk', name: '12초의 비행', dateLabel: '1903.12.17', place: '키티호크, 노스캐롤라이나',
     lat: 36.014, lon: -75.668,
     date: { year: 1903, month: 12, day: 17 }, calendar: 'gregorian', hourLocal: 10.5833,
@@ -56,6 +81,19 @@ export const SQUARES = [
     noteMemo: '1903.12.17. 형제가 만든 비행기가 12초를 날았다고 책에서 읽음. 그날 달은 그믐.',
     card: '1903년 12월 17일 아침, 오빌 라이트가 탄 비행기가 12초 동안 37m를 날았습니다. 형제는 그날 네 번 날았고, 마지막에는 윌버가 59초 동안 260m를 갔습니다. 그 비행기는 지금 워싱턴의 스미스소니언 박물관에 걸려 있습니다.',
     quiz: { question: '그 비행기는 지금 어디에 있나?', answer: '워싱턴의 박물관', proof: '워싱턴의 스미스소니언 박물관', wrong: ['바닷가의 헛간', '형제의 집'] },
+  },
+  {
+    no: 104, id: 'sputnik', name: '첫 인공위성', dateLabel: '1957.10.4', place: '바이코누르, 카자흐스탄',
+    lat: 45.920, lon: 63.342,
+    // 23.70 h local is 19:28 UT, the launch. The picture looks south-west, where the moon stood.
+    date: { year: 1957, month: 10, day: 4 }, calendar: 'gregorian', hourLocal: 23.70,
+    facingAz: 215, nightOnLook: false,
+    // All of this square's lines are placeholders, and its facts are from memory.
+    memo: '첫 인공위성을 쏘아 올림.', sora: '로켓이 서 있어. 곧 쏘나 봐!',
+    memoToday: '남은 것: 발사대.', soraToday: '로켓은 떠나고 받침만 남았네.',
+    noteMemo: '1957.10.4. 사람이 만든 첫 별을 쏘아 올렸다고 책에서 읽음. 그날 달은 거의 찬 달.',
+    card: '1957년 10월 4일 밤, 카자흐스탄의 초원에서 로켓 한 대가 올랐습니다. 로켓은 비치볼만 한 쇠공 스푸트니크를 지구 둘레의 길에 올려놓았습니다. 사람이 만든 첫 인공위성이었고, 그 발사대는 지금도 남아 있습니다.',
+    quiz: { question: '스푸트니크는 무엇이었나?', answer: '첫 인공위성', proof: '첫 인공위성', wrong: ['첫 우주 비행사', '달에 간 로켓'] },
   },
 ];
 

@@ -9,7 +9,7 @@ describe('the one line of guidance', () => {
   it('points to the pins on a first look at the globe, and to the notebook after that', () => {
     expect(globe({})).toBe('지구를 돌려 금색 점을 눌러 보렴');
     expect(globe({ visited: 1 })).toBe('수첩이나 금색 점으로 다음 날에 가 보렴');
-    expect(globe({ visited: 4, complete: 4 })).toBe('네 칸을 다 채웠구나. 고맙다');
+    expect(globe({ visited: 4, complete: 4 })).toBe('수첩을 다 채웠구나. 고맙다');
   });
   it('teaches one thing at a time on the ground, in the order of the three dots', () => {
     expect(ground({})).toBe(null);
