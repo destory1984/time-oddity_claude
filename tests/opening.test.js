@@ -25,6 +25,9 @@ describe('the opening', () => {
 describe('the first leaf', () => {
   it('is the yard of 1969, ahead of the numbered squares and named without a number', () => {
     expect(SQUARES[0].id).toBe('yard1969');
+    // The yard is in what is now Sejong City (the user, 2026.10.7: "세종시로 옮기자"), a
+    // hundred kilometres south of the palace of the Hunminjeongeum square.
+    expect([SQUARES[0].lat, SQUARES[0].lon]).toEqual([36.48, 127.29]);
     expect(SQUARES[0].no).toBe(0);
     expect(squareTitle(SQUARES[0])).toBe('첫 장 이웃집 마당');
     expect(squareTitle(SQUARES[1])).toBe('대피라미드');

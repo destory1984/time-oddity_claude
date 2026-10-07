@@ -19,7 +19,7 @@ describe('what lies under Sora', () => {
     expect(pinUnder([pin('far', 0.06, 0), pin('near', 0.01, 0.01)])).toBe('near');
   });
   it('is the square she is flying to when that one is under her too, however near another is', () => {
-    // Two squares at one place: the neighbour's yard and the palace are both in Seoul.
+    // Two squares at one place (as the neighbour's yard and the palace were, both in Seoul, until the yard moved).
     const both = [pin('yard', 0.001, 0), pin('palace', 0.004, 0.002)];
     expect(pinUnder(both)).toBe('yard');
     expect(pinUnder(both, 'palace')).toBe('palace');

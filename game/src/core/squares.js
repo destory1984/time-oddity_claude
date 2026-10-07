@@ -17,10 +17,11 @@ export const SQUARES = [
     // She was fifteen, in a neighbour's yard, watching the Moon landing on television.
     // The scene is set at about 9 pm that evening (a rebroadcast): the yard is dark, the
     // crescent moon is in the west, and the two men are still on the Moon. Where the yard
-    // was is not settled; Seoul stands in for it. The yard itself is made up, the one
+    // was: in what is now Sejong City (Yeongi county then; the user, 2026.10.7: "세종시로 옮기자").
+    // Until then Seoul stood in for it, right on the palace of the Hunminjeongeum square. The yard itself is made up, the one
     // exception to "what remains is real". hourLocal 20.5 is 9 pm Korean time.
     no: 0, id: 'yard1969', name: '이웃집 마당', dateLabel: 'AD 1969.7.21', place: '할머니의 마을',
-    lat: 37.57, lon: 126.98,
+    lat: 36.48, lon: 127.29,
     date: { year: 1969, month: 7, day: 21 }, calendar: 'gregorian', hourLocal: 20.5,
     // 228 rather than straight at the moon (240): it then stands right of the middle, clear of Sora.
     facingAz: 228, nightOnLook: false,
