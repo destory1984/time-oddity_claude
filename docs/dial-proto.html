@@ -16,7 +16,7 @@ body{display:grid;place-items:center;font-family:"Malgun Gothic",system-ui,sans-
 canvas{inset:0;width:100%;height:100%;pointer-events:none}
 .glass{background:rgba(5,3,48,.6);border:1px solid rgba(226,218,246,.45);border-radius:16px}
 #tabs{top:10px;left:10px;right:10px;display:flex;gap:6px}
-#tabs button{flex:1;height:38px;color:var(--white);font:inherit;font-size:13px}
+#tabs button{flex:1;height:38px;padding:0;color:var(--white);font:inherit;font-size:12px}
 #tabs button.on{border-color:var(--gold);color:var(--gold)}
 #date{top:60px;left:16px;pointer-events:none}
 #date b{display:block;font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
@@ -40,7 +40,7 @@ canvas{inset:0;width:100%;height:100%;pointer-events:none}
 #joy::after{content:"";width:28px;height:28px;border-radius:50%;background:rgba(226,218,246,.55)}
 #move{display:grid;gap:6px;pointer-events:none}
 #move span{padding:7px 13px;font-size:12px}
-#hit{touch-action:none;cursor:grab}
+#hit,#hit2{touch-action:none;cursor:grab}
 #hit:active{cursor:grabbing}
 </style>
 </head>
@@ -57,8 +57,10 @@ canvas{inset:0;width:100%;height:100%;pointer-events:none}
   <div id="joy" class="glass"></div>
   <div id="move"><span class="glass">전진</span><span class="glass">정지</span></div>
   <div id="hit"></div>
+  <div id="hit2"></div>
   <button id="jump" class="glass"></button>
   <div id="tabs">
+    <button class="glass" data-m="2">해+날</button>
     <button class="glass" data-m="3">3 큰 호</button>
     <button class="glass" data-m="4">4 세로 띠</button>
     <button class="glass" data-m="9">9 필름 띠</button>
@@ -66,7 +68,7 @@ canvas{inset:0;width:100%;height:100%;pointer-events:none}
 </div>
 <script>
 const $ = id => document.getElementById(id);
-const ph = $('ph'), sky = $('sky'), dial = $('dial'), hit = $('hit');
+const ph = $('ph'), sky = $('sky'), dial = $('dial'), hit = $('hit'), hit2 = $('hit2');
 const EV = 1851 + 120 / 365;        // 1851.5.1
 const TODAY = 2026 + 279 / 365;     // 2026.10.7
 const MIN = -2559, MAX = 2061.6;    // 기원전 2560 → 2061
@@ -74,7 +76,7 @@ const DAY = 1 / 365;
 const FW = 88;                      // 필름 한 칸의 너비
 const STOPS = [1700, 1800, 1850, EV, 1852.5, 1900, 1950, 2000, TODAY];
 
-let W = 0, H = 0, mode = 3;
+let W = 0, H = 0, mode = 2;
 let y = EV;            // 지금 보고 있는 때(소수점 있는 해)
 let vp = 0;            // 손가락 속도(픽셀/밀리초)
 let g = DAY / 12;      // 1픽셀이 몇 해인가
@@ -121,35 +123,47 @@ function layout() {
   const r = ph.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
   W = r.width; H = r.height;
   for (const c of [sky, dial]) { c.width = W * dpr; c.height = H * dpr; c.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0); }
-  const bottom = mode === 3 ? 122 : mode === 9 ? 116 : 24;
+  const bottom = mode === 3 || mode === 2 ? 122 : mode === 9 ? 116 : 24;
   $('joy').style.bottom = bottom + 'px';
-  $('move').style.cssText = `bottom:${bottom}px;right:${mode === 4 ? 78 : 16}px`;
+  $('move').style.cssText = `bottom:${bottom}px;right:${mode === 4 || mode === 2 ? 70 : 16}px`;
   hit.style.cssText = mode === 4 ? 'right:0;top:120px;bottom:120px;width:84px'
-    : `left:0;right:0;bottom:0;height:${mode === 3 ? 116 : 110}px`;
+    : `left:0;right:0;bottom:0;height:${mode === 9 ? 110 : 116}px`;
+  hit2.style.cssText = mode === 2 ? 'right:0;top:190px;bottom:250px;width:70px' : 'display:none';
+  $('bubble').style.marginLeft = mode === 2 || mode === 4 ? '-56px' : '20px';   // 오른쪽 띠를 피한다
   document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', +b.dataset.m === mode));
 }
 
-// 손가락
-hit.addEventListener('pointerdown', e => {
-  hit.setPointerCapture(e.pointerId);
-  dragging = true; target = null; vp = 0;
-  lastX = e.clientX; lastY = e.clientY; lastT = performance.now();
-});
-hit.addEventListener('pointermove', e => {
-  if (!dragging) return;
-  const now = performance.now(), dt = Math.max(4, now - lastT);
-  const d = mode === 4 ? e.clientY - lastY : e.clientX - lastX;
-  vp += (d / dt - vp) * 0.35;
-  step(d); moved = true;
-  lastX = e.clientX; lastY = e.clientY; lastT = now;
-});
-const up = () => { dragging = false; };
-hit.addEventListener('pointerup', up);
-hit.addEventListener('pointercancel', up);
+// 손가락. 해+날에서는 아래 호가 해, 오른쪽 띠가 날이다.
+let which = hit, y0 = 0, acc = 0, yv = y;   // 잡은 손잡이, 잡은 때의 해, 끈 거리, 해 다이얼이 그려지는 자리
+for (const el of [hit, hit2]) {
+  el.addEventListener('pointerdown', e => {
+    el.setPointerCapture(e.pointerId);
+    which = el; dragging = true; target = null; vp = 0; y0 = y; acc = 0;
+    lastX = e.clientX; lastY = e.clientY; lastT = performance.now();
+  });
+  el.addEventListener('pointermove', e => {
+    if (!dragging || which !== el) return;
+    const now = performance.now(), dt = Math.max(4, now - lastT);
+    const d = mode === 4 || el === hit2 ? e.clientY - lastY : e.clientX - lastX;
+    vp += (d / dt - vp) * 0.35;
+    step(d); moved = true;
+    lastX = e.clientX; lastY = e.clientY; lastT = now;
+  });
+  const up = () => { dragging = false; if (mode === 2) vp = 0; };
+  el.addEventListener('pointerup', up);
+  el.addEventListener('pointercancel', up);
+}
 
 // d 픽셀만큼 끌었을 때 때를 옮긴다. 오른쪽이나 아래로 끌면 옛날이 온다.
 function step(d) {
   if (mode === 9) { p = clamp(p - d / FW, 0, STOPS.length - 1); y = filmYear(p); return; }
+  if (mode === 2) {
+    acc += d;
+    // 해 다이얼은 한 칸에 꼭 한 해씩 넘어가서 달과 날이 그대로 남는다. 날 다이얼은 한 칸에 하루.
+    if (which === hit) { y = clamp(y0 - Math.round(acc / PX), MIN, MAX); yv = y0 - acc / PX; }
+    else y = clamp(y0 - Math.round(acc / PX) * DAY, MIN, MAX);
+    return;
+  }
   y = clamp(y - d * g, MIN, MAX);
 }
 
@@ -170,8 +184,9 @@ function tick(dt) {
   } else if (moved) {
     // 멈춘 자리가 사건 칸에서 눈금 반 칸 남짓(0.6칸) 안이면 그날에 걸린다. 적어도 2일.
     moved = false;
-    const win = Math.max(2 * DAY, 0.6 * GEARS[gear]);
-    for (const s of [EV, TODAY]) if (y !== s && Math.abs(y - s) < win) target = s;
+    // 해 다이얼은 사건이 있는 해에 멈추기만 하면 그날에 걸린다.
+    const win = mode !== 2 ? Math.max(2 * DAY, 0.6 * GEARS[gear]) : which === hit2 ? 2 * DAY : 0;
+    for (const s of [EV, TODAY]) if (y !== s && (win ? Math.abs(y - s) < win : Math.floor(y) === Math.floor(s))) target = s;
   }
 }
 
@@ -204,8 +219,8 @@ function drawSky() {
 }
 
 // 눈금: 화면에 보이는 간격에 맞춰 달, 해, 10년, 100년, 1000년 가운데서 고른다.
-function ticks(span, each) {
-  const z = 1 / g, U = [DAY, 1 / 12, 1, 10, 100, 1000];
+function ticks(span, each, gg = g, y = window.yNow) {
+  const z = 1 / gg, U = [DAY, 1 / 12, 1, 10, 100, 1000];
   const minor = U.find(u => u * z >= 7) || 1000, major = U.find(u => u > DAY && u * z >= 58) || 1000;
   const n = Math.round(major / minor), a = Math.ceil((y - span / z) / minor), b = Math.floor((y + span / z) / minor);
   for (let k = a; k <= b && k - a < 600; k++) {
@@ -226,29 +241,46 @@ function ticks(span, each) {
 function drawDial() {
   const c = dial.getContext('2d'); c.clearRect(0, 0, W, H);
   c.font = '11px "Malgun Gothic",sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
-  if (mode === 3) {
+  if (mode === 2) {
+    drawArc(c, 1 / PX, yv);
+    drawTape(c, DAY / PX, 190, H - 250, 52);
+    c.fillStyle = '#f6b951'; c.textAlign = 'center';
+    c.fillText('해', W / 2 - 22, H - 108); c.fillText('날', W - 26, 178);
+  } else if (mode === 3) drawArc(c, g, y);
+  else if (mode === 4) drawTape(c, g, 120, H - 120, 66);
+  else drawFilm(c);
+}
+function drawArc(c, gg, yc) {
+  {
     const R = W * 1.15, cx = W / 2, cy = H - 100 + R;
     c.fillStyle = 'rgba(5,3,48,.78)'; c.beginPath(); c.arc(cx, cy, R, 0, 6.2832); c.fill();
     c.strokeStyle = '#f6b951'; c.lineWidth = 2; c.stroke();
+    c.textAlign = 'center';
     ticks(R * 0.7, (d, big, label) => {
       const a = d / R; c.save(); c.translate(cx, cy); c.rotate(a);
       c.fillStyle = 'rgba(251,248,249,.9)'; c.fillRect(-(big ? 1 : 0.5), -R + 2, big ? 2 : 1, big ? 18 : 9);
       if (label) c.fillText(label, 0, -R + 34);
       c.restore();
-    });
+    }, gg, yc);
     c.fillStyle = '#f6b951'; c.beginPath(); c.moveTo(cx - 8, H - 114); c.lineTo(cx + 8, H - 114); c.lineTo(cx, H - 98); c.fill();
-  } else if (mode === 4) {
-    const x0 = W - 66, t = 120, b = H - 120, cy = (t + b) / 2;
+  }
+}
+function drawTape(c, gg, t, b, w) {
+  {
+    const x0 = W - w, cy = (t + b) / 2;
     c.save(); c.beginPath(); c.roundRect(x0, t, 80, b - t, 16); c.clip();
     c.fillStyle = 'rgba(5,3,48,.7)'; c.fillRect(x0, t, 80, b - t);
     ticks((b - t) / 2, (d, big, label) => {
       c.fillStyle = 'rgba(251,248,249,.9)'; c.fillRect(W - (big ? 18 : 9), cy + d - (big ? 1 : 0.5), big ? 18 : 9, big ? 2 : 1);
       if (label) { c.textAlign = 'right'; c.fillText(label, W - 22, cy + d); }
-    });
+    }, gg, y);
     c.restore();
-    c.fillStyle = '#f6b951'; c.fillRect(x0 - 6, cy - 1, 72, 2);
+    c.fillStyle = '#f6b951'; c.fillRect(x0 - 6, cy - 1, w + 6, 2);
     c.beginPath(); c.moveTo(x0 - 14, cy - 7); c.lineTo(x0 - 14, cy + 7); c.lineTo(x0 - 2, cy); c.fill();
-  } else {
+  }
+}
+function drawFilm(c) {
+  {
     const top = H - 104, hgt = 88;
     c.fillStyle = '#15122b'; c.fillRect(0, top, W, hgt);
     c.fillStyle = '#f2e6c8';
@@ -267,8 +299,8 @@ function drawDial() {
 }
 
 function drawText() {
-  $('date').firstElementChild.textContent = dateText(y, mode !== 9 && gear >= 2 && (dragging || Math.abs(vp) > 0.03));
-  $('gain').style.display = mode === 9 ? 'none' : 'flex';
+  $('date').firstElementChild.textContent = dateText(y, mode !== 9 && mode !== 2 && gear >= 2 && (dragging || Math.abs(vp) > 0.03));
+  $('gain').style.display = mode === 9 || mode === 2 ? 'none' : 'flex';
   [...$('gain').children].forEach((b, i) => { if (i) b.classList.toggle('on', i - 1 === gear); });
   const palace = smooth(1850.6, EV, y) * (1 - smooth(1852.2, 1852.9, y));
   $('then').style.opacity = palace;
@@ -289,7 +321,7 @@ addEventListener('resize', layout);
 let prev = performance.now();
 function frame(now) {
   const dt = Math.min(50, now - prev); prev = now;
-  tick(dt); shift(dt); drawSky(); drawDial(); drawText();
+  tick(dt); shift(dt); window.yNow = y; if (!(dragging && mode === 2 && which === hit)) yv += (y - yv) * Math.min(1, dt * 0.02); drawSky(); drawDial(); drawText();
   requestAnimationFrame(frame);
 }
 layout(); requestAnimationFrame(frame);
