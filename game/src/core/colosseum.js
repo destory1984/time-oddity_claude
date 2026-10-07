@@ -21,6 +21,7 @@ export const PIT = 6;             // the rooms under the arena are this deep
 export const EYE = 1.7;
 export const YEARS = [80, 1349, 1750, 2026];
 export const FOREVER = Infinity;
+export const stands = (year, born, gone) => year >= born && year < gone;
 
 const TAU = Math.PI * 2;
 const STEP = TAU / BAYS;
@@ -106,23 +107,35 @@ export function standHeight(d) {
 const tierAt = (d) => (d <= TIERS[0].to ? 0 : d <= TIERS[1].to ? 1 : 2);
 const RUIN = 0.55;          // what is left under the seats stands this high beside them
 
+// Before it was built there was nothing here to fall down (the user, 2026.10.8: "AD 80년에
+// 완공되었다면, 다이얼을 BC 100 정도로 하면, 아예 없어져야 하는 거 아님?"). The ground was a
+// valley; after the fire of 64 the emperor Nero had a lake made in it; the lake was
+// drained and building began about 72, and it rose a level every two years or so.
+export const LAKE = [64, 72];
+export const BUILT_FROM = 72;
+// The year a level of the walls was up, from the ground: three arcades and the attic.
+export const LEVEL_BORN = [73, 75, 77, 79];
+// The stands, by tier as TIERS lists them (the top one first): laid from the arena upward.
+export const TIER_BORN = [78, 76, 74];
+export const FOOTINGS_BORN = 73;       // the walls under the stands
+export const FITTED_BORN = 80;         // the gallery, the awning and its masts, the statues, the floor
+export const COLOSSUS_BORN = 128;      // moved to stand beside it by the emperor Hadrian
 export const FLOOR_WOOD_GONE = 523;     // the last games; after them earth filled the arena
 export const FLOOR_EARTH_GONE = 1874;   // dug out: the rooms beneath come to light
 export const DECK_BORN = 2000;          // a part of the floor laid again
 export const BUTTRESS_BORN = [1807, 1826];
 export const COLOSSUS_GONE = 1000;      // when the bronze giant went is not known
 
-export const stands = (year, born, gone) => year >= born && year < gone;
 
 // The top of the outer wall at a bay in a year: the levels fall from the top down.
 export function outerTop(bay, year) {
   let top = 0;
-  LEVELS.forEach((level, i) => { if (year < FATES.outer[bay][i]) top = Math.max(top, level.y + level.h); });
+  LEVELS.forEach((level, i) => { if (stands(year, LEVEL_BORN[i], FATES.outer[bay][i])) top = Math.max(top, level.y + level.h); });
   return top;
 }
 export function ring2Top(bay, year) {
   let top = 0;
-  for (let i = 0; i < 3; i += 1) if (year < FATES.ring2[bay][i]) top = Math.max(top, LEVELS[i].y + LEVELS[i].h);
+  for (let i = 0; i < 3; i += 1) if (stands(year, LEVEL_BORN[i], FATES.ring2[bay][i])) top = Math.max(top, LEVELS[i].y + LEVELS[i].h);
   return top;
 }
 
@@ -130,11 +143,12 @@ export function ring2Top(bay, year) {
 // stands, the ruin under them, and the roof of the top gallery when above it.
 export function floorAt(x, z, y, year) {
   const { bay, d } = ringPlace(x, z);
-  if (d < 0 || d >= ARENA) return EYE;
+  if (d < 0 || d >= ARENA || year < FOOTINGS_BORN) return EYE;
   const chunk = Math.floor(bay / 8);
-  if (d < RING2) return y > 30 && year < FATES.gallery[chunk] ? 36 + EYE : EYE;
+  if (d < RING2) return y > 30 && stands(year, FITTED_BORN, FATES.gallery[chunk]) ? 36 + EYE : EYE;
   const h = standHeight(d);
-  return (year < FATES.seats[tierAt(d)][chunk] ? h : h * RUIN) + EYE;
+  const tier = tierAt(d);
+  return (stands(year, TIER_BORN[tier], FATES.seats[tier][chunk]) ? h : h * RUIN) + EYE;
 }
 
 const WALL_HALF = 1.7;      // half a wall's thickness, with room for the eye

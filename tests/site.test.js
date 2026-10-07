@@ -23,6 +23,15 @@ describe('the Colosseum', () => {
     expect(ringPlace(SEMI_LONG + 5, 0).d).toBeCloseTo(-5, 1);
     expect(ringPlace(0, 0).d).toBeGreaterThan(ARENA);
   });
+  it('is not there before it was built, and rises a level at a time', () => {
+    expect(outerTop(0, -100)).toBe(0);
+    expect(outerTop(0, 71)).toBe(0);
+    expect(outerTop(0, 73)).toBeCloseTo(10.5, 9);
+    expect(outerTop(0, 77)).toBeCloseTo(33.95, 9);
+    expect(inWall(SEMI_LONG, 0, 20, -100)).toBe(false);
+    expect(floorAt(SEMI_LONG - 24, 0, EYE, -100)).toBe(EYE);
+    expect(floorAt(SEMI_LONG - 45, 0, EYE, 75)).toBeGreaterThan(EYE + 3);
+  });
   it('stands whole in the year 80', () => {
     for (let bay = 0; bay < BAYS; bay += 1) expect(outerTop(bay, 80)).toBeCloseTo(WALL_TOP, 9);
   });
@@ -68,12 +77,12 @@ describe('the Colosseum', () => {
 });
 
 describe('the places', () => {
-  it('are squares, start on their feet and mark the first year first and today last', () => {
+  it('are squares, have a spot to stand on the ground and mark the first year and today', () => {
     for (const [id, def] of Object.entries(SITES)) {
       const sq = squareById(id);
       expect(sq, id).toBeTruthy();
-      expect(def.start.y).toBe(EYE);
-      expect(def.marks[0].year).toBe(sq.date.year);
+      expect(def.spots.some((spot) => spot.y === EYE), id).toBe(true);
+      expect(def.marks.some((m) => m.year === sq.date.year), id).toBe(true);
       expect(def.marks[def.marks.length - 1].year).toBe('today');
       for (const m of def.marks) {
         expect(m.label.length, m.label).toBeLessThanOrEqual(5);

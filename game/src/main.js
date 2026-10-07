@@ -17,8 +17,7 @@ import { createFindGame } from './ui/find.js';
 import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
-import { createFlier, farFrom, lookBy, nudgeFlier, stepFlier } from './core/fly.js';
-import { floorAt, inWall, toLocal } from './core/colosseum.js';
+import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
 import { createSite } from './render/site.js';
 import { createFlyKeys } from './ui/flyKeys.js';
 import { jdFromDate, utHour } from './core/when.js';
@@ -258,23 +257,33 @@ function layout() {
 // The stage, not the window: a phone's bars and a turned screen change it without a window resize.
 new ResizeObserver(layout).observe(stage);
 
-// A square that is a place in three dimensions (core/sites.js) is flown about instead of
-// looked at: no picture, no dots, no looking up. The first of them is the Colosseum
+// A square that is a place in three dimensions (core/sites.js) is looked over from any
+// side instead of looked at in a picture: no dots, no looking up. The eye goes round it
+// or stands at a spot (core/orbit.js); it is not flown. The first of them is the Colosseum
 // (docs/기획서-v2-열두-자리.md section 6).
-let site = null;            // { t, flier, def } while she is at such a place
+let site = null;            // { t, view, def } while she is at such a place
 let siteView = null;        // its scene, built the first time it is needed
 const flyKeys = createFlyKeys({ active: () => mode === 'site', forwardButton: $('flyForward'), backButton: $('flyBack') });
-const sitePlace = () => ({
-  floorAt: (x, z, y) => { const l = toLocal(x, z); return floorAt(l.x, l.z, y, dial.year); },
-  inWall: (x, z, y) => { const l = toLocal(x, z); return inWall(l.x, l.z, y, dial.year); },
-});
+// The buttons that say where she looks from: going round outside, or one of the spots.
+function showViewPad() {
+  const pad = $('viewPad');
+  pad.replaceChildren();
+  for (const { id, label } of [{ id: 'round', label: '밖에서' }, ...site.def.spots]) {
+    const button = document.createElement('button');
+    button.type = 'button'; button.className = 'glass'; button.textContent = label;
+    button.classList.toggle('on', site.view.at === id);
+    button.addEventListener('click', () => { standAt(site.view, id); site.moved = true; showViewPad(); });
+    pad.append(button);
+  }
+  stage.classList.toggle('standing', site.view.at !== 'round');
+}
 function showSite(sq) {
   const def = SITES[sq.id];
   square = sq;
   visit = null;
   if (!siteView) siteView = createSite($('site'));
-  site = { t: 0, def, flier: createFlier(def.start), moved: false };
-  // On the maker's machine the flier can be put anywhere from the console, to look the model over.
+  site = { t: 0, def, view: createView({ round: def.round, spots: def.spots }), moved: false };
+  // On the maker's machine the eye can be put anywhere from the console, to look the model over.
   if (isLocalHost(location.hostname)) window.siteDebug = site;
   flyKeys.clear();
   bubble = null;
@@ -282,12 +291,13 @@ function showSite(sq) {
   globe.setActive(false);
   stage.className = 'on-ground on-site';
   mode = 'site';
+  showViewPad();
   siteView.resize();
   // Having stood here once, she comes straight back another time.
   keep(fillDot(progress, sq.id, 'day'));
   $('flyHelp').textContent = matchMedia('(pointer: coarse)').matches
-    ? '한 손가락으로 둘러보고, 두 손가락으로 날고, 벌리면 오른다'
-    : 'W A S D 로 날고, 끌어서 둘러본다 · Q E 돌기 · ↑ ↓ 오르내리기 · Shift 빠르게';
+    ? '끌어서 돌려 본다 · 두 손가락을 벌려 가까이'
+    : '끌어서 돌려 본다 · 휠이나 ＋ － 로 가까이, 멀리';
   sound.paper();
 }
 // Standing on a square: on its ground picture, or at the place itself where there is one.
@@ -428,18 +438,16 @@ createTouch(stage, {
   onGlobeDrag: (dx, dy) => globe.drag(dx, dy),
   onGlobeEnd: () => globe.release(),
   onGlobeZoom: (factor) => showZoom(globe.zoomBy(factor)),
-  // At a place: a finger turns the view as if it held the scene, two fingers carry her
-  // over the ground, and parting them lifts her.
-  onSiteLook: (dx, dy) => { if (site) { lookBy(site.flier, -dx * LOOK_DEG_PER_PX, dy * LOOK_DEG_PER_PX); site.moved = true; } },
-  onSiteSlide: (dx, dy) => { if (site) { nudgeFlier(site.flier, dy * SLIDE_M_PER_PX, -dx * SLIDE_M_PER_PX, 0, sitePlace()); site.moved = true; } },
-  onSiteLift: (px) => { if (site) nudgeFlier(site.flier, 0, 0, px * LIFT_M_PER_PX, sitePlace()); },
+  // At a place: a finger turns the scene as if it held it; two fingers parting bring it closer.
+  onSiteLook: (dx, dy) => { if (site) { turnView(site.view, dx * LOOK_DEG_PER_PX, dy * LOOK_DEG_PER_PX); site.moved = true; } },
+  onSiteLift: (px) => { if (site) { nearView(site.view, -px * PINCH_M_PER_PX); site.moved = true; } },
 });
 const SITE_ROLL_S = 3.5;         // the dial takes this long between two of a place's marked years
-const LOOK_DEG_PER_PX = 0.22;
-const SLIDE_M_PER_PX = 0.25;
-const LIFT_M_PER_PX = 0.3;
-const WHEEL_M = 8;
-const SITE_REACH = 600;          // flying this far from the middle of a place goes back to the globe
+const LOOK_DEG_PER_PX = 0.3;
+const PINCH_M_PER_PX = 1.2;
+const WHEEL_M = 22;
+const NEAR_M_PER_S = 130;        // the ＋ and － buttons and the keys bring the place nearer this fast
+const TURN_DEG_PER_S = 60;       // the keys carry the eye round this fast
 
 // Closer and farther: two fingers, the wheel, or the two buttons at the right.
 function showZoom(zoom) {
@@ -449,7 +457,7 @@ function showZoom(zoom) {
 $('zoomIn').addEventListener('click', () => showZoom(globe.zoomBy(ZOOM_STEP)));
 $('zoomOut').addEventListener('click', () => showZoom(globe.zoomBy(1 / ZOOM_STEP)));
 stage.addEventListener('wheel', (e) => {
-  if (mode === 'site' && site && !e.target.closest('dialog')) { e.preventDefault(); nudgeFlier(site.flier, e.deltaY < 0 ? WHEEL_M : -WHEEL_M, 0, 0, sitePlace()); site.moved = true; return; }
+  if (mode === 'site' && site && !e.target.closest('dialog')) { e.preventDefault(); nearView(site.view, e.deltaY < 0 ? -WHEEL_M : WHEEL_M); site.moved = true; return; }
   if (mode !== 'globe' || e.target.closest('dialog')) return;
   e.preventDefault();
   showZoom(globe.zoomBy(e.deltaY < 0 ? 1.15 : 1 / 1.15));
@@ -467,15 +475,17 @@ function dateOnGlobe() {
   return { dateText: `${formatYear(dial.year)}년`, placeText: '지구 위', subText: '' };
 }
 
-// One frame at a place in three dimensions: she flies, the parts follow the dial, the
-// computed sky is drawn behind as the eye sees it.
+// One frame at a place in three dimensions: the eye goes where it is wanted, the parts
+// follow the dial, the computed sky is drawn behind as the eye sees it.
 function frameSite(dt) {
-  const { flier, def } = site;
+  const { view, def } = site;
   site.t += dt;
-  const intent = flyKeys.intent();
-  if (intent.drive || intent.strafe || intent.rise || intent.turn) site.moved = true;
-  stepFlier(flier, dt, intent, sitePlace());
-  if (farFrom(flier) > SITE_REACH) { leave(); return; }
+  // The keys and the two buttons do what a drag and the wheel do.
+  const keys = flyKeys.intent();
+  if (keys.drive || keys.strafe || keys.rise || keys.turn) site.moved = true;
+  nearView(view, (-keys.drive * NEAR_M_PER_S * dt) / 1000);
+  turnView(view, (-(keys.strafe + keys.turn) * TURN_DEG_PER_S * dt) / 1000, (keys.rise * TURN_DEG_PER_S * dt) / 1000);
+  const flier = stepView(view, dt);
   siteView.update(dial.year, dt);
   // The hour is one and the same in every year: a little after sunset on the square's day.
   const jd = jdFromDate({ year: dial.year, month: square.date.month, day: square.date.day, hour: utHour(def.hourLocal, square.lon) }, dial.year < 1583 ? 'julian' : 'gregorian');
@@ -488,6 +498,7 @@ function frameSite(dt) {
   // Grandmother's slip follows the dial: what she wrote of the latest marked year reached.
   let memo = null;
   if (site.t >= MEMO_AT_MS) for (const m of def.marks) if (dial.year >= (m.year === 'today' ? today.year : m.year)) memo = m.memo ?? (m.year === 'today' ? square.memoToday : square.memo);
+  if (site.t >= MEMO_AT_MS && memo === null) memo = '이 해는 적어 둔 게 없구나';
   const pose = soraPose({ now: performance.now(), hushAt });
   $('flyHelp').classList.toggle('on', site.t > 1500 && (site.t < 12000 || !site.moved));
   hud.set({

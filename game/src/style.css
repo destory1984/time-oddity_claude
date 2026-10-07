@@ -18,10 +18,15 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 .on-site #site{visibility:visible}
 .on-ground.on-site #ground,.on-ground.on-site #glowSky{visibility:hidden}
 .on-site #dots,.on-site #quizChip,.on-site #findChip,.on-site #photoButton,.on-site #todayBtn,.on-site #hint{display:none !important}
-#flyHelp,#flyPad{display:none}
+#flyHelp,#flyPad,#viewPad{display:none}
 .on-site #flyPad{display:flex;flex-direction:column;gap:8px;right:16px;bottom:206px}
+.on-site.standing #flyPad{display:none}
+/* Where she looks from: going round outside, or standing at a spot. */
+.on-site #viewPad{display:flex;gap:6px;left:16px;top:158px}
+#viewPad button{padding:6px 10px;font-size:12.5px}
+#viewPad button.on{border-color:var(--gold);color:var(--gold)}
 #flyPad button{width:var(--tap);height:var(--tap);padding:0;font-size:18px;touch-action:none;user-select:none;-webkit-user-select:none}
-.on-site #flyHelp{display:block;left:12px;right:12px;top:150px;text-align:center;font-size:12.5px;line-height:1.6;color:var(--white);text-shadow:0 1px 6px #050330;opacity:0;transition:opacity .6s;pointer-events:none}
+.on-site #flyHelp{display:block;left:12px;right:12px;top:200px;text-align:center;font-size:12.5px;line-height:1.6;color:var(--white);text-shadow:0 1px 6px #050330;opacity:0;transition:opacity .6s;pointer-events:none}
 .on-site #flyHelp.on{opacity:.92}
 /* She is the one flying: small and to the side while she says her line, then put away. */
 .on-site #sora{left:8px;top:43%;width:92px}

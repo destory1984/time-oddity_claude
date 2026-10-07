@@ -1,7 +1,8 @@
-// The keys of flight at a place, as in volume 1: W and S go the way she looks and back,
-// A and D (and the left and right arrows) slide her sideways, the up and down arrows
-// (and the space bar and C) lift and lower her, Q and E turn her, Shift goes fast. Two
-// buttons on the screen do forward and back for a hand that has only a mouse or a thumb.
+// The keys at a place. What they ask for is told in flight's words (drive, strafe, rise,
+// turn), as they were first made for volume 1's free flight; the game now reads them as
+// nearer and farther (W and S), round to the left and right (A and D, Q and E, the left
+// and right arrows) and higher and lower (the up and down arrows). Two buttons on the
+// screen do nearer and farther for a hand that has only a mouse or a thumb.
 const KEYS = ['KeyW', 'KeyS', 'KeyA', 'KeyD', 'KeyQ', 'KeyE', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space', 'KeyC', 'ShiftLeft', 'ShiftRight'];
 
 export function createFlyKeys({ active, forwardButton, backButton }) {

@@ -21,7 +21,8 @@ import { Color3, Color4 } from '@babylonjs/core/Maths/math.color.js';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
 import { frameZoom } from '../ui/shell.js';
 import {
-  ARENA, BAYS, BUTTRESS_BORN, COLOSSUS_GONE, DECK_BORN, FATES, FLOOR_EARTH_GONE, FLOOR_WOOD_GONE, FOREVER, LEVELS, PIT,
+  ARENA, BAYS, BUILT_FROM, BUTTRESS_BORN, COLOSSUS_BORN, COLOSSUS_GONE, DECK_BORN, FATES, FITTED_BORN, FLOOR_EARTH_GONE, FLOOR_WOOD_GONE,
+  FOOTINGS_BORN, FOREVER, LAKE, LEVEL_BORN, LEVELS, PIT, TIER_BORN,
   PODIUM, RING2, STANDS_WITHIN, TIERS, TURN_DEG, bayMiddle, bayStart, onRing, stands,
 } from '../core/colosseum.js';
 
@@ -102,7 +103,7 @@ export function createSite(canvas) {
   scene.clearColor = new Color4(0, 0, 0, 0);
   scene.skipPointerMovePicking = true;
   const camera = new FreeCamera('eye', new Vector3(0, 1.7, 0), scene);
-  camera.minZ = 0.3; camera.maxZ = 12000;
+  camera.minZ = 0.5; camera.maxZ = 7000;   // no nearer and no farther than is needed: the depth is told apart more finely
 
   const skyLight = new HemisphericLight('sky', new Vector3(0, 1, 0), scene);
   skyLight.intensity = 0.95;
@@ -141,6 +142,8 @@ export function createSite(canvas) {
   const trunk = paint('trunk', '#5a4330');
   const land = paint('land', '#a59673', false);
   const paving = paint('paving', '#c2b392');
+  const water = paint('water', '#4f8f9a');
+  water.emissiveColor = hex('#16303a');
 
   // The building is turned to lie as it lies in Rome.
   const root = new TransformNode('colosseum', scene);
@@ -183,22 +186,22 @@ export function createSite(canvas) {
     LEVELS.slice(0, 3).forEach((level, i) => {
       const a = place(outerArch[i].createInstance(`o${bay}-${i}`), t, 0, level.y);
       a.scaling.x = (widthAt(t, 0) / BAY_WIDE) * 1.01;
-      part(a, -FOREVER, FATES.outer[bay][i], falls(a, level.y));
+      part(a, LEVEL_BORN[i], FATES.outer[bay][i], falls(a, level.y));
       const b = place(innerArch[i].createInstance(`i${bay}-${i}`), t, RING2, level.y);
       b.scaling.x = (widthAt(t, RING2) / BAY_WIDE) * 1.01;
-      part(b, -FOREVER, FATES.ring2[bay][i], falls(b, level.y));
+      part(b, LEVEL_BORN[i], FATES.ring2[bay][i], falls(b, level.y));
       if (i > 0) {
         const s = place(statue.createInstance(`s${bay}-${i}`), t, 0, level.y + 2);
-        part(s, -FOREVER, FATES.statues[bay * 2 + i - 1], falls(s, level.y + 2));
+        part(s, FITTED_BORN, FATES.statues[bay * 2 + i - 1], falls(s, level.y + 2));
       }
     });
     const top = LEVELS[3];
     const box = place(attic.createInstance(`a${bay}`), t, 0, top.y + top.h / 2);
     box.scaling.x = (widthAt(t, 0) / BAY_WIDE) * 1.01;
-    part(box, -FOREVER, FATES.outer[bay][3], falls(box, top.y + top.h / 2));
+    part(box, LEVEL_BORN[3], FATES.outer[bay][3], falls(box, top.y + top.h / 2));
     for (let k = 0; k < 3; k += 1) {
       const pole = place(mast.createInstance(`m${bay}-${k}`), t + (k - 1) * (STEP / 3), -1.5, 45.5);
-      part(pole, -FOREVER, FATES.masts[bay * 3 + k], falls(pole, 45.5));
+      part(pole, FITTED_BORN, FATES.masts[bay * 3 + k], falls(pole, 45.5));
     }
     // What holds the stands up, and is all that is left of them: walls running in toward
     // the arena, lower as they go.
@@ -207,7 +210,7 @@ export function createSite(canvas) {
       const high = (tier.top + tier.foot) / 2 * 0.55 * FATES.jitter[bay * 3 + k];
       const w = place(wallBox.createInstance(`r${bay}-${k}`), bayStart(bay), mid, high / 2);
       w.scaling.set(1.3, high, tier.to - tier.from);
-      w.freezeWorldMatrix();
+      part(w, FOOTINGS_BORN, FOREVER, (v) => { w.scaling.y = Math.max(0.001, high * v); w.position.y = (high * v) / 2; });
     });
   }
 
@@ -244,7 +247,7 @@ export function createSite(canvas) {
         }
       }
       const seats = f.mesh(`seats${k}-${chunk}`, scene, marble, root);
-      part(seats, -FOREVER, FATES.seats[k][chunk], settles(seats));
+      part(seats, TIER_BORN[k], FATES.seats[k][chunk], settles(seats));
     });
     const g = faces();
     const a = faces();
@@ -258,9 +261,9 @@ export function createSite(canvas) {
       a.quad(at(p, -0.5, 46.5), at(q, -0.5, 46.5), at(q, 16, 42), at(p, 16, 42));
     }
     const gallery = g.mesh(`gallery${chunk}`, scene, inner, root);
-    part(gallery, -FOREVER, FATES.gallery[chunk], settles(gallery));
+    part(gallery, FITTED_BORN, FATES.gallery[chunk], settles(gallery));
     const cloth = a.mesh(`awning${chunk}`, scene, red, root);
-    part(cloth, -FOREVER, FATES.awning[chunk], settles(cloth));
+    part(cloth, FITTED_BORN, FATES.awning[chunk], settles(cloth));
   }
 
   // The low walls that ring the ruin, always there under the stands.
@@ -268,11 +271,14 @@ export function createSite(canvas) {
   for (let bay = 0; bay < BAYS; bay += 1) {
     const p = bayStart(bay);
     const q = p + STEP;
-    for (const [d, high] of [[24, 12], [40, 5.5], [ARENA, 2.2]]) rings.quad(at(p, d, 0), at(q, d, 0), at(q, d, high), at(p, d, high), 0.85);
+    // Each stands a little behind the face of the step in front of it: two faces in one
+    // place flicker (the user saw it on the podium wall, 2026.10.8).
+    for (const [d, high] of [[23.3, 12], [39.3, 5.5], [ARENA - 0.7, 2.2]]) rings.quad(at(p, d, 0), at(q, d, 0), at(q, d, high), at(p, d, high), 0.85);
     // The side of the pit under the arena.
     rings.quad(at(p, ARENA + 0.3, -PIT), at(q, ARENA + 0.3, -PIT), at(q, ARENA + 0.3, 0), at(p, ARENA + 0.3, 0), 0.7);
   }
-  rings.mesh('rings', scene, brick, root).freezeWorldMatrix();
+  const ringWalls = rings.mesh('rings', scene, brick, root);
+  part(ringWalls, FOOTINGS_BORN, FOREVER, settles(ringWalls));
 
   // The arena: a wooden floor, earth under it once the games had ended, and beneath both
   // the rooms and passages that were dug out in the nineteenth century.
@@ -295,10 +301,10 @@ export function createSite(canvas) {
   }
   const sinks = (node, y) => (v) => { node.position.y = y - (1 - v) * (PIT + 0.5); };
   const earthFloor = fan(0).mesh('earthFloor', scene, earth, root);
-  part(earthFloor, -FOREVER, FLOOR_EARTH_GONE, sinks(earthFloor, 0));
-  const woodFloor = fan(0.08).mesh('woodFloor', scene, wood, root);
-  part(woodFloor, -FOREVER, FLOOR_WOOD_GONE, sinks(woodFloor, 0));
-  const deck = fan(0.06, (p) => p[0] > 20, [31, 0.06, 0]).mesh('deck', scene, wood, root);
+  part(earthFloor, BUILT_FROM, FLOOR_EARTH_GONE, sinks(earthFloor, 0));
+  const woodFloor = fan(0.25).mesh('woodFloor', scene, wood, root);
+  part(woodFloor, FITTED_BORN, FLOOR_WOOD_GONE, sinks(woodFloor, 0));
+  const deck = fan(0.25, (p) => p[0] > 20, [31, 0.25, 0]).mesh('deck', scene, wood, root);
   part(deck, DECK_BORN, FOREVER, sinks(deck, 0));
 
   // The brick buttresses that hold the two broken ends of the outer wall.
@@ -334,15 +340,26 @@ export function createSite(canvas) {
   body.material = bronze; body.parent = giant; body.position.y = 19; body.convertToFlatShadedMesh();
   const head = CreateSphere('giantHead', { diameter: 5, segments: 3 }, scene);
   head.material = bronze; head.parent = giant; head.position.y = 33; head.convertToFlatShadedMesh();
-  part(giant, -FOREVER, COLOSSUS_GONE, falls(giant, 0));
+  part(giant, COLOSSUS_BORN, COLOSSUS_GONE, falls(giant, 0));
 
   // The ground, the paving round the building, and umbrella pines.
   const ground = CreateGround('land', { width: 12000, height: 12000 }, scene);
-  ground.material = land; ground.position.y = -0.05; ground.freezeWorldMatrix();
+  ground.material = land; ground.position.y = -0.4; ground.freezeWorldMatrix();
   // Not under the arena: the pit is there.
   const apronMesh = faces();
-  for (let bay = 0; bay < BAYS; bay += 1) apronMesh.quad(at(bayStart(bay), -32, 0), at(bayStart(bay + 1), -32, 0), at(bayStart(bay + 1), ARENA + 0.3, 0), at(bayStart(bay), ARENA + 0.3, 0));
-  apronMesh.mesh('paving', scene, paving, root).freezeWorldMatrix();
+  for (let bay = 0; bay < BAYS; bay += 1) apronMesh.quad(at(bayStart(bay), -32, 0), at(bayStart(bay + 1), -32, 0), at(bayStart(bay + 1), ARENA + 0.1, 0), at(bayStart(bay), ARENA + 0.1, 0));
+  const pavingMesh = apronMesh.mesh('paving', scene, paving, root);
+  part(pavingMesh, BUILT_FROM, FOREVER, () => {});
+  // Before it was built: the floor of a valley, and for a few years a lake.
+  const before = (d, y) => {
+    const f = faces();
+    for (let bay = 0; bay < BAYS; bay += 1) f.tri([0, y, 0], at(bayStart(bay), d, y), at(bayStart(bay + 1), d, y));
+    return f;
+  };
+  const valley = before(-34, 0.15).mesh('valley', scene, paint('valleyFloor', '#a59673'), root);
+  part(valley, -FOREVER, BUILT_FROM, () => {});
+  const lake = before(6, 0.5).mesh('lake', scene, water, root);
+  part(lake, LAKE[0], LAKE[1], () => {});
   const crown = CreateSphere('crown', { diameter: 1, segments: 3 }, scene);
   crown.material = pineGreen; crown.convertToFlatShadedMesh(); crown.setEnabled(false);
   const stem = CreateCylinder('stem', { height: 1, diameter: 1, tessellation: 5 }, scene);
