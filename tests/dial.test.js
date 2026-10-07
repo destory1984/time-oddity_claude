@@ -94,3 +94,40 @@ describe('rollTo', () => {
     expect(d.resting).toBe(true);
   });
 });
+
+describe('isDecade', () => {
+  it('marks the years that end in 0, before and after the era', async () => {
+    const { isDecade } = await import('../game/src/core/dial.js');
+    expect(isDecade(1850)).toBe(true);
+    expect(isDecade(1851)).toBe(false);
+    expect(isDecade(-2560)).toBe(true);
+    expect(isDecade(-2561)).toBe(false);
+  });
+});
+
+describe('marked years', () => {
+  it('pulls the dial onto a marked year when it comes to rest within two ticks of it', async () => {
+    const { setMarks } = await import('../game/src/core/dial.js');
+    for (const [dragged, lands] of [[-24, 1851], [24, 1851], [-36, 1854]]) {
+      const d = fresh(1851); setMarks(d, [1851, 2026]);
+      grab(d); drag(d, dragged); release(d, 0); run(d, 1500);
+      expect(d.year).toBe(lands);
+      expect(d.resting).toBe(true);
+    }
+  });
+  it('lets a fast glide pass a marked year', async () => {
+    const { setMarks } = await import('../game/src/core/dial.js');
+    const d = fresh(1900); setMarks(d, [1880]);
+    grab(d); release(d, 2.5); run(d, 5000);
+    expect(d.year).toBeLessThan(1870);
+  });
+  it('says which marked year lies next on either side', async () => {
+    const { setMarks, nextMark } = await import('../game/src/core/dial.js');
+    const d = fresh(1900); setMarks(d, [2026, 1851, -2560]);
+    expect(nextMark(d, -1)).toBe(1851);
+    expect(nextMark(d, 1)).toBe(2026);
+    const first = fresh(-2560); setMarks(first, [2026, 1851, -2560]);
+    expect(nextMark(first, -1)).toBe(null);
+    expect(nextMark(first, 1)).toBe(1851);
+  });
+});

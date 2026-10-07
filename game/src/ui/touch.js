@@ -4,17 +4,24 @@
 const DIAL_HEIGHT = 140;
 
 export function createTouch(el, {
-  mode, onDialGrab, onDialDrag, onDialRelease, onLookDrag, onLookEnd, onGlobeDrag, onGlobeEnd,
+  mode, onDialGrab, onDialDrag, onDialRelease, onDialTap, onLookDrag, onLookEnd, onGlobeDrag, onGlobeEnd,
 }) {
   let held = null;   // { id, zone, x, y, t, v }
 
   el.addEventListener('pointerdown', (e) => {
     if (held || e.target.closest('button')) return;
     const box = el.getBoundingClientRect();
-    const zone = e.clientY > box.bottom - DIAL_HEIGHT ? 'dial' : mode() === 'ground' ? 'look' : mode() === 'globe' ? 'globe' : null;
+    // While travelling to a square or leaving one, nothing is held: a finger on the dial
+    // would stop the roll that is taking the player there.
+    const now = mode();
+    if (now !== 'ground' && now !== 'globe') return;
+    const zone = e.clientY > box.bottom - DIAL_HEIGHT ? 'dial' : now === 'ground' ? 'look' : 'globe';
     if (!zone) return;
     el.setPointerCapture(e.pointerId);
-    held = { id: e.pointerId, zone, x: e.clientX, y: e.clientY, t: performance.now(), v: 0, height: box.height };
+    held = {
+      id: e.pointerId, zone, x: e.clientX, y: e.clientY, t: performance.now(), v: 0, height: box.height,
+      downAt: performance.now(), moved: 0, side: e.clientX < box.left + box.width / 3 ? -1 : e.clientX > box.right - box.width / 3 ? 1 : 0,
+    };
     if (zone === 'dial') onDialGrab();
   });
 
@@ -24,6 +31,7 @@ export function createTouch(el, {
     const dt = Math.max(4, now - held.t);
     const dx = e.clientX - held.x;
     const dy = e.clientY - held.y;
+    held.moved += Math.abs(dx) + Math.abs(dy);
     if (held.zone === 'dial') {
       held.v += (dx / dt - held.v) * 0.35;
       onDialDrag(dx);
@@ -39,11 +47,14 @@ export function createTouch(el, {
   const lift = (e) => {
     if (!held || e.pointerId !== held.id) return;
     const { zone } = held;
+    // A short touch that hardly moved, on the left or right third of the dial, is a tap
+    // toward the marked year on that side.
+    const tap = zone === 'dial' && e.type === 'pointerup' && held.moved < 8 && performance.now() - held.downAt < 400 ? held.side : 0;
     // A finger that stood still before lifting has no speed left to give.
     const still = performance.now() - held.t > 70;
     const v = e.type === 'pointercancel' || still ? 0 : held.v;
     held = null;
-    if (zone === 'dial') onDialRelease(v);
+    if (zone === 'dial') { onDialRelease(v); if (tap !== 0) onDialTap(tap); }
     else if (zone === 'look') onLookEnd();
     else onGlobeEnd();
   };

@@ -20,7 +20,7 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
         const data = noise.getChannelData(0);
         for (let i = 0; i < data.length; i += 1) data[i] = Math.random() * 2 - 1;
       }
-      if (ac.state === 'suspended') ac.resume();
+      if (ac.state === 'suspended') ac.resume()?.catch?.(() => {});
     } catch {
       failed = true;
       ac = null;

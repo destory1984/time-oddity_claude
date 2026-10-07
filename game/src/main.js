@@ -7,7 +7,9 @@ import { SQUARES, squareById } from './core/squares.js';
 import { momentJd } from './core/moment.js';
 import { skyAt, skyLight } from './core/sky.js';
 import { formatDate, formatYear, todayDate } from './core/when.js';
-import { createDial, drag, grab, release, rollTo, stepDial } from './core/dial.js';
+import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, stepDial } from './core/dial.js';
+import { createLook, dragLook, endLook, resetLook } from './core/look.js';
+import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { createSkyCanvas } from './render/skyCanvas.js';
 import { createGround } from './render/ground.js';
@@ -51,8 +53,7 @@ const dial = createDial({ year: today.year, maxYear: today.year });
 let mode = 'globe';        // 'globe' | 'travel' | 'ground' | 'leaving'
 let square = null;
 let visit = null;
-let lookTarget = 0;
-let lookDrag = 0;
+const look = createLook();
 let blend = 0;             // 0 the day, 1 today
 let roll = null;           // { from, to }: the picture's blend over a timed roll
 let silhouette = 0;
@@ -63,6 +64,15 @@ let bubble = null;         // { text, until }
 let remainsAtMs = null;
 let glowSky = 0;
 let glowToday = 0;
+
+// The years with something to see, shown on the dial. Above the Earth: every square.
+// On the ground: this square's day and today.
+let marks = [];
+function mark(list) {
+  marks = list;
+  setMarks(dial, list.map((m) => m.year));
+}
+const globeMarks = () => [...SQUARES.map((sq) => ({ year: sq.date.year, label: sq.name })), { year: today.year, label: '오늘' }];
 
 const globe = createGlobe($('globe'), $('pins'), { squares: SQUARES, onPick: (id) => travel(squareById(id)) });
 
@@ -77,9 +87,10 @@ new ResizeObserver(layout).observe(stage);
 function showGround(sq) {
   square = sq;
   visit = createVisit(sq);
-  lookTarget = 0; blend = 0; roll = null; silhouette = 0; restingOtherMs = 0; dim = 0;
+  resetLook(look); blend = 0; roll = null; silhouette = 0; restingOtherMs = 0; dim = 0;
   bubble = null; remainsAtMs = null; glowSky = 0; glowToday = 0;
   ground.show(sq);
+  mark([{ year: sq.date.year, label: '그날' }, { year: today.year, label: '오늘' }]);
   globe.setActive(false);
   stage.className = 'on-ground';
   mode = 'ground';
@@ -95,7 +106,8 @@ async function travel(sq) {
   await globe.spinTo(sq.lat, sq.lon, TRAVEL_SPIN_S);
   if (dial.year !== sq.date.year) {
     rollTo(dial, sq.date.year, TRAVEL_ROLL_S);
-    await wait(TRAVEL_ROLL_S * 1000 + 50);
+    // By the frames, not the clock: on a slow phone the roll takes longer than its second.
+    while (dial.rolling) await wait(30);
   }
   $('fade').classList.add('on');
   await wait(FADE_MS);
@@ -114,16 +126,20 @@ async function leave() {
   stage.className = 'on-globe';
   mode = 'globe';
   visit = null;
+  mark(globeMarks());
   $('fade').classList.remove('on');
 }
 
 hud.leaveBtn.addEventListener('click', leave);
-hud.todayBtn.addEventListener('click', () => {
-  if (mode !== 'ground' || dial.rolling) return;
+// Rolls the dial to a year by itself. On the ground the picture melts along the way.
+function goTo(year) {
+  if (dial.rolling || year === dial.year || (mode !== 'ground' && mode !== 'globe')) return;
   sound.wake();
-  const toToday = dial.year !== today.year;
-  roll = { from: blend, to: toToday ? 1 : 0 };
-  rollTo(dial, toToday ? today.year : square.date.year, toToday ? TO_TODAY_S : TO_THEN_S);
+  if (mode === 'ground') roll = { from: blend, to: year === today.year ? 1 : year === square.date.year ? 0 : blend };
+  rollTo(dial, year, mode === 'ground' && year === today.year ? TO_TODAY_S : TO_THEN_S);
+}
+hud.todayBtn.addEventListener('click', () => {
+  if (mode === 'ground') goTo(dial.year !== today.year ? today.year : square.date.year);
 });
 
 createTouch(stage, {
@@ -131,9 +147,10 @@ createTouch(stage, {
   onDialGrab: () => { sound.wake(); roll = null; grab(dial); },
   onDialDrag: (dx) => drag(dial, dx),
   onDialRelease: (v) => release(dial, v),
+  onDialTap: (side) => { const year = nextMark(dial, side); if (year !== null) goTo(year); },
   // Pushing the finger up raises the head; it stays where it was left, up or down.
-  onLookDrag: (dyShare) => { lookDrag = clamp01(lookDrag - dyShare / 0.25); lookTarget = lookDrag; },
-  onLookEnd: () => { lookTarget = lookDrag > 0.5 ? 1 : 0; lookDrag = lookTarget; },
+  onLookDrag: (dyShare) => dragLook(look, dyShare),
+  onLookEnd: () => endLook(look),
   onGlobeDrag: (dx, dy) => globe.drag(dx, dy),
   onGlobeEnd: () => globe.release(),
 });
@@ -141,7 +158,7 @@ createTouch(stage, {
 function tickSounds(years) {
   if (years.length === 0) return;
   if (years.length > 2) sound.tick(false, true);
-  else for (const year of years) sound.tick(year % 10 === 0, false);
+  else for (const year of years) sound.tick(isDecade(year), false);
 }
 
 function dateOnGlobe() {
@@ -149,7 +166,7 @@ function dateOnGlobe() {
 }
 
 function frameGround(dt) {
-  const input = { dialYear: dial.year, dialResting: dial.resting, thisYear: today.year, lookTarget };
+  const input = { dialYear: dial.year, dialResting: dial.resting, thisYear: today.year, lookTarget: look.target };
   const filled = stepVisit(visit, dt, input);
   const at = visitAt(visit, input);
   for (const name of filled) {
@@ -181,7 +198,10 @@ function frameGround(dt) {
   skyCanvas.draw(sky, {
     facingAz: square.facingAz, pitch: visit.look, dim, labels: clamp01((visit.lookHeld - LABELS_AFTER_MS) / 300),
   });
-  ground.set({ rise, blend, silhouette, look: visit.look, day: light.day });
+  const stageBox = { w: stage.clientWidth, h: stage.clientHeight };
+  const level = project(0, square.facingAz, { facingAz: square.facingAz, pitch: 0, ...stageBox }).y;
+  const raised = project(0, square.facingAz, { facingAz: square.facingAz, pitch: visit.look, ...stageBox }).y;
+  ground.set({ rise, blend, silhouette, dropPx: raised - level, day: light.day });
 
   // Words.
   if (visit.t >= SORA_FROM_MS && visit.t - dt < SORA_FROM_MS && at === 'then') bubble = { text: square.sora, until: visit.t + SORA_FOR_MS };
@@ -222,7 +242,7 @@ function frame(now) {
   tickSounds(stepDial(dial, dt));
   if (visit && (mode === 'ground' || mode === 'leaving')) frameGround(dt);
   else frameGlobe(dt);
-  dialView.draw(dial);
+  dialView.draw(dial, marks);
   requestAnimationFrame(frame);
 }
 
@@ -248,11 +268,12 @@ function still() {
   // Run the visit forward without waiting: arrive, and for 'sky' hold the head up.
   const input = { dialYear: sq.date.year, dialResting: true, thisYear: today.year, lookTarget: 0 };
   for (let t = 0; t < 1200; t += 20) stepVisit(visit, 20, input);
-  if (shot[2] === 'sky') { lookTarget = 1; lookDrag = 1; for (let t = 0; t < 5000; t += 20) stepVisit(visit, 20, { ...input, lookTarget: 1 }); }
+  if (shot[2] === 'sky') { dragLook(look, -1); endLook(look); for (let t = 0; t < 5000; t += 20) stepVisit(visit, 20, { ...input, lookTarget: 1 }); }
   if (shot[2] === 'today') { blend = 1; for (let t = 0; t < 200; t += 20) stepVisit(visit, 20, { ...input, dialYear: today.year }); }
 }
 
 stage.className = 'on-globe';
+mark(globeMarks());
 layout();
 globe.faceNow(41, 20);
 still();

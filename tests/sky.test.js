@@ -79,3 +79,12 @@ describe('skyLight', () => {
     expect(skyLight(-9).stars).toBeCloseTo(0.5, 5);
   });
 });
+
+describe('a partial lunar eclipse', () => {
+  it('is never painted as deep as a total one', () => {
+    // 2023.10.28 20:14 UT: 12% of the moon in the umbra at most.
+    const { moon } = skyAt(2460246.343, { lat: 51.5, lon: -0.17 });
+    expect(moon.eclipse).toBeGreaterThan(0);
+    expect(moon.eclipse).toBeLessThan(0.7);
+  });
+});

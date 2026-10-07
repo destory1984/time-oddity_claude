@@ -4,7 +4,7 @@ html,body{margin:0;height:100%;background:#02011c;overflow:hidden;overscroll-beh
 body{display:grid;place-items:center;font-family:"Malgun Gothic",system-ui,sans-serif;color:var(--white);font-size:13px;line-height:1.4;
   -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
 /* A phone fills its screen; a wider window gets a 375:812 column. */
-#stage{position:relative;width:100vw;height:100dvh;max-width:calc(100dvh * 375 / 812);overflow:hidden;background:var(--night);touch-action:none}
+#stage{position:relative;width:100vw;height:100vh;height:100dvh;max-width:calc(100dvh * 375 / 812);overflow:hidden;background:var(--night);touch-action:none}
 @media (max-width:520px){#stage{max-width:none}}
 #stage>*{position:absolute}
 #globe,#sky,#ground,#pins,#hud,#dial,#fade{inset:0;width:100%;height:100%}

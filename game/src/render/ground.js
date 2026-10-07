@@ -7,7 +7,6 @@ const HORIZON_ON_SCREEN = 0.60;
 // A picture's height as a share of the screen's. At 0.78 a phone shows the middle 38%
 // of the picture's width; below the picture the ground is carried on in its foot colour.
 const PICTURE_HEIGHT = 0.78;
-const LOOK_DROP = 0.25;       // share of the height the ground sinks when the head is raised
 const RISE_FROM = 0.45;       // share of the height the picture comes up from on arriving
 
 const smooth = (t) => t * t * (3 - 2 * t);
@@ -49,11 +48,12 @@ export function createGround(el) {
 
   // rise 0 to 1: how far the picture has come up. blend 0 to 1: the day to today.
   // silhouette 0 to 1: today's picture pressed to one dark colour (a year with no
-  // picture). look 0 to 1: the head raised. day 0 to 1: how light the sky is.
-  function set({ rise = 1, blend = 0, silhouette = 0, look = 0, day = 1 }) {
+  // picture). dropPx: how far the sky's horizon has sunk below its level place as the
+  // head is raised, so that ground and sky stay joined. day 0 to 1: how light the sky is.
+  function set({ rise = 1, blend = 0, silhouette = 0, dropPx = 0, day = 1 }) {
     if (!scene) return;
     const h = el.clientHeight;
-    const drop = look * LOOK_DROP * h + (1 - smooth(rise)) * RISE_FROM * h;
+    const drop = dropPx + (1 - smooth(rise)) * RISE_FROM * h;
     const move = `translateY(${drop.toFixed(1)}px)`;
     // The pictures are drawn in even noon light; the hour is put on here.
     const lit = `brightness(${(0.34 + 0.66 * day).toFixed(3)}) saturate(${(0.55 + 0.45 * day).toFixed(3)})`;

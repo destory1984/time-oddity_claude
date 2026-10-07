@@ -10,6 +10,7 @@ import { astroTime } from './when.js';
 
 const RAD = Math.PI / 180;
 const J2000_JD = 2451545.0;
+const PARTIAL_DEPTH = 0.5;   // the deepest a partial lunar eclipse is painted
 
 const PLANETS = [
   { id: 'mercury', name: '수성', body: Body.Mercury },
@@ -66,7 +67,9 @@ function eclipseDepth(jd, time, phaseDeg) {
   const fromPeakMin = Math.abs(jd - peakJd) * 1440;
   if (fromPeakMin >= partialMin) return 0;
   if (fromPeakMin <= totalMin) return 1;
-  return (partialMin - fromPeakMin) / (partialMin - totalMin);
+  const depth = (partialMin - fromPeakMin) / (partialMin - totalMin);
+  // An eclipse that never becomes total never turns the whole moon red.
+  return totalMin > 0 ? depth : depth * PARTIAL_DEPTH;
 }
 
 export function skyAt(jd, { lat, lon }) {

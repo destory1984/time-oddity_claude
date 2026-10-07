@@ -121,8 +121,9 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
   }
 
   function drag(dx, dy) {
+    // A timed turn to a square is not interrupted: whoever asked for it is waiting on it.
+    if (glide) return;
     held = true;
-    glide = null;
     const perPx = 1 / (GLOBE_WIDTH * w * 0.5);   // radians of turn per pixel at the middle
     const yaw = dx * perPx * yawSign;
     const tilt = dy * perPx * -tiltSign;         // screen y runs down

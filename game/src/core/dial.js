@@ -7,10 +7,15 @@
 import { yearFromIndex, yearIndex } from './when.js';
 
 export const PX_PER_YEAR = 12;
+
+// Every tenth year has a long tick and a lower sound. By the year, not by the dial's
+// gapless count, so that 2560 BC is one of them.
+export const isDecade = (year) => year % 10 === 0;
 const MAX_SPEED = 2.5;        // px per ms
 const GLIDE_MS = 500;         // the speed falls by 1/e in this long
 const STOP_SPEED = 0.015;     // px per ms; below this the glide is over
 const SETTLE_RATE = 0.012;    // share of the gap to the tick closed per ms
+const MARK_PULL = 2;          // a dial coming to rest this many ticks from a marked year lands on it
 
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
@@ -19,8 +24,28 @@ export function createDial({ year, minYear = -2600, maxYear }) {
   return {
     year, offset: at, resting: true, rolling: false,
     min: yearIndex(minYear), max: yearIndex(maxYear),
-    held: false, speed: 0, reported: at, roll: null,
+    held: false, speed: 0, reported: at, roll: null, marks: [],
   };
+}
+
+// The years that have something to see. A player is not expected to know them: the dial
+// shows them (ui/dialView.js) and comes to rest on one when it stops close by.
+export function setMarks(dial, years) {
+  dial.marks = years.map(yearIndex).sort((a, b) => a - b);
+}
+
+// The marked year next to the one the dial stands on: way -1 older, +1 newer. null if none.
+export function nextMark(dial, way) {
+  const at = Math.round(dial.offset);
+  const beyond = dial.marks.filter((m) => (way < 0 ? m < at : m > at));
+  if (beyond.length === 0) return null;
+  return yearFromIndex(way < 0 ? beyond[beyond.length - 1] : beyond[0]);
+}
+
+function restingTick(dial) {
+  const near = dial.marks.filter((m) => Math.abs(m - dial.offset) <= MARK_PULL + 0.5);
+  if (near.length === 0) return Math.round(dial.offset);
+  return near.reduce((best, m) => (Math.abs(m - dial.offset) < Math.abs(best - dial.offset) ? m : best));
 }
 
 function moveTo(dial, offset) {
@@ -92,7 +117,7 @@ export function stepDial(dial, dtMs) {
       if (dial.offset === before || dial.offset === dial.min || dial.offset === dial.max) dial.speed = 0;
     } else {
       dial.speed = 0;
-      const tick = Math.round(dial.offset);
+      const tick = restingTick(dial);
       const gap = tick - dial.offset;
       if (Math.abs(gap) < 0.002) {
         moveTo(dial, tick);
