@@ -232,6 +232,8 @@ html.wide #stage{max-width:none}
 #brand{display:block}
 #brand .titleArt{height:30px}
 #stage.on-ground #brand{display:none}
+#stage.on-globe #name{display:none}
+#brand{margin-left:-4px}
 #aboutTitle .titleArt{width:min(78%,300px)}
 /* The loading screen, as vol 1's: Sora running, the title, the subtitle. */
 #loading{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:20px;padding-top:20vh;background:#02040b;color:#dfe6ff}

@@ -59,13 +59,10 @@ export function createSettings({ onOpen, onClose, today, sound, music, version, 
   applyTextSize();
 
   function renderSound() {
-    $('soundNow').textContent = sound.muted() ? '지금은 꺼져 있습니다.' : '지금은 켜져 있습니다.';
-    $('soundSwitch').textContent = sound.muted() ? '효과음 켜기' : '효과음 끄기';
     $('musicNow').textContent = music.on() ? '지금은 켜져 있습니다.' : '지금은 꺼져 있습니다.';
     $('musicSwitch').textContent = music.on() ? '배경 음악 끄기' : '배경 음악 켜기';
   }
   $('musicSwitch').addEventListener('click', () => { music.setOn(!music.on()); renderSound(); });
-  $('soundSwitch').addEventListener('click', () => { sound.setMuted(!sound.muted()); renderSound(); });
 
   // Emptying the notebook cannot be undone, so the button asks once more before it does.
   let sure = false;
