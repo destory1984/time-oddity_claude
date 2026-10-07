@@ -6,7 +6,8 @@
 // have their first dot and all three, of total. On the ground: dots is that square's
 // three, at is 'then' | 'today' | 'other' (where the dial stands), lookingUp is whether
 // the head is raised, quizSolved whether its question was answered.
-export function guideLine({ where, dots, at, lookingUp, quizSolved, complete, visited, total }) {
+// hasCard: whether a postcard of the square has been taken.
+export function guideLine({ where, dots, at, lookingUp, quizSolved, hasCard = true, complete, visited, total }) {
   if (where === 'globe') {
     if (complete >= total) return '수첩을 다 채웠구나. 고맙다';
     return visited > 0 ? '수첩이나 금색 점으로 다음 날에 가 보렴' : '수첩을 펴서 첫 장으로 가 보렴';
@@ -18,5 +19,6 @@ export function guideLine({ where, dots, at, lookingUp, quizSolved, complete, vi
   if (!dots.sky) return lookingUp ? '그대로 잠깐 올려다보렴' : '화면을 위로 밀어 하늘을 보렴';
   if (lookingUp) return null;
   if (!dots.remains) return '오늘은 어떤지, 오늘로 돌려 보렴';
-  return quizSolved ? '수첩을 펴서 다른 날로 가 보렴' : '이야기 카드도 읽어 보렴';
+  if (!quizSolved) return '이야기 카드도 읽어 보렴';
+  return hasCard ? '수첩을 펴서 다른 날로 가 보렴' : '사진기로 엽서를 한 장 찍어 보렴';
 }

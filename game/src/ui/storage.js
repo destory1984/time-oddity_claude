@@ -1,11 +1,12 @@
 // What is kept between visits, in localStorage under 'timeoddity.<name>.v1'. Every call
 // is wrapped: a browser in private mode or with storage switched off must not stop the
 // game, and what is read back is checked before it is used.
+import { sanitizeCards } from '../core/postcard.js';
 import { sanitizeProgress } from '../core/progress.js';
 import { textSizeFrom } from '../core/textSize.js';
 
 const KEY = {
-  opened: 'timeoddity.opened.v1', muted: 'timeoddity.muted.v1', music: 'timeoddity.music.v1', text: 'timeoddity.text.v1', progress: 'timeoddity.progress.v1',
+  opened: 'timeoddity.opened.v1', muted: 'timeoddity.muted.v1', cards: 'timeoddity.postcards.v1', music: 'timeoddity.music.v1', text: 'timeoddity.text.v1', progress: 'timeoddity.progress.v1',
 };
 
 function read(key) {
@@ -26,5 +27,8 @@ export const saveMusic = (on) => write(KEY.music, on ? '1' : '0');
 // The notebook. ids: the squares that exist now; a record of one that no longer does is dropped.
 export const loadProgress = (ids, noteIds) => sanitizeProgress(read(KEY.progress), ids, noteIds);
 export const saveProgress = (progress) => write(KEY.progress, JSON.stringify(progress));
+// Postcards, pictures and all. If the device has no room for them the newest is simply not kept.
+export const loadCards = (ids) => sanitizeCards(read(KEY.cards), ids);
+export const saveCards = (cards) => write(KEY.cards, JSON.stringify(cards));
 export const loadTextSize = () => textSizeFrom(read(KEY.text));
 export const saveTextSize = (size) => write(KEY.text, String(size));

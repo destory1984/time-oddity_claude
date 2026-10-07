@@ -19,6 +19,11 @@ describe('the one line of guidance', () => {
     expect(ground({ dots: { day: true, sky: true, remains: true }, at: 'today' })).toBe('이야기 카드도 읽어 보렴');
     expect(ground({ dots: { day: true, sky: true, remains: true }, at: 'today', quizSolved: true })).toBe('수첩을 펴서 다른 날로 가 보렴');
   });
+  it('asks for a postcard once the card is read, if there is none yet', () => {
+    const done = { dots: { day: true, sky: true, remains: true }, at: 'today', quizSolved: true };
+    expect(ground({ ...done, hasCard: false })).toBe('사진기로 엽서를 한 장 찍어 보렴');
+    expect(ground({ ...done, hasCard: true })).toBe('수첩을 펴서 다른 날로 가 보렴');
+  });
   it('shows the way back when the dial stands on a year with nothing to see', () => {
     expect(ground({ at: 'other' })).toBe('다이얼 끝의 이름표를 눌러 보렴');
     expect(ground({ at: 'other', dots: { day: true, sky: true, remains: true }, quizSolved: true })).toBe('다이얼 끝의 이름표를 눌러 보렴');

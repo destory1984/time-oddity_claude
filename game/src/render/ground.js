@@ -21,7 +21,7 @@ function makeLayer(el) {
   layer.append(foot, img);
   el.append(layer);
   return {
-    layer,
+    layer, img, foot,
     // height: the picture's height as a share of the screen's, when a scene needs more of
     // its width on a phone than the usual. centre: the share of the picture's width that
     // comes to the middle of the screen (0.5 unless what matters is off to one side).
@@ -56,6 +56,7 @@ export function createGround(el) {
   // head is raised, so that ground and sky stay joined. day 0 to 1: how light the sky is.
   function set({ rise = 1, blend = 0, silhouette = 0, dropPx = 0, day = 1 }) {
     if (!scene) return;
+    dayNow = day;
     const h = el.clientHeight;
     const drop = dropPx + (1 - smooth(rise)) * RISE_FROM * h;
     const move = `translateY(${drop.toFixed(1)}px)`;
@@ -73,5 +74,31 @@ export function createGround(el) {
     today.layer.style.opacity = (Math.max(Math.min(1, 2 * blend), silhouette) * arrived).toFixed(3);
   }
 
-  return { show, set };
+  // Paints the ground as it now stands into a picture: the part inside `frame` (in the
+  // stage's own px), `scale` times as large. The darkness of the hour is laid on as a
+  // navy veil over the ground only, since a canvas cannot be asked for the CSS filter
+  // everywhere.
+  let dayNow = 1;
+  function paint(ctx, frame, scale) {
+    const stageBox = el.getBoundingClientRect();
+    const sheet = document.createElement('canvas');
+    sheet.width = ctx.canvas.width; sheet.height = ctx.canvas.height;
+    const g = sheet.getContext('2d');
+    for (const one of [then, today]) {
+      const opacity = Number(one.layer.style.opacity || 0);
+      if (opacity <= 0) continue;
+      g.globalAlpha = opacity;
+      const place = (node) => { const r = node.getBoundingClientRect(); return [(r.left - stageBox.left - frame.x) * scale, (r.top - stageBox.top - frame.y) * scale, r.width * scale, r.height * scale]; };
+      g.fillStyle = one.foot.style.background;
+      g.fillRect(...place(one.foot));
+      if (one.img.complete && one.img.naturalWidth > 0) g.drawImage(one.img, ...place(one.img));
+    }
+    g.globalAlpha = (1 - dayNow) * 0.62;
+    g.globalCompositeOperation = 'source-atop';
+    g.fillStyle = '#060a2c';
+    g.fillRect(0, 0, sheet.width, sheet.height);
+    ctx.drawImage(sheet, 0, 0);
+  }
+
+  return { show, set, paint };
 }

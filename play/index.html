@@ -10,10 +10,10 @@
 <link rel="stylesheet" href="./fonts/pretendard/pretendardvariable-dynamic-subset.css">
 <link rel="stylesheet" href="./fonts/nanum-pen-script/400.css">
 <link rel="stylesheet" href="./fonts/gaegu/400.css">
-  <script type="module" crossorigin src="./assets/index-DDzdJgaB.js"></script>
+  <script type="module" crossorigin src="./assets/index-BXA2KW5l.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/halfFloat-CXxwV7oo.js">
   <link rel="modulepreload" crossorigin href="./assets/logger-CuBYPcDK.js">
-  <link rel="stylesheet" crossorigin href="./assets/index-BR_52IcR.css">
+  <link rel="stylesheet" crossorigin href="./assets/index-CTFFQOTZ.css">
 </head>
 <body>
 <div id="stage">
@@ -34,6 +34,9 @@
     <div id="date"><b id="dateText"></b><span id="placeText"></span><span id="subText"></span></div>
     <button id="todayBtn" class="glass" type="button">오늘로</button>
     <button id="leaveBtn" class="glass" type="button">떠나기</button>
+    <button id="photoButton" class="glass" type="button" title="사진 찍기">사진 찍기</button>
+    <div id="photoFrame"></div>
+    <div id="photoBar"><button id="photoCancel" class="glass" type="button">그만</button><button id="photoShutter" type="button" aria-label="찍기"></button><span>위아래로 밀어 담을 곳을 고르렴</span></div>
     <div id="bubble"></div>
     <div id="memo"></div>
     <div id="chips"><button id="cardChip" class="glass" type="button">이야기 카드</button><button id="quizChip" class="glass" type="button">맞혀 보렴</button></div>
@@ -41,6 +44,7 @@
   </div>
   <canvas id="dial"></canvas>
   <div id="fade"></div>
+  <div id="photoFlash"></div>
 </div>
 <dialog id="opening" aria-label="여는 이야기">
   <img id="openingImage" alt="">
@@ -88,6 +92,8 @@
         <dt>오늘로</dt><dd>오른쪽 위의 "오늘로"를 누르면 3초에 걸쳐 같은 자리가 오늘 모습으로 바뀝니다. "그날로"를 누르면 돌아갑니다.</dd>
         <dt>다이얼</dt><dd>맨 아래를 옆으로 굴립니다. 한 칸에 한 해입니다. 볼 것이 있는 해에는 별이 떠 있고, 화면 밖에 있으면 끝에 이름표가 뜹니다. 이름표 쪽을 톡 누르면 그 해로 굴러갑니다.</dd>
         <dt>동그라미 셋</dt><dd>왼쪽 위의 동그라미는 날, 하늘, 남은 것입니다. 그날에 서면 첫째가, 하늘을 올려다보면 둘째가, 오늘로 돌리면 셋째가 채워집니다.</dd>
+        <dt>사진과 엽서</dt><dd>오른쪽의 사진기 단추를 누르면 네모 틀이 뜹니다. 위아래로 밀어 땅과 하늘을 얼마나 담을지 고르고 둥근 단추로 찍습니다. 찍은 사진은 엽서가 되어 수첩의 그 칸에 들어갑니다. 칸마다 한 장이고, 다시 찍으면 바뀝니다.</dd>
+        <dt>답장</dt><dd>수첩에서 엽서를 "할머니께 보내기"로 보내면, 다음 날 할머니의 답장이 옵니다. 답장이 오면 수첩 단추에 금색 점이 붙습니다.</dd>
         <dt>떠나기</dt><dd>오른쪽 아래의 "떠나기"를 누르면 지구 위로 돌아갑니다.</dd>
         <dt>여는 이야기</dt><dd>처음 열 때 나온 다섯 쪽을 다시 봅니다.<br><button type="button" id="replayOpening">여는 이야기 다시 보기</button></dd>
         <dt>하늘은 계산한 것</dt><dd>달의 모양과 자리, 행성, 별은 그날 그 자리 그 시각의 실제 하늘입니다. 해와 달은 모양이 보이도록 실제보다 9배 크게 그렸습니다.</dd>

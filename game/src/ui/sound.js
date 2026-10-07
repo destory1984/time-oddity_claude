@@ -88,6 +88,8 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     stamp() { play((at) => { tone(at, { seconds: 0.15, from: 110, to: 70, gain: 0.5 }); hiss(at, { seconds: 0.05, from: 300, gain: 0.2 }); }); },
     // The sky filled: one clear bell.
     bell() { play((at) => { tone(at, { seconds: 0.9, from: 1320, gain: 0.18, attack: 0.02 }); tone(at, { seconds: 0.5, from: 2640, gain: 0.05, attack: 0.02 }); }); },
+    // A picture taken: two short beeps and the click of a shutter, as in volume 1.
+    shutter() { play((at) => { tone(at, { seconds: 0.06, from: 1760, gain: 0.12 }); tone(at + 0.09, { seconds: 0.06, from: 2100, gain: 0.12 }); hiss(at + 0.2, { seconds: 0.07, from: 1800, gain: 0.5 }); }); },
     // What remains filled: a page turning.
     page() { play((at) => hiss(at, { seconds: 0.25, from: 2600, to: 500, gain: 0.2 })); },
   };

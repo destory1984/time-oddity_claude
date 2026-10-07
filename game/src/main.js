@@ -25,10 +25,14 @@ import { createSettings } from './ui/settings.js';
 import { createMusic } from './ui/music.js';
 import { createJournal } from './ui/journal.js';
 import { createCard } from './ui/card.js';
+import { createPhoto } from './ui/photo.js';
+import { readReply, sendCard, takeCard } from './core/postcard.js';
 import { createPager } from './ui/opening.js';
 import { OPENING } from './core/opening.js';
 import { NOTES, dueNote, noteById, notePages } from './core/notes.js';
-import { loadMusic, loadMuted, loadOpened, loadProgress, saveMusic, saveMuted, saveOpened, saveProgress } from './ui/storage.js';
+import {
+  loadCards, loadMusic, loadMuted, loadOpened, loadProgress, saveCards, saveMusic, saveMuted, saveOpened, saveProgress,
+} from './ui/storage.js';
 
 const RISE_MS = 800;
 const MEMO_AT_MS = 1200;
@@ -71,6 +75,16 @@ function keep(next) {
   saveProgress(progress);
   journal.showCount();
 }
+
+// The postcards: one a square, the picture with it, kept on this device.
+let cards = loadCards(SQUARES.map((sq) => sq.id));
+function keepCards(next) {
+  if (next === cards) return;
+  cards = next;
+  saveCards(cards);
+  journal.showCount();
+}
+const dayToday = () => { const now = todayDate(); return `${now.year}-${String(now.month).padStart(2, '0')}-${String(now.day).padStart(2, '0')}`; };
 
 let mode = 'globe';        // 'globe' | 'travel' | 'ground' | 'leaving'
 let square = null;
@@ -158,12 +172,31 @@ const journal = createJournal({
   here: () => (visit && mode === 'ground' ? square.id : null),
   notes: () => notesRead(progress).map((id) => noteById(id)).filter(Boolean),
   onNote: (id) => readNote(noteById(id)),
+  cards: () => cards,
+  today: dayToday,
+  onSend: (id) => { sound.page(); keepCards(sendCard(cards, id, dayToday())); },
+  onReply: (id) => keepCards(readReply(cards, id, dayToday())),
   canGo: () => mode === 'globe' || mode === 'ground',
 });
 const card = createCard({
   solved: (id) => quizSolved(progress, id),
   onSolve: (id) => { sound.stamp(); keep(solveQuiz(progress, id)); },
 });
+// Taking a picture: what is in the frame becomes that square's postcard.
+const photo = createPhoto({
+  stage,
+  skyCanvas: $('sky'),
+  paintGround: (ctx, frameBox, scale) => ground.paint(ctx, frameBox, scale),
+  onMode: () => {},
+  onShot: (image) => {
+    sound.shutter();
+    const at = visitAt(visit, { dialYear: dial.year, thisYear: today.year });
+    const label = at === 'today' ? formatDate(today) : at === 'then' ? square.dateLabel : `${formatYear(dial.year)}년`;
+    keepCards(takeCard(cards, square.id, { image, at: at === 'today' ? 'today' : 'then', label }, dayToday()));
+    bubble = { text: '찍었다! 엽서는 수첩에 넣었어.', until: visit.t + SORA_FOR_MS };
+  },
+});
+
 $('cardChip').addEventListener('click', () => { if (mode === 'ground') card.open(square, false); });
 $('quizChip').addEventListener('click', () => { if (mode === 'ground') card.open(square, true); });
 
@@ -180,6 +213,7 @@ const settings = createSettings({
   // be written straight back into the empty notebook.
   onReset: () => {
     keep(emptyProgress());
+    keepCards({});
     if (visit) { visit = createVisit(square); remainsAtMs = null; bubble = null; }
   },
   version: `v${__APP_VERSION__} · ${__APP_UPDATED__}`,
@@ -241,6 +275,7 @@ async function travel(sq) {
 
 async function leave() {
   if (mode !== 'ground') return;
+  if (photo.isOn()) photo.leave();
   mode = 'leaving';
   leavingMs = 0;
   await wait(LEAVE_MS);
@@ -273,8 +308,8 @@ createTouch(stage, {
   onDialRelease: (v) => release(dial, v),
   onDialTap: (side) => { const year = nextMark(dial, side); if (year !== null) goTo(year); },
   // Pushing the finger up raises the head; it stays where it was left, up or down.
-  onLookDrag: (dyShare) => dragLook(look, dyShare),
-  onLookEnd: () => endLook(look),
+  onLookDrag: (dyShare) => { if (photo.isOn()) photo.drag(dyShare); else dragLook(look, dyShare); },
+  onLookEnd: () => { if (!photo.isOn()) endLook(look); },
   onGlobeDrag: (dx, dy) => globe.drag(dx, dy),
   onGlobeEnd: () => globe.release(),
 });
@@ -362,7 +397,7 @@ function frameGround(dt) {
     bubble: pose.saying ?? (bubble && (bubble.lookingUp || visit.look < 0.5) ? bubble.text : null), sora: pose,
     todayLabel: at === 'today' ? '그날로' : '오늘로', showToday: true, showLeave: true,
     hint: mode === 'ground' && visit.t >= GUIDE_AT_MS && dial.resting && !(bubble && visit.look < 0.5)
-      ? guideLine({ where: 'ground', dots: visit.dots, at, lookingUp: visit.look > 0.5, quizSolved: quizSolved(progress, square.id) })
+      ? guideLine({ where: 'ground', dots: visit.dots, at, lookingUp: visit.look > 0.5, quizSolved: quizSolved(progress, square.id), hasCard: Boolean(cards[square.id]) })
       : null,
     soraFade: pose.saying || (bubble && bubble.lookingUp) ? 0 : clamp01(visit.look * 1.6), glowSky, glowToday,
   });

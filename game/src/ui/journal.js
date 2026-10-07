@@ -4,6 +4,7 @@
 // there, Sora's note and the story card with its question.
 import { countProgress, dotsOf, isVisited, quizSolved } from '../core/progress.js';
 import { squareTitle } from '../core/squares.js';
+import { repliesWaiting, replyDue } from '../core/postcard.js';
 import { renderQuiz } from './quiz.js';
 
 const $ = (id) => document.getElementById(id);
@@ -19,7 +20,12 @@ const el = (tag, className, text) => {
 // square Sora stands on, or null. canGo: () => whether she can set off now (not while
 // she is already on her way).
 // notes: () => the notes read so far ([{ id, title }]); onNote(id): one is to be read again.
-export function createJournal({ squares, progress, onGo, onSolve, here, canGo = () => true, notes = () => [], onNote = () => {} }) {
+// cards: () => the postcards (core/postcard.js); today: () => 'YYYY-MM-DD'; onSend(id): a
+// postcard is sent; onReply(id): its answer has been shown.
+export function createJournal({
+  squares, progress, onGo, onSolve, here, canGo = () => true, notes = () => [], onNote = () => {},
+  cards = () => ({}), today = () => '', onSend = () => {}, onReply = () => {},
+}) {
   const dialog = $('journal');
   const ids = squares.map((s) => s.id);
   let open = null;   // the id of the row that is opened
@@ -54,6 +60,29 @@ export function createJournal({ squares, progress, onGo, onSolve, here, canGo = 
         const quiz = el('div', 'quiz');
         renderQuiz(quiz, square, quizSolved(record, square.id), () => { onSolve(square.id); render(); });
         more.append(quiz);
+        const card = cards()[square.id];
+        if (card) {
+          const post = el('div', 'postcard');
+          const picture = el('img');
+          picture.src = card.image; picture.alt = `${square.name}의 엽서`;
+          post.append(picture, el('p', 'seora', card.at === 'today' ? square.soraToday : square.sora), el('small', '', `${card.label} · ${square.place} — 소라`));
+          more.append(post);
+          if (!card.sentDay) {
+            const send = el('button', 'send', '할머니께 보내기');
+            send.type = 'button';
+            send.addEventListener('click', () => { onSend(square.id); render(); });
+            more.append(send);
+          } else if (!replyDue(card, today())) {
+            more.append(el('p', 'faint', '보냈습니다. 답장은 내일 옵니다.'));
+          } else {
+            const reply = el('div', 'reply');
+            reply.append(el('small', '', '할머니의 답장'), el('p', 'hand', square.reply));
+            more.append(reply);
+            if (!card.replyRead) onReply(square.id);
+          }
+        } else {
+          more.append(el('p', 'faint', '사진을 찍으면 엽서가 여기에 들어옵니다.'));
+        }
       } else {
         more.append(el('p', 'faint', '다녀오면 소라의 덧글과 이야기 카드가 생깁니다.'));
       }
@@ -82,6 +111,7 @@ export function createJournal({ squares, progress, onGo, onSolve, here, canGo = 
   function showCount() {
     const count = countProgress(progress(), ids);
     $('journalCount').textContent = `${count.complete}/${count.total}`;
+    $('journalButton').classList.toggle('has-reply', repliesWaiting(cards(), today()) > 0);
   }
   showCount();
 
