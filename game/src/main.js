@@ -19,7 +19,7 @@ import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
 import { REACH, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk } from './core/walk.js';
-import { LOOKS, createWalkView } from './ui/walk.js';
+import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
 import { createSite } from './render/site.js';
@@ -410,27 +410,6 @@ function showWalk(sq) {
   walkArrive = true;
   sound.paper();
 }
-// The way she leaves a place. The user asked for another (2026.10.8: "떠나는 애니메이션을 좀
-// 다르게"); until one is chosen the ways are numbered buttons on the maker's own machine,
-// each showing itself when touched and then used by "떠나기".
-const LOOK_KEY = 'timeoddity.leaveLook.v1';
-let leaveLook = 1;
-try { const kept = Number(localStorage.getItem(LOOK_KEY)); if (kept >= 1 && kept <= LOOKS) leaveLook = kept; } catch { /* the first way */ }
-let lookShowing = false;
-function markLook() { for (const button of $('lookBar').querySelectorAll('button')) button.classList.toggle('on', Number(button.dataset.look) === leaveLook); }
-markLook();
-$('lookBar').addEventListener('click', async (e) => {
-  const button = e.target.closest('button');
-  if (!button || lookShowing || mode !== 'walk') return;
-  leaveLook = Number(button.dataset.look);
-  try { localStorage.setItem(LOOK_KEY, String(leaveLook)); } catch { /* not kept */ }
-  markLook();
-  lookShowing = true;
-  walkWay = 0; keyWay = 0; walkWant = null;
-  sound.wake(); sound.warp();
-  await walkView.preview(WARP_CHORD_MS - FADE_MS, leaveLook);
-  lookShowing = false;
-});
 // The two buttons at the foot walk her on toward the scene beside this one while held.
 for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
   $(id).addEventListener('pointerdown', (e) => { $(id).setPointerCapture?.(e.pointerId); walkWay = way; walkWant = null; });
@@ -628,8 +607,8 @@ async function leave() {
   mode = 'leaving';
   leavingMs = 0;
   if (!fromSite) await wait(LEAVE_MS);
-  // From among people she is taken up in a shaft of light.
-  if (fromWalk) { sound.warp(); await walkView.teleport(WARP_CHORD_MS - FADE_MS, leaveLook); }
+  // From among people a ring of gold takes her up.
+  if (fromWalk) { sound.warp(); await walkView.teleport(WARP_CHORD_MS - FADE_MS); }
   $('fade').classList.add('on');
   await wait(FADE_MS);
   globe.setActive(true);
@@ -916,7 +895,6 @@ function startOver() {
 // not on the public site or in the store app. The settings (sound, music, text size,
 // screen shape) stay as they are.
 $('testBar').hidden = !isLocalHost(location.hostname);
-$('lookBar').hidden = !isLocalHost(location.hostname);
 $('testReset').addEventListener('click', () => startOver());
 // And its opposite, for testing what comes after: every square done, every note read.
 $('testAll').addEventListener('click', () => {
