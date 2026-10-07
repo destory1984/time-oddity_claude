@@ -219,3 +219,29 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 #aboutTitle span{font-size:18px;color:var(--gold)}
 #settings section[data-tab="about"] dt{color:var(--gold)}
 #settings section[data-tab="about"] dd{word-break:keep-all}
+
+/* The outer page on a wide window (ui/shell.js): nothing but the game in a frame shaped
+   like a phone, as tall as the window, in the middle. (Vol 1's.) */
+html.shell body > *:not(#phoneFrame){display:none !important}
+html.shell body{background:radial-gradient(ellipse at 50% 40%, #0b1430 0%, #02040b 70%)}
+#phoneFrame{position:fixed;top:0;left:50%;border:0;background:#02040b;transform-origin:top center;box-shadow:0 0 0 2px #1a2894, 0 0 60px #000}
+html.wide #stage{max-width:none}
+
+/* The title, lettered by the picture-drawing AI after vol 1's (public/ui/title.png). */
+.titleArt{display:block;width:auto;height:auto;max-width:100%}
+#brand{display:block}
+#brand .titleArt{height:30px}
+#stage.on-ground #brand{display:none}
+#aboutTitle .titleArt{width:min(78%,300px)}
+/* The loading screen, as vol 1's: Sora running, the title, the subtitle. */
+#loading{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:20px;padding-top:20vh;background:#02040b;color:#dfe6ff}
+#loading[hidden]{display:none}
+#loading strong{width:min(80vw,340px)}
+#loading span{font-size:13px}
+#loadingSub{margin-top:-12px;color:var(--gold);font-size:18px;font-style:normal;font-weight:600;letter-spacing:.14em}
+#loadingHero{position:relative;width:144px;height:192px}
+#loadingHero img{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;opacity:0;animation:loadingFrame .5s steps(1) infinite}
+#loadingHero img:nth-child(2){animation-delay:.125s}
+#loadingHero img:nth-child(3){animation-delay:.25s}
+#loadingHero img:nth-child(4){animation-delay:.375s}
+@keyframes loadingFrame{0%{opacity:1}25%{opacity:0}100%{opacity:0}}

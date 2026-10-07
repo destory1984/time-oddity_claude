@@ -19,7 +19,7 @@ export const SQUARES = [
     // crescent moon is in the west, and the two men are still on the Moon. Where the yard
     // was is not settled; Seoul stands in for it. The yard itself is made up, the one
     // exception to "what remains is real". hourLocal 20.5 is 9 pm Korean time.
-    no: 0, id: 'yard1969', name: '이웃집 마당', dateLabel: '1969.7.21', place: '할머니의 마을',
+    no: 0, id: 'yard1969', name: '이웃집 마당', dateLabel: 'AD 1969.7.21', place: '할머니의 마을',
     lat: 37.57, lon: 126.98,
     date: { year: 1969, month: 7, day: 21 }, calendar: 'gregorian', hourLocal: 20.5,
     // 228 rather than straight at the moon (240): it then stands right of the middle, clear of Sora.
@@ -33,7 +33,7 @@ export const SQUARES = [
     quiz: { question: '이웃들은 달에 간 사람들을 어떻게 보았나?', answer: '텔레비전으로', proof: '텔레비전', wrong: ['망원경으로', '신문 사진으로'] }, // (placeholder)
   },
   {
-    no: 1, id: 'khufu', name: '대피라미드', dateLabel: '기원전 2560년경', place: '기자, 이집트',
+    no: 1, id: 'khufu', name: '대피라미드', dateLabel: 'BC 2560년경', place: '기자, 이집트',
     lat: 29.979, lon: 31.134,
     // The day is not recorded. 2560 BC April 11 (Julian) is that year's spring equinox,
     // by computation; with the picture looking north, Thuban stands over the pyramid.
@@ -47,7 +47,7 @@ export const SQUARES = [
     quiz: { question: '새로 지은 피라미드의 겉은 어땠나?', answer: '흰 돌로 매끈했다', proof: '흰 석회암으로 매끈하게', wrong: ['금으로 덮였다', '붉게 칠했다'] }, // (placeholder)
   },
   {
-    no: 10, id: 'pharos', name: '파로스의 등대', dateLabel: '기원전 280년경', place: '알렉산드리아, 이집트',
+    no: 10, id: 'pharos', name: '파로스의 등대', dateLabel: 'BC 280년경', place: '알렉산드리아, 이집트',
     lat: 31.214, lon: 29.885,
     // The day is not recorded. An evening near the autumn equinox of 280 BC stands in for it.
     date: { year: -280, month: 9, day: 23 }, calendar: 'julian', hourLocal: 21,
@@ -61,7 +61,7 @@ export const SQUARES = [
     quiz: { question: '등대는 왜 사라졌나?', answer: '지진으로 무너졌다', proof: '지진으로 무너졌습니다', wrong: ['불에 탔다', '바다에 잠겼다'] },
   },
   {
-    no: 39, id: 'lunar1504', name: '콜럼버스의 월식', dateLabel: '1504.2.29', place: '세인트앤스 만, 자메이카',
+    no: 39, id: 'lunar1504', name: '콜럼버스의 월식', dateLabel: 'AD 1504.2.29', place: '세인트앤스 만, 자메이카',
     lat: 18.44, lon: -77.20,
     // 19.52 h local is 1504.3.1 00:40 UT, the middle of the eclipse.
     date: { year: 1504, month: 2, day: 29 }, calendar: 'julian', hourLocal: 19.52,
@@ -74,7 +74,7 @@ export const SQUARES = [
     quiz: { question: '콜럼버스는 월식을 무엇에서 미리 알았나?', answer: '천문표', proof: '천문표', wrong: ['망원경', '꿈'] },
   },
   {
-    no: 64, id: 'crystalPalace', name: '수정궁', dateLabel: '1851.5.1', place: '하이드파크, 런던',
+    no: 64, id: 'crystalPalace', name: '수정궁', dateLabel: 'AD 1851.5.1', place: '하이드파크, 런던',
     lat: 51.503, lon: -0.170,
     date: { year: 1851, month: 5, day: 1 }, calendar: 'gregorian', hourLocal: 12,
     facingAz: 180, nightOnLook: true,
@@ -86,7 +86,7 @@ export const SQUARES = [
     quiz: { question: '수정궁은 무엇으로 지었나?', answer: '유리와 쇠', proof: '유리와 쇠', wrong: ['돌과 나무', '벽돌'] },
   },
   {
-    no: 75, id: 'eiffel', name: '에펠탑', dateLabel: '1889.3.31', place: '파리, 프랑스',
+    no: 75, id: 'eiffel', name: '에펠탑', dateLabel: 'AD 1889.3.31', place: '파리, 프랑스',
     lat: 48.858, lon: 2.294,
     date: { year: 1889, month: 3, day: 31 }, calendar: 'gregorian', hourLocal: 13.5,
     facingAz: 315, nightOnLook: true,
@@ -99,7 +99,7 @@ export const SQUARES = [
     quiz: { question: '헐기로 했던 탑이 왜 남았나?', answer: '전파를 보내는 데 쓰여서', proof: '전파를 보내는 안테나로', wrong: ['너무 무거워서', '왕이 아껴서'] },
   },
   {
-    no: 82, id: 'kittyHawk', name: '12초의 비행', dateLabel: '1903.12.17', place: '키티호크, 노스캐롤라이나',
+    no: 82, id: 'kittyHawk', name: '12초의 비행', dateLabel: 'AD 1903.12.17', place: '키티호크, 노스캐롤라이나',
     lat: 36.014, lon: -75.668,
     date: { year: 1903, month: 12, day: 17 }, calendar: 'gregorian', hourLocal: 10.5833,
     facingAz: 0, nightOnLook: true,
@@ -111,7 +111,7 @@ export const SQUARES = [
     quiz: { question: '그 비행기는 지금 어디에 있나?', answer: '워싱턴의 박물관', proof: '워싱턴의 스미스소니언 박물관', wrong: ['바닷가의 헛간', '형제의 집'] },
   },
   {
-    no: 104, id: 'sputnik', name: '첫 인공위성', dateLabel: '1957.10.4', place: '바이코누르, 카자흐스탄',
+    no: 104, id: 'sputnik', name: '첫 인공위성', dateLabel: 'AD 1957.10.4', place: '바이코누르, 카자흐스탄',
     lat: 45.920, lon: 63.342,
     // 23.70 h local is 19:28 UT, the launch. The picture looks south-west, where the moon stood.
     date: { year: 1957, month: 10, day: 4 }, calendar: 'gregorian', hourLocal: 23.70,

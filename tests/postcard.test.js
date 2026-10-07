@@ -52,6 +52,9 @@ describe('postcards', () => {
 });
 
 describe('grandmother\'s answers', () => {
+  it('labels every square with AD or BC', () => {
+    for (const s of SQUARES) expect(s.dateLabel, s.id).toMatch(/^(AD|BC) \d/);
+  });
   it('has one for every square, short enough for a postcard', () => {
     for (const s of SQUARES) {
       expect(s.reply.length, s.id).toBeGreaterThan(8);

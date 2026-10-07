@@ -5,6 +5,7 @@
 // edge that glows softly in gold; a navy one step darker than first drawn; the Big Dipper
 // and star dust inside, turning with the dial; sparks of light that twinkle on the rim;
 // and sparkles on the glass while it is turned. The years are in the screen's type.
+import { frameZoom } from './shell.js';
 import { PX_PER_YEAR, isDecade } from '../core/dial.js';
 import { formatYear, yearFromIndex, yearIndex } from '../core/when.js';
 
@@ -73,7 +74,7 @@ export function createDialView(canvas) {
 
   function resize() {
     const box = canvas.getBoundingClientRect();
-    const ratio = window.devicePixelRatio || 1;
+    const ratio = (window.devicePixelRatio || 1) * frameZoom();
     w = box.width; h = box.height;
     canvas.width = Math.round(w * ratio); canvas.height = Math.round(h * ratio);
     c.setTransform(ratio, 0, 0, ratio, 0, 0);

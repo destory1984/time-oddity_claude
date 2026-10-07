@@ -1,6 +1,7 @@
 // The settings: the gear at the right end of the top buttons, built like volume 1's.
 // Four pages: the options, the help, what changed (core/changes.js) and "About". The
 // head carries the version and the two buttons for the size of the writing.
+import { loadScreen, saveScreen } from './storage.js';
 import { CHANGES, changesUntil, dayLabel, startedLine } from '../core/changes.js';
 import { canResize, nextTextSize } from '../core/textSize.js';
 import { loadTextSize, saveTextSize } from './storage.js';
@@ -75,6 +76,19 @@ export function createSettings({ onOpen, onClose, today, sound, music, version, 
     onReset();
   });
 
+  // On a PC the game is in a phone-shaped frame (ui/shell.js) unless the wide view was
+  // chosen; a phone has neither, and is not offered the switch.
+  const inFrame = window.self !== window.top;
+  if (inFrame || loadScreen() === 'wide') {
+    $('screenTerm').hidden = false;
+    $('screenRow').hidden = false;
+    $('screenNow').textContent = inFrame ? '지금: 휴대전화와 같은 세로 화면.' : '지금: 창을 가득 채운 넓은 화면.';
+    $('screenButton').textContent = inFrame ? '넓은 화면으로 바꾸기' : '세로 화면으로 바꾸기';
+    $('screenButton').addEventListener('click', () => {
+      saveScreen(inFrame ? 'wide' : 'phone');
+      window.top.location.reload();
+    });
+  }
   $('replayOpening').addEventListener('click', () => { dialog.close(); onReplay(); });
 
   $('settingsButton').addEventListener('click', () => {

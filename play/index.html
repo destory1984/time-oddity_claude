@@ -10,12 +10,21 @@
 <link rel="stylesheet" href="./fonts/pretendard/pretendardvariable-dynamic-subset.css">
 <link rel="stylesheet" href="./fonts/nanum-pen-script/400.css">
 <link rel="stylesheet" href="./fonts/gaegu/400.css">
-  <script type="module" crossorigin src="./assets/index-F2gLQRBe.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/halfFloat-CXxwV7oo.js">
-  <link rel="modulepreload" crossorigin href="./assets/logger-CuBYPcDK.js">
-  <link rel="stylesheet" crossorigin href="./assets/index-BBH9Qq6k.css">
+  <script type="module" crossorigin src="./assets/index-Cm_PE1Tb.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-VNVzglyr.css">
 </head>
 <body>
+<div id="loading">
+  <div id="loadingHero" aria-hidden="true">
+    <img src="./sora/loading-1.png" alt="">
+    <img src="./sora/loading-2.png" alt="">
+    <img src="./sora/loading-3.png" alt="">
+    <img src="./sora/loading-4.png" alt="">
+  </div>
+  <strong><img class="titleArt" src="./ui/title.png" alt="Time Oddity" width="900" height="221"></strong>
+  <em id="loadingSub">할머니의 수첩 2권</em>
+  <span>지난 날로 향하는 중…</span>
+</div>
 <div id="stage">
   <canvas id="globe"></canvas>
   <div id="pins"></div>
@@ -24,7 +33,7 @@
   <div id="glowSky"></div>
   <img id="sora" src="./sora/idle-1.png" alt="">
   <div id="hud">
-    <div id="top"><span id="dots"><i></i><i></i><i></i></span><span id="name"></span></div>
+    <div id="top"><span id="dots"><i></i><i></i><i></i></span><span id="name"></span><span id="brand"><img class="titleArt" src="./ui/title.png" alt="Time Oddity" width="900" height="221"></span></div>
     <nav id="topButtons">
       <button id="journalButton" class="glass" type="button" title="할머니의 수첩"><span id="journalCount"></span></button>
       <button id="soundButton" class="glass" type="button" title="소리">소리</button>
@@ -79,6 +88,7 @@
         <dt>효과음</dt><dd><span id="soundNow"></span> 화면 위의 스피커 단추로도 켜고 끕니다. 배경 음악과 따로 켜고 끕니다. 다이얼의 눈금 소리와 칸이 채워지는 소리가 납니다.<br><button type="button" id="soundSwitch"></button></dd>
         <dt>배경 음악</dt><dd><span id="musicNow"></span> 화면 위의 음표 단추로도 켜고 끕니다. 우주 한량과 같은 열한 곡(오르골, 새벽, 먼 바다, 자장가, 별무리, 깊은 밤, 유영, 빗방울, 가야금, 오로라, 회전목마)이 2분쯤씩 흐릅니다. 순서는 열 때마다 바뀝니다. 소리 파일이 아니라 그 자리에서 만들어 내는 소리입니다.<br><button type="button" id="musicSwitch"></button></dd>
         <dt>언어 · Language</dt><dd>지금은 한국어만 있습니다.</dd>
+        <dt id="screenTerm" hidden>화면 비율</dt><dd id="screenRow" hidden><span id="screenNow"></span> 바꾸면 화면을 다시 엽니다(수첩은 그대로).<br><button type="button" id="screenButton"></button></dd>
         <dt>저장</dt><dd>수첩에 채운 것, 글자 크기, 효과음과 배경 음악을 켜고 끈 것이 이 기기에 남습니다. 서버와 계정은 없습니다.<br><button type="button" id="resetProgress">수첩 비우기</button></dd>
       </dl>
     </section>
@@ -107,7 +117,7 @@
       <ul id="newsList"></ul>
     </section>
     <section data-tab="about" hidden>
-      <div id="aboutTitle"><strong>Time Oddity</strong><span>할머니의 수첩 2권</span></div>
+      <div id="aboutTitle"><img class="titleArt" src="./ui/title.png" alt="Time Oddity" width="900" height="221"><span>할머니의 수첩 2권</span></div>
       <dl>
         <dt>만든 사람</dt><dd>우주한량, 우주토끼</dd>
         <dt>개인정보</dt><dd>모으지 않습니다. 기록은 자신의 핸드폰이나 PC에만 남고, 서버로 보내지 않습니다.</dd>

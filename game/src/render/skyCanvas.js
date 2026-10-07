@@ -1,4 +1,5 @@
 // Draws the computed sky (core/sky.js) on a 2D canvas that lies behind the ground art.
+import { frameZoom } from '../ui/shell.js';
 import { skyLight } from '../core/sky.js';
 import { project } from '../core/project.js';
 
@@ -21,7 +22,7 @@ export function createSkyCanvas(canvas) {
 
   function resize() {
     const box = canvas.getBoundingClientRect();
-    const ratio = window.devicePixelRatio || 1;
+    const ratio = (window.devicePixelRatio || 1) * frameZoom();
     w = box.width; h = box.height;
     canvas.width = Math.round(w * ratio); canvas.height = Math.round(h * ratio);
     c.setTransform(ratio, 0, 0, ratio, 0, 0);

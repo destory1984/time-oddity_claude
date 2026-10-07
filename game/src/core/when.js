@@ -59,7 +59,7 @@ export function dateFromJd(jd, calendar = calendarOf(jd)) {
   return { year: yearFromIndex(index), month, day, hour: fraction * 24 };
 }
 
-export const formatYear = (year) => (year < 0 ? `기원전 ${-year}` : `${year}`);
+export const formatYear = (year) => (year < 0 ? `BC ${-year}` : `AD ${year}`);
 
 export const formatDate = ({ year, month, day }) => `${formatYear(year)}.${month}.${day}`;
 

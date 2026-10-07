@@ -52,11 +52,11 @@ describe('years', () => {
 });
 
 describe('words and clocks', () => {
-  it('writes years and dates in Korean', () => {
-    expect(formatYear(-585)).toBe('기원전 585');
-    expect(formatYear(1851)).toBe('1851');
-    expect(formatDate({ year: -585, month: 5, day: 28 })).toBe('기원전 585.5.28');
-    expect(formatDate({ year: 1851, month: 5, day: 1 })).toBe('1851.5.1');
+  it('writes years and dates with AD and BC', () => {
+    expect(formatYear(-585)).toBe('BC 585');
+    expect(formatYear(1851)).toBe('AD 1851');
+    expect(formatDate({ year: -585, month: 5, day: 28 })).toBe('BC 585.5.28');
+    expect(formatDate({ year: 1851, month: 5, day: 1 })).toBe('AD 1851.5.1');
   });
   it('turns local mean time into universal time by longitude', () => {
     expect(utHour(21, 31.134)).toBeCloseTo(18.9244, 4);

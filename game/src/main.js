@@ -413,7 +413,7 @@ function frameGlobe(dt) {
   globe.render(dt);
   const pose = soraPose({ now: performance.now(), hushAt });
   hud.set({
-    name: '시간 한량 · 첫 토막', ...dateOnGlobe(), dots: { day: false, sky: false, remains: false },
+    name: '', ...dateOnGlobe(), dots: { day: false, sky: false, remains: false },
     memo: null, memoPlain: false, chips: false, bubble: pose.saying, sora: pose, todayLabel: '오늘로', showToday: false, showLeave: false,
     hint: mode === 'globe' && !pose.saying ? guideLine({ where: 'globe', ...globeCount() }) : null, soraFade: 0, glowSky: 0, glowToday: 0,
   });
@@ -466,3 +466,5 @@ still();
 // A first visit begins with the opening; a link straight to a square or a still does not.
 if (!loadOpened() && !location.hash) opening.open();
 requestAnimationFrame(frame);
+// The first picture is on its way: the loading screen is put away.
+document.getElementById('loading').hidden = true;

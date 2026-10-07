@@ -1,4 +1,4 @@
-import{E as e}from"./index-F2gLQRBe.js";import{a as t,i as ee,n as te,r as ne,t as re}from"./logDepthDeclaration-DcW81dny.js";import{t as ie}from"./helperFunctions-Csifn5JT.js";var n=`objectIdFunctions`,r=`fn encodeObjectId(objectId: f32)->vec4f {
+import{t as e}from"./shaderStore-D-XQlhUT.js";import{a as t,i as ee,n as te,r as ne,t as re}from"./logDepthDeclaration-CLGvI4QS.js";import{t as ie}from"./helperFunctions-BH8P-eyq.js";var n=`objectIdFunctions`,r=`fn encodeObjectId(objectId: f32)->vec4f {
 #ifdef PREPASS_OBJECT_ID_R8
 return vec4f(objectId/255.0,0.0,0.0,1.0);
 #else

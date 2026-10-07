@@ -6,7 +6,7 @@ import { sanitizeProgress } from '../core/progress.js';
 import { textSizeFrom } from '../core/textSize.js';
 
 const KEY = {
-  opened: 'timeoddity.opened.v1', muted: 'timeoddity.muted.v1', cards: 'timeoddity.postcards.v1', music: 'timeoddity.music.v1', text: 'timeoddity.text.v1', progress: 'timeoddity.progress.v1',
+  opened: 'timeoddity.opened.v1', muted: 'timeoddity.muted.v1', cards: 'timeoddity.postcards.v1', music: 'timeoddity.music.v1', text: 'timeoddity.text.v1', progress: 'timeoddity.progress.v1', screen: 'timeoddity.screen.v1',
 };
 
 function read(key) {
@@ -32,3 +32,6 @@ export const loadCards = (ids) => sanitizeCards(read(KEY.cards), ids);
 export const saveCards = (cards) => write(KEY.cards, JSON.stringify(cards));
 export const loadTextSize = () => textSizeFrom(read(KEY.text));
 export const saveTextSize = (size) => write(KEY.text, String(size));
+// On a PC: the phone-shaped frame (the default) or the whole window.
+export const loadScreen = () => (read(KEY.screen) === 'wide' ? 'wide' : 'phone');
+export const saveScreen = (choice) => write(KEY.screen, choice === 'wide' ? 'wide' : 'phone');

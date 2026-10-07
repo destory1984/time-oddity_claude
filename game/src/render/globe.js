@@ -13,7 +13,8 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
 import { squareTitle } from '../core/squares.js';
 
 const RAD = Math.PI / 180;
-const GLOBE_WIDTH = 0.8;      // the Earth's diameter as a share of the screen's width
+const GLOBE_WIDTH = 0.8;      // the Earth's diameter as a share of the screen's width (of `span` on a wide window)
+const TALL = 0.6;             // a window wider than this share of its height counts as this wide
 const MAX_TILT = 70 * RAD;
 const COAST_MS = 160;         // after a drag the spin falls by 1/e in this long
 
@@ -64,6 +65,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
   let w = 1;
   let h = 1;
   let active = true;
+  let span = 1;                          // the width the Earth is sized by, in px
   let spin = { yaw: 0, tilt: 0 };       // finger speed, rad per ms
   let held = false;
   let glide = null;                      // a timed turn to a place
@@ -71,8 +73,9 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
   function resize() {
     const box = canvas.getBoundingClientRect();
     w = box.width; h = box.height;
+    span = Math.min(w, h * TALL);
     engine.resize();
-    const half = 1 / GLOBE_WIDTH;        // half the screen's width, in Earth radii
+    const half = w / span / GLOBE_WIDTH; // half the screen's width, in Earth radii
     camera.orthoLeft = -half; camera.orthoRight = half;
     camera.orthoTop = (half * h) / w; camera.orthoBottom = (-half * h) / w;
   }
@@ -125,7 +128,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     // A timed turn to a square is not interrupted: whoever asked for it is waiting on it.
     if (glide) return;
     held = true;
-    const perPx = 1 / (GLOBE_WIDTH * w * 0.5);   // radians of turn per pixel at the middle
+    const perPx = 1 / (GLOBE_WIDTH * span * 0.5);   // radians of turn per pixel at the middle
     const yaw = dx * perPx * yawSign;
     const tilt = dy * perPx * -tiltSign;         // screen y runs down
     earth.rotation.y += yaw;
@@ -179,7 +182,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
       spin = { yaw: spin.yaw * keep, tilt: spin.tilt * keep };
     }
     scene.render();
-    const pxPerUnit = (GLOBE_WIDTH * w) / 2;
+    const pxPerUnit = (GLOBE_WIDTH * span) / 2;
     // Names are laid out so that none lies on another: to the right of its pin if there
     // is room, else to the left, else a line lower. Widths are judged from the letters.
     const taken = [];
