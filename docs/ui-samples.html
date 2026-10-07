@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>시간 한량 화면 견본 10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#050330; --navy:#1a2894; --gold:#f6b951; --white:#fbf8f9;
+  --lav:#e2daf6; --paper:#f2e6c8; --ink:#3b2a1a; --brass:#b08a3c;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Gowun Batang","Malgun Gothic",serif;line-height:1.7}
+main{max-width:1400px;margin:0 auto;padding:40px 20px 80px}
+h1{font-size:2.1rem;margin:0 0 4px;letter-spacing:-.01em}
+h2{font-size:1.25rem;margin:44px 0 10px;border-bottom:2px solid var(--ink);padding-bottom:6px}
+p{max-width:44em;margin:.4em 0}
+.lead{font-size:1.05rem}
+table{border-collapse:collapse;margin:10px 0;max-width:100%}
+td,th{border-bottom:1px solid #c9b88d;padding:6px 14px 6px 0;text-align:left;vertical-align:top;font-size:.95rem}
+th{font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:44px 28px;margin-top:22px}
+figure{margin:0;display:flex;flex-direction:column;align-items:center}
+figcaption{width:300px;margin-top:12px;font-size:.92rem}
+figcaption b{font-size:1.08rem}
+figcaption dl{margin:6px 0 0;display:grid;grid-template-columns:3.6em 1fr;gap:2px 6px}
+figcaption dt{font-weight:700}
+figcaption dd{margin:0}
+
+/* 휴대전화 한 대: 300x650 (1권 375x812 의 0.8배) */
+.ph{position:relative;width:300px;height:650px;border-radius:26px;overflow:hidden;
+  background:linear-gradient(#0a0a4a 0%,#1a2894 34%,#6f79c9 58%,#e7c9a0 76%);
+  box-shadow:0 0 0 6px #1b1730,0 14px 30px rgba(59,42,26,.35);
+  font-family:"Malgun Gothic",system-ui,sans-serif;color:var(--white);font-size:11px;line-height:1.35}
+.ph>*{position:absolute}
+.glass{background:rgba(5,3,48,.55);border:1px solid rgba(226,218,246,.45);border-radius:14px}
+.top{top:10px;left:10px;right:10px;display:flex;gap:4px}
+.top span{height:28px;min-width:28px;padding:0 7px;display:grid;place-items:center;font-size:10px}
+.top .j{margin-left:auto;color:var(--gold);border-color:var(--gold)}
+.date{top:50px;left:14px}
+.date b{display:block;font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.date.c{left:0;right:0;top:128px;text-align:center}
+.moon{top:118px;right:64px;width:32px;height:32px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#fff,#d9d3ee);box-shadow:0 0 18px rgba(255,255,255,.5)}
+.moon.l{right:auto;left:70px;top:190px}
+.skynote{top:158px;right:14px;font-size:9px;border:1px dashed rgba(255,255,255,.6);padding:2px 6px;border-radius:8px}
+.land{left:0;right:0;bottom:0;height:300px;display:grid;place-items:start end;padding:64px 12px 0;text-align:center;color:var(--ink);
+  background:repeating-linear-gradient(45deg,#d8c79d 0 10px,#cdbb8e 10px 20px);
+  border-top:2px dashed var(--ink);font-size:12px}
+.land i{font-style:normal;background:var(--paper);padding:3px 8px;border:1px dashed var(--ink);font-size:10.5px}
+.sora{left:112px;top:246px;width:60px;height:78px;border:1.5px dashed var(--lav);border-radius:14px;
+  display:grid;place-items:center;font-size:10px;background:rgba(226,218,246,.15)}
+.bubble{right:10px;top:210px;background:var(--white);color:#1b1730;padding:5px 9px;border-radius:12px 12px 12px 2px;font-size:10.5px;white-space:nowrap}
+.memo{left:12px;top:356px;width:196px;background:var(--paper);color:var(--ink);padding:4px 9px;transform:rotate(-1.5deg);
+  font-family:"Nanum Pen Script","Gowun Batang",cursive;font-size:17px;line-height:1.15;box-shadow:1px 2px 0 rgba(59,42,26,.4)}
+.chips{left:12px;top:412px;display:flex;gap:5px}
+.chips span{padding:3px 8px;font-size:10px}
+.today{right:12px;top:360px;padding:6px 11px;border-color:var(--gold);color:var(--gold);font-size:11px}
+.joy{left:14px;bottom:84px;width:58px;height:58px;border-radius:50%;display:grid;place-items:center}
+.joy::after{content:"";width:24px;height:24px;border-radius:50%;background:rgba(226,218,246,.6)}
+.move{right:14px;bottom:84px;display:grid;gap:5px}
+.move span{padding:5px 10px;text-align:center}
+.tag{left:10px;bottom:74px;font-size:9px;color:var(--ink);background:var(--gold);padding:1px 7px;border-radius:8px}
+
+/* 1 눈금자 */
+.d1{left:10px;right:10px;bottom:10px;height:58px;overflow:hidden}
+.ticks{position:absolute;inset:auto 0 0 0;height:22px;
+  background:repeating-linear-gradient(90deg,rgba(251,248,249,.9) 0 1px,transparent 1px 9px)}
+.ticks.big{height:34px;background:repeating-linear-gradient(90deg,var(--white) 0 2px,transparent 2px 90px);background-position:49px 0}
+.yrs{position:absolute;top:5px;left:0;right:0;display:flex;justify-content:space-around;font-size:10px}
+.yrs b{color:var(--gold);font-size:13px}
+.needle{position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--gold)}
+/* 2 손잡이 */
+.d2{right:12px;bottom:14px;width:112px;height:112px;border-radius:50%;display:grid;place-items:center;
+  background:repeating-conic-gradient(rgba(251,248,249,.85) 0 1deg,transparent 1deg 10deg),rgba(5,3,48,.6);border:1px solid var(--lav)}
+.d2 b{width:72px;height:72px;border-radius:50%;background:#0b0940;border:2px solid var(--gold);display:grid;place-items:center;font-size:17px}
+/* 3 큰 호 */
+.d3{left:-110px;bottom:-436px;width:520px;height:520px;border-radius:50%;border:2px solid var(--gold);
+  background:repeating-conic-gradient(rgba(251,248,249,.8) 0 .4deg,transparent .4deg 3deg),rgba(5,3,48,.72)}
+.d3lab{left:0;right:0;bottom:42px;display:flex;justify-content:space-around;font-size:10px;padding:0 34px}
+.d3lab b{color:var(--gold);font-size:15px;transform:translateY(-12px)}
+/* 4 세로 띠 */
+.d4{right:0;top:104px;bottom:150px;width:48px;border-radius:14px 0 0 14px;display:flex;flex-direction:column;justify-content:space-around;text-align:center;
+  background:repeating-linear-gradient(0deg,rgba(251,248,249,.5) 0 1px,transparent 1px 8px),rgba(5,3,48,.6);border:1px solid rgba(226,218,246,.45);border-right:0}
+.d4 b{color:var(--night);background:var(--gold);padding:3px 0;font-size:12px}
+/* 5 회중시계 */
+.d5{left:92px;bottom:12px;width:116px;height:116px;border-radius:50%;background:radial-gradient(#f7edd2 62%,var(--brass) 64%);border:3px solid #7a5d22;color:var(--ink);display:grid;place-items:center;text-align:center}
+.d5::before{content:"";position:absolute;top:-14px;left:50%;width:16px;height:14px;margin-left:-8px;background:var(--brass);border-radius:4px 4px 0 0}
+.d5::after{content:"";position:absolute;left:50%;top:50%;width:2px;height:44px;background:var(--ink);transform-origin:50% 0;transform:rotate(200deg)}
+.d5 b{font-size:14px;margin-top:34px}
+/* 6 아스트롤라베 */
+.d6{left:10px;top:64px;width:280px;height:280px;border-radius:50%;border:8px solid transparent;
+  background:repeating-conic-gradient(var(--gold) 0 .6deg,transparent .6deg 6deg) border-box;
+  -webkit-mask:radial-gradient(closest-side,transparent calc(100% - 9px),#000 calc(100% - 8px));mask:radial-gradient(closest-side,transparent calc(100% - 9px),#000 calc(100% - 8px))}
+.bead{left:232px;top:92px;width:22px;height:22px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+/* 7 수첩 */
+.d7{left:0;right:0;bottom:0;height:156px;background:var(--paper);color:var(--ink);padding:12px 14px;
+  background-image:repeating-linear-gradient(var(--paper) 0 23px,#d6c59a 23px 24px)}
+.tabs{left:10px;bottom:156px;display:flex;gap:3px}
+.tabs span{background:#dccb9f;color:var(--ink);padding:3px 9px;border-radius:6px 6px 0 0;font-size:10px}
+.tabs .on{background:var(--paper);font-weight:700;padding-top:7px}
+.d7 em{font-style:normal;font-family:"Nanum Pen Script",cursive;font-size:18px;display:block;line-height:1.3}
+.d7 .line{margin-top:14px;height:2px;background:var(--ink);position:relative}
+.d7 .line::after{content:"1851";position:absolute;left:62%;top:-9px;background:var(--ink);color:var(--paper);padding:1px 6px;border-radius:3px;font-size:10px}
+/* 8 일력 */
+.d8{right:12px;top:50px;width:82px;background:var(--paper);color:var(--ink);text-align:center;border-radius:4px;box-shadow:2px 3px 0 rgba(5,3,48,.5);padding-bottom:4px}
+.d8 u{display:block;text-decoration:none;background:#a23a2a;color:var(--paper);font-size:13px;padding:2px 0;border-radius:4px 4px 0 0}
+.d8 s{display:block;text-decoration:none;font-size:11px;border-bottom:1px dashed var(--ink)}
+.d8 b{display:block;font-size:40px;line-height:1.05;font-family:"Gowun Batang",serif}
+/* 9 필름 */
+.d9{left:0;right:0;bottom:10px;height:66px;background:#15122b;display:flex;gap:5px;padding:9px 6px;
+  border-top:5px dotted var(--paper);border-bottom:5px dotted var(--paper)}
+.d9 span{flex:1;background:repeating-linear-gradient(45deg,#d8c79d 0 5px,#cdbb8e 5px 10px);color:var(--ink);display:grid;place-items:end center;font-size:9px;font-weight:700}
+.d9 .on{outline:2px solid var(--gold);flex:1.5}
+/* 10 틀 없음 */
+.hint{left:0;right:0;top:196px;display:flex;justify-content:space-between;padding:0 14px;font-size:10px;opacity:.75}
+</style>
+</head>
+<body>
+<main>
+<h1>시간 한량 화면 견본 10</h1>
+<p class="lead">칸 하나의 화면을 10가지로 짜 보았다. 장면은 모두 같다. 1851년 5월 1일 하이드파크, 수정궁이 문을 연 날이다. 바뀌는 것은 다이얼의 생김새와 자리뿐이다.</p>
+<p>빗금 친 칸은 그림이 들어갈 자리다. 그림은 여기서 그리지 않고 <code>art-order-test-10.md</code> 로 따로 주문한다. 달의 모양과 자리도 임시다. 실제 게임에서는 그날 그 자리 하늘을 계산해 그린다.</p>
+
+<h2>어떻게 만드나</h2>
+<p>화면은 네 겹이다. 아래 겹부터 적는다.</p>
+<table>
+<tr><th>겹</th><th>무엇</th><th>만드는 법</th></tr>
+<tr><td>하늘</td><td>달, 행성, 별자리</td><td>날짜와 위도, 경도로 계산한다. 1권의 Babylon.js 하늘 코드를 다시 쓴다</td></tr>
+<tr><td>땅</td><td>그때 1장, 오늘 1장</td><td>하늘 자리가 뚫린 그림 2장을 겹쳐 놓고, 다이얼 값에 따라 한쪽을 서서히 지운다</td></tr>
+<tr><td>서라</td><td>도트 그림</td><td>1권 것을 그대로 쓴다</td></tr>
+<tr><td>틀</td><td>날짜, 다이얼, 메모, 단추</td><td>HTML과 CSS. 1권의 둥근 유리판과 선 아이콘을 잇는다</td></tr>
+</table>
+<p>글은 화면에 2줄만 둔다. 할머니 메모 1줄과 서라 한마디 1줄이다. 이야기 카드와 문제는 접어 두고, 눌러야 펼쳐진다. 1권의 조이스틱과 전진, 정지 단추는 자리를 지킨다. 다이얼은 그 둘과 손가락이 겹치지 않아야 한다.</p>
+
+<h2>견본 10</h2>
+<div class="grid" id="grid"></div>
+
+<h2>고를 때 볼 것</h2>
+<table>
+<tr><th>물음</th><th>왜</th></tr>
+<tr><td>하늘이 얼마나 가려지나</td><td>하늘이 주인공이다. 1, 4, 9, 10번이 가장 적게 가린다</td></tr>
+<tr><td>한 손 엄지로 되나</td><td>2, 3, 5번은 오른손 엄지 자리에 있다. 6번은 두 손이 든다</td></tr>
+<tr><td>세기와 날을 한 손잡이로 오가나</td><td>기원전 2560년부터 2061년까지 4,600년이다. 날 단위로만 돌리면 끝이 없다</td></tr>
+<tr><td>1권과 한 게임으로 보이나</td><td>1, 2, 3, 4, 10번은 유리판, 5, 6번은 놋쇠, 7, 8, 9번은 종이와 필름이다</td></tr>
+</table>
+</main>
+
+<script>
+const L = t => `<div class="land" style="${t||''}"><i>땅 그림 자리 (발주)<br>그때 1851 ↔ 오늘</i></div>`;
+function screen(o){
+  return `<div class="ph">
+  <div class="moon ${o.moonL?'l':''}"></div>
+  ${o.noNote?'':'<div class="skynote">하늘은 계산</div>'}
+  ${L(o.land)}
+  <div class="top"><span class="glass">소리</span><span class="glass">음악</span><span class="glass">?</span><span class="glass j">수첩 64/120</span><span class="glass">사진</span></div>
+  ${o.noDate?'<div class="date">하이드파크<br>런던</div>':`<div class="date ${o.dateC?'c':''}"><b>1851.5.1</b>하이드파크, 런던</div>`}
+  <div class="sora">서라</div><div class="bubble" style="${o.bub||''}">유리로 지은 집이다. 반짝반짝.</div>
+  ${o.noMemo?'':'<div class="memo">1851.5.1 만국박람회 열림.<br>그날 달은 ○</div><div class="chips"><span class="glass">이야기 카드</span><span class="glass">맞혀 보렴</span></div>'}
+  <div class="today glass" style="${o.today||''}">오늘로</div>
+  <div class="joy glass" style="${o.joy||''}"></div>
+  <div class="move" style="${o.move||''}"><span class="glass">전진</span><span class="glass">정지</span></div>
+  ${o.dial}
+</div>`;
+}
+const S = [
+ {n:'가로 눈금자', how:'아래 띠를 옆으로 민다. 천천히 밀면 날, 세게 튕기면 세기가 넘어간다.', good:'가장 익숙하다. 하늘을 가리지 않는다.', bad:'1권의 속도 막대 자리와 겹친다. 막대를 옮겨야 한다.',
+  dial:`<div class="d1 glass"><div class="yrs"><span>1800</span><b>1851</b><span>1900</span></div><div class="ticks"></div><div class="ticks big"></div><div class="needle"></div></div>`},
+ {n:'둥근 손잡이', how:'오른쪽 아래 손잡이를 엄지로 돌린다. 바깥 테는 세기, 안쪽은 날.', good:'"다이얼을 돌린다"는 말 그대로다. 한 손으로 된다.', bad:'전진, 정지 단추를 위로 밀어내야 한다.',
+  move:'bottom:140px', joy:'bottom:30px', dial:`<div class="d2"><b>1851</b></div>`},
+ {n:'큰 호', how:'화면 아래에 큰 바퀴의 윗부분만 보인다. 옆으로 쓸면 바퀴가 구른다.', good:'넓어서 눈금이 촘촘하다. 지평선처럼 보여 땅 그림과 어울린다.', bad:'땅 그림의 아래 60픽셀을 가린다.',
+  move:'bottom:100px', joy:'bottom:100px', dial:`<div class="d3"></div><div class="d3lab"><span>1800</span><b>1851</b><span>1900</span></div>`},
+ {n:'오른쪽 세로 띠', how:'오른쪽 가장자리를 위아래로 쓴다. 위가 옛날, 아래가 오늘.', good:'엄지가 닿는 자리다. 아래쪽 조종 단추를 건드리지 않는다.', bad:'가로로 넓은 PC 화면에서는 어색하다.',
+  today:'right:60px;top:316px', bub:'right:56px', noNote:1, land:'place-items:start center;padding-top:88px', dial:`<div class="d4"><span>1700</span><span>1800</span><b>1851</b><span>1900</span><span>오늘</span></div>`},
+ {n:'회중시계', how:'가운데 아래 놋쇠 시계의 용두를 돌린다. 긴 바늘은 해, 짧은 바늘은 달.', good:'할머니의 물건처럼 보인다. 이야기와 붙는다.', bad:'1권의 유리판 단추와 재질이 갈린다. 숫자가 작다.',
+  joy:'bottom:30px', move:'bottom:30px', dial:`<div class="d5"><b>1851</b></div>`},
+ {n:'하늘을 두른 고리', how:'하늘 둘레의 금빛 고리 위 구슬을 끌어 돌린다. 한 바퀴가 한 해.', good:'달이 차고 기우는 것과 손의 움직임이 맞물린다.', bad:'두 손이 든다. 서라와 말풍선 위를 손이 지난다.',
+  dateC:1, noNote:1, moonL:1, dial:`<div class="d6"></div><div class="bead"></div>`},
+ {n:'수첩 책등', how:'아래에서 수첩이 반쯤 올라와 있다. 견출지로 시대를 고르고 줄 위의 표를 민다.', good:'메모와 다이얼이 한 장에 있다. 수첩이 늘 보인다.', bad:'화면의 4분의 1을 종이가 덮는다. 그림이 먼저라는 원칙과 다툰다.',
+  noMemo:1, joy:'bottom:180px', move:'bottom:240px', today:'top:300px',
+  dial:`<div class="tabs"><span>고대</span><span>중세</span><span class="on">근세</span><span>현대</span></div><div class="d7"><em>1851.5.1 만국박람회 열림. 그날 달은 ○</em><div class="line"></div></div>`},
+ {n:'일력', how:'오른쪽 위 일력의 해, 달, 날을 따로 위아래로 넘긴다.', good:'날짜를 정확히 맞추기 쉽다. 1582년에 열흘이 사라지는 것이 눈에 보인다.', bad:'돌리는 맛이 없다. 달이 차고 기우는 것을 이어서 보기 어렵다.',
+  noDate:1, moonL:1, noNote:1, today:'top:160px', dial:`<div class="d8"><u>1851</u><s>5월</s><b>1</b></div>`},
+ {n:'필름 띠', how:'아래 필름을 옆으로 넘긴다. 칸마다 그 해의 같은 자리가 작게 보인다.', good:'서라가 사진을 찍는 이야기와 맞다. 무엇이 나올지 미리 보인다.', bad:'작은 그림이 칸마다 더 든다. 사건 없는 해는 빈 필름이다.',
+  dial:`<div class="d9"><span>1800</span><span class="on">1851</span><span>1900</span><span>1936</span><span>오늘</span></div>`},
+ {n:'틀 없음', how:'다이얼이 없다. 하늘을 옆으로 끌면 때가 흐른다. 두 손가락으로 끌면 세기.', good:'화면에 그림과 하늘만 남는다.', bad:'처음 보는 사람이 방법을 모른다. 시점 돌리기와 손짓이 겹친다.',
+  dial:`<div class="hint"><span>← 끌면 옛날</span><span>끌면 오늘 →</span></div>`},
+];
+document.getElementById('grid').innerHTML = S.map((s,i)=>`<figure>${screen(s)}
+<figcaption><b>${i+1}. ${s.n}</b><dl><dt>조작</dt><dd>${s.how}</dd><dt>좋은 점</dt><dd>${s.good}</dd><dt>걱정</dt><dd>${s.bad}</dd></dl></figcaption></figure>`).join('');
+</script>
+</body>
+</html>
