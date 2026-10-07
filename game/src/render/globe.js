@@ -184,7 +184,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     scene.render();
     const pxPerUnit = (GLOBE_WIDTH * span) / 2;
     // Names are laid out so that none lies on another: to the right of its pin if there
-    // is room, else to the left, else a line lower. Widths are judged from the letters.
+    // is room, else to the left, else a line or two lower or higher. Widths are judged from the letters.
     const taken = [];
     const hits = (box) => taken.some((t) => box.left < t.right && box.right > t.left && box.top < t.bottom && box.bottom > t.top);
     const shown = [];
@@ -205,8 +205,12 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
       const boxAt = (side, drop) => (side > 0
         ? { left: x + 12, right: x + 12 + wide, top: y - 8 + drop, bottom: y + 8 + drop }
         : { left: x - 12 - wide, right: x - 12, top: y - 8 + drop, bottom: y + 8 + drop });
-      const tries = [[1, 0], [-1, 0], [1, 17], [-1, 17], [1, -17], [-1, -17]];
-      const [side, drop] = tries.find(([sd, dp]) => !hits(boxAt(sd, dp))) ?? tries[0];
+      const tries = [[1, 0], [-1, 0], [1, 17], [-1, 17], [1, -17], [-1, -17], [1, 34], [-1, 34], [1, -34], [-1, -34]];
+      const free = tries.find(([sd, dp]) => !hits(boxAt(sd, dp)));
+      // Where pins crowd (Europe) a name with no room is left out; its pin and the notebook still lead there.
+      pin.button.classList.toggle('bare', !free);
+      if (!free) continue;
+      const [side, drop] = free;
       pin.button.classList.toggle('left', side < 0);
       pin.button.style.setProperty('--drop', `${drop}px`);
       taken.push(boxAt(side, drop));

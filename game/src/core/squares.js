@@ -1,4 +1,4 @@
-// The squares so far: the four of the first slice and three added on 2026.10.7. date is a historical date in the square's own
+// The squares so far: the four of the first slice, three more and then ten more, all of 2026.10.7. date is a historical date in the square's own
 // calendar; hourLocal is local mean time at the square's longitude (no time zones).
 // facingAz is the way the ground picture looks: 0 north, 90 east. nightOnLook squares
 // are daytime events whose sky is shown at 9 pm that day when the player looks up.
@@ -124,7 +124,139 @@ export const SQUARES = [
     reply: '그 쇠공이 돌 때 나는 세 살이었단다. 기억에는 없지.', // (placeholder)
     quiz: { question: '스푸트니크는 무엇이었나?', answer: '첫 인공위성', proof: '첫 인공위성', wrong: ['첫 우주 비행사', '달에 간 로켓'] },
   },
-];
+  // --- Ten squares added on 2026.10.7 (the user: "10개 더 하자"). Every line of theirs is a
+  // placeholder. Squares without a known day stand at noon on a day chosen for the season;
+  // facingAz was chosen from the computed sky so that something is up at 9 pm where the
+  // real view allows it (the palace hall and the Taj Mahal are seen looking north).
+  {
+    no: 2, id: 'stonehenge', name: '스톤헨지', dateLabel: 'BC 2500년경', place: '솔즈베리, 영국',
+    lat: 51.179, lon: -1.826,
+    date: { year: -2500, month: 7, day: 12 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 170, nightOnLook: true,
+    memo: '큰 돌을 둥글게 세웠다고 읽음.', sora: '돌 위에 돌을 어떻게 올렸지?',
+    memoToday: '남은 것: 돌의 절반쯤.', soraToday: '많이 쓰러졌네. 그래도 서 있어.',
+    noteMemo: '기원전 2500년경. 큰 돌을 끌어다 둥글게 세웠다고 책에서 읽음. 날을 몰라 달은 못 적음.',
+    card: '기원전 2500년 무렵, 영국 솔즈베리 평원에 큰 돌을 둥글게 세운 스톤헨지가 지어졌습니다. 큰 돌은 30km쯤 떨어진 곳에서, 작은 푸른 돌은 240km쯤 떨어진 웨일스에서 끌어왔습니다. 돌들은 한여름 해가 뜨는 쪽과 한겨울 해가 지는 쪽에 맞추어 놓였습니다.',
+    reply: '글자도 없던 때에 해 뜨는 쪽을 돌로 적어 둔 거란다.',
+    quiz: { question: '작은 푸른 돌은 어디에서 끌어왔나?', answer: '웨일스', proof: '웨일스', wrong: ['프랑스', '아일랜드'] },
+  },
+  {
+    no: 9, id: 'parthenon', name: '파르테논', dateLabel: 'BC 432년경', place: '아테네, 그리스',
+    lat: 37.9715, lon: 23.7267,
+    date: { year: -432, month: 7, day: 1 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 115, nightOnLook: true,
+    memo: '흰 돌 신전을 다 지었다고 읽음.', sora: '색칠이 돼 있어! 흰색이 아니네.',
+    memoToday: '남은 것: 기둥. 지붕은 없음.', soraToday: '지붕이 없어. 하늘이 다 보여.',
+    noteMemo: '기원전 432년경. 언덕 위에 흰 대리석 신전을 다 지었다고 책에서 읽음. 날을 몰라 달은 못 적음.',
+    card: '기원전 432년 무렵, 아테네의 아크로폴리스 언덕에 아테나 여신의 신전 파르테논이 다 지어졌습니다. 흰 대리석 기둥 위의 조각에는 붉고 푸른 칠이 되어 있었습니다. 1687년 전쟁 때 안에 쌓아 둔 화약이 터져 지붕과 벽이 무너졌습니다.',
+    reply: '지붕이 없으니 별이 잘 보이겠구나. 신전이 천문대가 됐네.',
+    quiz: { question: '파르테논의 지붕은 왜 무너졌나?', answer: '화약이 터져서', proof: '화약이 터져', wrong: ['지진이 나서', '큰불이 나서'] },
+  },
+  {
+    no: 16, id: 'colosseum', name: '콜로세움', dateLabel: 'AD 80년', place: '로마, 이탈리아',
+    lat: 41.890, lon: 12.492,
+    date: { year: 80, month: 6, day: 1 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 290, nightOnLook: true,
+    memo: '큰 경기장이 문을 열었다고 읽음.', sora: '천막 지붕이 있어! 엄청 커.',
+    memoToday: '남은 것: 바깥벽의 절반.', soraToday: '한쪽 벽이 없네. 돌을 가져갔대.',
+    noteMemo: '80년. 로마에 오만 명이 앉는 둥근 경기장이 열렸다고 책에서 읽음. 날을 몰라 달은 못 적음.',
+    card: '서기 80년, 로마에서 티투스 황제가 콜로세움의 문을 열었습니다. 오만 명쯤이 앉는 둥근 경기장이었고, 햇빛을 가리는 천 차양이 꼭대기에 걸렸습니다. 뒷날 지진으로 바깥벽 한쪽이 무너졌고, 떨어진 돌은 다른 건물을 짓는 데 쓰였습니다.',
+    reply: '절반만 남아도 다들 알아보지. 큰 것은 그렇단다.',
+    quiz: { question: '꼭대기에 건 천 차양은 무엇을 가렸나?', answer: '햇빛', proof: '햇빛을 가리는', wrong: ['빗물', '모래바람'] },
+  },
+  {
+    no: 20, id: 'cheomseongdae', name: '첨성대', dateLabel: 'AD 640년경', place: '경주, 신라',
+    lat: 35.8347, lon: 129.219,
+    date: { year: 640, month: 9, day: 1 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 170, nightOnLook: true,
+    memo: '별을 보는 돌탑을 쌓았다고 읽음.', sora: '병처럼 생겼어. 창으로 들어가나 봐.',
+    memoToday: '남은 것: 첨성대. 그대로.', soraToday: '그대로야! 천사백 년이나 됐는데.',
+    noteMemo: '640년경. 선덕여왕 때 별을 보는 돌탑을 쌓았다고 책에서 읽음. 날을 몰라 달은 못 적음.',
+    card: '신라 선덕여왕 때인 640년 무렵, 서라벌에 별을 보는 돌탑 첨성대가 세워졌습니다. 다듬은 돌을 스물일곱 단 둥글게 쌓았고, 가운데에 남쪽으로 창을 하나 냈습니다. 첨성대는 천사백 년 가까이 그 자리에 그대로 서 있습니다.',
+    reply: '천사백 년 동안 같은 하늘을 본 돌이란다. 부럽지.',
+    quiz: { question: '첨성대의 창은 어느 쪽으로 나 있나?', answer: '남쪽', proof: '남쪽으로', wrong: ['북쪽', '서쪽'] },
+  },
+  {
+    // 1446, the ninth lunar month: 30 September in the Julian calendar is the tenth day
+    // of that month, the day Hangul Day (9 October) is reckoned from. The hall is seen
+    // looking north, with the mountain behind it. The hall standing today was rebuilt in 1867.
+    no: 34, id: 'hunminjeongeum', name: '훈민정음', dateLabel: 'AD 1446년 가을', place: '경복궁, 한양',
+    lat: 37.5796, lon: 126.977,
+    date: { year: 1446, month: 9, day: 30 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 0, nightOnLook: true,
+    memo: '새 글자 스물여덟 자를 폈다고 읽음.', sora: '지금 내가 쓰는 글자가 이날 나왔어?',
+    memoToday: '남은 것: 책 한 권. 간송에.', soraToday: '집은 다시 지은 거래. 글자는 그대로.',
+    noteMemo: '1446년 가을. 세종이 새 글자를 책으로 펴냈다고 읽음. 그날 달은 반달을 지나 차는 중.',
+    card: '1446년 가을, 세종은 새로 만든 글자 스물여덟 자를 "훈민정음"이라는 책으로 펴냈습니다. 글자를 만든 까닭과 쓰는 법을 풀이한 이 책은 1940년에 안동에서 다시 발견되었습니다. 지금은 서울의 간송미술관이 간직하고 있습니다.',
+    reply: '내가 이 수첩을 쓸 수 있는 것도 그날 덕이란다.',
+    quiz: { question: '훈민정음 책은 지금 어디에 있나?', answer: '간송미술관', proof: '간송미술관', wrong: ['경복궁', '국립중앙박물관'] },
+  },
+  {
+    // 7 pm: Jupiter stands 51 degrees up in the east-south-east, ten degrees from a
+    // nearly full moon. A night square, so the clock does not flow.
+    no: 46, id: 'galileo', name: '목성의 달', dateLabel: 'AD 1610.1.7', place: '파도바, 이탈리아',
+    lat: 45.406, lon: 11.877,
+    date: { year: 1610, month: 1, day: 7 }, calendar: 'gregorian', hourLocal: 19,
+    facingAz: 110, nightOnLook: false,
+    memo: '망원경으로 목성 곁의 별을 봄.', sora: '저 밝은 게 목성이야? 달 옆에 있네.',
+    memoToday: '남은 것: 망원경. 피렌체에.', soraToday: '망원경은 박물관에 갔대.',
+    noteMemo: '1610.1.7. 갈릴레오가 망원경으로 목성 곁의 작은 별을 봤다고 읽음. 그날 달은 보름 가까이.',
+    card: '1610년 1월 7일 밤, 파도바의 갈릴레오는 손수 만든 망원경으로 목성 곁에 늘어선 작은 별 셋을 보았습니다. 며칠 뒤 별은 넷이 되었고, 그는 그것들이 목성 둘레를 도는 달이라는 것을 알아냈습니다. 하늘의 모든 것이 지구를 도는 것은 아니라는 첫 증거였습니다.',
+    reply: '1권에서 네가 본 그 달 넷이란다. 그날 처음 들킨 거지.',
+    quiz: { question: '목성 곁의 작은 별들은 무엇이었나?', answer: '목성의 달', proof: '목성 둘레를 도는 달', wrong: ['혜성', '먼 행성'] },
+  },
+  {
+    no: 47, id: 'tajMahal', name: '타지마할', dateLabel: 'AD 1653년', place: '아그라, 인도',
+    lat: 27.175, lon: 78.042,
+    date: { year: 1653, month: 3, day: 1 }, calendar: 'gregorian', hourLocal: 12,
+    facingAz: 0, nightOnLook: true,
+    memo: '흰 돌 무덤을 다 지었다고 읽음.', sora: '하얗다. 물에도 비쳐.',
+    memoToday: '남은 것: 타지마할. 그대로.', soraToday: '나무가 줄었네. 건물은 그대로.',
+    noteMemo: '1653년. 황제가 황후를 위해 스물두 해 걸려 흰 돌 무덤을 지었다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '1653년 무렵, 인도 아그라에 흰 대리석 무덤 타지마할이 다 지어졌습니다. 무굴의 황제 샤자한이 먼저 떠난 황후 뭄타즈 마할을 위해 스물두 해에 걸쳐 지은 것입니다. 건물은 그대로 남았고, 과일나무가 빽빽하던 정원은 뒷날 잔디밭으로 바뀌었습니다.',
+    reply: '보고 싶은 마음을 돌로 쌓으면 그렇게 되는구나.',
+    quiz: { question: '타지마할은 누구를 위해 지었나?', answer: '황후', proof: '황후 뭄타즈 마할을 위해', wrong: ['황제의 어머니', '전쟁에서 진 장군'] },
+  },
+  {
+    no: 54, id: 'montgolfier', name: '첫 열기구', dateLabel: 'AD 1783.11.21', place: '파리, 프랑스',
+    lat: 48.861, lon: 2.269,
+    date: { year: 1783, month: 11, day: 21 }, calendar: 'gregorian', hourLocal: 14,
+    facingAz: 190, nightOnLook: true,
+    memo: '사람이 처음 하늘에 떴다고 읽음.', sora: '떴다! 불을 때서 뜨는 거래.',
+    memoToday: '남은 것: 없음. 공원뿐.', soraToday: '성도 기구도 없어. 공원이야.',
+    noteMemo: '1783.11.21. 두 사람이 종이와 천으로 만든 기구로 하늘에 떴다고 읽음. 그날 달은 그믐달.',
+    card: '1783년 11월 21일, 파리 서쪽 라 뮈에트 성의 정원에서 두 사람을 태운 열기구가 떠올랐습니다. 몽골피에 형제가 종이와 천으로 만든 기구였고, 짚을 태운 더운 공기로 떴습니다. 기구는 25분쯤 날아 9km쯤 떨어진 곳에 내렸습니다.',
+    reply: '1권의 로켓도 여기서 시작했단다. 처음엔 종이였지.',
+    quiz: { question: '열기구는 무엇의 힘으로 떴나?', answer: '더운 공기', proof: '더운 공기', wrong: ['수소', '큰 날개'] },
+  },
+  {
+    no: 74, id: 'liberty', name: '자유의 여신상', dateLabel: 'AD 1886.10.28', place: '뉴욕, 미국',
+    lat: 40.689, lon: -74.045,
+    date: { year: 1886, month: 10, day: 28 }, calendar: 'gregorian', hourLocal: 15,
+    facingAz: 240, nightOnLook: true,
+    memo: '바다 건너온 큰 조각상을 세움.', sora: '초록색이 아니야! 구릿빛이야.',
+    memoToday: '남은 것: 여신상. 초록이 됨.', soraToday: '초록색 됐다. 녹이 슨 거래.',
+    noteMemo: '1886.10.28. 프랑스가 보낸 구리 조각상을 뉴욕 항에 세웠다고 읽음. 그날 달은 초승.',
+    card: '1886년 10월 28일, 뉴욕 항의 작은 섬에서 자유의 여신상을 세운 것을 기념하는 식이 열렸습니다. 프랑스 사람들이 선물로 보낸 이 구리 조각상은 조각조각 나뉘어 배로 바다를 건너왔습니다. 붉은 갈색이던 구리는 서른 해쯤 지나며 녹이 슬어 지금의 청록색이 되었습니다.',
+    reply: '녹도 옷이 되는구나. 나이 드는 것도 나쁘지 않단다.',
+    quiz: { question: '여신상은 왜 청록색이 되었나?', answer: '구리에 녹이 슬어서', proof: '녹이 슬어', wrong: ['페인트를 칠해서', '이끼가 껴서'] },
+  },
+  {
+    // The southern sky: the first square south of the equator.
+    no: 110, id: 'sydneyOpera', name: '오페라하우스', dateLabel: 'AD 1973.10.20', place: '시드니, 오스트레일리아',
+    lat: -33.857, lon: 151.215,
+    date: { year: 1973, month: 10, day: 20 }, calendar: 'gregorian', hourLocal: 15,
+    facingAz: 270, nightOnLook: true,
+    memo: '조개 같은 지붕의 극장이 열림.', sora: '돛단배 같아. 배도 엄청 많아!',
+    soraSky: '별이 다 처음 보는 거야. 남쪽 하늘!',
+    memoToday: '남은 것: 오페라하우스. 그대로.', soraToday: '건물이 훨씬 많아졌네.',
+    noteMemo: '1973.10.20. 열네 해 걸려 지은 조개 지붕 극장이 문을 열었다고 읽음. 그날 달은 그믐에 가까움.',
+    card: '1973년 10월 20일, 시드니 항의 곶 끝에서 오페라하우스가 문을 열었습니다. 덴마크의 건축가 예른 웃손이 설계했고, 조개껍데기 같은 지붕을 짓는 법을 찾느라 열네 해가 걸렸습니다. 이 건물은 2007년에 유네스코 세계유산이 되었습니다.',
+    reply: '거기는 별자리가 거꾸로란다. 올려다봤니?',
+    quiz: { question: '오페라하우스의 지붕은 무엇을 닮았나?', answer: '조개껍데기', proof: '조개껍데기 같은 지붕', wrong: ['왕관', '물고기'] },
+  },
+// Kept in the order of the notebook, whatever order they were written in above.
+].sort((a, b) => a.no - b.no);
 
 export const squareById = (id) => SQUARES.find((s) => s.id === id);
 

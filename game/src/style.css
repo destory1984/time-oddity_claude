@@ -248,3 +248,4 @@ html.wide #stage{max-width:none}
 #loadingHero img:nth-child(4){animation-delay:.375s}
 @keyframes loadingFrame{0%{opacity:1}25%{opacity:0}100%{opacity:0}}
 #date b small{font-size:.5em;font-weight:600;letter-spacing:0;margin-right:.3em}
+#pins .pin.bare span{display:none}
