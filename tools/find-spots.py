@@ -1,8 +1,9 @@
-"""Finds where a square's two ground pictures differ: the places to be found in the
-"what has changed" game. For every scene in game/src/art/scenes.js the picture of the day
+"""Finds where a square's two ground pictures differ: a help in choosing the things to be
+found in the "what has changed" game (game/src/core/find.js), which are chosen by eye.
+The first try let this tool choose, and it chose houses that do not matter. For every scene in game/src/art/scenes.js the picture of the day
 and the picture of today are laid over each other, and up to four of the largest places
 that differ, well apart and inside what a phone shows, are written to
-game/src/data/spots.json as { id: [{ x, y, r }] }: x and y are the middle as shares of the
+assets/tmp/spots.json as { id: [{ x, y, r }] }: x and y are the middle as shares of the
 picture's width and height, r the radius as a share of its width.
 
     python tools/find-spots.py [sheet.jpg]
@@ -133,7 +134,7 @@ def main(sheet_path=None):
                 x0, x1, y0, y1 = box
                 both.append(picture.crop((int(x0 * 1536), int(y0 * 1024), int(x1 * 1536), int(y1 * 1024))).resize((220, 300)))
             tiles.append(both)
-    io.open('game/src/data/spots.json', 'w', encoding='utf-8', newline='\n').write(json.dumps(spots, separators=(',', ':')) + '\n')
+    io.open('assets/tmp/spots.json', 'w', encoding='utf-8', newline='\n').write(json.dumps(spots, separators=(',', ':')) + '\n')
     if sheet_path:
         per = 10
         for n in range(0, len(tiles), per):

@@ -13,8 +13,8 @@
 <link rel="stylesheet" href="./fonts/pretendard/pretendardvariable-dynamic-subset.css">
 <link rel="stylesheet" href="./fonts/nanum-pen-script/400.css">
 <link rel="stylesheet" href="./fonts/gaegu/400.css">
-  <script type="module" crossorigin src="./assets/index-B0_XCswS.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-C82p2EYn.css">
+  <script type="module" crossorigin src="./assets/index-ChlxD3Z-.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BOR9UDe7.css">
 </head>
 <body>
 <!-- For testing: shown only on the maker's own machine or home network (core/host.js). -->
@@ -56,8 +56,9 @@
     <div id="photoBar"><span>위아래로 밀어 담을 곳을 고르렴</span><div><button id="photoCancel" class="glass" type="button">그만</button><button id="photoShutter" type="button" aria-label="찍기"></button></div></div>
     <div id="bubble"></div>
     <div id="memo"></div>
-    <div id="chips"><button id="cardChip" class="glass" type="button">이야기 카드</button><button id="quizChip" class="glass" type="button">맞혀 보렴</button><button id="findChip" class="glass" type="button" hidden>달라진 곳 찾기</button></div>
+    <div id="chips"><button id="cardChip" class="glass" type="button">이야기 카드</button><button id="quizChip" class="glass" type="button">맞혀 보렴</button><button id="findChip" class="glass" type="button" hidden>달라진 것 찾기</button></div>
     <div id="findLayer"></div>
+    <ul id="findLines"></ul>
     <div id="findBar"><b id="findCount"></b><div><button id="findPeek" class="glass" type="button">누르고 있으면 그날</button><button id="findStop" class="glass" type="button">그만</button></div></div>
     <div id="hint"></div>
     <div id="underfoot"></div>
@@ -113,7 +114,7 @@
         <dt>이야기 카드</dt><dd>칸에 서면 메모 아래에 "이야기 카드"와 "맞혀 보렴"이 뜹니다. 문제의 답은 카드 글 안에 있고, 틀려도 깎이는 것이 없습니다.</dd>
         <dt>하늘 보기</dt><dd>화면을 위로 밉니다. 할머니는 책에서 읽기만 해서 그날 밤 하늘이 어땠는지는 몰랐습니다. 그 하늘을 소라가 대신 봅니다. 그날 그 자리의 달과 행성과 별이 보이고, 할머니가 적어 둔 달 이야기가 쪽지로 뜹니다. 낮에 일어난 일은 올려다보고 있으면 그날 밤 9시로 흘러갑니다. 아래로 밀면 고개를 내립니다.</dd>
         <dt>오늘로</dt><dd>오른쪽 위의 "오늘로"를 누르면 3초에 걸쳐 같은 자리가 오늘 모습으로 바뀝니다. "그날로"를 누르면 돌아갑니다.</dd>
-        <dt>달라진 곳 찾기</dt><dd>오늘로 돌린 뒤 "달라진 곳 찾기"를 누르면, 오늘의 그림에서 그날과 달라진 곳을 손가락으로 짚어 찾습니다. "누르고 있으면 그날" 단추를 누르는 동안 그날의 그림이 보입니다. 틀려도 깎이는 것이 없고, 오래 못 찾으면 한 곳이 잠깐 반짝입니다.</dd>
+        <dt>달라진 것 찾기</dt><dd>몇몇 칸에서는 오늘로 돌린 뒤 "달라진 것 찾기"가 뜹니다. 오늘의 그림에서 그날과 달라진 것을 손가락으로 짚으면, 그것에 무슨 일이 있었는지 한 줄이 나옵니다. "누르고 있으면 그날" 단추를 누르는 동안 그날의 그림이 보입니다. 틀려도 깎이는 것이 없고, 오래 못 찾으면 한 곳이 잠깐 반짝입니다.</dd>
         <dt>다이얼</dt><dd>맨 아래를 옆으로 굴립니다. 한 칸에 한 해입니다. 볼 것이 있는 해에는 별이 떠 있고, 화면 밖에 있으면 끝에 이름표가 뜹니다. 이름표 쪽을 톡 누르면 그 해로 굴러갑니다.</dd>
         <dt>동그라미 셋</dt><dd>왼쪽 위의 동그라미는 날, 하늘, 남은 것입니다. 그날에 서면 첫째가, 하늘을 올려다보면 둘째가, 오늘로 돌리면 셋째가 채워집니다.</dd>
         <dt>사진과 엽서</dt><dd>오른쪽의 사진기 단추를 누르면 네모 틀이 뜹니다. 위아래로 밀어 땅과 하늘을 얼마나 담을지 고르고 둥근 단추로 찍습니다. 찍은 사진은 엽서가 되어 수첩의 그 칸에 들어갑니다. 칸마다 한 장이고, 다시 찍으면 바뀝니다.</dd>

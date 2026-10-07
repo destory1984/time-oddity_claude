@@ -201,9 +201,13 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 .photo #todayBtn,.photo #leaveBtn,.photo #photoButton,.photo #memo,.photo #chips,.photo #bubble,.photo #hint,.photo #sora,.photo #topButtons{visibility:hidden}
 /* What has changed: today's picture is touched where it differs from the day's. */
 .finding #todayBtn,.finding #leaveBtn,.finding #photoButton,.finding #memo,.finding #chips,.finding #bubble,.finding #hint,.finding #sora,.finding #topButtons{visibility:hidden}
-#findLayer,#findBar{display:none}
+#findLayer,#findBar,#findLines{display:none}
 .finding #findLayer{display:block;inset:0;pointer-events:auto;touch-action:none}
 .finding #findBar{display:flex;flex-direction:column;align-items:center;gap:8px;left:0;right:0;top:132px;pointer-events:none}
+.finding #findLines{display:flex;flex-direction:column;gap:6px;left:14px;right:14px;top:66%;margin:0;padding:0;list-style:none;pointer-events:none}
+#findLines li{padding:7px 10px;border-radius:4px;background:#f4e8c8;color:#3a2c12;font-size:calc(13px * var(--text,1));line-height:1.35;box-shadow:0 2px 8px #0007;animation:slipIn .35s ease-out}
+#findLines b{margin-right:4px;color:#8a5a10}
+@keyframes slipIn{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
 #findBar b{font-size:calc(15px * var(--text,1));color:var(--white);text-shadow:0 1px 6px #050330}
 #findBar div{display:flex;gap:8px}
 #findBar button{pointer-events:auto;padding:8px 14px;font-size:12.5px;touch-action:none;user-select:none;-webkit-user-select:none}

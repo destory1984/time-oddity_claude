@@ -23,7 +23,7 @@ export function guideLine({ where, dots, at, lookingUp, quizSolved, hasCard = tr
   if (!dots.sky) return lookingUp ? '그대로 잠깐 올려다보렴' : '화면을 위로 밀어 하늘을 보렴';
   if (lookingUp) return null;
   if (!dots.remains) return '오늘은 어떤지, 오늘로 돌려 보렴';
-  if (canFind && at === 'today') return '그날과 달라진 곳을 찾아 보렴';
+  if (canFind && at === 'today') return '그날과 달라진 것을 찾아 보렴';
   if (!quizSolved) return '이야기 카드도 읽어 보렴';
   return hasCard ? '수첩을 펴서 다른 날로 가 보렴' : '사진기로 엽서를 한 장 찍어 보렴';
 }

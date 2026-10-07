@@ -1,25 +1,29 @@
 // The "what has changed" game on the screen: a layer over today's picture that takes the
-// touches, a gold ring on every place found, and a bar with the count, a button that
-// shows the day while it is held, and a way out.
+// touches, a gold ring on every thing found and a line that tells what happened to it,
+// and a bar with the count, a button that shows the day while it is held, and a way out.
 import { createFind, foundAll, foundCount, nextUnfound, touchFind } from '../core/find.js';
 
-const FINGER_PX = 30;        // a place is never smaller than this to the touch
-const HINT_AFTER_MS = 12000; // this long without a find, one place left glimmers
-const DONE_FOR_MS = 1800;    // the rings stay this long once all are found
+const FINGER_PX = 30;        // a circle is never smaller than this to the touch
+const HINT_AFTER_MS = 12000; // this long without a find, one thing left glimmers
 
 const $ = (id) => document.getElementById(id);
 
 // stage: the game's element. pictureBox(): where today's picture lies on the screen.
-// onPeek(on): the day is to be shown, or today again. onFound(all): a place was found.
+// onPeek(on): the day is to be shown, or today again. onFound(all): a thing was found.
 // onMiss(): a touch found nothing. onMode(on): the game was entered or left.
 export function createFindGame({ stage, pictureBox, onPeek, onFound, onMiss, onMode }) {
   const layer = $('findLayer');
+  const lines = $('findLines');
   let find = null;
   let lastFoundAt = 0;
   let timer = null;
-  let closing = null;
 
-  const count = () => { $('findCount').textContent = foundAll(find) ? '다 찾았구나!' : `달라진 곳 ${foundCount(find)} / ${find.spots.length}`; };
+  function count() {
+    const all = foundAll(find);
+    $('findCount').textContent = all ? '다 찾았구나!' : `달라진 것 ${foundCount(find)} / ${find.things.length}`;
+    $('findStop').textContent = all ? '다 봤어' : '그만';
+    $('findPeek').hidden = false;
+  }
 
   // A mark at a place of the picture, in the layer's own px.
   function markAt(x, y, sizePx, kind) {
@@ -33,7 +37,8 @@ export function createFindGame({ stage, pictureBox, onPeek, onFound, onMiss, onM
     layer.append(node);
     return node;
   }
-  const ringSize = (spot) => 2 * Math.max(FINGER_PX, spot.r * pictureBox().width);
+  // Every circle of a thing gets the mark.
+  const markThing = (thing, kind) => thing.at.map(([x, y, r]) => markAt(x, y, 2 * Math.max(FINGER_PX, r * pictureBox().width), kind));
 
   function peek(on) {
     if (!find) return;
@@ -43,17 +48,18 @@ export function createFindGame({ stage, pictureBox, onPeek, onFound, onMiss, onM
 
   function leave() {
     if (!find) return;
-    clearInterval(timer); clearTimeout(closing);
+    clearInterval(timer);
     peek(false);
     find = null;
     layer.replaceChildren();
+    lines.replaceChildren();
     stage.classList.remove('finding');
     onMode(false);
   }
 
-  function enter(spots) {
-    if (find || spots.length === 0) return;
-    find = createFind(spots);
+  function enter(things) {
+    if (find || things.length === 0) return;
+    find = createFind(things);
     lastFoundAt = performance.now();
     stage.classList.add('finding');
     count();
@@ -63,8 +69,8 @@ export function createFindGame({ stage, pictureBox, onPeek, onFound, onMiss, onM
       const i = nextUnfound(find);
       if (i < 0) return;
       lastFoundAt = performance.now();
-      const hint = markAt(find.spots[i].x, find.spots[i].y, ringSize(find.spots[i]), 'hint');
-      setTimeout(() => hint.remove(), 1600);
+      const hints = markThing(find.things[i], 'hint');
+      setTimeout(() => hints.forEach((hint) => hint.remove()), 1600);
     }, 500);
   }
 
@@ -81,11 +87,16 @@ export function createFindGame({ stage, pictureBox, onPeek, onFound, onMiss, onM
       return;
     }
     lastFoundAt = performance.now();
-    markAt(find.spots[i].x, find.spots[i].y, ringSize(find.spots[i]), 'ring');
+    const thing = find.things[i];
+    markThing(thing, 'ring');
+    // What happened to it, on a slip that stays: the story gathers as the things are found.
+    const slip = document.createElement('li');
+    const name = document.createElement('b');
+    name.textContent = thing.name;
+    slip.append(name, ` ${thing.line}`);
+    lines.append(slip);
     count();
-    const all = foundAll(find);
-    onFound(all);
-    if (all) closing = setTimeout(leave, DONE_FOR_MS);
+    onFound(foundAll(find));
   });
 
   const hold = $('findPeek');
