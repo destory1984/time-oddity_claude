@@ -21,7 +21,10 @@ canvas{inset:0;width:100%;height:100%;pointer-events:none}
 #date{top:60px;left:16px;pointer-events:none}
 #date b{display:block;font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
 #date span{font-size:13px}
-#gain{top:124px;left:16px;font-size:11px;opacity:.75;pointer-events:none}
+#gain{top:126px;left:16px;font-size:11px;display:flex;gap:5px;align-items:center}
+#gain button{color:var(--white);font:inherit;padding:5px 9px;opacity:.6}
+#gain button.on{opacity:1;border-color:var(--gold);color:var(--gold)}
+#gain button.pin{background:var(--gold);color:var(--night)}
 #land{left:0;right:0;bottom:0;height:46%;border-top:2px dashed var(--ink);pointer-events:none}
 #land div{position:absolute;inset:0;display:grid;place-items:start center;padding-top:84px;color:var(--ink);font-size:13px}
 #now{background:repeating-linear-gradient(45deg,#b9cf9a 0 12px,#accf8c 12px 24px)}
@@ -79,8 +82,18 @@ let g = DAY;           // 1픽셀이 몇 해인가
 let p = 3;             // 필름 위치(칸 번호)
 let dragging = false, lastX = 0, lastY = 0, lastT = 0, target = null;
 
-// 손이 느리면 1픽셀이 하루, 빠르면 5년까지 늘어난다.
-const gain = v => Math.min(5, (1 + Math.pow(Math.abs(v) * 8, 3)) * DAY);
+// 1픽셀의 단위는 4단이다. 빨리 끌기를 이어 가면 한 단 오르고, 손이 느려지면 한 단 내린다.
+const GEARS = [DAY, 30 * DAY, 1, 10], GEAR_NAMES = ['하루', '한 달', '1년', '10년'];
+let gear = 0, pin = false, fastT = 0, slowT = 0, moved = false;
+function shift(dt) {
+  if (mode !== 9 && !pin) {
+    const s = Math.abs(vp);
+    if (s > 1.0) { slowT = 0; fastT += dt; if (fastT > 120 && gear < 3) { gear++; fastT = 0; } }
+    else if (s < 0.08) { fastT = 0; slowT += dt; if (slowT > 350 && gear > 0) { gear--; slowT = 0; } }
+    else fastT = slowT = 0;
+  }
+  g += (GEARS[gear] - g) * Math.min(1, dt * 0.012);
+}
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
 
@@ -104,13 +117,6 @@ function dateText(v, coarse) {
   const ML = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   while (d >= ML[m]) d -= ML[m++];
   return `${yearName(Y)}.${m + 1}.${d + 1}`;
-}
-function gainText() {
-  const d = g * 365;
-  if (d < 1.5) return '1픽셀 = 하루';
-  if (d < 45) return `1픽셀 = ${Math.round(d)}일`;
-  if (d < 360) return `1픽셀 = ${Math.round(d / 30)}달`;
-  return `1픽셀 = ${Math.round(g)}년`;
 }
 
 function layout() {
@@ -136,7 +142,7 @@ hit.addEventListener('pointermove', e => {
   const now = performance.now(), dt = Math.max(4, now - lastT);
   const d = mode === 4 ? e.clientY - lastY : e.clientX - lastX;
   vp += (d / dt - vp) * 0.35;
-  step(d);
+  step(d); moved = true;
   lastX = e.clientX; lastY = e.clientY; lastT = now;
 });
 const up = () => { dragging = false; };
@@ -146,26 +152,28 @@ hit.addEventListener('pointercancel', up);
 // d 픽셀만큼 끌었을 때 때를 옮긴다. 오른쪽이나 아래로 끌면 옛날이 온다.
 function step(d) {
   if (mode === 9) { p = clamp(p - d / FW, 0, STOPS.length - 1); y = filmYear(p); return; }
-  g += (gain(vp) - g) * 0.3;
   y = clamp(y - d * g, MIN, MAX);
 }
 
 function tick(dt) {
-  if (dragging) return;
+  if (dragging) { if (performance.now() - lastT > 70) vp *= 0.7; return; }   // 손가락이 멈춰 있으면 속도를 지운다
   if (target !== null) {
     y += (target - y) * Math.min(1, dt * 0.008);
     if (Math.abs(target - y) < DAY / 4) { y = target; target = null; }
     p = filmPos(y);
     return;
   }
-  if (Math.abs(vp) > 0.03) { step(vp * dt); vp *= Math.exp(-dt / 200); return; }
-  vp = 0; g += (DAY - g) * 0.15;
+  // 손을 뗀 뒤에는 조금만 더 미끄러진다.
+  if (Math.abs(vp) > 0.03) { step(vp * dt * 0.5); vp *= Math.exp(-dt / 110); moved = true; return; }
+  vp = 0;
   if (mode === 9) {
     const q = Math.round(p);
     if (Math.abs(q - p) > 0.002) { p += (q - p) * Math.min(1, dt * 0.012); y = filmYear(p); } else if (p !== q) { p = q; y = filmYear(p); }
-  } else {
-    // 사건 칸에서 30일 안이면 그날에 걸린다.
-    for (const s of [EV, TODAY]) if (y !== s && Math.abs(y - s) < 30 * DAY) target = s;
+  } else if (moved) {
+    // 멈춘 자리가 사건 칸에서 30일 안이거나 10픽셀 안이면 그날에 걸린다.
+    moved = false;
+    const win = Math.max(30 * DAY, 10 * g);
+    for (const s of [EV, TODAY]) if (y !== s && Math.abs(y - s) < win) target = s;
   }
 }
 
@@ -256,7 +264,8 @@ function drawDial() {
 
 function drawText() {
   $('date').firstElementChild.textContent = dateText(y, mode !== 9 && g > 0.4);
-  $('gain').textContent = mode === 9 ? '칸에서 칸으로 넘어간다' : gainText();
+  $('gain').style.display = mode === 9 ? 'none' : 'flex';
+  [...$('gain').children].forEach((b, i) => { if (i) { b.classList.toggle('on', i - 1 === gear); b.classList.toggle('pin', pin && i - 1 === gear); } });
   const palace = smooth(1850.6, EV, y) * (1 - smooth(1852.2, 1852.9, y));
   $('then').style.opacity = palace;
   const atEv = Math.abs(y - EV) < DAY / 2, atNow = Math.abs(y - TODAY) < DAY / 2;
@@ -266,14 +275,17 @@ function drawText() {
   $('jump').textContent = Math.abs(y - TODAY) < 1 ? '그날로' : '오늘로';
 }
 
+// 단위 단추: 누르면 그 단위로 고정하고, 고정된 것을 다시 누르면 풀린다.
+$('gain').innerHTML = '<span>1픽셀</span>' + GEAR_NAMES.map(n => `<button class="glass">${n}</button>`).join('');
+[...$('gain').children].forEach((b, i) => { if (i) b.onclick = () => { if (pin && gear === i - 1) pin = false; else { gear = i - 1; pin = true; } }; });
 $('jump').onclick = () => { vp = 0; target = Math.abs(y - TODAY) < 1 ? EV : TODAY; };
-document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => { mode = +b.dataset.m; vp = 0; g = DAY; p = filmPos(y); layout(); });
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => { mode = +b.dataset.m; vp = 0; g = DAY; gear = 0; pin = false; p = filmPos(y); layout(); });
 addEventListener('resize', layout);
 
 let prev = performance.now();
 function frame(now) {
   const dt = Math.min(50, now - prev); prev = now;
-  tick(dt); drawSky(); drawDial(); drawText();
+  tick(dt); shift(dt); drawSky(); drawDial(); drawText();
   requestAnimationFrame(frame);
 }
 layout(); requestAnimationFrame(frame);
