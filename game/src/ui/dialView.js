@@ -17,6 +17,36 @@ const TAG = '#0d1546';
 const APEX_FROM_FOOT = 96;        // the top of the arc, in px above the bottom of the screen
 const KICK_MS = 80;               // the needle dips this long when a tick passes
 
+// The Big Dipper, the figure inside the glass (the user, 2026.10.7: "다이얼 안에 들어가는
+// 별자리는 북두칠성으로 해줘"). Each star by where it really stands: degrees east (to the
+// left, as the sky is seen) and north of the middle of the figure, worked out from its
+// right ascension and declination. Megrez, where handle meets bowl, is the faint one;
+// Alcor is Mizar's small companion.
+const DIPPER = [
+  { name: 'Dubhe', east: -11.5, north: 6.75, bright: true },
+  { name: 'Merak', east: -11.8, north: 1.38, bright: true },
+  { name: 'Phecda', east: -4.3, north: -1.31, bright: true },
+  { name: 'Megrez', east: -1.2, north: 2.03, bright: false },
+  { name: 'Alioth', east: 4.3, north: 0.96, bright: true },
+  { name: 'Mizar', east: 8.6, north: -0.07, bright: true },
+  { name: 'Alkaid', east: 12.0, north: -5.69, bright: true },
+];
+const ALCOR = { east: 9.1, north: 0.35 };
+// The bowl (closed) and the handle, as pairs of stars to join.
+const DIPPER_LINES = [[0, 1], [1, 2], [2, 3], [3, 0], [3, 4], [4, 5], [5, 6]];
+// Only the top 96 px of the disc shows, the year numbers take the first 50, and the
+// figure must fit in what is left.
+const DIPPER_PX_PER_DEG = 3.6;    // the figure is 86 px wide and 45 px tall
+const DIPPER_DEPTH = 74;          // its middle, in px inside the rim
+const DIPPER_EVERY = 20;          // one figure every 20 years of the dial (240 px)
+
+// Sparkles that come as the dial is turned (the user, 2026.10.7: "다이얼을 돌릴 때에 유리가
+// 반짝반짝하는 느낌의 효과를 추가해 줘"): small stars of light that flash on the glass where
+// it is passing and are gone in a third of a second.
+const SPARK_MS = 340;
+const SPARKS_PER_TICK = 1.6;
+const SPARKS_AT_MOST = 40;
+
 // A number from 0 to 1 that is always the same for the same two whole numbers.
 function chance(a, b) {
   let x = (a * 374761393 + b * 668265263) | 0;
@@ -51,6 +81,9 @@ export function createDialView(canvas, firstStyle = 0) {
   let w = 0;
   let h = 0;
   let kickedAt = -1000;
+  let sparks = [];           // { tick, depth, size, born }: fixed to the glass, so they turn with it
+  let lastOffset = null;
+  let owed = 0;
 
   function resize() {
     const box = canvas.getBoundingClientRect();
@@ -122,8 +155,8 @@ export function createDialView(canvas, firstStyle = 0) {
     disc(); c.fill();
     c.restore();
 
-    // Inside the glass, a star chart that turns with the dial: dashed circles, and small
-    // stars strung into figures. They are ornament, not the computed sky.
+    // Inside the glass, a star chart that turns with the dial: dashed circles, star dust
+    // and the Big Dipper. It is ornament, not the computed sky.
     const { chart } = look;
     c.save();
     disc(); c.clip();
@@ -142,23 +175,30 @@ export function createDialView(canvas, firstStyle = 0) {
         }
       }
     }
-    let last = null;
-    for (let i = middle - span; i <= middle + span; i += 1) {
-      if (chance(i, 1) > chart.share) { if (chance(i, 4) > 0.6) last = null; continue; }
-      const p = at(i, 58 + chance(i, 2) * 52);
-      const big = chance(i, 3) > 0.72;
-      if (last && chance(i, 5) > 0.35) {
-        c.strokeStyle = chart.colour; c.lineWidth = chart.line > 0.6 ? 1 : 0.7; c.globalAlpha = chart.line;
-        c.beginPath(); c.moveTo(last.x, last.y); c.lineTo(p.x, p.y); c.stroke();
-      }
-      c.fillStyle = chart.colour; c.globalAlpha = big ? chart.big : chart.dot;
-      if (big) {
+    // The Big Dipper, again and again round the disc, turning with the dial.
+    const firstFigure = Math.floor((middle - span) / DIPPER_EVERY) - 1;
+    const lastFigure = Math.floor((middle + span) / DIPPER_EVERY) + 1;
+    for (let n = firstFigure; n <= lastFigure; n += 1) {
+      const centre = n * DIPPER_EVERY + DIPPER_EVERY / 2;
+      // East is to the left, which on the dial is toward earlier years.
+      const spot = ({ east, north }) => at(centre - (east * DIPPER_PX_PER_DEG) / PX_PER_YEAR, DIPPER_DEPTH - north * DIPPER_PX_PER_DEG);
+      const stars = DIPPER.map(spot);
+      c.strokeStyle = chart.colour; c.lineWidth = chart.line > 0.6 ? 1 : 0.7; c.globalAlpha = chart.line;
+      c.beginPath();
+      for (const [from, to] of DIPPER_LINES) { c.moveTo(stars[from].x, stars[from].y); c.lineTo(stars[to].x, stars[to].y); }
+      c.stroke();
+      c.fillStyle = chart.colour;
+      DIPPER.forEach((one, k) => {
+        const p0 = stars[k];
         c.save();
-        if (chart.big >= 0.95) { c.shadowColor = chart.colour; c.shadowBlur = 5; }
-        star(p.x, p.y, chart.big >= 1 ? 5.5 : 4.5); c.fill();
+        c.globalAlpha = one.bright ? chart.big : chart.dot;
+        if (one.bright && chart.big >= 0.95) { c.shadowColor = chart.colour; c.shadowBlur = 5; }
+        if (one.bright) { star(p0.x, p0.y, chart.big >= 1 ? 5.5 : 4.5); c.fill(); } else { c.beginPath(); c.arc(p0.x, p0.y, 1.8, 0, Math.PI * 2); c.fill(); }
         c.restore();
-      } else { c.beginPath(); c.arc(p.x, p.y, chart.dot > 0.85 ? 1.4 : 1.1, 0, Math.PI * 2); c.fill(); }
-      last = p;
+      });
+      const alcor = spot(ALCOR);
+      c.globalAlpha = chart.dot * 0.8;
+      c.beginPath(); c.arc(alcor.x, alcor.y, 0.9, 0, Math.PI * 2); c.fill();
     }
     c.globalAlpha = 1;
     // A sheen across the top of the glass.
@@ -185,6 +225,27 @@ export function createDialView(canvas, firstStyle = 0) {
       arc(radius - 8 - band / 2, 0.15, 0.21, 'rgba(255,255,255,.35)', 2, 4);
     }
     const now = performance.now();
+    if (look.shine) {
+      // The further the dial has turned since the last frame, the more sparkles are lit.
+      const turned = lastOffset === null ? 0 : Math.abs(dial.offset - lastOffset);
+      owed = Math.min(6, owed + turned * SPARKS_PER_TICK);
+      while (owed >= 1 && sparks.length < SPARKS_AT_MOST) {
+        owed -= 1;
+        sparks.push({ tick: dial.offset + (Math.random() - 0.5) * (w / PX_PER_YEAR), depth: 4 + Math.random() * 86, size: 2.5 + Math.random() * 3.5, born: now });
+      }
+      sparks = sparks.filter((spark) => now - spark.born < SPARK_MS);
+      for (const spark of sparks) {
+        const p0 = at(spark.tick, spark.depth);
+        const life = (now - spark.born) / SPARK_MS;
+        c.save();
+        c.globalAlpha = Math.sin(life * Math.PI);
+        c.shadowColor = 'rgba(255,255,255,.95)'; c.shadowBlur = 8;
+        c.fillStyle = '#ffffff';
+        star(p0.x, p0.y, spark.size * (0.6 + 0.4 * Math.sin(life * Math.PI))); c.fill();
+        c.restore();
+      }
+    }
+    lastOffset = dial.offset;
     if (look.shine === 'glints') {
       // Sparks where the rim catches the light; they twinkle slowly, each in its own time.
       for (const [angle, size, beat] of [[-0.24, 6, 0], [0.11, 4.5, 1.9], [0.31, 5, 3.7], [-0.06, 3.5, 2.8]]) {
