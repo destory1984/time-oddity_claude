@@ -142,24 +142,27 @@ export function createWalkView({ onPerson, onWay }) {
   }
 
   // She is taken up in a shaft of light (leaving), or set down in one (arriving).
-  const TELEPORT_MS = 620;
-  function shaft(kind) {
+  // ms: how long it takes (leaving lasts as long as the notes of the jump climb).
+  const ARRIVE_MS = 620;
+  function shaft(kind, ms = ARRIVE_MS) {
     const beam = document.createElement('i');
     beam.className = `beam ${kind}`;
     beam.style.left = sora.style.left;
     beam.style.width = sora.style.width;
+    beam.style.animationDuration = `${ms}ms`;
+    sora.style.animationDuration = `${ms}ms`;
     scroll.append(beam);
     sora.classList.remove('leaving', 'arriving');
     sora.getBoundingClientRect();
     sora.classList.add(kind);
     return new Promise((resolve) => {
-      setTimeout(() => { beam.remove(); if (kind === 'arriving') sora.classList.remove(kind); resolve(); }, TELEPORT_MS);
+      setTimeout(() => { beam.remove(); if (kind === 'arriving') sora.classList.remove(kind); resolve(); }, ms);
     });
   }
 
   return {
     showScene, layout, update,
-    teleport: () => shaft('leaving'),
+    teleport: (ms) => shaft('leaving', ms),
     arrive: () => { sora.classList.remove('leaving'); return shaft('arriving'); },
   };
 }

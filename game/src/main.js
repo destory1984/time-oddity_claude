@@ -34,7 +34,7 @@ import { createTouch } from './ui/touch.js';
 import { ZOOM_MAX, ZOOM_MIN, ZOOM_STEP } from './core/zoom.js';
 import { flyPose } from './core/flight.js';
 import { isLocalHost } from './core/host.js';
-import { createSound } from './ui/sound.js';
+import { WARP_CHORD_MS, createSound } from './ui/sound.js';
 import { createSettings } from './ui/settings.js';
 import { createMusic } from './ui/music.js';
 import { createJournal } from './ui/journal.js';
@@ -439,7 +439,7 @@ function frameWalk(dt) {
   // The sky of that day and hour, as computed, behind the roofs.
   skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });
   walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null);
-  if (walkArrive) { walkArrive = false; walkView.arrive(); sound.warp(false); }
+  if (walkArrive) { walkArrive = false; walkView.arrive(); }
 
   const near = walk.moving ? null : nearby(walk);
   const label = near ? `${near.name}에게 말 걸기` : '';
@@ -566,7 +566,9 @@ async function settleDial(year) {
 // Goes to a place from above the Earth (the user's order of things, 2026.10.8): the place
 // is touched, the Earth turns it under her, the dial runs to its year and ticks slowly
 // into place, then she grows small and goes down to it.
-const DESCEND_MS = 900;
+// She goes down for as long as the jump's notes climb, so that its chord sounds as the
+// place appears (the dark between the two screens is part of that time).
+const DESCEND_MS = WARP_CHORD_MS - FADE_MS;
 async function land(sq) {
   if (mode !== 'globe') return;
   sound.wake();
@@ -578,6 +580,7 @@ async function land(sq) {
   await settleDial(sq.date.year);
   landing = true;
   stage.classList.add('descending');
+  sound.warp();
   await wait(DESCEND_MS);
   $('fade').classList.add('on');
   await wait(FADE_MS);
@@ -602,7 +605,7 @@ async function leave() {
   leavingMs = 0;
   if (!fromSite) await wait(LEAVE_MS);
   // From among people she is taken up in a shaft of light.
-  if (fromWalk) { sound.warp(true); await walkView.teleport(); }
+  if (fromWalk) { sound.warp(); await walkView.teleport(WARP_CHORD_MS - FADE_MS); }
   $('fade').classList.add('on');
   await wait(FADE_MS);
   globe.setActive(true);

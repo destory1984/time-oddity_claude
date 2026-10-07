@@ -79,7 +79,7 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 .on-globe #bubble{left:calc(50% + 40px);top:calc(var(--hoverY,50%) - 150px);max-width:40%}
 /* Going down to a place she grows small toward her feet, which come to rest on its dot; coming back she grows from a point. */
 .on-globe #sora{transform-origin:50% 90%}
-.on-globe.descending #sora{transition:transform .9s cubic-bezier(.45,0,.85,.5);transform:scale(.1)}
+.on-globe.descending #sora{transition:transform .88s cubic-bezier(.45,0,.85,.5);transform:scale(.1)}
 .on-globe.descending #underfoot,.on-globe.descending #landButton,.on-globe.descending #flyArrow{display:none !important}
 .on-globe.returning #sora{animation:popIn .6s cubic-bezier(.2,1.4,.4,1)}
 @keyframes popIn{0%{transform:scale(.05);opacity:0;filter:brightness(3)}60%{opacity:1}100%{transform:none;filter:none}}

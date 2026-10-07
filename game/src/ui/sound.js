@@ -8,6 +8,10 @@
 // The dial's tick at half the loudness it was settled at: the user, 2026.10.7, "다이얼 돌아가는
 // 소리는 절반으로 줄여줘".
 const TICK = 0.5;
+const WARP_PACE = 0.4;       // volume 1's jump takes 6 s; here its moments come in this share of the time
+const WARP_VOLUME = 0.8;     // volume 1 plays everything through a master at this level
+// How long after the jump's first note its chord sounds: when the screen should change.
+export const WARP_CHORD_MS = 2720 * WARP_PACE;
 // Sounds start this long after they are asked for. Started at the very moment, the first
 // few milliseconds are already past and the soft attack is cut off: a click.
 const AHEAD_S = 0.012;
@@ -113,13 +117,33 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
   return {
     wake,
     murmur,
-    // Going between the Earth and a place: a tone that rises (up: taken away) or falls
-    // (set down), with a breath of air. A placeholder until the user has heard it.
-    warp(up) {
+    // Going between the Earth and a place: volume 1's jump (oddity/src/ui/sound.js `warp`),
+    // note for note, as the user asked (2026.10.8: "텔레포트 소리는 우주 한량꺼 가져와서
+    // 붙여줘"). Music-box notes climb a five-note scale faster and faster, a wide bright
+    // chord sounds as the screen changes, then a few slow chimes step down. There it runs
+    // six seconds with a six-second flash; here the change of screen comes sooner, so the
+    // moments are brought closer by `pace` (WARP_PACE: the chord falls 1.09 s in) while
+    // each note rings as long as it did.
+    warp() {
       play((at) => {
-        tone(at, { seconds: 0.55, from: up ? 420 : 1500, to: up ? 1700 : 380, gain: 0.14, attack: 0.03 });
-        tone(at, { seconds: 0.55, from: up ? 630 : 2250, to: up ? 2550 : 570, gain: 0.05, attack: 0.03 });
-        hiss(at, { seconds: 0.5, from: up ? 900 : 4200, to: up ? 5200 : 700, gain: 0.07, type: 'bandpass', q: 1.2 });
+        const pace = WARP_PACE;
+        const bell = (freq, start, volume) => {
+          tone(at + start * pace, { seconds: 1.1, from: freq, gain: volume * WARP_VOLUME, attack: 0.01 });
+          tone(at + start * pace, { seconds: 0.35, from: freq * 3, gain: volume * 0.2 * WARP_VOLUME, attack: 0.01 });
+        };
+        const scale = [392, 440, 523, 587, 659, 784, 880, 1047, 1175, 1319, 1568, 1760, 2093, 2349, 2637, 3136];
+        scale.forEach((freq, k) => {
+          // Bunched toward the end.
+          bell(freq, 2.6 * (1 - (1 - k / scale.length) ** 1.7), 0.03 + 0.045 * (k / scale.length));
+        });
+        // A thin, high shimmer under the climb.
+        tone(at + 0.6 * pace, { seconds: 2.1 * pace, from: 1568, to: 3136, gain: 0.018 * WARP_VOLUME, attack: 0.01 });
+        hiss(at + 1.6 * pace, { seconds: 1.2 * pace, from: 6000, to: 9000, gain: 0.035 * WARP_VOLUME, type: 'highpass' });
+        // Arrival: a wide, bright chord.
+        [1047, 1319, 1568, 2093, 2637].forEach((freq, i) => bell(freq, 2.72 + (i * 0.03) / pace, 0.085 - i * 0.008));
+        tone(at + 2.72 * pace, { seconds: 1.6, from: 523, gain: 0.05 * WARP_VOLUME, attack: 0.01 });
+        // Settling: slow chimes stepping down.
+        [[2093, 3.5], [1568, 4.0], [1319, 4.5], [1047, 5.0]].forEach(([freq, when], i) => bell(freq, when, 0.045 - i * 0.007));
       });
     },
     // The AudioContext, once a touch has woken it: the music plays through the same one.

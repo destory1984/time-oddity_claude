@@ -44,9 +44,14 @@ describe('muting', () => {
     sound.wake();
     sound.stamp();
     expect(nodes).toBeGreaterThan(0);
+    // The jump brought over from volume 1: sixteen climbing bells, a chord of five, four chimes.
+    const quiet = nodes;
+    sound.warp();
+    expect(nodes - quiet).toBeGreaterThan(50);
+    sound.murmur(1);
     const before = nodes;
     sound.setMuted(true);
-    sound.stamp(); sound.bell(); sound.page();
+    sound.stamp(); sound.bell(); sound.page(); sound.warp();
     expect(nodes).toBe(before);
   });
 });
