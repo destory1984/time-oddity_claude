@@ -11,7 +11,7 @@ import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, 
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
 import { soraPose } from './core/sora.js';
 import { guideLine } from './core/guide.js';
-import { countProgress, dotsOf, emptyProgress, fillDot, quizSolved, solveQuiz } from './core/progress.js';
+import { countProgress, dotsOf, emptyProgress, fillDot, isComplete, markNoteRead, notesRead, quizSolved, solveQuiz } from './core/progress.js';
 import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { createSkyCanvas } from './render/skyCanvas.js';
@@ -25,7 +25,9 @@ import { createSettings } from './ui/settings.js';
 import { createMusic } from './ui/music.js';
 import { createJournal } from './ui/journal.js';
 import { createCard } from './ui/card.js';
-import { createOpening } from './ui/opening.js';
+import { createPager } from './ui/opening.js';
+import { OPENING } from './core/opening.js';
+import { NOTES, dueNote, noteById, notePages } from './core/notes.js';
 import { loadMusic, loadMuted, loadOpened, loadProgress, saveMusic, saveMuted, saveOpened, saveProgress } from './ui/storage.js';
 
 const RISE_MS = 800;
@@ -62,7 +64,7 @@ const hud = createHud($('hud'));
 const dial = createDial({ year: today.year, maxYear: today.year });
 
 // The notebook: what has been filled, kept on this device.
-let progress = loadProgress(SQUARES.map((sq) => sq.id));
+let progress = loadProgress(SQUARES.map((sq) => sq.id), NOTES.map((note) => note.id));
 function keep(next) {
   if (next === progress) return;
   progress = next;
@@ -95,8 +97,25 @@ function mark(list) {
 }
 const globeMarks = () => [...SQUARES.map((sq) => ({ year: sq.date.year, label: sq.name })), { year: today.year, label: '오늘' }];
 
-// The opening: shown once, the first time; again from the settings.
-const opening = createOpening({ onDone: () => saveOpened() });
+// The pager tells the opening (once, the first time; again from the settings) and
+// grandmother's notes.
+const pager = createPager();
+const opening = {
+  open: () => pager.open({ pages: OPENING, lastLabel: '수첩 펴기', skip: true, onDone: () => saveOpened() }),
+  isOpen: () => pager.isOpen(),
+};
+// A note is read; when it is folded Sora says her line, if she is on the ground to say it.
+function readNote(note) {
+  pager.open({
+    pages: notePages(note), lastLabel: '쪽지를 접는다', skip: false,
+    onDone: () => {
+      keep(markNoteRead(progress, note.id));
+      if (visit) bubble = { text: note.says[note.says.length - 1], until: visit.t + SORA_FOR_MS };
+    },
+  });
+}
+const NOTE_AFTER_MS = 6000;      // a note falls this long after the square's last dot, once Sora has had her say
+let noteDueAtMs = null;
 
 // Sound: one switch, kept between visits, worked by the speaker button and by the settings.
 const soundSwitch = {
@@ -137,6 +156,8 @@ const journal = createJournal({
   onGo: (id) => travel(squareById(id)),
   onSolve: (id) => { sound.stamp(); keep(solveQuiz(progress, id)); },
   here: () => (visit && mode === 'ground' ? square.id : null),
+  notes: () => notesRead(progress).map((id) => noteById(id)).filter(Boolean),
+  onNote: (id) => readNote(noteById(id)),
   canGo: () => mode === 'globe' || mode === 'ground',
 });
 const card = createCard({
@@ -178,7 +199,7 @@ function showGround(sq) {
   square = sq;
   visit = createVisit(sq, dotsOf(progress, sq.id));
   resetLook(look); blend = 0; roll = null; silhouette = 0; restingOtherMs = 0; dim = 0;
-  bubble = null; remainsAtMs = null; glowSky = 0; glowToday = 0;
+  bubble = null; remainsAtMs = null; glowSky = 0; glowToday = 0; noteDueAtMs = null;
   ground.show(sq);
   mark([{ year: sq.date.year, label: '그날' }, { year: today.year, label: '오늘' }]);
   globe.setActive(false);
@@ -278,6 +299,7 @@ function frameGround(dt) {
     if (name === 'day') sound.stamp();
     if (name === 'sky') { sound.bell(); if (square.soraSky) bubble = { text: square.soraSky, until: visit.t + SORA_FOR_MS + 600, lookingUp: true }; }
     if (name === 'remains') { sound.page(); remainsAtMs = visit.t; }
+    if (isComplete(progress, square.id) && dueNote((id) => isComplete(progress, id), notesRead(progress))) noteDueAtMs = visit.t + NOTE_AFTER_MS;
   }
 
   // The picture. Over a timed roll it melts across the middle of the roll; by hand it
@@ -307,6 +329,13 @@ function frameGround(dt) {
   const level = project(0, square.facingAz, { facingAz: square.facingAz, pitch: 0, ...stageBox }).y;
   const raised = project(0, square.facingAz, { facingAz: square.facingAz, pitch: visit.look, ...stageBox }).y;
   ground.set({ rise, blend, silhouette, dropPx: raised - level, day: light.day });
+
+  // A note that is due falls once the words about the last dot have been said.
+  if (noteDueAtMs !== null && visit.t >= noteDueAtMs && mode === 'ground' && !dial.rolling) {
+    noteDueAtMs = null;
+    const note = dueNote((id) => isComplete(progress, id), notesRead(progress));
+    if (note && note.square === square.id) { sound.page(); readNote(note); }
+  }
 
   // Words.
   if (visit.t >= SORA_FROM_MS && visit.t - dt < SORA_FROM_MS && at === 'then') bubble = { text: square.sora, until: visit.t + SORA_FOR_MS };

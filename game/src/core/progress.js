@@ -5,13 +5,13 @@
 const DOTS = ['day', 'sky', 'remains'];
 const blank = () => ({ day: false, sky: false, remains: false, quiz: false });
 
-export const emptyProgress = () => ({ squares: {} });
+export const emptyProgress = () => ({ squares: {}, notes: [] });
 
 const of = (progress, id) => progress.squares[id] ?? blank();
 
 function set(progress, id, key) {
   if (of(progress, id)[key]) return progress;
-  return { squares: { ...progress.squares, [id]: { ...of(progress, id), [key]: true } } };
+  return { ...progress, squares: { ...progress.squares, [id]: { ...of(progress, id), [key]: true } } };
 }
 
 // dot: 'day', 'sky' or 'remains'.
@@ -31,9 +31,14 @@ export function countProgress(progress, ids) {
   };
 }
 
+// Grandmother's notes that have been read (core/notes.js), by id.
+export const notesRead = (progress) => progress.notes ?? [];
+export const markNoteRead = (progress, id) => (notesRead(progress).includes(id) ? progress : { ...progress, notes: [...notesRead(progress), id] });
+
 // What was kept, read back: only squares that exist and only true-or-false marks survive.
 // Anything that cannot be read is an empty notebook, never an error.
-export function sanitizeProgress(raw, ids) {
+// noteIds: the notes that exist.
+export function sanitizeProgress(raw, ids, noteIds = []) {
   let kept;
   try { kept = JSON.parse(raw); } catch { return emptyProgress(); }
   if (!kept || typeof kept !== 'object' || Array.isArray(kept) || !kept.squares || typeof kept.squares !== 'object') return emptyProgress();
@@ -43,5 +48,6 @@ export function sanitizeProgress(raw, ids) {
     if (!was || typeof was !== 'object') continue;
     squares[id] = { day: was.day === true, sky: was.sky === true, remains: was.remains === true, quiz: was.quiz === true };
   }
-  return { squares };
+  const notes = Array.isArray(kept.notes) ? noteIds.filter((id) => kept.notes.includes(id)) : [];
+  return { squares, notes };
 }

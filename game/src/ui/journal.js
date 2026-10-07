@@ -18,7 +18,8 @@ const el = (tag, className, text) => {
 // pressed. onSolve(id): the square's question was answered. here: () => the id of the
 // square Sora stands on, or null. canGo: () => whether she can set off now (not while
 // she is already on her way).
-export function createJournal({ squares, progress, onGo, onSolve, here, canGo = () => true }) {
+// notes: () => the notes read so far ([{ id, title }]); onNote(id): one is to be read again.
+export function createJournal({ squares, progress, onGo, onSolve, here, canGo = () => true, notes = () => [], onNote = () => {} }) {
   const dialog = $('journal');
   const ids = squares.map((s) => s.id);
   let open = null;   // the id of the row that is opened
@@ -64,7 +65,17 @@ export function createJournal({ squares, progress, onGo, onSolve, here, canGo = 
   function render() {
     const count = countProgress(progress(), ids);
     $('journalProgress').textContent = `날 ${count.day}/${count.total} · 하늘 ${count.sky} · 남은 것 ${count.remains} · 맞힌 문제 ${count.quiz}`;
-    $('journalList').replaceChildren(...squares.map(row));
+    const slips = notes().map(({ id, title }) => {
+      const item = el('li', 'row slip');
+      const words = el('span', 'rowWords');
+      words.append(el('b', '', `쪽지 ${title}`), el('small', '', '수첩 사이에서 떨어진 할머니의 쪽지'));
+      const again = el('button', 'go', '읽기');
+      again.type = 'button';
+      again.addEventListener('click', () => { dialog.close(); onNote(id); });
+      item.append(words, again);
+      return item;
+    });
+    $('journalList').replaceChildren(...squares.map(row), ...slips);
   }
 
   // The count on the top button: squares with all three dots filled.

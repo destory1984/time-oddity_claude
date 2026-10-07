@@ -24,7 +24,7 @@ export const saveMuted = (muted) => write(KEY.muted, muted ? '1' : '0');
 export const loadMusic = () => read(KEY.music) !== '0';
 export const saveMusic = (on) => write(KEY.music, on ? '1' : '0');
 // The notebook. ids: the squares that exist now; a record of one that no longer does is dropped.
-export const loadProgress = (ids) => sanitizeProgress(read(KEY.progress), ids);
+export const loadProgress = (ids, noteIds) => sanitizeProgress(read(KEY.progress), ids, noteIds);
 export const saveProgress = (progress) => write(KEY.progress, JSON.stringify(progress));
 export const loadTextSize = () => textSizeFrom(read(KEY.text));
 export const saveTextSize = (size) => write(KEY.text, String(size));
