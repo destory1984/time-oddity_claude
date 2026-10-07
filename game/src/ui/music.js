@@ -1,7 +1,7 @@
 // Background music, the same as volume 1's: eleven tunes decided bar by bar in
 // core/music.js and played here with Web Audio. No sound files. It sits well under the
 // effects, and has its own switch, kept between visits.
-import { BAR_S, barInOrder, barPlan, tuneFor, tuneOrder } from '../core/music.js';
+import { BAR_S, barInOrder, barPlan, nextTuneBar, tuneFor, tuneOrder } from '../core/music.js';
 
 const PAD_VOLUME = 0.02;
 const BASS_VOLUME = 0.03;
@@ -96,6 +96,16 @@ export function createMusic({ context, on: startOn = true }) {
           for (const bar of barBuses) bar.out.gain.setTargetAtTime(0, ctx.currentTime, 0.12);
           barBuses = [];
         }
+      } catch { /* silence is fine */ }
+    },
+    // Another tune: the one sounding is stilled and the next in this sitting's order begins.
+    another() {
+      barNumber = nextTuneBar(Math.max(0, barNumber - 1));
+      if (!ctx) return;
+      try {
+        for (const bar of barBuses) bar.out.gain.setTargetAtTime(0, ctx.currentTime, 0.12);
+        barBuses = [];
+        nextBarAt = ctx.currentTime + 0.3;
       } catch { /* silence is fine */ }
     },
     // Called every frame with the mood ('surface' on the ground, 'near' above the Earth);

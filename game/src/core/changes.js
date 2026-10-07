@@ -7,6 +7,7 @@
 // a fault mended, does; moving buttons about or rewording a sentence does not.
 // Each line is 10 to 70 characters and ends in "니다." (tests/changes.test.js).
 export const CHANGES = [
+  { day: '2026-10-07', text: '설정에 다른 곡 틀기 단추를 넣었습니다.' },
   { day: '2026-10-07', text: 'AD와 BC를 숫자의 절반 크기로 줄였습니다.' },
   { day: '2026-10-07', text: '날짜 줄을 조금 내려 로고와 사이를 띄웠습니다.' },
   { day: '2026-10-07', text: '설정에서 효과음 줄을 뺐습니다. 화면 위 단추로 켜고 끕니다.' },

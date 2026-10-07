@@ -11,7 +11,7 @@ const $ = (id) => document.getElementById(id);
 // onOpen, onClose: the game is held while the settings are open.
 // today: () => 'YYYY-MM-DD', the device's own day.
 // sound: { muted(), setMuted(on) }, the same switch as the speaker button.
-// music: { on(), setOn(on) }, the same switch as the note button.
+// music: { on(), setOn(on), another() }, the same switch as the note button.
 // version: the text for the head, such as 'v0.1.1 · 2026.10.7'.
 // onReset: the notebook is to be emptied (asked twice before it is done).
 // onReplay: the opening is to be shown again.
@@ -63,6 +63,8 @@ export function createSettings({ onOpen, onClose, today, sound, music, version, 
     $('musicSwitch').textContent = music.on() ? '배경 음악 끄기' : '배경 음악 켜기';
   }
   $('musicSwitch').addEventListener('click', () => { music.setOn(!music.on()); renderSound(); });
+  // Another tune; if the music was off, it is switched on to play it.
+  $('musicAnother').addEventListener('click', () => { music.another(); if (!music.on()) music.setOn(true); renderSound(); });
 
   // Emptying the notebook cannot be undone, so the button asks once more before it does.
   let sure = false;

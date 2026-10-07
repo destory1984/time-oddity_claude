@@ -151,6 +151,7 @@ $('soundButton').addEventListener('click', () => { sound.wake(); soundSwitch.set
 const music = createMusic({ context: () => sound.context(), on: loadMusic() });
 const musicSwitch = {
   on: () => music.on(),
+  another() { sound.wake(); music.another(); },
   setOn(on) {
     if (!on && music.on()) hushAt = performance.now();
     music.setOn(on);
