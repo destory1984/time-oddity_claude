@@ -347,7 +347,7 @@ function click(big) {
   lastClick = now;
   const s = ac.createBufferSource(), f = ac.createBiquadFilter(), v = ac.createGain();
   // 가운데 높이의 소리: 걸러 낸 잡음(톱니가 스치는 소리)에 짧은 낮은 음(통 울림)을 얹는다.
-  s.buffer = noise; f.type = 'bandpass'; f.frequency.value = big ? 950 : 1500; f.Q.value = 1.0; v.gain.value = big ? 0.75 : 0.5;
+  s.buffer = noise; f.type = 'bandpass'; f.frequency.value = big ? 760 : 1200; f.Q.value = 1.0; v.gain.value = big ? 0.75 : 0.5;
   s.connect(f); f.connect(v); v.connect(ac.destination); s.start();
   const o = ac.createOscillator(), og = ac.createGain(), t0 = ac.currentTime;
   o.type = 'sine'; o.frequency.setValueAtTime(big ? 240 : 340, t0); o.frequency.exponentialRampToValueAtTime(big ? 130 : 190, t0 + 0.035);
