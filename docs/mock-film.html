@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>시간 한량 화면 어림: 필름 띠</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<style>
+/* 게임이 대충 어떤 모습이 될지 보려는 어림 그림이다. 땅 그림은 임시로 그린 것이고, 실제 그림은 발주서로 주문한다. */
+:root{--night:#050330;--navy:#1a2894;--gold:#f6b951;--white:#fbf8f9;--lav:#e2daf6;--paper:#f2e6c8;--ink:#3b2a1a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Gowun Batang","Malgun Gothic",serif;line-height:1.7}
+main{max-width:1500px;margin:0 auto;padding:36px 20px 70px}
+h1{font-size:2rem;margin:0 0 6px}
+p{max-width:46em;margin:.3em 0}
+.grid{display:flex;flex-wrap:wrap;gap:40px 30px;margin-top:26px}
+figure{margin:0;width:375px}
+figcaption{margin-top:12px;font-size:.95rem}
+figcaption b{font-size:1.1rem;display:block}
+
+.ph{position:relative;width:375px;height:812px;border-radius:30px;overflow:hidden;box-shadow:0 0 0 7px #1b1730,0 16px 34px rgba(59,42,26,.35);
+  font-family:"Malgun Gothic",system-ui,sans-serif;color:var(--white);font-size:13px;line-height:1.4}
+.ph>*{position:absolute}
+.dusk{background:linear-gradient(#070640 0%,#1a2894 30%,#5a4fa8 46%,#c9879a 54%,#f2c08a 58%)}
+.space{background:radial-gradient(circle at 50% 60%,#131760 0%,#050330 60%)}
+.full{inset:0;width:100%;height:100%}
+.glass{background:rgba(5,3,48,.6);border:1px solid rgba(226,218,246,.45);border-radius:16px}
+.top{top:12px;left:12px;right:12px;display:flex;gap:6px}
+.top span{height:34px;min-width:34px;padding:0 9px;display:grid;place-items:center;font-size:12px}
+.top .j{margin-left:auto;color:var(--gold);border-color:var(--gold)}
+.date{top:60px;left:18px;text-shadow:0 1px 6px rgba(5,3,48,.6)}
+.date b{display:block;font-size:36px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.sora{width:96px;image-rendering:pixelated}
+.bubble{background:var(--white);color:#1b1730;padding:7px 12px;border-radius:14px 14px 14px 2px;font-size:13.5px;white-space:nowrap}
+.memo{background:var(--paper);color:var(--ink);padding:5px 12px;transform:rotate(-1.5deg);font-family:"Nanum Pen Script",cursive;font-size:22px;line-height:1.15;box-shadow:1px 2px 0 rgba(59,42,26,.45)}
+.chips{display:flex;gap:6px}.chips span{padding:4px 10px;font-size:12px}
+.today{padding:8px 14px;border-color:var(--gold);color:var(--gold)}
+.joy{left:18px;bottom:128px;width:66px;height:66px;border-radius:50%;display:grid;place-items:center}
+.joy::after{content:"";width:28px;height:28px;border-radius:50%;background:rgba(226,218,246,.55)}
+.move{right:18px;bottom:128px;display:grid;gap:6px}.move span{padding:7px 13px;font-size:12px}
+/* 해 다이얼 */
+.arc{left:-243px;bottom:-760px;width:860px;height:860px;border-radius:50%;border:2px solid var(--gold);
+  background:radial-gradient(closest-side,rgba(5,3,48,.86) 96.5%,transparent 96.6%),repeating-conic-gradient(from -0.1deg,rgba(251,248,249,.9) 0 .2deg,transparent .2deg 1.6deg),rgba(5,3,48,.86)}
+.arclab{left:0;right:0;bottom:56px;display:flex;justify-content:space-between;padding:0 30px;font-size:11px}
+.arclab span:nth-child(2){transform:translateY(-22px)}.arclab span:nth-child(1),.arclab span:nth-child(3){transform:translateY(4px)}
+.needle{left:50%;bottom:98px;margin-left:-8px;border:8px solid transparent;border-top:15px solid var(--gold);border-bottom:0}
+/* 지구 */
+.earth{left:-122px;top:150px;width:620px;height:620px;border-radius:50%;background:url(mock/earth.jpg) -362px 0/1240px 620px;
+  box-shadow:inset -70px -50px 120px rgba(5,3,48,.85),inset 20px 20px 60px rgba(120,160,255,.25),0 0 50px rgba(110,150,255,.45)}
+.pin{width:12px;height:12px;margin:-6px;border-radius:50%;background:var(--white);box-shadow:0 0 0 3px rgba(5,3,48,.5)}
+.pin.on{background:var(--gold);box-shadow:0 0 0 3px rgba(246,185,81,.35),0 0 14px var(--gold)}
+.pinlab{font-size:11px;white-space:nowrap;text-shadow:0 1px 4px #050330}
+.card{padding:9px 13px;border-color:var(--gold);white-space:nowrap}
+.card b{color:var(--gold);font-size:14px}
+/* 수첩과 엽서 */
+.dim{inset:0;background:rgba(5,3,48,.62)}
+.book{left:14px;right:14px;top:58px;bottom:22px;background:var(--paper);color:var(--ink);border-radius:6px 14px 14px 6px;border-left:12px solid #6b4a2b;
+  padding:16px 16px 0 14px;font-family:"Gowun Batang",serif;background-image:repeating-linear-gradient(transparent 0 27px,#dccb9f 27px 28px);box-shadow:0 10px 30px rgba(0,0,0,.5);overflow:hidden}
+.book h3{margin:0;font-size:20px}.book small{font-size:12px}
+.tabs{display:flex;gap:4px;margin:10px 0 0}
+.tabs span{padding:3px 12px;border:1px solid var(--ink);border-bottom:0;border-radius:7px 7px 0 0;font-size:13px}
+.tabs .on{background:var(--ink);color:var(--paper)}
+.path{border-top:2px solid var(--ink);padding:8px 0 4px}
+.hand{font-family:"Nanum Pen Script",cursive;font-size:21px;line-height:1.15}
+.row{display:grid;grid-template-columns:22px 1fr auto;gap:2px 6px;padding:7px 0;border-bottom:1px dashed #b9a777;font-size:13px;align-items:center}
+.row i{font-style:normal;font-size:16px}.row b{font-size:14px}
+.row em{grid-column:2/4;font-style:normal;color:#6b4a2b}
+.row u{text-decoration:none;border:1px solid var(--ink);border-radius:4px;padding:1px 8px;font-size:12px}
+.row.no{opacity:.55}
+.post{left:22px;right:22px;top:92px;background:#f7efd9;color:var(--ink);padding:12px;box-shadow:0 10px 30px rgba(0,0,0,.5);transform:rotate(-1.2deg)}
+.post svg{display:block;width:100%;border:1px solid #cbb98c}
+.stamp{right:40px;top:296px;width:46px;height:54px;background:var(--navy);border:3px dotted #f7efd9;outline:1px solid var(--navy)}
+.mark{right:74px;top:300px;width:66px;height:66px;border:2px solid rgba(59,42,26,.6);border-radius:50%;display:grid;place-items:center;font-size:10px;color:rgba(59,42,26,.75);transform:rotate(-14deg);font-family:"Gowun Batang",serif}
+.reply{left:34px;right:34px;top:470px;background:var(--paper);color:var(--ink);padding:16px 18px;transform:rotate(1deg);box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.reply small{display:block;font-family:"Gowun Batang",serif;font-size:12px;margin-bottom:4px}
+
+/* 필름 띠 */
+.film{left:0;right:0;bottom:0;height:126px;background:#15122b;box-shadow:0 -2px 0 rgba(246,185,81,.55),0 -14px 24px rgba(5,3,48,.45)}
+.film::before,.film::after{content:"";position:absolute;left:0;right:0;height:9px;background:repeating-linear-gradient(90deg,transparent 0 6px,#f2e6c8 6px 16px,transparent 16px 22px);opacity:.85;border-radius:2px}
+.film::before{top:6px}.film::after{bottom:6px}
+.fr{position:absolute;top:24px;width:84px;margin-left:-42px;text-align:center;font-size:10px;color:#cdbb8e;font-family:Consolas,"Malgun Gothic",monospace}
+.fr .th{position:relative;height:56px;overflow:hidden;border-radius:3px;background:#0a0a4a;outline:1px solid rgba(242,230,200,.35)}
+.fr .th>div{position:absolute;left:0;top:-87px;width:375px;height:812px;transform:scale(.224);transform-origin:0 0}
+.fr .th>div>svg{position:absolute;inset:0;width:100%;height:100%}
+.fr.empty .th{background:repeating-linear-gradient(45deg,#2a2646 0 6px,#231f3d 6px 12px);display:grid;place-items:center;color:#6f6a94;font-size:9px}
+.fr b{display:block;margin-top:5px;font-weight:400;letter-spacing:.04em;white-space:nowrap}
+.fr.ev b::before{content:"● ";color:var(--gold)}
+.fr.on{top:16px;width:112px;margin-left:-56px;color:var(--gold)}
+.fr.on .th{height:74px;outline:2px solid var(--gold);box-shadow:0 0 16px rgba(246,185,81,.5)}
+.fr.on .th>div{top:-116px;transform:scale(.2987)}
+.fr.on b{font-size:12px;font-weight:700}
+.fr.far{opacity:.55}
+.gate{left:50%;bottom:118px;margin-left:-9px;border:9px solid transparent;border-top:13px solid var(--gold);border-bottom:0}
+.swipe{left:0;right:0;bottom:132px;text-align:center;font-size:11px;opacity:.8;letter-spacing:.3em}
+</style>
+</head>
+<body>
+<main>
+<h1>시간 한량 화면 어림: 필름 띠(견본 9번)</h1>
+<p>조작 화면 견본 9번(필름 띠)을 더 자세히 그린 3장이다. 움직이지 않는다. 손으로 끌어 보려면 <code>dial-proto.html</code> 에서 "9 필름 띠"를 고른다.</p>
+<p>필름 한 칸은 해 하나가 아니라 "볼 것이 있는 때" 하나다. 사건이 있는 칸은 금색 점이 붙고, 가운데 칸이 지금 보는 때다. 칸 속의 작은 그림은 그 해의 같은 자리다.</p>
+<p>땅 그림은 임시로 그린 것이고, 별은 계산한 것이 아니다. 1851.5.1은 달이 없는 날(삭)이라 그날의 하늘에는 달을 그리지 않았다. 필름의 해(1800, 1850, 1852, 1900)는 보기로 넣은 것이다.</p>
+<div class="grid" id="grid"></div>
+</main>
+<script>
+const rnd = (i, k) => Math.abs(Math.sin(i * 12.9898 + k * 78.233) * 43758.5453) % 1;
+const stars = (n, h, seed = 0) => Array.from({ length: n }, (_, i) =>
+  `<circle cx="${(rnd(i, seed) * 375).toFixed(1)}" cy="${(rnd(i, seed + 5) * h).toFixed(1)}" r="${(0.4 + rnd(i, seed + 9) * 1).toFixed(2)}" fill="#fbf8f9" opacity="${(0.4 + rnd(i, seed + 3) * 0.6).toFixed(2)}"/>`).join('');
+const moon = (x, y, r) => `<path transform="translate(${x} ${y}) rotate(-20)" d="M0 ${-r}A${r} ${r} 0 1 0 0 ${r}A${r * 0.62} ${r} 0 1 1 0 ${-r}z" fill="#f4f1ff"/>`;
+const tree = (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-4" y="-40" width="8" height="42" fill="#27402f"/><circle cx="0" cy="-70" r="34"/><circle cx="-26" cy="-50" r="24"/><circle cx="26" cy="-52" r="26"/><circle cx="4" cy="-96" r="22"/></g>`;
+const person = (x, y, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})" fill="#1f2b3a"><circle cy="-13" r="2.6"/><path d="M-3 -10h6l2 10h-10z"/></g>`;
+
+// 하이드파크. then 이면 수정궁이 있고, 아니면 잔디밭뿐이다. 두 장은 구도가 같다.
+function park(then, sky = true, fade = 1) {
+  const mull = Array.from({ length: 45 }, (_, i) => `<path d="M${33 + i * 7} 470V500" stroke="#86b7b1" stroke-width="1"/>`).join('')
+    + Array.from({ length: 36 }, (_, i) => `<path d="M${63 + i * 7} 452V470" stroke="#86b7b1" stroke-width="1"/>`).join('')
+    + Array.from({ length: 26 }, (_, i) => `<path d="M${98 + i * 7} 438V452" stroke="#86b7b1" stroke-width="1"/>`).join('');
+  const palace = `<g>
+    <rect x="30" y="470" width="315" height="30" fill="#bfe0dc"/><rect x="60" y="452" width="255" height="18" fill="#cfeae6"/><rect x="95" y="438" width="185" height="14" fill="#dcf2ee"/>
+    ${mull}
+    <path d="M163 500V420a24.500 24.500 0 0 1 49 0V500z" fill="#e9f8f5"/>
+    <path d="M163 420a24.500 24.500 0 0 1 49 0M171 420a16.500 16.500 0 0 1 33 0M179 420a8.500 8.500 0 0 1 17 0M187.500 396V500M163 440h49M163 460h49M163 480h49" fill="none" stroke="#86b7b1" stroke-width="1"/>
+    <path d="M30 470h315M60 452h255M95 438h185" stroke="#6fa39d" stroke-width="1.500"/>
+    ${[40, 110, 265, 335].map(x => `<path d="M${x} ${x > 100 && x < 300 ? 438 : 470}v-14l9 4-9 4" fill="#c9553a" stroke="#6fa39d" stroke-width=".8"/>`).join('')}
+  </g>`;
+  const city = then
+    ? `<path d="M0 478l20-6 14 4 10-14 6 14 30 2 12-8 16 8h60l8-20 5 20 60 2 20-6 30 6 20-10 14 10 50-2V520H0z" fill="#8f86c4" opacity=".7"/>`
+    : `<path d="M0 478h30v-22h14v22h40v-40h12v40h30v-14h20v14h50v-58h9v58h44v-28h16v28h40v-46h12v46h58V520H0z" fill="#8f86c4" opacity=".7"/>`;
+  const crowd = then
+    ? Array.from({ length: Math.round(26 * fade) }, (_, i) => person(40 + rnd(i, 1) * 295, 512 + rnd(i, 2) * 26, 0.8 + rnd(i, 3) * 0.5)).join('')
+    : person(96, 530) + person(104, 531, 0.9) + person(268, 522, 0.8);
+  return `<svg class="full" viewBox="0 0 375 812" preserveAspectRatio="none">
+    ${sky ? stars(70, 340, then ? 1 : 4) : ''}${sky === true ? moon(then ? 282 : 96, then ? 170 : 210, 19) : ''}
+    ${city}
+    <path d="M0 500q90-10 187 0t188-2V812H0z" fill="#6c9a62"/>
+    ${then ? `<g opacity="${fade}">${palace}</g>` : ''}
+    <path d="M0 540q100-16 200-4t175-8V812H0z" fill="#527f52"/>
+    ${crowd}
+    <g fill="#2f5a3c">${tree(44, 600, 1.25)}${tree(338, 588, 1.05)}</g>
+    <path d="M0 612q120-22 230-6t145-10V812H0z" fill="#3c6846"/>
+    <path d="M0 690q140-26 375-6V812H0z" fill="#2d5239"/>
+    <rect y="400" width="375" height="412" fill="#1a2894" opacity=".2"/>
+  </svg>`;
+}
+
+// 1504년 자메이카의 월식. 엽서에 들어가는 작은 그림.
+const jamaica = `<svg viewBox="0 0 300 170">
+  <rect width="300" height="170" fill="#0a0a4a"/>
+  ${Array.from({ length: 40 }, (_, i) => `<circle cx="${rnd(i, 7) * 300}" cy="${rnd(i, 8) * 90}" r="${0.4 + rnd(i, 9)}" fill="#fbf8f9" opacity=".8"/>`).join('')}
+  <circle cx="204" cy="48" r="21" fill="#c9553a"/><circle cx="204" cy="48" r="21" fill="none" stroke="#e08a6a" stroke-width="1.500" opacity=".6"/>
+  <rect y="108" width="300" height="62" fill="#1c3f72"/><path d="M0 120h300M0 134h300M0 150h300" stroke="#2c5a94" stroke-width="2" stroke-dasharray="30 18"/>
+  <path d="M176 104h56l-10 12h-36zM206 104V80M196 104V86" fill="#03040f" stroke="#03040f" stroke-width="2"/><path d="M207 82l12 9-12 9zM195 88l-10 8 10 7z" fill="#e2daf6"/>
+  <path d="M0 108q50-26 96-6l24 6V170H0z" fill="#0f2a22"/>
+  <g stroke="#0f2a22" stroke-width="3" fill="none"><path d="M40 108q6-30 2-46"/><path d="M84 110q-4-22 4-40"/></g>
+  <g fill="#0f2a22"><path d="M42 62q-22-10-30 4q18-6 30-4zM42 62q20-14 32-2q-18-4-32 2zM42 62q-6-18-22-18q14 6 22 18zM42 62q10-18 24-14q-14 4-24 14z"/><path d="M88 70q-20-8-28 4q16-6 28-4zM88 70q18-12 30-2q-16-4-30 2zM88 70q8-18 22-14q-12 4-22 14z"/></g>
+</svg>`;
+
+const topBar = n => `<div class="top"><span class="glass">소리</span><span class="glass">음악</span><span class="glass">?</span><span class="glass j">수첩 ${n}/120</span><span class="glass">사진</span></div>`;
+const dialArc = (a, b, c) => `<div class="arc"></div><div class="arclab"><span>${a}</span><span>${b}</span><span>${c}</span></div><div class="needle"></div>`;
+const controls = `<div class="joy glass"></div><div class="move"><span class="glass">전진</span><span class="glass">정지</span></div>`;
+const pin = (lon, lat, label, on) => { const x = 188 + (lon - 15) / 90 * 310, y = 460 - lat / 90 * 310;
+  return `<div class="pin ${on ? 'on' : ''}" style="left:${x}px;top:${y}px"></div>${on ? '' : `<div class="pinlab" style="left:${x + 11}px;top:${y - 9}px">${label}</div>`}`; };
+
+// 필름 띠. frames: [글자, 종류('then'|'meadow'|'empty'), 사건인가]. center: 가운데 칸의 번호(소수면 넘기는 중).
+function film(frames, center) {
+  const gap = 96;
+  const cells = frames.map(([label, kind, ev], i) => {
+    const d = i - center, on = Math.abs(d) < 0.01;
+    const x = 187.5 + d * gap + (on ? 0 : Math.sign(d) * 14);
+    const pic = kind === 'empty' ? '빈 필름' : `<div class="dusk">${park(kind === 'then', false)}</div>`;
+    return `<div class="fr ${on ? 'on' : ''} ${ev ? 'ev' : ''} ${kind === 'empty' ? 'empty' : ''} ${Math.abs(d) > 1.6 ? 'far' : ''}" style="left:${x}px"><div class="th">${pic}</div><b>${label}</b></div>`;
+  }).join('');
+  return `<div class="film">${cells}</div><div class="gate"></div>`;
+}
+const FRAMES = [['1700', 'empty'], ['1800', 'meadow'], ['1850', 'meadow'], ['1851.5.1', 'then', 1], ['1852', 'meadow'], ['1900', 'meadow'], ['오늘', 'meadow', 1]];
+const filmControls = `<div class="joy glass" style="bottom:142px"></div><div class="move" style="bottom:142px"><span class="glass">전진</span><span class="glass">정지</span></div>`;
+
+const S = [
+ { n: '필름을 넘겨 그날에 선다', d: '아래 필름을 옆으로 넘긴다. 가운데 칸에 금색 테가 둘리고, 위의 큰 화면이 그 칸의 때가 된다. 금색 점이 붙은 칸이 사건이 있는 때다. 옆 칸에 무엇이 있는지 넘기기 전에 작게 보인다.',
+   h: `<div class="ph dusk">${park(true, 'stars')}
+   <img class="sora" src="mock/sora.png" style="left:132px;top:232px"><div class="bubble" style="left:206px;top:214px;white-space:normal;width:150px">유리로 지은 집이다. 반짝반짝.</div>
+   ${topBar(64)}<div class="date"><b>1851.5.1</b>하이드파크, 런던</div>
+   <div class="memo" style="left:16px;top:516px">1851.5.1 만국박람회 열림.<br>그날 달은 없음</div>
+   <div class="chips" style="left:16px;top:578px"><span class="glass">이야기 카드</span><span class="glass">맞혀 보렴</span></div>
+   <div class="today glass" style="right:16px;top:64px">오늘로</div>
+   ${filmControls}${film(FRAMES, 3)}</div>` },
+ { n: '넘기는 동안 두 때가 겹친다', d: '손가락으로 끄는 동안 필름이 따라 밀리고, 큰 화면은 두 칸의 그림이 겹쳐 보인다. 수정궁이 반쯤 비친다. 손을 떼면 가까운 칸에 철컥 선다. 칸과 칸 사이의 해에는 서지 않는다.',
+   h: `<div class="ph dusk">${park(true, 'stars', 0.45)}
+   <img class="sora" src="mock/sora.png" style="left:132px;top:232px">
+   ${topBar(64)}<div class="date"><b style="opacity:.75">1851 → 1852</b>하이드파크, 런던</div>
+   <div class="today glass" style="right:16px;top:64px">오늘로</div>
+   <div class="swipe">← 끌면 다음 칸 · 끌면 앞 칸 →</div>
+   ${filmControls}${film(FRAMES, 3.5)}</div>` },
+ { n: '오늘 칸에 서면 남은 것이 보인다', d: '필름의 맨 끝이 오늘이다. "오늘로"를 누르면 필름이 끝까지 감긴다. 같은 구도에서 수정궁이 없고 잔디밭만 남는다. 이것으로 "남은 것" 칸이 채워진다.',
+   h: `<div class="ph dusk">${park(false)}
+   <img class="sora" src="mock/sora.png" style="left:132px;top:232px"><div class="bubble" style="left:216px;top:226px">없어졌네. 옮겨 갔대.</div>
+   ${topBar(64)}<div class="date"><b>2026.10.7</b>하이드파크, 런던</div>
+   <div class="memo" style="left:16px;top:536px">남은 것: 없음. 잔디밭뿐.</div>
+   <div class="today glass" style="right:16px;top:64px">그날로</div>
+   ${filmControls}${film(FRAMES, 6)}</div>` },
+];
+document.getElementById('grid').innerHTML = S.map((s, i) => `<figure>${s.h}<figcaption><b>${i + 1}. ${s.n}</b>${s.d}</figcaption></figure>`).join('');
+// 주소 끝에 #s2 처럼 붙이면 한 장만 보인다(그림 파일로 찍을 때 쓴다).
+const one = location.hash.match(/^#s(\d+)$/);
+if (one) { const m = document.querySelector('main'); m.replaceChildren(document.querySelectorAll('.ph')[one[1] - 1]); m.style.cssText = 'padding:10px;margin:0;width:395px'; }
+</script>
+</body>
+</html>
