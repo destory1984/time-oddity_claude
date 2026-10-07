@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>시간 한량 다이얼 손맛 시험</title>
 <style>
-/* 손맛만 보려고 만든 시험판이다. 게임 코드가 아니다. */
+/* 손맛만 보려고 만든 시험판이다. 게임 코드가 아니다. 처음 보이는 "해" 탭이 지금의 안이다. */
 :root{--night:#050330;--navy:#1a2894;--gold:#f6b951;--white:#fbf8f9;--lav:#e2daf6;--paper:#f2e6c8;--ink:#3b2a1a}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:#15122b;overflow:hidden;overscroll-behavior:none}
@@ -35,6 +35,8 @@ canvas{inset:0;width:100%;height:100%;pointer-events:none}
   font-size:12.5px;white-space:nowrap;transition:opacity .25s;pointer-events:none}
 #memo{left:14px;top:55.5%;max-width:62%;background:var(--paper);color:var(--ink);padding:6px 10px;transform:rotate(-1.5deg);
   font-family:"Gowun Batang",serif;font-size:13px;line-height:1.35;box-shadow:1px 2px 0 rgba(59,42,26,.4);transition:opacity .25s;pointer-events:none}
+#fine{left:16px;top:126px;padding:7px 12px;color:var(--white);font:inherit;font-size:12px}
+#fine.on{background:var(--gold);border-color:var(--gold);color:var(--night)}
 #jump{right:14px;top:60px;padding:9px 14px;color:var(--gold);border-color:var(--gold);font:inherit;font-size:13px}
 #joy{left:16px;width:66px;height:66px;border-radius:50%;display:grid;place-items:center;pointer-events:none}
 #joy::after{content:"";width:28px;height:28px;border-radius:50%;background:rgba(226,218,246,.55)}
@@ -59,8 +61,9 @@ canvas{inset:0;width:100%;height:100%;pointer-events:none}
   <div id="hit"></div>
   <div id="hit2"></div>
   <button id="jump" class="glass"></button>
+  <button id="fine" class="glass"></button>
   <div id="tabs">
-    <button class="glass" data-m="2">해+날</button>
+    <button class="glass" data-m="2">해</button>
     <button class="glass" data-m="3">3 큰 호</button>
     <button class="glass" data-m="4">4 세로 띠</button>
     <button class="glass" data-m="9">9 필름 띠</button>
@@ -125,15 +128,16 @@ function layout() {
   for (const c of [sky, dial]) { c.width = W * dpr; c.height = H * dpr; c.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0); }
   const bottom = mode === 3 || mode === 2 ? 122 : mode === 9 ? 116 : 24;
   $('joy').style.bottom = bottom + 'px';
-  $('move').style.cssText = `bottom:${bottom}px;right:${mode === 4 || mode === 2 ? 70 : 16}px`;
+  $('move').style.cssText = `bottom:${bottom}px;right:${mode === 4 ? 78 : 16}px`;
   hit.style.cssText = mode === 4 ? 'right:0;top:120px;bottom:120px;width:84px'
     : `left:0;right:0;bottom:0;height:${mode === 9 ? 110 : 116}px`;
-  hit2.style.cssText = mode === 2 ? 'right:0;top:190px;bottom:250px;width:70px' : 'display:none';
-  $('bubble').style.marginLeft = mode === 2 || mode === 4 ? '-56px' : '20px';   // 오른쪽 띠를 피한다
+  hit2.style.cssText = 'display:none';
+  $('bubble').style.marginLeft = mode === 4 ? '-56px' : '20px';   // 오른쪽 띠를 피한다
   document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', +b.dataset.m === mode));
 }
 
 // 손가락. 해+날에서는 아래 호가 해, 오른쪽 띠가 날이다.
+let fine = false;   // 날 맞추기 놀이 중인가
 let which = hit, y0 = 0, acc = 0, yv = y;   // 잡은 손잡이, 잡은 때의 해, 끈 거리, 해 다이얼이 그려지는 자리
 for (const el of [hit, hit2]) {
   el.addEventListener('pointerdown', e => {
@@ -159,9 +163,9 @@ function step(d) {
   if (mode === 9) { p = clamp(p - d / FW, 0, STOPS.length - 1); y = filmYear(p); return; }
   if (mode === 2) {
     acc += d;
-    // 해 다이얼은 한 칸에 꼭 한 해씩 넘어가서 달과 날이 그대로 남는다. 날 다이얼은 한 칸에 하루.
-    if (which === hit) { y = clamp(y0 - Math.round(acc / PX), MIN, MAX); yv = y0 - acc / PX; }
-    else y = clamp(y0 - Math.round(acc / PX) * DAY, MIN, MAX);
+    // 한 칸에 꼭 한 해씩 넘어가서 달과 날이 그대로 남는다. "날 맞추기"를 켠 동안에만 한 칸이 하루다.
+    const unit = fine ? DAY : 1;
+    y = clamp(y0 - Math.round(acc / PX) * unit, MIN, MAX); yv = y0 - acc / PX * unit;
     return;
   }
   y = clamp(y - d * g, MIN, MAX);
@@ -185,7 +189,7 @@ function tick(dt) {
     // 멈춘 자리가 사건 칸에서 눈금 반 칸 남짓(0.6칸) 안이면 그날에 걸린다. 적어도 2일.
     moved = false;
     // 해 다이얼은 사건이 있는 해에 멈추기만 하면 그날에 걸린다.
-    const win = mode !== 2 ? Math.max(2 * DAY, 0.6 * GEARS[gear]) : which === hit2 ? 2 * DAY : 0;
+    const win = mode !== 2 ? Math.max(2 * DAY, 0.6 * GEARS[gear]) : fine ? 2 * DAY : 0;
     for (const s of [EV, TODAY]) if (y !== s && (win ? Math.abs(y - s) < win : Math.floor(y) === Math.floor(s))) target = s;
   }
 }
@@ -242,10 +246,8 @@ function drawDial() {
   const c = dial.getContext('2d'); c.clearRect(0, 0, W, H);
   c.font = '11px "Malgun Gothic",sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
   if (mode === 2) {
-    drawArc(c, 1 / PX, yv);
-    drawTape(c, DAY / PX, 190, H - 250, 52);
-    c.fillStyle = '#f6b951'; c.textAlign = 'center';
-    c.fillText('해', W / 2 - 22, H - 108); c.fillText('날', W - 26, 178);
+    drawArc(c, (fine ? DAY : 1) / PX, yv);
+    c.fillStyle = '#f6b951'; c.textAlign = 'center'; c.fillText(fine ? '날' : '해', W / 2 - 22, H - 108);
   } else if (mode === 3) drawArc(c, g, y);
   else if (mode === 4) drawTape(c, g, 120, H - 120, 66);
   else drawFilm(c);
@@ -301,6 +303,9 @@ function drawFilm(c) {
 function drawText() {
   $('date').firstElementChild.textContent = dateText(y, mode !== 9 && mode !== 2 && gear >= 2 && (dragging || Math.abs(vp) > 0.03));
   $('gain').style.display = mode === 9 || mode === 2 ? 'none' : 'flex';
+  $('fine').style.display = mode === 2 ? '' : 'none';
+  $('fine').textContent = fine ? '날 맞추기 끝' : '날 맞추기';
+  $('fine').classList.toggle('on', fine);
   [...$('gain').children].forEach((b, i) => { if (i) b.classList.toggle('on', i - 1 === gear); });
   const palace = smooth(1850.6, EV, y) * (1 - smooth(1852.2, 1852.9, y));
   $('then').style.opacity = palace;
@@ -314,8 +319,9 @@ function drawText() {
 // 단위 단추: 눈금 한 칸이 얼마인지 고른다.
 $('gain').innerHTML = '<span>한 칸</span>' + GEAR_NAMES.map(n => `<button class="glass">${n}</button>`).join('');
 [...$('gain').children].forEach((b, i) => { if (i) b.onclick = () => { gear = i - 1; }; });
+$('fine').onclick = () => { fine = !fine; yv = y; };
 $('jump').onclick = () => { vp = 0; target = Math.abs(y - TODAY) < 1 ? EV : TODAY; };
-document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => { mode = +b.dataset.m; vp = 0; gear = 0; g = DAY / PX; p = filmPos(y); layout(); });
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => { mode = +b.dataset.m; vp = 0; gear = 0; g = DAY / PX; fine = false; yv = y; p = filmPos(y); layout(); });
 addEventListener('resize', layout);
 
 let prev = performance.now();
