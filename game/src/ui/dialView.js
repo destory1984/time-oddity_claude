@@ -1,14 +1,16 @@
 // Draws the year dial: the top of a large disc at the bottom of the screen, with a tick
-// for every year and a fixed needle. A disc of deep-blue glass like a star chart, with
-// fine gold ticks and two gold rims: "night-sky glass", the third row of the concept
-// sheet in docs/dial-상의.md, which the user chose on 2026.10.7 after finding the first
-// dial, a flat navy disc with one gold line, cheap. The years are in the screen's type.
+// for every year and a fixed needle. The disc is thick night-sky glass. The user settled
+// it over five rounds on 2026.10.7 (docs/dial-상의.md), after finding the first dial, a
+// flat navy disc with one gold line, cheap: deep-blue glass like a star chart; a bevelled
+// edge that glows softly in gold; a navy one step darker than first drawn; the Big Dipper
+// and star dust inside, turning with the dial; sparks of light that twinkle on the rim;
+// and sparkles on the glass while it is turned. The years are in the screen's type.
 import { PX_PER_YEAR, isDecade } from '../core/dial.js';
 import { formatYear, yearFromIndex, yearIndex } from '../core/when.js';
 
 const UI = '"Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif';
-const GLASS_TOP = '#16246a';
-const GLASS_FOOT = '#080d3a';
+const GLASS_TOP = '#0c1442';
+const GLASS_FOOT = '#04061e';
 const GOLD = '#d8b866';
 const GOLD_LIT = '#f3dc9a';
 const GOLD_SHADE = '#8a6f34';
@@ -54,29 +56,13 @@ function chance(a, b) {
   return ((x ^ (x >>> 16)) >>> 0) / 4294967296;
 }
 
-// Looks of the glass to choose between, with the buttons that ?dial in the address puts
-// on the screen (0 is the plain one). Fourth round, 2026.10.7. Settled so far, round by
-// round: thick glass, a softly glowing edge, a vivid star chart with star dust, and
-// sparks of light that twinkle on the rim. The user then asked for the colour a little
-// darker: these five differ only in how dark the navy is and which way it leans.
-// bevel: how wide the band of light inside the rim is (the thickness of the glass).
-// glow: the colour of the light at the edge ('r,g,b') and how strong. chart: how many
-// stars (the share of years that carry one), how bright its lines, dots and large stars
-// are, their colour, and whether fine star dust lies behind them. shine: how the light
-// plays (see draw()).
-const VIVID = { share: 0.44, line: 0.75, dot: 0.95, big: 1, colour: GOLD_BRIGHT, dust: true };
-const SPARKS = { bevel: 9, glow: { rgb: '255,236,180', strength: 0.85 }, chart: VIVID, shine: 'glints' };
-const GLASS = {
-  0: { top: GLASS_TOP, foot: GLASS_FOOT, bevel: 0, glow: null, chart: { share: 0.3, line: 0.3, dot: 0.5, big: 0.75, colour: GOLD_LIT, dust: false }, shine: null },
-  1: { top: '#0c1442', foot: '#04061e', ...SPARKS },   // one step darker than round three (#101a52 to #050828)
-  2: { top: '#090f34', foot: '#020416', ...SPARKS },   // two steps darker
-  3: { top: '#070b28', foot: '#010210', ...SPARKS },   // a blue-black night
-  4: { top: '#100f40', foot: '#05041c', ...SPARKS },   // one step darker, leaning to violet
-  5: { top: '#101a52', foot: '#010210', ...SPARKS },   // the same at the rim, falling to black below
-};
+const BEVEL = 9;                          // the band of light inside the rim: the thickness of the glass
+const GLOW = '255,236,180';               // the light that gathers at the edge
+const GLOW_STRENGTH = 0.85;
+// The star chart: how bright its lines, small stars and large stars are, and their colour.
+const CHART = { line: 0.75, dot: 0.95, big: 1, colour: GOLD_BRIGHT };
 
-export function createDialView(canvas, firstStyle = 0) {
-  let style = firstStyle;
+export function createDialView(canvas) {
   const c = canvas.getContext('2d');
   let w = 0;
   let h = 0;
@@ -146,25 +132,24 @@ export function createDialView(canvas, firstStyle = 0) {
     };
 
     // The glass, with a soft shadow on the ground above its rim.
-    const look = GLASS[style] ?? GLASS[0];
     c.save();
     c.shadowColor = 'rgba(0,0,0,.45)'; c.shadowBlur = 9; c.shadowOffsetY = -1;
     const glass = c.createLinearGradient(0, apex, 0, h);
-    glass.addColorStop(0, look.top); glass.addColorStop(1, look.foot);
+    glass.addColorStop(0, GLASS_TOP); glass.addColorStop(1, GLASS_FOOT);
     c.fillStyle = glass;
     disc(); c.fill();
     c.restore();
 
     // Inside the glass, a star chart that turns with the dial: dashed circles, star dust
     // and the Big Dipper. It is ornament, not the computed sky.
-    const { chart } = look;
+    const chart = CHART;
     c.save();
     disc(); c.clip();
     ring(cx, cy, radius - 52, GOLD, 0.8, 0.35 + chart.line * 0.2, [5, 6]);
     ring(cx, cy, radius - 92, GOLD, 0.8, 0.25 + chart.line * 0.2, [2, 7]);
     const span = Math.ceil(w / 2 / PX_PER_YEAR) + 6;
     const middle = Math.round(dial.offset);
-    if (chart.dust) {
+    {
       c.fillStyle = '#ffffff';
       for (let i = middle - span; i <= middle + span; i += 1) {
         for (let k = 0; k < 2; k += 1) {
@@ -213,19 +198,18 @@ export function createDialView(canvas, firstStyle = 0) {
       c.beginPath(); c.arc(cx, cy, r, -Math.PI / 2 + from, -Math.PI / 2 + to); c.stroke();
       c.restore();
     };
-    if (look.bevel > 0) {
+    {
       // The thickness of the glass: a band of light just inside the rim, a dark line where
       // the bevel ends, a hairline of light under that, and two short reflections.
-      const band = look.bevel;
+      const band = BEVEL;
       ring(cx, cy, radius - 8 - band / 2, 'rgba(190,210,255,1)', band, 0.15);
-      if (band > 12) ring(cx, cy, radius - 8 - band * 0.28, 'rgba(225,235,255,1)', band * 0.3, 0.12);
       ring(cx, cy, radius - 9 - band, 'rgba(0,0,16,1)', 2.5, 0.55);
       ring(cx, cy, radius - 11.5 - band, 'rgba(170,195,255,1)', 1, 0.3);
       arc(radius - 8 - band / 2, -0.3, -0.08, 'rgba(255,255,255,.5)', Math.min(3, band / 3.5), 6);
       arc(radius - 8 - band / 2, 0.15, 0.21, 'rgba(255,255,255,.35)', 2, 4);
     }
     const now = performance.now();
-    if (look.shine) {
+    {
       // The further the dial has turned since the last frame, the more sparkles are lit.
       const turned = lastOffset === null ? 0 : Math.abs(dial.offset - lastOffset);
       owed = Math.min(6, owed + turned * SPARKS_PER_TICK);
@@ -246,7 +230,7 @@ export function createDialView(canvas, firstStyle = 0) {
       }
     }
     lastOffset = dial.offset;
-    if (look.shine === 'glints') {
+    {
       // Sparks where the rim catches the light; they twinkle slowly, each in its own time.
       for (const [angle, size, beat] of [[-0.24, 6, 0], [0.11, 4.5, 1.9], [0.31, 5, 3.7], [-0.06, 3.5, 2.8]]) {
         const twinkle = 0.55 + 0.45 * Math.sin(now / 900 + beat);
@@ -261,61 +245,14 @@ export function createDialView(canvas, firstStyle = 0) {
       }
       arc(radius - 12, -0.32, -0.04, 'rgba(255,255,255,.55)', 2.5, 8);
     }
-    const band = (x, wide, alpha) => {
-      const g = c.createLinearGradient(x, 0, x + wide, 0);
-      g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(0.5, `rgba(235,242,255,${alpha})`); g.addColorStop(1, 'rgba(255,255,255,0)');
-      c.fillStyle = g; c.fillRect(x, -260, wide, 520);
-    };
-    if (look.shine === 'streaks') {
-      // Light falling across polished glass: slanting streaks, brightest near the rim.
-      c.save();
-      c.translate(cx - 60, apex + 30); c.rotate(-0.5);
-      band(-40, 54, 0.26); band(30, 18, 0.18); band(170, 80, 0.13);
-      c.restore();
-      arc(radius - 12, -0.34, -0.06, 'rgba(255,255,255,.6)', 2.5, 8);
-    }
-    if (look.shine === 'sweep') {
-      // A gleam crosses the glass in a second and a half, every six seconds.
-      const t = (now % 6000) / 1500;
-      if (t < 1) {
-        c.save();
-        c.translate(-90 + t * (w + 180), apex + 40); c.rotate(-0.5);
-        band(-30, 60, 0.34 * Math.sin(t * Math.PI)); band(34, 16, 0.2 * Math.sin(t * Math.PI));
-        c.restore();
-      }
-      arc(radius - 12, -0.3, -0.08, 'rgba(255,255,255,.45)', 2.5, 6);
-    }
-    if (look.shine === 'turning') {
-      // The lamp stays where it is and the glass turns under it: the reflections slide a
-      // little against the turning, and a soft patch of light drifts with them.
-      const slide = Math.sin(dial.offset * 0.45);
-      const patch = c.createRadialGradient(cx - 50 + slide * 46, apex + 30, 0, cx - 50 + slide * 46, apex + 30, 120);
-      patch.addColorStop(0, 'rgba(205,222,255,.3)'); patch.addColorStop(1, 'rgba(205,222,255,0)');
-      c.fillStyle = patch; c.fillRect(0, apex - 4, w, h - apex + 4);
-      arc(radius - 12, -0.3 + slide * 0.07, -0.1 + slide * 0.07, 'rgba(255,255,255,.65)', 2.8, 8);
-      arc(radius - 12, 0.14 - slide * 0.05, 0.2 - slide * 0.05, 'rgba(255,255,255,.4)', 2, 5);
-    }
-    if (look.shine === 'inner') {
-      // Lit from within: the glass itself glows, strongest under the needle, and breathes.
-      const breath = 0.85 + 0.15 * Math.sin(now / 1400);
-      const lit = c.createRadialGradient(cx, apex + 64, 0, cx, apex + 64, 230);
-      lit.addColorStop(0, `rgba(120,175,255,${0.34 * breath})`); lit.addColorStop(0.6, `rgba(90,140,255,${0.1 * breath})`); lit.addColorStop(1, 'rgba(90,140,255,0)');
-      c.fillStyle = lit; c.fillRect(0, apex - 4, w, h - apex + 4);
-      arc(radius - 12, -0.3, -0.06, 'rgba(255,255,255,.55)', 2.5, 8);
-      arc(radius - 46, 0.05, 0.28, 'rgba(190,215,255,.1)', 5, 14);
-    }
-    if (look.glow) {
-      // The edge gathers light: a soft band of it just inside the rim.
-      ring(cx, cy, radius - 7, `rgba(${look.glow.rgb},1)`, 12, 0.13 * look.glow.strength / 0.6);
-    }
+    // The edge gathers light: a soft band of it just inside the rim.
+    ring(cx, cy, radius - 7, `rgba(${GLOW},1)`, 12, 0.13 * GLOW_STRENGTH / 0.6);
     c.restore();
-    if (look.glow) {
-      // And a little of it spills over the rim.
-      c.save();
-      c.shadowColor = `rgba(${look.glow.rgb},${look.glow.strength})`; c.shadowBlur = 12;
-      ring(cx, cy, radius - 1, `rgba(${look.glow.rgb},.9)`, 1.5);
-      c.restore();
-    }
+    // And a little of it spills over the rim.
+    c.save();
+    c.shadowColor = `rgba(${GLOW},${GLOW_STRENGTH})`; c.shadowBlur = 12;
+    ring(cx, cy, radius - 1, `rgba(${GLOW},.9)`, 1.5);
+    c.restore();
 
     // Two gold rims with the glass between them.
     ring(cx, cy, radius - 1.2, GOLD, 2.4);
@@ -394,8 +331,5 @@ export function createDialView(canvas, firstStyle = 0) {
     head(); c.stroke();
   }
 
-  // Changes the look of the glass on the spot, for choosing between them.
-  function setStyle(next) { style = next; }
-
-  return { resize, draw, tick, setStyle };
+  return { resize, draw, tick };
 }
