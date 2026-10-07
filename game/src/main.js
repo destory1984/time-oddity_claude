@@ -66,6 +66,7 @@ let bubble = null;         // { text, until }
 let remainsAtMs = null;
 let glowSky = 0;
 let glowToday = 0;
+let daylight = 0;       // how light the sky over the square is, for the dial's paper
 
 // The years with something to see, shown on the dial. Above the Earth: every square.
 // On the ground: this square's day and today.
@@ -221,6 +222,7 @@ function frameGround(dt) {
 
   const sky = skyAt(momentJd(square, { year: dial.year, night: visit.night }, today), square);
   const light = skyLight(sky.sun.alt);
+  daylight = light.day;
   skyCanvas.draw(sky, {
     facingAz: square.facingAz, pitch: visit.look, dim, labels: clamp01((visit.lookHeld - LABELS_AFTER_MS) / 300),
   });
@@ -268,7 +270,7 @@ function frame(now) {
   tickSounds(stepDial(dial, dt));
   if (visit && (mode === 'ground' || mode === 'leaving')) frameGround(dt);
   else frameGlobe(dt);
-  dialView.draw(dial, marks);
+  dialView.draw(dial, marks, visit ? daylight : 0);
   requestAnimationFrame(frame);
 }
 
