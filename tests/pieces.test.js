@@ -21,6 +21,12 @@ describe('the pieces that move in a scene', () => {
       for (const p of pieces) { expect(p.clip).toEqual([0.1, 0.5]); expect(p.anchor).toBe('foot'); }
     }
   });
+  it('can send a strip by behind the picture, and turned to face left', () => {
+    const [p] = piecesAt({ moving: [{ ...strip, behind: true, flip: true, speed: -0.1 }] }, 3);
+    expect(p.behind).toBe(true);
+    expect(p.flip).toBe(true);
+    expect(piecesAt({ moving: [strip] }, 3)[0].behind).toBe(false);
+  });
   it('slides it the way of its speed', () => {
     const at = (t) => piecesAt({ moving: [strip] }, t).find((p) => p.id === 'crowd-0').x;
     expect(at(1.1) - at(1)).toBeCloseTo(0.002, 9);

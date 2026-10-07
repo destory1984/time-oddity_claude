@@ -26,6 +26,7 @@ export function createWalkView({ onPerson, onWay }) {
   const scroll = $('walkScene');
   const picture = $('walkPicture');
   const piecesEl = $('walkPieces');
+  const behindEl = $('walkBehind');
   const peopleEl = $('walkPeople');
   const talk = $('walkTalk');
   const face = $('walkFace');
@@ -91,6 +92,7 @@ export function createWalkView({ onPerson, onWay }) {
     }
     root.dataset.look = place.look ?? 'pixel';
     piecesEl.replaceChildren();
+    behindEl.replaceChildren();
     moving = new Map();
     say.classList.remove('on');
     talk.classList.remove('on');
@@ -106,14 +108,16 @@ export function createWalkView({ onPerson, onWay }) {
     const img = document.createElement('img');
     img.src = `./walks/${place.dir}/${piece.src}.png`;
     img.alt = ''; img.draggable = false; img.className = 'piece';
-    let parent = piecesEl;
+    // What goes by behind the picture is seen through the holes cut in it.
+    const layer = piece.behind ? behindEl : piecesEl;
+    let parent = layer;
     if (piece.clip) {
       const key = piece.clip.join('-');
-      parent = [...piecesEl.children].find((el) => el.dataset.clip === key);
+      parent = [...layer.children].find((el) => el.dataset.clip === key);
       if (!parent) {
         parent = document.createElement('div');
         parent.className = 'clip'; parent.dataset.clip = key;
-        piecesEl.append(parent);
+        layer.append(parent);
       }
     }
     parent.append(img);

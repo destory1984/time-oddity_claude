@@ -686,6 +686,30 @@ function tickSounds(years) {
   else for (const year of years) sound.tick(isDecade(year), false);
 }
 
+let eraPlacesOf = null;        // the stop whose places are named now
+function showEraPlaces(stop) {
+  if (stop === eraPlacesOf) return;
+  eraPlacesOf = stop;
+  const list = $('eraPlaces');
+  list.hidden = !stop;
+  if (!stop) return;
+  list.replaceChildren();
+  const head = document.createElement('span');
+  head.textContent = `이 세기에 갈 곳 ${stop.ids.length}`;
+  list.append(head);
+  for (const id of stop.ids) {
+    const sq = squareById(id);
+    const button = document.createElement('button');
+    button.type = 'button'; button.className = 'glass';
+    button.textContent = squareTitle(sq);
+    const where = document.createElement('small');
+    where.textContent = sq.place.split(',')[0];
+    button.append(where);
+    button.addEventListener('click', () => { sound.wake(); pick(sq); });
+    list.append(button);
+  }
+}
+
 function dateOnGlobe() {
   return { dateText: overEarth() ? eraStop().label : `${formatYear(dial.year)}년`, placeText: '지구 위', subText: '' };
 }
@@ -864,6 +888,9 @@ function frame(now) {
     const first = squareById(eraStop().ids[0]);
     globe.spinTo(0, first.lon - ERA_ASIDE_DEG, 0.9);
   }
+  // Its places are named beside the Earth, each a button: one on the far side of the
+  // globe is not to be missed (the user, 2026.10.7: "뭐가 있는지 모르니까, 계속 돌리기만 해").
+  showEraPlaces(overEarth() && !held ? eraStop() : null);
   // Only the places of the century the dial rests nearest are on the globe.
   globe.setShown(overEarth() ? eraStop().ids : target ? [target.id] : LIVE.map((sq) => sq.id));
   if (walk && mode === 'walk') frameWalk(dt);

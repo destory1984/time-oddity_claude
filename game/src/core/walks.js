@@ -156,4 +156,205 @@ export const WALKS = {
     ],
     reply: '엘리베이터는 못 탔구나. 그래도 말하는 기계 소리는 들었네.',
   },
+  // Three more in Paris's look (the user, 2026.10.8: "파리식으로 한양 포함해서 3개 더 만들어").
+  // Hanyang in the autumn of 1446, when the new letters were given out. That a notice
+  // was read aloud in the market street is made up; to be checked: twenty-eight letters,
+  // "a clever man learns them before the morning is out, a dull one in ten days" (the
+  // book's afterword), the old ministers' objection, the letters drawn after the shapes
+  // of the mouth, the king's failing eyes, the bowl sundial of his reign.
+  hunminjeongeum: {
+    dir: 'hanyang', look: 'paper', talk: 'face',
+    scenes: [
+      {
+        id: 'market', name: '저잣거리', zoom: 1.3, ground: 0.674, scale: 0.66,
+        sora: '감이 주렁주렁! 시끌시끌해.',
+        moving: [
+          { kind: 'drift', id: 'by', src: 'crowd', from: 0, to: 1, foot: 0.67, tall: 0.17, wide: 0.4115, gap: 0.12, speed: 0.028, bob: 0.003 },
+        ],
+        people: [
+          { id: 'cloth', name: '포목 장수', x: 0.12, w: 141, h: 299, lines: ['무명 한 필 보고 가시오. 곱지요?', '글자를 알면 장부 쓰기 좋겠구먼.'] },
+          { id: 'pots', name: '옹기 장수', x: 0.3, w: 128, h: 289, lines: ['독 사려! 김장독 사려!', '새 글자? 난 내 이름도 못 쓰는데.'] },
+          { id: 'reader', name: '방 읽어 주는 선비', x: 0.43, w: 141, h: 312, lines: ['새 글자 스물여덟 자가 나왔다오.', '슬기로우면 아침나절에 배운다오.'] },
+          { id: 'woodboy', name: '나무꾼 소년', x: 0.52, w: 119, h: 225, lines: ['저게 글자야? 그림 같은데.', '기역, 니은… 나도 따라 했어!'] },
+          { id: 'tteok', name: '떡 파는 할머니', x: 0.77, w: 109, h: 257, lines: ['시루떡 따끈해요. 하나 드시우.', '열흘이면 배운다니 나도 해 볼까.'] },
+          { id: 'water', name: '물동이 인 아낙', x: 0.9, w: 110, h: 320, lines: ['친정에 편지 한 장 못 썼다우.', '이제는 쓸 수 있으려나.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'gate', name: '광화문 앞', zoom: 1.3, ground: 0.703, scale: 0.78,
+        sora: '문이 엄청 커! 지붕이 두 층이야.',
+        moving: [
+          { kind: 'drift', id: 'parade', src: 'parade', from: 0, to: 1, foot: 0.7, tall: 0.2, wide: 0.3183, gap: 0.55, speed: 0.032, bob: 0.003 },
+        ],
+        people: [
+          { id: 'farmer', name: '시골 농부', x: 0.14, w: 116, h: 246, lines: ['대궐이 이리 큰 줄 몰랐소.', '억울한 일을 글로 적을 수 있다던데.'] },
+          { id: 'bearer', name: '가마꾼', x: 0.3, w: 113, h: 253, lines: ['아이고 어깨야. 대감은 무겁다니까.', '글자? 가마 멜 때는 쓸 데 없지.'] },
+          { id: 'guard', name: '수문장', x: 0.42, w: 123, h: 320, lines: ['멈추시오. 여기는 대궐 문이오.', '임금님은 저 안 깊이 계시오.'] },
+          { id: 'elder', name: '늙은 대신', x: 0.58, w: 107, h: 267, lines: ['한문이 있는데 새 글자가 웬 말이오.', '…허나 임금의 뜻이 굳으시오.'] },
+          { id: 'official', name: '젊은 관리', x: 0.7, w: 115, h: 263, lines: ['새 글자로 쓴 책을 나르는 길이오.', '소리 나는 대로 적으니 참 쉽소.'] },
+          { id: 'girl', name: '심부름 가는 소녀', x: 0.86, w: 101, h: 230, lines: ['마님 심부름 가요. 바빠요!', '언니가 새 글자를 가르쳐 준댔어.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'hall', name: '집현전 뜰', zoom: 1.2, ground: 0.762, scale: 0.64,
+        sora: '책이 마당 가득이야. 조용해.',
+        moving: [
+          { kind: 'drift', id: 'books', src: 'scholars', from: 0, to: 1, foot: 0.758, tall: 0.17, wide: 0.282, gap: 0.6, speed: 0.026, bob: 0.003 },
+        ],
+        people: [
+          { id: 'books', name: '책 말리는 아저씨', x: 0.2, w: 110, h: 311, lines: ['볕 좋은 날 책을 말려야 하오.', '좀이 슬면 큰일이라오.'] },
+          { id: 'sleepy', name: '졸린 학사', x: 0.32, w: 125, h: 313, lines: ['밤새 풀이를 썼소. 하암…', '임금님이 더 늦게 주무신다오.'] },
+          { id: 'scholar', name: '집현전 학사', x: 0.41, w: 132, h: 320, lines: ['글자마다 입 모양을 본떴다오.', '기역은 혀뿌리가 막히는 모양이지.'] },
+          { id: 'tea', name: '차 나르는 궁녀', x: 0.66, w: 111, h: 301, lines: ['임금님 눈이 많이 나빠지셨대요.', '그래도 책을 놓지 않으세요.'] },
+          { id: 'child', name: '글자 쓰는 아이', x: 0.75, w: 83, h: 204, lines: ['이거 봐! 내 이름이야. 내가 썼어!', '어제 배웠는데 벌써 다 써.'] },
+          { id: 'sundial', name: '해시계 보는 관원', x: 0.87, w: 129, h: 309, lines: ['해 그림자로 때를 아는 시계라오.', '이것도 임금님 때 만든 것이지.'] },
+        ],
+        spots: [
+          // The king at his books, deep in the middle bay: seen, not spoken to. She stands a little to his right, so as not to hide him.
+          { id: 'sejong', from: 0.545, to: 0.605, memo: '저 안에 앉은 분이 세종대왕님이란다. 백성이 쉽게 쓰라고 만드셨지.' },
+        ],
+      },
+    ],
+    errands: [
+      { id: 'news', text: '저잣거리에서 새 글자 소문을 들어 보렴.', at: ['reader'] },
+      { id: 'king', text: '임금님을 멀리서라도 뵙고 오렴.', at: ['sejong'] },
+      { id: 'name', text: '제 이름을 처음 써 본 사람을 찾아보렴.', at: ['child'] },
+    ],
+    reply: '제 이름을 처음 쓴 아이를 만났구나. 그 글자로 이 수첩을 쓴단다.',
+  },
+  // San Francisco, 27 May 1937: the bridge was opened to people on foot for a day. To be
+  // checked: the gates at six, 25 cents, two hundred thousand, those who crossed first on
+  // skates or walking backward, the net that saved nineteen, four years of building, 67 m
+  // from the water, 1,280 m between the towers.
+  goldenGate: {
+    dir: 'sf', look: 'paper', talk: 'face',
+    scenes: [
+      {
+        id: 'plaza', name: '다리 어귀', zoom: 1.3, ground: 0.735, scale: 0.66,
+        sora: '다리가 빨개! 엄청 길다.',
+        moving: [
+          { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.731, tall: 0.17, wide: 0.396, gap: 0.05, speed: 0.03, bob: 0.003 },
+        ],
+        people: [
+          { id: 'hotdog', name: '핫도그 장수', x: 0.1, w: 119, h: 320, lines: ['핫도그요! 오늘 벌써 천 개 팔았소.', '다리 구경엔 핫도그가 딱이지.'] },
+          { id: 'sleepy', name: '밤새 기다린 청년', x: 0.22, w: 120, h: 320, lines: ['어젯밤부터 줄 섰어요. 하암…', '맨 먼저 건너고 싶었거든요.'] },
+          { id: 'toll', name: '요금 받는 사람', x: 0.36, w: 101, h: 311, lines: ['걸어서 건너는 값은 25센트요.', '오늘은 사람만! 차는 내일부터요.'] },
+          { id: 'scout', name: '보이스카우트 소년', x: 0.52, w: 112, h: 249, lines: ['아침 여섯 시에 문이 열렸어요.', '길 잃은 아이를 찾아 주는 중이에요.'] },
+          { id: 'badge', name: '기념품 아주머니', x: 0.74, w: 120, h: 301, lines: ['기념 배지 사세요! 오늘뿐이에요.', '손주한테 줄 거라고들 사 가요.'] },
+          { id: 'camera', name: '사진기 든 아가씨', x: 0.88, w: 100, h: 303, lines: ['안개가 걷혀야 탑이 찍힐 텐데.', '사 년 만에 다 지었대요.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'deck', name: '다리 위', zoom: 1.2, ground: 0.8, scale: 0.64,
+        sora: '차가 없으니까 운동장 같아.',
+        // The crowd goes over on foot, and now and then those who cross some odd way.
+        moving: [
+          { kind: 'drift', id: 'over', src: 'crowd', from: 0, to: 1, foot: 0.794, tall: 0.17, wide: 0.396, gap: 0.08, speed: 0.03, bob: 0.003 },
+          { kind: 'drift', id: 'odd', src: 'stunts', from: 0, to: 1, foot: 0.8, tall: 0.17, wide: 0.304, gap: 0.9, speed: 0.06, bob: 0.004 },
+        ],
+        people: [
+          { id: 'mother', name: '유모차 미는 어머니', x: 0.12, w: 214, h: 307, lines: ['아기도 오늘을 기억하면 좋겠어요.', '배 타고 건너던 길을 걸어서 가네.'] },
+          { id: 'grandpa', name: '할아버지', x: 0.25, w: 121, h: 319, lines: ['이 물목에 다리는 못 놓는다 했지.', '살아서 걸어 건널 줄이야.'] },
+          { id: 'worker', name: '다리 일꾼', x: 0.42, w: 139, h: 320, lines: ['저 케이블, 내가 꼰 거요.', '밑에 그물을 쳐서 열아홉이 살았소.'] },
+          { id: 'skate', name: '롤러스케이트 소녀', x: 0.57, w: 163, h: 249, lines: ['롤러스케이트로 건너는 중이야!', '끝까지 가면 내가 일등일걸.'] },
+          { id: 'backward', name: '뒤로 걷는 남자', x: 0.71, w: 115, h: 315, lines: ['뒤로 걸어 건넌 건 내가 처음이오.', '신문에 나려면 별나야지.'] },
+          { id: 'harmonica', name: '하모니카 소년', x: 0.86, w: 97, h: 246, lines: ['(하모니카를 분다) 뿌우 뿌!', '다리 건너며 한 곡 다 불 거야.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'mid', name: '다리 한가운데', zoom: 1.25, ground: 0.755, scale: 0.74,
+        sora: '바람이 세! 바다가 저 밑이야.',
+        moving: [
+          { kind: 'drift', id: 'east', src: 'crowd', from: 0, to: 1, foot: 0.74, tall: 0.16, wide: 0.373, gap: 0.3, speed: -0.025, bob: 0.003, flip: true },
+          { kind: 'drift', id: 'west', src: 'crowd', from: 0, to: 1, foot: 0.751, tall: 0.17, wide: 0.396, gap: 0.2, speed: 0.03, bob: 0.003 },
+        ],
+        people: [
+          { id: 'runner', name: '달리기 선수', x: 0.12, w: 98, h: 231, lines: ['헉헉. 끝에서 끝까지 뛰어왔어요.', '탑 사이가 천이백팔십 미터래요.'] },
+          { id: 'hat', name: '모자 잡는 아가씨', x: 0.26, w: 121, h: 248, lines: ['앗, 모자! 바람이 너무 세요.', '다리가 조금씩 흔들리는 것 같아요.'] },
+          { id: 'scope', name: '멀리 보는 소년', x: 0.39, w: 90, h: 204, lines: ['저기 섬이 감옥이래. 알카트라즈.', '배가 다리 밑으로 지나가!'] },
+          { id: 'painter', name: '칠장이', x: 0.64, w: 113, h: 268, lines: ['이 색? 안개 속에서도 잘 보이라고.', '칠은 끝이 없소. 다 하면 또 처음.'] },
+          { id: 'sailor', name: '수병', x: 0.77, w: 122, h: 261, lines: ['군함이 이 밑으로 지나다닌다오.', '물에서 다리까지 예순일곱 미터.'] },
+          { id: 'piggy', name: '목말 태운 아버지', x: 0.9, w: 106, h: 320, lines: ['얘야, 저기가 태평양이란다.', '이십만 명이 건넜다니 대단하지.'] },
+        ],
+        spots: [
+          { id: 'middle', from: 0.47, to: 0.57, sora: '우와… 발밑이 다 바다야.', memo: '그때 세상에서 가장 긴 매달린 다리였단다.' },
+        ],
+      },
+    ],
+    errands: [
+      { id: 'toll', text: '다리 건너는 값이 얼마인지 물어보렴.', at: ['toll'] },
+      { id: 'skate', text: '바퀴 달린 신을 신고 건넌 아이가 있다던데.', at: ['skate'] },
+      { id: 'middle', text: '다리 한가운데서 바다를 내려다보렴.', at: ['middle'] },
+    ],
+    reply: '25센트에 바다 위를 걸었구나. 나도 한번 걸어 보고 싶네.',
+  },
+  // Tokyo, 1 October 1964: the first of the fast trains left at six. To be checked: the
+  // hour and the train's name, the gilt ball and tape at the leaving, four hours to
+  // Osaka where it had been six and a half, 210 km an hour, the speed dial in the buffet
+  // car, the Games nine days after.
+  shinkansen: {
+    dir: 'tokyo', look: 'paper', talk: 'face',
+    scenes: [
+      {
+        id: 'front', name: '도쿄역 앞', zoom: 1.3, ground: 0.75, scale: 0.66,
+        sora: '벽돌 역이다! 깃발이 많아.',
+        moving: [
+          { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.746, tall: 0.17, wide: 0.388, gap: 0.1, speed: 0.032, bob: 0.003 },
+        ],
+        people: [
+          { id: 'news', name: '신문 파는 아저씨', x: 0.09, w: 139, h: 320, lines: ['조간이오! 새 기차 오늘 첫 출발!', '아흐레 뒤엔 올림픽이오. 바쁘다!'] },
+          { id: 'taxi', name: '택시 기사', x: 0.3, w: 112, h: 296, lines: ['역까지 손님이 끊이질 않아요.', '오사카를 당일로 다녀온다니.'] },
+          { id: 'student', name: '여학생', x: 0.44, w: 108, h: 276, lines: ['수학여행은 저 기차로 가고 싶어.', '창밖이 휙휙 지나간대요.'] },
+          { id: 'salary', name: '회사원', x: 0.56, w: 116, h: 313, lines: ['아침에 가서 저녁에 돌아온다네.', '전에는 여섯 시간 반이 걸렸지.'] },
+          { id: 'bento', name: '도시락 아주머니', x: 0.72, w: 108, h: 277, lines: ['도시락 사세요! 기차에서 드세요.', '네 시간이면 한 끼로 충분해요.'] },
+          { id: 'tourist', name: '먼 데서 온 여행자', x: 0.88, w: 110, h: 308, lines: ['올림픽 보러 왔어요. 기차도 타요!', '시속 이백십? 믿을 수 없어요.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'platform', name: '승강장', zoom: 1.3, ground: 0.693, scale: 0.66,
+        sora: '우와, 진짜 온다! 코가 둥글어.',
+        // The train comes out from behind the stall and is gone behind the stair, again and again.
+        moving: [
+          { kind: 'drift', id: 'train', src: 'train', from: 0.156, to: 0.86, foot: 0.682, tall: 0.38, wide: 1.63, gap: 2.5, speed: 0.16, bob: 0 },
+        ],
+        people: [
+          { id: 'fan', name: '기차 좋아하는 소년', x: 0.12, w: 96, h: 239, lines: ['꿈의 초특급이다! 코가 비행기 같아.', '새벽 세 시에 일어나서 왔어.'] },
+          { id: 'reporter', name: '방송 기자', x: 0.26, w: 103, h: 299, lines: ['여기는 도쿄역, 역사적인 아침입니다.', '세계에서 가장 빠른 열차입니다!'] },
+          { id: 'flowers', name: '꽃다발 든 아가씨', x: 0.4, w: 122, h: 290, lines: ['기관사님께 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
+          { id: 'driver', name: '기관사', x: 0.52, w: 112, h: 299, lines: ['이백십 킬로미터. 손이 떨립니다.', '선로가 눈앞으로 빨려 들어와요.'] },
+          { id: 'master', name: '역장', x: 0.66, w: 106, h: 320, lines: ['여섯 시 정각, 히카리 1호 출발!', '일 초도 늦으면 안 됩니다.'] },
+          { id: 'banzai', name: '신이 난 회사원', x: 0.82, w: 155, h: 304, lines: ['테이프 끊는 걸 봤어! 박도 터졌어!', '만세! 우리가 해냈다고!'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'car', name: '달리는 차 안', zoom: 1.3, ground: 0.645, scale: 0.66, murmur: 0.3, engine: 0.45,
+        sora: '안 흔들려! 창밖이 휙휙 가.',
+        // The land goes by behind the picture, seen through its six windows.
+        moving: [
+          { kind: 'drift', id: 'land', src: 'view', from: 0.105, to: 0.885, foot: 0.456, tall: 0.19, wide: 0.38, gap: 0, speed: -0.09, bob: 0, behind: true },
+        ],
+        people: [
+          { id: 'conductor', name: '차장', x: 0.1, w: 112, h: 316, lines: ['표 좀 보여 주시겠습니까.', '신오사카까지 네 시간입니다.'] },
+          { id: 'dozer', name: '조는 대학생', x: 0.24, w: 94, h: 289, lines: ['…음냐. 벌써 시즈오카예요?', '너무 조용해서 잠이 와요.'] },
+          { id: 'eater', name: '도시락 먹는 아저씨', x: 0.38, w: 117, h: 306, lines: ['빨라서 도시락 먹을 틈이 없네.', '(우물우물) 그래도 맛은 좋아.'] },
+          { id: 'kid', name: '신난 꼬마', x: 0.52, w: 128, h: 218, lines: ['전봇대가 줄넘기처럼 지나가!', '나 커서 기관사 될 거야!'] },
+          { id: 'granny', name: '창가의 할머니', x: 0.68, w: 134, h: 284, lines: ['저기 봐, 후지산이야! 벌써 여기야.', '옛날엔 걸어서 보름 길이었단다.'] },
+          { id: 'buffet', name: '식당 칸 종업원', x: 0.9, w: 121, h: 320, lines: ['속도계 보세요. 지금 이백십!', '커피가 안 쏟아지는 게 자랑이죠.'] },
+        ],
+        spots: [],
+      },
+    ],
+    errands: [
+      { id: 'tape', text: '첫 차 떠나는 걸 본 사람을 찾아보렴.', at: ['banzai'] },
+      { id: 'speed', text: '얼마나 빠른지 속도계를 보고 오렴.', at: ['buffet'] },
+      { id: 'fuji', text: '창밖으로 후지산이 보이는지 보렴.', at: ['granny'] },
+    ],
+    reply: '이백십이라니. 후지산이 금세 지나갔겠구나.',
+  },
 };

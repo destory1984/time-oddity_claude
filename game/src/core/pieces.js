@@ -8,14 +8,16 @@
 //   several copies of it one after another so that the line never breaks. It is seen
 //   only between `from` and `to` (it comes out from behind one thing and goes in behind
 //   another). speed is in scene widths a second, less than 0 to go left; flip: the strip
-//   is turned to face left. { kind, id, src, from, to, foot, tall, wide, gap, speed, bob, flip }
+//   is turned to face left; behind: it goes by behind the scene's picture, seen through
+//   what is cut out of it (the land outside a carriage's windows).
+//   { kind, id, src, from, to, foot, tall, wide, gap, speed, bob, flip, behind }
 // - climb: several small figures going along a path of straight stretches (a stair),
 //   one after another, round and round. { kind, id, srcs, path: [[x, y], ...], tall, seconds, step }
 // - spin: a wheel turning where it stands. { kind, id, src, x, y, tall, rpm }
 //
 // Along the scene x runs 0 → 1; y and `tall` are shares of the picture's height, y from
 // its top; `wide` is a strip's width in shares of the scene's width.
-// Returns [{ id, src, x, y, tall, turn, alpha, anchor: 'foot' | 'centre', flip, clip: [from, to] | null }].
+// Returns [{ id, src, x, y, tall, turn, alpha, anchor: 'foot' | 'centre', flip, behind, clip: [from, to] | null }].
 const TAU = Math.PI * 2;
 const clamp = (n) => Math.max(0, Math.min(1, n));
 const wrap = (n) => ((n % 1) + 1) % 1;
@@ -30,7 +32,7 @@ function drift(m, t) {
     if (left > m.to) continue;
     // The whole line steps together, a little: paper figures on one stick.
     const bob = m.bob * Math.abs(Math.sin((t * Math.PI) / 0.55 + i));
-    out.push({ id: `${m.id}-${i}`, src: m.src, x: left + m.wide / 2, y: m.foot - bob, tall: m.tall, turn: 0, alpha: 1, anchor: 'foot', flip: Boolean(m.flip), clip: [m.from, m.to] });
+    out.push({ id: `${m.id}-${i}`, src: m.src, x: left + m.wide / 2, y: m.foot - bob, tall: m.tall, turn: 0, alpha: 1, anchor: 'foot', flip: Boolean(m.flip), behind: Boolean(m.behind), clip: [m.from, m.to] });
   }
   return out;
 }
@@ -63,11 +65,11 @@ function climb(m, t) {
     // They come in at the foot and are lost to sight at the top.
     const alpha = clamp(u / 0.06) * clamp((1 - u) / 0.06);
     // The figures are drawn facing left.
-    return { id: `${m.id}-${i}`, src, x: at.x, y: at.y - step, tall: m.tall, turn: 0, alpha, anchor: 'foot', flip: at.way > 0, clip: null };
+    return { id: `${m.id}-${i}`, src, x: at.x, y: at.y - step, tall: m.tall, turn: 0, alpha, anchor: 'foot', flip: at.way > 0, behind: false, clip: null };
   });
 }
 
-const spin = (m, t) => [{ id: m.id, src: m.src, x: m.x, y: m.y, tall: m.tall, turn: wrap((t * m.rpm) / 60) * TAU, alpha: 1, anchor: 'centre', flip: false, clip: null }];
+const spin = (m, t) => [{ id: m.id, src: m.src, x: m.x, y: m.y, tall: m.tall, turn: wrap((t * m.rpm) / 60) * TAU, alpha: 1, anchor: 'centre', flip: false, behind: false, clip: null }];
 
 const KINDS = { drift, climb, spin };
 

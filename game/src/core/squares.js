@@ -204,7 +204,7 @@ export const SQUARES = [
     // 1446, the ninth lunar month: 30 September in the Julian calendar is the tenth day
     // of that month, the day Hangul Day (9 October) is reckoned from. The hall is seen
     // looking north, with the mountain behind it. The hall standing today was rebuilt in 1867.
-    no: 34, id: 'hunminjeongeum', name: '훈민정음', dateLabel: 'AD 1446년 가을', place: '경복궁, 한양',
+    no: 34, id: 'hunminjeongeum', name: '훈민정음', dateLabel: 'AD 1446년 가을', place: '한양, 조선',
     lat: 37.5796, lon: 126.977,
     date: { year: 1446, month: 9, day: 30 }, calendar: 'julian', hourLocal: 12,
     facingAz: 0, nightOnLook: true,
@@ -420,6 +420,21 @@ export const SQUARES = [
     card: '1937년 5월 27일, 샌프란시스코에서 금문교가 문을 열었습니다. 첫날은 차가 다니지 않아 이십만 명쯤이 걸어서 다리를 건넜습니다. 탑과 탑 사이가 1,280m로, 그때 세상에서 가장 긴 매달린 다리였습니다.',
     reply: '안개 속에서도 보이라고 그 색이란다. 잘 보이더냐.',
     quiz: { question: '첫날 사람들은 다리를 어떻게 건넜나?', answer: '걸어서', proof: '걸어서', wrong: ['배를 타고', '기차를 타고'] },
+  },
+  {
+    // The first of the fast trains left Tokyo at six that morning. The place is walked
+    // about (core/walks.js); its lines here are placeholders and its facts from memory
+    // (the hour, four hours to Osaka, 210 km an hour).
+    no: 107, id: 'shinkansen', name: '첫 고속 열차', dateLabel: 'AD 1964.10.1', place: '도쿄, 일본',
+    lat: 35.681, lon: 139.767,
+    date: { year: 1964, month: 10, day: 1 }, calendar: 'gregorian', hourLocal: 7,
+    facingAz: 100, nightOnLook: true,
+    memo: '세상에서 가장 빠른 기차가 떠남.', sora: '코가 둥글어! 비행기 같아.',
+    memoToday: '남은 것: 그 기찻길. 지금도 달림.', soraToday: '기차는 바뀌었는데 길은 그대로래.',
+    noteMemo: '1964.10.1. 도쿄에서 세상에서 가장 빠른 기차가 처음 떠났다고 읽음. 그날 달은 그믐에 가까움.',
+    card: '1964년 10월 1일 아침 6시, 도쿄역에서 새 고속 열차가 처음 떠났습니다. 한 시간에 210km를 달려, 여섯 시간 반이 걸리던 오사카까지를 네 시간에 갔습니다. 아흐레 뒤 도쿄에서 올림픽이 열렸습니다.',
+    reply: '네 시간이라니. 나 때는 하루가 걸렸단다.',
+    quiz: { question: '새 기차는 오사카까지 얼마나 걸렸나?', answer: '네 시간', proof: '네 시간에', wrong: ['열 시간', '이틀'] },
   },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);

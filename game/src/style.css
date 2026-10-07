@@ -29,9 +29,9 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkPeople{inset:0}
 /* The second look (Paris): a flat picture with cut-out pieces that the code slides and turns; only the faces of those spoken to are in pixels. */
 #walk[data-look="paper"] #walkPicture,#walk[data-look="paper"] #walkPeople .person{image-rendering:auto}
-#walkPieces{inset:0;pointer-events:none}
-#walkPieces .clip{position:absolute;top:0;height:100%;overflow:hidden}
-#walkPieces .piece{position:absolute;width:auto;max-width:none;will-change:transform;-webkit-user-drag:none}
+#walkPieces,#walkBehind{inset:0;pointer-events:none}
+#walkPieces .clip,#walkBehind .clip{position:absolute;top:0;height:100%;overflow:hidden}
+#walkPieces .piece,#walkBehind .piece{position:absolute;width:auto;max-width:none;will-change:transform;-webkit-user-drag:none}
 #walkTalk{position:absolute;left:12px;right:12px;bottom:47%;z-index:40;display:none;align-items:center;gap:12px;padding:10px 14px 10px 10px;border-radius:14px;background:var(--white);color:#1b1730;box-shadow:0 3px 12px #0008;pointer-events:none}
 #walkTalk.on{display:flex}
 #walkFace{flex:none;width:calc(84px * var(--text,1));height:calc(84px * var(--text,1));object-fit:cover;object-position:50% 8%;image-rendering:pixelated;border-radius:10px;background:#e9dfc8}
@@ -119,6 +119,12 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #date b{display:block;font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
 #date span{display:block}
 #subText{color:var(--gold);min-height:1.4em}
+/* Above the Earth: where there is to go in the century the dial rests on, each a button that goes there. */
+#eraPlaces{top:132px;left:14px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;pointer-events:auto}
+#eraPlaces[hidden]{display:none}
+#eraPlaces span{font-size:11px;opacity:.7;padding-left:4px;text-shadow:0 1px 4px rgba(5,3,48,.8)}
+#eraPlaces button{min-height:34px;padding:0 12px;font-size:13px;white-space:nowrap}
+#eraPlaces button small{margin-left:6px;opacity:.65;font-size:11px}
 #todayBtn{right:12px;top:64px;padding:9px 15px;border-color:var(--gold);color:var(--gold)}
 #leaveBtn{right:16px;bottom:156px;padding:8px 14px}
 #todayBtn.glow,#glowSky.glow{animation:glow 1.2s ease-in-out}
