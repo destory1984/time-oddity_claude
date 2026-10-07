@@ -30,6 +30,17 @@ R_MIN, R_MAX = 0.028, 0.075
 # the date and the bottom 190 the dial.
 SCREEN_W, SCREEN_H, HORIZON, PICTURE_HEIGHT = 375, 812, 0.60, 0.78
 TOP_PX, BOTTOM_PX = 150, 812 - 190
+# Parts of a picture that differ but do not matter: looked over by eye and left out, as
+# boxes (x0, y0, x1, y1) in shares of the picture. The user, 2026.10.8, of the houses under
+# the Parthenon: "아래 민가들은 대세에 큰 영향 없는 애들 아니냐?" What is to be found is what
+# history did to the place, not what the painter happened to draw differently.
+LEAVE_OUT = {
+    'parthenon': [(0, 0.64, 1, 1)],          # the houses below the hill
+    'stonehenge': [(0, 0.62, 1, 1)],         # a tuft of grass
+    'cheomseongdae': [(0, 0, 0.4, 1), (0.6, 0, 1, 1)],   # trees and hills beside the tower
+    'galileo': [(0, 0, 1, 0.35)],            # a bare branch
+    'borobudur': [(0, 0.66, 1, 1)],          # the lawn
+}
 
 
 def scenes():
@@ -55,7 +66,7 @@ def window(horizon, height, centre):
     return centre - half + 0.05, centre + half - 0.05, max(0, (TOP_PX - top) / tall), min(1, (BOTTOM_PX - top) / tall)
 
 
-def places(then, now, box):
+def places(then, now, box, leave_out=()):
     h, w = then.shape[:2]
     diff = np.abs(then - now).max(axis=2)
     cells = diff[: h // CELL * CELL, : w // CELL * CELL].reshape(h // CELL, CELL, w // CELL, CELL).mean(axis=(1, 3))
@@ -64,6 +75,8 @@ def places(then, now, box):
     on = cells > THRESHOLD
     on[:, : int(x0 * cols)] = False; on[:, int(x1 * cols) + 1:] = False
     on[: int(y0 * rows)] = False; on[int(y1 * rows) + 1:] = False
+    for bx0, by0, bx1, by1 in leave_out:
+        on[int(by0 * rows): int(by1 * rows) + 1, int(bx0 * cols): int(bx1 * cols) + 1] = False
     seen = np.zeros_like(on)
     found = []
     for r in range(rows):
@@ -106,7 +119,7 @@ def main(sheet_path=None):
         then = load(f'game/public/scenes/{scene_id}-then.webp')
         now_path = f'game/public/scenes/{scene_id}-now.webp'
         box = window(horizon, height, centre)
-        spots[scene_id] = places(then, load(now_path), box)
+        spots[scene_id] = places(then, load(now_path), box, LEAVE_OUT.get(scene_id, ()))
         print(f'{scene_id}: {len(spots[scene_id])}', ' '.join(f"({p['x']:.2f},{p['y']:.2f})" for p in spots[scene_id]))
         if sheet_path:
             both = []
