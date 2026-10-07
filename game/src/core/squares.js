@@ -11,6 +11,24 @@
 // choices are not; it asks what or why or where, never a number.
 export const SQUARES = [
   {
+    // The first leaf: not one of the 120 squares but the day of grandmother's first note.
+    // She was fifteen, in a neighbour's yard, watching the Moon landing on television.
+    // The scene is set at about 9 pm that evening (a rebroadcast): the yard is dark, the
+    // crescent moon is in the west, and the two men are still on the Moon. Where the yard
+    // was is not settled; Seoul stands in for it. The yard itself is made up, the one
+    // exception to "what remains is real". hourLocal 20.5 is 9 pm Korean time.
+    no: 0, id: 'yard1969', name: '이웃집 마당', dateLabel: '1969.7.21', place: '할머니의 마을',
+    lat: 37.57, lon: 126.98,
+    date: { year: 1969, month: 7, day: 21 }, calendar: 'gregorian', hourLocal: 20.5,
+    facingAz: 245, nightOnLook: false,
+    memo: '이웃집 마당. 다 같이 달을 봤다.', sora: '저기 뒤에 앉은 애가 할머니야?',
+    soraSky: '저 달에 지금 사람이 있는 거야?',
+    memoToday: '남은 것: 그 마당 자리의 오늘.', soraToday: '텔레비전도 평상도 없네.', // (placeholder)
+    noteMemo: '1969.7.21. 이웃집 마당에서 텔레비전으로 봤다. 그날 달은 초승에서 반달 사이.',
+    card: '1969년 7월 21일, 아폴로 11호의 두 사람이 달에 내려 걸었습니다. 한국에서는 텔레비전이 있는 집 마당에 이웃이 모여 그 모습을 함께 보았습니다. 그날 밤에도 두 사람은 달 위에 머물렀고, 이튿날 새벽에 달을 떠났습니다.', // (placeholder)
+    quiz: { question: '이웃들은 달에 간 사람들을 어떻게 보았나?', answer: '텔레비전으로', proof: '텔레비전', wrong: ['망원경으로', '신문 사진으로'] }, // (placeholder)
+  },
+  {
     no: 1, id: 'khufu', name: '대피라미드', dateLabel: '기원전 2560년경', place: '기자, 이집트',
     lat: 29.979, lon: 31.134,
     // The day is not recorded. 2560 BC April 11 (Julian) is that year's spring equinox,
@@ -98,3 +116,6 @@ export const SQUARES = [
 ];
 
 export const squareById = (id) => SQUARES.find((s) => s.id === id);
+
+// How a square is named on screen: its number and name; the first leaf has no number.
+export const squareTitle = (square) => (square.no === 0 ? `첫 장 ${square.name}` : `${square.no} ${square.name}`);

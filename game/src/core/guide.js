@@ -9,7 +9,7 @@
 export function guideLine({ where, dots, at, lookingUp, quizSolved, complete, visited, total }) {
   if (where === 'globe') {
     if (complete >= total) return '수첩을 다 채웠구나. 고맙다';
-    return visited > 0 ? '수첩이나 금색 점으로 다음 날에 가 보렴' : '지구를 돌려 금색 점을 눌러 보렴';
+    return visited > 0 ? '수첩이나 금색 점으로 다음 날에 가 보렴' : '수첩을 펴서 첫 장으로 가 보렴';
   }
   // A year with no picture: the way back comes before anything else.
   if (at === 'other') return '다이얼 끝의 이름표를 눌러 보렴';

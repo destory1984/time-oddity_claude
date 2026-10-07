@@ -3,7 +3,7 @@
 // the picture that changes from the day to today.
 // Timings are from docs/상세-기획-2-칸-하나의-흐름.md section 3.
 import './style.css';
-import { SQUARES, squareById } from './core/squares.js';
+import { SQUARES, squareById, squareTitle } from './core/squares.js';
 import { momentJd } from './core/moment.js';
 import { skyAt, skyLight } from './core/sky.js';
 import { formatDate, formatYear, todayDate } from './core/when.js';
@@ -25,7 +25,8 @@ import { createSettings } from './ui/settings.js';
 import { createMusic } from './ui/music.js';
 import { createJournal } from './ui/journal.js';
 import { createCard } from './ui/card.js';
-import { loadMusic, loadMuted, loadProgress, saveMusic, saveMuted, saveProgress } from './ui/storage.js';
+import { createOpening } from './ui/opening.js';
+import { loadMusic, loadMuted, loadOpened, loadProgress, saveMusic, saveMuted, saveOpened, saveProgress } from './ui/storage.js';
 
 const RISE_MS = 800;
 const MEMO_AT_MS = 1200;
@@ -95,6 +96,9 @@ function mark(list) {
 }
 const globeMarks = () => [...SQUARES.map((sq) => ({ year: sq.date.year, label: sq.name })), { year: today.year, label: '오늘' }];
 
+// The opening: shown once, the first time; again from the settings.
+const opening = createOpening({ onDone: () => saveOpened() });
+
 // Sound: one switch, kept between visits, worked by the speaker button and by the settings.
 const soundSwitch = {
   muted: () => sound.muted(),
@@ -151,6 +155,7 @@ const settings = createSettings({
   today: () => { const now = todayDate(); return `${now.year}-${pad(now.month)}-${pad(now.day)}`; },
   sound: soundSwitch,
   music: musicSwitch,
+  onReplay: () => opening.open(),
   // Emptied while standing on a square: that visit starts afresh too, or its dots would
   // be written straight back into the empty notebook.
   onReset: () => {
@@ -272,7 +277,7 @@ function frameGround(dt) {
   for (const name of filled) {
     keep(fillDot(progress, square.id, name));
     if (name === 'day') sound.stamp();
-    if (name === 'sky') sound.bell();
+    if (name === 'sky') { sound.bell(); if (square.soraSky) bubble = { text: square.soraSky, until: visit.t + SORA_FOR_MS + 600, lookingUp: true }; }
     if (name === 'remains') { sound.page(); remainsAtMs = visit.t; }
   }
 
@@ -313,23 +318,25 @@ function frameGround(dt) {
 
   const pose = soraPose({ now: performance.now(), hushAt });
   let memo = null;
-  if (visit.t >= MEMO_AT_MS && mode === 'ground') {
+  // The slip is put away while she looks up: the sky is what there is to see, and the
+  // slip would lie over the low moon.
+  if (visit.t >= MEMO_AT_MS && mode === 'ground' && visit.look < 0.5) {
     if (silhouette > 0.5) memo = '이 해는 적어 둔 게 없구나';
     else if (at === 'today' && visit.dots.remains && visit.t >= remainsAtMs + 200) memo = square.memoToday;
     else memo = square.memo;
   }
   const dateText = at === 'then' ? square.dateLabel : at === 'today' ? formatDate(today) : `${formatYear(dial.year)}년`;
   hud.set({
-    name: `${square.no} ${square.name}`, dateText, placeText: square.place,
+    name: squareTitle(square), dateText, placeText: square.place,
     subText: visit.night > 0.5 ? '그날 밤 9시' : '',
     dots: visit.dots, memo, memoPlain: memo === square.memoToday,
     chips: mode === 'ground' && visit.t >= CHIPS_AT_MS && visit.look < 0.5,
-    bubble: pose.saying ?? (bubble && visit.look < 0.5 ? bubble.text : null), sora: pose,
+    bubble: pose.saying ?? (bubble && (bubble.lookingUp || visit.look < 0.5) ? bubble.text : null), sora: pose,
     todayLabel: at === 'today' ? '그날로' : '오늘로', showToday: true, showLeave: true,
     hint: mode === 'ground' && visit.t >= GUIDE_AT_MS && dial.resting && !(bubble && visit.look < 0.5)
       ? guideLine({ where: 'ground', dots: visit.dots, at, lookingUp: visit.look > 0.5, quizSolved: quizSolved(progress, square.id) })
       : null,
-    soraFade: pose.saying ? 0 : clamp01(visit.look * 1.6), glowSky, glowToday,
+    soraFade: pose.saying || (bubble && bubble.lookingUp) ? 0 : clamp01(visit.look * 1.6), glowSky, glowToday,
   });
 }
 
@@ -351,7 +358,7 @@ function frameGlobe(dt) {
 
 let last = performance.now();
 function frame(now) {
-  const held = settings.isOpen() || journal.isOpen() || card.isOpen();
+  const held = settings.isOpen() || journal.isOpen() || card.isOpen() || opening.isOpen();
   const dt = held ? 0 : Math.min(50, now - last);
   last = now;
   tickSounds(stepDial(dial, dt));
@@ -393,4 +400,6 @@ mark(globeMarks());
 layout();
 globe.faceNow(41, 20);
 still();
+// A first visit begins with the opening; a link straight to a square or a still does not.
+if (!loadOpened() && !location.hash) opening.open();
 requestAnimationFrame(frame);

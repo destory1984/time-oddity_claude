@@ -38,6 +38,12 @@
   <canvas id="dial"></canvas>
   <div id="fade"></div>
 </div>
+<dialog id="opening" aria-label="여는 이야기">
+  <img id="openingImage" alt="">
+  <p id="openingText"></p>
+  <p id="openingSay"></p>
+  <div id="openingFoot"><button type="button" id="openingSkip">건너뛰기</button><span id="openingCount"></span><button type="button" id="openingNext" autofocus>다음</button></div>
+</dialog>
 <dialog id="journal" aria-labelledby="journalTitle">
   <div class="journalHead"><h1 id="journalTitle">할머니의 수첩 2권</h1><small id="journalProgress"></small></div>
   <ul id="journalList"></ul>
@@ -79,6 +85,7 @@
         <dt>다이얼</dt><dd>맨 아래를 옆으로 굴립니다. 한 칸에 한 해입니다. 볼 것이 있는 해에는 별이 떠 있고, 화면 밖에 있으면 끝에 이름표가 뜹니다. 이름표 쪽을 톡 누르면 그 해로 굴러갑니다.</dd>
         <dt>동그라미 셋</dt><dd>왼쪽 위의 동그라미는 날, 하늘, 남은 것입니다. 그날에 서면 첫째가, 하늘을 올려다보면 둘째가, 오늘로 돌리면 셋째가 채워집니다.</dd>
         <dt>떠나기</dt><dd>오른쪽 아래의 "떠나기"를 누르면 지구 위로 돌아갑니다.</dd>
+        <dt>여는 이야기</dt><dd>처음 열 때 나온 다섯 쪽을 다시 봅니다.<br><button type="button" id="replayOpening">여는 이야기 다시 보기</button></dd>
         <dt>하늘은 계산한 것</dt><dd>달의 모양과 자리, 행성, 별은 그날 그 자리 그 시각의 실제 하늘입니다. 해와 달은 모양이 보이도록 실제보다 9배 크게 그렸습니다.</dd>
       </dl>
     </section>
@@ -93,7 +100,7 @@
       <dl>
         <dt>만든 사람</dt><dd>우주한량, 우주토끼</dd>
         <dt>개인정보</dt><dd>모으지 않습니다. 기록은 자신의 핸드폰이나 PC에만 남고, 서버로 보내지 않습니다.</dd>
-        <dt>지금은</dt><dd>첫 토막입니다. 칸 일곱(대피라미드, 파로스의 등대, 콜럼버스의 월식, 수정궁, 에펠탑, 12초의 비행, 첫 인공위성)이 있습니다. 할머니의 수첩에는 백스무 칸이 적혀 있습니다.</dd>
+        <dt>지금은</dt><dd>첫 토막입니다. 첫 장(1969년 이웃집 마당)과 칸 일곱(대피라미드, 파로스의 등대, 콜럼버스의 월식, 수정궁, 에펠탑, 12초의 비행, 첫 인공위성)이 있습니다. 할머니의 수첩에는 백스무 칸이 적혀 있습니다.</dd>
         <dt>빌려 쓴 것</dt><dd>하늘 계산은 Astronomy Engine(MIT). 별은 Yale Bright Star Catalogue. 지구 그림은 NASA Blue Marble. 글씨는 Pretendard, 나눔손글씨 펜, 개구(모두 SIL OFL). 땅 그림은 그림 그리는 AI에 주문해 받았습니다.</dd>
         <dt>만든 곳</dt><dd><a href="https://github.com/destory1984/time-oddity_claude" target="_blank" rel="noopener">github.com/destory1984/time-oddity_claude</a><br>1권: <a href="https://destory1984.github.io/oddity_claude/" target="_blank" rel="noopener">우주 한량</a></dd>
       </dl>

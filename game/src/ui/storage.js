@@ -5,7 +5,7 @@ import { sanitizeProgress } from '../core/progress.js';
 import { textSizeFrom } from '../core/textSize.js';
 
 const KEY = {
-  muted: 'timeoddity.muted.v1', music: 'timeoddity.music.v1', text: 'timeoddity.text.v1', progress: 'timeoddity.progress.v1',
+  opened: 'timeoddity.opened.v1', muted: 'timeoddity.muted.v1', music: 'timeoddity.music.v1', text: 'timeoddity.text.v1', progress: 'timeoddity.progress.v1',
 };
 
 function read(key) {
@@ -15,6 +15,9 @@ function write(key, value) {
   try { localStorage.setItem(key, value); } catch { /* not kept this time */ }
 }
 
+// Whether the opening has been seen (or skipped) on this device.
+export const loadOpened = () => read(KEY.opened) === '1';
+export const saveOpened = () => write(KEY.opened, '1');
 export const loadMuted = () => read(KEY.muted) === '1';
 export const saveMuted = (muted) => write(KEY.muted, muted ? '1' : '0');
 // Background music is on unless the player turned it off.

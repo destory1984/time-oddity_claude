@@ -9,6 +9,7 @@ const scene = (id, horizonThen, footThen, horizonToday, footToday) => ({
 });
 
 export const SCENES = {
+  yard1969: scene('yard1969', 0.524, '#c1a363', 0.524, '#c8a661'),
   khufu: scene('khufu', 0.521, '#d9ac65', 0.519, '#d9a964'),
   lunar1504: scene('lunar1504', 0.597, '#fce3a8', 0.597, '#fde3a7'),
   crystalPalace: scene('crystalPalace', 0.627, '#4e724b', 0.629, '#497347'),

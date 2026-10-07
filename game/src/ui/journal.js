@@ -3,6 +3,7 @@
 // to show grandmother's memo (always, she wrote it beforehand) and, once Sora has been
 // there, Sora's note and the story card with its question.
 import { countProgress, dotsOf, isVisited, quizSolved } from '../core/progress.js';
+import { squareTitle } from '../core/squares.js';
 import { renderQuiz } from './quiz.js';
 
 const $ = (id) => document.getElementById(id);
@@ -33,7 +34,7 @@ export function createJournal({ squares, progress, onGo, onSolve, here, canGo = 
     const marks = el('span', 'rowDots');
     for (const key of ['day', 'sky', 'remains']) marks.append(el('i', dots[key] ? 'on' : ''));
     const words = el('span', 'rowWords');
-    words.append(el('b', '', `${square.no} ${square.name}`), el('small', '', `${square.dateLabel} · ${square.place}`));
+    words.append(el('b', '', squareTitle(square)), el('small', '', `${square.dateLabel} · ${square.place}`));
     head.append(marks, words);
     head.addEventListener('click', () => { open = open === square.id ? null : square.id; render(); });
 

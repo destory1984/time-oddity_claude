@@ -8,7 +8,7 @@ const at = (id, dial) => momentJd(squareById(id), dial, today);
 
 describe('the four squares', () => {
   it('come in the order of their numbers', () => {
-    expect(SQUARES.map((s) => s.no)).toEqual([1, 10, 39, 64, 75, 82, 104]);
+    expect(SQUARES.map((s) => s.no)).toEqual([0, 1, 10, 39, 64, 75, 82, 104]);
   });
   it('keep the memo and Sora lines within 25 characters', () => {
     for (const s of SQUARES) {

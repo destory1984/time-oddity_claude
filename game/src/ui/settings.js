@@ -13,7 +13,8 @@ const $ = (id) => document.getElementById(id);
 // music: { on(), setOn(on) }, the same switch as the note button.
 // version: the text for the head, such as 'v0.1.1 · 2026.10.7'.
 // onReset: the notebook is to be emptied (asked twice before it is done).
-export function createSettings({ onOpen, onClose, today, sound, music, version, onReset = () => {} }) {
+// onReplay: the opening is to be shown again.
+export function createSettings({ onOpen, onClose, today, sound, music, version, onReset = () => {}, onReplay = () => {} }) {
   const dialog = $('settings');
   $('appVersion').textContent = version;
 
@@ -73,6 +74,8 @@ export function createSettings({ onOpen, onClose, today, sound, music, version, 
     sure = false; resetLabel();
     onReset();
   });
+
+  $('replayOpening').addEventListener('click', () => { dialog.close(); onReplay(); });
 
   $('settingsButton').addEventListener('click', () => {
     if (dialog.open) return;

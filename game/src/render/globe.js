@@ -10,6 +10,7 @@ import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial.js'
 import { Texture } from '@babylonjs/core/Materials/Textures/texture.js';
 import { Color3, Color4 } from '@babylonjs/core/Maths/math.color.js';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
+import { squareTitle } from '../core/squares.js';
 
 const RAD = Math.PI / 180;
 const GLOBE_WIDTH = 0.8;      // the Earth's diameter as a share of the screen's width
@@ -54,10 +55,10 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'pin';
-    button.innerHTML = `<span>${square.no} ${square.name}</span>`;
+    button.innerHTML = `<span>${squareTitle(square)}</span>`;
     button.addEventListener('click', () => onPick(square.id));
     pinsEl.append(button);
-    return { square, node, button, label: `${square.no} ${square.name}` };
+    return { square, node, button, label: squareTitle(square) };
   });
 
   let w = 1;
