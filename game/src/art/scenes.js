@@ -33,4 +33,7 @@ export const SCENES = {
   montgolfier: scene('montgolfier', 0.630, '#4e754a', 0.617, '#4a7542'),
   liberty: scene('liberty', 0.578, '#2d615e', 0.573, '#285f62'),
   sydneyOpera: scene('sydneyOpera', 0.598, '#3f6c45', 0.598, '#376d43'),
+  // The solar eclipse (2026.10.7). The middle is kept low and empty: the sky is the picture.
+  // Centred a little right, so that both bands of soldiers stand clear of Sora.
+  thales: scene('thales', 0.626, '#827940', 0.625, '#807b3c', { centre: 0.54 }),
 };

@@ -1,4 +1,4 @@
-// The squares so far: the four of the first slice, three more and then ten more, all of 2026.10.7. date is a historical date in the square's own
+// The squares so far: the four of the first slice, three more, ten more and the solar eclipse, all of 2026.10.7. date is a historical date in the square's own
 // calendar; hourLocal is local mean time at the square's longitude (no time zones).
 // facingAz is the way the ground picture looks: 0 north, 90 east. nightOnLook squares
 // are daytime events whose sky is shown at 9 pm that day when the player looks up.
@@ -125,6 +125,27 @@ export const SQUARES = [
     reply: '그 쇠공이 돌 때 나는 세 살이었단다. 기억에는 없지.', // (placeholder)
     quiz: { question: '스푸트니크는 무엇이었나?', answer: '첫 인공위성', proof: '첫 인공위성', wrong: ['첫 우주 비행사', '달에 간 로켓'] },
   },
+  {
+    // The eclipse Herodotus says Thales foretold. Where the armies stood is not known; the
+    // square stands on the Halys at the Osmancik reach, where the computed eclipse is total
+    // for 223 seconds (from the Cankiri reach to the mouth it is total, further upstream it is
+    // not: see docs/하늘-계산-확인.md 5.1). 17.459 h local is 15:08 UT, the middle of it:
+    // the sun stands 17.6 degrees up at azimuth 282, with Mercury, Jupiter and Mars above it.
+    // leadMin: arriving, the clock runs up to the moment from that many minutes before
+    // (core/moment.js), so that the sun is seen going out.
+    no: 7, id: 'thales', name: '탈레스의 일식', dateLabel: 'BC 585.5.28', place: '할리스 강, 터키',
+    lat: 40.97, lon: 34.80,
+    date: { year: -585, month: 5, day: 28 }, calendar: 'julian', hourLocal: 17.459,
+    // 274 rather than straight at the sun (282): it then stands right of the middle, clear of Sora.
+    facingAz: 274, nightOnLook: false, leadMin: 30,
+    memo: '해 질 녘에 해가 사라짐. 싸움이 멈춤.', sora: '낮인데 캄캄해. 다들 멈췄어.',
+    soraSky: '까만 해 둘레에 하얀 빛이 있어!', // (placeholder)
+    memoToday: '남은 것: 강. 이름은 크즐으르마크.', soraToday: '아무도 없네. 강만 그대로 흘러.', // (placeholder)
+    noteMemo: '기원전 585.5.28. 탈레스가 미리 말했다는 일식을 책에서 읽음. 그날 달은 해 앞에.',
+    card: '기원전 585년 5월 28일, 리디아와 메디아가 할리스 강가에서 싸우던 해 질 녘에 해가 가려졌습니다. 헤로도토스는 탈레스가 이 일식을 미리 말했다고 적었습니다. 두 나라는 싸움을 멈추고 화해했습니다.',
+    reply: '하늘이 어두워지니 칼을 내렸다지. 고마운 그늘이구나.',
+    quiz: { question: '해가 가려진 뒤 두 나라는 어떻게 했나?', answer: '화해했다', proof: '화해했습니다', wrong: ['더 크게 싸웠다', '강을 건넜다'] },
+  },
   // --- Ten squares added on 2026.10.7 (the user: "10개 더 하자"). Every line of theirs is a
   // placeholder. Squares without a known day stand at noon on a day chosen for the season;
   // facingAz was chosen from the computed sky so that something is up at 9 pm where the
@@ -134,7 +155,7 @@ export const SQUARES = [
     lat: 51.179, lon: -1.826,
     date: { year: -2500, month: 7, day: 12 }, calendar: 'julian', hourLocal: 12,
     facingAz: 170, nightOnLook: true,
-    memo: '큰 돌을 둥글게 세웠다고 읽음.', sora: '돌 위에 돌을 어떻게 올렸지?',
+    memo: '큰 돌을 끌어다 둥글게 세움.', sora: '돌 위에 돌을 어떻게 올렸지?',
     memoToday: '남은 것: 돌의 절반쯤.', soraToday: '많이 쓰러졌네. 그래도 서 있어.',
     noteMemo: '기원전 2500년경. 큰 돌을 끌어다 둥글게 세웠다고 책에서 읽음. 날을 몰라 달은 못 적음.',
     card: '기원전 2500년 무렵, 영국 솔즈베리 평원에 큰 돌을 둥글게 세운 스톤헨지가 지어졌습니다. 큰 돌은 30km쯤 떨어진 곳에서, 작은 푸른 돌은 240km쯤 떨어진 웨일스에서 끌어왔습니다. 돌들은 한여름 해가 뜨는 쪽과 한겨울 해가 지는 쪽에 맞추어 놓였습니다.',
@@ -146,7 +167,7 @@ export const SQUARES = [
     lat: 37.9715, lon: 23.7267,
     date: { year: -432, month: 7, day: 1 }, calendar: 'julian', hourLocal: 12,
     facingAz: 115, nightOnLook: true,
-    memo: '흰 돌 신전을 다 지었다고 읽음.', sora: '색칠이 돼 있어! 흰색이 아니네.',
+    memo: '언덕 위에 흰 돌 신전을 다 지음.', sora: '색칠이 돼 있어! 흰색이 아니네.',
     memoToday: '남은 것: 기둥. 지붕은 없음.', soraToday: '지붕이 없어. 하늘이 다 보여.',
     noteMemo: '기원전 432년경. 언덕 위에 흰 대리석 신전을 다 지었다고 책에서 읽음. 날을 몰라 달은 못 적음.',
     card: '기원전 432년 무렵, 아테네의 아크로폴리스 언덕에 아테나 여신의 신전 파르테논이 다 지어졌습니다. 흰 대리석 기둥 위의 조각에는 붉고 푸른 칠이 되어 있었습니다. 1687년 전쟁 때 안에 쌓아 둔 화약이 터져 지붕과 벽이 무너졌습니다.',
@@ -158,7 +179,7 @@ export const SQUARES = [
     lat: 41.890, lon: 12.492,
     date: { year: 80, month: 6, day: 1 }, calendar: 'julian', hourLocal: 12,
     facingAz: 290, nightOnLook: true,
-    memo: '큰 경기장이 문을 열었다고 읽음.', sora: '천막 지붕이 있어! 엄청 커.',
+    memo: '둥근 큰 경기장이 열림.', sora: '천막 지붕이 있어! 엄청 커.',
     memoToday: '남은 것: 바깥벽의 절반.', soraToday: '한쪽 벽이 없네. 돌을 가져갔대.',
     noteMemo: '80년. 로마에 오만 명이 앉는 둥근 경기장이 열렸다고 책에서 읽음. 날을 몰라 달은 못 적음.',
     card: '서기 80년, 로마에서 티투스 황제가 콜로세움의 문을 열었습니다. 오만 명쯤이 앉는 둥근 경기장이었고, 햇빛을 가리는 천 차양이 꼭대기에 걸렸습니다. 뒷날 지진으로 바깥벽 한쪽이 무너졌고, 떨어진 돌은 다른 건물을 짓는 데 쓰였습니다.',
@@ -170,7 +191,7 @@ export const SQUARES = [
     lat: 35.8347, lon: 129.219,
     date: { year: 640, month: 9, day: 1 }, calendar: 'julian', hourLocal: 12,
     facingAz: 170, nightOnLook: true,
-    memo: '별을 보는 돌탑을 쌓았다고 읽음.', sora: '병처럼 생겼어. 창으로 들어가나 봐.',
+    memo: '별을 보는 돌탑을 쌓음.', sora: '병처럼 생겼어. 창으로 들어가나 봐.',
     memoToday: '남은 것: 첨성대. 그대로.', soraToday: '그대로야! 천사백 년이나 됐는데.',
     noteMemo: '640년경. 선덕여왕 때 별을 보는 돌탑을 쌓았다고 책에서 읽음. 날을 몰라 달은 못 적음.',
     card: '신라 선덕여왕 때인 640년 무렵, 서라벌에 별을 보는 돌탑 첨성대가 세워졌습니다. 다듬은 돌을 스물일곱 단 둥글게 쌓았고, 가운데에 남쪽으로 창을 하나 냈습니다. 첨성대는 천사백 년 가까이 그 자리에 그대로 서 있습니다.',
@@ -211,7 +232,7 @@ export const SQUARES = [
     lat: 27.175, lon: 78.042,
     date: { year: 1653, month: 3, day: 1 }, calendar: 'gregorian', hourLocal: 12,
     facingAz: 0, nightOnLook: true,
-    memo: '흰 돌 무덤을 다 지었다고 읽음.', sora: '하얗다. 물에도 비쳐.',
+    memo: '황후의 흰 돌 무덤을 다 지음.', sora: '하얗다. 물에도 비쳐.',
     memoToday: '남은 것: 타지마할. 그대로.', soraToday: '나무가 줄었네. 건물은 그대로.',
     noteMemo: '1653년. 황제가 황후를 위해 스물두 해 걸려 흰 돌 무덤을 지었다고 읽음. 날을 몰라 달은 못 적음.',
     card: '1653년 무렵, 인도 아그라에 흰 대리석 무덤 타지마할이 다 지어졌습니다. 무굴의 황제 샤자한이 먼저 떠난 황후 뭄타즈 마할을 위해 스물두 해에 걸쳐 지은 것입니다. 건물은 그대로 남았고, 과일나무가 빽빽하던 정원은 뒷날 잔디밭으로 바뀌었습니다.',
@@ -223,7 +244,7 @@ export const SQUARES = [
     lat: 48.861, lon: 2.269,
     date: { year: 1783, month: 11, day: 21 }, calendar: 'gregorian', hourLocal: 14,
     facingAz: 190, nightOnLook: true,
-    memo: '사람이 처음 하늘에 떴다고 읽음.', sora: '떴다! 불을 때서 뜨는 거래.',
+    memo: '열기구로 사람이 처음 하늘에 뜸.', sora: '떴다! 불을 때서 뜨는 거래.',
     memoToday: '남은 것: 없음. 공원뿐.', soraToday: '성도 기구도 없어. 공원이야.',
     noteMemo: '1783.11.21. 두 사람이 종이와 천으로 만든 기구로 하늘에 떴다고 읽음. 그날 달은 그믐달.',
     card: '1783년 11월 21일, 파리 서쪽 라 뮈에트 성의 정원에서 두 사람을 태운 열기구가 떠올랐습니다. 몽골피에 형제가 종이와 천으로 만든 기구였고, 짚을 태운 더운 공기로 떴습니다. 기구는 25분쯤 날아 9km쯤 떨어진 곳에 내렸습니다.',

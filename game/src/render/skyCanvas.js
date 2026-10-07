@@ -67,11 +67,53 @@ export function createSkyCanvas(canvas) {
     ctx.restore();
   }
 
+  // Draws the sun at the origin of ctx. With the moon before it (sun.cover > 0) the moon's
+  // disc is cut out of the sun and its glare, the glare shrinks with what is left of the
+  // sun, and once the sun is all but gone the corona comes out around the black moon.
+  // The discs are drawn 9 times their size, and so is the way between their middles, so
+  // the bite is the shape it was.
+  function drawSun(ctx, sun) {
+    const r = DISC / 2;
+    const left = 1 - sun.cover;
+    const mx = sun.moonX * r;
+    const my = -sun.moonY * r;
+    const mr = sun.moonSize * r;
+    const corona = clamp((sun.cover - 0.97) / 0.03, 0, 1);
+    if (corona > 0) {
+      const glow = ctx.createRadialGradient(mx, my, mr * 0.9, mx, my, mr * 3.6);
+      glow.addColorStop(0, `rgba(255,252,240,${0.95 * corona})`);
+      glow.addColorStop(0.12, `rgba(240,240,255,${0.5 * corona})`);
+      glow.addColorStop(0.45, `rgba(200,210,255,${0.14 * corona})`);
+      glow.addColorStop(1, 'rgba(200,210,255,0)');
+      ctx.fillStyle = glow;
+      // Wider than it is tall, as the corona lies along the sun's equator.
+      ctx.save(); ctx.translate(mx, my); ctx.scale(1.25, 0.9); ctx.translate(-mx, -my);
+      ctx.beginPath(); ctx.arc(mx, my, mr * 3.6, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+    if (left > 0) {
+      ctx.save();
+      if (sun.cover > 0) {
+        // Everything but the moon's disc.
+        ctx.beginPath(); ctx.rect(-200, -200, 400, 400); ctx.arc(mx, my, mr, 0, Math.PI * 2);
+        ctx.clip('evenodd');
+      }
+      ctx.shadowColor = `rgba(255,240,190,${0.9 * Math.sqrt(left)})`; ctx.shadowBlur = 6 + 24 * Math.sqrt(left);
+      ctx.fillStyle = '#fff6d8'; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+    if (sun.cover > 0) {
+      // The moon itself: nothing but sky until the light fails, then black.
+      ctx.fillStyle = `rgba(4,3,22,${clamp((sun.cover - 0.8) / 0.2, 0, 1)})`;
+      ctx.beginPath(); ctx.arc(mx, my, mr - 0.3, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+
   // view: { facingAz, pitch (0 to 1), dim (0 to 1: moon and planets faded while the dial
   // rolls), labels (0 to 1: opacity of the names) }
   function draw(sky, { facingAz, pitch, dim = 0, labels = 0 }) {
     const view = { facingAz, pitch, w, h };
-    const light = skyLight(sky.sun.alt);
+    const light = skyLight(sky.sun.alt, sky.sun.cover);
     const horizonY = project(0, facingAz, view).y;
     c.globalCompositeOperation = 'source-over';
     c.globalAlpha = 1;
@@ -96,7 +138,8 @@ export function createSkyCanvas(canvas) {
       c.globalAlpha = 1;
     }
 
-    const moonAt = seen(sky.moon.alt, sky.moon.az);
+    // Before the sun the moon is drawn with it, below.
+    const moonAt = sky.sun.cover > 0 ? null : seen(sky.moon.alt, sky.moon.az);
     if (moonAt) {
       c.save();
       c.translate(moonAt.x, moonAt.y);
@@ -109,9 +152,10 @@ export function createSkyCanvas(canvas) {
     const sunAt = seen(sky.sun.alt, sky.sun.az, 40);
     if (sunAt) {
       c.save();
-      c.shadowColor = 'rgba(255,240,190,.9)'; c.shadowBlur = 30;
-      c.fillStyle = '#fff6d8'; c.beginPath(); c.arc(sunAt.x, sunAt.y, DISC / 2, 0, Math.PI * 2); c.fill();
+      c.translate(sunAt.x, sunAt.y);
+      drawSun(c, sky.sun);
       c.restore();
+      if (sky.sun.cover > 0.5) label('해를 가린 달', sunAt.x + sky.sun.moonX * DISC / 2, sunAt.y - sky.sun.moonY * DISC / 2, labels);
     }
 
     if (light.stars > 0) {

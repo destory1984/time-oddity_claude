@@ -23,6 +23,7 @@ FROM_PLAN = {
     'crystalPalace': ['memo', 'sora', 'soraToday', 'memoToday', 'noteMemo', 'card', 'quiz'],
     'kittyHawk': ['memo', 'sora', 'noteMemo', 'card', 'quiz'],
     'yard1969': ['sora', 'soraSky'],
+    'thales': ['memo', 'sora', 'noteMemo', 'card', 'quiz'],
 }
 NAMES = {
     'memo': '화면 메모(할머니)', 'sora': '소라 한마디', 'soraSky': '소라, 하늘을 보고',

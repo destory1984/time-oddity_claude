@@ -4,7 +4,7 @@
 // Timings are from docs/상세-기획-2-칸-하나의-흐름.md section 3.
 import './style.css';
 import { SQUARES, skyMemoOf, squareById, squareTitle } from './core/squares.js';
-import { momentJd } from './core/moment.js';
+import { leadDays, momentJd } from './core/moment.js';
 import { skyAt, skyLight } from './core/sky.js';
 import { formatDate, formatYear, todayDate } from './core/when.js';
 import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, stepDial } from './core/dial.js';
@@ -421,8 +421,9 @@ function frameGround(dt) {
   let rise = clamp01(visit.t / RISE_MS);
   if (mode === 'leaving') { leavingMs += dt; rise = 1 - clamp01(leavingMs / LEAVE_MS); }
 
-  const sky = skyAt(momentJd(square, { year: dial.year, night: visit.night }, today), square);
-  const light = skyLight(sky.sun.alt);
+  const lead = at === 'then' ? leadDays(square, visit.t) : 0;
+  const sky = skyAt(momentJd(square, { year: dial.year, night: visit.night }, today) + lead, square);
+  const light = skyLight(sky.sun.alt, sky.sun.cover);
   skyCanvas.draw(sky, {
     facingAz: square.facingAz, pitch: visit.look, dim, labels: clamp01((visit.lookHeld - LABELS_AFTER_MS) / 300),
   });

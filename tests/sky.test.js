@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import stars from '../game/src/data/stars.json';
 import { squareById } from '../game/src/core/squares.js';
-import { momentJd } from '../game/src/core/moment.js';
+import { leadDays, momentJd } from '../game/src/core/moment.js';
 import { skyAt, skyLight } from '../game/src/core/sky.js';
 
 const today = { year: 2026, month: 10, day: 7 };
@@ -86,5 +86,56 @@ describe('a partial lunar eclipse', () => {
     const { moon } = skyAt(2460246.343, { lat: 51.5, lon: -0.17 });
     expect(moon.eclipse).toBeGreaterThan(0);
     expect(moon.eclipse).toBeLessThan(0.7);
+  });
+});
+
+describe('the moon before the sun', () => {
+  const thales = squareById('thales');
+  it('hides all of the sun over the Halys at the moment of the square', () => {
+    const { sun } = sky('thales', { year: -585 });
+    expect(sun.cover).toBe(1);
+    expect(sun.alt).toBeCloseTo(17.6, 0);
+    expect(sun.az).toBeCloseTo(282, 0);
+    expect(sun.moonSize).toBeGreaterThan(1);
+    expect(Math.hypot(sun.moonX, sun.moonY)).toBeLessThan(sun.moonSize - 1);
+  });
+  it('has taken a bite half an hour before, from the lower right', () => {
+    const { sun } = skyAt(momentJd(thales, { year: -585 }, today) + leadDays(thales, 0), thales);
+    expect(sun.cover).toBeGreaterThan(0.3);
+    expect(sun.cover).toBeLessThan(0.8);
+    expect(Math.hypot(sun.moonX, sun.moonY)).toBeGreaterThan(0.5);
+  });
+  it('is not total further up the river, by the same computation', () => {
+    const { sun } = skyAt(1507900.13222, { lat: 38.72, lon: 34.85 });
+    expect(sun.cover).toBeGreaterThan(0.95);
+    expect(sun.cover).toBeLessThan(1);
+  });
+  it('was total on Principe in 1919', () => {
+    // 1919.5.29 14:15 UT.
+    expect(skyAt(2422108.0938, { lat: 1.67, lon: 7.39 }).sun.cover).toBe(1);
+  });
+  it('covers nothing on an ordinary new moon', () => {
+    expect(sky('crystalPalace', { year: 1851 }).sun.cover).toBe(0);
+  });
+  it('darkens the day to a deep dusk and lets the bright stars out only at the end', () => {
+    expect(skyLight(17, 0.5)).toEqual({ day: 1, stars: 0 });
+    expect(skyLight(17, 0.9).day).toBeGreaterThan(0.4);
+    expect(skyLight(17, 0.9).stars).toBe(0);
+    expect(skyLight(17, 1).day).toBeCloseTo(0.3, 5);
+    expect(skyLight(17, 1).stars).toBeCloseTo(0.5, 5);
+    expect(skyLight(-20, 1)).toEqual({ day: 0, stars: 1 });
+  });
+});
+
+describe('leadDays', () => {
+  const thales = squareById('thales');
+  it('starts the square thirty minutes early and has caught up by 6.5 seconds', () => {
+    expect(leadDays(thales, 0)).toBeCloseTo(-30 / 1440, 9);
+    expect(leadDays(thales, 3750)).toBeCloseTo(-15 / 1440, 9);
+    expect(leadDays(thales, 6500)).toBeCloseTo(0, 12);
+    expect(leadDays(thales, 60000)).toBeCloseTo(0, 12);
+  });
+  it('is nothing for a square without a lead', () => {
+    expect(leadDays(squareById('khufu'), 0)).toBe(0);
   });
 });
