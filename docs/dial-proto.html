@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>시간 한량 다이얼 손맛 시험</title>
+<title>시간 한량 다이얼 시험</title>
 <style>
-/* 손맛만 보려고 만든 시험판이다. 게임 코드가 아니다. 처음 보이는 "해" 탭이 지금의 안이다. 소리가 난다. */
+/* 손맛만 보려고 만든 시험판이다. 게임 코드가 아니다. 처음 보이는 "해" 탭이 지금의 안이다. 소리가 난다(낮은 소리). */
 :root{--night:#050330;--navy:#1a2894;--gold:#f6b951;--white:#fbf8f9;--lav:#e2daf6;--paper:#f2e6c8;--ink:#3b2a1a}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:#15122b;overflow:hidden;overscroll-behavior:none}
@@ -334,7 +334,7 @@ function wake() {
   if (!ac) {
     const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
     ac = new AC();
-    noise = ac.createBuffer(1, ac.sampleRate * 0.03, ac.sampleRate);
+    noise = ac.createBuffer(1, ac.sampleRate * 0.045, ac.sampleRate);
     const d = noise.getChannelData(0);
     for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (d.length * 0.18));
   }
@@ -343,11 +343,16 @@ function wake() {
 addEventListener('pointerdown', wake);
 function click(big) {
   const now = performance.now();
-  if (!ac || now - lastClick < 16) return;
+  if (!ac || now - lastClick < 22) return;
   lastClick = now;
   const s = ac.createBufferSource(), f = ac.createBiquadFilter(), v = ac.createGain();
-  s.buffer = noise; f.type = 'bandpass'; f.frequency.value = big ? 1300 : 2600; f.Q.value = 1.4; v.gain.value = big ? 0.5 : 0.28;
+  // 낮은 소리: 걸러 낸 잡음(톱니가 스치는 소리)에 짧은 낮은 음(통 울림)을 얹는다.
+  s.buffer = noise; f.type = 'lowpass'; f.frequency.value = big ? 500 : 800; f.Q.value = 0.8; v.gain.value = big ? 0.9 : 0.6;
   s.connect(f); f.connect(v); v.connect(ac.destination); s.start();
+  const o = ac.createOscillator(), og = ac.createGain(), t0 = ac.currentTime;
+  o.type = 'sine'; o.frequency.setValueAtTime(big ? 150 : 210, t0); o.frequency.exponentialRampToValueAtTime(big ? 70 : 110, t0 + 0.045);
+  og.gain.setValueAtTime(big ? 0.45 : 0.25, t0); og.gain.exponentialRampToValueAtTime(0.001, t0 + 0.05);
+  o.connect(og); og.connect(ac.destination); o.start(t0); o.stop(t0 + 0.06);
   if (big && navigator.vibrate) navigator.vibrate(4);
 }
 function sound() {
