@@ -84,7 +84,6 @@ let remainsAtMs = null;
 let glowSky = 0;
 let glowToday = 0;
 let hushAt = null;      // when Sora last put a finger to her lips
-let daylight = 0;       // how light the sky over the square is, for the dial's paper
 
 // The years with something to see, shown on the dial. Above the Earth: every square.
 // On the ground: this square's day and today.
@@ -106,7 +105,9 @@ const soundSwitch = {
     $('soundButton').title = on ? '소리 켜기' : '소리 끄기';
   },
 };
-soundSwitch.setMuted(loadMuted());
+// What was kept is put back quietly: no finger to her lips for a switch nobody pressed.
+sound.setMuted(loadMuted());
+soundSwitch.setMuted(sound.muted());
 $('soundButton').addEventListener('click', () => { sound.wake(); soundSwitch.setMuted(!sound.muted()); });
 
 // Background music: volume 1's eleven tunes, with a switch of its own.
@@ -132,6 +133,7 @@ const journal = createJournal({
   onGo: (id) => travel(squareById(id)),
   onSolve: (id) => { sound.stamp(); keep(solveQuiz(progress, id)); },
   here: () => (visit && mode === 'ground' ? square.id : null),
+  canGo: () => mode === 'globe' || mode === 'ground',
 });
 const card = createCard({
   solved: (id) => quizSolved(progress, id),
@@ -148,7 +150,12 @@ const settings = createSettings({
   today: () => { const now = todayDate(); return `${now.year}-${pad(now.month)}-${pad(now.day)}`; },
   sound: soundSwitch,
   music: musicSwitch,
-  onReset: () => { keep(emptyProgress()); if (visit) visit.dots = { day: false, sky: false, remains: false }; },
+  // Emptied while standing on a square: that visit starts afresh too, or its dots would
+  // be written straight back into the empty notebook.
+  onReset: () => {
+    keep(emptyProgress());
+    if (visit) { visit = createVisit(square); remainsAtMs = null; bubble = null; }
+  },
   version: `v${__APP_VERSION__} · ${__APP_UPDATED__}`,
 });
 
@@ -288,7 +295,6 @@ function frameGround(dt) {
 
   const sky = skyAt(momentJd(square, { year: dial.year, night: visit.night }, today), square);
   const light = skyLight(sky.sun.alt);
-  daylight = light.day;
   skyCanvas.draw(sky, {
     facingAz: square.facingAz, pitch: visit.look, dim, labels: clamp01((visit.lookHeld - LABELS_AFTER_MS) / 300),
   });
@@ -319,7 +325,7 @@ function frameGround(dt) {
     chips: mode === 'ground' && visit.t >= CHIPS_AT_MS && visit.look < 0.5,
     bubble: pose.saying ?? (bubble && visit.look < 0.5 ? bubble.text : null), sora: pose,
     todayLabel: at === 'today' ? '그날로' : '오늘로', showToday: true, showLeave: true,
-    hint: mode === 'ground' && visit.t >= GUIDE_AT_MS && !dial.rolling && !(bubble && visit.look < 0.5)
+    hint: mode === 'ground' && visit.t >= GUIDE_AT_MS && dial.resting && !(bubble && visit.look < 0.5)
       ? guideLine({ where: 'ground', dots: visit.dots, at, lookingUp: visit.look > 0.5, quizSolved: quizSolved(progress, square.id) })
       : null,
     soraFade: pose.saying ? 0 : clamp01(visit.look * 1.6), glowSky, glowToday,
@@ -348,9 +354,9 @@ function frame(now) {
   const dt = held ? 0 : Math.min(50, now - last);
   last = now;
   tickSounds(stepDial(dial, dt));
-  if (visit && (mode === 'ground' || mode === 'leaving')) frameGround(dt);
+  if (visit && mode !== 'globe') frameGround(dt);
   else frameGlobe(dt);
-  dialView.draw(dial, marks, visit ? daylight : 0);
+  dialView.draw(dial, marks);
   music.step(visit ? 'surface' : 'near');
   requestAnimationFrame(frame);
 }

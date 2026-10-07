@@ -13,7 +13,8 @@ export function guideLine({ where, dots, at, lookingUp, quizSolved, complete, vi
   }
   // A year with no picture: the way back comes before anything else.
   if (at === 'other') return '다이얼 끝의 이름표를 눌러 보렴';
-  if (!dots.day) return null;   // arriving: the day is about to fill by itself
+  // Arriving: the day is about to fill by itself. Gone on to today before it did: back first.
+  if (!dots.day) return at === 'then' ? null : '그날로 돌아가 보렴';
   if (!dots.sky) return lookingUp ? '그대로 잠깐 올려다보렴' : '화면을 위로 밀어 하늘을 보렴';
   if (lookingUp) return null;
   if (!dots.remains) return '오늘은 어떤지, 오늘로 돌려 보렴';

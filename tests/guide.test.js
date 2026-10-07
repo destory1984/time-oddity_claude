@@ -23,6 +23,10 @@ describe('the one line of guidance', () => {
     expect(ground({ at: 'other' })).toBe('다이얼 끝의 이름표를 눌러 보렴');
     expect(ground({ at: 'other', dots: { day: true, sky: true, remains: true }, quizSolved: true })).toBe('다이얼 끝의 이름표를 눌러 보렴');
   });
+  it('sends her back to the day when today was reached before the day had filled', () => {
+    expect(ground({ at: 'today', dots: { day: false, sky: false, remains: true } })).toBe('그날로 돌아가 보렴');
+    expect(ground({ at: 'then', dots: { day: false, sky: false, remains: true } })).toBe(null);
+  });
   it('says nothing while the head is up and the sky is already filled', () => {
     expect(ground({ dots: { day: true, sky: true, remains: false }, lookingUp: true })).toBe(null);
   });

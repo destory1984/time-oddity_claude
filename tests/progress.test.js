@@ -45,7 +45,7 @@ describe('what a square tells', () => {
       expect(s.card.endsWith('니다.'), s.id).toBe(true);
     }
   });
-  it('asks a question whose answer is in the card and whose wrong choices are not', () => {
+  it('asks a question whose proof is in the card word for word and whose wrong choices are not', () => {
     for (const s of SQUARES) {
       expect(s.quiz.question.endsWith('?'), s.id).toBe(true);
       expect(s.quiz.question.length, s.id).toBeLessThanOrEqual(40);

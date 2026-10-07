@@ -15,8 +15,9 @@ const el = (tag, className, text) => {
 
 // squares: all of them, in order. progress: () => the record now. onGo(id): "가기" was
 // pressed. onSolve(id): the square's question was answered. here: () => the id of the
-// square Sora stands on, or null.
-export function createJournal({ squares, progress, onGo, onSolve, here }) {
+// square Sora stands on, or null. canGo: () => whether she can set off now (not while
+// she is already on her way).
+export function createJournal({ squares, progress, onGo, onSolve, here, canGo = () => true }) {
   const dialog = $('journal');
   const ids = squares.map((s) => s.id);
   let open = null;   // the id of the row that is opened
@@ -38,7 +39,7 @@ export function createJournal({ squares, progress, onGo, onSolve, here }) {
 
     const go = el('button', 'go', here() === square.id ? '여기' : '가기');
     go.type = 'button';
-    go.disabled = here() === square.id;
+    go.disabled = here() === square.id || !canGo();
     go.addEventListener('click', () => { dialog.close(); onGo(square.id); });
     item.append(head, go);
 

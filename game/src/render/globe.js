@@ -179,14 +179,21 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     }
     scene.render();
     const pxPerUnit = (GLOBE_WIDTH * w) / 2;
+    const placed = [];
     for (const { node, button } of pins) {
       const at = worldOf(node);
       const front = at.z < -0.12;
       button.style.display = front ? '' : 'none';
-      if (front) {
-        button.style.left = `${(w / 2 + at.x * pxPerUnit).toFixed(1)}px`;
-        button.style.top = `${(h / 2 - at.y * pxPerUnit).toFixed(1)}px`;
-      }
+      if (!front) continue;
+      const x = w / 2 + at.x * pxPerUnit;
+      const y = h / 2 - at.y * pxPerUnit;
+      button.style.left = `${x.toFixed(1)}px`;
+      button.style.top = `${y.toFixed(1)}px`;
+      // Two places close together (London and Paris): the second name goes to the left of
+      // its pin so that the two do not lie on top of each other.
+      const crowded = placed.some((p) => Math.abs(p.y - y) < 18 && x - p.x > -30 && x - p.x < 110);
+      button.classList.toggle('left', crowded);
+      placed.push({ x, y });
     }
   }
 

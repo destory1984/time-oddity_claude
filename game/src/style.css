@@ -14,8 +14,8 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #sky,#ground,#glowSky{visibility:hidden}
 .on-ground #sky,.on-ground #ground,.on-ground #glowSky{visibility:visible}
 /* Above the Earth Sora floats at the lower left, clear of the pins; her bubble follows her. */
-.on-globe #sora{left:4%;top:60%}
-.on-globe #bubble{left:27%;top:60%}
+.on-globe #sora{left:0;top:56%}
+.on-globe #bubble{left:36%;top:57%}
 .on-ground #globe,.on-ground #pins{visibility:hidden}
 #ground{overflow:hidden;pointer-events:none}
 #ground .layer{position:absolute;inset:0;will-change:transform,opacity,filter}
@@ -41,8 +41,10 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #glowSky{left:0;right:0;top:0;height:3px}
 #glowSky.glow{animation:glowTop 1.2s ease-in-out}
 @keyframes glowTop{50%{box-shadow:0 0 60px 34px rgba(251,248,249,.5)}}
-#sora{left:35%;top:27%;width:96px;image-rendering:pixelated;pointer-events:none;transition:opacity .4s}
-#bubble{left:54%;top:26%;max-width:42%;background:var(--white);color:#1b1730;padding:6px 12px;border-radius:14px 14px 14px 2px;font-family:var(--seora);font-size:calc(18px * var(--text,1));line-height:1.25;
+/* As large as in volume 1: her figure stands about 155 px tall on a 375 x 812 screen
+   (measured from volume 1's own screenshot; the first slice drew her at 60% of that). */
+#sora{left:calc(50% - 88px);top:23%;width:154px;image-rendering:pixelated;pointer-events:none;transition:opacity .4s}
+#bubble{left:58%;top:21%;max-width:40%;background:var(--white);color:#1b1730;padding:6px 12px;border-radius:14px 14px 14px 2px;font-family:var(--seora);font-size:calc(18px * var(--text,1));line-height:1.25;
   opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s}
 #bubble.on{opacity:1;transform:none}
 #memo{left:16px;top:64%;max-width:78%;visibility:hidden;background:var(--paper);color:var(--ink);padding:5px 12px;font-family:var(--hand);font-size:calc(22px * var(--text,1));line-height:1.15;
@@ -61,6 +63,7 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #pins .pin{position:absolute;width:44px;height:44px;margin:-22px;border:0;background:none;padding:0}
 #pins .pin::before{content:"";position:absolute;left:15px;top:15px;width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(246,185,81,.35),0 0 14px var(--gold)}
 #pins .pin span{position:absolute;left:36px;top:12px;white-space:nowrap;font:12px var(--ui);color:var(--white);text-shadow:0 1px 4px #050330}
+#pins .pin.left span{left:auto;right:36px}
 #fade{background:var(--night);opacity:0;pointer-events:none;transition:opacity .2s}
 #fade.on{opacity:1}
 #dial{pointer-events:none}
