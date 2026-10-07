@@ -22,12 +22,14 @@
 // Every fact in them is from memory and to be checked (the hundred days of games, the
 // sailors of the fleet at Misenum who worked the awning, the numbered entrances and the
 // tokens, free entry, the seats by rank with women at the top, Nero's lake).
-// Paris, to be checked: the tower opened to the public on 15 May 1889 with its lifts not
-// yet running (they began late in May), over three hundred steps to the first floor, a
-// franc to enter the fair, thirty-five countries, the artists' protest of 1887, the Forth
-// Bridge then being built, four restaurants on the first floor, two years and two months
-// of building, eighteen thousand pieces of iron, Edison's phonograph heard through tubes
-// in the Gallery of Machines, and its roof standing with no pillar.
+// Paris. Looked up on 2026.10.8 and found so: the tower opened to the public on 15 May
+// 1889 with its lifts not yet running (from 26 May or from June, the sources differ), 360
+// steps to the first floor, about thirty-five countries, Edison's phonograph heard
+// through ear tubes in the Gallery of Machines. What it cost to enter the fair the sources
+// give differently (40 centimes, a franc), so the ticket seller names no sum. Still from
+// memory: the artists' protest of 1887, the Forth Bridge then being built, four
+// restaurants on the first floor, two years and two months of building, eighteen
+// thousand pieces of iron, the hall's roof standing with no pillar.
 const SHEET = { market: 0.6, plaza: 0.66, inside: 0.62 };   // how large a sheet's figures are shown, of their px on a 812 px screen
 
 export const WALKS = {
@@ -99,7 +101,7 @@ export const WALKS = {
           { kind: 'drift', id: 'out', src: 'crowd', from: 0.59, to: 1, foot: 0.748, tall: 0.17, wide: 0.381, gap: 0.03, speed: -0.026, bob: 0.003, flip: true },
         ],
         people: [
-          { id: 'ticket', name: '표 파는 사람', x: 0.1, w: 138, h: 277, lines: ['입장은 1프랑! 탑은 따로 받아요.', '오늘부터 탑에 올라갈 수 있소.'] },
+          { id: 'ticket', name: '표 파는 사람', x: 0.1, w: 138, h: 277, lines: ['표 한 장이면 박람회를 다 봐요.', '오늘부터 탑에 올라갈 수 있소.'] },
           { id: 'news', name: '신문팔이 소년', x: 0.19, w: 107, h: 269, lines: ['탑 꼭대기 삼백 미터! 세계 제일!', '호외요! 오늘 탑이 문을 열어요!'] },
           { id: 'flower', name: '꽃 파는 소녀', x: 0.31, w: 112, h: 255, lines: ['은방울꽃 사세요! 오월의 꽃이에요.', '오늘은 다들 탑만 올려다봐요.'] },
           { id: 'parasol', name: '양산 든 부인', x: 0.44, w: 148, h: 320, lines: ['백 년 전 혁명을 기리는 잔치란다.', '서른다섯 나라가 왔다지 뭐니.'] },
@@ -224,10 +226,13 @@ export const WALKS = {
     ],
     reply: '제 이름을 처음 쓴 아이를 만났구나. 그 글자로 이 수첩을 쓴단다.',
   },
-  // San Francisco, 27 May 1937: the bridge was opened to people on foot for a day. To be
-  // checked: the gates at six, 25 cents, two hundred thousand, those who crossed first on
-  // skates or walking backward, the net that saved nineteen, four years of building, 67 m
-  // from the water, 1,280 m between the towers.
+  // San Francisco, 27 May 1937: the bridge was opened to people on foot for a day. Looked
+  // up on 2026.10.8 and found so: the gates at six, about two hundred thousand, people
+  // vying to be first across in some odd way, a sprinter the first across the whole span.
+  // The toll is given as 25 cents by some and 5 by a paper of the day, so the toll man
+  // names no sum. Still from memory: the first on skates and the first walking backward,
+  // the net that saved nineteen, four years of building, 67 m from the water, 1,280 m
+  // between the towers.
   goldenGate: {
     dir: 'sf', look: 'paper', talk: 'face',
     scenes: [
@@ -240,7 +245,7 @@ export const WALKS = {
         people: [
           { id: 'hotdog', name: '핫도그 장수', x: 0.1, w: 119, h: 320, lines: ['핫도그요! 오늘 벌써 천 개 팔았소.', '다리 구경엔 핫도그가 딱이지.'] },
           { id: 'sleepy', name: '밤새 기다린 청년', x: 0.22, w: 120, h: 320, lines: ['어젯밤부터 줄 섰어요. 하암…', '맨 먼저 건너고 싶었거든요.'] },
-          { id: 'toll', name: '요금 받는 사람', x: 0.36, w: 101, h: 311, lines: ['걸어서 건너는 값은 25센트요.', '오늘은 사람만! 차는 내일부터요.'] },
+          { id: 'toll', name: '요금 받는 사람', x: 0.36, w: 101, h: 311, lines: ['걸어서 건너는 값은 동전 한 닢이오.', '오늘은 사람만! 차는 내일부터요.'] },
           { id: 'scout', name: '보이스카우트 소년', x: 0.52, w: 112, h: 249, lines: ['아침 여섯 시에 문이 열렸어요.', '길 잃은 아이를 찾아 주는 중이에요.'] },
           { id: 'badge', name: '기념품 아주머니', x: 0.74, w: 120, h: 301, lines: ['기념 배지 사세요! 오늘뿐이에요.', '손주한테 줄 거라고들 사 가요.'] },
           { id: 'camera', name: '사진기 든 아가씨', x: 0.88, w: 100, h: 303, lines: ['안개가 걷혀야 탑이 찍힐 텐데.', '사 년 만에 다 지었대요.'] },
@@ -290,11 +295,12 @@ export const WALKS = {
       { id: 'skate', text: '바퀴 달린 신을 신고 건넌 아이가 있다던데.', at: ['skate'] },
       { id: 'middle', text: '다리 한가운데서 바다를 내려다보렴.', at: ['middle'] },
     ],
-    reply: '25센트에 바다 위를 걸었구나. 나도 한번 걸어 보고 싶네.',
+    reply: '동전 한 닢에 바다 위를 걸었구나. 나도 한번 걸어 보고 싶네.',
   },
-  // Tokyo, 1 October 1964: the first of the fast trains left at six. To be checked: the
-  // hour and the train's name, the gilt ball and tape at the leaving, four hours to
-  // Osaka where it had been six and a half, 210 km an hour, the speed dial in the buffet
+  // Tokyo, 1 October 1964: the first of the fast trains left at six. Looked up on
+  // 2026.10.8 and found so: the day, six in the morning (one train from each end), four
+  // hours to Osaka, 210 km an hour. Still from memory: the train's number, the gilt ball
+  // and tape at the leaving, six and a half hours before, the speed dial in the buffet
   // car, the Games nine days after.
   shinkansen: {
     dir: 'tokyo', look: 'paper', talk: 'face',
