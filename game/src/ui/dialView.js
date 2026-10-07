@@ -25,25 +25,24 @@ function chance(a, b) {
 }
 
 // Looks of the glass to choose between, with the buttons that ?dial in the address puts
-// on the screen (0 is the plain one). Third round, 2026.10.7. The user chose the third
-// of the second round (thick glass, a softly glowing edge, deep navy, a vivid star chart)
-// and asked for five that make the glass shine more. All five are that glass; they
-// differ only in how light plays on it.
+// on the screen (0 is the plain one). Fourth round, 2026.10.7. Settled so far, round by
+// round: thick glass, a softly glowing edge, a vivid star chart with star dust, and
+// sparks of light that twinkle on the rim. The user then asked for the colour a little
+// darker: these five differ only in how dark the navy is and which way it leans.
 // bevel: how wide the band of light inside the rim is (the thickness of the glass).
 // glow: the colour of the light at the edge ('r,g,b') and how strong. chart: how many
 // stars (the share of years that carry one), how bright its lines, dots and large stars
 // are, their colour, and whether fine star dust lies behind them. shine: how the light
 // plays (see draw()).
-const NAVY = { top: '#101a52', foot: '#050828' };
 const VIVID = { share: 0.44, line: 0.75, dot: 0.95, big: 1, colour: GOLD_BRIGHT, dust: true };
-const SOFT_GOLD = { rgb: '255,224,150', strength: 0.5 };
+const SPARKS = { bevel: 9, glow: { rgb: '255,236,180', strength: 0.85 }, chart: VIVID, shine: 'glints' };
 const GLASS = {
   0: { top: GLASS_TOP, foot: GLASS_FOOT, bevel: 0, glow: null, chart: { share: 0.3, line: 0.3, dot: 0.5, big: 0.75, colour: GOLD_LIT, dust: false }, shine: null },
-  1: { ...NAVY, bevel: 9, glow: { rgb: '255,236,180', strength: 0.85 }, chart: VIVID, shine: 'glints' },     // sparks of light on the rim
-  2: { ...NAVY, bevel: 9, glow: SOFT_GOLD, chart: VIVID, shine: 'streaks' },                                  // light falling across it
-  3: { ...NAVY, bevel: 9, glow: SOFT_GOLD, chart: VIVID, shine: 'sweep' },                                    // a gleam that passes now and then
-  4: { ...NAVY, bevel: 9, glow: SOFT_GOLD, chart: VIVID, shine: 'turning' },                                  // reflections that slide as it turns
-  5: { top: '#14246a', foot: '#050828', bevel: 9, glow: { rgb: '170,205,255', strength: 0.7 }, chart: VIVID, shine: 'inner' },   // lit from within
+  1: { top: '#0c1442', foot: '#04061e', ...SPARKS },   // one step darker than round three (#101a52 to #050828)
+  2: { top: '#090f34', foot: '#020416', ...SPARKS },   // two steps darker
+  3: { top: '#070b28', foot: '#010210', ...SPARKS },   // a blue-black night
+  4: { top: '#100f40', foot: '#05041c', ...SPARKS },   // one step darker, leaning to violet
+  5: { top: '#101a52', foot: '#010210', ...SPARKS },   // the same at the rim, falling to black below
 };
 
 export function createDialView(canvas, firstStyle = 0) {

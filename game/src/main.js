@@ -65,7 +65,7 @@ const dialView = createDialView($('dial'), Number(dialParam) || 0);
 if (dialParam !== null) {
   const pick = $('dialPick');
   pick.hidden = false;
-  const names = ['테에 맺힌 반짝임', '비스듬한 빛줄기', '가끔 스치는 빛', '굴리면 미끄러지는 빛', '속에서 배어 나오는 빛'];
+  const names = ['한 단계 어둡게', '두 단계 어둡게', '검푸른 밤', '보랏빛 도는 남색', '아래로 갈수록 검게'];
   const show = (n) => {
     dialView.setStyle(n);
     for (const b of pick.querySelectorAll('button')) b.setAttribute('aria-pressed', String(Number(b.dataset.n) === n));
