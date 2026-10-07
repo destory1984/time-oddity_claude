@@ -33,6 +33,15 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 @keyframes sway{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.972)}}
 @keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}
 #walkSora{image-rendering:pixelated;z-index:20;pointer-events:none}
+/* Leaving, she thins to a line of light and is gone upward; arriving, the other way. */
+#walkSora.leaving{animation:beamUp .62s ease-in forwards}
+#walkSora.arriving{animation:beamDown .62s ease-out}
+@keyframes beamUp{0%{transform:none;filter:none;opacity:1}35%{transform:scale(1.06,.96);filter:brightness(2.2) saturate(.4)}100%{transform:translateY(-70%) scale(.06,2.2);filter:brightness(4) saturate(0);opacity:0}}
+@keyframes beamDown{0%{transform:translateY(-70%) scale(.06,2.2);filter:brightness(4) saturate(0);opacity:0}65%{transform:scale(1.06,.96);filter:brightness(2.2) saturate(.4);opacity:1}100%{transform:none;filter:none;opacity:1}}
+#walkScene .beam{top:0;height:82%;z-index:19;pointer-events:none;background:linear-gradient(to right,transparent,rgba(255,244,200,.0) 15%,rgba(255,244,200,.85) 50%,rgba(255,244,200,.0) 85%,transparent);mix-blend-mode:screen;transform-origin:50% 100%}
+#walkScene .beam.leaving{animation:shaft .62s ease-in forwards}
+#walkScene .beam.arriving{animation:shaft .62s ease-out reverse forwards}
+@keyframes shaft{0%{opacity:0;transform:scaleX(.2)}40%{opacity:1;transform:scaleX(1)}100%{opacity:0;transform:scaleX(.05)}}
 #walkSay,#walkSoraSay{z-index:30;display:none;padding:6px 11px;border-radius:12px;background:var(--white);color:#1b1730;font-size:calc(15px * var(--text,1));line-height:1.3;box-shadow:0 2px 8px #0006;pointer-events:none}
 #walkSay.on,#walkSoraSay.on{display:block}
 #walkSoraSay{font-family:var(--seora);font-size:calc(18px * var(--text,1));line-height:1.2}
@@ -68,6 +77,12 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 /* Above the Earth Sora flies over the middle of the globe, smaller than on the ground (she is high up): the place under her feet is where she is. */
 .on-globe #sora{left:calc(50% - 55px);top:calc(var(--hoverY,50%) - 132px);width:110px}
 .on-globe #bubble{left:calc(50% + 40px);top:calc(var(--hoverY,50%) - 150px);max-width:40%}
+/* Going down to a place she grows small toward her feet, which come to rest on its dot; coming back she grows from a point. */
+.on-globe #sora{transform-origin:50% 90%}
+.on-globe.descending #sora{transition:transform .9s cubic-bezier(.45,0,.85,.5);transform:scale(.1)}
+.on-globe.descending #underfoot,.on-globe.descending #landButton,.on-globe.descending #flyArrow{display:none !important}
+.on-globe.returning #sora{animation:popIn .6s cubic-bezier(.2,1.4,.4,1)}
+@keyframes popIn{0%{transform:scale(.05);opacity:0;filter:brightness(3)}60%{opacity:1}100%{transform:none;filter:none}}
 .on-ground #globe,.on-ground #pins{visibility:hidden}
 #ground{overflow:hidden;pointer-events:none}
 #ground .layer{position:absolute;inset:0;will-change:transform,opacity,filter}

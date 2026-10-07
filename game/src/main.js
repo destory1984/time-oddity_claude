@@ -115,7 +115,7 @@ const overEarth = () => mode === 'globe' && onEra;
 const GUIDE_ON = false;    // the one line of guidance is switched off in plan v4
 const theDial = () => (overEarth() ? eraDial : dial);
 const eraStop = () => STOPS[eraDial.year - 1];
-let shownEra = eraDial.year;   // the stop the Earth was last turned to show
+let shownEra = null;           // the stop the Earth was last turned to show (none yet: it turns to the first at once)
 const ERA_ASIDE_DEG = 24;      // a century's place comes into sight this far east of her
 let square = null;
 let visit = null;
@@ -333,6 +333,7 @@ let walkWant = null;        // the person she was sent to speak to
 let walkSora = null;        // { text, until }: what she says, while it shows
 let replyUntil = 0;         // grandmother's answer shows until then
 let errandsFoldAt = 0;      // the slip of errands folds itself then
+let walkArrive = false;     // she is to be set down in a shaft of light on the next frame
 const walkView = createWalkView({
   onPerson: (id) => {
     if (!walk) return;
@@ -404,6 +405,7 @@ function showWalk(sq) {
   keep(fillDot(progress, sq.id, 'day'));
   showErrands();
   enterScene();
+  walkArrive = true;
   sound.paper();
 }
 // The two buttons at the foot walk her on toward the scene beside this one while held.
@@ -437,6 +439,7 @@ function frameWalk(dt) {
   // The sky of that day and hour, as computed, behind the roofs.
   skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });
   walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null);
+  if (walkArrive) { walkArrive = false; walkView.arrive(); sound.warp(false); }
 
   const near = walk.moving ? null : nearby(walk);
   const label = near ? `${near.name}에게 말 걸기` : '';
@@ -533,7 +536,8 @@ function loosen(sq = null) {
 
 function pick(sq) {
   if (mode !== 'globe' && mode !== 'ground') return;
-  tighten(sq);
+  // Above the Earth a place touched is gone to at once: there is no flying to it first.
+  if (mode === 'globe') { land(sq); return; }
   if (dotsOf(progress, sq.id).day) { target = null; globe.setTarget(null); travel(sq); return; }
   if (mode === 'ground') { if (square !== sq) leave().then(() => aim(sq)); return; }
   if (globe.under() === sq.id) land(sq);
@@ -541,23 +545,47 @@ function pick(sq) {
 }
 
 // Comes down onto the square under her: the Earth comes close, then the ground.
+// The dial is drawn tight to a year: it runs most of the way in one roll, then goes the
+// last three years one at a time with a pause after each, a tick for each.
+const SETTLE_YEARS = 3;
+const SETTLE_ROLL_S = 0.9;
+const SETTLE_STEP_MS = 110;
+const SETTLE_PAUSE_MS = 240;
+async function settleDial(year) {
+  const way = Math.sign(year - dial.year);
+  if (way === 0) return;
+  const near = year - way * SETTLE_YEARS;
+  if ((near - dial.year) * way > 0) { rollTo(dial, near, SETTLE_ROLL_S); while (dial.rolling) await wait(20); }
+  while (dial.year !== year) {
+    rollTo(dial, dial.year + way, SETTLE_STEP_MS / 1000);
+    while (dial.rolling) await wait(16);
+    await wait(SETTLE_PAUSE_MS);
+  }
+}
+
+// Goes to a place from above the Earth (the user's order of things, 2026.10.8): the place
+// is touched, the Earth turns it under her, the dial runs to its year and ticks slowly
+// into place, then she grows small and goes down to it.
+const DESCEND_MS = 900;
 async function land(sq) {
   if (mode !== 'globe') return;
   sound.wake();
+  tighten(sq);
   mode = 'travel';
+  target = sq;
+  globe.setTarget(sq.id);
+  await globe.spinTo(sq.lat, sq.lon, LAND_S);
+  await settleDial(sq.date.year);
   landing = true;
-  const zoomWas = globe.zoom();
-  if (dial.year !== sq.date.year) rollTo(dial, sq.date.year, TRAVEL_ROLL_S);
-  await globe.spinTo(sq.lat, sq.lon, LAND_S, ZOOM_MAX);
-  while (dial.rolling) await wait(30);
+  stage.classList.add('descending');
+  await wait(DESCEND_MS);
   $('fade').classList.add('on');
   await wait(FADE_MS);
   target = null;
   globe.setTarget(null);
   landing = false;
+  stage.classList.remove('descending');
   arrive(sq);
-  globe.setZoom(zoomWas);
-  showZoom(zoomWas);
   $('fade').classList.remove('on');
 }
 $('landButton').addEventListener('click', () => { const id = globe.under(); if (id) land(squareById(id)); });
@@ -565,6 +593,7 @@ $('landButton').addEventListener('click', () => { const id = globe.under(); if (
 async function leave() {
   if (mode !== 'ground' && mode !== 'site' && mode !== 'walk') return;
   const fromSite = mode === 'site' || mode === 'walk';
+  const fromWalk = mode === 'walk';
   sound.murmur(0);
   if (photo.isOn()) photo.leave();
   findGame.leave();
@@ -572,6 +601,8 @@ async function leave() {
   mode = 'leaving';
   leavingMs = 0;
   if (!fromSite) await wait(LEAVE_MS);
+  // From among people she is taken up in a shaft of light.
+  if (fromWalk) { sound.warp(true); await walkView.teleport(); }
   $('fade').classList.add('on');
   await wait(FADE_MS);
   globe.setActive(true);
@@ -582,6 +613,8 @@ async function leave() {
   walk = null;
   loosen(square);
   mark(globeMarks());
+  // She comes back out over the Earth, growing from a point.
+  if (fromWalk) { stage.classList.add('returning'); setTimeout(() => stage.classList.remove('returning'), 600); }
   $('fade').classList.remove('on');
 }
 

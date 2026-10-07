@@ -113,6 +113,15 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
   return {
     wake,
     murmur,
+    // Going between the Earth and a place: a tone that rises (up: taken away) or falls
+    // (set down), with a breath of air. A placeholder until the user has heard it.
+    warp(up) {
+      play((at) => {
+        tone(at, { seconds: 0.55, from: up ? 420 : 1500, to: up ? 1700 : 380, gain: 0.14, attack: 0.03 });
+        tone(at, { seconds: 0.55, from: up ? 630 : 2250, to: up ? 2550 : 570, gain: 0.05, attack: 0.03 });
+        hiss(at, { seconds: 0.5, from: up ? 900 : 4200, to: up ? 5200 : 700, gain: 0.07, type: 'bandpass', q: 1.2 });
+      });
+    },
     // The AudioContext, once a touch has woken it: the music plays through the same one.
     context: () => (failed ? null : ac),
     muted: () => muted,

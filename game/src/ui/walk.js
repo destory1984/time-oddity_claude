@@ -141,5 +141,25 @@ export function createWalkView({ onPerson, onWay }) {
     else soraSay.classList.remove('on');
   }
 
-  return { showScene, layout, update };
+  // She is taken up in a shaft of light (leaving), or set down in one (arriving).
+  const TELEPORT_MS = 620;
+  function shaft(kind) {
+    const beam = document.createElement('i');
+    beam.className = `beam ${kind}`;
+    beam.style.left = sora.style.left;
+    beam.style.width = sora.style.width;
+    scroll.append(beam);
+    sora.classList.remove('leaving', 'arriving');
+    sora.getBoundingClientRect();
+    sora.classList.add(kind);
+    return new Promise((resolve) => {
+      setTimeout(() => { beam.remove(); if (kind === 'arriving') sora.classList.remove(kind); resolve(); }, TELEPORT_MS);
+    });
+  }
+
+  return {
+    showScene, layout, update,
+    teleport: () => shaft('leaving'),
+    arrive: () => { sora.classList.remove('leaving'); return shaft('arriving'); },
+  };
 }
