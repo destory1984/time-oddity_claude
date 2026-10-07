@@ -18,6 +18,8 @@ import { createDialView } from './ui/dialView.js';
 import { createHud } from './ui/hud.js';
 import { createTouch } from './ui/touch.js';
 import { createSound } from './ui/sound.js';
+import { createSettings } from './ui/settings.js';
+import { loadMuted, saveMuted } from './ui/storage.js';
 
 const RISE_MS = 800;
 const MEMO_AT_MS = 1200;
@@ -73,6 +75,29 @@ function mark(list) {
   setMarks(dial, list.map((m) => m.year));
 }
 const globeMarks = () => [...SQUARES.map((sq) => ({ year: sq.date.year, label: sq.name })), { year: today.year, label: '오늘' }];
+
+// Sound: one switch, kept between visits, worked by the speaker button and by the settings.
+const soundSwitch = {
+  muted: () => sound.muted(),
+  setMuted(on) {
+    sound.setMuted(on);
+    saveMuted(on);
+    $('soundButton').classList.toggle('off', on);
+    $('soundButton').title = on ? '소리 켜기' : '소리 끄기';
+  },
+};
+soundSwitch.setMuted(loadMuted());
+$('soundButton').addEventListener('click', () => { sound.wake(); soundSwitch.setMuted(!sound.muted()); });
+
+const pad = (n) => String(n).padStart(2, '0');
+// The game is held while the settings are open (see frame()).
+const settings = createSettings({
+  onOpen: () => {},
+  onClose: () => {},
+  today: () => { const now = todayDate(); return `${now.year}-${pad(now.month)}-${pad(now.day)}`; },
+  sound: soundSwitch,
+  version: `v${__APP_VERSION__} · ${__APP_UPDATED__}`,
+});
 
 const globe = createGlobe($('globe'), $('pins'), { squares: SQUARES, onPick: (id) => travel(squareById(id)) });
 
@@ -238,7 +263,7 @@ function frameGlobe(dt) {
 
 let last = performance.now();
 function frame(now) {
-  const dt = Math.min(50, now - last);
+  const dt = settings.isOpen() ? 0 : Math.min(50, now - last);
   last = now;
   tickSounds(stepDial(dial, dt));
   if (visit && (mode === 'ground' || mode === 'leaving')) frameGround(dt);

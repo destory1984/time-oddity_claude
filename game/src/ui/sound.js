@@ -10,6 +10,7 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
   let noise = null;
   let failed = !AudioContextClass;
   let lastTick = 0;
+  let muted = false;
 
   function wake() {
     if (failed) return;
@@ -29,7 +30,7 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
 
   // Runs a sound's recipe; a fault in the audio graph must never reach the game.
   function play(recipe) {
-    if (!ac || failed) return;
+    if (!ac || failed || muted) return;
     try { recipe(ac.currentTime); } catch { /* silence is fine */ }
   }
 
@@ -65,6 +66,8 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
 
   return {
     wake,
+    muted: () => muted,
+    setMuted(on) { muted = Boolean(on); },
     // One tick of the dial. big: every tenth year, lower and louder. dense: many ticks
     // are passing at once (a timed roll), so they are run together, low and soft.
     tick(big, dense) {

@@ -31,7 +31,7 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #date b{display:block;font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
 #date span{display:block}
 #subText{color:var(--gold);min-height:1.4em}
-#todayBtn{right:16px;top:60px;padding:9px 15px;border-color:var(--gold);color:var(--gold)}
+#todayBtn{right:12px;top:62px;padding:9px 15px;border-color:var(--gold);color:var(--gold)}
 #leaveBtn{right:16px;bottom:156px;padding:8px 14px}
 #todayBtn.glow,#glowSky.glow{animation:glow 1.2s ease-in-out}
 @keyframes glow{50%{box-shadow:0 0 22px 6px rgba(246,185,81,.75)}}
@@ -39,15 +39,15 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #glowSky.glow{animation:glowTop 1.2s ease-in-out}
 @keyframes glowTop{50%{box-shadow:0 0 60px 34px rgba(251,248,249,.5)}}
 #sora{left:35%;top:27%;width:96px;image-rendering:pixelated;pointer-events:none;transition:opacity .4s}
-#bubble{left:54%;top:26%;max-width:42%;background:var(--white);color:#1b1730;padding:6px 12px;border-radius:14px 14px 14px 2px;font-family:var(--seora);font-size:18px;line-height:1.25;
+#bubble{left:54%;top:26%;max-width:42%;background:var(--white);color:#1b1730;padding:6px 12px;border-radius:14px 14px 14px 2px;font-family:var(--seora);font-size:calc(18px * var(--text,1));line-height:1.25;
   opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s}
 #bubble.on{opacity:1;transform:none}
-#memo{left:16px;top:64%;max-width:78%;visibility:hidden;background:var(--paper);color:var(--ink);padding:5px 12px;font-family:var(--hand);font-size:22px;line-height:1.15;
+#memo{left:16px;top:64%;max-width:78%;visibility:hidden;background:var(--paper);color:var(--ink);padding:5px 12px;font-family:var(--hand);font-size:calc(22px * var(--text,1));line-height:1.15;
   box-shadow:1px 2px 0 rgba(59,42,26,.45);transform:translateX(-120%) rotate(-1.5deg);transition:transform .3s ease-out}
 #memo.on{transform:rotate(-1.5deg);visibility:visible}
 /* Handwriting is for what grandmother and Sora write and say. A plain note on the slip,
    such as what remains today, is set in the screen's type so that it reads easily. */
-#memo.plain{font-family:var(--ui);font-size:14px;font-weight:500;line-height:1.35;padding:7px 12px}
+#memo.plain{font-family:var(--ui);font-size:calc(14px * var(--text,1));font-weight:500;line-height:1.35;padding:7px 12px}
 #memo.flip{animation:flip .4s}
 @keyframes flip{50%{transform:rotate(-1.5deg) scaleY(0)}}
 #hint{left:0;right:0;top:18%;text-align:center;font-size:14px;opacity:.85;text-shadow:0 1px 6px #050330}
@@ -59,3 +59,40 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #fade{background:var(--night);opacity:0;pointer-events:none;transition:opacity .2s}
 #fade.on{opacity:1}
 #dial{pointer-events:none}
+
+/* The top buttons, at the right end: sound and settings, as in volume 1. */
+#topButtons{top:10px;right:12px;display:flex;gap:8px}
+#topButtons button{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;padding:0;font-size:0;border-radius:14px}
+#topButtons button::before{content:"";flex:none;width:24px;height:24px;background:center / contain no-repeat}
+#topButtons #settingsButton::before{background-image:url("/ui/icon-settings.svg")}
+#topButtons #soundButton::before{background-image:url("/ui/icon-sound-on.svg")}
+#topButtons #soundButton.off::before{background-image:url("/ui/icon-sound-off.svg")}
+
+/* The settings sheet: one size whichever page is open, the closing button at its foot. */
+dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.55}
+#settings{width:min(560px,calc(100vw - 24px));max-height:90dvh;padding:22px;border:1px solid rgba(226,218,246,.45);border-radius:18px;background:#0d1a3af2;color:#eef3ff;box-shadow:0 30px 100px #000a}
+#settings[open]{display:flex;flex-direction:column;height:min(640px,90dvh)}
+#settings::backdrop{background:rgba(5,3,48,.55)}
+#settings>*{flex:none}
+.sheetHead{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+.sheetHead h1{margin:0;font-size:22px;font-weight:600}
+.sheetHead small{color:#9fb0dc;font-size:12px}
+.textSize{margin-left:auto;display:flex;gap:6px}
+#settings button{border:1px solid rgba(226,218,246,.45);border-radius:12px;background:#182a5c99;color:#eef3ff;font:inherit;min-height:36px;padding:6px 14px}
+#settings button:disabled{opacity:.35}
+.textSize button{min-width:44px;padding:4px 8px}
+#settingsTabs{display:flex;gap:8px;margin:0 0 12px}
+#settingsTabs button{flex:1;padding:6px 4px;font-size:13px}
+#settingsTabs button[aria-selected="true"]{border-color:var(--gold);color:var(--gold)}
+#settingsBody{flex:1 1 auto;min-height:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#9fb4ff66 #0000;padding-right:4px}
+#settings :where(p,dd){color:#c3cdea;margin:0 0 10px}
+#settings dl{margin:0}
+#settings dt{color:#eef3ff;font-weight:600;margin-top:12px}
+#settings dd{margin-left:0}
+#settings dd button{margin-top:8px;font-size:13px}
+#settings a{color:#f6b951}
+#settings .muted{white-space:pre-line;color:#9fb0dc}
+#newsList{list-style:none;margin:0;padding:0}
+#newsList li{display:grid;grid-template-columns:3.2em 1fr;gap:8px;padding:5px 0;color:#c3cdea}
+#newsList time{color:var(--gold);font-variant-numeric:tabular-nums}
+#settings #closeSettings{margin-top:14px;border-color:var(--gold);color:var(--gold);font-weight:600;min-height:44px}

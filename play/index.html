@@ -10,10 +10,10 @@
 <link rel="stylesheet" href="./fonts/pretendard/pretendardvariable-dynamic-subset.css">
 <link rel="stylesheet" href="./fonts/nanum-pen-script/400.css">
 <link rel="stylesheet" href="./fonts/gaegu/400.css">
-  <script type="module" crossorigin src="./assets/index-_kpfBrJs.js"></script>
+  <script type="module" crossorigin src="./assets/index-CAkKd7dq.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/halfFloat-CXxwV7oo.js">
   <link rel="modulepreload" crossorigin href="./assets/logger-CuBYPcDK.js">
-  <link rel="stylesheet" crossorigin href="./assets/index-CM8tagui.css">
+  <link rel="stylesheet" crossorigin href="./assets/index-CYn9lnlx.css">
 </head>
 <body>
 <div id="stage">
@@ -25,6 +25,10 @@
   <img id="sora" src="./sora.png" alt="">
   <div id="hud">
     <div id="top"><span id="dots"><i></i><i></i><i></i></span><span id="name"></span></div>
+    <nav id="topButtons">
+      <button id="soundButton" class="glass" type="button" title="소리">소리</button>
+      <button id="settingsButton" class="glass" type="button" title="설정">설정</button>
+    </nav>
     <div id="date"><b id="dateText"></b><span id="placeText"></span><span id="subText"></span></div>
     <button id="todayBtn" class="glass" type="button">오늘로</button>
     <button id="leaveBtn" class="glass" type="button">떠나기</button>
@@ -35,5 +39,52 @@
   <canvas id="dial"></canvas>
   <div id="fade"></div>
 </div>
+<dialog id="settings" aria-labelledby="settingsTitle">
+  <div class="sheetHead"><h1 id="settingsTitle">설정</h1><small id="appVersion"></small><div class="textSize" role="group" aria-label="글자 크기"><button type="button" data-way="-1" aria-label="글자 작게">가<sub>−</sub></button><button type="button" data-way="1" aria-label="글자 크게">가<sup>+</sup></button></div></div>
+  <div id="settingsTabs" role="tablist" aria-label="설정의 갈래">
+    <button type="button" role="tab" data-tab="options" aria-selected="true">Options</button>
+    <button type="button" role="tab" data-tab="help" aria-selected="false">Help</button>
+    <button type="button" role="tab" data-tab="news" aria-selected="false">Changes</button>
+    <button type="button" role="tab" data-tab="about" aria-selected="false">About</button>
+  </div>
+  <div id="settingsBody">
+    <section data-tab="options">
+      <dl>
+        <dt>글자 크기</dt><dd>위쪽의 "가−", "가+" 단추로 다섯 단계 가운데 고릅니다. 할머니의 메모, 소라의 말, 이 설정의 글자가 함께 커집니다.</dd>
+        <dt>소리</dt><dd><span id="soundNow"></span> 화면 위의 스피커 단추로도 켜고 끕니다. 다이얼의 눈금 소리와 칸이 채워지는 소리가 납니다.<br><button type="button" id="soundSwitch"></button></dd>
+        <dt>배경 음악</dt><dd>아직 없습니다.</dd>
+        <dt>언어 · Language</dt><dd>지금은 한국어만 있습니다.</dd>
+        <dt>저장</dt><dd>글자 크기와 소리를 켜고 끈 것만 이 기기에 남습니다. 칸을 채운 기록은 아직 남지 않아, 다시 열면 비어 있습니다. 서버와 계정은 없습니다.</dd>
+      </dl>
+    </section>
+    <section data-tab="help" hidden>
+      <p>할머니의 수첩에 적힌 지난 날로 가서, 그날 그 자리를 구경합니다. 쫓기지 않고, 틀려도 깎이는 것이 없습니다.</p>
+      <dl>
+        <dt>가기</dt><dd>지구를 손가락으로 돌려 금색 점을 누릅니다. 그 칸의 그날에 섭니다.</dd>
+        <dt>하늘 보기</dt><dd>화면을 위로 밉니다. 그날 그 자리의 달과 행성과 별이 보입니다. 낮에 일어난 일은 올려다보고 있으면 그날 밤 9시로 흘러갑니다. 아래로 밀면 고개를 내립니다.</dd>
+        <dt>오늘로</dt><dd>오른쪽 위의 "오늘로"를 누르면 3초에 걸쳐 같은 자리가 오늘 모습으로 바뀝니다. "그날로"를 누르면 돌아갑니다.</dd>
+        <dt>다이얼</dt><dd>맨 아래를 옆으로 굴립니다. 한 칸에 한 해입니다. 볼 것이 있는 해에는 별이 떠 있고, 화면 밖에 있으면 끝에 이름표가 뜹니다. 이름표 쪽을 톡 누르면 그 해로 굴러갑니다.</dd>
+        <dt>동그라미 셋</dt><dd>왼쪽 위의 동그라미는 날, 하늘, 남은 것입니다. 그날에 서면 첫째가, 하늘을 올려다보면 둘째가, 오늘로 돌리면 셋째가 채워집니다.</dd>
+        <dt>떠나기</dt><dd>오른쪽 아래의 "떠나기"를 누르면 지구 위로 돌아갑니다.</dd>
+        <dt>하늘은 계산한 것</dt><dd>달의 모양과 자리, 행성, 별은 그날 그 자리 그 시각의 실제 하늘입니다. 해와 달은 모양이 보이도록 실제보다 9배 크게 그렸습니다.</dd>
+      </dl>
+    </section>
+    <section data-tab="news" hidden>
+      <p id="newsStarted" class="muted"></p>
+      <ul id="newsList"></ul>
+    </section>
+    <section data-tab="about" hidden>
+      <p><strong>시간 한량 — Time Oddity</strong><br>할머니의 수첩 2권. 우주 한량(Space Oddity)의 다음 편입니다.</p>
+      <p>할머니는 평생 역사책을 읽으며 "그날 밤 하늘은 어땠을까"를 수첩에 적어 두었습니다. 가 본 데는 하나도 없습니다. 다 지난 날이니까요. 소라가 그 날들로 가서 빈칸을 채웁니다.</p>
+      <p>날짜와 자리와 하늘은 실제입니다. 지어낸 사람은 할머니뿐입니다.</p>
+      <dl>
+        <dt>지금은</dt><dd>첫 토막입니다. 칸 넷(대피라미드, 콜럼버스의 월식, 수정궁, 12초의 비행)만 있습니다.</dd>
+        <dt>빌려 쓴 것</dt><dd>하늘 계산은 Astronomy Engine(MIT). 별은 Yale Bright Star Catalogue. 지구 그림은 NASA Blue Marble. 글씨는 Pretendard, 나눔손글씨 펜, 개구(모두 SIL OFL). 땅 그림은 그림 그리는 AI에 주문해 받았습니다.</dd>
+        <dt>만든 곳</dt><dd><a href="https://github.com/destory1984/time-oddity_claude" target="_blank" rel="noopener">github.com/destory1984/time-oddity_claude</a><br>1권: <a href="https://destory1984.github.io/oddity_claude/" target="_blank" rel="noopener">우주 한량</a></dd>
+      </dl>
+    </section>
+  </div>
+  <button type="button" id="closeSettings" autofocus>여행 계속하기</button>
+</dialog>
 </body>
 </html>
