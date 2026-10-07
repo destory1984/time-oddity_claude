@@ -160,10 +160,11 @@ export const WALKS = {
   },
   // Three more in Paris's look (the user, 2026.10.8: "파리식으로 한양 포함해서 3개 더 만들어").
   // Hanyang in the autumn of 1446, when the new letters were given out. That a notice
-  // was read aloud in the market street is made up; to be checked: twenty-eight letters,
-  // "a clever man learns them before the morning is out, a dull one in ten days" (the
-  // book's afterword), the old ministers' objection, the letters drawn after the shapes
-  // of the mouth, the king's failing eyes, the bowl sundial of his reign.
+  // was read aloud in the market street is made up. Looked up on 2026.10.8 and found so:
+  // twenty-eight letters, given out in the ninth month of 1446, "a clever man learns them
+  // before the morning is out, a dull one in ten days" (the gist of the book's afterword),
+  // the ministers' one memorial against them (1444). Still from memory: the letters drawn
+  // after the shapes of the mouth, the king's failing eyes, the bowl sundial of his reign.
   hunminjeongeum: {
     dir: 'hanyang', look: 'paper', talk: 'face',
     scenes: [
