@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>시간 한량 다이얼 손맛 시험</title>
 <style>
-/* 손맛만 보려고 만든 시험판이다. 게임 코드가 아니다. 처음 보이는 "해" 탭이 지금의 안이다. */
+/* 손맛만 보려고 만든 시험판이다. 게임 코드가 아니다. 처음 보이는 "해" 탭이 지금의 안이다. 소리가 난다. */
 :root{--night:#050330;--navy:#1a2894;--gold:#f6b951;--white:#fbf8f9;--lav:#e2daf6;--paper:#f2e6c8;--ink:#3b2a1a}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:#15122b;overflow:hidden;overscroll-behavior:none}
@@ -142,7 +142,9 @@ let which = hit, y0 = 0, acc = 0, yv = y;   // 잡은 손잡이, 잡은 때의 �
 for (const el of [hit, hit2]) {
   el.addEventListener('pointerdown', e => {
     el.setPointerCapture(e.pointerId);
-    which = el; dragging = true; target = null; vp = 0; y0 = y; acc = 0;
+    which = el; dragging = true; target = null; vp = 0; y0 = y;
+    // 굴러가던 호를 잡으면 눈금 사이에 있던 그 자리에서 이어 끈다.
+    acc = mode === 2 ? clamp((y - yv) / (fine ? DAY : 1), -0.5, 0.5) * PX : 0;
     lastX = e.clientX; lastY = e.clientY; lastT = performance.now();
   });
   el.addEventListener('pointermove', e => {
@@ -153,7 +155,7 @@ for (const el of [hit, hit2]) {
     step(d); moved = true;
     lastX = e.clientX; lastY = e.clientY; lastT = now;
   });
-  const up = () => { dragging = false; if (mode === 2) vp = 0; };
+  const up = () => { dragging = false; vp = clamp(vp, -2.5, 2.5); };
   el.addEventListener('pointerup', up);
   el.addEventListener('pointercancel', up);
 }
@@ -180,7 +182,9 @@ function tick(dt) {
     return;
   }
   // 손을 뗀 뒤에는 조금만 더 미끄러진다.
-  if (Math.abs(vp) > 0.03) { step(vp * dt * 0.5); vp *= Math.exp(-dt / 110); moved = true; return; }
+  // 해 다이얼은 놓으면 스르륵 굴러가다 0.5초쯤에 걸쳐 느려지고, 가장 가까운 눈금에 선다.
+  if (mode === 2 && Math.abs(vp) > 0.015) { step(vp * dt); vp *= Math.exp(-dt / 500); moved = true; return; }
+  if (mode !== 2 && Math.abs(vp) > 0.03) { step(vp * dt * 0.5); vp *= Math.exp(-dt / 110); moved = true; return; }
   vp = 0;
   if (mode === 9) {
     const q = Math.round(p);
@@ -324,10 +328,38 @@ $('jump').onclick = () => { vp = 0; target = Math.abs(y - TODAY) < 1 ? EV : TODA
 document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => { mode = +b.dataset.m; vp = 0; gear = 0; g = DAY / PX; fine = false; yv = y; p = filmPos(y); layout(); });
 addEventListener('resize', layout);
 
+// 소리: 눈금 하나를 넘을 때마다 톱니가 걸리는 짧은 소리를 낸다. 10칸째는 조금 낮고 크다.
+let ac = null, noise = null, lastClick = 0, lastIdx = null;
+function wake() {
+  if (!ac) {
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    ac = new AC();
+    noise = ac.createBuffer(1, ac.sampleRate * 0.03, ac.sampleRate);
+    const d = noise.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (d.length * 0.18));
+  }
+  if (ac.state === 'suspended') ac.resume();
+}
+addEventListener('pointerdown', wake);
+function click(big) {
+  const now = performance.now();
+  if (!ac || now - lastClick < 16) return;
+  lastClick = now;
+  const s = ac.createBufferSource(), f = ac.createBiquadFilter(), v = ac.createGain();
+  s.buffer = noise; f.type = 'bandpass'; f.frequency.value = big ? 1300 : 2600; f.Q.value = 1.4; v.gain.value = big ? 0.5 : 0.28;
+  s.connect(f); f.connect(v); v.connect(ac.destination); s.start();
+  if (big && navigator.vibrate) navigator.vibrate(4);
+}
+function sound() {
+  const idx = mode === 9 ? Math.round(p) : Math.round(y / (mode === 2 ? (fine ? DAY : 1) : GEARS[gear]));
+  if (lastIdx !== null && idx !== lastIdx && target === null) click(idx % 10 === 0);
+  lastIdx = idx;
+}
+
 let prev = performance.now();
 function frame(now) {
   const dt = Math.min(50, now - prev); prev = now;
-  tick(dt); shift(dt); window.yNow = y; if (!(dragging && mode === 2 && which === hit)) yv += (y - yv) * Math.min(1, dt * 0.02); drawSky(); drawDial(); drawText();
+  tick(dt); sound(); shift(dt); window.yNow = y; if (!(mode === 2 && (dragging || Math.abs(vp) > 0.015))) yv += (y - yv) * Math.min(1, dt * 0.01); drawSky(); drawDial(); drawText();
   requestAnimationFrame(frame);
 }
 layout(); requestAnimationFrame(frame);
