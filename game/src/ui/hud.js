@@ -13,7 +13,7 @@ export function createHud(el) {
   const shown = {};
 
   // Her eight frames are fetched at the start so that none flickers in late.
-  for (const sheet of ['idle', 'see-hush']) for (let i = 1; i <= 4; i += 1) { const img = new Image(); img.src = `./sora/${sheet}-${i}.png`; }
+  for (const sheet of ['idle', 'see-hush', 'left', 'right', 'up', 'down', 'land-descend']) for (let i = 1; i <= 4; i += 1) { const img = new Image(); img.src = `./sora/${sheet}-${i}.png`; }
 
   const changed = (key, value) => { if (shown[key] === value) return false; shown[key] = value; return true; };
   const text = (key, value) => { if (changed(key, value)) parts[key].textContent = value; };

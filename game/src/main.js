@@ -21,6 +21,7 @@ import { createDialView } from './ui/dialView.js';
 import { createHud } from './ui/hud.js';
 import { createTouch } from './ui/touch.js';
 import { ZOOM_MAX, ZOOM_MIN, ZOOM_STEP } from './core/zoom.js';
+import { flyPose } from './core/flight.js';
 import { createSound } from './ui/sound.js';
 import { createSettings } from './ui/settings.js';
 import { createMusic } from './ui/music.js';
@@ -169,7 +170,7 @@ window.addEventListener('pointerdown', () => sound.wake(), { once: true, capture
 const journal = createJournal({
   squares: SQUARES,
   progress: () => progress,
-  onGo: (id) => travel(squareById(id)),
+  onGo: (id) => pick(squareById(id)),
   onSolve: (id) => { sound.stamp(); keep(solveQuiz(progress, id)); },
   here: () => (visit && mode === 'ground' ? square.id : null),
   notes: () => notesRead(progress).map((id) => noteById(id)).filter(Boolean),
@@ -221,7 +222,7 @@ const settings = createSettings({
   version: `v${__APP_VERSION__} · ${__APP_UPDATED__}`,
 });
 
-const globe = createGlobe($('globe'), $('pins'), { squares: SQUARES, onPick: (id) => travel(squareById(id)) });
+const globe = createGlobe($('globe'), $('pins'), { squares: SQUARES, onPick: (id) => pick(squareById(id)) });
 
 function layout() {
   skyCanvas.resize();
@@ -274,6 +275,53 @@ async function travel(sq) {
   showGround(sq);
   $('fade').classList.remove('on');
 }
+
+// Flying (core/flight.js). A square she has not been to is not gone to at a touch: it
+// shines, an arrow shows the way, and she flies there (the globe dragged under her) and
+// comes down by the button. A square she has been to is gone to straight away (settled
+// 2026.10.7: "한 번 가본 곳은 쉽게 갈 수 있게 해").
+const LAND_S = 1.2;
+let target = null;          // the square she is flying to, or null
+let landing = false;
+let flyWay = null;          // the sheet of the way she last flew
+let flyUntil = 0;           // she keeps that pose until then (ms on performance.now)
+
+function aim(sq) {
+  target = sq;
+  globe.setTarget(sq.id);
+  sound.wake();
+  if (dial.year !== sq.date.year && !dial.rolling) rollTo(dial, sq.date.year, TRAVEL_ROLL_S);
+}
+
+function pick(sq) {
+  if (mode !== 'globe' && mode !== 'ground') return;
+  if (dotsOf(progress, sq.id).day) { target = null; globe.setTarget(null); travel(sq); return; }
+  if (mode === 'ground') { if (square !== sq) leave().then(() => aim(sq)); return; }
+  if (globe.under() === sq.id) land(sq);
+  else aim(sq);
+}
+
+// Comes down onto the square under her: the Earth comes close, then the ground.
+async function land(sq) {
+  if (mode !== 'globe') return;
+  sound.wake();
+  mode = 'travel';
+  landing = true;
+  const zoomWas = globe.zoom();
+  if (dial.year !== sq.date.year) rollTo(dial, sq.date.year, TRAVEL_ROLL_S);
+  await globe.spinTo(sq.lat, sq.lon, LAND_S, ZOOM_MAX);
+  while (dial.rolling) await wait(30);
+  $('fade').classList.add('on');
+  await wait(FADE_MS);
+  target = null;
+  globe.setTarget(null);
+  landing = false;
+  showGround(sq);
+  globe.setZoom(zoomWas);
+  showZoom(zoomWas);
+  $('fade').classList.remove('on');
+}
+$('landButton').addEventListener('click', () => { const id = globe.under(); if (id) land(squareById(id)); });
 
 async function leave() {
   if (mode !== 'ground') return;
@@ -428,11 +476,25 @@ function globeCount() {
 
 function frameGlobe(dt) {
   globe.render(dt);
-  const pose = soraPose({ now: performance.now(), hushAt });
+  const now = performance.now();
+  const moved = globe.motion();
+  const way = mode === 'globe' ? flyPose(moved.dx, moved.dy) : null;
+  if (way) { flyWay = way; flyUntil = now + 240; }
+  const pose = soraPose({ now, hushAt, flying: now < flyUntil ? flyWay : null, landing });
+  const overId = mode === 'globe' ? globe.under() : null;
+  $('landButton').classList.toggle('on', Boolean(overId));
+  // The button names the square, so that it is plain where she would come down.
+  if (overId && $('landButton').dataset.id !== overId) {
+    $('landButton').dataset.id = overId;
+    $('landButton').textContent = `${squareById(overId).name}에 내려앉기`;
+  }
+  const arrow = target && mode === 'globe' ? globe.pointer() : null;
+  $('flyArrow').classList.toggle('on', Boolean(arrow) && !arrow.near);
+  if (arrow) $('flyArrow').style.setProperty('--turn', `${arrow.turn.toFixed(1)}deg`);
   hud.set({
     name: '', ...dateOnGlobe(), dots: { day: false, sky: false, remains: false },
     memo: null, memoPlain: false, chips: false, bubble: pose.saying, sora: pose, todayLabel: '오늘로', showToday: false, showLeave: false,
-    hint: mode === 'globe' && !pose.saying ? guideLine({ where: 'globe', ...globeCount() }) : null, soraFade: 0, glowSky: 0, glowToday: 0,
+    hint: mode === 'globe' && !pose.saying ? guideLine({ where: 'globe', ...globeCount(), target: Boolean(target), over: target ? overId === target.id : Boolean(overId) }) : null, soraFade: 0, glowSky: 0, glowToday: 0,
   });
 }
 

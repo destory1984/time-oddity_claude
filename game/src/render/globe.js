@@ -1,6 +1,7 @@
 // The globe: the Earth turned by a finger, with a pin on each square. Babylon.js draws
 // the sphere; the pins are HTML buttons moved to where their place is each frame.
 import { zoomBy } from '../core/zoom.js';
+import { NEAR, SLOW, pinUnder, pointerTo } from '../core/flight.js';
 import { Engine } from '@babylonjs/core/Engines/engine.js';
 import { Scene } from '@babylonjs/core/scene.js';
 import { FreeCamera } from '@babylonjs/core/Cameras/freeCamera.js';
@@ -68,6 +69,10 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
   let active = true;
   let span = 1;                          // the width the Earth is sized by, in px
   let zoom = 1;                          // how close: 1 the whole Earth (core/zoom.js)
+  let targetId = null;                   // the square she is flying to (it shines)
+  let underId = null;                    // the square under her, at the middle
+  let views = [];                        // every pin as seen now: { id, x, y, z } (core/flight.js)
+  let moved = { dx: 0, dy: 0 };          // how far the ground has moved on screen since last asked, px
   let spin = { yaw: 0, tilt: 0 };       // finger speed, rad per ms
   let held = false;
   let glide = null;                      // a timed turn to a place
@@ -75,8 +80,13 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
   function resize() {
     const box = canvas.getBoundingClientRect();
     w = box.width; h = box.height;
-    span = Math.min(w, h * TALL) * zoom;
     engine.resize();
+    frameCamera();
+  }
+
+  // Sizes the Earth for the zoom it stands at (without measuring the canvas again).
+  function frameCamera() {
+    span = Math.min(w, h * TALL) * zoom;
     const half = w / span / GLOBE_WIDTH; // half the screen's width, in Earth radii
     camera.orthoLeft = -half; camera.orthoRight = half;
     camera.orthoTop = (half * h) / w; camera.orthoBottom = (-half * h) / w;
@@ -130,13 +140,20 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     // A timed turn to a square is not interrupted: whoever asked for it is waiting on it.
     if (glide) return;
     held = true;
+    const { yaw, tilt } = turnBy(dx, dy);
+    spin = { yaw: yaw / 16, tilt: tilt / 16 };
+  }
+
+  // Moves the ground by (dx, dy) pixels on the screen (y down); returns the turn made.
+  function turnBy(dx, dy) {
     const perPx = 1 / (GLOBE_WIDTH * span * 0.5);   // radians of turn per pixel at the middle
     const yaw = dx * perPx * yawSign;
     const tilt = dy * perPx * -tiltSign;         // screen y runs down
     earth.rotation.y += yaw;
     tilter.rotation.x += tilt;
     clampTilt();
-    spin = { yaw: yaw / 16, tilt: tilt / 16 };
+    moved.dx += dx; moved.dy += dy;
+    return { yaw, tilt };
   }
 
   function release() { held = false; }
@@ -144,9 +161,10 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
   // Comes closer or steps back by a factor; returns the zoom it ends at.
   function zoomByFactor(factor) {
     const next = zoomBy(zoom, factor);
-    if (next !== zoom) { zoom = next; resize(); }
+    if (next !== zoom) { zoom = next; frameCamera(); }
     return zoom;
   }
+  function setZoom(next) { zoom = zoomBy(1, next); frameCamera(); }
 
   // A spare point of the Earth to aim at any latitude and longitude.
   const aim = new TransformNode('aim', scene);
@@ -156,12 +174,14 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     return anglesFacing(aim);
   }
 
-  function spinTo(lat, lon, seconds) {
+  // toZoom: when given, the Earth also comes that close on the way (coming down onto a square).
+  function spinTo(lat, lon, seconds, toZoom = undefined) {
     const to = anglesFacingPlace(lat, lon);
     return new Promise((resolve) => {
       glide = {
         fromYaw: earth.rotation.y, byYaw: wrapPi(to.yaw - earth.rotation.y),
         fromTilt: tilter.rotation.x, byTilt: Math.max(-MAX_TILT, Math.min(MAX_TILT, to.tilt)) - tilter.rotation.x,
+        fromZoom: zoom, byZoom: (toZoom ?? zoom) - zoom,
         elapsed: 0, total: seconds * 1000, resolve,
       };
       spin = { yaw: 0, tilt: 0 };
@@ -182,23 +202,46 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
       const t = smooth(Math.min(1, glide.elapsed / glide.total));
       earth.rotation.y = glide.fromYaw + glide.byYaw * t;
       tilter.rotation.x = glide.fromTilt + glide.byTilt * t;
+      if (glide.byZoom !== 0) { zoom = glide.fromZoom + glide.byZoom * t; frameCamera(); }
       if (glide.elapsed >= glide.total) { const done = glide.resolve; glide = null; done(); }
     } else if (!held && (Math.abs(spin.yaw) > 1e-6 || Math.abs(spin.tilt) > 1e-6)) {
       earth.rotation.y += spin.yaw * dtMs;
       tilter.rotation.x += spin.tilt * dtMs;
       clampTilt();
+      {
+        const perPx = 1 / (GLOBE_WIDTH * span * 0.5);
+        moved.dx += (spin.yaw * dtMs * yawSign) / perPx; moved.dy += (spin.tilt * dtMs * -tiltSign) / perPx;
+      }
       const keep = Math.exp(-dtMs / COAST_MS);
       spin = { yaw: spin.yaw * keep, tilt: spin.tilt * keep };
     }
-    scene.render();
     const pxPerUnit = (GLOBE_WIDTH * span) / 2;
+    // Left alone near a square, the ground eases under her until the square is at the
+    // middle: she slows by herself and may come down (core/flight.js).
+    if (!held && !glide && Math.abs(spin.yaw) < 2e-5 && Math.abs(spin.tilt) < 2e-5) {
+      let near = null;
+      for (const v of views) {
+        const d = Math.hypot(v.x, v.y);
+        // The square she is flying to draws her from farther out than the others do.
+        if (v.z >= 0 || d > (v.id === targetId ? SLOW : SLOW * 0.6) || d < NEAR * 0.1) continue;
+        if (v.id === targetId) { near = v; break; }
+        if (!near || d < Math.hypot(near.x, near.y)) near = v;
+      }
+      if (near) {
+        const k = 1 - Math.exp(-dtMs / 260);
+        turnBy(-near.x * pxPerUnit * k, near.y * pxPerUnit * k);
+      }
+    }
+    scene.render();
     // Names are laid out so that none lies on another: to the right of its pin if there
     // is room, else to the left, else a line or two lower or higher. Widths are judged from the letters.
     const taken = [];
     const hits = (box) => taken.some((t) => box.left < t.right && box.right > t.left && box.top < t.bottom && box.bottom > t.top);
     const shown = [];
+    views = [];
     for (const pin of pins) {
       const at = worldOf(pin.node);
+      views.push({ id: pin.square.id, x: at.x, y: at.y, z: at.z });
       const front = at.z < -0.12;
       pin.button.style.display = front ? '' : 'none';
       if (!front) continue;
@@ -224,7 +267,21 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
       pin.button.style.setProperty('--drop', `${drop}px`);
       taken.push(boxAt(side, drop));
     }
+    underId = pinUnder(views);
+    for (const pin of pins) {
+      pin.button.classList.toggle('target', pin.square.id === targetId);
+      pin.button.classList.toggle('under', pin.square.id === underId);
+    }
   }
 
-  return { resize, setActive, drag, release, zoomBy: zoomByFactor, zoom: () => zoom, spinTo, faceNow, render };
+  // The ground's motion on the screen since this was last asked, for her flying pose.
+  function motion() { const m = moved; moved = { dx: 0, dy: 0 }; return m; }
+
+  return {
+    resize, setActive, drag, release, zoomBy: zoomByFactor, zoom: () => zoom, setZoom, spinTo, faceNow, render, motion,
+    // The square she is flying to (null for none), the one under her, and the arrow to the first.
+    setTarget(id) { targetId = id; },
+    under: () => underId,
+    pointer: () => pointerTo(views.find((v) => v.id === targetId) ?? null),
+  };
 }
