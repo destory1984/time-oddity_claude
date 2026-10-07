@@ -1,3 +1,28 @@
+Time Oddity — 할머니의 수첩 2권
+Copyright (c) 2026 destory1984
+
+This repository is licensed in two parts.
+
+1. Source code and documents
+   Everything in this repository is licensed under the MIT License below,
+   except the material listed in part 2.
+
+2. Reserved: all rights reserved, NOT licensed under the MIT License
+   - The pixel-art character "Sora" (소라): its design and every drawing of
+     it in this repository, including docs/mock/sora.png and any sprite of
+     the character added later.
+   - Pictures that show the character, such as the mock screens in
+     docs/mock/screen-*.png, are reserved as far as they show it.
+   The character comes from "Space Oddity — 할머니의 수첩"
+   (https://github.com/destory1984/oddity_claude), where it is reserved under
+   the same terms.
+
+Material from third parties keeps its own terms. docs/mock/earth.jpg is NASA
+Visible Earth, Blue Marble (July 2004), a work of the United States
+government with no copyright.
+
+--------------------------------------------------------------------------------
+
 MIT License
 
 Copyright (c) 2026 destory1984
