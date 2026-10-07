@@ -232,13 +232,7 @@ const settings = createSettings({
   sound: soundSwitch,
   music: musicSwitch,
   onReplay: () => opening.open(),
-  // Emptied while standing on a square: that visit starts afresh too, or its dots would
-  // be written straight back into the empty notebook.
-  onReset: () => {
-    keep(emptyProgress());
-    keepCards({});
-    if (visit) { visit = createVisit(square); remainsAtMs = null; bubble = null; }
-  },
+  onReset: () => startOver(),
   version: `v${__APP_VERSION__} · ${__APP_UPDATED__}`,
 });
 
@@ -545,17 +539,27 @@ function frame(now) {
   requestAnimationFrame(frame);
 }
 
+// Everything from the beginning: the notebook and the postcards are emptied and the game
+// opens again as on a first visit, loading screen and opening pages and all (the user,
+// 2026.10.8: "초기화 버튼을 누르면, 인트로부터 시작하자. 그래야 게임이 매끄럽게 이어지는지를 볼 수
+// 있어"). An address that leads straight to a square (#go=…) would skip the opening, so
+// that part of the address is dropped, here and on the page around the phone frame.
+function startOver() {
+  saveProgress(emptyProgress());
+  saveCards({});
+  forgetOpened();
+  for (const page of [window, window.top]) {
+    try { page.history.replaceState(null, '', page.location.pathname + page.location.search); } catch { /* another site's page */ }
+  }
+  location.reload();
+}
+
 // The test buttons, as in volume 1 (the user, 2026.10.7: "우주 한량처럼, 화면 위에 저 버튼
 // 만들어줘. 이건 테스트 버전에서만 보이는거"). Only the maker sees them: on the dev server,
 // not on the public site or in the store app. The settings (sound, music, text size,
 // screen shape) stay as they are.
 $('testBar').hidden = !isLocalHost(location.hostname);
-$('testReset').addEventListener('click', () => {
-  saveProgress(emptyProgress());
-  saveCards({});
-  forgetOpened();
-  location.reload();
-});
+$('testReset').addEventListener('click', () => startOver());
 // And its opposite, for testing what comes after: every square done, every note read.
 $('testAll').addEventListener('click', () => {
   keepProgressAside();
