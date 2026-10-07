@@ -22,7 +22,7 @@ export function createDialView(canvas) {
   // A pill at the dial's edge that points to a marked year off the screen. Tapping that
   // side of the dial rolls there (see main.js).
   function chip(text, side) {
-    c.font = 'bold 12px "Malgun Gothic", system-ui, sans-serif';
+    c.font = 'bold 12px "Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif';
     const wide = c.measureText(text).width + 20;
     const x = side < 0 ? 8 : w - 8 - wide;
     const y = h - 96;
@@ -43,7 +43,7 @@ export function createDialView(canvas) {
     c.beginPath(); c.arc(cx, cy, radius, 0, Math.PI * 2); c.fill();
     c.strokeStyle = '#f6b951'; c.lineWidth = 2; c.stroke();
 
-    c.font = '11px "Malgun Gothic", system-ui, sans-serif';
+    c.font = '11px "Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif';
     c.textAlign = 'center'; c.textBaseline = 'middle';
     c.fillStyle = 'rgba(251,248,249,.9)';
     const reach = Math.ceil((radius * 0.7) / PX_PER_YEAR);
@@ -77,7 +77,7 @@ export function createDialView(canvas) {
       c.fillStyle = GOLD;
       c.fillRect(-1.5, -radius + 2, 3, 22);
       c.beginPath(); c.arc(0, -radius - 8, 5, 0, Math.PI * 2); c.fill();
-      c.font = 'bold 12px "Malgun Gothic", system-ui, sans-serif';
+      c.font = 'bold 12px "Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif';
       c.textAlign = 'center'; c.textBaseline = 'middle';
       c.fillText(mark.label, 0, -radius - 24);
       c.restore();

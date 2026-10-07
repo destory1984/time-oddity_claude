@@ -40,7 +40,7 @@ export function createSkyCanvas(canvas) {
     if (alpha <= 0) return;
     c.globalAlpha = alpha * 0.85;
     c.fillStyle = '#fbf8f9';
-    c.font = '11px "Malgun Gothic", system-ui, sans-serif';
+    c.font = '11px "Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif';
     c.textBaseline = 'middle';
     c.fillText(text, x + 12, y - 12);
     c.globalAlpha = 1;
