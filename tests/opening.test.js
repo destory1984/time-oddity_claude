@@ -27,7 +27,7 @@ describe('the first leaf', () => {
     expect(SQUARES[0].id).toBe('yard1969');
     expect(SQUARES[0].no).toBe(0);
     expect(squareTitle(SQUARES[0])).toBe('첫 장 이웃집 마당');
-    expect(squareTitle(SQUARES[1])).toBe('1 대피라미드');
+    expect(squareTitle(SQUARES[1])).toBe('대피라미드');
   });
   it('has a line for Sora when she looks up at the moon', () => {
     expect(SQUARES[0].soraSky).toBe('저 달에 지금 사람이 있는 거야?');

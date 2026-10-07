@@ -260,5 +260,7 @@ export const SQUARES = [
 
 export const squareById = (id) => SQUARES.find((s) => s.id === id);
 
-// How a square is named on screen: its number and name; the first leaf has no number.
-export const squareTitle = (square) => (square.no === 0 ? `첫 장 ${square.name}` : `${square.no} ${square.name}`);
+// How a square is named on screen: its name alone. Its number (its place among the
+// notebook's 120) only keeps the order; shown, it read as a riddle (the user asked what it
+// meant, 2026.10.7). The first leaf says that it is the first leaf.
+export const squareTitle = (square) => (square.no === 0 ? `첫 장 ${square.name}` : square.name);
