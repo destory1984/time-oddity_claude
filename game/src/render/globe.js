@@ -57,7 +57,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     button.innerHTML = `<span>${square.no} ${square.name}</span>`;
     button.addEventListener('click', () => onPick(square.id));
     pinsEl.append(button);
-    return { square, node, button };
+    return { square, node, button, label: `${square.no} ${square.name}` };
   });
 
   let w = 1;
@@ -179,21 +179,33 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     }
     scene.render();
     const pxPerUnit = (GLOBE_WIDTH * w) / 2;
-    const placed = [];
-    for (const { node, button } of pins) {
-      const at = worldOf(node);
+    // Names are laid out so that none lies on another: to the right of its pin if there
+    // is room, else to the left, else a line lower. Widths are judged from the letters.
+    const taken = [];
+    const hits = (box) => taken.some((t) => box.left < t.right && box.right > t.left && box.top < t.bottom && box.bottom > t.top);
+    const shown = [];
+    for (const pin of pins) {
+      const at = worldOf(pin.node);
       const front = at.z < -0.12;
-      button.style.display = front ? '' : 'none';
+      pin.button.style.display = front ? '' : 'none';
       if (!front) continue;
       const x = w / 2 + at.x * pxPerUnit;
       const y = h / 2 - at.y * pxPerUnit;
-      button.style.left = `${x.toFixed(1)}px`;
-      button.style.top = `${y.toFixed(1)}px`;
-      // Two places close together (London and Paris): the second name goes to the left of
-      // its pin so that the two do not lie on top of each other.
-      const crowded = placed.some((p) => Math.abs(p.y - y) < 18 && x - p.x > -30 && x - p.x < 110);
-      button.classList.toggle('left', crowded);
-      placed.push({ x, y });
+      pin.button.style.left = `${x.toFixed(1)}px`;
+      pin.button.style.top = `${y.toFixed(1)}px`;
+      shown.push({ pin, x, y });
+      taken.push({ left: x - 9, right: x + 9, top: y - 9, bottom: y + 9 });
+    }
+    for (const { pin, x, y } of shown) {
+      const wide = pin.label.length * 11.5 + 6;
+      const boxAt = (side, drop) => (side > 0
+        ? { left: x + 12, right: x + 12 + wide, top: y - 8 + drop, bottom: y + 8 + drop }
+        : { left: x - 12 - wide, right: x - 12, top: y - 8 + drop, bottom: y + 8 + drop });
+      const tries = [[1, 0], [-1, 0], [1, 17], [-1, 17], [1, -17], [-1, -17]];
+      const [side, drop] = tries.find(([sd, dp]) => !hits(boxAt(sd, dp))) ?? tries[0];
+      pin.button.classList.toggle('left', side < 0);
+      pin.button.style.setProperty('--drop', `${drop}px`);
+      taken.push(boxAt(side, drop));
     }
   }
 
