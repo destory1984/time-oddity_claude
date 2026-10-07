@@ -19,13 +19,23 @@ export function createHud(el) {
   const text = (key, value) => { if (changed(key, value)) parts[key].textContent = value; };
   const glow = (node) => { node.classList.remove('glow'); node.getBoundingClientRect(); node.classList.add('glow'); };
 
+  // The date, with its "AD" or "BC" in letters half the size of the number.
+  function dateWithEra(node, value) {
+    const era = /^(AD|BC) (.*)$/.exec(value);
+    node.textContent = era ? era[2] : value;
+    if (!era) return;
+    const small = document.createElement('small');
+    small.textContent = era[1];
+    node.prepend(small);
+  }
+
   // state: { name, dateText, placeText, subText, dots: { day, sky, remains }, memo (text
   // or null), memoPlain (true when the slip carries a plain note, not grandmother's words), chips
   // (the story card and question buttons are up), bubble (text or null), todayLabel, showToday, showLeave, hint, soraFade, sora ({ sheet, frame }: which of her pictures is up),
   // glowSky (a count: glows once each time it goes up), glowToday (likewise) }
   function set(state) {
     text('name', state.name);
-    text('dateText', state.dateText);
+    if (changed('dateText', state.dateText)) dateWithEra(parts.dateText, state.dateText);
     text('placeText', state.placeText);
     text('subText', state.subText);
     // The guidance fades in and out; while it is up, a new line simply takes the old one's place.

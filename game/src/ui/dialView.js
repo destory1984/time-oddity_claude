@@ -279,7 +279,17 @@ export function createDialView(canvas) {
       if (long === 18) {
         const p = at(i, 11 + 18 + 13);
         c.globalAlpha = 1;
-        c.fillText(formatYear(year), p.x, p.y);
+        // "AD" / "BC" in smaller letters, then the number, the pair centred on the tick.
+        const [era, number] = formatYear(year).split(' ');
+        c.font = `600 8px ${UI}`;
+        const eraWide = c.measureText(era).width + 2;
+        c.font = `600 12px ${UI}`;
+        const left = p.x - (eraWide + c.measureText(number).width) / 2;
+        c.textAlign = 'left';
+        c.fillText(number, left + eraWide, p.y);
+        c.font = `600 8px ${UI}`;
+        c.fillText(era, left, p.y + 1);
+        c.font = `600 12px ${UI}`; c.textAlign = 'center';
       }
     }
     c.globalAlpha = 1;
