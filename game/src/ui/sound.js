@@ -8,6 +8,14 @@
 // The dial's tick at half the loudness it was settled at: the user, 2026.10.7, "다이얼 돌아가는
 // 소리는 절반으로 줄여줘".
 const TICK = 0.5;
+// Sounds start this long after they are asked for. Started at the very moment, the first
+// few milliseconds are already past and the soft attack is cut off: a click.
+const AHEAD_S = 0.012;
+// A hiss far too soft to hear, played without end. An output that has had nothing but
+// silence for a while goes to sleep (sound cards and wireless earphones do), and the
+// first half second after it wakes comes out broken: the user, 2026.10.7, "한참 가만히 있다가
+// 다이얼을 돌릴 때 처음 0.5초의 소리가 오류 같다".
+const AWAKE_GAIN = 0.0004;
 
 export function createSound(AudioContextClass = globalThis.AudioContext ?? globalThis.webkitAudioContext) {
   let ac = null;
@@ -24,6 +32,12 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
         noise = ac.createBuffer(1, Math.round(ac.sampleRate * 0.3), ac.sampleRate);
         const data = noise.getChannelData(0);
         for (let i = 0; i < data.length; i += 1) data[i] = Math.random() * 2 - 1;
+        const awake = ac.createBufferSource();
+        const hush = ac.createGain();
+        awake.buffer = noise; awake.loop = true;
+        hush.gain.value = AWAKE_GAIN;
+        awake.connect(hush); hush.connect(ac.destination);
+        awake.start();
       }
       if (ac.state === 'suspended') ac.resume()?.catch?.(() => {});
     } catch {
@@ -35,7 +49,10 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
   // Runs a sound's recipe; a fault in the audio graph must never reach the game.
   function play(recipe) {
     if (!ac || failed || muted) return;
-    try { recipe(ac.currentTime); } catch { /* silence is fine */ }
+    // A context that is not running keeps its clock still: sounds asked of it pile up on
+    // one moment and all go off together when it starts. They are dropped instead.
+    if (ac.state !== 'running') { wake(); return; }
+    try { recipe(ac.currentTime + AHEAD_S); } catch { /* silence is fine */ }
   }
 
   // A burst of filtered noise that fades over `seconds`.

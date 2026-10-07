@@ -17,7 +17,7 @@ import { squareTitle } from '../core/squares.js';
 const RAD = Math.PI / 180;
 const GLOBE_WIDTH = 0.8;      // the Earth's diameter as a share of the screen's width (of `span` on a wide window)
 const TALL = 0.6;             // a window wider than this share of its height counts as this wide
-const MAX_TILT = 70 * RAD;
+const MAX_TILT = 89 * RAD;   // far enough to bring the South Pole under her (a square stands there)
 const COAST_MS = 160;         // after a drag the spin falls by 1/e in this long
 
 // Where a latitude and longitude lie on Babylon's sphere, whose texture runs from

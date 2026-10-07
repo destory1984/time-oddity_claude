@@ -5,6 +5,7 @@
 const WIDE = 900;             // the picture kept, in px: 900 x 600
 const TALL = 600;
 const MARGIN = 14;            // the frame's distance from the sides of the screen, in px
+const BAR = 110;              // room under the frame for the hint and the two buttons, in px
 
 const $ = (id) => document.getElementById(id);
 
@@ -13,6 +14,7 @@ const $ = (id) => document.getElementById(id);
 // picture taken, as a JPEG data URL. onMode(on): photo mode was entered or left.
 export function createPhoto({ stage, skyCanvas, paintGround, onShot, onMode }) {
   const frame = $('photoFrame');
+  const bar = $('photoBar');
   let on = false;
   let centre = 0.5;           // the frame's middle, as a share of the stage's height
 
@@ -20,7 +22,9 @@ export function createPhoto({ stage, skyCanvas, paintGround, onShot, onMode }) {
     const w = stage.clientWidth - MARGIN * 2;
     const h = (w * TALL) / WIDE;
     const least = h / 2 + 96;                         // clear of the buttons at the top
-    const most = stage.clientHeight - h / 2 - 150;    // clear of the dial
+    // Clear of the dial, with the buttons between: they stand under the frame, never on
+    // the picture (the user, 2026.10.7, of the button lying on it: "저 버튼은 왜 저기에").
+    const most = Math.max(least, stage.clientHeight - h / 2 - 150 - BAR);
     const y = Math.max(least, Math.min(most, centre * stage.clientHeight)) - h / 2;
     return { x: MARGIN, y, w, h };
   }
@@ -29,6 +33,7 @@ export function createPhoto({ stage, skyCanvas, paintGround, onShot, onMode }) {
     const { x, y, w, h } = box();
     frame.style.left = `${x}px`; frame.style.top = `${y}px`;
     frame.style.width = `${w}px`; frame.style.height = `${h}px`;
+    bar.style.top = `${y + h + 10}px`;
   }
 
   function enter() {

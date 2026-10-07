@@ -139,3 +139,33 @@ describe('leadDays', () => {
     expect(leadDays(squareById('khufu'), 0)).toBe(0);
   });
 });
+
+describe('the ten squares of the fourth batch', () => {
+  it('hides all of the sun over Principe at the moment of the square, 44 degrees up', () => {
+    const { sun, planets } = sky('eddington', { year: 1919 });
+    expect(sun.cover).toBe(1);
+    expect(sun.alt).toBeCloseTo(44.5, 0);
+    expect(sun.az).toBeCloseTo(299, 0);
+    const mars = planets.find((p) => p.id === 'mars');
+    expect(Math.abs(mars.az - sun.az)).toBeLessThan(5);
+  });
+  it('keeps the sun up at the South Pole, going round at one height', () => {
+    const pole = squareById('amundsen');
+    const afternoon = sky('amundsen', { year: 1911 });
+    const sixHoursOn = skyAt(momentJd(pole, { year: 1911 }, today) + 0.25, pole);
+    expect(afternoon.sun.alt).toBeCloseTo(23.2, 0);
+    expect(sixHoursOn.sun.alt).toBeCloseTo(23.2, 0);
+    expect(Math.abs(afternoon.sun.az - sixHoursOn.sun.az)).toBeCloseTo(90, 0);
+  });
+  it('has a moon past half and growing over Constantinople that night', () => {
+    const { moon } = sky('hagiaSophia', { year: 537, night: 1 });
+    expect(moon.lit).toBeCloseTo(0.77, 1);
+    expect(moon.waxing).toBe(true);
+    expect(moon.alt).toBeGreaterThan(60);
+  });
+  it('has a moon just past full on the day the Golden Gate Bridge opened', () => {
+    const { moon } = sky('goldenGate', { year: 1937 });
+    expect(moon.lit).toBeGreaterThan(0.9);
+    expect(moon.waxing).toBe(false);
+  });
+});

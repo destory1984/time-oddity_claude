@@ -36,4 +36,20 @@ export const SCENES = {
   // The solar eclipse (2026.10.7). The middle is kept low and empty: the sky is the picture.
   // Centred a little right, so that both bands of soldiers stand clear of Sora.
   thales: scene('thales', 0.626, '#827940', 0.625, '#807b3c', { centre: 0.54 }),
+  // The ten of the fourth batch (2026.10.7).
+  persepolis: scene('persepolis', 0.557, '#bea068', 0.557, '#be9e65'),
+  teotihuacan: scene('teotihuacan', 0.563, '#c5a554', 0.562, '#c9a658'),
+  hagiaSophia: scene('hagiaSophia', 0.545, '#cabeaa', 0.545, '#cabfa8'),
+  borobudur: scene('borobudur', 0.587, '#1f4231', 0.587, '#1a452f'),
+  timbuktu: scene('timbuktu', 0.621, '#dfb96d', 0.621, '#e1ba6f'),
+  forbiddenCity: scene('forbiddenCity', 0.613, '#b0b4b4', 0.613, '#aeb2b1'),
+  // Mountains all round: the tool took the far ridge (0.440) for the horizon. Eye level is
+  // set lower by hand so that the ridges stand above it. The city lies right of the middle.
+  machuPicchu: scene('machuPicchu', 0.500, '#477049', 0.500, '#447746', { centre: 0.62 }),
+  // The tent is small on the wide snow: the picture is shown larger than the others.
+  amundsen: scene('amundsen', 0.615, '#fdfdfd', 0.615, '#fdfefe', { height: 1.3, centre: 0.54 }),
+  eddington: scene('eddington', 0.654, '#9d725a', 0.655, '#9f7457', { centre: 0.56 }),
+  // The city is at the right edge: more of the width is shown, centred right, so that
+  // the far tower and the city are both in view.
+  goldenGate: scene('goldenGate', 0.574, '#ad9b3a', 0.574, '#ac9b3b', { height: 0.6, centre: 0.68 }),
 };

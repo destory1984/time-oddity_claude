@@ -277,6 +277,148 @@ export const SQUARES = [
     reply: '거기는 별자리가 거꾸로란다. 올려다봤니?',
     quiz: { question: '오페라하우스의 지붕은 무엇을 닮았나?', answer: '조개껍데기', proof: '조개껍데기 같은 지붕', wrong: ['왕관', '물고기'] },
   },
+  // --- Ten more squares, also of 2026.10.7 (the user: "1번 하자. 10개 더"). Chosen so that
+  // every continent has one: the first in South America, in West Africa, in South-East
+  // Asia, in China and at the South Pole, and a second solar eclipse. Every line is a
+  // placeholder and every fact is from memory (docs/넘김.md section 4). Squares without a
+  // known day stand at noon on a day chosen for the season.
+  {
+    no: 8, id: 'persepolis', name: '페르세폴리스', dateLabel: 'BC 518년경', place: '페르세폴리스, 이란',
+    lat: 29.935, lon: 52.891,
+    date: { year: -518, month: 4, day: 1 }, calendar: 'julian', hourLocal: 12,
+    // Looking east: the terrace with the mountain behind it.
+    facingAz: 90, nightOnLook: true,
+    memo: '높은 돌단 위에 궁을 짓기 시작.', sora: '아직 짓는 중이야. 기둥이 엄청 커!',
+    memoToday: '남은 것: 기둥과 돌계단.', soraToday: '지붕이 없어. 기둥만 남았네.',
+    noteMemo: '기원전 518년경. 다리우스 왕이 돌단 위에 큰 궁을 짓기 시작했다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '기원전 518년 무렵, 페르시아의 다리우스 왕이 높은 돌단 위에 새 궁 페르세폴리스를 짓기 시작했습니다. 여러 나라의 사신이 선물을 들고 오르는 모습이 돌계단 벽에 새겨졌습니다. 기원전 330년에 알렉산드로스의 군대가 궁을 불태웠고, 지금은 돌기둥과 계단이 남아 있습니다.',
+    reply: '불에 타도 돌은 남는구나. 그 계단을 네가 올랐니.',
+    quiz: { question: '돌계단 벽에는 무엇이 새겨졌나?', answer: '선물을 든 사신들', proof: '사신이 선물을 들고', wrong: ['싸우는 병사들', '밤하늘의 별자리'] },
+  },
+  {
+    no: 18, id: 'teotihuacan', name: '태양의 피라미드', dateLabel: 'AD 200년경', place: '테오티우아칸, 멕시코',
+    lat: 19.6925, lon: -98.8438,
+    date: { year: 200, month: 5, day: 1 }, calendar: 'julian', hourLocal: 12,
+    // The pyramid's stair faces west; it is seen from the avenue, looking east.
+    facingAz: 90, nightOnLook: true,
+    memo: '해의 피라미드를 다 쌓음.', sora: '빨갛게 칠했어! 계단이 끝이 없네.',
+    memoToday: '남은 것: 피라미드. 칠은 벗겨짐.', soraToday: '돌색이 됐네. 꼭대기 집도 없어.',
+    noteMemo: '200년경. 멕시코 고원의 큰 도시에 해의 피라미드를 다 쌓았다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '서기 200년 무렵, 멕시코 고원의 큰 도시에 태양의 피라미드가 다 지어졌습니다. 겉에는 회반죽을 바르고 붉게 칠했으며, 꼭대기에는 신전이 있었습니다. 도시는 몇백 년 뒤 버려졌고, 훗날 이곳에 온 아스테카 사람들이 테오티우아칸이라는 이름을 붙였습니다.',
+    reply: '지은 사람들의 이름은 아무도 모른단다. 돌만 알지.',
+    quiz: { question: '테오티우아칸이라는 이름은 누가 붙였나?', answer: '아스테카 사람들', proof: '아스테카 사람들이', wrong: ['도시를 지은 사람들', '스페인 사람들'] },
+  },
+  {
+    // 27 December 537 (Julian): a waxing gibbous moon, 65 degrees up in the south-west at
+    // 9 pm. The picture looks that way, from the north-east.
+    no: 19, id: 'hagiaSophia', name: '하기아 소피아', dateLabel: 'AD 537.12.27', place: '콘스탄티노플 (이스탄불)',
+    lat: 41.0086, lon: 28.9802,
+    date: { year: 537, month: 12, day: 27 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 215, nightOnLook: true,
+    memo: '둥근 지붕의 큰 성당이 열림.', sora: '지붕이 하늘처럼 둥글어. 크다!',
+    memoToday: '남은 것: 건물. 탑이 넷 생김.', soraToday: '뾰족한 탑이 넷이나 생겼네.',
+    noteMemo: '537.12.27. 여섯 해 만에 지은 큰 돔 성당이 문을 열었다고 읽음. 그날 달은 반달을 지나 차는 중.',
+    card: '537년 12월 27일, 콘스탄티노플에서 유스티니아누스 황제가 새 성당 하기아 소피아의 문을 열었습니다. 큰 둥근 지붕을 얹은 이 건물은 천 년 가까이 세상에서 가장 큰 성당이었습니다. 1453년 뒤로 건물 둘레에 뾰족한 탑 넷이 세워졌고, 지금도 그 자리에 서 있습니다.',
+    reply: '천오백 해를 서 있는 지붕이란다. 올려다보니 어떻더냐.',
+    quiz: { question: '뒷날 건물 둘레에 무엇이 세워졌나?', answer: '뾰족한 탑 넷', proof: '뾰족한 탑 넷', wrong: ['높은 성벽', '둥근 지붕 하나 더'] },
+  },
+  {
+    no: 21, id: 'borobudur', name: '보로부두르', dateLabel: 'AD 825년경', place: '자바, 인도네시아',
+    lat: -7.608, lon: 110.204,
+    date: { year: 825, month: 6, day: 1 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 270, nightOnLook: true,
+    memo: '돌로 쌓은 큰 절을 다 지음.', sora: '종 같은 탑이 잔뜩 있어!',
+    memoToday: '남은 것: 보로부두르. 그대로.', soraToday: '돌이 까매졌네. 모양은 그대로.',
+    noteMemo: '825년경. 자바 섬에 돌을 층층이 쌓은 큰 절을 다 지었다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '825년 무렵, 자바 섬에 돌을 층층이 쌓아 올린 불교 사원 보로부두르가 다 지어졌습니다. 꼭대기의 둥근 단에는 종 모양의 돌탑 일흔두 개가 둘러서 있습니다. 사원은 화산재와 숲에 묻혀 잊혔다가 1814년에 다시 알려졌습니다.',
+    reply: '천 년을 숲이 덮어 줬구나. 그래서 남았지.',
+    quiz: { question: '사원은 무엇에 묻혀 잊혔나?', answer: '화산재와 숲', proof: '화산재와 숲', wrong: ['바닷물', '모래 언덕'] },
+  },
+  {
+    no: 29, id: 'timbuktu', name: '진흙 모스크', dateLabel: 'AD 1327년', place: '팀북투, 말리',
+    lat: 16.7713, lon: -3.010,
+    date: { year: 1327, month: 1, day: 15 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 80, nightOnLook: true,
+    memo: '진흙으로 큰 모스크를 지음.', sora: '흙으로 지었어! 막대가 삐죽삐죽.',
+    memoToday: '남은 것: 모스크. 해마다 덧바름.', soraToday: '그대로야. 흙을 계속 바른대.',
+    noteMemo: '1327년. 사막 끝 도시 팀북투에 진흙으로 큰 모스크를 지었다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '1327년, 사하라 사막 남쪽 끝의 도시 팀북투에 징게레베르 모스크가 지어졌습니다. 말리의 왕 만사 무사가 메카에 다녀온 뒤 짓게 한 것으로, 진흙과 나무로 지었습니다. 비에 씻긴 벽을 사람들이 해마다 진흙으로 덧발라 지금까지 서 있습니다.',
+    reply: '해마다 다 같이 바른다지. 그게 칠백 해란다.',
+    quiz: { question: '진흙 모스크는 어떻게 지금까지 서 있나?', answer: '해마다 진흙으로 덧발라서', proof: '해마다 진흙으로 덧발라', wrong: ['돌로 다시 지어서', '비가 오지 않아서'] },
+  },
+  {
+    // The great hall is seen looking north, as the palace hall of Hunminjeongeum is.
+    no: 32, id: 'forbiddenCity', name: '자금성', dateLabel: 'AD 1420년', place: '베이징, 명',
+    lat: 39.916, lon: 116.397,
+    date: { year: 1420, month: 10, day: 1 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 0, nightOnLook: true,
+    memo: '황제의 큰 궁을 다 지음.', sora: '마당이 운동장보다 넓어!',
+    memoToday: '남은 것: 자금성. 박물관이 됨.', soraToday: '줄 선 사람 대신 구경꾼이네.',
+    noteMemo: '1420년. 베이징에 황제의 궁 자금성을 열네 해 걸려 다 지었다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '1420년, 명나라의 영락제가 베이징에 새 궁 자금성을 다 지었습니다. 열네 해가 걸렸고, 그 뒤 오백 년 동안 황제 스물네 명이 이곳에서 살았습니다. 1925년부터는 누구나 들어갈 수 있는 박물관이 되었습니다.',
+    reply: '아무나 못 들어가던 데를 네가 들어갔구나.',
+    quiz: { question: '자금성은 지금 무엇이 되었나?', answer: '박물관', proof: '박물관', wrong: ['대학교', '호텔'] },
+  },
+  {
+    // Seen from above the terraces looking north-north-west, with the peak behind the city.
+    no: 35, id: 'machuPicchu', name: '마추픽추', dateLabel: 'AD 1450년경', place: '마추픽추, 페루',
+    lat: -13.163, lon: -72.545,
+    date: { year: 1450, month: 6, day: 21 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 340, nightOnLook: true,
+    memo: '산꼭대기에 돌의 도시를 세움.', sora: '구름보다 높은 데 집이 있어!',
+    memoToday: '남은 것: 돌벽. 지붕은 없음.', soraToday: '지붕이 다 없어졌네. 라마다!',
+    noteMemo: '1450년경. 잉카 사람들이 높은 산등성이에 돌의 도시를 세웠다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '1450년 무렵, 잉카의 왕 파차쿠티가 안데스의 높은 산등성이에 돌의 도시 마추픽추를 세웠습니다. 돌을 틈 없이 맞물려 쌓았고, 비탈에는 계단밭을 만들었습니다. 백 해쯤 뒤 사람들이 떠났고, 도시는 1911년에야 바깥세상에 널리 알려졌습니다.',
+    reply: '산이 숨겨 줘서 남은 도시란다. 숨이 차지 않더냐.',
+    quiz: { question: '비탈에는 무엇을 만들었나?', answer: '계단밭', proof: '계단밭', wrong: ['큰 연못', '나무다리'] },
+  },
+  {
+    // The pole itself has no azimuth, so the square stands a little off it; lon 0 makes
+    // hourLocal universal time (about 3 pm, when they arrived). The sun goes round at 23
+    // degrees and does not set, so the clock is not run on to "that night".
+    no: 84, id: 'amundsen', name: '남극점', dateLabel: 'AD 1911.12.14', place: '남극점',
+    lat: -89.98, lon: 0,
+    date: { year: 1911, month: 12, day: 14 }, calendar: 'gregorian', hourLocal: 15,
+    // 306 rather than straight at the sun (314): it stands right of the middle.
+    facingAz: 306, nightOnLook: false,
+    memo: '사람이 처음 남극점에 닿음.', sora: '다 하얘. 여기가 지구 맨 아래래!',
+    soraSky: '해가 안 진대. 옆으로만 돈대!',
+    memoToday: '남은 것: 없음. 곁에 기지가 섬.', soraToday: '천막은 눈 밑에 있대. 깃발이 많네.',
+    noteMemo: '1911.12.14. 아문센과 네 사람이 개썰매로 남극점에 처음 닿았다고 읽음. 그날은 해가 지지 않음.',
+    card: '1911년 12월 14일, 노르웨이의 아문센과 네 사람이 개썰매를 타고 남극점에 처음 닿았습니다. 그들은 천막을 치고 깃발을 꽂았으며, 뒤에 올 사람에게 편지를 남겼습니다. 천막은 눈에 묻혀 보이지 않고, 지금 그 곁에는 과학 기지가 있습니다.',
+    reply: '거기는 여름 내내 해가 안 진단다. 잠은 어찌 잤을꼬.',
+    quiz: { question: '아문센 일행은 무엇을 타고 갔나?', answer: '개썰매', proof: '개썰매', wrong: ['조랑말', '눈 자동차'] },
+  },
+  {
+    // The second solar eclipse. Roca Sundy on Principe, where Eddington set up: total for
+    // 310 seconds by computation; 14.7551 h local is 14:16 UT, the middle of it. The sun is
+    // 44.5 degrees up at azimuth 299, with Mars and Mercury beside it and the Hyades around.
+    no: 86, id: 'eddington', name: '휘는 별빛', dateLabel: 'AD 1919.5.29', place: '프린시페 섬',
+    lat: 1.67, lon: 7.39,
+    date: { year: 1919, month: 5, day: 29 }, calendar: 'gregorian', hourLocal: 14.7551,
+    // 280 rather than straight at the sun: it stands well right of the middle, clear of the line of guidance.
+    facingAz: 280, nightOnLook: false, leadMin: 30,
+    memo: '일식 때 별빛이 휘는지 잼.', sora: '또 해가 가려져! 사진을 찍나 봐.',
+    soraSky: '해 옆에 별이 보여. 저걸 찍는 거야.',
+    memoToday: '남은 것: 농장 집과 기념비.', soraToday: '망원경은 없고 돌이 하나 있어.',
+    noteMemo: '1919.5.29. 에딩턴이 일식 때 해 곁의 별을 찍어 빛이 휘는 것을 쟀다고 읽음. 그날 달은 해 앞에.',
+    card: '1919년 5월 29일, 영국의 천문학자 에딩턴은 아프리카 서쪽의 프린시페 섬에서 해가 다 가려진 몇 분 동안 해 곁의 별들을 사진에 담았습니다. 별들은 제자리에서 조금 비켜 찍혔습니다. 무거운 해 곁에서 빛이 휜다는 아인슈타인의 생각이 맞았던 것입니다.',
+    reply: '구름이 잠깐 비켜 줘서 찍었단다. 하늘이 도운 거지.',
+    quiz: { question: '사진 속 별들은 어떻게 찍혔나?', answer: '제자리에서 조금 비켜', proof: '제자리에서 조금 비켜', wrong: ['평소보다 밝게', '둘로 갈라져'] },
+  },
+  {
+    // Seen from the hills north of the strait, looking south-south-east to the city.
+    no: 94, id: 'goldenGate', name: '금문교', dateLabel: 'AD 1937.5.27', place: '샌프란시스코, 미국',
+    lat: 37.8199, lon: -122.4783,
+    date: { year: 1937, month: 5, day: 27 }, calendar: 'gregorian', hourLocal: 12,
+    facingAz: 150, nightOnLook: true,
+    memo: '바다 위 긴 다리가 열림.', sora: '다리 위에 사람이 가득해!',
+    memoToday: '남은 것: 금문교. 그대로.', soraToday: '다리는 그대로, 빌딩이 생겼네.',
+    noteMemo: '1937.5.27. 바다 어귀의 붉은 다리가 열려 첫날은 걸어서 건넜다고 읽음. 그날 달은 보름을 막 지남.',
+    card: '1937년 5월 27일, 샌프란시스코에서 금문교가 문을 열었습니다. 첫날은 차가 다니지 않아 이십만 명쯤이 걸어서 다리를 건넜습니다. 탑과 탑 사이가 1,280m로, 그때 세상에서 가장 긴 매달린 다리였습니다.',
+    reply: '안개 속에서도 보이라고 그 색이란다. 잘 보이더냐.',
+    quiz: { question: '첫날 사람들은 다리를 어떻게 건넜나?', answer: '걸어서', proof: '걸어서', wrong: ['배를 타고', '기차를 타고'] },
+  },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
 

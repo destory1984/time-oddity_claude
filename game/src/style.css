@@ -191,10 +191,11 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 .on-globe #photoButton{display:none}
 #photoFrame,#photoBar{display:none}
 .photo #photoFrame{display:block;border:2px solid var(--gold);border-radius:4px;box-shadow:0 0 0 2000px rgba(5,3,48,.55);pointer-events:none}
-.photo #photoBar{display:flex;left:0;right:0;bottom:150px;align-items:center;justify-content:center;gap:18px;pointer-events:none}
+.photo #photoBar{display:flex;flex-direction:column;left:0;right:0;align-items:center;gap:8px;pointer-events:none}
+#photoBar div{position:relative;display:flex;justify-content:center;width:100%}
 .photo #photoBar button{pointer-events:auto}
-#photoBar span{position:absolute;bottom:74px;left:0;right:0;text-align:center;font-size:13px;color:var(--white);text-shadow:0 1px 6px #050330}
-#photoCancel{padding:9px 16px}
+#photoBar span{font-size:13px;color:var(--white);text-shadow:0 1px 6px #050330}
+#photoCancel{position:absolute;right:calc(50% + 49px);top:50%;transform:translateY(-50%);padding:9px 16px}
 #photoShutter{width:62px;height:62px;border-radius:50%;border:4px solid var(--white);background:rgba(251,248,249,.25);box-shadow:inset 0 0 0 4px rgba(5,3,48,.6)}
 /* While the frame is up, everything else on the screen is put away. */
 .photo #todayBtn,.photo #leaveBtn,.photo #photoButton,.photo #memo,.photo #chips,.photo #bubble,.photo #hint,.photo #sora,.photo #topButtons{visibility:hidden}
