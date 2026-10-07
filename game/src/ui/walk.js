@@ -21,6 +21,8 @@ const $ = (id) => document.getElementById(id);
 
 // onPerson(id): a person was touched. onWay(way): a finger went down on the left (-1) or
 // right (1) of the scene, or lifted (0).
+export const LOOKS = 4;        // the ways she can leave, numbered from 1
+
 export function createWalkView({ onPerson, onWay }) {
   const root = $('walk');
   const scroll = $('walkScene');
@@ -215,26 +217,72 @@ export function createWalkView({ onPerson, onWay }) {
 
   // She is taken up in a shaft of light (leaving), or set down in one (arriving).
   // ms: how long it takes (leaving lasts as long as the notes of the jump climb).
+  // look: which way of leaving (LOOKS; the user, 2026.10.8: "떠나는 애니메이션을 좀
+  // 다르게"): 1 the shaft of light, 2 a leap, 3 sparks, 4 a ring of gold.
   const ARRIVE_MS = 620;
-  function shaft(kind, ms = ARRIVE_MS) {
-    const beam = document.createElement('i');
-    beam.className = `beam ${kind}`;
-    beam.style.left = sora.style.left;
-    beam.style.width = sora.style.width;
-    beam.style.animationDuration = `${ms}ms`;
+  const GONE = ['leaving', 'leaving-2', 'leaving-3', 'leaving-4'];
+  // What is put in the scene beside her for a way of leaving: [{ className, style }].
+  function trimmings(kind, look) {
+    const left = parseFloat(sora.style.left);
+    const top = parseFloat(sora.style.top);
+    const wide = parseFloat(sora.style.width);
+    const tall = parseFloat(sora.style.height);
+    if (kind === 'arriving' || look === 1) return [{ className: `beam ${kind}`, style: { left: `${left}px`, width: `${wide}px` } }];
+    if (look === 2) {
+      return [-1, 1].map((side) => ({
+        className: 'puff',
+        style: { left: `${left + wide / 2 - 24 + side * 14}px`, top: `${top + tall - 26}px`, width: '48px', height: '30px', '--dx': `${side * 26}px` },
+      }));
+    }
+    if (look === 3) {
+      // Sparks all over her, each going up and a little aside, some sooner than others.
+      return Array.from({ length: 16 }, (_, i) => {
+        const u = ((i * 7) % 16) / 15;
+        const v = ((i * 5) % 16) / 15;
+        return {
+          className: 'spark',
+          style: {
+            left: `${left + wide * (0.15 + 0.7 * u)}px`, top: `${top + tall * (0.1 + 0.8 * v)}px`,
+            '--dx': `${(u - 0.5) * 70}px`, '--dy': `${-(60 + 110 * (1 - v))}px`, animationDelay: `${Math.round(v * 0.3 * 1000)}ms`,
+          },
+        };
+      });
+    }
+    const ringWide = wide * 1.15;
+    return [{
+      className: 'ring',
+      style: { left: `${left + wide / 2 - ringWide / 2}px`, top: `${top + tall - 13}px`, width: `${ringWide}px`, height: '26px', '--rise': `${-tall}px` },
+    }];
+  }
+  function shaft(kind, ms = ARRIVE_MS, look = 1) {
+    const extras = trimmings(kind, look).map(({ className, style }) => {
+      const el = document.createElement('i');
+      el.className = className;
+      for (const [key, value] of Object.entries(style)) { if (key.startsWith('--')) el.style.setProperty(key, value); else el.style[key] = value; }
+      el.style.animationDuration = `${ms}ms`;
+      scroll.append(el);
+      return el;
+    });
     sora.style.animationDuration = `${ms}ms`;
-    scroll.append(beam);
-    sora.classList.remove('leaving', 'arriving');
+    sora.classList.remove(...GONE, 'arriving');
     sora.getBoundingClientRect();
-    sora.classList.add(kind);
+    sora.classList.add(kind === 'arriving' ? kind : GONE[look - 1]);
     return new Promise((resolve) => {
-      setTimeout(() => { beam.remove(); if (kind === 'arriving') sora.classList.remove(kind); resolve(); }, ms);
+      // The sparks start late, some of them: what is beside her stays a little longer.
+      setTimeout(() => { for (const el of extras) el.remove(); }, ms + 320);
+      setTimeout(() => { if (kind === 'arriving') sora.classList.remove(kind); resolve(); }, ms);
     });
   }
+  const arrive = () => { sora.classList.remove(...GONE); return shaft('arriving'); };
 
   return {
-    showScene, layout, update,
-    teleport: (ms) => shaft('leaving', ms),
-    arrive: () => { sora.classList.remove('leaving'); return shaft('arriving'); },
+    showScene, layout, update, arrive,
+    teleport: (ms, look = 1) => shaft('leaving', ms, look),
+    // A way of leaving shown without leaving: she goes, and is set down again.
+    async preview(ms, look) {
+      await shaft('leaving', ms, look);
+      await new Promise((resolve) => { setTimeout(resolve, 450); });
+      return arrive();
+    },
   };
 }
