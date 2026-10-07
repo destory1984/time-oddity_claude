@@ -12,7 +12,8 @@ const $ = (id) => document.getElementById(id);
 // sound: { muted(), setMuted(on) }, the same switch as the speaker button.
 // music: { on(), setOn(on) }, the same switch as the note button.
 // version: the text for the head, such as 'v0.1.1 · 2026.10.7'.
-export function createSettings({ onOpen, onClose, today, sound, music, version }) {
+// onReset: the notebook is to be emptied (asked twice before it is done).
+export function createSettings({ onOpen, onClose, today, sound, music, version, onReset = () => {} }) {
   const dialog = $('settings');
   $('appVersion').textContent = version;
 
@@ -64,11 +65,21 @@ export function createSettings({ onOpen, onClose, today, sound, music, version }
   $('musicSwitch').addEventListener('click', () => { music.setOn(!music.on()); renderSound(); });
   $('soundSwitch').addEventListener('click', () => { sound.setMuted(!sound.muted()); renderSound(); });
 
+  // Emptying the notebook cannot be undone, so the button asks once more before it does.
+  let sure = false;
+  const resetLabel = () => { $('resetProgress').textContent = sure ? '정말 비울까요? 한 번 더 누르면 비웁니다' : '수첩 비우기'; };
+  $('resetProgress').addEventListener('click', () => {
+    if (!sure) { sure = true; resetLabel(); return; }
+    sure = false; resetLabel();
+    onReset();
+  });
+
   $('settingsButton').addEventListener('click', () => {
     if (dialog.open) return;
     onOpen();
     renderNews();
     renderSound();
+    sure = false; resetLabel();
     showTab('options');
     dialog.showModal();
   });

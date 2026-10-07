@@ -10,6 +10,7 @@ import { formatDate, formatYear, todayDate } from './core/when.js';
 import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, stepDial } from './core/dial.js';
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
 import { soraPose } from './core/sora.js';
+import { dotsOf, emptyProgress, fillDot, quizSolved, solveQuiz } from './core/progress.js';
 import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { createSkyCanvas } from './render/skyCanvas.js';
@@ -21,12 +22,15 @@ import { createTouch } from './ui/touch.js';
 import { createSound } from './ui/sound.js';
 import { createSettings } from './ui/settings.js';
 import { createMusic } from './ui/music.js';
-import { loadMusic, loadMuted, saveMusic, saveMuted } from './ui/storage.js';
+import { createJournal } from './ui/journal.js';
+import { createCard } from './ui/card.js';
+import { loadMusic, loadMuted, loadProgress, saveMusic, saveMuted, saveProgress } from './ui/storage.js';
 
 const RISE_MS = 800;
 const MEMO_AT_MS = 1200;
 const SORA_FROM_MS = 2500;
 const SORA_FOR_MS = 4000;
+const CHIPS_AT_MS = 3000;
 const HINT_SKY_AT_MS = 9000;
 const HINT_TODAY_AT_MS = 15000;
 const TO_TODAY_S = 3;
@@ -53,6 +57,15 @@ const ground = createGround($('ground'));
 const dialView = createDialView($('dial'));
 const hud = createHud($('hud'));
 const dial = createDial({ year: today.year, maxYear: today.year });
+
+// The notebook: what has been filled, kept on this device.
+let progress = loadProgress(SQUARES.map((sq) => sq.id));
+function keep(next) {
+  if (next === progress) return;
+  progress = next;
+  saveProgress(progress);
+  journal.showCount();
+}
 
 let mode = 'globe';        // 'globe' | 'travel' | 'ground' | 'leaving'
 let square = null;
@@ -111,6 +124,20 @@ $('musicButton').addEventListener('click', () => { sound.wake(); musicSwitch.set
 // Any first touch wakes the sound, so that the music can begin without a button.
 window.addEventListener('pointerdown', () => sound.wake(), { once: true, capture: true });
 
+const journal = createJournal({
+  squares: SQUARES,
+  progress: () => progress,
+  onGo: (id) => travel(squareById(id)),
+  onSolve: (id) => { sound.stamp(); keep(solveQuiz(progress, id)); },
+  here: () => (visit && mode === 'ground' ? square.id : null),
+});
+const card = createCard({
+  solved: (id) => quizSolved(progress, id),
+  onSolve: (id) => { sound.stamp(); keep(solveQuiz(progress, id)); },
+});
+$('cardChip').addEventListener('click', () => { if (mode === 'ground') card.open(square, false); });
+$('quizChip').addEventListener('click', () => { if (mode === 'ground') card.open(square, true); });
+
 const pad = (n) => String(n).padStart(2, '0');
 // The game is held while the settings are open (see frame()).
 const settings = createSettings({
@@ -119,6 +146,7 @@ const settings = createSettings({
   today: () => { const now = todayDate(); return `${now.year}-${pad(now.month)}-${pad(now.day)}`; },
   sound: soundSwitch,
   music: musicSwitch,
+  onReset: () => { keep(emptyProgress()); if (visit) visit.dots = { day: false, sky: false, remains: false }; },
   version: `v${__APP_VERSION__} · ${__APP_UPDATED__}`,
 });
 
@@ -134,7 +162,7 @@ new ResizeObserver(layout).observe(stage);
 
 function showGround(sq) {
   square = sq;
-  visit = createVisit(sq);
+  visit = createVisit(sq, dotsOf(progress, sq.id));
   resetLook(look); blend = 0; roll = null; silhouette = 0; restingOtherMs = 0; dim = 0;
   bubble = null; remainsAtMs = null; glowSky = 0; glowToday = 0;
   ground.show(sq);
@@ -148,8 +176,21 @@ function showGround(sq) {
 }
 
 async function travel(sq) {
-  if (mode !== 'globe') return;
+  if (mode !== 'globe' && mode !== 'ground') return;
+  if (mode === 'ground' && square === sq) return;
   sound.wake();
+  if (mode === 'ground') {
+    // From one square to another through the notebook: straight across, behind a fade.
+    mode = 'travel';
+    $('fade').classList.add('on');
+    await wait(FADE_MS);
+    globe.faceNow(sq.lat, sq.lon);
+    rollTo(dial, sq.date.year, 0.001);
+    while (dial.rolling) await wait(30);
+    showGround(sq);
+    $('fade').classList.remove('on');
+    return;
+  }
   mode = 'travel';
   await globe.spinTo(sq.lat, sq.lon, TRAVEL_SPIN_S);
   if (dial.year !== sq.date.year) {
@@ -219,6 +260,7 @@ function frameGround(dt) {
   const filled = stepVisit(visit, dt, input);
   const at = visitAt(visit, input);
   for (const name of filled) {
+    keep(fillDot(progress, square.id, name));
     if (name === 'day') sound.stamp();
     if (name === 'sky') sound.bell();
     if (name === 'remains') { sound.page(); remainsAtMs = visit.t; }
@@ -272,6 +314,7 @@ function frameGround(dt) {
     name: `${square.no} ${square.name}`, dateText, placeText: square.place,
     subText: visit.night > 0.5 ? '그날 밤 9시' : '',
     dots: visit.dots, memo, memoPlain: memo === square.memoToday,
+    chips: mode === 'ground' && visit.t >= CHIPS_AT_MS && visit.look < 0.5,
     bubble: pose.saying ?? (bubble && visit.look < 0.5 ? bubble.text : null), sora: pose,
     todayLabel: at === 'today' ? '그날로' : '오늘로', showToday: true, showLeave: true,
     hint: '', soraFade: pose.saying ? 0 : clamp01(visit.look * 1.6), glowSky, glowToday,
@@ -283,20 +326,21 @@ function frameGlobe(dt) {
   const pose = soraPose({ now: performance.now(), hushAt });
   hud.set({
     name: '시간 한량 · 첫 토막', ...dateOnGlobe(), dots: { day: false, sky: false, remains: false },
-    memo: null, memoPlain: false, bubble: pose.saying, sora: pose, todayLabel: '오늘로', showToday: false, showLeave: false,
+    memo: null, memoPlain: false, chips: false, bubble: pose.saying, sora: pose, todayLabel: '오늘로', showToday: false, showLeave: false,
     hint: mode === 'globe' ? '지구를 돌려 금색 점을 눌러 보렴' : '', soraFade: 0, glowSky: 0, glowToday: 0,
   });
 }
 
 let last = performance.now();
 function frame(now) {
-  const dt = settings.isOpen() ? 0 : Math.min(50, now - last);
+  const held = settings.isOpen() || journal.isOpen() || card.isOpen();
+  const dt = held ? 0 : Math.min(50, now - last);
   last = now;
   tickSounds(stepDial(dial, dt));
   if (visit && (mode === 'ground' || mode === 'leaving')) frameGround(dt);
   else frameGlobe(dt);
   dialView.draw(dial, marks, visit ? daylight : 0);
-  if (!settings.isOpen()) music.step(visit ? 'surface' : 'near');
+  music.step(visit ? 'surface' : 'near');
   requestAnimationFrame(frame);
 }
 

@@ -22,6 +22,7 @@
   <div id="hud">
     <div id="top"><span id="dots"><i></i><i></i><i></i></span><span id="name"></span></div>
     <nav id="topButtons">
+      <button id="journalButton" class="glass" type="button" title="할머니의 수첩"><span id="journalCount"></span></button>
       <button id="soundButton" class="glass" type="button" title="소리">소리</button>
       <button id="musicButton" class="glass" type="button" title="배경 음악">배경 음악</button>
       <button id="settingsButton" class="glass" type="button" title="설정">설정</button>
@@ -31,11 +32,24 @@
     <button id="leaveBtn" class="glass" type="button">떠나기</button>
     <div id="bubble"></div>
     <div id="memo"></div>
+    <div id="chips"><button id="cardChip" class="glass" type="button">이야기 카드</button><button id="quizChip" class="glass" type="button">맞혀 보렴</button></div>
     <div id="hint"></div>
   </div>
   <canvas id="dial"></canvas>
   <div id="fade"></div>
 </div>
+<dialog id="journal" aria-labelledby="journalTitle">
+  <div class="journalHead"><h1 id="journalTitle">할머니의 수첩 2권</h1><small id="journalProgress"></small></div>
+  <ul id="journalList"></ul>
+  <button type="button" id="closeJournal" autofocus>수첩 덮기</button>
+</dialog>
+<dialog id="cardSheet" aria-labelledby="cardName">
+  <h1 id="cardName"></h1>
+  <small id="cardWhen"></small>
+  <p id="cardText"></p>
+  <div id="cardQuiz" class="quiz"></div>
+  <button type="button" id="closeCard" autofocus>닫기</button>
+</dialog>
 <dialog id="settings" aria-labelledby="settingsTitle">
   <div class="sheetHead"><h1 id="settingsTitle">설정</h1><small id="appVersion"></small><div class="textSize" role="group" aria-label="글자 크기"><button type="button" data-way="-1" aria-label="글자 작게">가<sub>−</sub></button><button type="button" data-way="1" aria-label="글자 크게">가<sup>+</sup></button></div></div>
   <div id="settingsTabs" role="tablist" aria-label="설정의 갈래">
@@ -51,13 +65,15 @@
         <dt>효과음</dt><dd><span id="soundNow"></span> 화면 위의 스피커 단추로도 켜고 끕니다. 배경 음악과 따로 켜고 끕니다. 다이얼의 눈금 소리와 칸이 채워지는 소리가 납니다.<br><button type="button" id="soundSwitch"></button></dd>
         <dt>배경 음악</dt><dd><span id="musicNow"></span> 화면 위의 음표 단추로도 켜고 끕니다. 우주 한량과 같은 열한 곡(오르골, 새벽, 먼 바다, 자장가, 별무리, 깊은 밤, 유영, 빗방울, 가야금, 오로라, 회전목마)이 2분쯤씩 흐릅니다. 순서는 열 때마다 바뀝니다. 소리 파일이 아니라 그 자리에서 만들어 내는 소리입니다.<br><button type="button" id="musicSwitch"></button></dd>
         <dt>언어 · Language</dt><dd>지금은 한국어만 있습니다.</dd>
-        <dt>저장</dt><dd>글자 크기와, 효과음과 배경 음악을 켜고 끈 것만 이 기기에 남습니다. 칸을 채운 기록은 아직 남지 않아, 다시 열면 비어 있습니다. 서버와 계정은 없습니다.</dd>
+        <dt>저장</dt><dd>수첩에 채운 것, 글자 크기, 효과음과 배경 음악을 켜고 끈 것이 이 기기에 남습니다. 서버와 계정은 없습니다.<br><button type="button" id="resetProgress">수첩 비우기</button></dd>
       </dl>
     </section>
     <section data-tab="help" hidden>
       <p>할머니의 수첩에 적힌 지난 날로 가서, 그날 그 자리를 구경합니다. 쫓기지 않고, 틀려도 깎이는 것이 없습니다.</p>
       <dl>
-        <dt>가기</dt><dd>지구를 손가락으로 돌려 금색 점을 누릅니다. 그 칸의 그날에 섭니다.</dd>
+        <dt>가기</dt><dd>지구를 손가락으로 돌려 금색 점을 누릅니다. 그 칸의 그날에 섭니다. 위쪽의 수첩 단추를 눌러 목록에서 "가기"를 눌러도 됩니다.</dd>
+        <dt>수첩</dt><dd>할머니가 적어 둔 칸이 모두 있습니다. 줄을 누르면 할머니의 메모가 펼쳐지고, 다녀온 칸에는 소라의 덧글과 이야기 카드와 문제가 생깁니다. 단추의 숫자는 동그라미 셋을 다 채운 칸의 수입니다.</dd>
+        <dt>이야기 카드</dt><dd>칸에 서면 메모 아래에 "이야기 카드"와 "맞혀 보렴"이 뜹니다. 문제의 답은 카드 글 안에 있고, 틀려도 깎이는 것이 없습니다.</dd>
         <dt>하늘 보기</dt><dd>화면을 위로 밉니다. 그날 그 자리의 달과 행성과 별이 보입니다. 낮에 일어난 일은 올려다보고 있으면 그날 밤 9시로 흘러갑니다. 아래로 밀면 고개를 내립니다.</dd>
         <dt>오늘로</dt><dd>오른쪽 위의 "오늘로"를 누르면 3초에 걸쳐 같은 자리가 오늘 모습으로 바뀝니다. "그날로"를 누르면 돌아갑니다.</dd>
         <dt>다이얼</dt><dd>맨 아래를 옆으로 굴립니다. 한 칸에 한 해입니다. 볼 것이 있는 해에는 별이 떠 있고, 화면 밖에 있으면 끝에 이름표가 뜹니다. 이름표 쪽을 톡 누르면 그 해로 굴러갑니다.</dd>

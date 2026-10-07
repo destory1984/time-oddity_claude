@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "time-oddity", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev", "--", "--port", "4318", "--strictPort"], "port": 4318 }
+    { "name": "time-oddity", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev", "--", "--port", "4321", "--strictPort"], "port": 4321 }
   ]
 }

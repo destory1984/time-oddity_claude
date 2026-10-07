@@ -7,9 +7,11 @@ const LOOKING_UP = 0.95;        // the head counts as raised from here
 const LOOK_HOLD_MS = 1500;      // looking up this long fills the sky, or starts the night
 const NIGHT_FLOW_MS = 2000;     // the clock takes this long to reach 9 pm, and to come back
 
-export function createVisit(square) {
+// dots: what the notebook already holds for this square; a dot filled on an earlier visit
+// stays filled and is not announced again.
+export function createVisit(square, dots = { day: false, sky: false, remains: false }) {
   return {
-    square, t: 0, dots: { day: false, sky: false, remains: false },
+    square, t: 0, dots: { ...dots },
     look: 0, lookHeld: 0, night: 0, seenThen: false,
   };
 }

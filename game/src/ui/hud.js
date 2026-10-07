@@ -5,7 +5,7 @@ export function createHud(el) {
   const $ = (id) => el.querySelector(`#${id}`);
   const parts = {
     name: $('name'), dateText: $('dateText'), placeText: $('placeText'), subText: $('subText'),
-    memo: $('memo'), bubble: $('bubble'), todayBtn: $('todayBtn'), leaveBtn: $('leaveBtn'), hint: $('hint'),
+    memo: $('memo'), chips: $('chips'), bubble: $('bubble'), todayBtn: $('todayBtn'), leaveBtn: $('leaveBtn'), hint: $('hint'),
   };
   const dots = [...el.querySelectorAll('#dots i')];
   const glowSky = document.getElementById('glowSky');
@@ -20,7 +20,8 @@ export function createHud(el) {
   const glow = (node) => { node.classList.remove('glow'); node.getBoundingClientRect(); node.classList.add('glow'); };
 
   // state: { name, dateText, placeText, subText, dots: { day, sky, remains }, memo (text
-  // or null), memoPlain (true when the slip carries a plain note, not grandmother's words), bubble (text or null), todayLabel, showToday, showLeave, hint, soraFade, sora ({ sheet, frame }: which of her pictures is up),
+  // or null), memoPlain (true when the slip carries a plain note, not grandmother's words), chips
+  // (the story card and question buttons are up), bubble (text or null), todayLabel, showToday, showLeave, hint, soraFade, sora ({ sheet, frame }: which of her pictures is up),
   // glowSky (a count: glows once each time it goes up), glowToday (likewise) }
   function set(state) {
     text('name', state.name);
@@ -39,6 +40,7 @@ export function createHud(el) {
       parts.memo.textContent = state.memo;
       if (wasShown) { parts.memo.classList.remove('flip'); parts.memo.getBoundingClientRect(); parts.memo.classList.add('flip'); }
     }
+    if (changed('chips', Boolean(state.chips))) parts.chips.classList.toggle('on', Boolean(state.chips));
     if (changed('bubbleOn', state.bubble !== null)) parts.bubble.classList.toggle('on', state.bubble !== null);
     if (state.bubble !== null && changed('bubble', state.bubble)) parts.bubble.textContent = state.bubble;
     text('todayBtn', state.todayLabel);
