@@ -4,6 +4,12 @@
 // 날아다니면 안 되잖아").
 // The eye follows her. core/walk.js says where everyone is; this only draws it and tells
 // what was touched.
+// A place may have another look (place.look 'paper', the second of the two tried in
+// docs/기획서-v4-사는-때로.md section 4): its picture and people are flat drawings, pieces
+// cut out on their own move in it (core/pieces.js), and whoever is spoken to answers in
+// a panel with their face in pixels (place.talk 'face') instead of a bubble overhead.
+import { piecesAt } from '../core/pieces.js';
+
 const FOOT = 0.8;             // feet stand at this share of the screen's height
 const SORA_TALL = 176;        // she is this tall on a 812 px high screen, walking or standing
 const STEP_MS = 150;          // a frame of her walking, and of her standing, lasts this long
@@ -19,13 +25,17 @@ export function createWalkView({ onPerson, onWay }) {
   const root = $('walk');
   const scroll = $('walkScene');
   const picture = $('walkPicture');
+  const piecesEl = $('walkPieces');
   const peopleEl = $('walkPeople');
+  const talk = $('walkTalk');
+  const face = $('walkFace');
   const sora = $('walkSora');
   const say = $('walkSay');
   const soraSay = $('walkSoraSay');
   let place = null;
   let scene = null;
   let nodes = new Map();      // person id → { img, person, left, top, wide, tall }
+  let moving = new Map();     // piece id → { img, box: what hides the rest of it, or null }
   let size = { w: 1, h: 1, wide: 1, unit: 1 };
   let camera = 0;
 
@@ -79,8 +89,61 @@ export function createWalkView({ onPerson, onWay }) {
       peopleEl.append(img);
       nodes.set(person.id, { img, person, left: 0, top: 0, wide: 0, tall: 0 });
     }
+    root.dataset.look = place.look ?? 'pixel';
+    piecesEl.replaceChildren();
+    moving = new Map();
     say.classList.remove('on');
+    talk.classList.remove('on');
     layout();
+  }
+
+  // A piece that moves: made the first time it is asked for. One seen only between two
+  // ends (a line of people coming out from behind one thing and going in behind another)
+  // is put in a box that hides the rest of it.
+  function pieceNode(piece) {
+    let node = moving.get(piece.id);
+    if (node) return node;
+    const img = document.createElement('img');
+    img.src = `./walks/${place.dir}/${piece.src}.png`;
+    img.alt = ''; img.draggable = false; img.className = 'piece';
+    let parent = piecesEl;
+    if (piece.clip) {
+      const key = piece.clip.join('-');
+      parent = [...piecesEl.children].find((el) => el.dataset.clip === key);
+      if (!parent) {
+        parent = document.createElement('div');
+        parent.className = 'clip'; parent.dataset.clip = key;
+        piecesEl.append(parent);
+      }
+    }
+    parent.append(img);
+    node = { img, box: piece.clip ? parent : null };
+    moving.set(piece.id, node);
+    return node;
+  }
+
+  function movePieces(t) {
+    const { h, wide } = size;
+    const tall = scene.zoom * h;
+    const top = (FOOT - scene.ground * scene.zoom) * h;
+    const seen = new Set();
+    for (const piece of piecesAt(scene, t)) {
+      const { img, box } = pieceNode(piece);
+      seen.add(piece.id);
+      let left = piece.x * wide;
+      if (box) {
+        box.style.left = `${piece.clip[0] * wide}px`;
+        box.style.width = `${(piece.clip[1] - piece.clip[0]) * wide}px`;
+        left -= piece.clip[0] * wide;
+      }
+      img.style.display = '';
+      img.style.height = `${piece.tall * tall}px`;
+      img.style.opacity = String(piece.alpha);
+      const lift = piece.anchor === 'foot' ? '-100%' : '-50%';
+      img.style.transform = `translate(${left.toFixed(1)}px,${(top + piece.y * tall).toFixed(1)}px) translate(-50%,${lift})`
+        + (piece.turn ? ` rotate(${piece.turn.toFixed(4)}rad)` : '') + (piece.flip ? ' scaleX(-1)' : '');
+    }
+    for (const [id, node] of moving) if (!seen.has(id)) node.img.style.display = 'none';
   }
 
   // A finger on the scene itself walks her that way for as long as it is held.
@@ -102,9 +165,11 @@ export function createWalkView({ onPerson, onWay }) {
     el.style.bottom = `${size.h - top + 6}px`;
   }
 
-  // walk: core/walk.js's state. soraLine: what she is saying now, or null.
-  function update(walk, now, soraLine) {
+  // walk: core/walk.js's state. soraLine: what she is saying now, or null. t: seconds
+  // since she came down here (what moves in the scene goes by it).
+  function update(walk, now, soraLine, t = 0) {
     if (!scene) return;
+    movePieces(t);
     const { w, h, wide, unit } = size;
     const x = walk.x * wide;
     camera = Math.max(0, Math.min(wide - w, x - w / 2));
@@ -133,10 +198,17 @@ export function createWalkView({ onPerson, onWay }) {
       node.img.classList.toggle('near', Math.abs(node.person.x - walk.x) <= 0.05);
       node.img.classList.toggle('speaking', walk.heard?.id === node.person.id);
     }
-    if (walk.heard && nodes.has(walk.heard.id)) {
-      const node = nodes.get(walk.heard.id);
-      bubble(say, walk.heard.line, node.left + node.wide / 2, node.top);
-    } else say.classList.remove('on');
+    const heard = walk.heard && nodes.has(walk.heard.id) ? nodes.get(walk.heard.id) : null;
+    const panel = Boolean(heard) && place.talk === 'face';
+    if (heard && !panel) bubble(say, walk.heard.line, heard.left + heard.wide / 2, heard.top);
+    else say.classList.remove('on');
+    if (panel) {
+      const src = `./walks/${place.dir}/face-${walk.heard.id}.png`;
+      if (face.dataset.src !== src) { face.dataset.src = src; face.src = src; }
+      $('walkTalkName').textContent = heard.person.name;
+      $('walkTalkLine').textContent = walk.heard.line;
+    }
+    talk.classList.toggle('on', panel);
     if (soraLine) bubble(soraSay, soraLine, x, FOOT * h - soraTall);
     else soraSay.classList.remove('on');
   }

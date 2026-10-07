@@ -27,6 +27,16 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkScene>*{position:absolute}
 #walkPicture{left:0;width:100%;image-rendering:pixelated;pointer-events:none}
 #walkPeople{inset:0}
+/* The second look (Paris): a flat picture with cut-out pieces that the code slides and turns; only the faces of those spoken to are in pixels. */
+#walk[data-look="paper"] #walkPicture,#walk[data-look="paper"] #walkPeople .person{image-rendering:auto}
+#walkPieces{inset:0;pointer-events:none}
+#walkPieces .clip{position:absolute;top:0;height:100%;overflow:hidden}
+#walkPieces .piece{position:absolute;width:auto;max-width:none;will-change:transform;-webkit-user-drag:none}
+#walkTalk{position:absolute;left:12px;right:12px;bottom:47%;z-index:40;display:none;align-items:center;gap:12px;padding:10px 14px 10px 10px;border-radius:14px;background:var(--white);color:#1b1730;box-shadow:0 3px 12px #0008;pointer-events:none}
+#walkTalk.on{display:flex}
+#walkFace{flex:none;width:calc(84px * var(--text,1));height:calc(84px * var(--text,1));object-fit:cover;object-position:50% 8%;image-rendering:pixelated;border-radius:10px;background:#e9dfc8}
+#walkTalkName{display:block;font-size:12px;font-weight:600;opacity:.6;margin-bottom:3px}
+#walkTalkLine{margin:0;font-size:calc(16px * var(--text,1));line-height:1.35}
 #walkPeople .person{position:absolute;height:auto;image-rendering:pixelated;transform-origin:50% 100%;animation:sway 1.6s ease-in-out infinite;cursor:pointer;-webkit-user-drag:none}
 #walkPeople .person.near{filter:drop-shadow(0 0 5px rgba(255,222,140,.95))}
 #walkPeople .person.speaking{animation:hop .35s ease-out 1}

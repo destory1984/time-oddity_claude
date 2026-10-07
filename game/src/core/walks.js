@@ -12,10 +12,22 @@
 // spot: seen from afar, never spoken to, and what is said of them is on record.
 // Errands: grandmother's three; `at` is the people or spots any one of which does it.
 //
+// A place has one of two looks (the plan's section 4 tries one each). Rome is all pixels.
+// Paris is `look: 'paper'`: flat drawings, with pieces that move on their own (a scene's
+// `moving`, core/pieces.js) the way volume 1 plays its days on the Moon; and
+// `talk: 'face'`: whoever is spoken to answers in a panel with a face in pixels
+// (face-<id>.png). A person's `sound` is one of ui/sound.js's, heard when they speak.
+//
 // The ordinary people are made up; their lines are what such a person might have said.
 // Every fact in them is from memory and to be checked (the hundred days of games, the
 // sailors of the fleet at Misenum who worked the awning, the numbered entrances and the
 // tokens, free entry, the seats by rank with women at the top, Nero's lake).
+// Paris, to be checked: the tower opened to the public on 15 May 1889 with its lifts not
+// yet running (they began late in May), over three hundred steps to the first floor, a
+// franc to enter the fair, thirty-five countries, the artists' protest of 1887, the Forth
+// Bridge then being built, four restaurants on the first floor, two years and two months
+// of building, eighteen thousand pieces of iron, Edison's phonograph heard through tubes
+// in the Gallery of Machines, and its roof standing with no pillar.
 const SHEET = { market: 0.6, plaza: 0.66, inside: 0.62 };   // how large a sheet's figures are shown, of their px on a 812 px screen
 
 export const WALKS = {
@@ -50,7 +62,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'inside', name: '경기장 안', zoom: 1.3, ground: 0.775, scale: SHEET.inside,
+        id: 'inside', name: '경기장 안', zoom: 1.3, ground: 0.775, scale: SHEET.inside, murmur: 1,
         sora: '우와… 끝까지 다 사람이야.',
         people: [
           { id: 'usher', name: '자리 안내원', x: 0.17, w: 125, h: 300, lines: ['앞줄은 원로원 자리요. 저 위로.', '자리는 옷을 보고 정하오.'] },
@@ -74,5 +86,74 @@ export const WALKS = {
       { id: 'sailors', text: '경기장 지붕을 뱃사람들이 당긴다던데 정말인지.', at: ['sailor1', 'sailor2'] },
     ],
     reply: '지독한 냄새도 맡고 황제도 봤구나. 뱃사람 얘기가 정말이었네.',
+  },
+  eiffel: {
+    dir: 'paris', look: 'paper', talk: 'face',
+    scenes: [
+      {
+        id: 'gate', name: '박람회 입구', zoom: 1.3, ground: 0.752, scale: 0.66,
+        sora: '깃발이 잔뜩! 저 끝에 탑이야.',
+        // People pour in at the middle arch from both sides, and are lost behind its pillars.
+        moving: [
+          { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 0.555, foot: 0.748, tall: 0.17, wide: 0.381, gap: 0.03, speed: 0.03, bob: 0.003 },
+          { kind: 'drift', id: 'out', src: 'crowd', from: 0.59, to: 1, foot: 0.748, tall: 0.17, wide: 0.381, gap: 0.03, speed: -0.026, bob: 0.003, flip: true },
+        ],
+        people: [
+          { id: 'ticket', name: '표 파는 사람', x: 0.1, w: 138, h: 277, lines: ['입장은 1프랑! 탑은 따로 받아요.', '오늘부터 탑에 올라갈 수 있소.'] },
+          { id: 'news', name: '신문팔이 소년', x: 0.19, w: 107, h: 269, lines: ['탑 꼭대기 삼백 미터! 세계 제일!', '호외요! 오늘 탑이 문을 열어요!'] },
+          { id: 'flower', name: '꽃 파는 소녀', x: 0.31, w: 112, h: 255, lines: ['은방울꽃 사세요! 오월의 꽃이에요.', '오늘은 다들 탑만 올려다봐요.'] },
+          { id: 'parasol', name: '양산 든 부인', x: 0.44, w: 148, h: 320, lines: ['백 년 전 혁명을 기리는 잔치란다.', '서른다섯 나라가 왔다지 뭐니.'] },
+          { id: 'tophat', name: '실크해트 신사', x: 0.66, w: 119, h: 312, lines: ['쇠로 탑이라니. 난 반대했었소.', '…그래도 표는 샀소. 궁금해서.'] },
+          { id: 'kilt', name: '먼 데서 온 아저씨', x: 0.86, w: 125, h: 286, lines: ['스코틀랜드에서 배 타고 왔다네.', '우리도 쇠로 큰 다리를 놓는 중이지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'tower', name: '탑 아래', zoom: 1.2, ground: 0.733, scale: 0.62,
+        sora: '우와, 다리 하나가 집채만 해.',
+        // The stair in the east leg, three flights of it: people go up one after another.
+        moving: [
+          { kind: 'climb', id: 'up', srcs: ['climb-1', 'climb-2', 'climb-3', 'climb-4', 'climb-5', 'climb-6'],
+            path: [[0.962, 0.566], [0.841, 0.379], [0.913, 0.354], [0.809, 0.195], [0.874, 0.161], [0.778, 0.015]],
+            tall: 0.062, seconds: 42, step: 0.004 },
+        ],
+        people: [
+          { id: 'down', name: '내려온 아가씨', x: 0.13, w: 106, h: 306, lines: ['1층에 식당이 넷이나 있어요!', '두 해 두 달 만에 다 지었대요.'] },
+          { id: 'painter', name: '화가', x: 0.27, w: 148, h: 314, lines: ['흉물이라던 이들이 다 올라가더군.', '쇠 사이로 하늘이 비쳐. 그릴 만해.'] },
+          { id: 'kid', name: '올려다보는 아이', x: 0.38, w: 77, h: 199, lines: ['꼭대기가 구름에 닿을 것 같아!', '아빠가 나는 다음에 올라가래.'] },
+          { id: 'photo', name: '사진사', x: 0.68, w: 150, h: 320, lines: ['움직이지 마시오! 하나, 둘…', '탑이 커서 한 장에 다 안 들어가.'] },
+          { id: 'puff', name: '숨 고르는 아저씨', x: 0.79, w: 151, h: 303, lines: ['헉, 헉… 1층만 갔다 왔네.', '위에서 보니 파리가 손바닥만 해.'] },
+          { id: 'stairs', name: '계단 안내원', x: 0.9, w: 120, h: 316, lines: ['엘리베이터는 아직이에요. 계단으로!', '1층까지 삼백 계단이 넘어요.'] },
+        ],
+        spots: [
+          // Right under the middle of the arch, looking straight up.
+          { id: 'under', from: 0.45, to: 0.56, sora: '우와… 다리가 후들거려.', memo: '쇠 조각 만팔천 개를 못으로 이어 세운 탑이란다.' },
+        ],
+      },
+      {
+        id: 'hall', name: '기계관', zoom: 1.3, ground: 0.664, scale: 0.66, murmur: 0.4, engine: 1,
+        sora: '쿵쿵쿵! 바퀴가 진짜 돌아가.',
+        // The two flywheels, cut out of the picture itself (tools/walk-art.py disc), turn where they lie.
+        moving: [
+          { kind: 'spin', id: 'red', src: 'wheel-red', x: 0.2754, y: 0.5205, tall: 0.2139, rpm: 15 },
+          { kind: 'spin', id: 'blue', src: 'wheel-blue', x: 0.6725, y: 0.5205, tall: 0.2139, rpm: 15 },
+        ],
+        people: [
+          { id: 'reporter', name: '기자', x: 0.11, w: 106, h: 320, lines: ['기둥 하나 없이 이 넓이라니.', '쇠와 유리. 새 시대가 온 거요.'] },
+          { id: 'engineer', name: '기술자', x: 0.4, w: 166, h: 320, lines: ['이 바퀴가 벨트로 기계를 다 돌려.', '기름을 안 치면 금세 멈추지.'] },
+          { id: 'ears', name: '귀 막은 아이', x: 0.53, w: 107, h: 222, lines: ['너무 시끄러워! 귀가 멍멍해.', '(귀를 막고 고개를 젓는다)'] },
+          { id: 'student', name: '학생', x: 0.76, w: 122, h: 300, lines: ['에디슨이라는 미국 사람 거래요.', '전구도 그 사람이 만들었대요.'] },
+          { id: 'queue', name: '줄 선 아주머니', x: 0.82, w: 121, h: 310, lines: ['한 시간째 줄이야. 그래도 들어야지.', '기계가 말을 한다니 믿어지니?'] },
+          { id: 'phono', name: '말하는 기계 지기', x: 0.92, w: 153, h: 317, sound: 'phonograph', lines: ['통 속에 사람 목소리가 들었소.', '관을 귀에 대 봐요. 노래가 나오지.'] },
+        ],
+        spots: [],
+      },
+    ],
+    errands: [
+      { id: 'under', text: '탑 밑에서 올려다보고 다리가 후들거리는지 보렴.', at: ['under'] },
+      { id: 'lift', text: '엘리베이터가 돈다던데 타 보렴.', at: ['stairs'] },
+      { id: 'phono', text: '말하는 기계 소리를 들어 보렴.', at: ['phono'] },
+    ],
+    reply: '엘리베이터는 못 탔구나. 그래도 말하는 기계 소리는 들었네.',
   },
 };

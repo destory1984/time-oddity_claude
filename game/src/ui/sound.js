@@ -114,9 +114,79 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     } catch { /* silence is fine */ }
   }
 
+  // A hall of steam engines: a low beat that comes and goes a few times a second, with
+  // the chuff of steam on it. level 0 is silence. A placeholder until the user has heard it.
+  let works = null;
+  function engine(level) {
+    if (!ac || failed) return;
+    if (!works && level === 0) return;
+    try {
+      if (!works) {
+        const volume = ac.createGain();
+        volume.gain.value = 0;
+        volume.connect(ac.destination);
+        const beat = ac.createOscillator();
+        beat.frequency.value = 2.4;
+        const depth = ac.createGain();
+        depth.gain.value = 0.5;
+        beat.connect(depth);
+        const low = ac.createOscillator();
+        low.type = 'triangle'; low.frequency.value = 62;
+        const lowGain = ac.createGain();
+        lowGain.gain.value = 0.5;
+        depth.connect(lowGain.gain);
+        low.connect(lowGain); lowGain.connect(volume);
+        const steam = ac.createBufferSource();
+        steam.buffer = noise; steam.loop = true;
+        const band = ac.createBiquadFilter();
+        band.type = 'bandpass'; band.frequency.value = 1400; band.Q.value = 0.6;
+        const steamGain = ac.createGain();
+        steamGain.gain.value = 0.12;
+        depth.connect(steamGain.gain);
+        steam.connect(band); band.connect(steamGain); steamGain.connect(volume);
+        beat.start(); low.start(); steam.start();
+        works = { volume };
+      }
+      const now = ac.currentTime;
+      works.volume.gain.cancelScheduledValues(now);
+      works.volume.gain.setTargetAtTime(muted ? 0 : level * 0.09, now, 0.5);
+      works.level = level;
+    } catch { /* silence is fine */ }
+  }
+
   return {
     wake,
     murmur,
+    engine,
+    // A wax cylinder heard through a small tube: the first line of "Au clair de la
+    // lune", thin and a little unsteady, under a crackle. A placeholder until the user
+    // has heard it.
+    phonograph() {
+      play((at) => {
+        const C = 523.25, D = 587.33, E = 659.25;
+        const tune = [[C, 1], [C, 1], [C, 1], [D, 1], [E, 2], [D, 2], [C, 1], [E, 1], [D, 1], [D, 1], [C, 3]];
+        const band = ac.createBiquadFilter();
+        band.type = 'bandpass'; band.frequency.value = 1700; band.Q.value = 2.5;
+        band.connect(ac.destination);
+        let when = at;
+        for (const [freq, beats] of tune) {
+          const seconds = beats * 0.27;
+          const osc = ac.createOscillator();
+          const volume = ac.createGain();
+          osc.type = 'sawtooth';
+          // The cylinder does not turn quite evenly.
+          osc.frequency.setValueAtTime(freq * 0.99, when);
+          osc.frequency.linearRampToValueAtTime(freq * 1.012, when + seconds);
+          volume.gain.setValueAtTime(0.0001, when);
+          volume.gain.exponentialRampToValueAtTime(0.16, when + 0.02);
+          volume.gain.exponentialRampToValueAtTime(0.0001, when + seconds * 0.95);
+          osc.connect(volume); volume.connect(band);
+          osc.start(when); osc.stop(when + seconds);
+          when += seconds;
+        }
+        hiss(at, { seconds: when - at + 0.3, from: 5200, gain: 0.03, type: 'highpass' });
+      });
+    },
     // Going between the Earth and a place: volume 1's jump (oddity/src/ui/sound.js `warp`),
     // note for note, as the user asked (2026.10.8: "텔레포트 소리는 우주 한량꺼 가져와서
     // 붙여줘"). Music-box notes climb a five-note scale faster and faster, a wide bright
@@ -149,7 +219,7 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     // The AudioContext, once a touch has woken it: the music plays through the same one.
     context: () => (failed ? null : ac),
     muted: () => muted,
-    setMuted(on) { muted = Boolean(on); if (crowd) murmur(crowd.level ?? 0); },
+    setMuted(on) { muted = Boolean(on); if (crowd) murmur(crowd.level ?? 0); if (works) engine(works.level ?? 0); },
     // One tick of the dial. big: every tenth year, lower and louder. dense: many ticks
     // are passing at once (a timed roll), so they are run together, low and soft.
     tick(big, dense) {

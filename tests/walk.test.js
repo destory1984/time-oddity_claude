@@ -1,4 +1,6 @@
+import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { piecesAt } from '../game/src/core/pieces.js';
 import { squareById } from '../game/src/core/squares.js';
 import { WALKS } from '../game/src/core/walks.js';
 import { centuryLabel, centuryOf, centuryStart, centuryStops } from '../game/src/core/century.js';
@@ -156,13 +158,32 @@ describe('the places that are walked about', () => {
     }
   });
   it('can be walked from end to end doing all three errands', () => {
-    const walk = createWalk(WALKS.colosseum);
-    for (const scene of WALKS.colosseum.scenes) {
-      for (const person of scene.people) { walk.x = person.x; speak(walk, person.id); }
-      for (let x = 0.03; x < 0.97; x += 0.01) { walk.x = x; stepWalk(walk, 16, 0); }
-      if (walk.scene < WALKS.colosseum.scenes.length - 1) { walk.scene += 1; walk.x = 0.05; }
+    for (const [id, place] of Object.entries(WALKS)) {
+      const walk = createWalk(place);
+      for (const scene of place.scenes) {
+        for (const person of scene.people) { walk.x = person.x; speak(walk, person.id); }
+        for (let x = 0.03; x < 0.97; x += 0.01) { walk.x = x; stepWalk(walk, 16, 0); }
+        if (walk.scene < place.scenes.length - 1) { walk.scene += 1; walk.x = 0.05; }
+      }
+      expect(sceneOf(walk).id, id).toBe(place.scenes.at(-1).id);
+      expect(allDone(walk), id).toBe(true);
     }
-    expect(sceneOf(walk).id).toBe('inside');
-    expect(allDone(walk)).toBe(true);
+  });
+  it('are in two centuries with a place each, and the first leaf in a third', () => {
+    expect(centuryOf(squareById('eiffel').date.year)).toBe(19);
+    expect(squareById('eiffel').dateLabel).toBe('AD 1889.5.15');
+  });
+  it('have a picture for everyone spoken to, by the names the screen asks for', () => {
+    const here = (file) => existsSync(new URL(`../game/public/walks/${file}`, import.meta.url));
+    for (const place of Object.values(WALKS)) {
+      for (const scene of place.scenes) {
+        expect(here(`${place.dir}/${scene.id}.webp`), scene.id).toBe(true);
+        for (const person of scene.people) {
+          expect(here(`${place.dir}/${person.id}.png`), person.id).toBe(true);
+          if (place.talk === 'face') expect(here(`${place.dir}/face-${person.id}.png`), `face of ${person.id}`).toBe(true);
+        }
+        for (const piece of piecesAt(scene, 0)) expect(here(`${place.dir}/${piece.src}.png`), piece.src).toBe(true);
+      }
+    }
   });
 });

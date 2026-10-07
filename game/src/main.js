@@ -378,6 +378,7 @@ function talk(id = null) {
   if (!said) return;
   sound.wake();
   sound.tick(true, false);
+  if (said.person.sound) sound[said.person.sound]();
   if (said.errands.length > 0) errandsDone();
 }
 function enterScene() {
@@ -389,7 +390,8 @@ function enterScene() {
   const after = walk.place.scenes[walk.scene + 1];
   $('walkPrev').hidden = !before; if (before) $('walkPrev').textContent = `‹ ${before.name}`;
   $('walkNext').hidden = !after; if (after) $('walkNext').textContent = `${after.name} ›`;
-  sound.murmur(scene.id === 'inside' ? 1 : 0.55);
+  sound.murmur(scene.murmur ?? 0.55);
+  sound.engine(scene.engine ?? 0);
 }
 function showWalk(sq) {
   square = sq;
@@ -438,7 +440,7 @@ function frameWalk(dt) {
 
   // The sky of that day and hour, as computed, behind the roofs.
   skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });
-  walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null);
+  walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000);
   if (walkArrive) { walkArrive = false; walkView.arrive(); }
 
   const near = walk.moving ? null : nearby(walk);
@@ -598,6 +600,7 @@ async function leave() {
   const fromSite = mode === 'site' || mode === 'walk';
   const fromWalk = mode === 'walk';
   sound.murmur(0);
+  sound.engine(0);
   if (photo.isOn()) photo.leave();
   findGame.leave();
   flyKeys.clear();

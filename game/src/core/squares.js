@@ -87,15 +87,17 @@ export const SQUARES = [
     quiz: { question: '수정궁은 무엇으로 지었나?', answer: '유리와 쇠', proof: '유리와 쇠', wrong: ['돌과 나무', '벽돌'] },
   },
   {
-    no: 75, id: 'eiffel', name: '에펠탑', dateLabel: 'AD 1889.3.31', place: '파리, 프랑스',
+    no: 75, id: 'eiffel', name: '에펠탑', dateLabel: 'AD 1889.5.15', place: '파리, 프랑스',
     lat: 48.858, lon: 2.294,
-    date: { year: 1889, month: 3, day: 31 }, calendar: 'gregorian', hourLocal: 13.5,
+    date: { year: 1889, month: 5, day: 15 }, calendar: 'gregorian', hourLocal: 13.5,
     facingAz: 315, nightOnLook: true,
     // All of this square's lines are placeholders, and its facts are from memory.
-    memo: '쇠로 지은 높은 탑을 다 세움.', sora: '쇠로 뜬 레이스 같아. 엄청 높다!',
+    // The day is the one the tower was opened to people (it was finished on 3.31): the
+    // place is walked about on that day (core/walks.js).
+    memo: '쇠로 지은 높은 탑에 사람들이 처음 오름.', sora: '쇠로 뜬 레이스 같아. 엄청 높다!',
     memoToday: '남은 것: 에펠탑. 그대로 서 있음.', soraToday: '둘레 건물만 없고 탑은 그대로네.',
-    noteMemo: '1889.3.31. 파리에 쇠로 지은 탑을 다 세웠다고 책에서 읽음. 그날 밤은 달이 뜨지 않음.',
-    card: '1889년 3월 31일, 파리에서 에펠탑이 다 지어졌습니다. 만국박람회의 문으로 세운 이 탑은 스무 해 뒤에 헐기로 되어 있었습니다. 탑은 전파를 보내는 안테나로 쓸모를 얻어 헐리지 않았고, 지금도 그 자리에 서 있습니다.',
+    noteMemo: '1889.5.15. 파리에서 쇠로 지은 탑에 사람들이 처음 올랐다고 책에서 읽음. 그날 달은 보름.',
+    card: '1889년 5월 15일, 파리의 에펠탑이 사람들에게 문을 열었습니다. 만국박람회의 문으로 세운 이 탑은 스무 해 뒤에 헐기로 되어 있었습니다. 탑은 전파를 보내는 안테나로 쓸모를 얻어 헐리지 않았고, 지금도 그 자리에 서 있습니다.',
     reply: '헐릴 뻔한 것이 제일 오래 남았구나.', // (placeholder)
     quiz: { question: '헐기로 했던 탑이 왜 남았나?', answer: '전파를 보내는 데 쓰여서', proof: '전파를 보내는 안테나로', wrong: ['너무 무거워서', '왕이 아껴서'] },
   },
