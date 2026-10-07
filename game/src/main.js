@@ -221,7 +221,7 @@ function frameGround(dt) {
   hud.set({
     name: `${square.no} ${square.name}`, dateText, placeText: square.place,
     subText: visit.night > 0.5 ? '그날 밤 9시' : '',
-    dots: visit.dots, memo, bubble: bubble && visit.look < 0.5 ? bubble.text : null,
+    dots: visit.dots, memo, memoPlain: memo === square.memoToday, bubble: bubble && visit.look < 0.5 ? bubble.text : null,
     todayLabel: at === 'today' ? '그날로' : '오늘로', showToday: true, showLeave: true,
     hint: '', soraFade: clamp01(visit.look * 1.6), glowSky, glowToday,
   });
@@ -231,7 +231,7 @@ function frameGlobe(dt) {
   globe.render(dt);
   hud.set({
     name: '시간 한량 · 첫 토막', ...dateOnGlobe(), dots: { day: false, sky: false, remains: false },
-    memo: null, bubble: null, todayLabel: '오늘로', showToday: false, showLeave: false,
+    memo: null, memoPlain: false, bubble: null, todayLabel: '오늘로', showToday: false, showLeave: false,
     hint: mode === 'globe' ? '지구를 돌려 금색 점을 눌러 보렴' : '', soraFade: 0, glowSky: 0, glowToday: 0,
   });
 }

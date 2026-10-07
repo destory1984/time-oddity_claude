@@ -17,7 +17,7 @@ export function createHud(el) {
   const glow = (node) => { node.classList.remove('glow'); node.getBoundingClientRect(); node.classList.add('glow'); };
 
   // state: { name, dateText, placeText, subText, dots: { day, sky, remains }, memo (text
-  // or null), bubble (text or null), todayLabel, showToday, showLeave, hint, soraFade,
+  // or null), memoPlain (true when the slip carries a plain note, not grandmother's words), bubble (text or null), todayLabel, showToday, showLeave, hint, soraFade,
   // glowSky (a count: glows once each time it goes up), glowToday (likewise) }
   function set(state) {
     text('name', state.name);
@@ -28,6 +28,7 @@ export function createHud(el) {
     [state.dots.day, state.dots.sky, state.dots.remains].forEach((on, i) => {
       if (changed(`dot${i}`, on)) dots[i].classList.toggle('on', on);
     });
+    if (changed('memoPlain', Boolean(state.memoPlain))) parts.memo.classList.toggle('plain', Boolean(state.memoPlain));
     if (changed('memoOn', state.memo !== null)) parts.memo.classList.toggle('on', state.memo !== null);
     if (state.memo !== null && changed('memo', state.memo)) {
       // A slip already on the screen turns over to show its new line.

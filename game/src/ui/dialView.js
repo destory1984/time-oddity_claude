@@ -6,7 +6,6 @@ import { PX_PER_YEAR } from '../core/dial.js';
 import { formatYear, yearFromIndex, yearIndex } from '../core/when.js';
 
 const UI = '"Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif';
-const HAND = '"Nanum Pen Script", "Gowun Batang", cursive';
 const PLATE_TOP = '#252a35';
 const PLATE_FOOT = '#171c26';
 const BRASS = '#a58a56';
@@ -112,8 +111,9 @@ export function createDialView(canvas) {
     }
     c.globalAlpha = 1;
 
-    // Marked years: a brass tick, a star over the rim and a tag in grandmother's hand, so
-    // that nobody has to know the year to find it.
+    // Marked years: a brass tick, a star over the rim and a tag, so that nobody has to know
+    // the year to find it. The tag is in the screen's type: the handwriting is hard to read
+    // and is kept for what grandmother and Sora themselves write and say.
     let older = null;
     let newer = null;
     for (const mark of marks) {
@@ -137,7 +137,7 @@ export function createDialView(canvas) {
       // The tag stands clear of the needle when the mark is under it.
       const near = Math.abs(away) * PX_PER_YEAR < 26;
       const label = at(i, -36);
-      tag(mark.label, label.x + (near ? (away < 0 ? -30 : 30) : 0), label.y, `17px ${HAND}`);
+      tag(mark.label, label.x + (near ? (away < 0 ? -30 : 30) : 0), label.y, `600 12px ${UI}`);
     }
     // A tag at each end points to the nearest marked year off the screen; tapping that side
     // of the dial rolls there (see main.js).

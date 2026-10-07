@@ -45,6 +45,9 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #memo{left:16px;top:64%;max-width:78%;visibility:hidden;background:var(--paper);color:var(--ink);padding:5px 12px;font-family:var(--hand);font-size:22px;line-height:1.15;
   box-shadow:1px 2px 0 rgba(59,42,26,.45);transform:translateX(-120%) rotate(-1.5deg);transition:transform .3s ease-out}
 #memo.on{transform:rotate(-1.5deg);visibility:visible}
+/* Handwriting is for what grandmother and Sora write and say. A plain note on the slip,
+   such as what remains today, is set in the screen's type so that it reads easily. */
+#memo.plain{font-family:var(--ui);font-size:14px;font-weight:500;line-height:1.35;padding:7px 12px}
 #memo.flip{animation:flip .4s}
 @keyframes flip{50%{transform:rotate(-1.5deg) scaleY(0)}}
 #hint{left:0;right:0;top:18%;text-align:center;font-size:14px;opacity:.85;text-shadow:0 1px 6px #050330}
