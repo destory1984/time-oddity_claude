@@ -56,7 +56,8 @@ const today = todayDate();
 const sound = createSound();
 const skyCanvas = createSkyCanvas($('sky'));
 const ground = createGround($('ground'));
-const dialView = createDialView($('dial'));
+// ?dial=1..5 tries one of the glass looks of the dial (ui/dialView.js) until one is chosen.
+const dialView = createDialView($('dial'), Number(new URLSearchParams(location.search).get('dial')) || 0);
 const hud = createHud($('hud'));
 const dial = createDial({ year: today.year, maxYear: today.year });
 

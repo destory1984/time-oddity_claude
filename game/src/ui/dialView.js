@@ -24,7 +24,18 @@ function chance(a, b) {
   return ((x ^ (x >>> 16)) >>> 0) / 4294967296;
 }
 
-export function createDialView(canvas) {
+// Five ways of making the disc look more like glass, tried side by side on 2026.10.7 at
+// the user's asking (0 is the plain one). Chosen with ?dial=1..5 until one is settled.
+const GLASS = {
+  0: { top: GLASS_TOP, foot: GLASS_FOOT, alpha: 1 },
+  1: { top: GLASS_TOP, foot: GLASS_FOOT, alpha: 1 },        // thick glass: a bevelled edge
+  2: { top: '#182a78', foot: GLASS_FOOT, alpha: 1 },        // polished: slanting streaks of light
+  3: { top: '#1c2f86', foot: '#0b1450', alpha: 0.6 },       // clear: the ground shows through
+  4: { top: GLASS_TOP, foot: '#060a2c', alpha: 1 },         // a dome: one soft highlight, dark edges
+  5: { top: '#1d4a9a', foot: '#071038', alpha: 0.94 },      // deep water-blue with an inner glow
+};
+
+export function createDialView(canvas, style = 0) {
   const c = canvas.getContext('2d');
   let w = 0;
   let h = 0;
@@ -94,9 +105,11 @@ export function createDialView(canvas) {
     c.save();
     c.shadowColor = 'rgba(0,0,0,.45)'; c.shadowBlur = 9; c.shadowOffsetY = -1;
     const glass = c.createLinearGradient(0, apex, 0, h);
-    glass.addColorStop(0, GLASS_TOP); glass.addColorStop(1, GLASS_FOOT);
-    c.fillStyle = glass;
+    const look = GLASS[style] ?? GLASS[0];
+    glass.addColorStop(0, look.top); glass.addColorStop(1, look.foot);
+    c.fillStyle = glass; c.globalAlpha = look.alpha;
     disc(); c.fill();
+    c.globalAlpha = 1;
     c.restore();
 
     // Inside the glass, a star chart that turns with the dial: dashed circles, and small
@@ -126,6 +139,52 @@ export function createDialView(canvas) {
     sheen.addColorStop(0, 'rgba(160,180,255,.16)'); sheen.addColorStop(1, 'rgba(160,180,255,0)');
     c.fillStyle = sheen;
     c.fillRect(0, apex, w, 46);
+    const arc = (r, from, to, colour, width, blur = 0) => {
+      c.save();
+      c.strokeStyle = colour; c.lineWidth = width; c.lineCap = 'round';
+      if (blur) { c.shadowColor = colour; c.shadowBlur = blur; }
+      c.beginPath(); c.arc(cx, cy, r, -Math.PI / 2 + from, -Math.PI / 2 + to); c.stroke();
+      c.restore();
+    };
+    if (style === 1 || style === 5) {
+      // The thickness of the glass: a band of light just inside the rim, a dark line under it.
+      ring(cx, cy, radius - 13, 'rgba(190,210,255,1)', 9, 0.16);
+      ring(cx, cy, radius - 19, 'rgba(0,0,20,1)', 2.5, 0.45);
+      ring(cx, cy, radius - 21.5, 'rgba(170,195,255,1)', 1, 0.3);
+      arc(radius - 11, -0.3, -0.07, 'rgba(255,255,255,.6)', 2.5, 6);
+      arc(radius - 11, 0.16, 0.22, 'rgba(255,255,255,.4)', 2, 4);
+    }
+    if (style === 2) {
+      // Light falling across polished glass: two slanting streaks and a glint on the rim.
+      c.save();
+      c.translate(cx - 70, apex + 40); c.rotate(-0.5);
+      const streak = (x, wide, a) => { const g = c.createLinearGradient(x, 0, x + wide, 0); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(0.5, `rgba(235,242,255,${a})`); g.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = g; c.fillRect(x, -200, wide, 400); };
+      streak(-30, 46, 0.22); streak(34, 16, 0.14); streak(190, 70, 0.1);
+      c.restore();
+      arc(radius - 9, -0.33, -0.1, 'rgba(255,255,255,.7)', 2, 8);
+    }
+    if (style === 3) {
+      // Clear glass: light gathers at the edge and the middle stays see-through.
+      ring(cx, cy, radius - 12, 'rgba(150,185,255,1)', 16, 0.2);
+      ring(cx, cy, radius - 22, 'rgba(255,255,255,1)', 1, 0.25);
+      arc(radius - 10, -0.3, -0.05, 'rgba(255,255,255,.65)', 2.5, 8);
+    }
+    if (style === 4) {
+      // A dome: one soft highlight off-centre, darkening toward the edges of the screen.
+      const glow = c.createRadialGradient(cx - 60, apex + 26, 0, cx - 60, apex + 26, 190);
+      glow.addColorStop(0, 'rgba(200,220,255,.34)'); glow.addColorStop(0.5, 'rgba(150,180,255,.1)'); glow.addColorStop(1, 'rgba(150,180,255,0)');
+      c.fillStyle = glow; c.fillRect(0, apex - 4, w, h - apex + 4);
+      const shade = c.createLinearGradient(0, 0, w, 0);
+      shade.addColorStop(0, 'rgba(0,0,20,.45)'); shade.addColorStop(0.25, 'rgba(0,0,20,0)'); shade.addColorStop(0.75, 'rgba(0,0,20,0)'); shade.addColorStop(1, 'rgba(0,0,20,.45)');
+      c.fillStyle = shade; c.fillRect(0, apex - 4, w, h - apex + 4);
+      arc(radius - 44, 0.08, 0.26, 'rgba(255,255,255,.09)', 5, 14);
+    }
+    if (style === 5) {
+      // Deep water-blue: a glow from within.
+      const glow = c.createRadialGradient(cx, apex + 70, 0, cx, apex + 70, 210);
+      glow.addColorStop(0, 'rgba(90,200,255,.22)'); glow.addColorStop(1, 'rgba(90,200,255,0)');
+      c.fillStyle = glow; c.fillRect(0, apex - 4, w, h - apex + 4);
+    }
     c.restore();
 
     // Two gold rims with the glass between them.
