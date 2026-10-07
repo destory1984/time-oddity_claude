@@ -1,15 +1,25 @@
 // Fingers. Where a finger first lands decides what it does until it lifts: the bottom
 // 140 px is the dial (sideways), anything above is the sky look (up and down) on the
-// ground or the globe (any way) above the Earth. Buttons take their own taps.
+// ground or the globe (any way) above the Earth; a second finger on the globe pinches
+// it closer or farther. Buttons take their own taps.
 const DIAL_HEIGHT = 140;
 
 export function createTouch(el, {
-  mode, onDialGrab, onDialDrag, onDialRelease, onDialTap, onLookDrag, onLookEnd, onGlobeDrag, onGlobeEnd,
+  mode, onDialGrab, onDialDrag, onDialRelease, onDialTap, onLookDrag, onLookEnd, onGlobeDrag, onGlobeEnd, onGlobeZoom,
 }) {
   let held = null;   // { id, zone, x, y, t, v }
+  let second = null; // a second finger on the globe: { id, x, y }; the two pinch
+  const apart = () => Math.hypot(held.x - second.x, held.y - second.y);
 
   el.addEventListener('pointerdown', (e) => {
-    if (held || e.target.closest('button')) return;
+    if (e.target.closest('button')) return;
+    if (held) {
+      if (held.zone === 'globe' && !second) {
+        el.setPointerCapture(e.pointerId);
+        second = { id: e.pointerId, x: e.clientX, y: e.clientY };
+      }
+      return;
+    }
     const box = el.getBoundingClientRect();
     // While travelling to a square or leaving one, nothing is held: a finger on the dial
     // would stop the roll that is taking the player there.
@@ -26,6 +36,15 @@ export function createTouch(el, {
   });
 
   el.addEventListener('pointermove', (e) => {
+    if (held && second && (e.pointerId === held.id || e.pointerId === second.id)) {
+      // Two fingers: the globe comes closer as they part, and does not turn meanwhile.
+      const before = apart();
+      const finger = e.pointerId === held.id ? held : second;
+      finger.x = e.clientX; finger.y = e.clientY;
+      if (before > 0) onGlobeZoom(apart() / before);
+      held.t = performance.now();
+      return;
+    }
     if (!held || e.pointerId !== held.id) return;
     const now = performance.now();
     const dt = Math.max(4, now - held.t);
@@ -45,6 +64,13 @@ export function createTouch(el, {
 
   // A cancelled touch (the finger left the screen, a call came in) is a lift.
   const lift = (e) => {
+    if (held && second && (e.pointerId === held.id || e.pointerId === second.id)) {
+      // One of the two lifts: the other goes on turning the globe.
+      if (e.pointerId === held.id) { held.id = second.id; held.x = second.x; held.y = second.y; }
+      held.t = performance.now();
+      second = null;
+      return;
+    }
     if (!held || e.pointerId !== held.id) return;
     const { zone } = held;
     // A short touch that hardly moved, on the left or right third of the dial, is a tap

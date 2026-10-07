@@ -1,5 +1,6 @@
 // The globe: the Earth turned by a finger, with a pin on each square. Babylon.js draws
 // the sphere; the pins are HTML buttons moved to where their place is each frame.
+import { zoomBy } from '../core/zoom.js';
 import { Engine } from '@babylonjs/core/Engines/engine.js';
 import { Scene } from '@babylonjs/core/scene.js';
 import { FreeCamera } from '@babylonjs/core/Cameras/freeCamera.js';
@@ -66,6 +67,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
   let h = 1;
   let active = true;
   let span = 1;                          // the width the Earth is sized by, in px
+  let zoom = 1;                          // how close: 1 the whole Earth (core/zoom.js)
   let spin = { yaw: 0, tilt: 0 };       // finger speed, rad per ms
   let held = false;
   let glide = null;                      // a timed turn to a place
@@ -73,7 +75,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
   function resize() {
     const box = canvas.getBoundingClientRect();
     w = box.width; h = box.height;
-    span = Math.min(w, h * TALL);
+    span = Math.min(w, h * TALL) * zoom;
     engine.resize();
     const half = w / span / GLOBE_WIDTH; // half the screen's width, in Earth radii
     camera.orthoLeft = -half; camera.orthoRight = half;
@@ -138,6 +140,13 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
   }
 
   function release() { held = false; }
+
+  // Comes closer or steps back by a factor; returns the zoom it ends at.
+  function zoomByFactor(factor) {
+    const next = zoomBy(zoom, factor);
+    if (next !== zoom) { zoom = next; resize(); }
+    return zoom;
+  }
 
   // A spare point of the Earth to aim at any latitude and longitude.
   const aim = new TransformNode('aim', scene);
@@ -217,5 +226,5 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     }
   }
 
-  return { resize, setActive, drag, release, spinTo, faceNow, render };
+  return { resize, setActive, drag, release, zoomBy: zoomByFactor, zoom: () => zoom, spinTo, faceNow, render };
 }

@@ -20,6 +20,7 @@ import { createGlobe } from './render/globe.js';
 import { createDialView } from './ui/dialView.js';
 import { createHud } from './ui/hud.js';
 import { createTouch } from './ui/touch.js';
+import { ZOOM_MAX, ZOOM_MIN, ZOOM_STEP } from './core/zoom.js';
 import { createSound } from './ui/sound.js';
 import { createSettings } from './ui/settings.js';
 import { createMusic } from './ui/music.js';
@@ -313,7 +314,22 @@ createTouch(stage, {
   onLookEnd: () => { if (!photo.isOn()) endLook(look); },
   onGlobeDrag: (dx, dy) => globe.drag(dx, dy),
   onGlobeEnd: () => globe.release(),
+  onGlobeZoom: (factor) => showZoom(globe.zoomBy(factor)),
 });
+
+// Closer and farther: two fingers, the wheel, or the two buttons at the right.
+function showZoom(zoom) {
+  $('zoomIn').disabled = zoom >= ZOOM_MAX;
+  $('zoomOut').disabled = zoom <= ZOOM_MIN;
+}
+$('zoomIn').addEventListener('click', () => showZoom(globe.zoomBy(ZOOM_STEP)));
+$('zoomOut').addEventListener('click', () => showZoom(globe.zoomBy(1 / ZOOM_STEP)));
+stage.addEventListener('wheel', (e) => {
+  if (mode !== 'globe' || e.target.closest('dialog')) return;
+  e.preventDefault();
+  showZoom(globe.zoomBy(e.deltaY < 0 ? 1.15 : 1 / 1.15));
+}, { passive: false });
+showZoom(1);
 
 function tickSounds(years) {
   if (years.length === 0) return;
