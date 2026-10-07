@@ -22,14 +22,18 @@ function makeLayer(el) {
   el.append(layer);
   return {
     layer,
-    show({ src, horizon, foot: colour }) {
-      const top = HORIZON_ON_SCREEN - horizon * PICTURE_HEIGHT;
+    // height: the picture's height as a share of the screen's, when a scene needs more of
+    // its width on a phone than the usual. centre: the share of the picture's width that
+    // comes to the middle of the screen (0.5 unless what matters is off to one side).
+    show({ src, horizon, foot: colour }, { height = PICTURE_HEIGHT, centre = 0.5 } = {}) {
+      const top = HORIZON_ON_SCREEN - horizon * height;
       img.src = src;
-      img.style.height = `${PICTURE_HEIGHT * 100}%`;
+      img.style.height = `${height * 100}%`;
+      img.style.transform = `translateX(${-centre * 100}%)`;
       img.style.top = `${top * 100}%`;
       // The foot starts a little inside the picture so that no seam shows, and runs far
       // enough below the screen to stay under it when the ground sinks or rises.
-      foot.style.top = `${(top + PICTURE_HEIGHT) * 100 - 1}%`;
+      foot.style.top = `${(top + height) * 100 - 1}%`;
       foot.style.background = colour;
     },
   };
@@ -42,8 +46,8 @@ export function createGround(el) {
 
   function show(square) {
     scene = SCENES[square.id];
-    then.show(scene.then);
-    today.show(scene.today);
+    then.show(scene.then, scene.frame);
+    today.show(scene.today, scene.frame);
   }
 
   // rise 0 to 1: how far the picture has come up. blend 0 to 1: the day to today.

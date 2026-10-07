@@ -20,7 +20,8 @@ export const SQUARES = [
     no: 0, id: 'yard1969', name: '이웃집 마당', dateLabel: '1969.7.21', place: '할머니의 마을',
     lat: 37.57, lon: 126.98,
     date: { year: 1969, month: 7, day: 21 }, calendar: 'gregorian', hourLocal: 20.5,
-    facingAz: 245, nightOnLook: false,
+    // 228 rather than straight at the moon (240): it then stands right of the middle, clear of Sora.
+    facingAz: 228, nightOnLook: false,
     memo: '이웃집 마당. 다 같이 달을 봤다.', sora: '저기 뒤에 앉은 애가 할머니야?',
     soraSky: '저 달에 지금 사람이 있는 거야?',
     memoToday: '남은 것: 그 마당 자리의 오늘.', soraToday: '텔레비전도 평상도 없네.', // (placeholder)

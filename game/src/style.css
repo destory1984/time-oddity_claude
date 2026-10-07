@@ -41,10 +41,12 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #glowSky{left:0;right:0;top:0;height:3px}
 #glowSky.glow{animation:glowTop 1.2s ease-in-out}
 @keyframes glowTop{50%{box-shadow:0 0 60px 34px rgba(251,248,249,.5)}}
+/* On the ground she floats to the left, clear of what the picture is about, which stands in
+   the middle (the user, 2026.10.7: "배경이 보여야할 땐, 소라를 약간만 왼쪽으로"). */
 /* As large as in volume 1: her figure stands about 155 px tall on a 375 x 812 screen
    (measured from volume 1's own screenshot; the first slice drew her at 60% of that). */
-#sora{left:calc(50% - 88px);top:23%;width:154px;image-rendering:pixelated;pointer-events:none;transition:opacity .4s}
-#bubble{left:58%;top:21%;max-width:40%;background:var(--white);color:#1b1730;padding:6px 12px;border-radius:14px 14px 14px 2px;font-family:var(--seora);font-size:calc(18px * var(--text,1));line-height:1.25;
+#sora{left:3%;top:25%;width:154px;image-rendering:pixelated;pointer-events:none;transition:opacity .4s}
+#bubble{left:46%;top:21%;max-width:50%;background:var(--white);color:#1b1730;padding:6px 12px;border-radius:14px 14px 14px 2px;font-family:var(--seora);font-size:calc(18px * var(--text,1));line-height:1.25;
   opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s}
 #bubble.on{opacity:1;transform:none}
 #memo{left:16px;top:64%;max-width:78%;visibility:hidden;background:var(--paper);color:var(--ink);padding:5px 12px;font-family:var(--hand);font-size:calc(22px * var(--text,1));line-height:1.15;
