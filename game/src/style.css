@@ -1,0 +1,52 @@
+:root{--night:#050330;--navy:#1a2894;--gold:#f6b951;--white:#fbf8f9;--lav:#e2daf6;--paper:#f2e6c8;--ink:#3b2a1a}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#02011c;overflow:hidden;overscroll-behavior:none}
+body{display:grid;place-items:center;font-family:"Malgun Gothic",system-ui,sans-serif;color:var(--white);font-size:13px;line-height:1.4;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+/* A phone fills its screen; a wider window gets a 375:812 column. */
+#stage{position:relative;width:100vw;height:100dvh;max-width:calc(100dvh * 375 / 812);overflow:hidden;background:var(--night);touch-action:none}
+@media (max-width:520px){#stage{max-width:none}}
+#stage>*{position:absolute}
+#globe,#sky,#ground,#pins,#hud,#dial,#fade{inset:0;width:100%;height:100%}
+#sky,#ground,#glowSky,#sora,#hud .ground{visibility:hidden}
+.on-ground #sky,.on-ground #ground,.on-ground #glowSky,.on-ground #sora{visibility:visible}
+.on-ground #globe,.on-ground #pins{visibility:hidden}
+#ground svg,#ground img{position:absolute;inset:0;width:100%;height:100%;will-change:transform,opacity}
+#hud,#pins{pointer-events:none}
+#hud button,#pins button{pointer-events:auto}
+.glass{background:rgba(5,3,48,.6);border:1px solid rgba(226,218,246,.45);border-radius:16px;color:var(--white);font:inherit}
+#hud>*{position:absolute}
+#top{top:12px;left:14px;right:14px;display:flex;align-items:center;gap:10px;height:34px}
+#dots{display:flex;gap:6px}
+#dots i{width:13px;height:13px;border-radius:50%;border:1.5px solid var(--gold);transition:background .3s,box-shadow .3s}
+#dots i.on{background:var(--gold);box-shadow:0 0 10px var(--gold)}
+#name{font-size:13px;color:var(--gold)}
+#date{top:56px;left:18px;text-shadow:0 1px 6px rgba(5,3,48,.6)}
+#date b{display:block;font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+#date span{display:block}
+#subText{color:var(--gold);min-height:1.4em}
+#todayBtn{right:16px;top:60px;padding:9px 15px;border-color:var(--gold);color:var(--gold)}
+#leaveBtn{right:16px;bottom:156px;padding:8px 14px}
+#todayBtn.glow,#glowSky.glow{animation:glow 1.2s ease-in-out}
+@keyframes glow{50%{box-shadow:0 0 22px 6px rgba(246,185,81,.75)}}
+#glowSky{left:0;right:0;top:0;height:3px}
+#glowSky.glow{animation:glowTop 1.2s ease-in-out}
+@keyframes glowTop{50%{box-shadow:0 0 60px 34px rgba(251,248,249,.5)}}
+#sora{left:35%;top:27%;width:96px;image-rendering:pixelated;pointer-events:none;transition:opacity .4s}
+#bubble{left:54%;top:26%;max-width:42%;background:var(--white);color:#1b1730;padding:7px 12px;border-radius:14px 14px 14px 2px;font-size:13.5px;
+  opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s}
+#bubble.on{opacity:1;transform:none}
+#memo{left:16px;top:64%;max-width:78%;background:var(--paper);color:var(--ink);padding:5px 12px;font-family:"Nanum Pen Script","Malgun Gothic",cursive;font-size:22px;line-height:1.15;
+  box-shadow:1px 2px 0 rgba(59,42,26,.45);transform:translateX(-120%) rotate(-1.5deg);transition:transform .3s ease-out}
+#memo.on{transform:rotate(-1.5deg)}
+#memo.flip{animation:flip .4s}
+@keyframes flip{50%{transform:rotate(-1.5deg) scaleY(0)}}
+#hint{left:0;right:0;top:18%;text-align:center;font-size:14px;opacity:.85;text-shadow:0 1px 6px #050330}
+.on-ground #hint{display:none}
+.on-globe #date,.on-globe #todayBtn,.on-globe #leaveBtn,.on-globe #memo,.on-globe #bubble,.on-globe #dots{display:none}
+#pins .pin{position:absolute;width:44px;height:44px;margin:-22px;border:0;background:none;padding:0}
+#pins .pin::before{content:"";position:absolute;left:15px;top:15px;width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(246,185,81,.35),0 0 14px var(--gold)}
+#pins .pin span{position:absolute;left:36px;top:12px;white-space:nowrap;font:12px "Malgun Gothic",system-ui,sans-serif;color:var(--white);text-shadow:0 1px 4px #050330}
+#fade{background:var(--night);opacity:0;pointer-events:none;transition:opacity .2s}
+#fade.on{opacity:1}
+#dial{pointer-events:none}
