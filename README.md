@@ -5,11 +5,26 @@
 
 ## 지금 상태
 
-아직 코드가 없다. 2026.10.7에 쓴 기획서 한 편만 있다.
+아직 게임 코드가 없다. 2026.10.7에 쓴 문서 3편이 있다.
 
 - [기획서 「할머니의 수첩 2권」](docs/기획서-수첩-2권.md)
+- [화면 견본 10](docs/ui-samples.html)
+- [그래픽 발주서 1: 그림체 시험 10장](docs/art-order-test-10.md)
 
 기획서는 뼈대다. 날짜, 자리, 대사는 처음 잡아 본 것이고, 만들기 전에 원 자료로 확인한다.
+
+## 화면 견본 10
+
+칸 하나의 화면을 10가지로 짜 보았다. 장면은 모두 1851년 5월 1일 하이드파크이고, 다이얼의 생김새와 자리만 다르다. 빗금 친 칸은 그림이 들어갈 자리다. 그림은 [발주서](docs/art-order-test-10.md)로 따로 주문한다. 달의 모양과 자리는 임시다.
+
+| | | |
+|:---:|:---:|:---:|
+| <img src="docs/ui-samples/sample-01.png" width="260"> | <img src="docs/ui-samples/sample-02.png" width="260"> | <img src="docs/ui-samples/sample-03.png" width="260"> |
+| <img src="docs/ui-samples/sample-04.png" width="260"> | <img src="docs/ui-samples/sample-05.png" width="260"> | <img src="docs/ui-samples/sample-06.png" width="260"> |
+| <img src="docs/ui-samples/sample-07.png" width="260"> | <img src="docs/ui-samples/sample-08.png" width="260"> | <img src="docs/ui-samples/sample-09.png" width="260"> |
+| <img src="docs/ui-samples/sample-10.png" width="260"> | | |
+
+견본의 원본은 [docs/ui-samples.html](docs/ui-samples.html)이다. 내려받아 브라우저로 열면 10개가 한 쪽에 보인다.
 
 ## 무엇을 하는 게임인가
 

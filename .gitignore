@@ -5,6 +5,7 @@ __pycache__/
 *.csv
 *.png
 !public/**/*.png
+!docs/**/*.png
 .env
 .DS_Store
 Thumbs.db

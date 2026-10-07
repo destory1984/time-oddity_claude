@@ -191,6 +191,13 @@ const S = [
 ];
 document.getElementById('grid').innerHTML = S.map((s,i)=>`<figure>${screen(s)}
 <figcaption><b>${i+1}. ${s.n}</b><dl><dt>조작</dt><dd>${s.how}</dd><dt>좋은 점</dt><dd>${s.good}</dd><dt>걱정</dt><dd>${s.bad}</dd></dl></figcaption></figure>`).join('');
+// 주소 끝에 #s3 처럼 붙이면 견본 한 대만 보인다(그림 파일로 찍을 때 쓴다).
+const one = location.hash.match(/^#s(\d+)$/);
+if (one) {
+  const main = document.querySelector('main');
+  main.replaceChildren(document.querySelectorAll('figure')[one[1] - 1]);
+  main.style.cssText = 'padding:14px 0 0;margin:0;width:340px';
+}
 </script>
 </body>
 </html>
