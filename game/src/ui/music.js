@@ -1,4 +1,4 @@
-// Background music, the same as volume 1's: eleven tunes decided bar by bar in
+// Background music, made the way volume 1's is: twenty tunes decided bar by bar in
 // core/music.js and played here with Web Audio. No sound files. It sits well under the
 // effects, and has its own switch, kept between visits.
 import { BAR_S, barInOrder, barPlan, nextTuneBar, tuneFor, tuneOrder } from '../core/music.js';

@@ -148,7 +148,7 @@ sound.setMuted(loadMuted());
 soundSwitch.setMuted(sound.muted());
 $('soundButton').addEventListener('click', () => { sound.wake(); soundSwitch.setMuted(!sound.muted()); });
 
-// Background music: volume 1's eleven tunes, with a switch of its own.
+// Background music: twenty tunes of this game's own, with a switch of its own.
 const music = createMusic({ context: () => sound.context(), on: loadMusic() });
 const musicSwitch = {
   on: () => music.on(),
