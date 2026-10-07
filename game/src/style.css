@@ -37,7 +37,7 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #dots i{width:13px;height:13px;border-radius:50%;border:1.5px solid var(--gold);transition:background .3s,box-shadow .3s}
 #dots i.on{background:var(--gold);box-shadow:0 0 10px var(--gold)}
 #name{font-size:13px;color:var(--gold)}
-#date{top:56px;left:18px;text-shadow:0 1px 6px rgba(5,3,48,.6)}
+#date{top:64px;left:18px;text-shadow:0 1px 6px rgba(5,3,48,.6)}
 #date b{display:block;font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
 #date span{display:block}
 #subText{color:var(--gold);min-height:1.4em}
@@ -65,7 +65,7 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #memo.flip{animation:flip .4s}
 @keyframes flip{50%{transform:rotate(-1.5deg) scaleY(0)}}
 /* The one line of guidance: a small dark pill under the date, in the screen's type. */
-#hint{left:50%;top:124px;transform:translateX(-50%);max-width:92%;padding:6px 14px;border-radius:14px;background:rgba(5,3,48,.62);border:1px solid rgba(226,218,246,.3);
+#hint{left:50%;top:132px;transform:translateX(-50%);max-width:92%;padding:6px 14px;border-radius:14px;background:rgba(5,3,48,.62);border:1px solid rgba(226,218,246,.3);
   font-size:calc(13.5px * var(--text,1));white-space:nowrap;opacity:0;transition:opacity .4s;pointer-events:none}
 #hint.on{opacity:1}
 .on-globe #todayBtn,.on-globe #leaveBtn,.on-globe #memo,.on-globe #dots{display:none}
