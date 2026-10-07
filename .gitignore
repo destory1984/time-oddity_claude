@@ -13,6 +13,6 @@ coverage/
 *.local
 .playwright-mcp/
 .superpowers/
-assets/
+/assets/
 !game/public/**/*.png
 !play/**/*.png
