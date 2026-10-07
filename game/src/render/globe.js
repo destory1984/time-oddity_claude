@@ -17,7 +17,13 @@ import { squareTitle } from '../core/squares.js';
 const RAD = Math.PI / 180;
 const GLOBE_WIDTH = 0.8;      // the Earth's diameter as a share of the screen's width (of `span` on a wide window)
 const TALL = 0.6;             // a window wider than this share of its height counts as this wide
-const MAX_TILT = 89 * RAD;   // far enough to bring the South Pole under her (a square stands there)
+// The Earth stands upright, north at the top, and turns only about its own axis: left and
+// right (the user, 2026.10.8: "지구본을 3차원 회전시키지 말고, 축을 북극/남극으로 고정시켜서
+// 좌우로만 돌려"). Until then it could be tipped up to 89 degrees. With no tilt a place off
+// the equator never comes to the middle of the screen, so Sora flies along the latitude
+// of the place she is nearest (focusY below), and the eye rises to it as it comes close.
+const MAX_TILT = 0;
+const FOCUS_MS = 260;         // she moves to another latitude over about this long
 const COAST_MS = 160;         // after a drag the spin falls by 1/e in this long
 
 // Where a latitude and longitude lie on Babylon's sphere, whose texture runs from
@@ -74,6 +80,8 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
   let underId = null;                    // the square under her, at the middle
   let views = [];                        // every pin as seen now: { id, x, y, z } (core/flight.js)
   let moved = { dx: 0, dy: 0 };          // how far the ground has moved on screen since last asked, px
+  let focusY = 0;                        // the height she flies at, in Earth radii above the equator (the nearest shown place's)
+  let centreY = 0;                       // the height the eye looks at: nearer to hers the closer the Earth is
   let spin = { yaw: 0, tilt: 0 };       // finger speed, rad per ms
   let held = false;
   let glide = null;                      // a timed turn to a place
@@ -90,7 +98,8 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     span = Math.min(w, h * TALL) * zoom;
     const half = w / span / GLOBE_WIDTH; // half the screen's width, in Earth radii
     camera.orthoLeft = -half; camera.orthoRight = half;
-    camera.orthoTop = (half * h) / w; camera.orthoBottom = (-half * h) / w;
+    centreY = focusY * (1 - 1 / zoom);
+    camera.orthoTop = centreY + (half * h) / w; camera.orthoBottom = centreY - (half * h) / w;
   }
 
   // Where a point of the Earth is now, in the world: x right, y up, z away from the eye.
@@ -153,7 +162,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     earth.rotation.y += yaw;
     tilter.rotation.x += tilt;
     clampTilt();
-    moved.dx += dx; moved.dy += dy;
+    moved.dx += dx;
     return { yaw, tilt };
   }
 
@@ -222,15 +231,15 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     if (!held && !glide && Math.abs(spin.yaw) < 2e-5 && Math.abs(spin.tilt) < 2e-5) {
       let near = null;
       for (const v of views) {
-        const d = Math.hypot(v.x, v.y);
+        const d = Math.abs(v.x);
         // The square she is flying to draws her from farther out than the others do.
         if (v.z >= 0 || d > (v.id === targetId ? SLOW : SLOW * 0.6) || d < NEAR * 0.1) continue;
         if (v.id === targetId) { near = v; break; }
-        if (!near || d < Math.hypot(near.x, near.y)) near = v;
+        if (!near || d < Math.abs(near.x)) near = v;
       }
       if (near) {
         const k = 1 - Math.exp(-dtMs / 260);
-        turnBy(-near.x * pxPerUnit * k, near.y * pxPerUnit * k);
+        turnBy(-near.x * pxPerUnit * k, 0);
       }
     }
     scene.render();
@@ -240,16 +249,19 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     const hits = (box) => taken.some((t) => box.left < t.right && box.right > t.left && box.top < t.bottom && box.bottom > t.top);
     const shown = [];
     views = [];
+    let nearest = null;                  // the shown place nearest her meridian, or the one she is flying to
     for (const pin of pins) {
       // A pin of another century is not there: not seen, not flown to, not come down on.
       if (shownIds && !shownIds.includes(pin.square.id)) { pin.button.style.display = 'none'; continue; }
       const at = worldOf(pin.node);
-      views.push({ id: pin.square.id, x: at.x, y: at.y, z: at.z });
+      if (at.z < 0 && (pin.square.id === targetId || !nearest || (nearest.id !== targetId && Math.abs(at.x) < Math.abs(nearest.x)))) nearest = { id: pin.square.id, x: at.x, y: at.y };
+      // Told to the flight as she sees it: up and down from the height she flies at.
+      views.push({ id: pin.square.id, x: at.x, y: at.y - focusY, z: at.z });
       const front = at.z < -0.12;
       pin.button.style.display = front ? '' : 'none';
       if (!front) continue;
       const x = w / 2 + at.x * pxPerUnit;
-      const y = h / 2 - at.y * pxPerUnit;
+      const y = h / 2 - (at.y - centreY) * pxPerUnit;
       pin.button.style.left = `${x.toFixed(1)}px`;
       pin.button.style.top = `${y.toFixed(1)}px`;
       shown.push({ pin, x, y });
@@ -270,6 +282,8 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
       pin.button.style.setProperty('--drop', `${drop}px`);
       taken.push(boxAt(side, drop));
     }
+    if (nearest) focusY += (nearest.y - focusY) * (1 - Math.exp(-dtMs / FOCUS_MS));
+    frameCamera();
     underId = pinUnder(views, targetId);
     for (const pin of pins) {
       pin.button.classList.toggle('target', pin.square.id === targetId);
@@ -285,6 +299,8 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     // The square she is flying to (null for none), the one under her, and the arrow to the first.
     setTarget(id) { targetId = id; },
     setShown(ids) { shownIds = ids; },
+    // Where she flies on the screen, px from the top: over the latitude of the nearest place.
+    hoverY: () => h / 2 - ((focusY - centreY) * GLOBE_WIDTH * span) / 2,
     under: () => underId,
     pointer: () => pointerTo(views.find((v) => v.id === targetId) ?? null),
   };

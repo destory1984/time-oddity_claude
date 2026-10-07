@@ -115,6 +115,8 @@ const overEarth = () => mode === 'globe' && onEra;
 const GUIDE_ON = false;    // the one line of guidance is switched off in plan v4
 const theDial = () => (overEarth() ? eraDial : dial);
 const eraStop = () => STOPS[eraDial.year - 1];
+let shownEra = eraDial.year;   // the stop the Earth was last turned to show
+const ERA_ASIDE_DEG = 24;      // a century's place comes into sight this far east of her
 let square = null;
 let visit = null;
 const look = createLook();
@@ -786,6 +788,8 @@ function globeCount() {
 
 function frameGlobe(dt) {
   globe.render(dt);
+  // She flies at the height of the place nearest her on the upright Earth.
+  stage.style.setProperty('--hoverY', `${globe.hoverY().toFixed(1)}px`);
   const now = performance.now();
   const moved = globe.motion();
   const way = mode === 'globe' ? flyPose(moved.dx, moved.dy) : null;
@@ -814,6 +818,13 @@ function frame(now) {
   const dt = held ? 0 : Math.min(50, now - last);
   last = now;
   tickSounds(stepDial(theDial(), dt));
+  // When the dial comes to rest on another century the Earth turns until that century's
+  // place is in sight, a little to one side of her: lit, but still to be flown to.
+  if (overEarth() && eraDial.resting && shownEra !== eraDial.year) {
+    shownEra = eraDial.year;
+    const first = squareById(eraStop().ids[0]);
+    globe.spinTo(0, first.lon - ERA_ASIDE_DEG, 0.9);
+  }
   // Only the places of the century the dial rests nearest are on the globe.
   globe.setShown(overEarth() ? eraStop().ids : target ? [target.id] : LIVE.map((sq) => sq.id));
   if (walk && mode === 'walk') frameWalk(dt);

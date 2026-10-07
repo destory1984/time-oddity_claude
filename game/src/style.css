@@ -66,8 +66,8 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 .on-site #bubble{left:104px;top:44%;max-width:56%}
 .on-ground #sky,.on-ground #ground,.on-ground #glowSky{visibility:visible}
 /* Above the Earth Sora flies over the middle of the globe, smaller than on the ground (she is high up): the place under her feet is where she is. */
-.on-globe #sora{left:calc(50% - 55px);top:calc(50% - 132px);width:110px}
-.on-globe #bubble{left:calc(50% + 40px);top:calc(50% - 150px);max-width:40%}
+.on-globe #sora{left:calc(50% - 55px);top:calc(var(--hoverY,50%) - 132px);width:110px}
+.on-globe #bubble{left:calc(50% + 40px);top:calc(var(--hoverY,50%) - 150px);max-width:40%}
 .on-ground #globe,.on-ground #pins{visibility:hidden}
 #ground{overflow:hidden;pointer-events:none}
 #ground .layer{position:absolute;inset:0;will-change:transform,opacity,filter}
@@ -330,11 +330,11 @@ html.wide #stage{max-width:none}
 
 /* Flying: the spot under her feet, the arrow to the square she is flying to, the button to come down. */
 #underfoot,#flyArrow,#landButton{display:none;position:absolute}
-.on-globe #underfoot{display:block;left:50%;top:50%;width:22px;height:10px;margin:-5px 0 0 -11px;border-radius:50%;border:2px solid rgba(246,185,81,.9);box-shadow:0 0 8px rgba(246,185,81,.6);pointer-events:none}
-.on-globe #flyArrow.on{display:block;left:50%;top:50%;width:0;height:0;pointer-events:none;transform:rotate(var(--turn,0deg))}
+.on-globe #underfoot{display:block;left:50%;top:var(--hoverY,50%);width:22px;height:10px;margin:-5px 0 0 -11px;border-radius:50%;border:2px solid rgba(246,185,81,.9);box-shadow:0 0 8px rgba(246,185,81,.6);pointer-events:none}
+.on-globe #flyArrow.on{display:block;left:50%;top:var(--hoverY,50%);width:0;height:0;pointer-events:none;transform:rotate(var(--turn,0deg))}
 #flyArrow i{position:absolute;left:-11px;top:-92px;border-left:11px solid transparent;border-right:11px solid transparent;border-bottom:20px solid var(--gold);filter:drop-shadow(0 0 6px rgba(246,185,81,.8));animation:flyArrow 1s ease-in-out infinite}
 @keyframes flyArrow{50%{transform:translateY(-8px)}}
-.on-globe #landButton.on{display:block;left:50%;top:calc(50% + 34px);transform:translateX(-50%);min-height:var(--tap);padding:0 20px;font-size:16px;font-weight:600;border-color:var(--gold);color:var(--gold);animation:landGlow 1.2s ease-in-out infinite}
+.on-globe #landButton.on{display:block;left:50%;top:calc(var(--hoverY,50%) + 34px);transform:translateX(-50%);min-height:var(--tap);padding:0 20px;font-size:16px;font-weight:600;border-color:var(--gold);color:var(--gold);animation:landGlow 1.2s ease-in-out infinite}
 @keyframes landGlow{50%{box-shadow:0 0 18px rgba(246,185,81,.75)}}
 #pins .pin.target::before{box-shadow:0 0 0 4px rgba(246,185,81,.5),0 0 0 9px rgba(246,185,81,.22),0 0 22px var(--gold);animation:pinTarget 1.1s ease-in-out infinite}
 @keyframes pinTarget{50%{transform:scale(1.35)}}
