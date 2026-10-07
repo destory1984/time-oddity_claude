@@ -91,6 +91,7 @@ export function createWalkView({ onPerson, onWay }) {
       nodes.set(person.id, { img, person, left: 0, top: 0, wide: 0, tall: 0 });
     }
     root.dataset.look = place.look ?? 'pixel';
+    root.dataset.night = place.night ? '1' : '';
     piecesEl.replaceChildren();
     behindEl.replaceChildren();
     moving = new Map();

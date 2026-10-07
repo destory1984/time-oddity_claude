@@ -13,7 +13,7 @@ export const NOTES = [
     square: 'yard1969',          // falls when this square's three dots are all filled
     title: '1969.7.21',
     image: 'note-1969.png',
-    scene: '오늘로 돌아오자 수첩 사이에서 쪽지가 떨어졌다.',
+    scene: '심부름을 마치자 수첩 사이에서 쪽지가 떨어졌다.',
     text: [
       '열다섯 살 여름이었단다. 이웃집 마당에서 온 동네가 텔레비전 한 대를 봤지. 사람이 달에 내려서는 걸.',
       '어른들은 세상이 달라졌다고 했단다. 그런데 고개를 들어 보니 달은 어제와 똑같더구나. 감나무 위에 가만히 떠 있었어.',

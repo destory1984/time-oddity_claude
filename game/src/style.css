@@ -29,6 +29,9 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkPeople{inset:0}
 /* The second look (Paris): a flat picture with cut-out pieces that the code slides and turns; only the faces of those spoken to are in pixels. */
 #walk[data-look="paper"] #walkPicture,#walk[data-look="paper"] #walkPeople .person{image-rendering:auto}
+/* A place seen at night (the first leaf): those who stand in it are dimmed a little to the dark about them. */
+#walk[data-night="1"] #walkPeople .person,#walk[data-night="1"] #walkPieces .piece{filter:brightness(.8) saturate(.88)}
+#walk[data-night="1"] #walkPeople .person.near{filter:brightness(.92) drop-shadow(0 0 5px rgba(255,222,140,.95))}
 #walkPieces,#walkBehind{inset:0;pointer-events:none}
 #walkPieces .clip,#walkBehind .clip{position:absolute;top:0;height:100%;overflow:hidden}
 #walkPieces .piece,#walkBehind .piece{position:absolute;width:auto;max-width:none;will-change:transform;-webkit-user-drag:none}

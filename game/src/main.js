@@ -154,7 +154,9 @@ function readNote(note) {
     pages: notePages(note), lastLabel: '쪽지를 접는다', skip: false,
     onDone: () => {
       keep(markNoteRead(progress, note.id));
-      if (visit) bubble = { text: note.says[note.says.length - 1], until: visit.t + SORA_FOR_MS };
+      const last = note.says[note.says.length - 1];
+      if (visit) bubble = { text: last, until: visit.t + SORA_FOR_MS };
+      else if (walk) walkSora = { text: last, from: walkT, until: walkT + SORA_FOR_MS };
     },
   });
 }
@@ -334,6 +336,7 @@ let walkSora = null;        // { text, until }: what she says, while it shows
 let replyUntil = 0;         // grandmother's answer shows until then
 let errandsFoldAt = 0;      // the slip of errands folds itself then
 let walkArrive = false;     // she is to be set down in a shaft of light on the next frame
+let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
 const walkView = createWalkView({
   onPerson: (id) => {
     if (!walk) return;
@@ -370,7 +373,7 @@ function errandsDone() {
   if (!allDone(walk)) return;
   // All three: the square is filled and grandmother writes back.
   for (const dot of ['sky', 'remains']) keep(fillDot(progress, square.id, dot));
-  setTimeout(() => { if (walk) { sound.bell(); replyUntil = walkT + 10000; } }, 1200);
+  setTimeout(() => { if (walk) { sound.bell(); replyUntil = walkT + 10000; walkNoteAt = walkT + NOTE_AFTER_MS; } }, 1200);
 }
 function talk(id = null) {
   if (!walk) return;
@@ -397,7 +400,7 @@ function showWalk(sq) {
   square = sq;
   visit = null; site = null;
   walk = createWalk(WALKS[sq.id]);
-  walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyUntil = 0;
+  walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyUntil = 0; walkNoteAt = 0;
   $('errands').classList.remove('folded');
   errandsFoldAt = ERRANDS_OPEN_MS;
   if (isLocalHost(location.hostname)) window.walkDebug = walk;
@@ -437,6 +440,12 @@ function frameWalk(dt) {
   if (out.errands.length > 0) errandsDone();
   if (walkSora && walkT > walkSora.until) walkSora = null;
   if (errandsFoldAt > 0 && walkT >= errandsFoldAt) { errandsFoldAt = 0; $('errands').classList.add('folded'); }
+  // A note that is due (the first leaf's) falls once grandmother's answer has been read.
+  if (walkNoteAt > 0 && walkT >= walkNoteAt) {
+    walkNoteAt = 0;
+    const note = dueNote((id) => isComplete(progress, id), notesRead(progress));
+    if (note && note.square === square.id) { walkWay = 0; keyWay = 0; sound.page(); readNote(note); }
+  }
 
   // The sky of that day and hour, as computed, behind the roofs.
   skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });

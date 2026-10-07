@@ -364,4 +364,76 @@ export const WALKS = {
     ],
     reply: '이백십이라니. 후지산이 금세 지나갔겠구나.',
   },
+  // The first leaf: grandmother's village on the night of 21 July 1969, the one day in
+  // the notebook she saw herself (the user, 2026.10.8, of the places made in Paris's
+  // look: "할머니의 마을을 안 바꿨네"). It is night (`night`): the people are dimmed a
+  // little and the computed sky, with that night's moon, stands over the roofs.
+  // The girl with bobbed hair at the end of the bench is grandmother: seen, not spoken to.
+  // To be checked: that it was shown again that evening, four days' flight, that the
+  // two were still on the Moon at nine (they left at 02:54 on the 22nd, Korean time).
+  yard1969: {
+    dir: 'yard', look: 'paper', talk: 'face', night: true,
+    scenes: [
+      {
+        id: 'lane', name: '마을 길', zoom: 1.3, ground: 0.698, scale: 0.66, murmur: 0.2,
+        sora: '밤인데 다들 어디로 가?',
+        // Children run along the lane and in at the open gate.
+        moving: [
+          { kind: 'drift', id: 'kids', src: 'kids', from: 0, to: 0.645, foot: 0.695, tall: 0.13, wide: 0.379, gap: 0.9, speed: 0.07, bob: 0.006 },
+        ],
+        people: [
+          { id: 'shop', name: '구멍가게 아주머니', x: 0.12, w: 129, h: 297, lines: ['사이다 한 병 줄까? 시원하다.', '다들 테레비 보러 가서 가게가 비었네.'] },
+          { id: 'kettle', name: '주전자 든 아저씨', x: 0.26, w: 137, h: 320, lines: ['막걸리 받아 가는 길이여.', '달나라 구경에 술이 빠지면 쓰나.'] },
+          { id: 'grandpa', name: '부채 든 할아버지', x: 0.38, w: 155, h: 314, lines: ['살다 살다 달에 사람이 가는구먼.', '계수나무는 어찌 됐나 물어봐야지.'] },
+          { id: 'dog', name: '누렁이', x: 0.47, w: 84, h: 125, lines: ['멍멍!', '(꼬리를 흔든다)'] },
+          { id: 'runboy', name: '뛰어가는 아이', x: 0.57, w: 113, h: 213, lines: ['빨리 와! 테레비에 달 나온대!', '사람이 달에서 걸어 다닌대!'] },
+          { id: 'sister', name: '동생 업은 누나', x: 0.8, w: 118, h: 269, lines: ['동생 재우고 가야 하는데.', '업고라도 가서 볼 거야.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'yard', name: '이웃집 마당', zoom: 1.3, ground: 0.7, scale: 0.66, murmur: 0.35,
+        sora: '다들 텔레비전만 봐. 조용해.',
+        moving: [
+          { kind: 'drift', id: 'in', src: 'villagers', from: 0, to: 1, foot: 0.696, tall: 0.17, wide: 0.29, gap: 0.8, speed: 0.024, bob: 0.003 },
+        ],
+        people: [
+          { id: 'owner', name: '집주인 아저씨', x: 0.07, w: 105, h: 308, lines: ['마루 끝에 내놨지. 다들 보라고.', '동네에 한 대뿐인 테레비여.'] },
+          { id: 'melon', name: '수박 든 아주머니', x: 0.3, w: 110, h: 292, lines: ['수박 먹고들 봐요. 우물에 담갔던 거야.', '낮에도 봤는데 또 봐도 신기해.'] },
+          { id: 'corn', name: '옥수수 먹는 아이', x: 0.44, w: 87, h: 214, lines: ['저 아저씨들 통통 뛰어다녀!', '달에서는 몸이 가볍대.'] },
+          { id: 'chief', name: '이장님', x: 0.56, w: 134, h: 320, lines: ['낮에 본 걸 밤에 또 틀어 주는 거여.', '온 세상이 같이 보고 있다는구먼.'] },
+          { id: 'soldier', name: '휴가 나온 군인', x: 0.86, w: 97, h: 303, lines: ['휴가 나왔다가 이걸 다 보네요.', '로켓이 나흘을 날아갔답니다.'] },
+          { id: 'sleepy', name: '졸린 꼬마', x: 0.94, w: 78, h: 198, lines: ['졸려… 그래도 다 볼 거야.', '(눈을 비빈다)'] },
+        ],
+        spots: [
+          // She stands a little to the girl's right, so as not to hide her.
+          { id: 'girl', from: 0.715, to: 0.8, sora: '저 애가… 할머니야?', memo: '그래, 평상 끝의 그 단발머리가 나란다.' },
+        ],
+      },
+      {
+        id: 'bank', name: '냇가 둑길', zoom: 1.25, ground: 0.74, scale: 0.86, murmur: 0.1,
+        sora: '달이 떴어. 조용하다.',
+        moving: [
+          { kind: 'drift', id: 'stroll', src: 'villagers', from: 0, to: 1, foot: 0.736, tall: 0.17, wide: 0.29, gap: 1.4, speed: -0.02, bob: 0.003, flip: true },
+        ],
+        people: [
+          { id: 'radio', name: '라디오 든 청년', x: 0.1, w: 95, h: 249, lines: ['라디오로도 중계를 해 줘요.', '지금도 둘은 달 위에 있대요.'] },
+          { id: 'schoolgirl', name: '여학생', x: 0.21, w: 74, h: 200, lines: ['나도 커서 달에 가 보고 싶어.', '선생님이 꼭 보라고 하셨어.'] },
+          { id: 'granny', name: '달 보는 할머니', x: 0.34, w: 99, h: 217, lines: ['저 달에 사람이 갔다니, 원.', '토끼는 놀라 달아났겠구먼.'] },
+          { id: 'point', name: '달을 가리키는 아이', x: 0.63, w: 72, h: 192, lines: ['저기! 저기 사람이 있대!', '손 흔들면 보일까?'] },
+          { id: 'angler', name: '낚시하는 아저씨', x: 0.73, w: 115, h: 320, lines: ['고기는 안 물고 달만 밝네.', '물에도 달이 하나 떠 있구먼.'] },
+          { id: 'hut', name: '원두막 아저씨', x: 0.88, w: 100, h: 245, lines: ['수박밭 지키다 달 구경하네.', '오늘 달은 반쪽도 안 돼.'] },
+        ],
+        spots: [
+          { id: 'moon', from: 0.42, to: 0.56, sora: '저 달에 지금 사람이 있는 거야?', memo: '지금 저 위에 두 사람이 있단다. 읽은 게 아니라 내가 본 날이지.' },
+        ],
+      },
+    ],
+    errands: [
+      { id: 'tv', text: '텔레비전이 어디 놓였던지 보고 오렴. 마루 끝이었지 싶다.', at: ['owner'] },
+      { id: 'girl', text: '평상 끝에 앉은 단발머리를 찾아보렴.', at: ['girl'] },
+      { id: 'moon', text: '둑에 나가 달을 올려다보렴. 지금 저기 사람이 있단다.', at: ['moon'] },
+    ],
+    reply: '다 보고 왔구나. 그날 밤이 지금도 눈에 선하단다.',
+  },
 };
