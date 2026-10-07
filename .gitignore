@@ -1,0 +1,14 @@
+node_modules/
+dist/
+__pycache__/
+*.log
+*.csv
+*.png
+!public/**/*.png
+.env
+.DS_Store
+Thumbs.db
+coverage/
+*.local
+.playwright-mcp/
+.superpowers/
