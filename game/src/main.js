@@ -108,6 +108,9 @@ let mode = 'globe';        // 'globe' | 'travel' | 'ground' | 'site' | 'walk' | 
 // dial turns by centuries, and only the centuries that have a place have a stop.
 const LIVE = SQUARES.filter((sq) => WALKS[sq.id] || sq.no === 0);
 const OUTFITS = outfitsOf(WALKS);
+// The game is opened in her own clothes every time: what she had on when it was shut is
+// not on her now (the user, 2026.10.8: "왜 옷을 자꾸 다르게 입혀?").
+saveOutfit(null);
 const PLACES = LIVE.map((sq) => sq.id);      // what grandmother's later notes count
 const STOPS = centuryStops(LIVE);
 // Where someone who has been nowhere yet begins: Rome, the oldest of the places, so that
