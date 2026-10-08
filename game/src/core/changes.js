@@ -7,6 +7,7 @@
 // a fault mended, does; moving buttons about or rewording a sentence does not.
 // Each line is 10 to 70 characters and ends in "니다." (tests/changes.test.js).
 export const CHANGES = [
+  { day: '2026-10-08', text: '로마에서 생선 소스와 식초 물과 볶은 콩을 먹어 보고, 입장 조각을 써 봅니다.' },
   { day: '2026-10-08', text: '걸을 때 발소리가 납니다. 깔리던 잡음을 빼고 곳마다 어울리는 소리를 넣었습니다.' },
   { day: '2026-10-08', text: '첫 장 할머니의 마을도 걸어 다닙니다. 밤길과 마당과 둑길, 그날의 달이 있습니다.' },
   { day: '2026-10-08', text: '자료마다 값이 다른 금문교 통행료와 파리 입장료는 숫자를 뺐습니다.' },

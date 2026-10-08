@@ -42,6 +42,19 @@ export function createWalkView({ onPerson, onWay }) {
 
   // Her frames are fetched at the start so that none flickers in late.
   for (const sheet of ['walk', 'idle']) for (let i = 1; i <= 4; i += 1) { const img = new Image(); img.src = `./sora/${sheet}-${i}.png`; }
+  // Her other pictures (a face on tasting something, the frames of an outfit) are asked
+  // for when first wanted and used only once they have come: until then she is as usual.
+  const art = new Map();      // name → whether it has come
+  function has(name) {
+    if (!art.has(name)) {
+      art.set(name, false);
+      const img = new Image();
+      img.onload = () => art.set(name, true);
+      img.src = `./sora/${name}.png`;
+    }
+    return art.get(name);
+  }
+  for (const face of ['yum', 'sour', 'yuck', 'hmm']) has(`taste-${face}`);
 
   function measure() {
     const h = root.clientHeight;
@@ -171,8 +184,9 @@ export function createWalkView({ onPerson, onWay }) {
   }
 
   // walk: core/walk.js's state. soraLine: what she is saying now, or null. t: seconds
-  // since she came down here (what moves in the scene goes by it).
-  function update(walk, now, soraLine, t = 0) {
+  // since she came down here (what moves in the scene goes by it). face: how what she has
+  // just eaten tasted, while it shows.
+  function update(walk, now, soraLine, t = 0, face = null) {
     if (!scene) return;
     movePieces(t);
     const { w, h, wide, unit } = size;
@@ -184,7 +198,9 @@ export function createWalkView({ onPerson, onWay }) {
     // four steps, each cut to her own outline. Both are shown the same height, feet on the street.
     const walking = walk.moving;
     const frame = 1 + (Math.floor(now / (walking ? STEP_MS : IDLE_MS)) % 4);
-    const src = `./sora/${walking ? 'walk' : 'idle'}-${frame}.png`;
+    const tasting = !walking && face && has(`taste-${face}`);
+    const worn = walk.wearing && has(`${walk.wearing}-${walking ? 'walk' : 'idle'}-${frame}`) ? `${walk.wearing}-` : '';
+    const src = tasting ? `./sora/taste-${face}.png` : `./sora/${worn}${walking ? 'walk' : 'idle'}-${frame}.png`;
     if (sora.dataset.src !== src) { sora.dataset.src = src; sora.src = src; }
     const soraTall = SORA_TALL * unit;
     // Her standing picture has empty rows above her crown and below her shoes.
@@ -252,8 +268,17 @@ export function createWalkView({ onPerson, onWay }) {
     });
   }
 
+  // Whoever handed her something to try gives a little start.
+  function nudge(id) {
+    const img = nodes.get(id)?.img;
+    if (!img) return;
+    img.classList.remove('tried');
+    img.getBoundingClientRect();
+    img.classList.add('tried');
+  }
+
   return {
-    showScene, layout, update,
+    showScene, layout, update, nudge,
     teleport: (ms) => passage('leaving', ms),
     arrive: () => { sora.classList.remove('leaving'); return passage('arriving'); },
   };

@@ -41,6 +41,13 @@ export function countProgress(progress, ids) {
   };
 }
 
+// What she has eaten, worn or used in a place that is walked about (core/walk.js), by id.
+export const triedOf = (progress, id) => progress.squares[id]?.tried ?? [];
+export function markTried(progress, id, what) {
+  if (triedOf(progress, id).includes(what)) return progress;
+  return { ...progress, squares: { ...progress.squares, [id]: { ...of(progress, id), tried: [...triedOf(progress, id), what] } } };
+}
+
 // Grandmother's notes that have been read (core/notes.js), by id.
 export const notesRead = (progress) => progress.notes ?? [];
 export const markNoteRead = (progress, id) => (notesRead(progress).includes(id) ? progress : { ...progress, notes: [...notesRead(progress), id] });
@@ -57,6 +64,8 @@ export function sanitizeProgress(raw, ids, noteIds = []) {
     const was = kept.squares[id];
     if (!was || typeof was !== 'object') continue;
     squares[id] = { day: was.day === true, sky: was.sky === true, remains: was.remains === true, quiz: was.quiz === true, find: was.find === true };
+    const tried = Array.isArray(was.tried) ? [...new Set(was.tried.filter((what) => typeof what === 'string' && what.length <= 40))].slice(0, 60) : [];
+    if (tried.length > 0) squares[id].tried = tried;
   }
   const notes = Array.isArray(kept.notes) ? noteIds.filter((id) => kept.notes.includes(id)) : [];
   return { squares, notes };

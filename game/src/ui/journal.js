@@ -22,9 +22,10 @@ const el = (tag, className, text) => {
 // notes: () => the notes read so far ([{ id, title }]); onNote(id): one is to be read again.
 // cards: () => the postcards (core/postcard.js); today: () => 'YYYY-MM-DD'; onSend(id): a
 // postcard is sent; onReply(id): its answer has been shown.
+// tries(id): what can be eaten, worn or used there ([{ verb, name, done }], core/walk.js).
 export function createJournal({
   squares, progress, onGo, onSolve, here, canGo = () => true, notes = () => [], onNote = () => {},
-  cards = () => ({}), today = () => '', onSend = () => {}, onReply = () => {},
+  cards = () => ({}), today = () => '', onSend = () => {}, onReply = () => {}, tries = () => [],
 }) {
   const dialog = $('journal');
   const ids = squares.map((s) => s.id);
@@ -56,6 +57,20 @@ export function createJournal({
       more.append(el('p', 'hand', square.noteMemo));
       if (visited) {
         more.append(el('p', 'seora', `소라: ${square.sora}`));
+        const all = tries(square.id);
+        if (all.length > 0) {
+          // What she has done with her own body there; what she has not is only a blank.
+          const list = el('ul', 'tries');
+          for (const [verb, title] of [['eat', '맛본 것'], ['wear', '입어 본 것'], ['use', '써 본 것']]) {
+            const of = all.filter((it) => it.verb === verb);
+            if (of.length === 0) continue;
+            const line = el('li');
+            line.append(el('b', '', `${title} ${of.filter((it) => it.done).length}/${of.length} `));
+            of.forEach((it, i) => { line.append(el(it.done ? 'span' : 'i', '', `${i > 0 ? ' · ' : ''}${it.done ? it.name : '?'}`)); });
+            list.append(line);
+          }
+          more.append(list);
+        }
         more.append(el('p', 'cardText', square.card));
         const quiz = el('div', 'quiz');
         renderQuiz(quiz, square, quizSolved(record, square.id), () => { onSolve(square.id); render(); });

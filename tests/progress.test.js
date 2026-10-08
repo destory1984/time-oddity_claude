@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { SQUARES } from '../game/src/core/squares.js';
-import { countProgress, emptyProgress, fillDot, isComplete, sanitizeProgress, solveQuiz } from '../game/src/core/progress.js';
+import { countProgress, emptyProgress, fillDot, isComplete, markTried, sanitizeProgress, solveQuiz, triedOf } from '../game/src/core/progress.js';
 
 const ids = SQUARES.map((s) => s.id);
 
@@ -21,6 +21,16 @@ describe('progress', () => {
   it('returns the very same record when the dot was already filled', () => {
     const p = fillDot(emptyProgress(), 'khufu', 'day');
     expect(fillDot(p, 'khufu', 'day')).toBe(p);
+  });
+  it('remembers what was eaten, worn or used in a place, each once, and reads it back', () => {
+    const start = fillDot(emptyProgress(), 'colosseum', 'day');
+    const p = markTried(markTried(start, 'colosseum', 'eat-garum'), 'colosseum', 'use-token');
+    expect(triedOf(start, 'colosseum')).toEqual([]);
+    expect(triedOf(p, 'colosseum')).toEqual(['eat-garum', 'use-token']);
+    expect(markTried(p, 'colosseum', 'eat-garum')).toBe(p);
+    expect(p.squares.colosseum.day).toBe(true);
+    const back = sanitizeProgress(JSON.stringify({ squares: { colosseum: { day: true, tried: ['eat-garum', 3, 'eat-garum', null] } } }), ids);
+    expect(triedOf(back, 'colosseum')).toEqual(['eat-garum']);
   });
   it('remembers a solved quiz', () => {
     const p = solveQuiz(emptyProgress(), 'lunar1504');

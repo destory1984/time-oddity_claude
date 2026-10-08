@@ -4,7 +4,7 @@ import { piecesAt } from '../game/src/core/pieces.js';
 import { squareById } from '../game/src/core/squares.js';
 import { WALKS } from '../game/src/core/walks.js';
 import { centuryLabel, centuryOf, centuryStart, centuryStops } from '../game/src/core/century.js';
-import { REACH, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk } from '../game/src/core/walk.js';
+import { FACES, REACH, VERBS, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from '../game/src/core/walk.js';
 import { createDial, drag, grab, release, stepDial } from '../game/src/core/dial.js';
 
 describe('centuries', () => {
@@ -126,6 +126,62 @@ describe('walking about a place', () => {
   });
 });
 
+describe('eating, wearing and using what people have', () => {
+  const market = {
+    scenes: [{ id: 'm', name: '장', spots: [], people: [
+      { id: 'fish', name: '생선 장수', x: 0.3, lines: ['사쇼'], try: { id: 'eat-fish', verb: 'eat', name: '생선', face: 'yuck', sora: '으엑' } },
+      { id: 'cloth', name: '옷 장수', x: 0.5, lines: ['입어 보쇼'], try: { id: 'wear-toga', verb: 'wear', name: '토가', outfit: 'toga', sora: '무거워' } },
+      { id: 'clock', name: '물시계', x: 0.7, try: { id: 'use-clock', verb: 'use', name: '물시계', sora: '똑, 똑' } },
+      { id: 'idler', name: '구경꾼', x: 0.9, lines: ['흠'] },
+    ] }],
+    errands: [{ id: 'e', text: '생선을 먹어 보렴', at: ['eat-fish'] }],
+  };
+  it('tries what whoever is near has, once for the record, and does the errand by it', () => {
+    const walk = createWalk(market, { x: 0.3 });
+    expect(speak(walk).errands).toEqual([]);
+    const did = tryIt(walk);
+    expect(did.it.id).toBe('eat-fish');
+    expect(did.first).toBe(true);
+    expect(did.errands).toEqual(['e']);
+    expect(walk.heard).toBe(null);
+    expect(tryIt(walk).first).toBe(false);
+    expect(walk.tried).toEqual(['eat-fish']);
+  });
+  it('has nothing to try where nobody offers anything, or nobody is', () => {
+    expect(tryIt(createWalk(market, { x: 0.9 }))).toBe(null);
+    expect(tryIt(createWalk(market, { x: 0.1 }))).toBe(null);
+  });
+  it('keeps on what she put on, and uses a thing that cannot be spoken to', () => {
+    const walk = createWalk(market, { x: 0.5 });
+    expect(walk.wearing).toBe(null);
+    tryIt(walk);
+    expect(walk.wearing).toBe('toga');
+    walk.x = 0.7;
+    expect(speak(walk)).toBe(null);
+    expect(tryIt(walk, 'clock').it.verb).toBe('use');
+    expect(walk.wearing).toBe('toga');
+  });
+  it('remembers what was tried on an earlier visit, and lists all there is', () => {
+    const walk = createWalk(market, { x: 0.3, tried: ['eat-fish'] });
+    expect(tryIt(walk).first).toBe(false);
+    expect(triesOf(market).map((it) => it.id)).toEqual(['eat-fish', 'wear-toga', 'use-clock']);
+  });
+  it('is written within the limits: a name, a line of 25, a memo of 60, a face for what is eaten', () => {
+    for (const [id, place] of Object.entries(WALKS)) {
+      const all = triesOf(place);
+      expect(new Set(all.map((it) => it.id)).size, id).toBe(all.length);
+      for (const it of all) {
+        expect(Object.keys(VERBS), it.id).toContain(it.verb);
+        expect(it.name.length, it.id).toBeGreaterThan(0);
+        expect(it.sora.length, it.id).toBeLessThanOrEqual(25);
+        if (it.memo) expect(it.memo.length, it.id).toBeLessThanOrEqual(60);
+        if (it.verb === 'eat') expect(FACES, it.id).toContain(it.face);
+        if (it.verb === 'wear') expect(typeof it.outfit, it.id).toBe('string');
+      }
+    }
+  });
+});
+
 describe('the places that are walked about', () => {
   it('are squares, with two to four scenes and three errands that can be done', () => {
     for (const [id, walk] of Object.entries(WALKS)) {
@@ -133,7 +189,7 @@ describe('the places that are walked about', () => {
       expect(walk.scenes.length, id).toBeGreaterThanOrEqual(2);
       expect(walk.scenes.length, id).toBeLessThanOrEqual(4);
       expect(walk.errands.length, id).toBe(3);
-      const ids = walk.scenes.flatMap((scene) => [...scene.people.map((p) => p.id), ...scene.spots.map((s) => s.id)]);
+      const ids = walk.scenes.flatMap((scene) => [...scene.people.map((p) => p.id), ...scene.spots.map((s) => s.id), ...scene.people.filter((p) => p.try).map((p) => p.try.id)]);
       expect(new Set(ids).size, id).toBe(ids.length);
       for (const errand of walk.errands) expect(errand.at.every((at) => ids.includes(at)), errand.id).toBe(true);
       expect(walk.reply.length, id).toBeLessThanOrEqual(60);
@@ -149,6 +205,7 @@ describe('the places that are walked about', () => {
         expect(['stone', 'dirt', 'wood'], scene.id).toContain(scene.floor ?? 'stone');
         for (const person of scene.people) {
           expect(person.x > 0.03 && person.x < 0.97, person.id).toBe(true);
+          if (!person.lines) { expect(person.try, person.id).toBeTruthy(); continue; }
           expect(person.lines.length, person.id).toBe(2);
           for (const line of person.lines) expect(line.length, `${person.id}: ${line}`).toBeLessThanOrEqual(25);
         }
@@ -163,7 +220,7 @@ describe('the places that are walked about', () => {
     for (const [id, place] of Object.entries(WALKS)) {
       const walk = createWalk(place);
       for (const scene of place.scenes) {
-        for (const person of scene.people) { walk.x = person.x; speak(walk, person.id); }
+        for (const person of scene.people) { walk.x = person.x; speak(walk, person.id); tryIt(walk, person.id); }
         for (let x = 0.03; x < 0.97; x += 0.01) { walk.x = x; stepWalk(walk, 16, 0); }
         if (walk.scene < place.scenes.length - 1) { walk.scene += 1; walk.x = 0.05; }
       }
@@ -182,7 +239,7 @@ describe('the places that are walked about', () => {
         expect(here(`${place.dir}/${scene.id}.webp`), scene.id).toBe(true);
         for (const person of scene.people) {
           expect(here(`${place.dir}/${person.id}.png`), person.id).toBe(true);
-          if (place.talk === 'face') expect(here(`${place.dir}/face-${person.id}.png`), `face of ${person.id}`).toBe(true);
+          if (place.talk === 'face' && person.lines) expect(here(`${place.dir}/face-${person.id}.png`), `face of ${person.id}`).toBe(true);
         }
         for (const piece of piecesAt(scene, 0)) expect(here(`${place.dir}/${piece.src}.png`), piece.src).toBe(true);
       }

@@ -11,14 +11,14 @@ import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, 
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
 import { soraPose } from './core/sora.js';
 import { guideLine } from './core/guide.js';
-import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markNoteRead, notesRead, quizSolved, solveFind, solveQuiz } from './core/progress.js';
+import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf } from './core/progress.js';
 import { findsOf } from './core/find.js';
 import { createFindGame } from './ui/find.js';
 import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk } from './core/walk.js';
+import { REACH, VERBS, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -200,6 +200,7 @@ window.addEventListener('pointerdown', () => sound.wake(), { once: true, capture
 const journal = createJournal({
   squares: LIVE,
   progress: () => progress,
+  tries: (id) => (WALKS[id] ? triesOf(WALKS[id]).map((it) => ({ verb: it.verb, name: it.name, done: triedOf(progress, id).includes(it.id) })) : []),
   onGo: (id) => pick(squareById(id)),
   onSolve: (id) => { sound.stamp(); keep(solveQuiz(progress, id)); },
   here: () => (visit && mode === 'ground' ? square.id : null),
@@ -337,6 +338,8 @@ let replyUntil = 0;         // grandmother's answer shows until then
 let errandsFoldAt = 0;      // the slip of errands folds itself then
 let walkArrive = false;     // she is to be set down in a shaft of light on the next frame
 let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
+let walkFace = null;        // { face, until }: how what she has just eaten tasted, while it shows
+let walkMemo = null;        // { text, until }: what grandmother wrote of what she has just tried
 let walkStepMs = 0;         // how long she has walked since her last footfall
 let walkSteps = 0;
 const FOOTFALL_MS = 300;    // two frames of her walking (ui/walk.js STEP_MS)
@@ -344,7 +347,7 @@ const walkView = createWalkView({
   onPerson: (id) => {
     if (!walk) return;
     const person = sceneOf(walk).people.find((p) => p.id === id);
-    if (Math.abs(person.x - walk.x) <= REACH) { talk(id); return; }
+    if (Math.abs(person.x - walk.x) <= REACH) { if (person.lines) talk(id); else tryNear(id); return; }
     // Touched from afar: she goes to stand beside them, then speaks.
     sendTo(walk, person.x + (walk.x < person.x ? -1 : 1) * REACH * 0.6);
     walkWant = id;
@@ -387,9 +390,29 @@ function talk(id = null) {
   if (said.person.sound) sound[said.person.sound]();
   if (said.errands.length > 0) errandsDone();
 }
+// Eating, wearing or using what whoever is near has (plan v5, section 4): she says what
+// she makes of it, with a face if it was eaten, and grandmother's slip tells what it is.
+const FACE_FOR_MS = 2600;
+const TRY_MEMO_MS = 9000;
+function tryNear(id = null) {
+  if (!walk) return;
+  const did = tryIt(walk, id);
+  if (!did) return;
+  const { it } = did;
+  walkWay = 0; walkWant = null;
+  sound.wake();
+  sound.tick(true, false);
+  walkView.nudge(did.person.id);
+  walkSora = { text: it.sora, from: walkT + 300, until: walkT + 300 + SORA_FOR_MS };
+  walkFace = it.face ? { face: it.face, until: walkT + FACE_FOR_MS } : null;
+  walkMemo = it.memo ? { text: it.memo, until: walkT + TRY_MEMO_MS } : null;
+  if (did.first) keep(markTried(progress, square.id, it.id));
+  if (did.errands.length > 0) errandsDone();
+}
 function enterScene() {
   const scene = sceneOf(walk);
   walkView.showScene(walk.place, walk.scene);
+  walkFace = null; walkMemo = null;
   walkSora = scene.sora && !walk.told.includes(scene.id) ? { text: scene.sora, until: walkT + 900 + SORA_FOR_MS, from: walkT + 900 } : null;
   if (!walk.told.includes(scene.id)) walk.told.push(scene.id);
   const before = walk.place.scenes[walk.scene - 1];
@@ -401,7 +424,7 @@ function enterScene() {
 function showWalk(sq) {
   square = sq;
   visit = null; site = null;
-  walk = createWalk(WALKS[sq.id]);
+  walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id) });
   walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyUntil = 0; walkNoteAt = 0;
   $('errands').classList.remove('folded');
   errandsFoldAt = ERRANDS_OPEN_MS;
@@ -421,11 +444,13 @@ for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
   for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) $(id).addEventListener(name, () => { walkWay = 0; });
 }
 $('talkButton').addEventListener('click', () => talk());
+$('tryButton').addEventListener('click', () => tryNear());
 window.addEventListener('keydown', (e) => {
   if (mode !== 'walk' || e.ctrlKey || e.altKey || e.metaKey) return;
   if (e.code === 'ArrowLeft' || e.code === 'KeyA') { keyWay = -1; walkWant = null; e.preventDefault(); }
   else if (e.code === 'ArrowRight' || e.code === 'KeyD') { keyWay = 1; walkWant = null; e.preventDefault(); }
   else if (e.code === 'Space' && !e.repeat && !e.target.closest?.('button')) { talk(); e.preventDefault(); }
+  else if (e.code === 'Enter' && !e.repeat && !e.target.closest?.('button')) { if (nearby(walk)?.try) tryNear(); else talk(); e.preventDefault(); }
 });
 window.addEventListener('keyup', (e) => {
   if ((e.code === 'ArrowLeft' || e.code === 'KeyA') && keyWay < 0) keyWay = 0;
@@ -447,6 +472,8 @@ function frameWalk(dt) {
   if (out.spot?.sora) walkSora = { text: out.spot.sora, until: walkT + SORA_FOR_MS, from: walkT };
   if (out.errands.length > 0) errandsDone();
   if (walkSora && walkT > walkSora.until) walkSora = null;
+  if (walkFace && (walk.moving || walkT > walkFace.until)) walkFace = null;
+  if (walkMemo && walkT > walkMemo.until) walkMemo = null;
   if (errandsFoldAt > 0 && walkT >= errandsFoldAt) { errandsFoldAt = 0; $('errands').classList.add('folded'); }
   // A note that is due (the first leaf's) falls once grandmother's answer has been read.
   if (walkNoteAt > 0 && walkT >= walkNoteAt) {
@@ -457,15 +484,22 @@ function frameWalk(dt) {
 
   // The sky of that day and hour, as computed, behind the roofs.
   skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });
-  walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000);
+  walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.face ?? null);
   if (walkArrive) { walkArrive = false; walkView.arrive(); }
 
   const near = walk.moving ? null : nearby(walk);
-  const label = near ? `${near.name}에게 말 걸기` : '';
-  if ($('talkButton').hidden !== !near) $('talkButton').hidden = !near;
-  if (near && $('talkButton').textContent !== label) $('talkButton').textContent = label;
+  const speaks = near?.lines ? near : null;
+  const label = !speaks ? '' : speaks.try ? '말 걸기' : `${speaks.name}에게 말 걸기`;
+  if ($('talkButton').hidden !== !speaks) $('talkButton').hidden = !speaks;
+  if (speaks && $('talkButton').textContent !== label) $('talkButton').textContent = label;
+  // What they have that she can eat, wear or use: the louder button the first time.
+  const offer = near?.try ?? null;
+  const offerLabel = offer ? `${offer.name} ${VERBS[offer.verb]}` : '';
+  if ($('tryButton').hidden !== !offer) $('tryButton').hidden = !offer;
+  if (offer && $('tryButton').textContent !== offerLabel) $('tryButton').textContent = offerLabel;
+  if (offer) $('tryButton').classList.toggle('again', walk.tried.includes(offer.id));
   // Grandmother's slip: what she wrote of the one seen from afar, or her answer.
-  const memo = spotAt(walk)?.memo ?? (walkT < replyUntil ? walk.place.reply : null);
+  const memo = (walkT < replyUntil ? walk.place.reply : null) ?? walkMemo?.text ?? spotAt(walk)?.memo ?? null;
   hud.set({
     name: squareTitle(square), dateText: square.dateLabel, placeText: sceneOf(walk).name, subText: '',
     dots: { day: false, sky: false, remains: false }, memo, memoPlain: false, memoSky: false,

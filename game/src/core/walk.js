@@ -2,16 +2,25 @@
 // about three screens wide, with people who say a line when spoken to and three errands
 // from grandmother to go looking for (docs/기획서-v4-사는-때로.md section 3). Two things can
 // be done: walk left and right, and speak to whoever is near. Nothing here draws.
+// Plan v5 (docs/기획서-v5-완성판.md section 4) adds what she does with her own body: what
+// someone sells or keeps can be eaten, worn or used (a person's `try`).
 //
 // Along a scene, x runs from 0 at its left end to 1 at its right.
 // place: { scenes: [{ id, name, people: [{ id, name, x, lines }], spots: [{ id, from, to, memo?, sora? }] }],
-//          errands: [{ id, text, at: [ids of people or spots, any one of which does it] }] }
+//          errands: [{ id, text, at: [ids of people, spots or things tried, any one of which does it] }] }
+// A person's try: { id, verb: 'eat' | 'wear' | 'use', name, sora: what she says of it,
+//   memo?: what grandmother wrote, face?: how it tasted ('yum', 'sour', 'yuck', 'hmm'),
+//   outfit?: what she has on afterwards }. Something that is not a person (a water clock)
+// has a try and no lines.
+export const VERBS = { eat: '먹어 볼래', wear: '입어 볼래', use: '써 볼래' };
+export const FACES = ['yum', 'sour', 'yuck', 'hmm'];
 export const SPEED = 0.11;        // of a scene's width a second: nine seconds from end to end
 export const REACH = 0.05;        // she can speak to someone this near
 const EDGE = 0.02;                // she stops this far from a scene's end
 const ARRIVE = 0.012;             // near enough to where she was sent
 
-export function createWalk(place, { scene = 0, x = 0.08 } = {}) {
+// tried: what she has tried here on earlier visits, by id.
+export function createWalk(place, { scene = 0, x = 0.08, tried = [] } = {}) {
   return {
     place, scene, x, facing: 1, moving: false, goal: null,
     said: {},            // how many times each person has been spoken to
@@ -19,6 +28,8 @@ export function createWalk(place, { scene = 0, x = 0.08 } = {}) {
     done: [],            // the errands done, by id
     seen: [],            // the spots she has stood at, by id
     told: [],            // the scenes she has said her line in, by id
+    tried: [...tried],   // what she has eaten, worn or used, by id
+    wearing: null,       // the outfit she has on, until she leaves
   };
 }
 
@@ -51,7 +62,7 @@ function finish(walk, id) {
 export function speak(walk, id = null) {
   const meant = id ? sceneOf(walk).people.find((p) => p.id === id && Math.abs(p.x - walk.x) <= REACH) : null;
   const person = meant ?? nearby(walk);
-  if (!person) return null;
+  if (!person?.lines) return null;
   const count = walk.said[person.id] ?? 0;
   const line = person.lines[count % person.lines.length];
   walk.said[person.id] = count + 1;
@@ -60,6 +71,24 @@ export function speak(walk, id = null) {
   walk.facing = person.x >= walk.x ? 1 : -1;
   return { person, line, errands: finish(walk, person.id) };
 }
+
+// Tries what whoever is near has to offer. Returns { person, it: the person's try,
+// first: not tried before, errands: [ids done just now] }, or null when there is nothing.
+export function tryIt(walk, id = null) {
+  const meant = id ? sceneOf(walk).people.find((p) => p.id === id && Math.abs(p.x - walk.x) <= REACH) : null;
+  const person = meant ?? nearby(walk);
+  if (!person?.try) return null;
+  const it = person.try;
+  const first = !walk.tried.includes(it.id);
+  if (first) walk.tried.push(it.id);
+  if (it.verb === 'wear') walk.wearing = it.outfit ?? null;
+  walk.heard = null;
+  walk.goal = null;
+  return { person, it, first, errands: finish(walk, it.id) };
+}
+
+// Everything that can be tried in a place, in the order it is walked past.
+export const triesOf = (place) => place.scenes.flatMap((scene) => scene.people.filter((p) => p.try).map((p) => p.try));
 
 // Sends her to a place along the scene (a person touched from afar); she walks there.
 export function sendTo(walk, x) {
