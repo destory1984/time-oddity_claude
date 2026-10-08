@@ -18,7 +18,7 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, VERBS, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom } from './core/walk.js';
+import { REACH, VERBS, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf } from './core/walk.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -45,7 +45,7 @@ import { createPager } from './ui/opening.js';
 import { OPENING } from './core/opening.js';
 import { NOTES, dueNote, noteById, notePages } from './core/notes.js';
 import { keepProgressAside,
-  loadCards, loadMusic, loadMuted, loadOpened, loadProgress, saveCards, saveMusic, saveMuted, saveOpened, saveProgress,
+  loadCards, loadMusic, loadMuted, loadOpened, loadOutfit, saveOutfit, loadProgress, saveCards, saveMusic, saveMuted, saveOpened, saveProgress,
 } from './ui/storage.js';
 
 const RISE_MS = 800;
@@ -107,6 +107,7 @@ let mode = 'globe';        // 'globe' | 'travel' | 'ground' | 'site' | 'walk' | 
 // rest of the first plan's squares are switched off, not taken out. Above the Earth the
 // dial turns by centuries, and only the centuries that have a place have a stop.
 const LIVE = SQUARES.filter((sq) => WALKS[sq.id] || sq.no === 0);
+const OUTFITS = outfitsOf(WALKS);
 const PLACES = LIVE.map((sq) => sq.id);      // what grandmother's later notes count
 const STOPS = centuryStops(LIVE);
 // Where someone who has been nowhere yet begins: Rome, the oldest of the places, so that
@@ -230,7 +231,18 @@ const journal = createJournal({
   onSend: (id) => { sound.page(); keepCards(sendCard(cards, id, dayToday())); },
   onReply: (id) => keepCards(readReply(cards, id, dayToday())),
   canGo: () => mode === 'globe' || mode === 'ground',
+  // The wardrobe: what she has put on somewhere, and which of it she has on now.
+  wardrobe: () => OUTFITS.filter((o) => LIVE.some((sq) => triedOf(progress, sq.id).includes(o.id))).map((o) => ({ ...o, on: loadOutfit() === o.outfit })),
+  onWear: (outfit) => putOn(outfit),
 });
+// She puts on something from the wardrobe, or takes it off (null): at once if she is
+// walking about, and it is on her wherever she goes next.
+function putOn(outfit) {
+  saveOutfit(outfit);
+  if (!walk) return;
+  walk.wearing = outfit;
+  walk.trips = OUTFITS.find((o) => o.outfit === outfit)?.trips ?? 0;
+}
 const card = createCard({
   solved: (id) => quizSolved(progress, id),
   onSolve: (id) => { sound.stamp(); keep(solveQuiz(progress, id)); },
@@ -463,7 +475,7 @@ function tryNear(id = null) {
   // (A thing that is used, not eaten, has no face of hers to wait for: it stays a little
   // longer, and then gives way to grandmother's slip, which lies under it.)
   walkHeld = did.person.show ? { show: did.person.show, until: walkT + (it.verb === 'eat' ? bite * 2 + FACE_FOR_MS : SHOW_USE_MS) } : null;
-  if (it.verb === 'wear') walkHemMs = HEM_EVERY_MS - HEM_FIRST_MS;
+  if (it.verb === 'wear') { walkHemMs = HEM_EVERY_MS - HEM_FIRST_MS; saveOutfit(it.outfit ?? null); }
   walkMemo = it.memo ? { text: it.memo, until: walkT + TRY_MEMO_MS } : null;
   if (did.first) keep(markTried(progress, square.id, it.id));
   if (did.errands.length > 0) errandsDone();
@@ -491,6 +503,9 @@ function showWalk(sq) {
   visit = null; site = null;
   walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id), done: errandsOf(progress, sq.id), met: metOf(progress, sq.id) });
   walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyUntil = 0; walkNoteAt = 0;
+  // What she had on comes with her (the wardrobe).
+  const worn = OUTFITS.find((o) => o.outfit === loadOutfit());
+  if (worn) { walk.wearing = worn.outfit; walk.trips = worn.trips; }
   $('errands').classList.remove('folded');
   // Come again with all of them done, the slip is folded from the first, its stamp on it.
   $('errands').classList.toggle('alldone', allDone(walk));
@@ -1065,6 +1080,7 @@ function frame(now) {
 function startOver() {
   saveProgress(emptyProgress());
   saveCards({});
+  saveOutfit(null);
   for (const page of [window, window.top]) {
     try { page.history.replaceState(null, '', page.location.pathname + page.location.search); } catch { /* another site's page */ }
   }

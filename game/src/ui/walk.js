@@ -264,7 +264,8 @@ export function createWalkView({ onPerson, onWay }) {
     const soraTall = SORA_TALL * unit;
     // Her standing picture has empty rows above her crown and below her shoes.
     // (The four steps were cut from one sheet, the tallest of them 320 px high.)
-    const shownTall = walking ? (soraTall * (sora.naturalHeight || 320)) / 320 : soraTall * IDLE_ROOM;
+    // (Standing in a tall hat her picture is higher than 256 px: it is shown that much higher.)
+    const shownTall = walking ? (soraTall * (sora.naturalHeight || 320)) / 320 : soraTall * IDLE_ROOM * (tasting || !worn ? 1 : (sora.naturalHeight || 256) / 256);
     const soraWide = sora.naturalHeight > 0 ? (shownTall * sora.naturalWidth) / sora.naturalHeight : shownTall * 0.75;
     const top = FOOT * h + 8 * unit - shownTall + (walking ? 0 : soraTall * IDLE_FOOT);
     sora.style.height = `${shownTall}px`;
@@ -329,7 +330,8 @@ export function createWalkView({ onPerson, onWay }) {
     // Her own words go over her head, and above the mark of anyone she stands by.
     let lift = 0;
     for (const node of nodes.values()) if (node.over && Math.abs(node.person.x * wide - x) < 90 * unit) lift = Math.max(lift, FOOT * h - soraTall - (node.top - node.over));
-    if (soraLine) bubble(soraSay, soraLine, x, FOOT * h - soraTall - Math.max(0, lift));
+    // (In a tall hat her words go above the hat.)
+    if (soraLine) bubble(soraSay, soraLine, x, Math.min(FOOT * h - soraTall, top + 14 * unit) - Math.max(0, lift));
     else soraSay.classList.remove('on');
     // Where her words and theirs would lie one over the other, hers go above theirs (the
     // user, 2026.10.8: "소라의 대화와 NPC의 대화가 겹침"); and a thing held up to be seen

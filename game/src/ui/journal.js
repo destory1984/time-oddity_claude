@@ -24,11 +24,13 @@ const el = (tag, className, text) => {
 // notes: () => the notes read so far ([{ id, title }]); onNote(id): one is to be read again.
 // cards: () => the postcards (core/postcard.js); today: () => 'YYYY-MM-DD'; onSend(id): a
 // postcard is sent; onReply(id): its answer has been shown.
+// wardrobe: () => the outfits she has put on ([{ outfit, name, on }]); onWear(outfit or null).
 // tries(id): what can be eaten, worn or used there ([{ verb, name, done }], core/walk.js).
 // errands(id): { done, total } of grandmother's errands there, or null where there are none.
 export function createJournal({
   squares, progress, onGo, onSolve, here, canGo = () => true, notes = () => [], onNote = () => {},
   cards = () => ({}), today = () => '', onSend = () => {}, onReply = () => {}, tries = () => [], errands = () => null,
+  wardrobe = () => [], onWear = () => {},
 }) {
   const dialog = $('journal');
   const ids = squares.map((s) => s.id);
@@ -134,7 +136,18 @@ export function createJournal({
       item.append(words, again);
       return item;
     });
-    $('journalList').replaceChildren(...squares.map(row), ...slips);
+    // The wardrobe: what she has put on somewhere can be taken out again anywhere.
+    const clothes = wardrobe().map(({ outfit, name, on }) => {
+      const item = el('li', 'row slip');
+      const words = el('span', 'rowWords');
+      words.append(el('b', '', `옷장 · ${name}`), el('small', '', on ? '지금 입고 있다' : '입어 본 옷'));
+      const wear = el('button', 'go', on ? '벗기' : '입기');
+      wear.type = 'button';
+      wear.addEventListener('click', () => { onWear(on ? null : outfit); render(); });
+      item.append(words, wear);
+      return item;
+    });
+    $('journalList').replaceChildren(...squares.map(row), ...clothes, ...slips);
   }
 
   // The count on the top button: the places with all their errands done.

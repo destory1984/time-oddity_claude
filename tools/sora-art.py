@@ -69,8 +69,11 @@ def run(kind, src, tall, names):
         small = hard(img.resize((max(1, round(img.width * factor)), max(1, round(img.height * factor))), Image.NEAREST))
         if kind == 'stand':
             wide = max(192, small.width + (small.width % 2))
-            frame = Image.new('RGBA', (wide, FRAME_TALL), (0, 0, 0, 0))
-            frame.alpha_composite(small, ((wide - small.width) // 2, FOOT_ROW - small.height))
+            # In a tall hat she is taller than the frame: it grows upward, her feet staying
+            # the same six rows above its foot (ui/walk.js shows it by its height).
+            high = max(FRAME_TALL, small.height + FRAME_TALL - FOOT_ROW)
+            frame = Image.new('RGBA', (wide, high), (0, 0, 0, 0))
+            frame.alpha_composite(small, ((wide - small.width) // 2, high - (FRAME_TALL - FOOT_ROW) - small.height))
             small = frame
         small.save(f'{OUT}{name}.png')
         print(f'{OUT}{name}.png: {small.width}x{small.height}')

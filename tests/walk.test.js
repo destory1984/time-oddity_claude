@@ -5,7 +5,7 @@ import { piecesAt } from '../game/src/core/pieces.js';
 import { squareById } from '../game/src/core/squares.js';
 import { WALKS } from '../game/src/core/walks.js';
 import { centuryLabel, centuryOf, centuryStart, centuryStops } from '../game/src/core/century.js';
-import { FACES, HEAR, REACH, VERBS, canSpeak, hop, talkedOut, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom } from '../game/src/core/walk.js';
+import { FACES, HEAR, REACH, VERBS, canSpeak, hop, talkedOut, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf } from '../game/src/core/walk.js';
 import { createDial, drag, grab, release, stepDial } from '../game/src/core/dial.js';
 
 describe('centuries', () => {
@@ -166,6 +166,13 @@ describe('eating, wearing and using what people have', () => {
     const walk = createWalk(market, { x: 0.3, tried: ['eat-fish'] });
     expect(tryIt(walk).first).toBe(false);
     expect(triesOf(market).map((it) => it.id)).toEqual(['eat-fish', 'wear-toga', 'use-clock']);
+  });
+  it('has a wardrobe: an outfit to put on in six of the places, each by its own name', () => {
+    const all = outfitsOf(WALKS);
+    expect(all.map((o) => o.outfit).sort()).toEqual(['fedora', 'gat', 'ivy', 'sangmo', 'toga', 'tophat']);
+    expect(new Set(all.map((o) => o.name)).size).toBe(all.length);
+    // Every place has something to eat or to use as well, so that none is only looked at.
+    for (const [id, place] of Object.entries(WALKS)) expect(triesOf(place).length, id).toBeGreaterThanOrEqual(2);
   });
   it('is written within the limits: a name, a line of 25, a memo of 60, a face for what is eaten', () => {
     for (const [id, place] of Object.entries(WALKS)) {

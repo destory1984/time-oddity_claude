@@ -138,6 +138,12 @@ export function tryIt(walk, id = null) {
   return { person, it, first, errands: finish(walk, it.id) };
 }
 
+// The wardrobe: every outfit there is to put on, over all the places, as { outfit, name,
+// id: the try's, trips }. What she has put on once she may take out again anywhere (plan
+// v5, section 9: "옷장. 입어 본 옷이 모인다").
+export const outfitsOf = (places) => Object.values(places).flatMap((place) => triesOf(place))
+  .filter((it) => it.verb === 'wear').map((it) => ({ outfit: it.outfit, name: it.name, id: it.id, trips: it.trips ?? 0 }));
+
 // Everything that can be tried in a place, in the order it is walked past.
 export const triesOf = (place) => place.scenes.flatMap((scene) => scene.people.filter((p) => p.try).map((p) => p.try));
 
