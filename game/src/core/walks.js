@@ -61,7 +61,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'plaza', name: '콜로세움 앞 광장', zoom: 1.6, ground: 0.79, scale: SHEET.plaza, air: 'court',
+        id: 'plaza', name: '로마 콜로세움 앞 광장', short: '콜로세움 앞 광장', zoom: 1.6, ground: 0.79, scale: SHEET.plaza, air: 'court',
         sora: '와, 진짜 새것이다. 하얘!',
         people: [
           { id: 'water', pass: '목마르지 않소? 보고 가쇼.', show: 'posca', pose: 'see-peer', name: '물 장수', x: 0.11, w: 130, h: 265, lines: ['식초 탄 물이오! 병정들이 마시는 거요.', '백 날을 한다니 백 날을 팔아야지.'],
@@ -79,7 +79,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'inside', name: '콜로세움 안', zoom: 1.3, ground: 0.775, scale: SHEET.inside, air: 'arena',
+        id: 'inside', name: '로마 콜로세움 안', short: '콜로세움 안', zoom: 1.3, ground: 0.775, scale: SHEET.inside, air: 'arena',
         sora: '우와… 끝까지 다 사람이야.',
         people: [
           { id: 'usher', pass: '표를 보여 주시오.', name: '자리 안내원', x: 0.17, w: 125, h: 300, lines: ['앞줄은 원로원 자리요. 저 위로.', '자리는 옷을 보고 정하오.'] },
@@ -109,7 +109,7 @@ export const WALKS = {
     dir: 'paris', look: 'paper', talk: 'face',
     scenes: [
       {
-        id: 'gate', name: '만국박람회 입구', zoom: 1.3, ground: 0.752, scale: 0.66, air: 'street',
+        id: 'gate', name: '파리 만국박람회 입구', short: '박람회 입구', zoom: 1.3, ground: 0.752, scale: 0.66, air: 'street',
         sora: '깃발이 잔뜩! 저 끝에 탑이야.',
         // People pour in at the middle arch from both sides, and are lost behind its pillars.
         moving: [
@@ -127,7 +127,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'tower', name: '에펠탑 아래', zoom: 1.2, ground: 0.733, scale: 0.62, air: 'court', floor: 'dirt',
+        id: 'tower', name: '파리 에펠탑 아래', short: '에펠탑 아래', zoom: 1.2, ground: 0.733, scale: 0.62, air: 'court', floor: 'dirt',
         sora: '우와, 다리 하나가 집채만 해.',
         // The stair in the east leg, three flights of it: people go up one after another.
         moving: [
@@ -149,7 +149,7 @@ export const WALKS = {
         ],
       },
       {
-        id: 'hall', name: '박람회 기계관', zoom: 1.3, ground: 0.664, scale: 0.66, air: 'works', floor: 'wood',
+        id: 'hall', name: '파리 만국박람회 기계관', short: '박람회 기계관', zoom: 1.3, ground: 0.664, scale: 0.66, air: 'works', floor: 'wood',
         sora: '쿵쿵쿵! 바퀴가 진짜 돌아가.',
         // The two flywheels, cut out of the picture itself (tools/walk-art.py disc), turn where they lie.
         moving: [
@@ -201,7 +201,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'gate', name: '광화문 앞', zoom: 1.3, ground: 0.703, scale: 0.78, air: 'court', floor: 'dirt',
+        id: 'gate', name: '한양 광화문 앞', short: '광화문 앞', zoom: 1.3, ground: 0.703, scale: 0.78, air: 'court', floor: 'dirt',
         sora: '문이 엄청 커! 지붕이 두 층이야.',
         moving: [
           { kind: 'drift', id: 'parade', src: 'parade', from: 0, to: 1, foot: 0.7, tall: 0.2, wide: 0.3183, gap: 0.55, speed: 0.032, bob: 0.003 },
@@ -217,7 +217,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'hall', name: '집현전 뜰', zoom: 1.2, ground: 0.762, scale: 0.64, air: 'palace',
+        id: 'hall', name: '경복궁 집현전 뜰', short: '집현전 뜰', zoom: 1.2, ground: 0.762, scale: 0.64, air: 'palace',
         sora: '책이 마당 가득이야. 조용해.',
         moving: [
           { kind: 'drift', id: 'books', src: 'scholars', from: 0, to: 1, foot: 0.758, tall: 0.17, wide: 0.282, gap: 0.6, speed: 0.026, bob: 0.003 },
@@ -254,7 +254,7 @@ export const WALKS = {
     dir: 'sf', look: 'paper', talk: 'face',
     scenes: [
       {
-        id: 'plaza', name: '금문교 어귀', zoom: 1.3, ground: 0.735, scale: 0.66, air: 'street',
+        id: 'plaza', name: '샌프란시스코 금문교 어귀', short: '금문교 어귀', zoom: 1.3, ground: 0.735, scale: 0.66, air: 'street',
         sora: '다리가 빨개! 엄청 길다.',
         moving: [
           { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.731, tall: 0.17, wide: 0.396, gap: 0.05, speed: 0.03, bob: 0.003 },
@@ -270,7 +270,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'deck', name: '금문교 위', zoom: 1.2, ground: 0.8, scale: 0.64, air: 'bridge',
+        id: 'deck', name: '샌프란시스코 금문교 위', short: '금문교 위', zoom: 1.2, ground: 0.8, scale: 0.64, air: 'bridge',
         sora: '차가 없으니까 운동장 같아.',
         // The crowd goes over on foot, and now and then those who cross some odd way.
         moving: [
@@ -288,7 +288,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'mid', name: '금문교 한가운데', zoom: 1.25, ground: 0.755, scale: 0.74, air: 'bridge',
+        id: 'mid', name: '샌프란시스코 금문교 한가운데', short: '금문교 한가운데', zoom: 1.25, ground: 0.755, scale: 0.74, air: 'bridge',
         sora: '바람이 세! 바다가 저 밑이야.',
         moving: [
           { kind: 'drift', id: 'east', src: 'crowd', from: 0, to: 1, foot: 0.74, tall: 0.16, wide: 0.373, gap: 0.3, speed: -0.025, bob: 0.003, flip: true },
@@ -403,7 +403,7 @@ export const WALKS = {
     dir: 'yard', look: 'paper', talk: 'face', night: true,
     scenes: [
       {
-        id: 'lane', name: '마을 길', zoom: 1.3, ground: 0.698, scale: 0.66, air: 'night', floor: 'dirt',
+        id: 'lane', name: '할머니의 마을 길', short: '마을 길', zoom: 1.3, ground: 0.698, scale: 0.66, air: 'night', floor: 'dirt',
         sora: '밤인데 다들 어디로 가?',
         // Children run along the lane and in at the open gate.
         moving: [
@@ -420,7 +420,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'yard', name: '이웃집 마당', zoom: 1.3, ground: 0.7, scale: 0.66, air: 'tv', floor: 'dirt',
+        id: 'yard', name: '마을 이웃집 마당', short: '이웃집 마당', zoom: 1.3, ground: 0.7, scale: 0.66, air: 'tv', floor: 'dirt',
         sora: '다들 텔레비전만 봐. 조용해.',
         moving: [
           { kind: 'drift', id: 'in', src: 'villagers', from: 0, to: 1, foot: 0.696, tall: 0.17, wide: 0.29, gap: 0.8, speed: 0.024, bob: 0.003 },
@@ -439,7 +439,7 @@ export const WALKS = {
         ],
       },
       {
-        id: 'bank', name: '냇가 둑길', zoom: 1.25, ground: 0.74, scale: 0.86, air: 'night', floor: 'dirt',
+        id: 'bank', name: '마을 냇가 둑길', short: '냇가 둑길', zoom: 1.25, ground: 0.74, scale: 0.86, air: 'night', floor: 'dirt',
         sora: '달이 떴어. 조용하다.',
         moving: [
           { kind: 'drift', id: 'stroll', src: 'villagers', from: 0, to: 1, foot: 0.736, tall: 0.17, wide: 0.29, gap: 1.4, speed: -0.02, bob: 0.003, flip: true },

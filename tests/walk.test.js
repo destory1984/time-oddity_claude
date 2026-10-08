@@ -1,4 +1,5 @@
 import { existsSync } from 'node:fs';
+import { beenOf, emptyProgress, errandsOf, markBeen, markErrands, markMet, metOf, sanitizeProgress } from '../game/src/core/progress.js';
 import { describe, expect, it } from 'vitest';
 import { piecesAt } from '../game/src/core/pieces.js';
 import { squareById } from '../game/src/core/squares.js';
@@ -269,22 +270,24 @@ describe('what is heard in passing and what is shown', () => {
     stepWalk(walk, 16, 0);
     expect(walk.passing).toEqual({ id: 'seller', line: 'come and see' });
   });
-  it('lets an ordinary person say two lines when spoken to, and then no more', () => {
+  it('lets anyone be spoken to as often as she likes, their two lines in turn', () => {
     const walk = createWalk(place, { x: 0.5 });
     const idle = place.scenes[0].people[0];
     expect(worth(walk, idle)).toBe(false);
+    expect([speak(walk).line, speak(walk).line, speak(walk).line]).toEqual(['one', 'two', 'one']);
     expect(canSpeak(walk, idle)).toBe(true);
-    expect(speak(walk).line).toBe('one');
-    expect(speak(walk).line).toBe('two');
-    expect(canSpeak(walk, idle)).toBe(false);
-    expect(speak(walk)).toBe(null);
-  });
-  it('lets one with a thing to show say theirs in turn for as long as she asks', () => {
-    const walk = createWalk(place, { x: 0.8 });
-    const seller = place.scenes[0].people[1];
-    expect(worth(walk, seller)).toBe(true);
+    walk.x = 0.8;
+    expect(worth(walk, place.scenes[0].people[1])).toBe(true);
     expect([speak(walk).line, speak(walk).line, speak(walk).line]).toEqual(['look', 'again', 'look']);
-    expect(canSpeak(walk, seller)).toBe(true);
+  });
+  // The user, 2026.10.8: "지구본으로 나갔다가, 다시 들어오니까 이벤트 다 한게 없어".
+  it('comes again to a place with its errands still done and those she spoke to still met', () => {
+    const tokyo = WALKS.shinkansen;
+    const walk = createWalk(tokyo, { done: ['tape', 'speed', 'fuji'], met: ['bento'] });
+    expect(allDone(walk)).toBe(true);
+    expect(walk.said.bento).toBeGreaterThan(0);
+    walk.x = tokyo.scenes[0].people.find((p) => p.id === 'bento').x;
+    expect(speak(walk).line).toBe(tokyo.scenes[0].people.find((p) => p.id === 'bento').lines[0]);
   });
   // The user, 2026.10.8: "그냥 팝업되는 대화 1개, 클릭해서 나오는 대화 2개. 총 3개야".
   it('gives everyone who speaks three things to say, none longer than 25 letters', () => {
@@ -342,5 +345,19 @@ describe('going at a touch to a scene she has been in', () => {
     expect(walk.scene).toBe(0);
     expect(walk.x).toBeGreaterThan(0.9);
     expect(hop(walk, -1)).toBe(false);
+  });
+});
+
+describe('what a walked place remembers', () => {
+  it('is still there when the saved record is read again', () => {
+    let progress = emptyProgress();
+    progress = markBeen(progress, 'eiffel', 'gate');
+    progress = markErrands(progress, 'eiffel', ['under', 'lift']);
+    progress = markMet(progress, 'eiffel', 'news');
+    const again = sanitizeProgress(JSON.stringify(progress), ['eiffel']);
+    expect(beenOf(again, 'eiffel')).toEqual(['gate']);
+    expect(errandsOf(again, 'eiffel')).toEqual(['under', 'lift']);
+    expect(metOf(again, 'eiffel')).toEqual(['news']);
+    expect(markMet(again, 'eiffel', 'news')).toBe(again);
   });
 });

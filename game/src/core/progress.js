@@ -56,6 +56,19 @@ export function markBeen(progress, id, scene) {
   return { ...progress, squares: { ...progress.squares, [id]: { ...of(progress, id), been: [...beenOf(progress, id), scene] } } };
 }
 
+// What stays done in a walked place when she leaves it and comes again (the user,
+// 2026.10.8: "이벤트 3개 모두 하고, 지구본으로 나갔다가, 다시 들어오니까 이벤트 다 한게 없어"):
+// the errands done, and the people she has spoken to (whose marks are then gone), by id.
+export const errandsOf = (progress, id) => progress.squares[id]?.errands ?? [];
+export const metOf = (progress, id) => progress.squares[id]?.met ?? [];
+function markIn(progress, id, key, what, had) {
+  const fresh = what.filter((one) => !had.includes(one));
+  if (fresh.length === 0) return progress;
+  return { ...progress, squares: { ...progress.squares, [id]: { ...of(progress, id), [key]: [...had, ...fresh] } } };
+}
+export const markErrands = (progress, id, errands) => markIn(progress, id, 'errands', errands, errandsOf(progress, id));
+export const markMet = (progress, id, person) => markIn(progress, id, 'met', [person], metOf(progress, id));
+
 // Grandmother's notes that have been read (core/notes.js), by id.
 export const notesRead = (progress) => progress.notes ?? [];
 export const markNoteRead = (progress, id) => (notesRead(progress).includes(id) ? progress : { ...progress, notes: [...notesRead(progress), id] });
@@ -72,8 +85,12 @@ export function sanitizeProgress(raw, ids, noteIds = []) {
     const was = kept.squares[id];
     if (!was || typeof was !== 'object') continue;
     squares[id] = { day: was.day === true, sky: was.sky === true, remains: was.remains === true, quiz: was.quiz === true, find: was.find === true };
-    const tried = Array.isArray(was.tried) ? [...new Set(was.tried.filter((what) => typeof what === 'string' && what.length <= 40))].slice(0, 60) : [];
-    if (tried.length > 0) squares[id].tried = tried;
+    // What a walked place remembers of her: what she tried, the scenes she has been in, the
+    // errands done, the people spoken to.
+    for (const key of ['tried', 'been', 'errands', 'met']) {
+      const list = Array.isArray(was[key]) ? [...new Set(was[key].filter((what) => typeof what === 'string' && what.length <= 40))].slice(0, 60) : [];
+      if (list.length > 0) squares[id][key] = list;
+    }
   }
   const notes = Array.isArray(kept.notes) ? noteIds.filter((id) => kept.notes.includes(id)) : [];
   return { squares, notes };

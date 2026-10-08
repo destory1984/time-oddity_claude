@@ -11,7 +11,7 @@ import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, 
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
 import { soraPose } from './core/sora.js';
 import { guideLine } from './core/guide.js';
-import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markBeen, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf, beenOf } from './core/progress.js';
+import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markBeen, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf, beenOf, errandsOf, metOf, markErrands, markMet } from './core/progress.js';
 import { findsOf } from './core/find.js';
 import { createFindGame } from './ui/find.js';
 import { project } from './core/project.js';
@@ -376,6 +376,7 @@ function showErrands() {
 $('errands').addEventListener('click', () => $('errands').classList.toggle('folded'));
 const ERRANDS_OPEN_MS = 7000;
 function errandsDone() {
+  keep(markErrands(progress, square.id, walk.done));
   showErrands();
   $('errands').classList.remove('folded');
   errandsFoldAt = walkT + 3500;
@@ -398,6 +399,7 @@ function talk(id = null) {
   sound.wake();
   sound.tick(true, false);
   if (said.person.sound) sound[said.person.sound]();
+  keep(markMet(progress, square.id, said.person.id));
   // What she makes of a thing they show her, in word and face, the first time she sees it
   // only: startled twice at one thing, and the second time without a word, she looked odd
   // (the user, 2026.10.8).
@@ -455,18 +457,21 @@ function enterScene() {
   // the button is an arrow alone and takes her to this one's end (the user, 2026.10.8, of
   // the first scene, which had a button to the right only: "반대로 가는게 없네").
   // A doubled arrow where one touch takes her there (she has been in it before).
-  $('walkPrev').textContent = before ? `${walk.been.includes(before.id) ? '«' : '‹'} ${before.name}` : '‹';
-  $('walkNext').textContent = after ? `${after.name} ${walk.been.includes(after.id) ? '»' : '›'}` : '›';
+  // The button has the scene's shorter name: the whole of it is under the date.
+  $('walkPrev').textContent = before ? `${walk.been.includes(before.id) ? '«' : '‹'} ${before.short ?? before.name}` : '‹';
+  $('walkNext').textContent = after ? `${after.short ?? after.name} ${walk.been.includes(after.id) ? '»' : '›'}` : '›';
   sound.air(scene.air ?? null);
 }
 function showWalk(sq) {
   square = sq;
   visit = null; site = null;
-  walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id) });
+  walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id), done: errandsOf(progress, sq.id), met: metOf(progress, sq.id) });
   walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyUntil = 0; walkNoteAt = 0;
   $('errands').classList.remove('folded');
+  // Come again with all of them done, the slip is folded from the first, its stamp on it.
   $('errands').classList.toggle('alldone', allDone(walk));
-  errandsFoldAt = ERRANDS_OPEN_MS;
+  $('errands').classList.toggle('folded', allDone(walk));
+  errandsFoldAt = allDone(walk) ? 0 : ERRANDS_OPEN_MS;
   if (isLocalHost(location.hostname)) window.walkDebug = walk;
   globe.setActive(false);
   stage.className = 'on-ground on-walk';

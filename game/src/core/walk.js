@@ -22,14 +22,17 @@ export const HEAR = 0.1;          // and hears in passing what those this near a
 const EDGE = 0.02;                // she stops this far from a scene's end
 const ARRIVE = 0.012;             // near enough to where she was sent
 
-// tried: what she has tried here on earlier visits, by id. been: the scenes she has been in.
-export function createWalk(place, { scene = 0, x = 0.08, tried = [], been = [] } = {}) {
+// From earlier visits, by id: tried: what she has tried here. been: the scenes she has been
+// in. done: the errands done. met: the people she has spoken to.
+export function createWalk(place, { scene = 0, x = 0.08, tried = [], been = [], done = [], met = [] } = {}) {
   return {
     place, scene, x, facing: 1, moving: false, goal: null,
-    said: {},            // how many times each person has been spoken to
+    // How many times each person has been spoken to. One met on an earlier visit has said
+    // both lines, and begins again with the first.
+    said: Object.fromEntries(met.map((id) => [id, 2])),
     heard: null,         // { id, line }: what was last said to her, while it is shown
     passing: null,       // { id, line }: what someone she is passing says, unasked, while she is near
-    done: [],            // the errands done, by id
+    done: [...done],     // the errands done, by id
     seen: [],            // the spots she has stood at, by id
     told: [],            // the scenes she has said her line in, by id
     tried: [...tried],   // what she has eaten, worn or used, by id
@@ -56,14 +59,14 @@ export function nearby(walk) {
 // 나오는 대화 2개. 총 3개야"). One (`pass`) nobody has to press anything for: it comes up
 // over their head as she passes and is gone when she has walked on ("들어도 그만 안 들어도
 // 그만인 대사는 소라가 지나갈 때에 자동적으로 팝업됐다가, 멀리가면 없어지는 식으로"). Two (`lines`)
-// are said when they are spoken to, and then an ordinary person has no more to say ("일반적인
-// NPC는 2개 말하고, 대화를 그냥 끝내버려").
+// are said when they are spoken to, the first, then the second, then the first again.
 // Who is worth coming back to: they have a thing to show her or for her to try, or an
 // errand asks for them. These say their two lines in turn for as long as she asks.
 export const worth = (walk, person) => Boolean(person.show || person.try || walk.place.errands.some((errand) => errand.at.includes(person.id)));
 
-// Whether they have anything left to say when spoken to.
-export const canSpeak = (walk, person) => Boolean(person?.lines) && (worth(walk, person) || (walk.said[person.id] ?? 0) < person.lines.length);
+// Whether they can be spoken to. Anyone who speaks can, as often as she likes: one who fell
+// silent after two lines seemed broken ("클릭은 계속 되어야지..또 듣고 싶을 수도 있잖아").
+export const canSpeak = (walk, person) => Boolean(person?.lines);
 
 // The nearest of those within hearing, or null.
 function overheard(walk) {
@@ -87,8 +90,7 @@ function finish(walk, id) {
 }
 
 // Speaks to whoever is near. Returns { person, line, errands: [ids done just now] }, or
-// null when nobody is or they have no more to say. A person says a first line, then
-// another; one worth coming back to then says the two in turn.
+// null when nobody is. A person says a first line, then another, then the two in turn.
 // id: the one meant, when several stand near.
 export function speak(walk, id = null) {
   const meant = id ? sceneOf(walk).people.find((p) => p.id === id && Math.abs(p.x - walk.x) <= REACH) : null;
