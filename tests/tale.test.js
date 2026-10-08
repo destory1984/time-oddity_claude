@@ -21,6 +21,14 @@ describe('a tale with a try in the middle of it', () => {
     expect(heardBoth(['c1', 'c2']).state).toBe('S2');
     expect(heardBoth(['c2', 'c1']).state).toBe('S2');
   });
+  it('settles the way with the one who asked, once the two are heard', () => {
+    const t = heardBoth();
+    expect(calledOf(tale, t)).toEqual([tale.chooser]);
+    expect(roleOf(tale, t, tale.chooser)).toBe('chooser');
+    expect(lineOf(tale, t, tale.chooser)).toBe(tale.weigh);
+    expect(roleOf(tale, t, tale.clues[1].actor)).toBe('clue');
+    expect(tale.weigh.length).toBeLessThanOrEqual(40);
+  });
   it('is told how the way chosen went by the one that way names (QA03)', () => {
     for (const route of ['A', 'B']) {
       const t = choose(heardBoth(), route);

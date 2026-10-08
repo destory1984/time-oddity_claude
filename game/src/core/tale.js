@@ -8,7 +8,7 @@
 // S4 choosing the end, S5 done. A record is never changed in place: each step gives back
 // a new one, or the same one when the step is not to be taken now.
 //
-// A place's `tale` (core/walks.js): { ask, giver, offer, clues: [{ id, actor, line }],
+// A place's `tale` (core/walks.js): { ask, giver, offer, clues: [{ id, actor, line }], chooser, weigh,
 // routes: { A, B: { label, gain, loss, actor, result, holds, record } },
 // resolver, close, endings: { E1, E2: { label, says, reply, record } }, goals: { S0…S5 } }.
 export const STATES = ['S0', 'S1', 'S2', 'S3', 'S4', 'S5'];
@@ -41,6 +41,10 @@ export const end = (t, endingId) => (t.state === 'S4' && ENDS.includes(endingId)
 // What someone is to the tale just now: 'giver', 'clue', 'result', 'resolver', or null.
 export function roleOf(tale, t, personId) {
   if (t.state === 'S0') return personId === tale.giver ? 'giver' : null;
+  // The two heard, it is the one who asked that the way is settled with, not whoever spoke
+  // last (the user, 2026.10.8, the choice having come up on the second of them: "이 말은 꽃 든
+  // 아가씨를 클릭하면 나와야하는거 아님?").
+  if (t.state === 'S2' && personId === tale.chooser) return 'chooser';
   if (t.state === 'S1' || t.state === 'S2') return tale.clues.some((c) => c.actor === personId) ? 'clue' : null;
   if (t.state === 'S3') return personId === tale.routes[t.route].actor ? 'result' : null;
   if (t.state === 'S4') return personId === tale.resolver ? 'resolver' : null;
@@ -52,6 +56,7 @@ export function lineOf(tale, t, personId) {
   const role = roleOf(tale, t, personId);
   if (role === 'giver') return tale.offer;
   if (role === 'clue') return tale.clues.find((c) => c.actor === personId).line;
+  if (role === 'chooser') return tale.weigh;
   if (role === 'result') return tale.routes[t.route].result;
   if (role === 'resolver') return tale.close;
   if (role === 'after') return tale.endings[t.endingId].says;
@@ -62,6 +67,7 @@ export function lineOf(tale, t, personId) {
 export function calledOf(tale, t) {
   if (t.state === 'S0') return [tale.giver];
   if (t.state === 'S1') return tale.clues.filter((c) => !t.clues.includes(c.id)).map((c) => c.actor);
+  if (t.state === 'S2') return [tale.chooser];
   if (t.state === 'S3') return [tale.routes[t.route].actor];
   if (t.state === 'S4') return [tale.resolver];
   return [];

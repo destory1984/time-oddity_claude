@@ -575,9 +575,8 @@ function taleSpoke(person, role) {
   } else if (role === 'clue') {
     const clue = told.clues.find((c) => c.actor === person.id);
     if (saveTale(hear(walk.tale, told, clue.id)) && walk.tale.state === 'S2') { taleMark('heard'); sound.stamp(); }
-    // Both heard: the choice comes up when their words have been read (and again on asking either).
-    if (walk.tale.state === 'S2') setTimeout(() => { if (walk?.tale?.state === 'S2' && !panelOpen()) askRoute(); }, 2600);
-  } else if (role === 'result') askKeep();
+  } else if (role === 'chooser') askRoute();
+  else if (role === 'result') askKeep();
   else if (role === 'resolver') askEnd();
 }
 
@@ -1322,7 +1321,9 @@ $('testBar').hidden = !isLocalHost(location.hostname);
 $('testReset').addEventListener('click', () => startOver());
 // The maker tries one place's tale over and over (the user, 2026.10.8: "몇 번 더 해보고
 // 결정하자"): the place she stands in is begun again, the others left as they are.
-$('testAgain').addEventListener('click', () => {
+$('testAgain').addEventListener('click', (e) => {
+  // (Left in focus, the button would be pressed again by the Space that speaks to someone.)
+  e.currentTarget.blur();
   if (mode !== 'walk' || !square) return;
   const { [square.id]: gone, ...rest } = progress.squares;
   keep({ ...progress, squares: rest });
