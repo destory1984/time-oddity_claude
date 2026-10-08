@@ -254,7 +254,11 @@ export function createWalkView({ onPerson, onWay }) {
     }
     const heard = walk.heard && nodes.has(walk.heard.id) ? nodes.get(walk.heard.id) : null;
     const panel = Boolean(heard) && place.talk === 'face';
+    // What someone says unasked as she passes is over their head, unless she is speaking
+    // herself (the two would lie one over the other).
+    const passing = !heard && !soraLine && walk.passing && nodes.has(walk.passing.id) ? nodes.get(walk.passing.id) : null;
     if (heard && !panel) bubble(say, walk.heard.line, heard.left + heard.wide / 2, heard.top);
+    else if (passing) bubble(say, walk.passing.line, passing.left + passing.wide / 2, passing.top);
     else say.classList.remove('on');
     if (panel) {
       const src = `./walks/${place.dir}/face-${walk.heard.id}.png`;
@@ -318,8 +322,11 @@ export function createWalkView({ onPerson, onWay }) {
     img.classList.add('tried');
   }
 
+  // The whole scene jolts a little, four times, as the wheels go over a joint in the rails.
+  function clack() { scroll.classList.remove('clack'); scroll.getBoundingClientRect(); scroll.classList.add('clack'); }
+
   return {
-    showScene, layout, update, nudge,
+    showScene, layout, update, nudge, clack,
     teleport: (ms) => passage('leaving', ms),
     arrive: () => { sora.classList.remove('leaving'); return passage('arriving'); },
   };

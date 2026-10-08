@@ -4,7 +4,7 @@ import { piecesAt } from '../game/src/core/pieces.js';
 import { squareById } from '../game/src/core/squares.js';
 import { WALKS } from '../game/src/core/walks.js';
 import { centuryLabel, centuryOf, centuryStart, centuryStops } from '../game/src/core/century.js';
-import { FACES, REACH, VERBS, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from '../game/src/core/walk.js';
+import { FACES, HEAR, REACH, VERBS, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from '../game/src/core/walk.js';
 import { createDial, drag, grab, release, stepDial } from '../game/src/core/dial.js';
 
 describe('centuries', () => {
@@ -243,6 +243,74 @@ describe('the places that are walked about', () => {
         }
         for (const piece of piecesAt(scene, 0)) expect(here(`${place.dir}/${piece.src}.png`), piece.src).toBe(true);
       }
+    }
+  });
+});
+
+describe('what is heard in passing and what is shown', () => {
+  const place = {
+    scenes: [{ id: 'a', name: 'a', people: [
+      { id: 'idle', name: 'idle', x: 0.5, lines: ['one', 'two'] },
+      { id: 'seller', name: 'seller', x: 0.8, lines: ['look'], show: 'thing' },
+      { id: 'asked', name: 'asked', x: 0.3, lines: ['yes'] },
+    ], spots: [] }],
+    errands: [{ id: 'ask', text: '', at: ['asked'] }],
+  };
+  it('brings up what an ordinary person says as she comes near, and puts it away as she goes', () => {
+    const walk = createWalk(place, { x: 0.65 });
+    const idle = place.scenes[0].people[0];
+    expect(worth(walk, idle)).toBe(false);
+    stepWalk(walk, 16, 0);
+    expect(walk.passing).toBe(null);
+    walk.x = idle.x + HEAR / 2;
+    stepWalk(walk, 16, 0);
+    expect(walk.passing).toEqual({ id: 'idle', line: 'one' });
+    stepWalk(walk, 16, 0);
+    expect(walk.passing.line).toBe('one');
+    walk.x = 0.65;
+    stepWalk(walk, 16, 0);
+    expect(walk.passing).toBe(null);
+    walk.x = idle.x;
+    stepWalk(walk, 16, 0);
+    expect(walk.passing.line).toBe('two');
+  });
+  it('leaves those worth stopping for to be spoken to: who shows a thing, and whom an errand asks for', () => {
+    const walk = createWalk(place, { x: 0.8 });
+    expect(worth(walk, place.scenes[0].people[1])).toBe(true);
+    expect(worth(walk, place.scenes[0].people[2])).toBe(true);
+    stepWalk(walk, 16, 0);
+    expect(walk.passing).toBe(null);
+    walk.x = 0.3;
+    stepWalk(walk, 16, 0);
+    expect(walk.passing).toBe(null);
+  });
+  // The user, 2026.10.8: "매 장면마다 적어도 하나씩은 만들어놔야함".
+  it('has in every scene someone with a thing to show, its picture there and a line of hers for it', () => {
+    for (const [id, walked] of Object.entries(WALKS)) {
+      for (const scene of walked.scenes) {
+        const showing = scene.people.filter((p) => p.show);
+        expect(showing.length, `${id}/${scene.id}`).toBeGreaterThan(0);
+        for (const person of showing) {
+          expect(existsSync(`game/public/walks/${walked.dir}/show-${person.show}.webp`), `${walked.dir}/show-${person.show}`).toBe(true);
+          if (person.sora) expect(person.sora.length).toBeLessThanOrEqual(25);
+        }
+      }
+    }
+  });
+});
+
+// The user, 2026.10.8: "워프나 장면이 바뀔 때에 소라나 나타나는 곳에는 NPC 배치 금지".
+describe('where she appears', () => {
+  it('has nobody standing: not where she is set down, nor where she comes in from the scene beside', () => {
+    for (const [id, walked] of Object.entries(WALKS)) {
+      walked.scenes.forEach((scene, i) => {
+        // She and one of them, side by side, take about 125 px of a screen 812 px high.
+        const clear = 125 / ((scene.aspect ?? 1.5) * scene.zoom * 812);
+        const arrivals = [i === 0 ? createWalk(walked).x : 0.04, ...(i < walked.scenes.length - 1 ? [0.96] : [])];
+        for (const person of scene.people) for (const at of arrivals) {
+          expect(Math.abs(person.x - at), `${id}/${scene.id}/${person.id}`).toBeGreaterThanOrEqual(clear - 0.001);
+        }
+      });
     }
   });
 });

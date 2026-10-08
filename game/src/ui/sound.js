@@ -143,15 +143,19 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     // The first of each comes a little sooner than the rest.
     airWait = airKind ? AIRS[airKind].map((voice) => between(voice) * 0.4) : [];
   }
-  // Called every frame at a place, with the time gone by: plays what has come due.
+  // Called every frame at a place, with the time gone by: plays what has come due and
+  // returns it (the screen jolts with the rails).
   function airStep(dtMs) {
-    if (!airKind) return;
+    const due = [];
+    if (!airKind) return due;
     AIRS[airKind].forEach((voice, i) => {
       airWait[i] -= dtMs;
       if (airWait[i] > 0) return;
       airWait[i] = between(voice);
+      due.push(voice[2]);
       play((at) => voice[2](at));
     });
+    return due;
   }
   // A footfall as she walks, on stone, earth or boards; left and right differ a little.
   function step(floor, n) {
@@ -165,7 +169,7 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
 
   return {
     wake,
-    air, airStep, step,
+    air, airStep, step, rails,
     // A wax cylinder heard through a small tube: the first line of "Au clair de la
     // lune", thin and a little unsteady. A placeholder until the user has heard it.
     phonograph() {

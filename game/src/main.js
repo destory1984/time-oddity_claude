@@ -18,7 +18,7 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, VERBS, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
+import { REACH, VERBS, worth, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -431,8 +431,11 @@ function enterScene() {
   if (!walk.told.includes(scene.id)) walk.told.push(scene.id);
   const before = walk.place.scenes[walk.scene - 1];
   const after = walk.place.scenes[walk.scene + 1];
-  $('walkPrev').hidden = !before; if (before) $('walkPrev').textContent = `‹ ${before.name}`;
-  $('walkNext').hidden = !after; if (after) $('walkNext').textContent = `${after.name} ›`;
+  // Both ways can always be walked by the buttons at the foot: where no scene lies beyond,
+  // the button is an arrow alone and takes her to this one's end (the user, 2026.10.8, of
+  // the first scene, which had a button to the right only: "반대로 가는게 없네").
+  $('walkPrev').textContent = before ? `‹ ${before.name}` : '‹';
+  $('walkNext').textContent = after ? `${after.name} ›` : '›';
   sound.air(scene.air ?? null);
 }
 function showWalk(sq) {
@@ -481,7 +484,9 @@ function frameWalk(dt) {
     walkStepMs += dt;
     if (walkStepMs >= FOOTFALL_MS) { walkStepMs -= FOOTFALL_MS; walkSteps += 1; sound.step(sceneOf(walk).floor ?? 'stone', walkSteps); }
   } else walkStepMs = FOOTFALL_MS * 0.6;
-  sound.airStep(dt);
+  // In the carriage the picture jolts with every clack of the rails (the user, 2026.10.8:
+  // "기차 안에서 두둑두둑 소리가 날 때마다 미세하게 화면을 떨게").
+  if (sound.airStep(dt).includes(sound.rails)) walkView.clack();
   if (out.arrived && walkWant) { talk(walkWant); walkWant = null; }
   if (out.spot?.sora) walkSora = { text: out.spot.sora, until: walkT + SORA_FOR_MS, from: walkT };
   if (out.spot?.pose) walkFace = { poses: [[out.spot.pose, walkT + SORA_FOR_MS]] };
@@ -518,7 +523,8 @@ function frameWalk(dt) {
   if (walkArrive) { walkArrive = false; walkView.arrive(); }
 
   const near = walk.moving ? null : nearby(walk);
-  const speaks = near?.lines ? near : null;
+  // A button to speak only to those worth stopping for; the rest are heard in passing.
+  const speaks = near?.lines && worth(walk, near) ? near : null;
   const label = !speaks ? '' : speaks.try ? '말 걸기' : `${speaks.name}에게 말 걸기`;
   if ($('talkButton').hidden !== !speaks) $('talkButton').hidden = !speaks;
   if (speaks && $('talkButton').textContent !== label) $('talkButton').textContent = label;
