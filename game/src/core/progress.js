@@ -48,6 +48,14 @@ export function markTried(progress, id, what) {
   return { ...progress, squares: { ...progress.squares, [id]: { ...of(progress, id), tried: [...triedOf(progress, id), what] } } };
 }
 
+// The scenes of a walked place she has been in, by id: one she has been in can be gone
+// to again at a touch.
+export const beenOf = (progress, id) => progress.squares[id]?.been ?? [];
+export function markBeen(progress, id, scene) {
+  if (beenOf(progress, id).includes(scene)) return progress;
+  return { ...progress, squares: { ...progress.squares, [id]: { ...of(progress, id), been: [...beenOf(progress, id), scene] } } };
+}
+
 // Grandmother's notes that have been read (core/notes.js), by id.
 export const notesRead = (progress) => progress.notes ?? [];
 export const markNoteRead = (progress, id) => (notesRead(progress).includes(id) ? progress : { ...progress, notes: [...notesRead(progress), id] });

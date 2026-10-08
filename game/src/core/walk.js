@@ -22,8 +22,8 @@ export const HEAR = 0.1;          // and hears in passing what those this near a
 const EDGE = 0.02;                // she stops this far from a scene's end
 const ARRIVE = 0.012;             // near enough to where she was sent
 
-// tried: what she has tried here on earlier visits, by id.
-export function createWalk(place, { scene = 0, x = 0.08, tried = [] } = {}) {
+// tried: what she has tried here on earlier visits, by id. been: the scenes she has been in.
+export function createWalk(place, { scene = 0, x = 0.08, tried = [], been = [] } = {}) {
   return {
     place, scene, x, facing: 1, moving: false, goal: null,
     said: {},            // how many times each person has been spoken to
@@ -33,6 +33,7 @@ export function createWalk(place, { scene = 0, x = 0.08, tried = [] } = {}) {
     seen: [],            // the spots she has stood at, by id
     told: [],            // the scenes she has said her line in, by id
     tried: [...tried],   // what she has eaten, worn or used, by id
+    been: [...been],     // the scenes she has been in, by id
     wearing: null,       // the outfit she has on, until she leaves
     trips: 0,            // how many frames it has of her treading on its hem
   };
@@ -118,6 +119,19 @@ export function tryIt(walk, id = null) {
 
 // Everything that can be tried in a place, in the order it is walked past.
 export const triesOf = (place) => place.scenes.flatMap((scene) => scene.people.filter((p) => p.try).map((p) => p.try));
+
+// Goes at once into the scene beside this one (way: -1 or 1) if she has been in it before:
+// a street once walked need not be walked again to get past it (the user, 2026.10.8: "한
+// 번 가본 곳은 저거만 누르면, 다음 장면으로 이동시켜줘"). Returns whether she went.
+export function hop(walk, way) {
+  const next = walk.place.scenes[walk.scene + way];
+  if (!next || !walk.been.includes(next.id)) return false;
+  walk.scene += way;
+  walk.x = way > 0 ? EDGE * 2 : 1 - EDGE * 2;
+  walk.facing = way;
+  walk.moving = false; walk.goal = null; walk.heard = null; walk.passing = null;
+  return true;
+}
 
 // Sends her to a place along the scene (a person touched from afar); she walks there.
 export function sendTo(walk, x) {

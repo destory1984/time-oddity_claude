@@ -51,7 +51,7 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkTalkLine{margin:0;font-size:calc(16px * var(--text,1));line-height:1.35}
 #walkPeople .person{position:absolute;height:auto;image-rendering:pixelated;transform-origin:50% 100%;animation:sway 1.6s ease-in-out infinite;cursor:pointer;-webkit-user-drag:none}
 #walkPeople .person.near{filter:drop-shadow(0 0 5px rgba(255,222,140,.95))}
-#walkPeople .mark{position:absolute;z-index:20;width:calc(46px * var(--text,1));height:calc(46px * var(--text,1));margin:calc(-46px * var(--text,1)) 0 0 calc(-23px * var(--text,1));border-radius:50%;border:3px solid var(--gold);background:#fff center/170% no-repeat;box-shadow:0 2px 8px #0009;pointer-events:none;animation:markBob 1.3s ease-in-out infinite}
+#walkPeople .mark{position:absolute;z-index:20;width:calc(46px * var(--text,1));height:calc(46px * var(--text,1));margin:calc(-46px * var(--text,1)) 0 0 calc(-23px * var(--text,1));border-radius:50%;border:3px solid var(--gold);background:#fff center/170% no-repeat;box-shadow:0 2px 8px #0009;cursor:pointer;animation:markBob 1.3s ease-in-out infinite}
 #walkPeople .mark.off{display:none}
 #walkPeople .mark.bang{display:grid;place-items:center;background:var(--gold);color:#1b1730;font:800 calc(26px * var(--text,1))/1 system-ui,sans-serif;font-style:normal}
 #walkPeople .mark.bang.off{display:none}

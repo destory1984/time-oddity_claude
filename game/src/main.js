@@ -11,14 +11,14 @@ import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, 
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
 import { soraPose } from './core/sora.js';
 import { guideLine } from './core/guide.js';
-import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf } from './core/progress.js';
+import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markBeen, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf, beenOf } from './core/progress.js';
 import { findsOf } from './core/find.js';
 import { createFindGame } from './ui/find.js';
 import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, VERBS, canSpeak, worth, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
+import { REACH, VERBS, canSpeak, hop, worth, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -436,19 +436,21 @@ function enterScene() {
   walkFace = null; walkMemo = null; walkHeld = null;
   walkSora = scene.sora && !walk.told.includes(scene.id) ? { text: scene.sora, until: walkT + 900 + SORA_FOR_MS, from: walkT + 900 } : null;
   if (!walk.told.includes(scene.id)) walk.told.push(scene.id);
+  if (!walk.been.includes(scene.id)) { walk.been.push(scene.id); keep(markBeen(progress, square.id, scene.id)); }
   const before = walk.place.scenes[walk.scene - 1];
   const after = walk.place.scenes[walk.scene + 1];
   // Both ways can always be walked by the buttons at the foot: where no scene lies beyond,
   // the button is an arrow alone and takes her to this one's end (the user, 2026.10.8, of
   // the first scene, which had a button to the right only: "반대로 가는게 없네").
-  $('walkPrev').textContent = before ? `‹ ${before.name}` : '‹';
-  $('walkNext').textContent = after ? `${after.name} ›` : '›';
+  // A doubled arrow where one touch takes her there (she has been in it before).
+  $('walkPrev').textContent = before ? `${walk.been.includes(before.id) ? '«' : '‹'} ${before.name}` : '‹';
+  $('walkNext').textContent = after ? `${after.name} ${walk.been.includes(after.id) ? '»' : '›'}` : '›';
   sound.air(scene.air ?? null);
 }
 function showWalk(sq) {
   square = sq;
   visit = null; site = null;
-  walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id) });
+  walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id) });
   walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyUntil = 0; walkNoteAt = 0;
   $('errands').classList.remove('folded');
   errandsFoldAt = ERRANDS_OPEN_MS;
@@ -464,7 +466,11 @@ function showWalk(sq) {
 }
 // The two buttons at the foot walk her on toward the scene beside this one while held.
 for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
-  $(id).addEventListener('pointerdown', (e) => { $(id).setPointerCapture?.(e.pointerId); walkWay = way; walkWant = null; });
+  $(id).addEventListener('pointerdown', (e) => {
+    walkWant = null;
+    if (walk && hop(walk, way)) { walkWay = 0; sound.wake(); sound.tick(true, false); enterScene(); return; }
+    $(id).setPointerCapture?.(e.pointerId); walkWay = way;
+  });
   for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) $(id).addEventListener(name, () => { walkWay = 0; });
 }
 $('talkButton').addEventListener('click', () => talk());

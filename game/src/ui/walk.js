@@ -121,6 +121,8 @@ export function createWalkView({ onPerson, onWay }) {
         mark.className = 'mark';
         if (person.show) mark.style.backgroundImage = `url(./walks/${place.dir}/show-${person.show}.webp)`;
         else { mark.classList.add('bang'); mark.textContent = '!'; }
+        // Touching the mark is touching them (the user, 2026.10.8: "저거 눌러도 대화 시작하게").
+        mark.addEventListener('pointerdown', (e) => { e.stopPropagation(); onPerson(person.id); });
         peopleEl.append(mark);
       }
       nodes.set(person.id, { img, mark, person, left: 0, top: 0, wide: 0, tall: 0 });
@@ -273,15 +275,18 @@ export function createWalkView({ onPerson, onWay }) {
       node.img.classList.toggle('near', Boolean(node.mark) && Math.abs(node.person.x - walk.x) <= 0.05);
       node.img.classList.toggle('speaking', walk.heard?.id === node.person.id);
       // The mark gives way to what they are saying, and is gone for good once she has seen the thing.
-      node.mark?.classList.toggle('off', !fresh || walk.heard?.id === node.person.id || (walk.passing?.id === node.person.id && !soraLine));
+      // The mark stays while they speak (the user: "근처에 가면, 머리 위에 있던 아이콘이 없어짐"):
+      // what they say goes above it.
+      node.mark?.classList.toggle('off', !fresh);
+      node.over = fresh && node.mark ? node.mark.offsetHeight + 12 * unit : 0;
     }
     const heard = walk.heard && nodes.has(walk.heard.id) ? nodes.get(walk.heard.id) : null;
     const panel = Boolean(heard) && place.talk === 'face';
     // What someone says unasked as she passes is over their head, unless she is speaking
     // herself (the two would lie one over the other).
     const passing = !heard && !soraLine && walk.passing && nodes.has(walk.passing.id) ? nodes.get(walk.passing.id) : null;
-    if (heard && !panel) bubble(say, walk.heard.line, heard.left + heard.wide / 2, heard.top);
-    else if (passing) bubble(say, walk.passing.line, passing.left + passing.wide / 2, passing.top);
+    if (heard && !panel) bubble(say, walk.heard.line, heard.left + heard.wide / 2, heard.top - heard.over);
+    else if (passing) bubble(say, walk.passing.line, passing.left + passing.wide / 2, passing.top - passing.over);
     else say.classList.remove('on');
     if (panel) {
       const src = `./walks/${place.dir}/face-${walk.heard.id}.png`;

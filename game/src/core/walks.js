@@ -368,7 +368,7 @@ export const WALKS = {
         // 너무 커", "전체적으로 사람이 너무 작네"): its door stood 2.2 times as tall as a man.
         // The picture is shown at 0.62 of that, with the roof and the sky over it, so it is
         // narrower than the others (aspect) and she crosses it at the same pace on the screen.
-        id: 'car', name: '달리는 차 안', zoom: 1.012, ground: 0.7944, aspect: 1.1963, pace: 1.6, scale: 0.66, air: 'train', floor: 'wood',
+        id: 'car', name: '달리는 신칸센 안', zoom: 1.012, ground: 0.7944, aspect: 1.1963, pace: 1.6, scale: 0.66, air: 'train', floor: 'wood',
         sora: '안 흔들려! 창밖이 휙휙 가.',
         // The land goes by behind the picture, seen through its six windows.
         moving: [

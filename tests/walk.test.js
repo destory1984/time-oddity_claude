@@ -4,7 +4,7 @@ import { piecesAt } from '../game/src/core/pieces.js';
 import { squareById } from '../game/src/core/squares.js';
 import { WALKS } from '../game/src/core/walks.js';
 import { centuryLabel, centuryOf, centuryStart, centuryStops } from '../game/src/core/century.js';
-import { FACES, HEAR, REACH, VERBS, canSpeak, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from '../game/src/core/walk.js';
+import { FACES, HEAR, REACH, VERBS, canSpeak, hop, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from '../game/src/core/walk.js';
 import { createDial, drag, grab, release, stepDial } from '../game/src/core/dial.js';
 
 describe('centuries', () => {
@@ -324,5 +324,23 @@ describe('where she appears', () => {
         }
       });
     }
+  });
+});
+
+// The user, 2026.10.8: "한 번 가본 곳은 저거만 누르면, 다음 장면으로 이동시켜줘".
+describe('going at a touch to a scene she has been in', () => {
+  it('does not go where she has not been, and goes at once where she has', () => {
+    const place = WALKS.shinkansen;
+    const walk = createWalk(place, { been: ['front'] });
+    expect(hop(walk, 1)).toBe(false);
+    expect(walk.scene).toBe(0);
+    walk.been.push('platform');
+    expect(hop(walk, 1)).toBe(true);
+    expect(walk.scene).toBe(1);
+    expect(walk.x).toBeLessThan(0.1);
+    expect(hop(walk, -1)).toBe(true);
+    expect(walk.scene).toBe(0);
+    expect(walk.x).toBeGreaterThan(0.9);
+    expect(hop(walk, -1)).toBe(false);
   });
 });
