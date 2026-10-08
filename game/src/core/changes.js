@@ -7,6 +7,7 @@
 // a fault mended, does; moving buttons about or rewording a sentence does not.
 // Each line is 10 to 70 characters and ends in "니다." (tests/changes.test.js).
 export const CHANGES = [
+  { day: '2026-10-08', text: '도쿄 사람들이 기차의 빠르기를 시속 210km라고 또렷이 말합니다.' },
   { day: '2026-10-08', text: '먹을거리를 파는 사람에게 말을 걸면 그 음식을 크게 보여 줍니다.' },
   { day: '2026-10-08', text: '얼굴 그림이 뜨는 다섯 도시에서 말을 걸면 화면이 멈추던 것을 고쳤습니다.' },
   { day: '2026-10-08', text: '옷을 입은 채 먹으면 옷은 그대로이고 머리 옆에 표정 딱지가 뜹니다.' },

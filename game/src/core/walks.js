@@ -342,7 +342,7 @@ export const WALKS = {
           // pickle and the thin wooden box are from memory.
           { id: 'bento', name: '도시락 아주머니', x: 0.72, w: 108, h: 277, lines: ['자, 열어 볼게요. 이렇게 생겼어요.', '역에서 파는 도시락, 에키벤이에요.'],
             show: 'ekiben', sora: '기차 도시락은 이렇구나!' },
-          { id: 'tourist', name: '먼 데서 온 여행자', x: 0.88, w: 110, h: 308, lines: ['올림픽 보러 왔어요. 기차도 타요!', '시속 이백십? 믿을 수 없어요.'] },
+          { id: 'tourist', name: '먼 데서 온 여행자', x: 0.88, w: 110, h: 308, lines: ['올림픽 보러 왔어요. 기차도 타요!', '시속 210km? 믿을 수 없어요.'] },
         ],
         spots: [],
       },
@@ -357,7 +357,7 @@ export const WALKS = {
           { id: 'fan', name: '기차 좋아하는 소년', x: 0.12, w: 96, h: 239, lines: ['꿈의 초특급이다! 코가 비행기 같아.', '새벽 세 시에 일어나서 왔어.'] },
           { id: 'reporter', name: '방송 기자', x: 0.26, w: 103, h: 299, lines: ['여기는 도쿄역, 역사적인 아침입니다.', '세계에서 가장 빠른 열차입니다!'] },
           { id: 'flowers', name: '꽃다발 든 아가씨', x: 0.4, w: 122, h: 290, lines: ['기관사님께 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
-          { id: 'driver', name: '기관사', x: 0.52, w: 112, h: 299, lines: ['이백십 킬로미터. 손이 떨립니다.', '선로가 눈앞으로 빨려 들어와요.'] },
+          { id: 'driver', name: '기관사', x: 0.52, w: 112, h: 299, lines: ['시속 210km입니다. 손이 떨려요.', '선로가 눈앞으로 빨려 들어와요.'] },
           { id: 'master', name: '역장', x: 0.66, w: 106, h: 320, lines: ['여섯 시 정각, 히카리 1호 출발!', '일 초도 늦으면 안 됩니다.'] },
           { id: 'banzai', name: '신이 난 회사원', x: 0.82, w: 155, h: 304, lines: ['테이프 끊는 걸 봤어! 박도 터졌어!', '만세! 우리가 해냈다고!'] },
         ],
@@ -376,7 +376,7 @@ export const WALKS = {
           { id: 'eater', name: '도시락 먹는 아저씨', x: 0.38, w: 117, h: 306, lines: ['빨라서 도시락 먹을 틈이 없네.', '(우물우물) 그래도 맛은 좋아.'] },
           { id: 'kid', name: '신난 꼬마', x: 0.52, w: 128, h: 218, lines: ['전봇대가 줄넘기처럼 지나가!', '나 커서 기관사 될 거야!'] },
           { id: 'granny', name: '창가의 할머니', x: 0.68, w: 134, h: 284, lines: ['저기 봐, 후지산이야! 벌써 여기야.', '옛날엔 걸어서 보름 길이었단다.'] },
-          { id: 'buffet', name: '식당 칸 종업원', x: 0.9, w: 121, h: 320, lines: ['속도계 보세요. 지금 이백십!', '커피가 안 쏟아지는 게 자랑이죠.'] },
+          { id: 'buffet', name: '식당 칸 종업원', x: 0.9, w: 121, h: 320, lines: ['속도계 보세요. 지금 시속 210km!', '커피가 안 쏟아지는 게 자랑이죠.'] },
         ],
         spots: [],
       },
@@ -386,7 +386,7 @@ export const WALKS = {
       { id: 'speed', text: '얼마나 빠른지 속도계를 보고 오렴.', at: ['buffet'] },
       { id: 'fuji', text: '창밖으로 후지산이 보이는지 보렴.', at: ['granny'] },
     ],
-    reply: '이백십이라니. 후지산이 금세 지나갔겠구나.',
+    reply: '시속 210km라니. 후지산이 금세 지나갔겠구나.',
   },
   // The first leaf: grandmother's village on the night of 21 July 1969, the one day in
   // the notebook she saw herself (the user, 2026.10.8, of the places made in Paris's
