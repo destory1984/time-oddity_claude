@@ -11,7 +11,8 @@
 // A person's try: { id, verb: 'eat' | 'wear' | 'use', name, sora: what she says of it,
 //   memo?: what grandmother wrote, face?: how it tasted ('yum', 'sour', 'yuck', 'hmm'),
 //   outfit?: what she has on afterwards, pose?: how she stands for a moment on trying it
-//   (a picture of hers, public/sora/<pose>.png) }. Something that is not a person (a water clock)
+//   (a picture of hers, public/sora/<pose>.png), trips?: how many frames there are of her
+//   treading on its hem as she walks (<outfit>-trip-N.png) }. Something that is not a person (a water clock)
 // has a try and no lines.
 export const VERBS = { eat: '먹어 볼래', wear: '입어 볼래', use: '써 볼래' };
 export const FACES = ['yum', 'sour', 'yuck', 'hmm'];
@@ -31,6 +32,7 @@ export function createWalk(place, { scene = 0, x = 0.08, tried = [] } = {}) {
     told: [],            // the scenes she has said her line in, by id
     tried: [...tried],   // what she has eaten, worn or used, by id
     wearing: null,       // the outfit she has on, until she leaves
+    trips: 0,            // how many frames it has of her treading on its hem
   };
 }
 
@@ -82,7 +84,7 @@ export function tryIt(walk, id = null) {
   const it = person.try;
   const first = !walk.tried.includes(it.id);
   if (first) walk.tried.push(it.id);
-  if (it.verb === 'wear') walk.wearing = it.outfit ?? null;
+  if (it.verb === 'wear') { walk.wearing = it.outfit ?? null; walk.trips = it.trips ?? 0; }
   walk.heard = null;
   walk.goal = null;
   return { person, it, first, errands: finish(walk, it.id) };

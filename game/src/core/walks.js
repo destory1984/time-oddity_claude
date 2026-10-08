@@ -56,7 +56,7 @@ export const WALKS = {
           { id: 'snow', name: '눈 장수', x: 0.83, w: 187, h: 290, lines: ['산에서 지고 온 눈이오!', '한 잔에 눈값이 반이지.'],
             try: { id: 'eat-snow', verb: 'eat', name: '눈 넣은 꿀물', face: 'yum', sora: '차가워! 여름에 얼음이라니.', memo: '냉장고가 없으니 산의 눈을 지게로 날랐단다.' } },
           { id: 'draper', name: '옷 가게 주인', x: 0.92, w: 196, h: 290, lines: ['혼자는 못 입어요. 둘은 붙어야지.', '시민만 입는 옷이라오.'],
-            try: { id: 'wear-toga', verb: 'wear', name: '토가', outfit: 'toga', pose: 'toga-fuss', sora: '무거워! 자꾸 흘러내려.', memo: '시민만 입을 수 있었고, 무거워서 평소엔 다들 튜닉이었대.' } },
+            try: { id: 'wear-toga', verb: 'wear', name: '토가', outfit: 'toga', pose: 'toga-fuss', trips: 2, sora: '무거워! 자꾸 흘러내려.', memo: '시민만 입을 수 있었고, 무거워서 평소엔 다들 튜닉이었대.' } },
         ],
         spots: [],
       },
@@ -94,7 +94,7 @@ export const WALKS = {
           // The emperor in his box across the sand: seen, not spoken to.
           { id: 'titus', from: 0.47, to: 0.63, memo: '저 사람이 티투스란다. 아버지가 짓기 시작한 걸 아들이 열었지.' },
           // The fighting itself is not seen: she watches the march and no more.
-          { id: 'march', from: 0.2, to: 0.36, sora: '행진까지만 볼래. 싸움은 안 볼 거야.' },
+          { id: 'march', from: 0.2, to: 0.36, sora: '행진까지만 볼래. 싸움은 안 볼 거야.', pose: 'turn-away' },
         ],
       },
     ],

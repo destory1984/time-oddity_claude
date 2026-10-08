@@ -54,7 +54,8 @@ export function createWalkView({ onPerson, onWay }) {
     }
     return art.get(name);
   }
-  for (const face of ['yum', 'sour', 'yuck', 'hmm']) has(`taste-${face}`);
+  const POSES = ['taste-yum', 'taste-sour', 'taste-yuck', 'taste-hmm', 'bite-1', 'bite-2', 'turn-away'];
+  for (const pose of POSES) has(pose);
   const FRAMES = [1, 2, 3, 4];
 
   function measure() {
@@ -107,8 +108,13 @@ export function createWalkView({ onPerson, onWay }) {
     // What she may put on here, and how she stands on trying something, is fetched on arriving.
     for (const person of scene.people) {
       if (person.try?.pose) has(person.try.pose);
-      if (person.try?.outfit) for (const i of FRAMES) { has(`${person.try.outfit}-idle-${i}`); has(`${person.try.outfit}-walk-${i}`); }
+      if (person.try?.trips) for (const i of FRAMES.slice(0, person.try.trips)) has(`${person.try.outfit}-trip-${i}`);
+      if (person.try?.outfit) {
+        for (const i of FRAMES) { has(`${person.try.outfit}-idle-${i}`); has(`${person.try.outfit}-walk-${i}`); }
+        for (const pose of POSES) has(`${person.try.outfit}-${pose}`);
+      }
     }
+    for (const spot of scene.spots) if (spot.pose) has(spot.pose);
     root.dataset.look = place.look ?? 'pixel';
     root.dataset.night = place.night ? '1' : '';
     piecesEl.replaceChildren();
@@ -191,8 +197,9 @@ export function createWalkView({ onPerson, onWay }) {
 
   // walk: core/walk.js's state. soraLine: what she is saying now, or null. t: seconds
   // since she came down here (what moves in the scene goes by it). pose: a picture of hers
-  // (public/sora/<pose>.png) for how she takes what she has just tried, while it shows.
-  function update(walk, now, soraLine, t = 0, pose = null) {
+  // (public/sora/<pose>.png) for how she takes what she has just tried, while it shows;
+  // stride: one shown in place of a step while she walks (treading on her hem).
+  function update(walk, now, soraLine, t = 0, pose = null, stride = null) {
     if (!scene) return;
     movePieces(t);
     const { w, h, wide, unit } = size;
@@ -204,9 +211,14 @@ export function createWalkView({ onPerson, onWay }) {
     // four steps, each cut to her own outline. Both are shown the same height, feet on the street.
     const walking = walk.moving;
     const frame = 1 + (Math.floor(now / (walking ? STEP_MS : IDLE_MS)) % 4);
-    const tasting = !walking && pose && has(pose);
+    // In an outfit she is shown only in pictures of her in it (<outfit>-<pose>.png): with
+    // none she stays as she stands, since her clothes must not change for a moment and
+    // change back (the user, 2026.10.8).
+    const posed = pose && walk.wearing && !pose.startsWith(`${walk.wearing}-`) ? `${walk.wearing}-${pose}` : pose;
+    const tasting = !walking && posed && has(posed);
+    const tripping = walking && stride && has(stride);
     const worn = walk.wearing && has(`${walk.wearing}-${walking ? 'walk' : 'idle'}-${frame}`) ? `${walk.wearing}-` : '';
-    const src = tasting ? `./sora/${pose}.png` : `./sora/${worn}${walking ? 'walk' : 'idle'}-${frame}.png`;
+    const src = tasting ? `./sora/${posed}.png` : tripping ? `./sora/${stride}.png` : `./sora/${worn}${walking ? 'walk' : 'idle'}-${frame}.png`;
     if (sora.dataset.src !== src) { sora.dataset.src = src; sora.src = src; }
     const soraTall = SORA_TALL * unit;
     // Her standing picture has empty rows above her crown and below her shoes.

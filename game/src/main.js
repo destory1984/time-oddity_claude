@@ -338,7 +338,8 @@ let replyUntil = 0;         // grandmother's answer shows until then
 let errandsFoldAt = 0;      // the slip of errands folds itself then
 let walkArrive = false;     // she is to be set down in a shaft of light on the next frame
 let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
-let walkFace = null;        // { pose, until }: how she takes what she has just tried (a picture of hers), while it shows
+let walkFace = null;        // { poses: [[picture of hers, until], ...] }: how she takes what she has just tried, one after another
+let walkHemMs = 0;          // how long she has walked in what she put on since she last trod on its hem
 let walkMemo = null;        // { text, until }: what grandmother wrote of what she has just tried
 let walkStepMs = 0;         // how long she has walked since her last footfall
 let walkSteps = 0;
@@ -394,6 +395,10 @@ function talk(id = null) {
 // she makes of it, with a face if it was eaten, and grandmother's slip tells what it is.
 const FACE_FOR_MS = 2600;
 const TRY_MEMO_MS = 9000;
+const BITE_MS = 420;         // each of the two pictures of her eating
+const HEM_EVERY_MS = 5200;   // walking in a toga she treads on its hem this often,
+const HEM_FIRST_MS = 1300;   // the first time this soon,
+const HEM_FRAME_MS = 240;    // and each picture of it lasts this long
 function tryNear(id = null) {
   if (!walk) return;
   const did = tryIt(walk, id);
@@ -403,9 +408,12 @@ function tryNear(id = null) {
   sound.wake();
   sound.tick(true, false);
   walkView.nudge(did.person.id);
-  walkSora = { text: it.sora, from: walkT + 300, until: walkT + 300 + SORA_FOR_MS };
+  // What is eaten is first held up and put in her mouth; then her face says how it was.
+  const bite = it.verb === 'eat' ? BITE_MS : 0;
   const pose = it.face ? `taste-${it.face}` : it.pose ?? null;
-  walkFace = pose ? { pose, until: walkT + FACE_FOR_MS } : null;
+  walkFace = pose ? { poses: [...(bite ? [['bite-1', walkT + bite], ['bite-2', walkT + bite * 2]] : []), [pose, walkT + bite * 2 + FACE_FOR_MS]] } : null;
+  walkSora = { text: it.sora, from: walkT + 300 + bite * 2, until: walkT + 300 + bite * 2 + SORA_FOR_MS };
+  if (it.verb === 'wear') walkHemMs = HEM_EVERY_MS - HEM_FIRST_MS;
   walkMemo = it.memo ? { text: it.memo, until: walkT + TRY_MEMO_MS } : null;
   if (did.first) keep(markTried(progress, square.id, it.id));
   if (did.errands.length > 0) errandsDone();
@@ -471,9 +479,24 @@ function frameWalk(dt) {
   sound.airStep(dt);
   if (out.arrived && walkWant) { talk(walkWant); walkWant = null; }
   if (out.spot?.sora) walkSora = { text: out.spot.sora, until: walkT + SORA_FOR_MS, from: walkT };
+  if (out.spot?.pose) walkFace = { poses: [[out.spot.pose, walkT + SORA_FOR_MS]] };
   if (out.errands.length > 0) errandsDone();
   if (walkSora && walkT > walkSora.until) walkSora = null;
-  if (walkFace && (walk.moving || walkT > walkFace.until)) walkFace = null;
+  // How she stands for a moment is put away when its time is up, or when she walks on
+  // after it has been seen (one that came as she walked waits for her to stop).
+  if (walkFace && !walk.moving) walkFace.seen = true;
+  if (walkFace && ((walk.moving && walkFace.seen) || walkT > walkFace.poses.at(-1)[1])) walkFace = null;
+  // In what trails on the ground she treads on the hem now and then as she walks.
+  let stride = null;
+  if (walk.moving && walk.trips > 0) {
+    walkHemMs += dt;
+    const into = walkHemMs - HEM_EVERY_MS;
+    if (into >= walk.trips * HEM_FRAME_MS) walkHemMs = 0;
+    else if (into >= 0) {
+      stride = `${walk.wearing}-trip-${1 + Math.floor(into / HEM_FRAME_MS)}`;
+      if (into < dt && !walk.told.includes('hem')) { walk.told.push('hem'); walkSora = { text: '어어, 밟았다!', from: walkT, until: walkT + SORA_FOR_MS }; }
+    }
+  }
   if (walkMemo && walkT > walkMemo.until) walkMemo = null;
   if (errandsFoldAt > 0 && walkT >= errandsFoldAt) { errandsFoldAt = 0; $('errands').classList.add('folded'); }
   // A note that is due (the first leaf's) falls once grandmother's answer has been read.
@@ -485,7 +508,7 @@ function frameWalk(dt) {
 
   // The sky of that day and hour, as computed, behind the roofs.
   skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });
-  walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.pose ?? null);
+  walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.poses.find(([, until]) => walkT <= until)?.[0] ?? null, stride);
   if (walkArrive) { walkArrive = false; walkView.arrive(); }
 
   const near = walk.moving ? null : nearby(walk);
