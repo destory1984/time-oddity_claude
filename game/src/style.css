@@ -37,6 +37,13 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkPieces .piece,#walkBehind .piece{position:absolute;width:auto;max-width:none;will-change:transform;-webkit-user-drag:none}
 #walkTalk{position:absolute;left:12px;right:12px;bottom:47%;z-index:40;display:none;align-items:center;gap:12px;padding:10px 14px 10px 10px;border-radius:14px;background:var(--white);color:#1b1730;box-shadow:0 3px 12px #0008;pointer-events:none}
 #walkTalk.on{display:flex}
+#walkTalk.showing{flex-wrap:wrap}
+#walkTalk.showing>div{flex:1 1 0;min-width:0}
+#walkTalkShow{display:none;flex:0 0 100%;width:100%;aspect-ratio:2/1;object-fit:cover;border-radius:10px}
+#walkTalk.showing #walkTalkShow{display:block;animation:showUp .3s ease-out 1}
+#walkShow{position:absolute;left:14%;width:72%;bottom:53%;z-index:39;display:none;aspect-ratio:3/2;object-fit:cover;border:5px solid var(--white);border-radius:8px;box-shadow:0 4px 14px #000a;pointer-events:none;image-rendering:pixelated}
+#walkShow.on{display:block;animation:showUp .3s ease-out 1}
+@keyframes showUp{0%{transform:scale(.9);opacity:0}100%{transform:none;opacity:1}}
 #walkFace{flex:none;width:calc(84px * var(--text,1));height:calc(84px * var(--text,1));object-fit:cover;object-position:50% 8%;image-rendering:pixelated;border-radius:10px;background:#e9dfc8}
 #walkTalkName{display:block;font-size:12px;font-weight:600;opacity:.6;margin-bottom:3px}
 #walkTalkLine{margin:0;font-size:calc(16px * var(--text,1));line-height:1.35}

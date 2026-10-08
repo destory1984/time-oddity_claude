@@ -44,16 +44,16 @@ export const WALKS = {
         people: [
           { id: 'baker', name: '빵 장수', x: 0.11, w: 123, h: 284, lines: ['갓 구웠어요. 여덟 쪽으로 갈라 드셔요.', '경기장 덕에 오늘은 벌써 동났네.'] },
           { id: 'boy', name: '심부름 소년', x: 0.2, w: 132, h: 248, lines: ['주인님 빵 받으러 왔어. 늦으면 혼나.', '나도 경기장 가 보고 싶다.'] },
-          { id: 'garum', name: '생선 소스 장수', x: 0.31, w: 150, h: 299, lines: ['히스파니아에서 배로 온 거요. 한 국자?', '냄새는 지독해도 맛은 황제 것이오.'],
+          { id: 'garum', show: 'garum', name: '생선 소스 장수', x: 0.31, w: 150, h: 299, lines: ['히스파니아에서 배로 온 거요. 한 국자?', '냄새는 지독해도 맛은 황제 것이오.'],
             try: { id: 'eat-garum', verb: 'eat', name: '생선 소스', face: 'yuck', sora: '으엑! 생선 썩은 맛이야!', memo: '로마의 간장이란다. 냄새는 지독한데 없으면 못 살았대.' } },
-          { id: 'dormouse', name: '겨울잠쥐 장수', x: 0.39, w: 219, h: 290, lines: ['항아리에서 살찌운 놈이오.', '꿀 발라 구웠소. 귀한 손님상 거요.'],
+          { id: 'dormouse', show: 'dormouse', name: '겨울잠쥐 장수', x: 0.39, w: 219, h: 290, lines: ['항아리에서 살찌운 놈이오.', '꿀 발라 구웠소. 귀한 손님상 거요.'],
             try: { id: 'eat-dormouse', verb: 'eat', name: '겨울잠쥐 구이', face: 'hmm', sora: '쥐… 쥐라고? 닭고기 맛인데.', memo: '쥐를 항아리에서 살찌워 먹었단다. 귀한 손님상에 올랐지.' } },
           { id: 'lady', name: '귀부인', x: 0.47, w: 133, h: 320, lines: ['새 경기장? 자리는 신분대로 앉는단다.', '여자 자리는 맨 꼭대기라지 뭐니.'] },
           { id: 'maid', name: '하녀', x: 0.535, w: 123, h: 276, lines: ['마님 짐이 무거워요. 구경은 가요!', '꼭대기에서도 잘 보인대요.'] },
           { id: 'reader', name: '글 읽는 노인', x: 0.635, w: 165, h: 296, lines: ['오늘의 소식! 새 경기장이 문을 연다!', '글 모르는 이는 내게 오시오. 한 닢.'] },
           { id: 'dog', name: '개', x: 0.74, w: 101, h: 153, lines: ['멍!', '(꼬리를 흔든다)'] },
           // Honeyed wine cooled with snow is what was sold; for a child it is honey water.
-          { id: 'snow', name: '눈 장수', x: 0.83, w: 187, h: 290, lines: ['산에서 지고 온 눈이오!', '한 잔에 눈값이 반이지.'],
+          { id: 'snow', show: 'snow', name: '눈 장수', x: 0.83, w: 187, h: 290, lines: ['산에서 지고 온 눈이오!', '한 잔에 눈값이 반이지.'],
             try: { id: 'eat-snow', verb: 'eat', name: '눈 넣은 꿀물', face: 'yum', sora: '차가워! 여름에 얼음이라니.', memo: '냉장고가 없으니 산의 눈을 지게로 날랐단다.' } },
           { id: 'draper', name: '옷 가게 주인', x: 0.92, w: 196, h: 290, lines: ['혼자는 못 입어요. 둘은 붙어야지.', '시민만 입는 옷이라오.'],
             try: { id: 'wear-toga', verb: 'wear', name: '토가', outfit: 'toga', pose: 'toga-fuss', trips: 2, sora: '무거워! 자꾸 흘러내려.', memo: '시민만 입을 수 있었고, 무거워서 평소엔 다들 튜닉이었대.' } },
@@ -64,7 +64,7 @@ export const WALKS = {
         id: 'plaza', name: '콜로세움 앞 광장', zoom: 1.6, ground: 0.79, scale: SHEET.plaza, air: 'court',
         sora: '와, 진짜 새것이다. 하얘!',
         people: [
-          { id: 'water', name: '물 장수', x: 0.11, w: 130, h: 265, lines: ['식초 탄 물이오! 병정들이 마시는 거요.', '백 날을 한다니 백 날을 팔아야지.'],
+          { id: 'water', show: 'posca', name: '물 장수', x: 0.11, w: 130, h: 265, lines: ['식초 탄 물이오! 병정들이 마시는 거요.', '백 날을 한다니 백 날을 팔아야지.'],
             try: { id: 'eat-posca', verb: 'eat', name: '식초 물', face: 'sour', sora: '으, 셔! 이걸 물 대신 마셔?', memo: '군인의 물이란다. 식초를 타서 잘 안 상했대.' } },
           { id: 'ticket', name: '구경 온 아저씨', x: 0.26, w: 149, h: 289, lines: ['이 조각에 문 번호가 있지. 공짜야!', '황제가 여는 잔치라 돈을 안 받아.'],
             try: { id: 'use-token', verb: 'use', name: '입장 조각', sora: '스물셋… 스물셋 문은 저쪽이다!', memo: '입구에 번호가 있어서 오만 명이 금방 들어갔단다.' } },
@@ -83,7 +83,7 @@ export const WALKS = {
         sora: '우와… 끝까지 다 사람이야.',
         people: [
           { id: 'usher', name: '자리 안내원', x: 0.17, w: 125, h: 300, lines: ['앞줄은 원로원 자리요. 저 위로.', '자리는 옷을 보고 정하오.'] },
-          { id: 'nuts', name: '견과 파는 소년', x: 0.29, w: 143, h: 264, lines: ['볶은 콩 있어요! 구운 밤!', '싸움 시작하면 못 팔아. 지금 사.'],
+          { id: 'nuts', show: 'beans', name: '견과 파는 소년', x: 0.29, w: 143, h: 264, lines: ['볶은 콩 있어요! 구운 밤!', '싸움 시작하면 못 팔아. 지금 사.'],
             try: { id: 'eat-beans', verb: 'eat', name: '볶은 콩', face: 'yum', sora: '고소해! 하나만 더 먹을래.' } },
           { id: 'clap', name: '관중 아저씨', x: 0.4, w: 138, h: 320, lines: ['백 날을 한다잖아. 오늘은 사냥이래.', '황제 만세! 티투스 만세!'] },
           { id: 'cheer', name: '관중 아가씨', x: 0.7, w: 149, h: 291, lines: ['저기 행진 온다! 반짝반짝해.', '천을 흔들면 황제가 본대.'] },
@@ -333,7 +333,15 @@ export const WALKS = {
           { id: 'taxi', name: '택시 기사', x: 0.3, w: 112, h: 296, lines: ['역까지 손님이 끊이질 않아요.', '오사카를 당일로 다녀온다니.'] },
           { id: 'student', name: '여학생', x: 0.44, w: 108, h: 276, lines: ['수학여행은 저 기차로 가고 싶어.', '창밖이 휙휙 지나간대요.'] },
           { id: 'salary', name: '회사원', x: 0.56, w: 116, h: 313, lines: ['아침에 가서 저녁에 돌아온다네.', '전에는 여섯 시간 반이 걸렸지.'] },
-          { id: 'bento', name: '도시락 아주머니', x: 0.72, w: 108, h: 277, lines: ['도시락 사세요! 기차에서 드세요.', '네 시간이면 한 끼로 충분해요.'] },
+          // Spoken to, she opens a box and shows what is in it (the user, 2026.10.8: "아주머니가
+          // 도시락을 열어서 내용물을 보여주는걸로 하자"). What is in it was looked up on 2026.10.8
+          // (the user: "진짜지?"): the 150-yen lunch sold on the new trains in 1964, as it was
+          // made again in 2002, had white rice with one pickled plum, fried white fish, beef
+          // stewed dark, rolled egg and fish cake (kfm.sakura.ne.jp/ekiben, as a search
+          // told it; the page itself came through garbled). The stewed roots, the yellow
+          // pickle and the thin wooden box are from memory.
+          { id: 'bento', name: '도시락 아주머니', x: 0.72, w: 108, h: 277, lines: ['자, 열어 볼게요. 이렇게 생겼어요.', '식어도 맛있게 지은 밥이에요.'],
+            show: 'ekiben', sora: '기차 도시락은 이렇구나!' },
           { id: 'tourist', name: '먼 데서 온 여행자', x: 0.88, w: 110, h: 308, lines: ['올림픽 보러 왔어요. 기차도 타요!', '시속 이백십? 믿을 수 없어요.'] },
         ],
         spots: [],

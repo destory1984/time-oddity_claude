@@ -340,6 +340,7 @@ let walkArrive = false;     // she is to be set down in a shaft of light on the 
 let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
 let walkFace = null;        // { poses: [[picture of hers, until], ...] }: how she takes what she has just tried, one after another
 let walkHemMs = 0;          // how long she has walked in what she put on since she last trod on its hem
+let walkHeld = null;        // { show, until }: what was shown her, kept up while she tries it
 let walkMemo = null;        // { text, until }: what grandmother wrote of what she has just tried
 let walkStepMs = 0;         // how long she has walked since her last footfall
 let walkSteps = 0;
@@ -389,6 +390,8 @@ function talk(id = null) {
   sound.wake();
   sound.tick(true, false);
   if (said.person.sound) sound[said.person.sound]();
+  // What she makes of a thing they show her, said the first time she sees it.
+  if (said.person.sora && !walk.told.includes(said.person.id)) { walk.told.push(said.person.id); walkSora = { text: said.person.sora, from: walkT + 900, until: walkT + 900 + SORA_FOR_MS }; }
   if (said.errands.length > 0) errandsDone();
 }
 // Eating, wearing or using what whoever is near has (plan v5, section 4): she says what
@@ -413,6 +416,8 @@ function tryNear(id = null) {
   const pose = it.face ? `taste-${it.face}` : it.pose ?? null;
   walkFace = pose ? { poses: [...(bite ? [['bite-1', walkT + bite], ['bite-2', walkT + bite * 2]] : []), [pose, walkT + bite * 2 + FACE_FOR_MS]] } : null;
   walkSora = { text: it.sora, from: walkT + 300 + bite * 2, until: walkT + 300 + bite * 2 + SORA_FOR_MS };
+  // What they showed her stays up while she tries it.
+  walkHeld = did.person.show ? { show: did.person.show, until: walkT + bite * 2 + FACE_FOR_MS } : null;
   if (it.verb === 'wear') walkHemMs = HEM_EVERY_MS - HEM_FIRST_MS;
   walkMemo = it.memo ? { text: it.memo, until: walkT + TRY_MEMO_MS } : null;
   if (did.first) keep(markTried(progress, square.id, it.id));
@@ -421,7 +426,7 @@ function tryNear(id = null) {
 function enterScene() {
   const scene = sceneOf(walk);
   walkView.showScene(walk.place, walk.scene);
-  walkFace = null; walkMemo = null;
+  walkFace = null; walkMemo = null; walkHeld = null;
   walkSora = scene.sora && !walk.told.includes(scene.id) ? { text: scene.sora, until: walkT + 900 + SORA_FOR_MS, from: walkT + 900 } : null;
   if (!walk.told.includes(scene.id)) walk.told.push(scene.id);
   const before = walk.place.scenes[walk.scene - 1];
@@ -482,6 +487,7 @@ function frameWalk(dt) {
   if (out.spot?.pose) walkFace = { poses: [[out.spot.pose, walkT + SORA_FOR_MS]] };
   if (out.errands.length > 0) errandsDone();
   if (walkSora && walkT > walkSora.until) walkSora = null;
+  if (walkHeld && (walk.moving || walkT > walkHeld.until)) walkHeld = null;
   // How she stands for a moment is put away when its time is up, or when she walks on
   // after it has been seen (one that came as she walked waits for her to stop).
   if (walkFace && !walk.moving) walkFace.seen = true;
@@ -508,7 +514,7 @@ function frameWalk(dt) {
 
   // The sky of that day and hour, as computed, behind the roofs.
   skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });
-  walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.poses.find(([, until]) => walkT <= until)?.[0] ?? null, stride);
+  walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.poses.find(([, until]) => walkT <= until)?.[0] ?? null, stride, walkHeld?.show ?? null);
   if (walkArrive) { walkArrive = false; walkView.arrive(); }
 
   const near = walk.moving ? null : nearby(walk);

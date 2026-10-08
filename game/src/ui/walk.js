@@ -32,6 +32,8 @@ export function createWalkView({ onPerson, onWay }) {
   const face = $('walkFace');
   const sora = $('walkSora');
   const badge = $('walkBadge');
+  const shown = $('walkTalkShow');
+  const card = $('walkShow');
   const say = $('walkSay');
   const soraSay = $('walkSoraSay');
   let place = null;
@@ -109,6 +111,7 @@ export function createWalkView({ onPerson, onWay }) {
     }
     // What she may put on here, and how she stands on trying something, is fetched on arriving.
     for (const person of scene.people) {
+      if (person.show) { const img = new Image(); img.src = `./walks/${place.dir}/show-${person.show}.webp`; }
       if (person.try?.pose) has(person.try.pose);
       if (person.try?.trips) for (const i of FRAMES.slice(0, person.try.trips)) has(`${person.try.outfit}-trip-${i}`);
       if (person.try?.outfit) for (const i of FRAMES) { has(`${person.try.outfit}-idle-${i}`); has(`${person.try.outfit}-walk-${i}`); }
@@ -197,8 +200,9 @@ export function createWalkView({ onPerson, onWay }) {
   // walk: core/walk.js's state. soraLine: what she is saying now, or null. t: seconds
   // since she came down here (what moves in the scene goes by it). pose: a picture of hers
   // (public/sora/<pose>.png) for how she takes what she has just tried, while it shows;
-  // stride: one shown in place of a step while she walks (treading on her hem).
-  function update(walk, now, soraLine, t = 0, pose = null, stride = null) {
+  // stride: one shown in place of a step while she walks (treading on her hem). held: a
+  // thing held up for her to see as she tries it (a person's `show`), or null.
+  function update(walk, now, soraLine, t = 0, pose = null, stride = null, held = null) {
     if (!scene) return;
     movePieces(t);
     const { w, h, wide, unit } = size;
@@ -258,6 +262,14 @@ export function createWalkView({ onPerson, onWay }) {
       $('walkTalkName').textContent = heard.person.name;
       $('walkTalkLine').textContent = walk.heard.line;
     }
+    // What they open or hold up to show her is under their words, large.
+    // Where they speak in a bubble, or she is trying the thing, it is a card of its own.
+    const showing = heard?.person.show ?? held;
+    const big = showing ? `./walks/${place.dir}/show-${showing}.webp` : '';
+    const show = panel && heard.person.show ? big : '';
+    if (shown.dataset.src !== show) { shown.dataset.src = show; if (show) shown.src = show; talk.classList.toggle('showing', Boolean(show)); }
+    const apart = show ? '' : big;
+    if (card.dataset.src !== apart) { card.dataset.src = apart; if (apart) card.src = apart; card.classList.toggle('on', Boolean(apart)); }
     talk.classList.toggle('on', panel);
     if (soraLine) bubble(soraSay, soraLine, x, FOOT * h - soraTall);
     else soraSay.classList.remove('on');
