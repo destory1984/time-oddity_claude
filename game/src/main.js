@@ -18,7 +18,7 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, VERBS, canHop, canSpeak, hop, worth, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
+import { REACH, VERBS, canHop, canSpeak, hop, talkedOut, worth, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -398,6 +398,7 @@ function talk(id = null) {
   if (!said) return;
   sound.wake();
   sound.tick(true, false);
+  if (said.over) return;
   if (said.person.sound) sound[said.person.sound]();
   keep(markMet(progress, square.id, said.person.id));
   // What she makes of a thing they show her, in word and face, the first time she sees it
@@ -567,7 +568,7 @@ function frameWalk(dt) {
   // "this one" (the user, 2026.10.8: "꼭 눌러봐야할 NPC와 그냥 지나쳐도 무방한 NPC의 차이점을
   // 모르겠음"). The rest still say their two lines to one who touches them.
   const speaks = near && worth(walk, near) && canSpeak(walk, near) ? near : null;
-  const label = !speaks ? '' : speaks.try ? '말 걸기' : `${speaks.name}에게 말 걸기`;
+  const label = !speaks ? '' : talkedOut(walk, speaks) ? '대화 마치기' : speaks.try ? '말 걸기' : `${speaks.name}에게 말 걸기`;
   if ($('talkButton').hidden !== !speaks) $('talkButton').hidden = !speaks;
   if (speaks && $('talkButton').textContent !== label) $('talkButton').textContent = label;
   // What they have that she can eat, wear or use: the louder button the first time.

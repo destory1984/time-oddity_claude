@@ -5,7 +5,7 @@ import { piecesAt } from '../game/src/core/pieces.js';
 import { squareById } from '../game/src/core/squares.js';
 import { WALKS } from '../game/src/core/walks.js';
 import { centuryLabel, centuryOf, centuryStart, centuryStops } from '../game/src/core/century.js';
-import { FACES, HEAR, REACH, VERBS, canSpeak, hop, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from '../game/src/core/walk.js';
+import { FACES, HEAR, REACH, VERBS, canSpeak, hop, talkedOut, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from '../game/src/core/walk.js';
 import { createDial, drag, grab, release, stepDial } from '../game/src/core/dial.js';
 
 describe('centuries', () => {
@@ -270,15 +270,37 @@ describe('what is heard in passing and what is shown', () => {
     stepWalk(walk, 16, 0);
     expect(walk.passing).toEqual({ id: 'seller', line: 'come and see' });
   });
-  it('lets anyone be spoken to as often as she likes, their two lines in turn', () => {
+  it('says their lines one at a touch, ends the talk at the next, and begins again after', () => {
     const walk = createWalk(place, { x: 0.5 });
     const idle = place.scenes[0].people[0];
     expect(worth(walk, idle)).toBe(false);
-    expect([speak(walk).line, speak(walk).line, speak(walk).line]).toEqual(['one', 'two', 'one']);
+    expect(speak(walk).line).toBe('one');
+    expect(talkedOut(walk, idle)).toBe(false);
+    expect(speak(walk).line).toBe('two');
+    expect(talkedOut(walk, idle)).toBe(true);
+    const end = speak(walk);
+    expect(end.over).toBe(true);
+    expect(end.line).toBe(null);
+    expect(walk.heard).toBe(null);
+    expect(speak(walk).line).toBe('one');
     expect(canSpeak(walk, idle)).toBe(true);
     walk.x = 0.8;
+    walk.heard = null;
     expect(worth(walk, place.scenes[0].people[1])).toBe(true);
-    expect([speak(walk).line, speak(walk).line, speak(walk).line]).toEqual(['look', 'again', 'look']);
+    expect([speak(walk).line, speak(walk).line, speak(walk).over, speak(walk).line]).toEqual(['look', 'again', true, 'look']);
+  });
+  it('says three when they have three', () => {
+    const three = { scenes: [{ id: 'a', name: 'a', people: [{ id: 'p', name: 'p', x: 0.5, pass: 'hm', lines: ['1', '2', '3'] }], spots: [] }], errands: [] };
+    const walk = createWalk(three, { x: 0.5 });
+    expect([speak(walk).line, speak(walk).line, speak(walk).line, speak(walk).over, speak(walk).line]).toEqual(['1', '2', '3', true, '1']);
+  });
+  it('goes on from where they were when she walked off in the middle', () => {
+    const walk = createWalk(place, { x: 0.5 });
+    expect(speak(walk).line).toBe('one');
+    walk.heard = null;
+    expect(speak(walk).line).toBe('two');
+    walk.heard = null;
+    expect(speak(walk).line).toBe('one');
   });
   // The user, 2026.10.8: "지구본으로 나갔다가, 다시 들어오니까 이벤트 다 한게 없어".
   it('comes again to a place with its errands still done and those she spoke to still met', () => {

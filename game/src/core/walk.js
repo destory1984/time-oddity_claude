@@ -64,6 +64,9 @@ export function nearby(walk) {
 // errand asks for them. These say their two lines in turn for as long as she asks.
 export const worth = (walk, person) => Boolean(person.show || person.try || walk.place.errands.some((errand) => errand.at.includes(person.id)));
 
+// Whether the one she is hearing has said the last of their lines: the next touch ends the talk.
+export const talkedOut = (walk, person) => walk.heard?.id === person.id && (walk.said[person.id] ?? 0) > 0 && (walk.said[person.id] ?? 0) % person.lines.length === 0;
+
 // Whether they can be spoken to. Anyone who speaks can, as often as she likes: one who fell
 // silent after two lines seemed broken ("클릭은 계속 되어야지..또 듣고 싶을 수도 있잖아").
 export const canSpeak = (walk, person) => Boolean(person?.lines);
@@ -90,13 +93,20 @@ function finish(walk, id) {
 }
 
 // Speaks to whoever is near. Returns { person, line, errands: [ids done just now] }, or
-// null when nobody is. A person says a first line, then another, then the two in turn.
+// null when nobody is. Each time, the next of their lines; spoken to once more when the
+// last has been said, they end the talk (line: null, over: true); spoken to after that,
+// they begin again with the first (the user, 2026.10.8: "2개라면, 2개를 출력한 후에 대화를
+// 종료한다. 3개면 3개까지", "다시 NPC를 클릭하면, 2를 반복한다").
 // id: the one meant, when several stand near.
 export function speak(walk, id = null) {
   const meant = id ? sceneOf(walk).people.find((p) => p.id === id && Math.abs(p.x - walk.x) <= REACH) : null;
   const person = meant ?? nearby(walk);
   if (!canSpeak(walk, person)) return null;
   const count = walk.said[person.id] ?? 0;
+  if (talkedOut(walk, person)) {
+    walk.heard = null;
+    return { person, line: null, over: true, errands: [] };
+  }
   const line = person.lines[count % person.lines.length];
   walk.said[person.id] = count + 1;
   walk.heard = { id: person.id, line };
