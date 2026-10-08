@@ -18,7 +18,7 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, VERBS, canHop, canSpeak, hop, talkedOut, worth, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
+import { REACH, VERBS, canHop, canSpeak, hop, talkedOut, worth, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom } from './core/walk.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -108,7 +108,13 @@ let mode = 'globe';        // 'globe' | 'travel' | 'ground' | 'site' | 'walk' | 
 // dial turns by centuries, and only the centuries that have a place have a stop.
 const LIVE = SQUARES.filter((sq) => WALKS[sq.id] || sq.no === 0);
 const STOPS = centuryStops(LIVE);
-const eraDial = createDial({ year: STOPS.length, minYear: 1, maxYear: STOPS.length, px: 120 });
+// Where someone who has been nowhere yet begins: Rome, the oldest of the places, so that
+// the notebook is gone through from the far end of time toward grandmother's own day (the
+// user, 2026.10.8: "시작점을 로마로 바꿔"). Until then it was the yard of 1969.
+const START = 'colosseum';
+const beenNowhere = () => LIVE.every((sq) => beenOf(progress, sq.id).length === 0);
+const startStop = () => (beenNowhere() ? 1 + Math.max(0, STOPS.findIndex((stop) => stop.ids.includes(START))) : STOPS.length);
+const eraDial = createDial({ year: startStop(), minYear: 1, maxYear: STOPS.length, px: 120 });
 eraDial.stops = STOPS.map((stop) => stop.label);
 let onEra = true;          // above the Earth the century dial is up; once a place is chosen, the year dial
 const overEarth = () => mode === 'globe' && onEra;
@@ -198,7 +204,7 @@ $('musicButton').addEventListener('click', () => { sound.wake(); musicSwitch.set
 window.addEventListener('pointerdown', () => sound.wake(), { once: true, capture: true });
 
 const journal = createJournal({
-  squares: LIVE,
+  squares: [...LIVE].sort((a, b) => a.date.year - b.date.year),
   progress: () => progress,
   tries: (id) => (WALKS[id] ? triesOf(WALKS[id]).map((it) => ({ verb: it.verb, name: it.name, done: triedOf(progress, id).includes(it.id) })) : []),
   errands: (id) => (WALKS[id] ? { done: WALKS[id].errands.filter((errand) => errandsOf(progress, id).includes(errand.id)).length, total: WALKS[id].errands.length } : null),
@@ -395,7 +401,7 @@ function errandsDone() {
 }
 function talk(id = null) {
   if (!walk) return;
-  const said = speak(walk, id);
+  const said = speak(walk, id ?? withWhom(walk)?.id ?? null);
   if (!said) return;
   sound.wake();
   sound.tick(true, false);
@@ -427,7 +433,7 @@ const HEM_FIRST_MS = 1300;   // the first time this soon,
 const HEM_FRAME_MS = 240;    // and each picture of it lasts this long
 function tryNear(id = null) {
   if (!walk) return;
-  const did = tryIt(walk, id);
+  const did = tryIt(walk, id ?? withWhom(walk)?.id ?? null);
   if (!did) return;
   const { it } = did;
   walkWay = 0; walkWant = null;
@@ -508,7 +514,7 @@ window.addEventListener('keydown', (e) => {
   if (e.code === 'ArrowLeft' || e.code === 'KeyA') { keyWay = -1; walkWant = null; e.preventDefault(); }
   else if (e.code === 'ArrowRight' || e.code === 'KeyD') { keyWay = 1; walkWant = null; e.preventDefault(); }
   else if (e.code === 'Space' && !e.repeat && !e.target.closest?.('button')) { talk(); e.preventDefault(); }
-  else if (e.code === 'Enter' && !e.repeat && !e.target.closest?.('button')) { if (nearby(walk)?.try) tryNear(); else talk(); e.preventDefault(); }
+  else if (e.code === 'Enter' && !e.repeat && !e.target.closest?.('button')) { if (withWhom(walk)?.try) tryNear(); else talk(); e.preventDefault(); }
 });
 window.addEventListener('keyup', (e) => {
   if ((e.code === 'ArrowLeft' || e.code === 'KeyA') && keyWay < 0) keyWay = 0;
@@ -564,7 +570,7 @@ function frameWalk(dt) {
   walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.poses.find(([, until]) => walkT <= until)?.[0] ?? null, stride, walkHeld?.show ?? null);
   if (walkArrive) { walkArrive = false; walkView.arrive(); }
 
-  const near = walk.moving ? null : nearby(walk);
+  const near = walk.moving ? null : withWhom(walk);
   // A button to speak only by those worth stopping for, so that the button itself says
   // "this one" (the user, 2026.10.8: "꼭 눌러봐야할 NPC와 그냥 지나쳐도 무방한 NPC의 차이점을
   // 모르겠음"). The rest still say their two lines to one who touches them.
@@ -818,20 +824,25 @@ function tickSounds(years) {
 }
 
 let eraPlacesOf = null;        // the stop whose places are named now
+let eraPlacesNew = null;       // whether they were named for someone who has been nowhere yet
 function showEraPlaces(stop) {
-  if (stop === eraPlacesOf) return;
-  eraPlacesOf = stop;
+  // Someone who has been nowhere yet is told where to begin: that place glows.
+  const fresh = beenNowhere();
+  if (stop === eraPlacesOf && fresh === eraPlacesNew) return;
+  eraPlacesOf = stop; eraPlacesNew = fresh;
   const list = $('eraPlaces');
   list.hidden = !stop;
   if (!stop) return;
   list.replaceChildren();
+  const first = fresh && stop.ids.includes(START);
   const head = document.createElement('span');
-  head.textContent = `이 세기에 갈 곳 ${stop.ids.length}`;
+  head.textContent = first ? '로마부터 가 보자. 아래 단추를 누른다' : `이 세기에 갈 곳 ${stop.ids.length}`;
+  head.classList.toggle('begin', first);
   list.append(head);
   for (const id of stop.ids) {
     const sq = squareById(id);
     const button = document.createElement('button');
-    button.type = 'button'; button.className = 'glass';
+    button.type = 'button'; button.className = first && id === START ? 'glass begin' : 'glass';
     button.textContent = squareTitle(sq);
     const where = document.createElement('small');
     where.textContent = sq.place.split(',')[0];

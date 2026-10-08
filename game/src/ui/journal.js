@@ -83,6 +83,9 @@ export function createJournal({
           }
           more.append(list);
         }
+        // The story card, its question and the postcard are the first plan's: a place that
+        // is walked about has none of them (they told of a game that is no longer played).
+        if (errand) { item.append(more); return item; }
         more.append(el('p', 'cardText', square.card));
         const quiz = el('div', 'quiz');
         renderQuiz(quiz, square, quizSolved(record, square.id), () => { onSolve(square.id); render(); });
@@ -111,7 +114,7 @@ export function createJournal({
           more.append(el('p', 'faint', '사진을 찍으면 엽서가 여기에 들어옵니다.'));
         }
       } else {
-        more.append(el('p', 'faint', '다녀오면 소라의 덧글과 이야기 카드가 생깁니다.'));
+        more.append(el('p', 'faint', errand ? '다녀오면 소라의 덧글이 생깁니다.' : '다녀오면 소라의 덧글과 이야기 카드가 생깁니다.'));
       }
       item.append(more);
     }

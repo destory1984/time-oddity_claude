@@ -5,7 +5,7 @@ import { piecesAt } from '../game/src/core/pieces.js';
 import { squareById } from '../game/src/core/squares.js';
 import { WALKS } from '../game/src/core/walks.js';
 import { centuryLabel, centuryOf, centuryStart, centuryStops } from '../game/src/core/century.js';
-import { FACES, HEAR, REACH, VERBS, canSpeak, hop, talkedOut, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from '../game/src/core/walk.js';
+import { FACES, HEAR, REACH, VERBS, canSpeak, hop, talkedOut, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom } from '../game/src/core/walk.js';
 import { createDial, drag, grab, release, stepDial } from '../game/src/core/dial.js';
 
 describe('centuries', () => {
@@ -269,6 +269,27 @@ describe('what is heard in passing and what is shown', () => {
     walk.x = 0.8;
     stepWalk(walk, 16, 0);
     expect(walk.passing).toEqual({ id: 'seller', line: 'come and see' });
+  });
+  it('is quiet when a talk has been ended, until she walks on', () => {
+    const walk = createWalk(place, { x: 0.5 + REACH / 2 });
+    stepWalk(walk, 16, 0);
+    expect(walk.passing?.id).toBe('idle');
+    speak(walk); speak(walk);
+    expect(speak(walk).over).toBe(true);
+    stepWalk(walk, 16, 0);
+    expect(walk.passing).toBe(null);
+    stepWalk(walk, 16, -1);
+    expect(walk.passing?.id).toBe('idle');
+  });
+  it('gives what can be done to the one she is hearing, not to whoever is nearest', () => {
+    const two = { scenes: [{ id: 'a', name: 'a', people: [
+      { id: 'seller', name: 'seller', x: 0.5, lines: ['buy'], try: { id: 'eat-it', verb: 'eat', name: 'it', sora: 'mm' } },
+      { id: 'lady', name: 'lady', x: 0.57, lines: ['one', 'two'] },
+    ], spots: [] }], errands: [] };
+    const walk = createWalk(two, { x: 0.53 });
+    expect(withWhom(walk).id).toBe('seller');
+    speak(walk, 'lady');
+    expect(withWhom(walk).id).toBe('lady');
   });
   it('says their lines one at a touch, ends the talk at the next, and begins again after', () => {
     const walk = createWalk(place, { x: 0.5 });

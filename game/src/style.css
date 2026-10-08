@@ -104,12 +104,14 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkDo #tryButton{font-weight:700;background:var(--gold);color:#1b1730}
 #walkDo #tryButton.again{background:var(--glass-fill);color:var(--gold);font-weight:600}
 #walkPeople .person.tried{animation:hop .35s ease-out 1}
-.on-walk #walkPrev,.on-walk #walkNext{display:block;bottom:26px;min-height:var(--tap);min-width:var(--tap);padding:0 12px;font-size:12.5px;touch-action:none;user-select:none;-webkit-user-select:none}
+/* Every button with words on it that is pressed in play: at least --tap high, 16px to either
+   side of its words, 15px and semi-bold (the user, 2026.10.8: "버튼 크기 규칙에 따라서 수정"). */
+.on-walk #walkPrev,.on-walk #walkNext{display:block;bottom:26px;min-height:var(--tap);min-width:var(--tap);padding:0 16px;font-size:15px;font-weight:600;white-space:nowrap;touch-action:none;user-select:none;-webkit-user-select:none}
 .on-walk #walkPrev{left:10px}
 .on-walk #walkNext{right:10px}
 .on-walk #memo{top:auto;bottom:61%}
 .on-walk #chips{left:auto;right:16px;top:150px}
-.on-walk #leaveBtn{top:104px;bottom:auto}
+.on-walk #leaveBtn{top:104px;bottom:auto;min-height:var(--tap);padding:0 16px;font-size:15px;font-weight:600}
 #flyHelp,#flyPad,#viewPad{display:none}
 .on-site #flyPad{display:flex;flex-direction:column;gap:8px;right:16px;bottom:206px}
 .on-site.standing #flyPad{display:none}
@@ -161,8 +163,11 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #eraPlaces{top:118px;left:14px;display:flex;flex-direction:column;align-items:flex-start;gap:5px;pointer-events:auto}
 #eraPlaces[hidden]{display:none}
 #eraPlaces span{font-size:11px;opacity:.7;padding-left:4px;text-shadow:0 1px 4px rgba(5,3,48,.8)}
-#eraPlaces button{min-height:32px;padding:0 11px;font-size:13px;white-space:nowrap}
-#eraPlaces button small{margin-left:6px;opacity:.65;font-size:11px}
+#eraPlaces button{min-height:var(--tap);padding:0 16px;font-size:15px;font-weight:600;white-space:nowrap}
+#eraPlaces button small{margin-left:6px;opacity:.65;font-size:11px;font-weight:400}
+#eraPlaces span.begin{font-size:13px;opacity:1;color:#ffd978}
+#eraPlaces button.begin{border-color:#ffd978;animation:beginGlow 1.4s ease-in-out infinite}
+@keyframes beginGlow{0%,100%{box-shadow:0 0 0 0 rgba(255,217,120,.0)}50%{box-shadow:0 0 0 5px rgba(255,217,120,.45)}}
 #todayBtn{right:12px;top:64px;padding:9px 15px;border-color:var(--gold);color:var(--gold)}
 #leaveBtn{right:16px;bottom:156px;padding:8px 14px}
 #todayBtn.glow,#glowSky.glow{animation:glow 1.2s ease-in-out}

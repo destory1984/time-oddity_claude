@@ -32,6 +32,7 @@ export function createWalk(place, { scene = 0, x = 0.08, tried = [], been = [], 
     said: Object.fromEntries(met.map((id) => [id, 2])),
     heard: null,         // { id, line }: what was last said to her, while it is shown
     passing: null,       // { id, line }: what someone she is passing says, unasked, while she is near
+    hush: false,         // a talk has just been ended: nobody calls out to her until she walks on
     done: [...done],     // the errands done, by id
     seen: [],            // the spots she has stood at, by id
     told: [],            // the scenes she has said her line in, by id
@@ -104,7 +105,9 @@ export function speak(walk, id = null) {
   if (!canSpeak(walk, person)) return null;
   const count = walk.said[person.id] ?? 0;
   if (talkedOut(walk, person)) {
-    walk.heard = null;
+    // The talk is over and it is quiet: the one beside them does not call out at once, as
+    // if the talk went on (the user, 2026.10.8, of Rome's market).
+    walk.heard = null; walk.passing = null; walk.hush = true;
     return { person, line: null, over: true, errands: [] };
   }
   const line = person.lines[count % person.lines.length];
@@ -114,6 +117,11 @@ export function speak(walk, id = null) {
   walk.facing = person.x >= walk.x ? 1 : -1;
   return { person, line, errands: finish(walk, person.id) };
 }
+
+// The one she is with: whoever she is hearing, else whoever is nearest. What can be done at
+// the foot of the screen is theirs (the user, 2026.10.8, having touched a lady and been
+// offered the dormouse of the man beside her: "이 사람 눌렀는데, 쥐 먹어보라고 나온다").
+export const withWhom = (walk) => (walk.heard ? sceneOf(walk).people.find((p) => p.id === walk.heard.id) : null) ?? nearby(walk);
 
 // Tries what whoever is near has to offer. Returns { person, it: the person's try,
 // first: not tried before, errands: [ids done just now] }, or null when there is nothing.
@@ -165,7 +173,7 @@ export function stepWalk(walk, dtMs, way = 0) {
   walk.moving = dir !== 0;
   if (dir !== 0) {
     walk.facing = dir;
-    walk.heard = null;
+    walk.heard = null; walk.hush = false;
     const next = walk.x + (dir * SPEED * (sceneOf(walk).pace ?? 1) * dtMs) / 1000;
     const scenes = walk.place.scenes.length;
     // Walking off an end goes on into the scene beside it, coming in at its near end.
@@ -173,7 +181,7 @@ export function stepWalk(walk, dtMs, way = 0) {
     else if (way < 0 && next < EDGE && walk.scene > 0) { walk.scene -= 1; walk.x = 1 - EDGE * 2; walk.goal = null; out.scene = -1; }
     else walk.x = Math.max(EDGE, Math.min(1 - EDGE, next));
   }
-  const by = overheard(walk);
+  const by = walk.hush ? null : overheard(walk);
   if ((by?.id ?? null) !== (walk.passing?.id ?? null)) walk.passing = by ? { id: by.id, line: by.pass } : null;
   const spot = spotAt(walk);
   if (spot && !walk.seen.includes(spot.id)) {
