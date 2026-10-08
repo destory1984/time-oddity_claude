@@ -218,7 +218,7 @@ export function createWalkView({ onPerson, onWay }) {
     const own = pose && walk.wearing && pose.startsWith(`${walk.wearing}-`);
     const posed = !walk.wearing || own ? pose : null;
     const tasting = !walking && posed && has(posed);
-    const face = !walking && pose && walk.wearing && pose.startsWith('taste-') ? `badge-${pose.slice(6)}` : null;
+    const mood = !walking && pose && walk.wearing && pose.startsWith('taste-') ? `badge-${pose.slice(6)}` : null;
     const tripping = walking && stride && has(stride);
     const worn = walk.wearing && has(`${walk.wearing}-${walking ? 'walk' : 'idle'}-${frame}`) ? `${walk.wearing}-` : '';
     const src = tasting ? `./sora/${posed}.png` : tripping ? `./sora/${stride}.png` : `./sora/${worn}${walking ? 'walk' : 'idle'}-${frame}.png`;
@@ -235,9 +235,9 @@ export function createWalkView({ onPerson, onWay }) {
     sora.style.top = `${top}px`;
     // The walking frames face right; standing she faces the eye.
     sora.style.transform = walking && walk.facing < 0 ? 'scaleX(-1)' : '';
-    if (face && has(face)) {
+    if (mood && has(mood)) {
       const side = 84 * unit;
-      if (badge.dataset.src !== face) { badge.dataset.src = face; badge.src = `./sora/${face}.png`; }
+      if (badge.dataset.src !== mood) { badge.dataset.src = mood; badge.src = `./sora/${mood}.png`; }
       badge.style.height = `${side}px`;
       badge.style.left = `${x + soraTall * 0.26}px`;
       badge.style.top = `${FOOT * h - soraTall * 0.92}px`;

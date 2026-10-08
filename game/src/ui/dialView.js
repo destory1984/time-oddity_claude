@@ -121,6 +121,9 @@ export function createDialView(canvas) {
   // marks: [{ year, label }], the years with something to see.
   function draw(dial, marks = []) {
     const PX = dial.px ?? PX_PER_YEAR;
+    // Before the page is laid out the canvas has no width, and a ring cannot be drawn
+    // with a radius below nothing: the throw would stop every frame after it.
+    if (w < 100) return;
     c.clearRect(0, 0, w, h);
     const radius = w * 1.15;
     const cx = w / 2;
