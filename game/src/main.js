@@ -111,7 +111,14 @@ const STOPS = centuryStops(LIVE);
 // Where someone who has been nowhere yet begins: Rome, the oldest of the places, so that
 // the notebook is gone through from the far end of time toward grandmother's own day (the
 // user, 2026.10.8: "시작점을 로마로 바꿔"). Until then it was the yard of 1969.
-const START = 'colosseum';
+// On the dev server the maker may begin somewhere else while a place is being tried (the
+// user, walking San Francisco: "시작점도 여기로 수정"): localStorage `timeoddity.devStart`
+// holds that place's id. The public game always begins in Rome.
+function devStart() {
+  if (!isLocalHost(location.hostname)) return null;
+  try { const id = localStorage.getItem('timeoddity.devStart'); return id && WALKS[id] ? id : null; } catch { return null; }
+}
+const START = devStart() ?? 'colosseum';
 const beenNowhere = () => LIVE.every((sq) => beenOf(progress, sq.id).length === 0);
 // The dial stands at Rome's century every time the game is opened, not only the first
 // (the user, again: "시작지점을 로마로 고쳐. 이건 지금").
