@@ -340,7 +340,7 @@ export const WALKS = {
           // stewed dark, rolled egg and fish cake (kfm.sakura.ne.jp/ekiben, as a search
           // told it; the page itself came through garbled). The stewed roots, the yellow
           // pickle and the thin wooden box are from memory.
-          { id: 'bento', name: '도시락 아주머니', x: 0.72, w: 108, h: 277, lines: ['자, 열어 볼게요. 이렇게 생겼어요.', '식어도 맛있게 지은 밥이에요.'],
+          { id: 'bento', name: '도시락 아주머니', x: 0.72, w: 108, h: 277, lines: ['자, 열어 볼게요. 이렇게 생겼어요.', '역에서 파는 도시락, 에키벤이에요.'],
             show: 'ekiben', sora: '기차 도시락은 이렇구나!' },
           { id: 'tourist', name: '먼 데서 온 여행자', x: 0.88, w: 110, h: 308, lines: ['올림픽 보러 왔어요. 기차도 타요!', '시속 이백십? 믿을 수 없어요.'] },
         ],
