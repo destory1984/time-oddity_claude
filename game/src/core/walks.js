@@ -409,8 +409,10 @@ export const WALKS = {
     // told how it went and may change once, and one of two ends is chosen. What people
     // say is the plan's; what is on the buttons was written again in plainer words (the user,
     // having tried it: "네가 문장을 좀 이상하게 썼어. 사용자가 어려워해"). Bound here to those already drawn: the woman with the flowers
-    // (before the station at first, on the platform once she is taken up), the man on his
-    // way to Osaka for the passenger, the station master for the man of the railway. All of
+    // (before the station at first, on the platform once she is taken up), and on the platform
+    // the glad man for the passenger and the station master for the man of the railway: both
+    // where she goes next, so that nobody walks back to hear one of them (the user, sent back
+    // to the station front for the second: "이게 왜 출발지로 와서야 보여?"). All of
     // it is made up; nobody goes up to the driver and the train is not kept.
     tale: {
       ask: '고마운 마음을 어떻게 전할까?',
@@ -418,7 +420,7 @@ export const WALKS = {
       holds: '꽃다발: 아가씨가 들고 있음',
       clues: [
         { id: 'c1', actor: 'master', line: '긴 이야기는 어렵지만, 인사는 전할게요.' },
-        { id: 'c2', actor: 'salary', line: '직접 한마디라도 하면 마음에 남겠죠.' },
+        { id: 'c2', actor: 'banzai', line: '직접 한마디라도 하면 마음에 남겠죠.' },
       ],
       routes: {
         A: { label: '하고 싶은 말을 쪽지에 적는다', gain: '말이 다 담겨요.', loss: '하지만 읽기엔 길어요.', actor: 'flowers', result: '다 적으니 좋네요. 직접 읽기엔 길어요.', holds: '쪽지: 아가씨가 가지고 있음', record: '마음을 쪽지에 적었다' },
@@ -431,7 +433,7 @@ export const WALKS = {
       },
       goals: {
         S0: '역 앞의 꽃다발 든 아가씨에게 가 보렴.',
-        S1: '머리 위에 ! 가 뜬 두 사람에게 물어보렴.',
+        S1: '승강장에서 ! 가 뜬 두 사람에게 물어보렴.',
         S2: '어떻게 도울지 골라 보렴.',
         S3: '승강장의 아가씨에게 가 보렴.',
         S4: '아가씨와 마지막을 정하렴.',
