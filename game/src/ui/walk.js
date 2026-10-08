@@ -22,7 +22,7 @@ const $ = (id) => document.getElementById(id);
 
 // onPerson(id): a person was touched. onWay(way): a finger went down on the left (-1) or
 // right (1) of the scene, or lifted (0).
-export function createWalkView({ onPerson, onWay }) {
+export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
   const root = $('walk');
   const scroll = $('walkScene');
   const picture = $('walkPicture');
@@ -43,6 +43,7 @@ export function createWalkView({ onPerson, onWay }) {
   let scene = null;
   let nodes = new Map();      // person id → { img, person, left, top, wide, tall }
   let moving = new Map();     // piece id → { img, box: what hides the rest of it, or null }
+  let looks = [];             // things in the picture that are looked at closely: { look, button }
   let size = { w: 1, h: 1, wide: 1, unit: 1 };
   let camera = 0;
 
@@ -78,6 +79,14 @@ export function createWalkView({ onPerson, onWay }) {
     scroll.style.width = `${wide}px`;
     picture.style.height = `${scene.zoom * h}px`;
     picture.style.top = `${(FOOT - scene.ground * scene.zoom) * h}px`;
+    // What is looked at closely lies over its place in the picture (a scene's `looks`).
+    for (const { look, button } of looks) {
+      const [x0, y0, x1, y1] = look.box;
+      button.style.left = `${x0 * wide}px`;
+      button.style.width = `${(x1 - x0) * wide}px`;
+      button.style.top = `${(FOOT - scene.ground * scene.zoom + y0 * scene.zoom) * h}px`;
+      button.style.height = `${(y1 - y0) * scene.zoom * h}px`;
+    }
     // People stand along the street, those further right a little nearer the eye in turn,
     // so that two who stand close do not hide each other's feet.
     let lane = 0;
@@ -102,6 +111,19 @@ export function createWalkView({ onPerson, onWay }) {
     picture.src = `./walks/${place.dir}/${scene.id}.webp`;
     peopleEl.replaceChildren();
     nodes = new Map();
+    // A thing in the picture that may be touched for more of it (the user, 2026.10.8, of the
+    // painting on the refectory wall: "그림을 클릭하면, 조금 더 자세한 정보를 보여주자").
+    for (const { button } of looks) button.remove();
+    looks = (scene.looks ?? []).map((look) => {
+      const button = document.createElement('button');
+      button.type = 'button'; button.className = 'look';
+      button.setAttribute('aria-label', `${look.name} 자세히 보기`);
+      button.innerHTML = '<i>자세히 보기</i>';
+      button.addEventListener('pointerdown', (e) => e.stopPropagation());
+      button.addEventListener('click', () => onLook(look));
+      scroll.append(button);
+      return { look, button };
+    });
     for (const person of scene.people) {
       const img = document.createElement('img');
       img.src = `./walks/${place.dir}/${person.id}.png`;
@@ -246,6 +268,13 @@ export function createWalkView({ onPerson, onWay }) {
     const x = walk.x * wide;
     camera = Math.max(0, Math.min(wide - w, x - w / 2));
     scroll.style.transform = `translateX(${-camera.toFixed(1)}px)`;
+    // The word on a thing that may be looked at closely stays in sight as the scene slides:
+    // the thing itself is often wider than the screen.
+    for (const { button } of looks) {
+      const left = parseFloat(button.style.left); const boxWide = parseFloat(button.style.width);
+      const tag = button.firstChild; const half = tag.offsetWidth / 2;
+      tag.style.left = `${Math.max(8, Math.min(boxWide - half * 2 - 8, camera + w / 2 - left - half))}px`;
+    }
 
     // Standing she is her usual picture (192 x 256 with room round her); walking, one of
     // four steps, each cut to her own outline. Both are shown the same height, feet on the street.

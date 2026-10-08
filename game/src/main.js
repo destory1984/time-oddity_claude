@@ -398,7 +398,24 @@ const walkView = createWalkView({
     walkWant = id;
   },
   onWay: (way) => { walkWay = way; if (way !== 0) walkWant = null; },
+  onLook: (look) => openLook(look),
 });
+// A thing of the scene looked at closely: a photograph of it as it is today and what is
+// known of it, on a sheet of its own. The game waits while it is open.
+function openLook(look) {
+  if (!walk) return;
+  sound.wake(); sound.page();
+  walkWay = 0; keyWay = 0; walkWant = null;
+  $('lookPhoto').src = `./walks/${walk.place.dir}/${look.photo}`;
+  $('lookPhoto').alt = look.name;
+  $('lookName').textContent = look.name;
+  $('lookWhen').textContent = look.when;
+  $('lookText').replaceChildren(...look.text.map((line) => { const li = document.createElement('li'); li.textContent = line; return li; }));
+  $('lookCredit').textContent = look.credit;
+  $('lookSheet').showModal();
+}
+$('closeLook').addEventListener('click', () => $('lookSheet').close());
+$('lookSheet').addEventListener('click', (e) => { if (e.target === $('lookSheet')) $('lookSheet').close(); });
 function showErrands() {
   const list = $('errands');
   list.replaceChildren();
@@ -1102,7 +1119,7 @@ function frameGlobe(dt) {
 
 let last = performance.now();
 function frame(now) {
-  const held = settings.isOpen() || journal.isOpen() || card.isOpen() || opening.isOpen();
+  const held = settings.isOpen() || journal.isOpen() || card.isOpen() || opening.isOpen() || $('lookSheet').open;
   const dt = held ? 0 : Math.min(50, now - last);
   last = now;
   tickSounds(stepDial(theDial(), dt));

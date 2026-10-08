@@ -615,6 +615,19 @@ export const WALKS = {
       },
       {
         id: 'hall', name: '밀라노 그라치에 수도원 식당', short: '수도원 식당', zoom: 1.12, ground: 0.77, scale: 0.62, air: 'hush',
+        // The painting on the wall may be touched: a photograph of it as it is today
+        // (Wikimedia Commons, "Última Cena - Da Vinci 5.jpg", in the public domain) and what
+        // is known of it. box: left, top, right, bottom, as shares of the scene's picture.
+        looks: [
+          { id: 'supper', box: [0.245, 0.195, 0.758, 0.53], photo: 'photo-supper.webp', name: '최후의 만찬', when: '레오나르도 다빈치 · 1495년쯤 시작해 1498년에 끝냄',
+            text: [
+              '가로 8.8미터, 세로 4.6미터입니다. 식당의 벽 한 면이 통째로 그림입니다.',
+              '젖은 회벽에 빨리 그리는 법 대신 마른 벽에 달걀 물감으로 천천히 그렸습니다. 그래서 스무 해 만에 벗겨지기 시작했습니다.',
+              '아래 한가운데의 네모난 자국은 1652년에 낸 문입니다. 그림이 알아보기 어려울 만큼 흐려진 때였습니다.',
+              '1978년부터 스물한 해 동안 손질해 1999년에 마쳤습니다. 지금도 밀라노의 그 식당 벽에 있습니다.',
+            ],
+            credit: '사진: 위키미디어 공용, 공개 저작물' },
+        ],
         sora: '벽 한가득 그림이야.',
         people: [
                     { id: 'gentleman', pass: '허, 살아 있는 것 같군.', name: '구경 온 신사', x: 0.17, w: 145, h: 320, lines: ['맞은편 벽 그림은 두 해 전에 끝났소.', '빨리 끝났지. 그런데 다들 이쪽만 보오.'] },

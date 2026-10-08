@@ -254,6 +254,12 @@ describe('the places that are walked about', () => {
           if (place.talk === 'face' && person.lines) expect(here(`${place.dir}/face-${person.id}.png`), `face of ${person.id}`).toBe(true);
         }
         for (const piece of piecesAt(scene, 0)) expect(here(`${place.dir}/${piece.src}.png`), piece.src).toBe(true);
+        // What may be looked at closely has its photograph, a box inside the picture and whose it is.
+        for (const look of scene.looks ?? []) {
+          expect(here(`${place.dir}/${look.photo}`), look.id).toBe(true);
+          expect(look.box.every((v) => v >= 0 && v <= 1) && look.box[0] < look.box[2] && look.box[1] < look.box[3], look.id).toBe(true);
+          expect(look.credit.length, look.id).toBeGreaterThan(0);
+        }
       }
     }
   });

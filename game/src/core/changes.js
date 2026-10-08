@@ -7,6 +7,7 @@
 // a fault mended, does; moving buttons about or rewording a sentence does not.
 // Each line is 10 to 70 characters and ends in "니다." (tests/changes.test.js).
 export const CHANGES = [
+  { day: '2026-10-08', text: '밀라노 수도원 식당의 벽화를 누르면 지금의 사진과 설명이 뜹니다.' },
   { day: '2026-10-08', text: '밀라노가 한 편의 이야기가 되었습니다. 편지를 맡아 화가를 쫓고, 끝은 직접 고릅니다.' },
   { day: '2026-10-08', text: '먹어 보고 써 본 것은 그 자리에 있는 동안 다시 권하지 않습니다.' },
   { day: '2026-10-08', text: '로마, 밀라노, 서울에서 볼거리마다 할머니의 메모가 그림 위에 뜹니다.' },
