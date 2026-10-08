@@ -76,7 +76,7 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 .on-walk #walkPrev:not([hidden]),.on-walk #walkNext:not([hidden]){display:block;bottom:26px;min-height:var(--tap);padding:0 12px;font-size:12.5px;touch-action:none;user-select:none;-webkit-user-select:none}
 .on-walk #walkPrev{left:10px}
 .on-walk #walkNext{right:10px}
-.on-walk #memo{top:auto;bottom:142px}
+.on-walk #memo{top:auto;bottom:61%}
 .on-walk #chips{left:auto;right:16px;top:150px}
 .on-walk #leaveBtn{top:104px;bottom:auto}
 #flyHelp,#flyPad,#viewPad{display:none}

@@ -55,6 +55,7 @@ export function createWalkView({ onPerson, onWay }) {
     return art.get(name);
   }
   for (const face of ['yum', 'sour', 'yuck', 'hmm']) has(`taste-${face}`);
+  const FRAMES = [1, 2, 3, 4];
 
   function measure() {
     const h = root.clientHeight;
@@ -102,6 +103,11 @@ export function createWalkView({ onPerson, onWay }) {
       img.addEventListener('pointerdown', (e) => { e.stopPropagation(); onPerson(person.id); });
       peopleEl.append(img);
       nodes.set(person.id, { img, person, left: 0, top: 0, wide: 0, tall: 0 });
+    }
+    // What she may put on here, and how she stands on trying something, is fetched on arriving.
+    for (const person of scene.people) {
+      if (person.try?.pose) has(person.try.pose);
+      if (person.try?.outfit) for (const i of FRAMES) { has(`${person.try.outfit}-idle-${i}`); has(`${person.try.outfit}-walk-${i}`); }
     }
     root.dataset.look = place.look ?? 'pixel';
     root.dataset.night = place.night ? '1' : '';
@@ -184,9 +190,9 @@ export function createWalkView({ onPerson, onWay }) {
   }
 
   // walk: core/walk.js's state. soraLine: what she is saying now, or null. t: seconds
-  // since she came down here (what moves in the scene goes by it). face: how what she has
-  // just eaten tasted, while it shows.
-  function update(walk, now, soraLine, t = 0, face = null) {
+  // since she came down here (what moves in the scene goes by it). pose: a picture of hers
+  // (public/sora/<pose>.png) for how she takes what she has just tried, while it shows.
+  function update(walk, now, soraLine, t = 0, pose = null) {
     if (!scene) return;
     movePieces(t);
     const { w, h, wide, unit } = size;
@@ -198,9 +204,9 @@ export function createWalkView({ onPerson, onWay }) {
     // four steps, each cut to her own outline. Both are shown the same height, feet on the street.
     const walking = walk.moving;
     const frame = 1 + (Math.floor(now / (walking ? STEP_MS : IDLE_MS)) % 4);
-    const tasting = !walking && face && has(`taste-${face}`);
+    const tasting = !walking && pose && has(pose);
     const worn = walk.wearing && has(`${walk.wearing}-${walking ? 'walk' : 'idle'}-${frame}`) ? `${walk.wearing}-` : '';
-    const src = tasting ? `./sora/taste-${face}.png` : `./sora/${worn}${walking ? 'walk' : 'idle'}-${frame}.png`;
+    const src = tasting ? `./sora/${pose}.png` : `./sora/${worn}${walking ? 'walk' : 'idle'}-${frame}.png`;
     if (sora.dataset.src !== src) { sora.dataset.src = src; sora.src = src; }
     const soraTall = SORA_TALL * unit;
     // Her standing picture has empty rows above her crown and below her shoes.

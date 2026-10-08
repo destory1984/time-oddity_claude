@@ -10,7 +10,8 @@
 //          errands: [{ id, text, at: [ids of people, spots or things tried, any one of which does it] }] }
 // A person's try: { id, verb: 'eat' | 'wear' | 'use', name, sora: what she says of it,
 //   memo?: what grandmother wrote, face?: how it tasted ('yum', 'sour', 'yuck', 'hmm'),
-//   outfit?: what she has on afterwards }. Something that is not a person (a water clock)
+//   outfit?: what she has on afterwards, pose?: how she stands for a moment on trying it
+//   (a picture of hers, public/sora/<pose>.png) }. Something that is not a person (a water clock)
 // has a try and no lines.
 export const VERBS = { eat: '먹어 볼래', wear: '입어 볼래', use: '써 볼래' };
 export const FACES = ['yum', 'sour', 'yuck', 'hmm'];

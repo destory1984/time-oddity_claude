@@ -338,7 +338,7 @@ let replyUntil = 0;         // grandmother's answer shows until then
 let errandsFoldAt = 0;      // the slip of errands folds itself then
 let walkArrive = false;     // she is to be set down in a shaft of light on the next frame
 let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
-let walkFace = null;        // { face, until }: how what she has just eaten tasted, while it shows
+let walkFace = null;        // { pose, until }: how she takes what she has just tried (a picture of hers), while it shows
 let walkMemo = null;        // { text, until }: what grandmother wrote of what she has just tried
 let walkStepMs = 0;         // how long she has walked since her last footfall
 let walkSteps = 0;
@@ -404,7 +404,8 @@ function tryNear(id = null) {
   sound.tick(true, false);
   walkView.nudge(did.person.id);
   walkSora = { text: it.sora, from: walkT + 300, until: walkT + 300 + SORA_FOR_MS };
-  walkFace = it.face ? { face: it.face, until: walkT + FACE_FOR_MS } : null;
+  const pose = it.face ? `taste-${it.face}` : it.pose ?? null;
+  walkFace = pose ? { pose, until: walkT + FACE_FOR_MS } : null;
   walkMemo = it.memo ? { text: it.memo, until: walkT + TRY_MEMO_MS } : null;
   if (did.first) keep(markTried(progress, square.id, it.id));
   if (did.errands.length > 0) errandsDone();
@@ -484,7 +485,7 @@ function frameWalk(dt) {
 
   // The sky of that day and hour, as computed, behind the roofs.
   skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });
-  walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.face ?? null);
+  walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.pose ?? null);
   if (walkArrive) { walkArrive = false; walkView.arrive(); }
 
   const near = walk.moving ? null : nearby(walk);
