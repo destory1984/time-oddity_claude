@@ -557,4 +557,83 @@ export const WALKS = {
     ],
     reply: '굴렁쇠 아이를 봤구나. 그날 온 나라가 숨을 죽였단다.',
   },
+  // Milan in the summer of 1497, about noon: Leonardo is painting the Last Supper on the
+  // refectory wall of Santa Maria delle Grazie (the user, 2026.10.8: "최후의 만찬 그리던 날로
+  // 가볼까"). The three scenes are the walk Matteo Bandello saw him take: from the Corte
+  // Vecchia, where the clay horse stood, across the town at midday to the convent, to give
+  // the wall a stroke or two and go. Looked up on 2026.10.8 and found so (docs/신기한-사실.md
+  // section 10): Bandello's account (from dawn to dusk without eating; three or four days
+  // without touching it, looking for an hour or two; the walk at noon with the sun in Leo);
+  // the duke's letter of 29 June 1497 to Marchesino Stanga urging that the work be finished;
+  // the nail hole at Christ's temple and the lines struck from it; the eel and the slices of
+  // orange on the painted table; tempera on a dry wall; Montorfano's Crucifixion on the wall
+  // opposite, dated 1495; the clay horse of more than seven metres and the bronze sent to
+  // Ferrara for cannon in 1494; Pacioli's book and Leonardo's drawings of solids for it; the
+  // memo to board up the upper room and try the machine from the roof where the men on the
+  // cathedral would not see; his writing from right to left; melon among what his household
+  // bought; the cathedral begun in 1386, its marble brought by water from Candoglia free of
+  // tolls and marked AUF; Milan's armourers. Bandello entered the convent as a boy (his
+  // birth is given as 1484 or 1485): he is the novice, and unnamed. Leonardo is a spot.
+  // Made up: everyone's words, the duke's messenger in the yard, that Leonardo passed the dock.
+  cenacolo: {
+    dir: 'milan1497',
+    scenes: [
+      {
+        id: 'court', name: '밀라노 코르테 베키아 뜰', short: '코르테 베키아', zoom: 1.02, ground: 0.8, scale: 0.62, air: 'court',
+        sora: '옛 궁전 뜰이래. 저 말 좀 봐!',
+        people: [
+          { id: 'salai', pass: '헤헤, 스승님 공책이다.', name: '화가의 제자', x: 0.18, w: 149, h: 300, lines: ['스승님은 글씨를 거꾸로 써.', '거울에 비춰야 읽혀. 볼래?'],
+            try: { id: 'use-mirror', verb: 'use', name: '거울', sora: '오, 거울 속에선 똑바로야!', memo: '레오나르도는 글씨를 오른쪽에서 왼쪽으로 썼단다.' } },
+          { id: 'clayboy', pass: '영차, 갈라진 데 메워야지!', name: '진흙 나르는 견습생', x: 0.26, w: 116, h: 276, lines: ['이 말은 전부 흙으로 빚었어.', '어른 키의 네 배가 넘는대.'] },
+          { id: 'founder', pass: '에휴, 내 쇳물…', name: '쇠 녹이는 장인', x: 0.34, w: 126, h: 319, lines: ['청동을 부어 굳히려던 말이오.', '그 청동은 대포 만들러 가 버렸소.'] },
+          { id: 'pacioli', pass: '모서리가 몇 개인고…', show: 'solid', pose: 'see-aha', sora: '속이 다 들여다보여!', memo: '수학 선생의 책에 레오나르도가 그림을 그려 주었단다.', name: '수학 선생 수도사', x: 0.64, w: 145, h: 319, lines: ['내 책의 그림은 그 친구가 그렸네.', '뼈대만 그려서 뒤쪽까지 보이지.'] },
+          { id: 'mechanic', pass: '쉿, 위층은 비밀이오.', show: 'wing', pose: 'see-gasp', sora: '날개잖아! 사람이 타는 거야?', memo: '지붕에서 날아 볼 궁리를 했단다. 성당 일꾼들 눈을 피해서.', name: '기계 만드는 조수', x: 0.72, w: 156, h: 312, lines: ['위층 방은 널빤지로 막아 놨소.', '대성당 일꾼들이 못 보게 말이오.'] },
+          { id: 'messenger', pass: '공작님의 분부요!', name: '공작의 심부름꾼', x: 0.79, w: 143, h: 320, lines: ['식당 그림을 어서 끝내라 하시오.', '화가 양반은 방금 나갔다는구려.'] },
+          { id: 'lutist', pass: '랄라, 한낮의 노래~', name: '류트 타는 악사', x: 0.86, w: 153, h: 312, lines: ['한낮엔 다들 그늘에서 쉬지요.', '저 말 앞에서 타면 소리가 울려요.'] },
+        ],
+        spots: [
+          { id: 'horse', from: 0.42, to: 0.56, sora: '말이 집보다 커! 전부 흙이래.', memo: '청동으로 만들려던 말이란다. 끝내 흙으로만 남았지.' },
+        ],
+      },
+      {
+        id: 'dock', name: '밀라노 대성당 뒤 나루', short: '대성당 나루', zoom: 1.12, ground: 0.8, scale: 0.62, air: 'market',
+        sora: '성당을 아직 짓는 중이네!',
+        people: [
+          { id: 'armourer', pass: '땅, 땅! 밀라노 갑옷이오!', name: '갑옷 장인', x: 0.17, w: 168, h: 308, lines: ['밀라노 갑옷은 먼 나라에서도 사 가오.', '한번 입어 보겠소? 꽤 무겁소.'],
+            try: { id: 'wear-armor', verb: 'wear', name: '밀라노 갑옷', outfit: 'armor', sora: '철컹철컹! 걷기 힘들어.', memo: '그때 밀라노는 갑옷으로 이름난 도시였단다.' } },
+          { id: 'melon', pass: '멜론이오, 단 멜론!', name: '멜론 파는 아주머니', x: 0.28, w: 170, h: 291, lines: ['한낮엔 멜론이 제일이지.', '화가 양반 댁도 멜론을 사 간다우.'],
+            try: { id: 'eat-melon', verb: 'eat', name: '멜론', face: 'yum', sora: '달고 시원해! 꿀 같아.' } },
+          { id: 'waterboy', pass: '물이오, 비켜요!', name: '물 긷는 소년', x: 0.37, w: 160, h: 272, lines: ['방금 화가 아저씨가 지나갔어.', '땡볕에 수도원 쪽으로 걸어갔어.'] },
+          { id: 'boatman', pass: '돌 왔소, 성당 돌!', show: 'marble', pose: 'see-aha', sora: '돌에 글자가 있어. A, U, F?', memo: '성당 지을 돌이라는 표시란다. 그 표시가 있으면 뱃길에서 돈을 안 냈지.', name: '대리석 배 뱃사공', x: 0.5, w: 158, h: 320, lines: ['먼 호숫가 산에서 물길로 왔소.', '성당 돌은 뱃길에서 돈을 안 내오.'] },
+          { id: 'mason', pass: '깡, 깡. 돌가루 조심!', name: '대성당 석공', x: 0.76, w: 135, h: 304, lines: ['이 성당은 백 년 넘게 짓고 있소.', '내 손자 때나 다 될는지, 원.'] },
+          { id: 'laundress', pass: '아이, 볕이 따갑기도 하지.', name: '빨래하는 처녀', x: 0.63, w: 153, h: 295, lines: ['이 물길로 배가 도시 안까지 와요.', '돌도 장작도 다 배로 온답니다.'] },
+          { id: 'silk', pass: '비단이오, 고운 비단!', name: '비단 장수', x: 0.86, w: 167, h: 317, lines: ['수도원은 서쪽 성문 쪽이라오.', '식당 벽에 큰 그림을 그린다지요.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'hall', name: '밀라노 그라치에 수도원 식당', short: '수도원 식당', zoom: 1.12, ground: 0.77, scale: 0.62, air: 'hush',
+        sora: '벽 한가득 그림이야.',
+        people: [
+          { id: 'novice', pass: '(위를 올려다본다)', name: '어린 수련 수도사', x: 0.17, w: 122, h: 268, lines: ['어떤 날은 해 뜰 때부터 저물 때까지 그려요.', '밥도 물도 잊고요. 제가 다 봤어요.'] },
+          { id: 'prior', pass: '흠, 그림은 언제 끝나나.', name: '수도원장', x: 0.25, w: 139, h: 299, lines: ['사흘 나흘씩 붓도 안 댈 때가 있소.', '한두 시간씩 바라보기만 한다오.'] },
+          { id: 'grinder', pass: '쓱쓱, 곱게 갈아야지.', name: '물감 개는 조수', x: 0.33, w: 136, h: 308, lines: ['마른 벽에 달걀 물감으로 그려요.', '그래서 며칠 뒤에도 고칠 수 있죠.'] },
+          { id: 'carpenter', pass: '실이 팽팽해야 하오.', show: 'nail', pose: 'see-peer', sora: '못 하나에서 줄이 다 나와!', memo: '한가운데 못을 박고 실을 당겨 줄을 그었단다. 못 자국이 지금도 있지.', name: '발판 세운 목수', x: 0.41, w: 160, h: 303, lines: ['한가운데 못에 실을 매어 당겼소.', '그림 속 줄이 다 그리로 모이오.'] },
+          { id: 'cook', pass: '오늘 저녁은 장어라오.', show: 'eel', pose: 'see-wow', sora: '그림 속 접시에 장어가 있어!', memo: '구운 장어와 오렌지. 그때 귀하게 치던 요리를 그려 넣었단다.', name: '부엌 수도사', x: 0.5, w: 163, h: 273, lines: ['식탁 그림에 우리 음식이 있다오.', '구운 장어에 오렌지 조각이지.'] },
+          { id: 'gentleman', pass: '허, 살아 있는 것 같군.', name: '구경 온 신사', x: 0.8, w: 145, h: 320, lines: ['맞은편 벽 그림은 두 해 전에 끝났소.', '이쪽은 언제 끝날지 아무도 모르오.'] },
+          { id: 'secretary', pass: '공작님이 또 물으시오.', name: '공작의 비서', x: 0.87, w: 147, h: 306, lines: ['유월에 공작님 편지를 받았소.', '어서 끝내게 재촉하라는 편지요.'] },
+        ],
+        spots: [
+          // Leonardo on the scaffold: seen, not spoken to.
+          { id: 'leonardo', from: 0.6, to: 0.74, sora: '붓질 두 번 하고… 가 버리네?', memo: '어떤 날은 그러고 갔단다. 그 그림이 "최후의 만찬"이야.' },
+        ],
+      },
+    ],
+    errands: [
+      { id: 'horse', text: '흙으로 빚은 큰 말을 보고 오렴. 집보다 컸단다.', at: ['horse'] },
+      { id: 'marble', text: '성당 지을 돌이 무엇을 타고 오는지 알아보렴.', at: ['boatman', 'laundress'] },
+      { id: 'supper', text: '벽에 저녁 식사를 그리는 화가를 보고 오렴.', at: ['leonardo'] },
+    ],
+    reply: '그 화가를 봤구나. 그 그림은 지금도 그 벽에 있단다.',
+  },
 };

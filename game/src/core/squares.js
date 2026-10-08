@@ -454,6 +454,22 @@ export const SQUARES = [
     reply: '굴렁쇠 아이를 봤구나. 그날 온 나라가 숨을 죽였단다.',
     quiz: { question: '텅 빈 잔디를 가로지른 것은?', answer: '굴렁쇠를 굴리는 아이', proof: '굴렁쇠를 굴리며', wrong: ['말을 탄 기수', '흰 비둘기 떼'] },
   },
+  {
+    // Milan while Leonardo was painting the Last Supper in the refectory of Santa Maria
+    // delle Grazie. The day is not on record: a noon of high summer in 1497 is taken (the
+    // duke's letter urging him on is of 29 June; Bandello writes of the sun in Leo; the
+    // wall was done early in 1498). The place is walked about (core/walks.js).
+    no: 36, id: 'cenacolo', name: '최후의 만찬', dateLabel: 'AD 1497년 여름', place: '밀라노, 이탈리아',
+    lat: 45.466, lon: 9.171,
+    date: { year: 1497, month: 7, day: 25 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 180, nightOnLook: true,
+    memo: '레오나르도가 "최후의 만찬"을 그림.', sora: '저 큰 그림을 한 사람이 그려?',
+    memoToday: '남은 것: 그 그림. 그 벽에 그대로.', soraToday: '그림이 아직 그 벽에 있대!',
+    noteMemo: '1497년 여름. 레오나르도가 수도원 식당 벽에 그림을 그렸다고 읽음. 그날 달은 그믐으로 기우는 눈썹달.',
+    card: '1497년 여름, 레오나르도 다빈치는 밀라노의 산타 마리아 델레 그라치에 수도원 식당 벽에 "최후의 만찬"을 그리고 있었습니다. 젖은 회벽에 빨리 그리는 법 대신 마른 벽에 천천히 그렸습니다. 그림은 이듬해에 끝났고 지금도 그 벽에 있습니다.',
+    reply: '그 화가를 봤구나. 그 그림은 지금도 그 벽에 있단다.',
+    quiz: { question: '"최후의 만찬"은 어디에 그려졌나?', answer: '수도원 식당 벽', proof: '수도원 식당 벽', wrong: ['대성당 천장', '궁전의 나무 판'] },
+  },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
 
