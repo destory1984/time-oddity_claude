@@ -34,6 +34,7 @@ export function createWalk(place, { scene = 0, x = 0.08, tried = [], been = [] }
     told: [],            // the scenes she has said her line in, by id
     tried: [...tried],   // what she has eaten, worn or used, by id
     been: [...been],     // the scenes she has been in, by id
+    remark: null,        // { id, text }: what she says of the thing that person is showing her, while it shows
     wearing: null,       // the outfit she has on, until she leaves
     trips: 0,            // how many frames it has of her treading on its hem
   };
@@ -123,9 +124,9 @@ export const triesOf = (place) => place.scenes.flatMap((scene) => scene.people.f
 // Goes at once into the scene beside this one (way: -1 or 1) if she has been in it before:
 // a street once walked need not be walked again to get past it (the user, 2026.10.8: "한
 // 번 가본 곳은 저거만 누르면, 다음 장면으로 이동시켜줘"). Returns whether she went.
+export const canHop = (walk, way) => { const next = walk.place.scenes[walk.scene + way]; return Boolean(next) && walk.been.includes(next.id); };
 export function hop(walk, way) {
-  const next = walk.place.scenes[walk.scene + way];
-  if (!next || !walk.been.includes(next.id)) return false;
+  if (!canHop(walk, way)) return false;
   walk.scene += way;
   walk.x = way > 0 ? EDGE * 2 : 1 - EDGE * 2;
   walk.facing = way;

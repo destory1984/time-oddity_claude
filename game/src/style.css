@@ -38,6 +38,9 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkTalk{position:absolute;left:12px;right:12px;bottom:47%;z-index:40;display:none;align-items:center;gap:12px;padding:10px 14px 10px 10px;border-radius:14px;background:var(--white);color:#1b1730;box-shadow:0 3px 12px #0008;pointer-events:none}
 #walkTalk.on{display:flex}
 #walkTalk.showing{flex-wrap:wrap}
+#walkTalkSora{display:none;flex:0 0 100%;margin:0;padding:2px 4px 0;font-family:var(--seora);font-size:calc(19px * var(--text,1));line-height:1.2;color:#3a2f7a}
+#walkTalkSora.on{display:block;animation:showUp .3s ease-out .7s 1 backwards}
+#walkTalkSora::before{content:"소라 ";font:600 11px/1 "Pretendard Variable",Pretendard,sans-serif;opacity:.55;vertical-align:middle}
 #walkTalk.showing>div{flex:1 1 0;min-width:0}
 #walkTalkShow{display:none;flex:0 0 100%;width:100%;aspect-ratio:2/1;object-fit:cover;border-radius:10px}
 #walkTalk.showing #walkTalkShow{display:block;animation:showUp .3s ease-out 1}
@@ -86,6 +89,12 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #errands b{display:block;margin-bottom:2px;font:600 11px/1.4 "Pretendard Variable",Pretendard,sans-serif;opacity:.65}
 #errands li{margin:3px 0}
 #errands li.done{text-decoration:line-through;opacity:.45}
+#errands.alldone::after{content:"참 잘했어요";position:absolute;right:-18px;bottom:-16px;display:grid;place-items:center;width:62px;height:62px;border:3px double #c0392b;border-radius:50%;color:#c0392b;font:700 12px/1.1 "Pretendard Variable",Pretendard,sans-serif;text-align:center;transform:rotate(-14deg);background:rgba(255,246,230,.7);animation:stampDown .45s cubic-bezier(.2,1.6,.4,1) 1}
+@keyframes stampDown{0%{transform:rotate(-14deg) scale(2.6);opacity:0}100%{transform:rotate(-14deg) scale(1);opacity:1}}
+#walkScene .spark{position:absolute;z-index:35;width:9px;height:9px;background:var(--gold);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);pointer-events:none;animation:sparkUp 1.6s ease-out 1 both}
+#walk .cheer{position:absolute;left:50%;top:40%;z-index:60;padding:12px 20px;border:2px solid var(--gold);border-radius:14px;background:#1b1730ee;color:var(--gold);font:700 calc(19px * var(--text,1))/1.2 "Pretendard Variable",Pretendard,sans-serif;white-space:nowrap;box-shadow:0 0 22px rgba(255,214,110,.6);pointer-events:none;animation:cheerUp 3.6s ease-out 1 both}
+@keyframes cheerUp{0%{transform:translate(-50%,-50%) scale(.5);opacity:0}8%{transform:translate(-50%,-50%) scale(1.12);opacity:1}14%,82%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(-50%,-70%) scale(1);opacity:0}}
+@keyframes sparkUp{0%{transform:translate(0,0) scale(.4);opacity:0}15%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(1.5) rotate(200deg);opacity:0}}
 .on-walk #walkDo{display:flex;justify-content:center;gap:8px;left:0;right:0;bottom:84px;pointer-events:none}
 #walkDo button{position:static;pointer-events:auto;min-height:var(--tap);padding:0 16px;white-space:nowrap;font-size:15px;font-weight:600;border-color:var(--gold);color:var(--gold)}
 #walkDo #tryButton{font-weight:700;background:var(--gold);color:#1b1730}

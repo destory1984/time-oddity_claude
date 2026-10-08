@@ -39,7 +39,7 @@ export const WALKS = {
     dir: 'rome',
     scenes: [
       {
-        id: 'market', name: '시장 거리', zoom: 1.25, ground: 0.765, scale: SHEET.market, air: 'market',
+        id: 'market', name: '로마 시장 거리', zoom: 1.25, ground: 0.765, scale: SHEET.market, air: 'market',
         sora: '사람이 엄청 많아! 냄새도 나.',
         people: [
           { id: 'baker', pass: '빵이오! 갓 구운 빵!', name: '빵 장수', x: 0.163, w: 123, h: 284, lines: ['갓 구웠어요. 여덟 쪽으로 갈라 드셔요.', '경기장 덕에 오늘은 벌써 동났네.'] },
@@ -79,7 +79,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'inside', name: '경기장 안', zoom: 1.3, ground: 0.775, scale: SHEET.inside, air: 'arena',
+        id: 'inside', name: '콜로세움 안', zoom: 1.3, ground: 0.775, scale: SHEET.inside, air: 'arena',
         sora: '우와… 끝까지 다 사람이야.',
         people: [
           { id: 'usher', pass: '표를 보여 주시오.', name: '자리 안내원', x: 0.17, w: 125, h: 300, lines: ['앞줄은 원로원 자리요. 저 위로.', '자리는 옷을 보고 정하오.'] },
@@ -109,7 +109,7 @@ export const WALKS = {
     dir: 'paris', look: 'paper', talk: 'face',
     scenes: [
       {
-        id: 'gate', name: '박람회 입구', zoom: 1.3, ground: 0.752, scale: 0.66, air: 'street',
+        id: 'gate', name: '만국박람회 입구', zoom: 1.3, ground: 0.752, scale: 0.66, air: 'street',
         sora: '깃발이 잔뜩! 저 끝에 탑이야.',
         // People pour in at the middle arch from both sides, and are lost behind its pillars.
         moving: [
@@ -127,7 +127,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'tower', name: '탑 아래', zoom: 1.2, ground: 0.733, scale: 0.62, air: 'court', floor: 'dirt',
+        id: 'tower', name: '에펠탑 아래', zoom: 1.2, ground: 0.733, scale: 0.62, air: 'court', floor: 'dirt',
         sora: '우와, 다리 하나가 집채만 해.',
         // The stair in the east leg, three flights of it: people go up one after another.
         moving: [
@@ -149,7 +149,7 @@ export const WALKS = {
         ],
       },
       {
-        id: 'hall', name: '기계관', zoom: 1.3, ground: 0.664, scale: 0.66, air: 'works', floor: 'wood',
+        id: 'hall', name: '박람회 기계관', zoom: 1.3, ground: 0.664, scale: 0.66, air: 'works', floor: 'wood',
         sora: '쿵쿵쿵! 바퀴가 진짜 돌아가.',
         // The two flywheels, cut out of the picture itself (tools/walk-art.py disc), turn where they lie.
         moving: [
@@ -185,7 +185,7 @@ export const WALKS = {
     dir: 'hanyang', look: 'paper', talk: 'face',
     scenes: [
       {
-        id: 'market', name: '저잣거리', zoom: 1.3, ground: 0.674, scale: 0.66, air: 'market', floor: 'dirt',
+        id: 'market', name: '한양 저잣거리', zoom: 1.3, ground: 0.674, scale: 0.66, air: 'market', floor: 'dirt',
         sora: '감이 주렁주렁! 시끌시끌해.',
         moving: [
           { kind: 'drift', id: 'by', src: 'crowd', from: 0, to: 1, foot: 0.67, tall: 0.17, wide: 0.4115, gap: 0.12, speed: 0.028, bob: 0.003 },
@@ -254,7 +254,7 @@ export const WALKS = {
     dir: 'sf', look: 'paper', talk: 'face',
     scenes: [
       {
-        id: 'plaza', name: '다리 어귀', zoom: 1.3, ground: 0.735, scale: 0.66, air: 'street',
+        id: 'plaza', name: '금문교 어귀', zoom: 1.3, ground: 0.735, scale: 0.66, air: 'street',
         sora: '다리가 빨개! 엄청 길다.',
         moving: [
           { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.731, tall: 0.17, wide: 0.396, gap: 0.05, speed: 0.03, bob: 0.003 },
@@ -270,7 +270,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'deck', name: '다리 위', zoom: 1.2, ground: 0.8, scale: 0.64, air: 'bridge',
+        id: 'deck', name: '금문교 위', zoom: 1.2, ground: 0.8, scale: 0.64, air: 'bridge',
         sora: '차가 없으니까 운동장 같아.',
         // The crowd goes over on foot, and now and then those who cross some odd way.
         moving: [
@@ -288,7 +288,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'mid', name: '다리 한가운데', zoom: 1.25, ground: 0.755, scale: 0.74, air: 'bridge',
+        id: 'mid', name: '금문교 한가운데', zoom: 1.25, ground: 0.755, scale: 0.74, air: 'bridge',
         sora: '바람이 세! 바다가 저 밑이야.',
         moving: [
           { kind: 'drift', id: 'east', src: 'crowd', from: 0, to: 1, foot: 0.74, tall: 0.16, wide: 0.373, gap: 0.3, speed: -0.025, bob: 0.003, flip: true },
@@ -347,7 +347,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'platform', name: '승강장', zoom: 1.3, ground: 0.693, scale: 0.66, air: 'station',
+        id: 'platform', name: '도쿄역 승강장', zoom: 1.3, ground: 0.693, scale: 0.66, air: 'station',
         sora: '우와, 진짜 온다! 코가 둥글어.',
         // The train comes out from behind the stall and is gone behind the stair, again and again.
         moving: [

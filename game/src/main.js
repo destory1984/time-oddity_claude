@@ -18,7 +18,7 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, VERBS, canSpeak, hop, worth, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
+import { REACH, VERBS, canHop, canSpeak, hop, worth, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -51,7 +51,7 @@ import { forgetOpened, keepProgressAside,
 const RISE_MS = 800;
 const MEMO_AT_MS = 1200;
 const SORA_FROM_MS = 2500;
-const SORA_FOR_MS = 4000;
+const SORA_FOR_MS = 6500;        // what she says stays this long (4 s was gone before it was read: the user, 2026.10.8)
 const CHIPS_AT_MS = 3000;
 const GUIDE_AT_MS = 4500;        // the guidance waits until the arrival has played out
 const HINT_SKY_AT_MS = 9000;
@@ -341,6 +341,8 @@ let walkNoteAt = 0;         // a note of grandmother's that is due falls then (a
 let walkFace = null;        // { poses: [[picture of hers, until], ...] }: how she takes what she has just tried, one after another
 let walkHemMs = 0;          // how long she has walked in what she put on since she last trod on its hem
 let walkHeld = null;        // { show, until }: what was shown her, kept up while she tries it
+let walkHopping = false;    // she is on her way to the scene beside this one in a ring of gold
+const HOP_MS = 420;
 let walkMemo = null;        // { text, until }: what grandmother wrote of what she has just tried
 let walkStepMs = 0;         // how long she has walked since her last footfall
 let walkSteps = 0;
@@ -381,6 +383,12 @@ function errandsDone() {
   if (!allDone(walk)) return;
   // All three: the square is filled and grandmother writes back.
   for (const dot of ['sky', 'remains']) keep(fillDot(progress, square.id, dot));
+  // The slip is stamped, gold flies up round her and she is glad (the user, 2026.10.8, of the
+  // slip that only said so: "다 했으면, 뭔가 효과를..").
+  errandsFoldAt = walkT + 9000;
+  $('errands').classList.add('alldone');
+  walkView.cheer();
+  walkFace = { poses: [['see-wow', walkT + 3200]] };
   setTimeout(() => { if (walk) { sound.bell(); replyUntil = walkT + 10000; walkNoteAt = walkT + NOTE_AFTER_MS; } }, 1200);
 }
 function talk(id = null) {
@@ -397,7 +405,11 @@ function talk(id = null) {
   if ((said.person.pose || said.person.sora) && !walk.told.includes(saw)) {
     walk.told.push(saw);
     if (said.person.pose) walkFace = { poses: [[said.person.pose, walkT + 900 + SORA_FOR_MS]] };
-    if (said.person.sora) walkSora = { text: said.person.sora, from: walkT + 900, until: walkT + 900 + SORA_FOR_MS };
+    // Where they speak in a panel her words go into it, under the thing shown, and stay as
+    // long as it does: over her head they lay across the panel and were gone too soon to
+    // read (the user, 2026.10.8).
+    if (said.person.sora && walk.place.talk === 'face') walk.remark = { id: said.person.id, text: said.person.sora };
+    else if (said.person.sora) walkSora = { text: said.person.sora, from: walkT + 900, until: walkT + 900 + SORA_FOR_MS };
   }
   if (said.errands.length > 0) errandsDone();
 }
@@ -453,6 +465,7 @@ function showWalk(sq) {
   walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id) });
   walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyUntil = 0; walkNoteAt = 0;
   $('errands').classList.remove('folded');
+  $('errands').classList.toggle('alldone', allDone(walk));
   errandsFoldAt = ERRANDS_OPEN_MS;
   if (isLocalHost(location.hostname)) window.walkDebug = walk;
   globe.setActive(false);
@@ -468,7 +481,15 @@ function showWalk(sq) {
 for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
   $(id).addEventListener('pointerdown', (e) => {
     walkWant = null;
-    if (walk && hop(walk, way)) { walkWay = 0; sound.wake(); sound.tick(true, false); enterScene(); return; }
+    // She goes as she leaves a place, in a ring of gold, and is set down in the next (the
+    // user, 2026.10.8: "버튼을 눌러서, 다음/이전 장소로 이동할 떄에는 효과를 넣어줘. 금빛 고리 효과").
+    if (walkHopping) return;
+    if (walk && canHop(walk, way)) {
+      walkWay = 0; keyWay = 0; walkHopping = true;
+      sound.wake(); sound.tick(true, false);
+      walkView.teleport(HOP_MS).then(() => { walkHopping = false; if (!walk || mode !== 'walk') return; hop(walk, way); enterScene(); walkArrive = true; });
+      return;
+    }
     $(id).setPointerCapture?.(e.pointerId); walkWay = way;
   });
   for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) $(id).addEventListener(name, () => { walkWay = 0; });
@@ -490,7 +511,8 @@ window.addEventListener('blur', () => { keyWay = 0; walkWay = 0; });
 
 function frameWalk(dt) {
   walkT += dt;
-  const out = stepWalk(walk, dt, walkWay || keyWay);
+  const out = stepWalk(walk, dt, walkHopping ? 0 : walkWay || keyWay);
+  if (walk.remark && walk.heard?.id !== walk.remark.id) walk.remark = null;
   if (out.scene !== 0) enterScene();
   // Her footfalls, and the place's own sounds now and then.
   if (walk.moving) {

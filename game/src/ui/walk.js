@@ -34,6 +34,7 @@ export function createWalkView({ onPerson, onWay }) {
   const sora = $('walkSora');
   const badge = $('walkBadge');
   const shown = $('walkTalkShow');
+  const remarkEl = $('walkTalkSora');
   const card = $('walkShow');
   const say = $('walkSay');
   const soraSay = $('walkSoraSay');
@@ -300,10 +301,16 @@ export function createWalkView({ onPerson, onWay }) {
     const big = showing ? `./walks/${place.dir}/show-${showing}.webp` : '';
     const show = panel && heard.person.show ? big : '';
     if (shown.dataset.src !== show) { shown.dataset.src = show; if (show) shown.src = show; talk.classList.toggle('showing', Boolean(show)); }
+    // What she says of it, in the panel under it.
+    const remark = panel && walk.remark?.id === walk.heard.id ? walk.remark.text : '';
+    if (remarkEl.textContent !== remark) { remarkEl.textContent = remark; remarkEl.classList.toggle('on', Boolean(remark)); }
     const apart = show ? '' : big;
     if (card.dataset.src !== apart) { card.dataset.src = apart; if (apart) card.src = apart; card.classList.toggle('on', Boolean(apart)); }
     talk.classList.toggle('on', panel);
-    if (soraLine) bubble(soraSay, soraLine, x, FOOT * h - soraTall);
+    // Her own words go over her head, and above the mark of anyone she stands by.
+    let lift = 0;
+    for (const node of nodes.values()) if (node.over && Math.abs(node.person.x * wide - x) < 90 * unit) lift = Math.max(lift, FOOT * h - soraTall - (node.top - node.over));
+    if (soraLine) bubble(soraSay, soraLine, x, FOOT * h - soraTall - Math.max(0, lift));
     else soraSay.classList.remove('on');
   }
 
@@ -353,8 +360,31 @@ export function createWalkView({ onPerson, onWay }) {
   // The whole scene jolts a little, four times, as the wheels go over a joint in the rails.
   function clack() { scroll.classList.remove('clack'); scroll.getBoundingClientRect(); scroll.classList.add('clack'); }
 
+  // Gold flies up round her: all of grandmother's errands are done.
+  function cheer() {
+    const left = parseFloat(sora.style.left) + parseFloat(sora.style.width) / 2;
+    const foot = parseFloat(sora.style.top) + parseFloat(sora.style.height);
+    for (let i = 0; i < 18; i += 1) {
+      const spark = document.createElement('i');
+      spark.className = 'spark';
+      spark.style.left = `${left}px`; spark.style.top = `${foot - 40}px`;
+      spark.style.setProperty('--dx', `${(Math.random() * 2 - 1) * 120}px`);
+      spark.style.setProperty('--dy', `${-(90 + Math.random() * 170)}px`);
+      spark.style.animationDelay = `${Math.random() * 350}ms`;
+      scroll.append(spark);
+      setTimeout(() => spark.remove(), 2200);
+    }
+    // And it is said across the middle of the screen, over whatever else is up (the slip
+    // itself may lie under the panel of the one she has just spoken to).
+    const banner = document.createElement('div');
+    banner.className = 'cheer';
+    banner.textContent = '할머니의 심부름을 다 했다!';
+    root.append(banner);
+    setTimeout(() => banner.remove(), 3600);
+  }
+
   return {
-    showScene, layout, update, nudge, clack,
+    showScene, layout, update, nudge, clack, cheer,
     teleport: (ms) => passage('leaving', ms),
     arrive: () => { sora.classList.remove('leaving'); return passage('arriving'); },
   };
