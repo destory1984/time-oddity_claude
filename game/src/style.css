@@ -113,11 +113,13 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 /* Every button with words on it that is pressed in play: at least --tap high, 16px to either
    side of its words, 15px and semi-bold (the user, 2026.10.8: "버튼 크기 규칙에 따라서 수정"). */
 .on-walk #walkPrev,.on-walk #walkNext{display:block;bottom:26px;min-height:var(--tap);min-width:var(--tap);padding:0 16px;font-size:15px;font-weight:600;white-space:nowrap;touch-action:none;user-select:none;-webkit-user-select:none}
-.on-walk #walkPrev{left:10px}
-.on-walk #walkNext{right:10px}
+.on-walk #walkPrev{left:12px}
+.on-walk #walkNext{right:12px}
 .on-walk #memo{top:auto;bottom:61%}
-.on-walk #chips{left:auto;right:16px;top:150px}
-.on-walk #leaveBtn{top:104px;bottom:auto;min-height:var(--tap);padding:0 16px;font-size:15px;font-weight:600}
+.on-walk #chips{left:auto;right:12px;top:114px}
+/* It hangs under the row of buttons at the top as one of them: the same right edge (12px),
+   the same 8px between, the same 44px high (the user, twice: "버튼 규칙에 맞춰서"). */
+.on-walk #leaveBtn{top:62px;right:12px;bottom:auto;height:var(--tap);min-height:var(--tap);padding:0 16px;font-size:15px;font-weight:600}
 #flyHelp,#flyPad,#viewPad{display:none}
 .on-site #flyPad{display:flex;flex-direction:column;gap:8px;right:16px;bottom:206px}
 .on-site.standing #flyPad{display:none}
