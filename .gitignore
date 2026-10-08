@@ -16,3 +16,4 @@ coverage/
 /assets/
 !game/public/**/*.png
 !play/**/*.png
+/temp/

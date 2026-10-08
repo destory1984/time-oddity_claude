@@ -230,6 +230,8 @@ describe('the places that are walked about', () => {
   });
   it('can be walked from end to end doing all three errands', () => {
     for (const [id, place] of Object.entries(WALKS)) {
+      // A place told as a tale is not done by walking through it: tests/tale.test.js walks its ways.
+      if (place.tale) continue;
       const walk = createWalk(place);
       for (const scene of place.scenes) {
         for (const person of scene.people) { walk.x = person.x; speak(walk, person.id); tryIt(walk, person.id); }
@@ -343,7 +345,7 @@ describe('what is heard in passing and what is shown', () => {
   // The user, 2026.10.8: "지구본으로 나갔다가, 다시 들어오니까 이벤트 다 한게 없어".
   it('comes again to a place with its errands still done and those she spoke to still met', () => {
     const tokyo = WALKS.shinkansen;
-    const walk = createWalk(tokyo, { done: ['tape', 'speed', 'fuji'], met: ['bento'] });
+    const walk = createWalk(tokyo, { done: ['heard', 'tried', 'ended'], met: ['bento'] });
     expect(allDone(walk)).toBe(true);
     expect(walk.said.bento).toBeGreaterThan(0);
     walk.x = tokyo.scenes[0].people.find((p) => p.id === 'bento').x;

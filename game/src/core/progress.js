@@ -6,6 +6,8 @@
 const DOTS = ['day', 'sky', 'remains'];
 const blank = () => ({ day: false, sky: false, remains: false, quiz: false, find: false });
 
+import { sanitizeTale } from './tale.js';
+
 export const emptyProgress = () => ({ squares: {}, notes: [] });
 
 const of = (progress, id) => progress.squares[id] ?? blank();
@@ -60,6 +62,11 @@ export function markBeen(progress, id, scene) {
 // 2026.10.8: "이벤트 3개 모두 하고, 지구본으로 나갔다가, 다시 들어오니까 이벤트 다 한게 없어"):
 // the errands done, and the people she has spoken to (whose marks are then gone), by id.
 export const errandsOf = (progress, id) => progress.squares[id]?.errands ?? [];
+// How far a place's tale has been told (core/tale.js), or null where it has not begun.
+export const taleOf = (progress, id) => progress.squares[id]?.tale ?? null;
+export function markTale(progress, id, tale) {
+  return { ...progress, squares: { ...progress.squares, [id]: { ...(progress.squares[id] ?? { day: false, sky: false, remains: false, quiz: false, find: false }), tale } } };
+}
 export const metOf = (progress, id) => progress.squares[id]?.met ?? [];
 function markIn(progress, id, key, what, had) {
   const fresh = what.filter((one) => !had.includes(one));
@@ -91,6 +98,9 @@ export function sanitizeProgress(raw, ids, noteIds = []) {
       const list = Array.isArray(was[key]) ? [...new Set(was[key].filter((what) => typeof what === 'string' && what.length <= 40))].slice(0, 60) : [];
       if (list.length > 0) squares[id][key] = list;
     }
+    // And how far its tale has been told: a record that is not one is left out, not mended.
+    const tale = sanitizeTale(was.tale);
+    if (tale) squares[id].tale = tale;
   }
   const notes = Array.isArray(kept.notes) ? noteIds.filter((id) => kept.notes.includes(id)) : [];
   return { squares, notes };

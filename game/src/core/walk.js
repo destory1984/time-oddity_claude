@@ -14,6 +14,8 @@
 //   (a picture of hers, public/sora/<pose>.png), trips?: how many frames there are of her
 //   treading on its hem as she walks (<outfit>-trip-N.png) }. Something that is not a person (a water clock)
 // has a try and no lines.
+import { emptyTale, lineOf, present } from './tale.js';
+
 export const VERBS = { eat: '먹어 볼래', wear: '입어 볼래', use: '써 볼래' };
 export const FACES = ['yum', 'sour', 'yuck', 'hmm'];
 export const SPEED = 0.11;        // of a scene's width a second: nine seconds from end to end
@@ -24,7 +26,7 @@ const ARRIVE = 0.012;             // near enough to where she was sent
 
 // From earlier visits, by id: tried: what she has tried here. been: the scenes she has been
 // in. done: the errands done. met: the people she has spoken to.
-export function createWalk(place, { scene = 0, x = 0.08, tried = [], been = [], done = [], met = [] } = {}) {
+export function createWalk(place, { scene = 0, x = 0.08, tried = [], been = [], done = [], met = [], tale = null } = {}) {
   return {
     place, scene, x, facing: 1, moving: false, goal: null,
     // How many times each person has been spoken to. One met on an earlier visit has said
@@ -37,6 +39,7 @@ export function createWalk(place, { scene = 0, x = 0.08, tried = [], been = [], 
     seen: [],            // the spots she has stood at, by id
     told: [],            // the scenes she has said her line in, by id
     tried: [...tried],   // what she has eaten, worn or used, by id
+    tale: place.tale ? (tale ?? emptyTale()) : null,   // how far the place's tale has been told (core/tale.js)
     triedNow: [],        // what she has eaten or used on this visit, by id: it is not offered again until she comes back
     been: [...been],     // the scenes she has been in, by id
     remark: null,        // { id, text }: what she says of the thing that person is showing her, while it shows
@@ -46,11 +49,14 @@ export function createWalk(place, { scene = 0, x = 0.08, tried = [], been = [], 
 }
 
 export const sceneOf = (walk) => walk.place.scenes[walk.scene];
+// Those who are in the scene now: in a tale someone may stand in one scene first and in
+// another later (a person's `when`), and is in one place only.
+export const peopleOf = (walk) => (walk.tale ? sceneOf(walk).people.filter((p) => present(walk.tale, p)) : sceneOf(walk).people);
 
 // Whoever is nearest within reach, or null.
 export function nearby(walk) {
   let best = null;
-  for (const person of sceneOf(walk).people) {
+  for (const person of peopleOf(walk)) {
     const far = Math.abs(person.x - walk.x);
     if (far <= REACH && (!best || far < Math.abs(best.x - walk.x))) best = person;
   }
@@ -76,7 +82,7 @@ export const canSpeak = (walk, person) => Boolean(person?.lines);
 // The nearest of those within hearing, or null.
 function overheard(walk) {
   let best = null;
-  for (const person of sceneOf(walk).people) {
+  for (const person of peopleOf(walk)) {
     const far = Math.abs(person.x - walk.x);
     if (far <= HEAR && person.pass && (!best || far < Math.abs(best.x - walk.x))) best = person;
   }
@@ -103,6 +109,9 @@ function finish(walk, id) {
 // is [{ after: an errand's id, lines }], and the last of them whose errand is done holds.
 export function linesOf(walk, person) {
   if (!person?.lines) return null;
+  // In a tale whoever has a part in it just now says that, and nothing else.
+  const told = walk.tale ? lineOf(walk.place.tale, walk.tale, person.id) : null;
+  if (told) return [told];
   const later = (person.then ?? []).filter((t) => walk.done.includes(t.after));
   return later.length > 0 ? later[later.length - 1].lines : person.lines;
 }
@@ -114,7 +123,7 @@ export function linesOf(walk, person) {
 // 종료한다. 3개면 3개까지", "다시 NPC를 클릭하면, 2를 반복한다").
 // id: the one meant, when several stand near.
 export function speak(walk, id = null) {
-  const meant = id ? sceneOf(walk).people.find((p) => p.id === id && Math.abs(p.x - walk.x) <= REACH) : null;
+  const meant = id ? peopleOf(walk).find((p) => p.id === id && Math.abs(p.x - walk.x) <= REACH) : null;
   const person = meant ?? nearby(walk);
   if (!canSpeak(walk, person)) return null;
   const count = walk.said[person.id] ?? 0;
@@ -136,7 +145,7 @@ export function speak(walk, id = null) {
 // The one she is with: whoever she is hearing, else whoever is nearest. What can be done at
 // the foot of the screen is theirs (the user, 2026.10.8, having touched a lady and been
 // offered the dormouse of the man beside her: "이 사람 눌렀는데, 쥐 먹어보라고 나온다").
-export const withWhom = (walk) => (walk.heard ? sceneOf(walk).people.find((p) => p.id === walk.heard.id) : null) ?? nearby(walk);
+export const withWhom = (walk) => (walk.heard ? peopleOf(walk).find((p) => p.id === walk.heard.id) : null) ?? nearby(walk);
 
 // What a person has for her to eat, wear or use now, or null. What she has on is not
 // offered again ("이미 입고 있는데, 버튼이 계속 보임"), nor what she has eaten or used on this
@@ -151,7 +160,7 @@ export function offerOf(walk, person) {
 // Tries what whoever is near has to offer. Returns { person, it: the person's try,
 // first: not tried before, errands: [ids done just now] }, or null when there is nothing.
 export function tryIt(walk, id = null) {
-  const meant = id ? sceneOf(walk).people.find((p) => p.id === id && Math.abs(p.x - walk.x) <= REACH) : null;
+  const meant = id ? peopleOf(walk).find((p) => p.id === id && Math.abs(p.x - walk.x) <= REACH) : null;
   const person = meant ?? nearby(walk);
   const it = offerOf(walk, person);
   if (!it) return null;

@@ -356,6 +356,8 @@ export const WALKS = {
           // pickle and the thin wooden box are from memory.
           { id: 'bento', pass: '도시락 구경하고 가세요!', name: '도시락 아주머니', x: 0.72, w: 108, h: 277, lines: ['차 안에서 먹는 도시락이에요.', '역에서 파니까 에키벤이라 해요.'],
             try: { id: 'eat-ekiben', verb: 'eat', name: '기차 도시락', face: 'yum', sora: '식었는데도 맛있어!' } },
+          // The one who asks: before the station until she is taken up, on the platform after.
+          { id: 'flowers0', when: ['S0'], pass: '아이, 떨려라.', name: '꽃다발 든 아가씨', x: 0.8, w: 122, h: 290, lines: ['첫 기차에 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
           { id: 'tourist', pass: '와, 역이 정말 크네요.', name: '먼 데서 온 여행자', x: 0.88, w: 110, h: 308, lines: ['올림픽 보러 왔어요. 기차도 타요!', '시속 210km? 믿을 수 없어요.'] },
         ],
         spots: [],
@@ -370,7 +372,7 @@ export const WALKS = {
         people: [
           { id: 'fan', pass: '우와, 진짜 왔다! 코 좀 봐!', show: 'nose', pose: 'see-wow', sora: '코가 등불처럼 빛나!', memo: '코가 반투명이라 불빛이 새어 나왔단다. 속에는 연결 고리가 들어 있지.', name: '기차 좋아하는 소년', x: 0.12, w: 96, h: 239, lines: ['꿈의 초특급이다! 코가 비행기 같아.', '새벽 세 시에 일어나서 왔어.'] },
           { id: 'reporter', pass: '하나, 둘, 마이크 시험.', name: '방송 기자', x: 0.26, w: 103, h: 299, lines: ['여기는 도쿄역, 역사적인 아침입니다.', '세계에서 가장 빠른 열차입니다!'] },
-          { id: 'flowers', pass: '아이, 떨려라.', name: '꽃다발 든 아가씨', x: 0.4, w: 122, h: 290, lines: ['기관사님께 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
+          { id: 'flowers', when: ['S1', 'S2', 'S3', 'S4', 'S5'], pass: '아이, 떨려라.', name: '꽃다발 든 아가씨', x: 0.4, w: 122, h: 290, lines: ['첫 기차에 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
           { id: 'driver', pass: '출발 준비 완료!', name: '기관사', x: 0.52, w: 112, h: 299, lines: ['시속 210km입니다. 손이 떨려요.', '선로가 눈앞으로 빨려 들어와요.'] },
           { id: 'master', pass: '물러서 주십시오!', name: '역장', x: 0.66, w: 106, h: 320, lines: ['여섯 시 정각, 히카리 1호 출발!', '일 초도 늦으면 안 됩니다.'] },
           { id: 'banzai', pass: '만세! 만세!', name: '신이 난 회사원', x: 0.82, w: 155, h: 304, lines: ['테이프 끊는 걸 봤어! 박수가 터졌어!', '만세! 우리가 해냈다고!'] },
@@ -401,12 +403,48 @@ export const WALKS = {
         spots: [],
       },
     ],
+    // Told as the plan the user brought on 2026.10.8 has it (its section 9, "출발 전에 전할
+    // 말"; core/tale.js): a young woman would thank those who run the new train and cannot
+    // bring herself to. Two are heard out in either order, one of two ways is tried, she is
+    // told how it went and may change once, and one of two ends is chosen. The words in
+    // quotes are the plan's. Bound here to those already drawn: the woman with the flowers
+    // (before the station at first, on the platform once she is taken up), the man on his
+    // way to Osaka for the passenger, the station master for the man of the railway. All of
+    // it is made up; nobody goes up to the driver and the train is not kept.
+    tale: {
+      ask: '고마운 마음을 어떻게 전할까?',
+      giver: 'flowers0', offer: '고맙다는 말을 하고 싶은데 떨리네요.',
+      holds: '꽃다발: 아가씨가 들고 있음',
+      clues: [
+        { id: 'c1', actor: 'master', line: '긴 이야기는 어렵지만, 인사는 전할게요.' },
+        { id: 'c2', actor: 'salary', line: '직접 한마디라도 하면 마음에 남겠죠.' },
+      ],
+      routes: {
+        A: { label: '하고 싶은 말 적기', gain: '하고 싶은 말이 다 담긴다', loss: '직접 읽기에는 길다', actor: 'flowers', result: '다 적으니 좋네요. 직접 읽기엔 길어요.', holds: '쪽지: 아가씨가 가지고 있음', record: '마음을 쪽지에 적었다' },
+        B: { label: '한마디 연습하기', gain: '직접 말하기 쉽다', loss: '하고 싶은 말이 줄어든다', actor: 'flowers', result: '말은 할 수 있겠어요. 빠진 얘기도 많네요.', holds: '한마디: 아가씨가 외우고 있음', record: '짧은 인사를 연습했다' },
+      },
+      resolver: 'flowers', close: '이제 전할 시간이에요. 어떻게 할까요?',
+      endings: {
+        E1: { label: '짧게 인사하고 꽃 전하기', says: '고맙습니다. 이 말을 하고 싶었어요.', reply: '많은 말 대신, 직접 건넨 한마디가 남는 날도 있구나.', record: '직접 전했다', holds: '꽃다발: 역장에게 전했음' },
+        E2: { label: '역장에게 꽃과 말 맡기기', says: '대신 전해 주셔서 고마워요.', reply: '누군가의 손을 빌려도, 전하려던 마음을 남길 수 있구나.', record: '역장에게 맡겼다', holds: '꽃다발과 말: 역장에게 맡겼음' },
+      },
+      goals: {
+        S0: '역 앞의 꽃다발 든 아가씨에게 가 보렴.',
+        S1: '두 사람의 이야기를 들어 보렴.',
+        S2: '어떻게 도울지 골라 보렴.',
+        S3: '승강장의 아가씨에게 가 보렴.',
+        S4: '아가씨와 마지막을 정하렴.',
+        S5: '고마운 마음을 전했다.',
+      },
+    },
+    // The tale's three marks in the notebook: both heard, a way tried, the end chosen. Nobody
+    // does them by being spoken to (`at` is empty): the tale does (main.js).
     errands: [
-      { id: 'tape', text: '첫 차 떠나는 걸 본 사람을 찾아보렴.', at: ['banzai'] },
-      { id: 'speed', text: '얼마나 빠른지 속도계를 보고 오렴.', at: ['buffet'] },
-      { id: 'fuji', text: '창밖으로 후지산이 보이는지 보렴.', at: ['granny'] },
+      { id: 'heard', text: '두 사람의 이야기를 듣는다.', at: [] },
+      { id: 'tried', text: '한 가지 방법을 해 본다.', at: [] },
+      { id: 'ended', text: '마지막을 정한다.', at: [] },
     ],
-    reply: '시속 210km라니. 후지산이 금세 지나갔겠구나.',
+    reply: '고마운 마음을 전했구나. 그 기차는 지금도 달린단다.',
   },
   // The first leaf: grandmother's village on the night of 21 July 1969, the one day in
   // the notebook she saw herself (the user, 2026.10.8, of the places made in Paris's

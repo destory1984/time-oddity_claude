@@ -142,9 +142,12 @@ export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
       // with a "!" (the user, of one an errand asked for: "얘도 그냥 넘어갈 뻔 함"). Whoever
       // has no mark can be walked past.
       let mark = null;
-      if (worth({ place }, person)) {
+      if (worth({ place }, person) || place.tale) {
         mark = document.createElement('i');
         mark.className = 'mark';
+        // In a tale anyone may be called for in their turn: those with nothing else to mark
+        // them have a mark that shows only then.
+        if (!worth({ place }, person)) mark.dataset.tale = '1';
         if (person.show) mark.style.backgroundImage = `url(./walks/${place.dir}/show-${person.show}.webp)`;
         else { mark.classList.add('bang'); mark.textContent = '!'; }
         // Touching the mark is touching them (the user, 2026.10.8: "저거 눌러도 대화 시작하게").
@@ -318,7 +321,14 @@ export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
     for (const node of nodes.values()) {
       // Only those worth stopping for light up: gold all round until she has been to them,
       // and brighter while she stands by them.
-      const fresh = Boolean(node.mark) && !((walk.said[node.person.id] ?? 0) > 0 || (node.person.try && walk.tried.includes(node.person.try.id)));
+      // Whoever the tale calls for is marked until that is done, whatever was said before
+      // (walk.called, main.js); whoever is not in this scene just now is not drawn (walk.absent).
+      const called = walk.called?.includes(node.person.id) ?? false;
+      const gone = walk.absent?.includes(node.person.id) ?? false;
+      node.img.style.display = gone ? 'none' : '';
+      if (node.mark) node.mark.style.display = gone ? 'none' : '';
+      const fresh = !gone && (called || (Boolean(node.mark) && !node.mark.dataset.tale && !((walk.said[node.person.id] ?? 0) > 0 || (node.person.try && walk.tried.includes(node.person.try.id)))));
+      if (node.mark && called && !node.person.show) { node.mark.classList.add('bang'); node.mark.textContent = '!'; }
       node.img.classList.toggle('worth', fresh);
       node.img.classList.toggle('near', Boolean(node.mark) && Math.abs(node.person.x - walk.x) <= 0.05);
       node.img.classList.toggle('speaking', walk.heard?.id === node.person.id);

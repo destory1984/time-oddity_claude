@@ -11,14 +11,15 @@ import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, 
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
 import { soraPose } from './core/sora.js';
 import { guideLine } from './core/guide.js';
-import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markBeen, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf, beenOf, errandsOf, metOf, markErrands, markMet } from './core/progress.js';
+import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markBeen, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf, beenOf, errandsOf, metOf, markErrands, markMet, taleOf, markTale } from './core/progress.js';
 import { findsOf } from './core/find.js';
 import { createFindGame } from './ui/find.js';
 import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, VERBS, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf } from './core/walk.js';
+import { REACH, VERBS, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf } from './core/walk.js';
+import { accept, calledOf, choose as chooseRoute, end as endTale, goalOf, hear, holdsOf, keepOn, present, recordOf, revise, roleOf } from './core/tale.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -391,13 +392,15 @@ const FOOTFALL_MS = 300;    // two frames of her walking (ui/walk.js STEP_MS)
 const walkView = createWalkView({
   onPerson: (id) => {
     if (!walk) return;
-    const person = sceneOf(walk).people.find((p) => p.id === id);
+    if (panelOpen()) return;
+    const person = peopleOf(walk).find((p) => p.id === id);
+    if (!person) return;
     if (Math.abs(person.x - walk.x) <= REACH) { if (person.lines) talk(id); else tryNear(id); return; }
     // Touched from afar: she goes to stand beside them, then speaks.
     sendTo(walk, person.x + (walk.x < person.x ? -1 : 1) * REACH * 0.6);
     walkWant = id;
   },
-  onWay: (way) => { walkWay = way; if (way !== 0) walkWant = null; },
+  onWay: (way) => { walkWay = panelOpen() ? 0 : way; if (way !== 0) walkWant = null; },
   onLook: (look) => openLook(look),
 });
 // A thing of the scene looked at closely: a photograph of it as it is today and what is
@@ -424,6 +427,18 @@ function showErrands() {
   // Where the place has a story the slip is headed by what grandmother never found out, and
   // shows the steps as they come: what is done, what is to be done now, and no further.
   const story = walk.place.story;
+  // A tale (core/tale.js): the question, what is to be done now, what is in whose hands,
+  // and once it is told what she did, in order.
+  if (walk.tale) {
+    const told = walk.place.tale;
+    head.textContent = `할머니의 물음 · ${told.ask}`;
+    list.append(head);
+    const row = (text, cls) => { const li = document.createElement('li'); li.textContent = text; if (cls) li.className = cls; list.append(li); };
+    row(goalOf(told, walk.tale));
+    if (holdsOf(told, walk.tale)) row(holdsOf(told, walk.tale), 'has');
+    if (walk.tale.state === 'S5') row(`한 일: ${recordOf(told, walk.tale).join(' → ')}`, 'did');
+    return;
+  }
   if (story) head.textContent = `할머니의 물음 · ${story.ask}`;
   else head.textContent = left > 0 ? `할머니의 심부름 · ${left}개 남음` : '할머니의 심부름 · 다 했다';
   list.append(head);
@@ -439,8 +454,135 @@ function showErrands() {
 // The end of a place's story is hers to choose (`story.choice`): two buttons at the foot of
 // the screen. What she chose is kept with what she has tried there (`chose-<id>`), and
 // grandmother's answer is the one written for it.
+// ---- A tale with a try in the middle of it (core/tale.js; Tokyo) ----
+// What is asked of her is put in the box at the foot of the screen: a line, perhaps a note
+// under it, and two things to press. While it is up she stands still.
+let panel = null;                    // what the box holds now, or null: { ask, note, options, back }
+const panelOpen = () => panel !== null;
+function openPanel(spec) {
+  panel = spec;
+  walkWay = 0; keyWay = 0; walkWant = null;
+  const box = $('walkChoice');
+  box.replaceChildren();
+  box.hidden = false;
+  const ask = document.createElement('span');
+  ask.textContent = spec.ask;
+  box.append(ask);
+  if (spec.note) { const note = document.createElement('p'); note.textContent = spec.note; box.append(note); }
+  let busy = false;
+  for (const option of spec.options) {
+    const button = document.createElement('button');
+    button.type = 'button'; button.className = option.quiet ? 'glass quiet' : 'glass';
+    button.textContent = option.label;
+    if (option.sub) { const sub = document.createElement('small'); sub.textContent = option.sub; button.append(sub); }
+    // One press does one thing: a second press, a key held down, the click a touch leaves
+    // behind it do nothing more.
+    button.addEventListener('click', (e) => { if (busy || e.detail > 1) return; busy = true; sound.wake(); sound.tick(true, false); option.pick(); });
+    box.append(button);
+  }
+  box.querySelector('button')?.focus({ preventScroll: true });
+}
+function closePanel() {
+  if (!panel) return;
+  panel = null;
+  $('walkChoice').hidden = true;
+  $('walkChoice').replaceChildren();
+}
+// A step of the tale is taken: kept first, then shown.
+function saveTale(next) {
+  if (!walk || next === walk.tale) return false;
+  walk.tale = next;
+  keep(markTale(progress, square.id, next));
+  showErrands();
+  $('errands').classList.remove('folded');
+  errandsFoldAt = walkT + 6000;
+  return true;
+}
+function taleMark(id) {
+  if (walk.done.includes(id)) return;
+  walk.done.push(id);
+  keep(markErrands(progress, square.id, walk.done));
+}
+function askRoute() {
+  const told = walk.place.tale;
+  openPanel({
+    ask: '어떻게 도울까?',
+    back: closePanel,
+    options: ['A', 'B'].map((id) => ({
+      label: told.routes[id].label,
+      sub: `좋은 점: ${told.routes[id].gain} · 아쉬운 점: ${told.routes[id].loss}`,
+      pick: () => openPanel({
+        ask: told.routes[id].label,
+        note: `좋은 점: ${told.routes[id].gain}\n아쉬운 점: ${told.routes[id].loss}`,
+        back: askRoute,
+        options: [
+          { label: '실행', pick: () => { closePanel(); if (saveTale(chooseRoute(walk.tale, id))) sound.stamp(); } },
+          { label: '다시 고르기', quiet: true, pick: askRoute },
+        ],
+      }),
+    })),
+  });
+}
+function askKeep() {
+  const told = walk.place.tale;
+  const other = told.routes[walk.tale.route === 'A' ? 'B' : 'A'];
+  openPanel({
+    ask: '이대로 할까?',
+    back: closePanel,
+    options: [
+      { label: '이대로 계속', pick: () => { closePanel(); if (saveTale(keepOn(walk.tale))) { taleMark('tried'); sound.stamp(); } } },
+      ...(walk.tale.revisionUsed ? [] : [{ label: '다른 방법으로', sub: `${other.label} · 이번 이야기에서 1회`, quiet: true, pick: () => { closePanel(); if (saveTale(revise(walk.tale))) { walk.heard = null; sound.page(); } } }]),
+    ],
+  });
+}
+function askEnd() {
+  const told = walk.place.tale;
+  openPanel({
+    ask: '마지막을 어떻게 할까?',
+    back: closePanel,
+    options: ['E1', 'E2'].map((id) => ({
+      label: told.endings[id].label,
+      pick: () => openPanel({
+        ask: told.endings[id].label,
+        note: `아가씨: "${told.endings[id].says}"`,
+        back: askEnd,
+        options: [
+          { label: '이대로 마치기', pick: () => finishTale(id) },
+          { label: '다시 고르기', quiet: true, pick: askEnd },
+        ],
+      }),
+    })),
+  });
+}
+// The end is chosen: it is kept, and only then is the slip stamped and grandmother's answer shown.
+function finishTale(id) {
+  closePanel();
+  if (!saveTale(endTale(walk.tale, id))) return;
+  const told = walk.place.tale;
+  walk.heard = { id: told.resolver, line: told.endings[id].says };
+  taleMark('heard'); taleMark('tried'); taleMark('ended');
+  errandsDone();
+}
+// She has spoken to someone who has a part in the tale just now (`role` is the part they had
+// as they spoke).
+function taleSpoke(person, role) {
+  const told = walk.place.tale;
+  if (role === 'giver') {
+    openPanel({ ask: '아가씨를 도와줄까?', back: closePanel, options: [
+      { label: '맡기', pick: () => { closePanel(); if (saveTale(accept(walk.tale))) { walk.heard = null; walkSora = { text: '제가 도울게요! 같이 가요.', from: walkT + 200, until: walkT + 200 + SORA_FOR_MS }; sound.stamp(); } } },
+      { label: '나중에', quiet: true, pick: closePanel },
+    ] });
+  } else if (role === 'clue') {
+    const clue = told.clues.find((c) => c.actor === person.id);
+    if (saveTale(hear(walk.tale, told, clue.id)) && walk.tale.state === 'S2') { taleMark('heard'); sound.stamp(); }
+    // Both heard: the choice comes up when their words have been read (and again on asking either).
+    if (walk.tale.state === 'S2') setTimeout(() => { if (walk?.tale?.state === 'S2' && !panelOpen()) askRoute(); }, 2600);
+  } else if (role === 'result') askKeep();
+  else if (role === 'resolver') askEnd();
+}
+
 const chosenOf = () => walk?.place.story?.choice?.options.find((o) => walk.tried.includes(`chose-${o.id}`)) ?? null;
-const replyOf = () => chosenOf()?.reply ?? walk.place.reply;
+const replyOf = () => (walk.tale?.endingId ? walk.place.tale.endings[walk.tale.endingId].reply : null) ?? chosenOf()?.reply ?? walk.place.reply;
 let choosing = false;
 function showChoice(on) {
   choosing = on;
@@ -495,11 +637,15 @@ function errandsDone() {
 }
 function talk(id = null) {
   if (!walk) return;
-  const said = speak(walk, id ?? withWhom(walk)?.id ?? null);
+  if (panelOpen()) return;
+  const whom = id ?? withWhom(walk)?.id ?? null;
+  const part = walk.tale && whom ? roleOf(walk.place.tale, walk.tale, whom) : null;
+  const said = speak(walk, whom);
   if (!said) return;
   sound.wake();
   sound.tick(true, false);
   if (said.over) return;
+  if (part && part !== 'after') taleSpoke(said.person, part);
   if (said.person.sound) sound[said.person.sound]();
   keep(markMet(progress, square.id, said.person.id));
   // What she makes of a thing they show her, in word and face, the first time she sees it
@@ -571,7 +717,8 @@ function enterScene() {
 function showWalk(sq) {
   square = sq;
   visit = null; site = null;
-  walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id), done: errandsOf(progress, sq.id), met: metOf(progress, sq.id) });
+  walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id), done: errandsOf(progress, sq.id), met: metOf(progress, sq.id), tale: taleOf(progress, sq.id) });
+  closePanel();
   walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyUntil = 0; walkNoteAt = 0;
   // What she chose from the wardrobe above the Earth is on her as she comes down.
   const worn = OUTFITS.find((o) => o.outfit === loadOutfit());
@@ -612,6 +759,8 @@ for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
 $('tryButton').addEventListener('click', () => tryNear());
 window.addEventListener('keydown', (e) => {
   if (mode !== 'walk' || e.ctrlKey || e.altKey || e.metaKey) return;
+  // While something is asked of her the keys are the box's: Esc goes back, the rest is left to its buttons.
+  if (panelOpen()) { if (e.code === 'Escape') { e.preventDefault(); panel.back?.(); } return; }
   if (e.code === 'ArrowLeft' || e.code === 'KeyA') { keyWay = -1; walkWant = null; e.preventDefault(); }
   else if (e.code === 'ArrowRight' || e.code === 'KeyD') { keyWay = 1; walkWant = null; e.preventDefault(); }
   else if (e.code === 'Space' && !e.repeat && !e.target.closest?.('button')) { talk(); e.preventDefault(); }
@@ -625,7 +774,12 @@ window.addEventListener('blur', () => { keyWay = 0; walkWay = 0; });
 
 function frameWalk(dt) {
   walkT += dt;
-  const out = stepWalk(walk, dt, walkHopping ? 0 : walkWay || keyWay);
+  // Who the tale calls for, and who is not in this scene just now, for the picture (ui/walk.js).
+  if (walk.tale) {
+    walk.called = calledOf(walk.place.tale, walk.tale);
+    walk.absent = sceneOf(walk).people.filter((p) => !present(walk.tale, p)).map((p) => p.id);
+  }
+  const out = stepWalk(walk, dt, walkHopping || panelOpen() ? 0 : walkWay || keyWay);
   if (walk.remark && walk.heard?.id !== walk.remark.id) walk.remark = null;
   if (out.scene !== 0) enterScene();
   // Her footfalls, and the place's own sounds now and then.
@@ -856,6 +1010,7 @@ async function leave() {
   visit = null;
   site = null;
   showChoice(false);
+  closePanel();
   walk = null;
   // What she put on is left where it was put on: the next place sees her in her own clothes
   // (the user, 2026.10.8, in the yard of 1969 with Seoul's hat still on: "88년 벗어났으면, 옷은 원래대로").
