@@ -406,8 +406,9 @@ export const WALKS = {
     // Told as the plan the user brought on 2026.10.8 has it (its section 9, "출발 전에 전할
     // 말"; core/tale.js): a young woman would thank those who run the new train and cannot
     // bring herself to. Two are heard out in either order, one of two ways is tried, she is
-    // told how it went and may change once, and one of two ends is chosen. The words in
-    // quotes are the plan's. Bound here to those already drawn: the woman with the flowers
+    // told how it went and may change once, and one of two ends is chosen. What people
+    // say is the plan's; what is on the buttons was written again in plainer words (the user,
+    // having tried it: "네가 문장을 좀 이상하게 썼어. 사용자가 어려워해"). Bound here to those already drawn: the woman with the flowers
     // (before the station at first, on the platform once she is taken up), the man on his
     // way to Osaka for the passenger, the station master for the man of the railway. All of
     // it is made up; nobody goes up to the driver and the train is not kept.
@@ -420,17 +421,17 @@ export const WALKS = {
         { id: 'c2', actor: 'salary', line: '직접 한마디라도 하면 마음에 남겠죠.' },
       ],
       routes: {
-        A: { label: '하고 싶은 말 적기', gain: '하고 싶은 말이 다 담긴다', loss: '직접 읽기에는 길다', actor: 'flowers', result: '다 적으니 좋네요. 직접 읽기엔 길어요.', holds: '쪽지: 아가씨가 가지고 있음', record: '마음을 쪽지에 적었다' },
-        B: { label: '한마디 연습하기', gain: '직접 말하기 쉽다', loss: '하고 싶은 말이 줄어든다', actor: 'flowers', result: '말은 할 수 있겠어요. 빠진 얘기도 많네요.', holds: '한마디: 아가씨가 외우고 있음', record: '짧은 인사를 연습했다' },
+        A: { label: '하고 싶은 말을 쪽지에 적는다', gain: '말이 다 담겨요.', loss: '하지만 읽기엔 길어요.', actor: 'flowers', result: '다 적으니 좋네요. 직접 읽기엔 길어요.', holds: '쪽지: 아가씨가 가지고 있음', record: '마음을 쪽지에 적었다' },
+        B: { label: '짧은 한마디를 연습한다', gain: '말하기 쉬워요.', loss: '하지만 못다 한 말이 남아요.', actor: 'flowers', result: '말은 할 수 있겠어요. 빠진 얘기도 많네요.', holds: '한마디: 아가씨가 외우고 있음', record: '짧은 인사를 연습했다' },
       },
       resolver: 'flowers', close: '이제 전할 시간이에요. 어떻게 할까요?',
       endings: {
-        E1: { label: '짧게 인사하고 꽃 전하기', says: '고맙습니다. 이 말을 하고 싶었어요.', reply: '많은 말 대신, 직접 건넨 한마디가 남는 날도 있구나.', record: '직접 전했다', holds: '꽃다발: 역장에게 전했음' },
-        E2: { label: '역장에게 꽃과 말 맡기기', says: '대신 전해 주셔서 고마워요.', reply: '누군가의 손을 빌려도, 전하려던 마음을 남길 수 있구나.', record: '역장에게 맡겼다', holds: '꽃다발과 말: 역장에게 맡겼음' },
+        E1: { label: '직접 짧게 인사하고 꽃을 준다', says: '고맙습니다. 이 말을 하고 싶었어요.', reply: '많은 말 대신, 직접 건넨 한마디가 남는 날도 있구나.', record: '직접 전했다', holds: '꽃다발: 역장에게 전했음' },
+        E2: { label: '역장님께 꽃과 말을 맡긴다', says: '대신 전해 주셔서 고마워요.', reply: '누군가의 손을 빌려도, 전하려던 마음을 남길 수 있구나.', record: '역장에게 맡겼다', holds: '꽃다발과 말: 역장에게 맡겼음' },
       },
       goals: {
         S0: '역 앞의 꽃다발 든 아가씨에게 가 보렴.',
-        S1: '두 사람의 이야기를 들어 보렴.',
+        S1: '머리 위에 ! 가 뜬 두 사람에게 물어보렴.',
         S2: '어떻게 도울지 골라 보렴.',
         S3: '승강장의 아가씨에게 가 보렴.',
         S4: '아가씨와 마지막을 정하렴.',

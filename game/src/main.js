@@ -510,14 +510,14 @@ function askRoute() {
     back: closePanel,
     options: ['A', 'B'].map((id) => ({
       label: told.routes[id].label,
-      sub: `좋은 점: ${told.routes[id].gain} · 아쉬운 점: ${told.routes[id].loss}`,
+      sub: `${told.routes[id].gain} ${told.routes[id].loss}`,
       pick: () => openPanel({
         ask: told.routes[id].label,
-        note: `좋은 점: ${told.routes[id].gain}\n아쉬운 점: ${told.routes[id].loss}`,
+        note: `${told.routes[id].gain}\n${told.routes[id].loss}`,
         back: askRoute,
         options: [
-          { label: '실행', pick: () => { closePanel(); if (saveTale(chooseRoute(walk.tale, id))) sound.stamp(); } },
-          { label: '다시 고르기', quiet: true, pick: askRoute },
+          { label: '이걸로 할래', pick: () => { closePanel(); if (saveTale(chooseRoute(walk.tale, id))) sound.stamp(); } },
+          { label: '다시 고를래', quiet: true, pick: askRoute },
         ],
       }),
     })),
@@ -530,15 +530,15 @@ function askKeep() {
     ask: '이대로 할까?',
     back: closePanel,
     options: [
-      { label: '이대로 계속', pick: () => { closePanel(); if (saveTale(keepOn(walk.tale))) { taleMark('tried'); sound.stamp(); } } },
-      ...(walk.tale.revisionUsed ? [] : [{ label: '다른 방법으로', sub: `${other.label} · 이번 이야기에서 1회`, quiet: true, pick: () => { closePanel(); if (saveTale(revise(walk.tale))) { walk.heard = null; sound.page(); } } }]),
+      { label: '이대로 할래', pick: () => { closePanel(); if (saveTale(keepOn(walk.tale))) { taleMark('tried'); sound.stamp(); } } },
+      ...(walk.tale.revisionUsed ? [] : [{ label: '다른 방법으로 바꿀래', sub: `${other.label} (한 번만 바꿀 수 있어요)`, quiet: true, pick: () => { closePanel(); if (saveTale(revise(walk.tale))) { walk.heard = null; sound.page(); } } }]),
     ],
   });
 }
 function askEnd() {
   const told = walk.place.tale;
   openPanel({
-    ask: '마지막을 어떻게 할까?',
+    ask: '마지막에 어떻게 할까?',
     back: closePanel,
     options: ['E1', 'E2'].map((id) => ({
       label: told.endings[id].label,
@@ -547,8 +547,8 @@ function askEnd() {
         note: `아가씨: "${told.endings[id].says}"`,
         back: askEnd,
         options: [
-          { label: '이대로 마치기', pick: () => finishTale(id) },
-          { label: '다시 고르기', quiet: true, pick: askEnd },
+          { label: '이렇게 끝낼래', pick: () => finishTale(id) },
+          { label: '다시 고를래', quiet: true, pick: askEnd },
         ],
       }),
     })),
@@ -569,7 +569,7 @@ function taleSpoke(person, role) {
   const told = walk.place.tale;
   if (role === 'giver') {
     openPanel({ ask: '아가씨를 도와줄까?', back: closePanel, options: [
-      { label: '맡기', pick: () => { closePanel(); if (saveTale(accept(walk.tale))) { walk.heard = null; walkSora = { text: '제가 도울게요! 같이 가요.', from: walkT + 200, until: walkT + 200 + SORA_FOR_MS }; sound.stamp(); } } },
+      { label: '도와준다', pick: () => { closePanel(); if (saveTale(accept(walk.tale))) { walk.heard = null; walkSora = { text: '제가 도울게요! 같이 가요.', from: walkT + 200, until: walkT + 200 + SORA_FOR_MS }; sound.stamp(); } } },
       { label: '나중에', quiet: true, pick: closePanel },
     ] });
   } else if (role === 'clue') {
@@ -1320,6 +1320,15 @@ function startOver() {
 // screen shape) stay as they are.
 $('testBar').hidden = !isLocalHost(location.hostname);
 $('testReset').addEventListener('click', () => startOver());
+// The maker tries one place's tale over and over (the user, 2026.10.8: "몇 번 더 해보고
+// 결정하자"): the place she stands in is begun again, the others left as they are.
+$('testAgain').addEventListener('click', () => {
+  if (mode !== 'walk' || !square) return;
+  const { [square.id]: gone, ...rest } = progress.squares;
+  keep({ ...progress, squares: rest });
+  closePanel();
+  showWalk(square);
+});
 // And its opposite, for testing what comes after: every square done, every note read.
 $('testAll').addEventListener('click', () => {
   keepProgressAside();
