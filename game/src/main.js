@@ -18,7 +18,7 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, VERBS, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf } from './core/walk.js';
+import { REACH, VERBS, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf } from './core/walk.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -404,14 +404,52 @@ function showErrands() {
   list.replaceChildren();
   const head = document.createElement('b');
   const left = walk.place.errands.length - walk.done.length;
-  head.textContent = left > 0 ? `할머니의 심부름 · ${left}개 남음` : '할머니의 심부름 · 다 했다';
+  // Where the place has a story the slip is headed by what grandmother never found out, and
+  // shows the steps as they come: what is done, what is to be done now, and no further.
+  const story = walk.place.story;
+  if (story) head.textContent = `할머니의 물음 · ${story.ask}`;
+  else head.textContent = left > 0 ? `할머니의 심부름 · ${left}개 남음` : '할머니의 심부름 · 다 했다';
   list.append(head);
+  const now = stepOf(walk);
   for (const errand of walk.place.errands) {
+    if (story && !walk.done.includes(errand.id) && errand !== now) continue;
     const row = document.createElement('li');
     row.textContent = errand.text;
     row.classList.toggle('done', walk.done.includes(errand.id));
     list.append(row);
   }
+}
+// The end of a place's story is hers to choose (`story.choice`): two buttons at the foot of
+// the screen. What she chose is kept with what she has tried there (`chose-<id>`), and
+// grandmother's answer is the one written for it.
+const chosenOf = () => walk?.place.story?.choice?.options.find((o) => walk.tried.includes(`chose-${o.id}`)) ?? null;
+const replyOf = () => chosenOf()?.reply ?? walk.place.reply;
+let choosing = false;
+function showChoice(on) {
+  choosing = on;
+  const box = $('walkChoice');
+  box.replaceChildren();
+  box.hidden = !on;
+  if (!on) return;
+  const { choice } = walk.place.story;
+  const ask = document.createElement('span');
+  ask.textContent = choice.ask;
+  box.append(ask);
+  for (const option of choice.options) {
+    const button = document.createElement('button');
+    button.type = 'button'; button.className = 'glass'; button.textContent = option.label;
+    button.addEventListener('click', () => choose(option));
+    box.append(button);
+  }
+}
+function choose(option) {
+  if (!walk || !choosing) return;
+  showChoice(false);
+  sound.wake(); sound.tick(true, false);
+  walk.tried.push(`chose-${option.id}`);
+  keep(markTried(progress, square.id, `chose-${option.id}`));
+  walkSora = { text: option.sora, from: walkT + 200, until: walkT + 200 + SORA_FOR_MS };
+  setTimeout(() => { if (walk) { sound.bell(); replyUntil = walkT + 12000; walkNoteAt = walkT + NOTE_AFTER_MS; } }, 2600);
 }
 // The slip is read on arriving, then folds to its heading; a touch opens and folds it.
 $('errands').addEventListener('click', () => $('errands').classList.toggle('folded'));
@@ -422,6 +460,9 @@ function errandsDone() {
   $('errands').classList.remove('folded');
   errandsFoldAt = walkT + 3500;
   sound.stamp();
+  // What she says as a step of the story is done.
+  const said = walk.place.errands.find((errand) => errand.id === walk.done.at(-1))?.sora;
+  if (said) walkSora = { text: said, from: walkT + 900, until: walkT + 900 + SORA_FOR_MS };
   if (!allDone(walk)) return;
   // All three: the square is filled and grandmother writes back.
   for (const dot of ['sky', 'remains']) keep(fillDot(progress, square.id, dot));
@@ -431,6 +472,8 @@ function errandsDone() {
   $('errands').classList.add('alldone');
   walkView.cheer();
   walkFace = { poses: [['see-wow', walkT + 3200]] };
+  // A story ends with her choice, and grandmother answers that; elsewhere she answers at once.
+  if (walk.place.story?.choice && !chosenOf()) { setTimeout(() => { if (walk && allDone(walk) && !chosenOf()) showChoice(true); }, said ? 900 + SORA_FOR_MS - 2500 : 1500); return; }
   setTimeout(() => { if (walk) { sound.bell(); replyUntil = walkT + 10000; walkNoteAt = walkT + NOTE_AFTER_MS; } }, 1200);
 }
 function talk(id = null) {
@@ -521,6 +564,7 @@ function showWalk(sq) {
   $('errands').classList.toggle('alldone', allDone(walk));
   $('errands').classList.toggle('folded', allDone(walk));
   errandsFoldAt = allDone(walk) ? 0 : ERRANDS_OPEN_MS;
+  showChoice(Boolean(walk.place.story?.choice) && allDone(walk) && !chosenOf());
   if (isLocalHost(location.hostname)) window.walkDebug = walk;
   globe.setActive(false);
   stage.className = 'on-ground on-walk';
@@ -626,7 +670,7 @@ function frameWalk(dt) {
   // shown is on the slip too: the panel of the other look has a slip of its own (ui/walk.js).
   // Until 2026.10.8 it was not shown there at all (the user, of the marble: "AUF 뜻을 나중에 알려줘?").
   const shower = walk.heard && walk.place.talk !== 'face' ? sceneOf(walk).people.find((p) => p.id === walk.heard.id) : null;
-  const memo = (walkT < replyUntil ? walk.place.reply : null) ?? walkMemo?.text ?? (shower?.show ? shower.memo : null) ?? spotAt(walk)?.memo ?? null;
+  const memo = (walkT < replyUntil ? replyOf() : null) ?? walkMemo?.text ?? (shower?.show ? shower.memo : null) ?? spotAt(walk)?.memo ?? null;
   hud.set({
     name: squareTitle(square), dateText: square.dateLabel, placeText: sceneOf(walk).name, subText: '',
     dots: { day: false, sky: false, remains: false }, memo, memoPlain: false, memoSky: false,
@@ -794,6 +838,7 @@ async function leave() {
   mode = 'globe';
   visit = null;
   site = null;
+  showChoice(false);
   walk = null;
   // What she put on is left where it was put on: the next place sees her in her own clothes
   // (the user, 2026.10.8, in the yard of 1969 with Seoul's hat still on: "88년 벗어났으면, 옷은 원래대로").

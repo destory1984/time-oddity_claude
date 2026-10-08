@@ -5,7 +5,7 @@ import { piecesAt } from '../game/src/core/pieces.js';
 import { squareById } from '../game/src/core/squares.js';
 import { WALKS } from '../game/src/core/walks.js';
 import { centuryLabel, centuryOf, centuryStart, centuryStops } from '../game/src/core/century.js';
-import { FACES, HEAR, REACH, VERBS, canSpeak, hop, talkedOut, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf } from '../game/src/core/walk.js';
+import { FACES, HEAR, REACH, VERBS, canSpeak, hop, talkedOut, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, linesOf, stepOf } from '../game/src/core/walk.js';
 import { createDial, drag, grab, release, stepDial } from '../game/src/core/dial.js';
 
 describe('centuries', () => {
@@ -416,5 +416,46 @@ describe('what a walked place remembers', () => {
     expect(errandsOf(again, 'eiffel')).toEqual(['under', 'lift']);
     expect(metOf(again, 'eiffel')).toEqual(['news']);
     expect(markMet(again, 'eiffel', 'news')).toBe(again);
+  });
+});
+
+// A place may tell one tale (the user, 2026.10.8: "기승전결이 있으면 좋겠어"): its errands are
+// then steps done in their order, people have other things to say as it goes on, and its
+// end is hers to choose.
+describe('a place with a story', () => {
+  const milan = WALKS.cenacolo;
+  it('does its steps in their order and no sooner', () => {
+    const walk = createWalk(milan);
+    walk.scene = 1; walk.x = milan.scenes[1].people.find((p) => p.id === 'waterboy').x;
+    expect(speak(walk, 'waterboy').errands).toEqual([]);      // the second step, before the first
+    walk.scene = 0; walk.x = milan.scenes[0].people.find((p) => p.id === 'messenger').x;
+    expect(stepOf(walk).id).toBe('letter');
+    expect(speak(walk, 'messenger').errands).toEqual(['letter']);
+    expect(stepOf(walk).id).toBe('trail');
+  });
+  it('gives people other lines once a step is done', () => {
+    const walk = createWalk(milan);
+    const salai = milan.scenes[0].people.find((p) => p.id === 'salai');
+    expect(linesOf(walk, salai)).toBe(salai.lines);
+    walk.done.push('letter');
+    expect(linesOf(walk, salai)).toBe(salai.then[0].lines);
+  });
+  it('is written within the limits, with two ends and an answer to each', () => {
+    for (const place of Object.values(WALKS)) {
+      for (const scene of place.scenes) for (const person of scene.people) for (const t of person.then ?? []) {
+        expect(place.errands.map((e) => e.id), person.id).toContain(t.after);
+        expect(t.lines.length, person.id).toBe(2);
+        for (const line of t.lines) expect(line.length, line).toBeLessThanOrEqual(40);
+      }
+      for (const errand of place.errands) if (errand.sora) expect(errand.sora.length, errand.id).toBeLessThanOrEqual(25);
+      if (!place.story) continue;
+      expect(place.story.ask.length).toBeLessThanOrEqual(25);
+      expect(place.story.choice.options.length).toBe(2);
+      for (const option of place.story.choice.options) {
+        expect(option.label.length, option.id).toBeLessThanOrEqual(16);
+        expect(option.sora.length, option.id).toBeLessThanOrEqual(25);
+        expect(option.reply.length, option.id).toBeLessThanOrEqual(60);
+      }
+    }
   });
 });

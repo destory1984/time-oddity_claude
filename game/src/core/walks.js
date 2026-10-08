@@ -583,12 +583,14 @@ export const WALKS = {
         sora: '옛 궁전 뜰이래. 저 말 좀 봐!',
         people: [
           { id: 'salai', pass: '헤헤, 스승님 공책이다.', name: '화가의 제자', x: 0.18, w: 149, h: 300, lines: ['스승님은 글씨를 거꾸로 써.', '거울에 비춰야 읽혀. 볼래?'],
+            then: [{ after: 'letter', lines: ['스승님? 방금 나가셨어.', '대성당 뒤 나루 쪽으로 가셨을걸.'] }],
             try: { id: 'use-mirror', verb: 'use', name: '거울', sora: '오, 거울 속에선 똑바로야!', memo: '레오나르도는 글씨를 오른쪽에서 왼쪽으로 썼단다.' } },
           { id: 'clayboy', pass: '영차, 갈라진 데 메워야지!', name: '진흙 나르는 견습생', x: 0.26, w: 116, h: 276, lines: ['이 말은 전부 흙으로 빚었어.', '어른 키의 네 배가 넘는대.'] },
           { id: 'founder', pass: '에휴, 내 쇳물…', name: '쇠 녹이는 장인', x: 0.34, w: 126, h: 319, lines: ['청동을 부어 굳히려던 말이오.', '그 청동은 대포 만들러 가 버렸소.'] },
           { id: 'pacioli', pass: '모서리가 몇 개인고…', show: 'solid', pose: 'see-aha', sora: '속이 다 들여다보여!', memo: '수학 선생의 책에 레오나르도가 그림을 그려 주었단다.', name: '수학 선생 수도사', x: 0.64, w: 145, h: 319, lines: ['내 책의 그림은 그 친구가 그렸네.', '뼈대만 그려서 뒤쪽까지 보이지.'] },
           { id: 'mechanic', pass: '쉿, 위층은 비밀이오.', show: 'wing', pose: 'see-gasp', sora: '날개잖아! 사람이 타는 거야?', memo: '지붕에서 날아 볼 궁리를 했단다. 성당 일꾼들 눈을 피해서.', name: '기계 만드는 조수', x: 0.72, w: 156, h: 312, lines: ['위층 방은 널빤지로 막아 놨소.', '대성당 일꾼들이 못 보게 말이오.'] },
-          { id: 'messenger', pass: '공작님의 분부요!', name: '공작의 심부름꾼', x: 0.79, w: 143, h: 320, lines: ['식당 그림을 어서 끝내라 하시오.', '화가 양반은 방금 나갔다는구려.'] },
+          { id: 'messenger', pass: '공작님의 분부요!', name: '공작의 심부름꾼', x: 0.79, w: 143, h: 320, lines: ['"그림을 어서 끝내라"는 편지요.', '화가 양반이 없구려. 네가 전해 주련?'],
+            then: [{ after: 'letter', lines: ['고맙다! 나는 숨 좀 돌리겠소.', '공작님은 성미가 급하시다오.'] }] },
           { id: 'lutist', pass: '랄라, 한낮의 노래~', name: '류트 타는 악사', x: 0.86, w: 153, h: 312, lines: ['한낮엔 다들 그늘에서 쉬지요.', '저 말 앞에서 타면 소리가 울려요.'] },
         ],
         spots: [
@@ -603,11 +605,11 @@ export const WALKS = {
             try: { id: 'wear-armor', verb: 'wear', name: '밀라노 갑옷', outfit: 'armor', sora: '철컹철컹! 걷기 힘들어.', memo: '그때 밀라노는 갑옷으로 이름난 도시였단다.' } },
           { id: 'melon', pass: '멜론이오, 단 멜론!', name: '멜론 파는 아주머니', x: 0.28, w: 170, h: 291, lines: ['한낮엔 멜론이 제일이지.', '화가 양반 댁도 멜론을 사 간다우.'],
             try: { id: 'eat-melon', verb: 'eat', name: '멜론', face: 'yum', sora: '달고 시원해! 꿀 같아.' } },
-          { id: 'waterboy', pass: '물이오, 비켜요!', name: '물 긷는 소년', x: 0.37, w: 160, h: 272, lines: ['방금 화가 아저씨가 지나갔어.', '땡볕에 수도원 쪽으로 걸어갔어.'] },
+          { id: 'waterboy', pass: '물이오, 비켜요!', name: '물 긷는 소년', x: 0.37, w: 160, h: 272, lines: ['화가 아저씨? 방금 지나갔어.', '땡볕에 수도원 쪽으로 걸어갔어.'] },
           { id: 'boatman', pass: '돌 왔소, 성당 돌!', show: 'marble', pose: 'see-aha', sora: '돌에 글자가 있어. A, U, F?', memo: '"성당 짓는 데 쓴다"는 라틴말의 첫 글자란다. 이 표시가 있으면 뱃길에서 돈을 안 냈지.', name: '대리석 배 뱃사공', x: 0.5, w: 158, h: 320, lines: ['먼 호숫가 산에서 물길로 왔소.', '성당 돌은 뱃길에서 돈을 안 내오.'] },
           { id: 'mason', pass: '깡, 깡. 돌가루 조심!', name: '대성당 석공', x: 0.76, w: 135, h: 304, lines: ['이 성당은 백 년 넘게 짓고 있소.', '내 손자 때나 다 될는지, 원.'] },
           { id: 'laundress', pass: '아이, 볕이 따갑기도 하지.', name: '빨래하는 처녀', x: 0.63, w: 153, h: 295, lines: ['이 물길로 배가 도시 안까지 와요.', '돌도 장작도 다 배로 온답니다.'] },
-          { id: 'silk', pass: '비단이오, 고운 비단!', name: '비단 장수', x: 0.86, w: 167, h: 317, lines: ['수도원은 서쪽 성문 쪽이라오.', '식당 벽에 큰 그림을 그린다지요.'] },
+          { id: 'silk', pass: '비단이오, 고운 비단!', name: '비단 장수', x: 0.86, w: 167, h: 317, lines: ['수도원은 서쪽 성문 쪽이라오.', '식당 벽 그림이 몇 해째라지요.'] },
         ],
         spots: [],
       },
@@ -615,24 +617,40 @@ export const WALKS = {
         id: 'hall', name: '밀라노 그라치에 수도원 식당', short: '수도원 식당', zoom: 1.12, ground: 0.77, scale: 0.62, air: 'hush',
         sora: '벽 한가득 그림이야.',
         people: [
-          { id: 'novice', pass: '(위를 올려다본다)', name: '어린 수련 수도사', x: 0.17, w: 122, h: 268, lines: ['어떤 날은 해 뜰 때부터 저물 때까지 그려요.', '밥도 물도 잊고요. 제가 다 봤어요.'] },
-          { id: 'prior', pass: '흠, 그림은 언제 끝나나.', name: '수도원장', x: 0.25, w: 139, h: 299, lines: ['사흘 나흘씩 붓도 안 댈 때가 있소.', '한두 시간씩 바라보기만 한다오.'] },
+                    { id: 'gentleman', pass: '허, 살아 있는 것 같군.', name: '구경 온 신사', x: 0.17, w: 145, h: 320, lines: ['맞은편 벽 그림은 두 해 전에 끝났소.', '빨리 끝났지. 그런데 다들 이쪽만 보오.'] },
+          { id: 'prior', pass: '흠, 그림은 언제 끝나나.', name: '수도원장', x: 0.25, w: 139, h: 299, lines: ['사흘 나흘씩 붓도 안 댈 때가 있소.', '게으른 게요! 공작님께 일렀소.'] },
           { id: 'grinder', pass: '쓱쓱, 곱게 갈아야지.', name: '물감 개는 조수', x: 0.33, w: 136, h: 308, lines: ['마른 벽에 달걀 물감으로 그려요.', '그래서 며칠 뒤에도 고칠 수 있죠.'] },
           { id: 'carpenter', pass: '실이 팽팽해야 하오.', show: 'nail', pose: 'see-peer', sora: '못 하나에서 줄이 다 나와!', memo: '한가운데 못을 박고 실을 당겨 줄을 그었단다. 못 자국이 지금도 있지.', name: '발판 세운 목수', x: 0.41, w: 160, h: 303, lines: ['한가운데 못에 실을 매어 당겼소.', '그림 속 줄이 다 그리로 모이오.'] },
           { id: 'cook', pass: '오늘 저녁은 장어라오.', show: 'eel', pose: 'see-wow', sora: '그림 속 접시에 장어가 있어!', memo: '구운 장어와 오렌지. 그때 귀하게 치던 요리를 그려 넣었단다.', name: '부엌 수도사', x: 0.5, w: 163, h: 273, lines: ['식탁 그림에 우리 음식이 있다오.', '구운 장어에 오렌지 조각이지.'] },
-          { id: 'gentleman', pass: '허, 살아 있는 것 같군.', name: '구경 온 신사', x: 0.8, w: 145, h: 320, lines: ['맞은편 벽 그림은 두 해 전에 끝났소.', '이쪽은 언제 끝날지 아무도 모르오.'] },
-          { id: 'secretary', pass: '공작님이 또 물으시오.', name: '공작의 비서', x: 0.87, w: 147, h: 306, lines: ['유월에 공작님 편지를 받았소.', '어서 끝내게 재촉하라는 편지요.'] },
+          { id: 'novice', pass: '(위를 올려다본다)', name: '어린 수련 수도사', x: 0.8, w: 122, h: 268, lines: ['한 번 그으려고 한 시간을 보세요.', '그리는 날은 밥도 잊고 저물 때까지요.'] },
+          { id: 'secretary', pass: '공작님이 또 물으시오.', name: '공작의 비서', x: 0.87, w: 147, h: 306, lines: ['유월에도 재촉하는 편지가 왔소.', '또 보내셨다니, 공작님도 참.'] },
         ],
         spots: [
           // Leonardo on the scaffold: seen, not spoken to.
-          { id: 'leonardo', from: 0.6, to: 0.74, sora: '붓질 두 번 하고… 가 버리네?', memo: '어떤 날은 그러고 갔단다. 그 그림이 "최후의 만찬"이야.' },
+          { id: 'leonardo', from: 0.6, to: 0.74, sora: '찾았다! …붓을 들고 보기만 해.', memo: '붓질 한두 번만 하고 가 버리는 날도 있었단다. 그 그림이 "최후의 만찬"이야.' },
         ],
       },
     ],
+    // The tale (the user, 2026.10.8: "하나하나가 옴니버스 이야기가 되는데, 기승전결이 있으면
+    // 좋겠어. 할머니의 쪽지는 좀 약한 것 같아"; Milan is the first place tried this way). She is
+    // handed the duke's letter (begin), follows the painter across the town (go on), finds
+    // him doing nothing, as it seems, and is told what he is doing (turn), and chooses
+    // whether to hand him the letter (end). That the duke urged him by letter is on record
+    // (29 June 1497, to his secretary); that a letter was carried to the wall is made up.
+    story: {
+      ask: '그 화가는 왜 그리 늦었을까?',
+      choice: {
+        ask: '재촉하는 편지를 전할까?',
+        options: [
+          { id: 'give', label: '편지를 발판에 올려 둔다', sora: '편지 왔어요! …쳐다보지도 않네.', reply: '재촉해도 소용없었단다. 한 번 긋자고 한 시간을 보던 사람이니까. 그림은 이듬해에 끝났지.' },
+          { id: 'keep', label: '전하지 않고 기다린다', sora: '지금은 방해하면 안 될 것 같아.', reply: '잘했다. 한 번 긋자고 한 시간을 보던 사람이란다. 그림은 이듬해에 끝났고 지금도 그 벽에 있지.' },
+        ],
+      },
+    },
     errands: [
-      { id: 'horse', text: '흙으로 빚은 큰 말을 보고 오렴. 집보다 컸단다.', at: ['horse'] },
-      { id: 'marble', text: '성당 지을 돌이 무엇을 타고 오는지 알아보렴.', at: ['boatman', 'laundress'] },
-      { id: 'supper', text: '벽에 저녁 식사를 그리는 화가를 보고 오렴.', at: ['leonardo'] },
+      { id: 'letter', text: '뜰에서 쩔쩔매는 사람을 도와주렴.', at: ['messenger'], sora: '제가 전해 줄게요! 화가는 어디 있지?' },
+      { id: 'trail', text: '화가가 어디로 갔는지 나루에서 물어보렴.', at: ['waterboy'], sora: '수도원이래. 얼른 따라가자!' },
+      { id: 'supper', text: '화가가 왜 붓을 안 대는지 알아보렴.', at: ['novice'], sora: '게으른 게 아니었어. 보고 있었던 거야.' },
     ],
     reply: '그 화가를 봤구나. 그 그림은 지금도 그 벽에 있단다.',
   },

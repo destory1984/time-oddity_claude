@@ -67,7 +67,7 @@ export function nearby(walk) {
 export const worth = (walk, person) => Boolean(person.show || person.try || walk.place.errands.some((errand) => errand.at.includes(person.id)));
 
 // Whether the one she is hearing has said the last of their lines: the next touch ends the talk.
-export const talkedOut = (walk, person) => walk.heard?.id === person.id && (walk.said[person.id] ?? 0) > 0 && (walk.said[person.id] ?? 0) % person.lines.length === 0;
+export const talkedOut = (walk, person) => walk.heard?.id === person.id && (walk.said[person.id] ?? 0) > 0 && (walk.said[person.id] ?? 0) % linesOf(walk, person).length === 0;
 
 // Whether they can be spoken to. Anyone who speaks can, as often as she likes: one who fell
 // silent after two lines seemed broken ("클릭은 계속 되어야지..또 듣고 싶을 수도 있잖아").
@@ -86,12 +86,25 @@ function overheard(walk) {
 // The spot she stands in, or null.
 export const spotAt = (walk) => sceneOf(walk).spots.find((spot) => walk.x >= spot.from && walk.x <= spot.to) ?? null;
 
+// A place with a story (`story`, core/walks.js) has its three errands as the steps of one
+// tale, done in their order: a step is not done before the one ahead of it.
+export const stepOf = (walk) => walk.place.errands.find((errand) => !walk.done.includes(errand.id)) ?? null;
+
 function finish(walk, id) {
   const fresh = [];
   for (const errand of walk.place.errands) {
+    if (walk.place.story && errand !== stepOf(walk)) continue;
     if (errand.at.includes(id) && !walk.done.includes(errand.id)) { walk.done.push(errand.id); fresh.push(errand.id); }
   }
   return fresh;
+}
+
+// What a person has to say now. As the tale goes on some have other things to say: `then`
+// is [{ after: an errand's id, lines }], and the last of them whose errand is done holds.
+export function linesOf(walk, person) {
+  if (!person?.lines) return null;
+  const later = (person.then ?? []).filter((t) => walk.done.includes(t.after));
+  return later.length > 0 ? later[later.length - 1].lines : person.lines;
 }
 
 // Speaks to whoever is near. Returns { person, line, errands: [ids done just now] }, or
@@ -111,7 +124,8 @@ export function speak(walk, id = null) {
     walk.heard = null; walk.passing = null; walk.hush = true;
     return { person, line: null, over: true, errands: [] };
   }
-  const line = person.lines[count % person.lines.length];
+  const lines = linesOf(walk, person);
+  const line = lines[count % lines.length];
   walk.said[person.id] = count + 1;
   walk.heard = { id: person.id, line };
   walk.goal = null;
