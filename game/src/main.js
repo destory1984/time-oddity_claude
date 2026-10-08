@@ -1075,18 +1075,19 @@ $('testAll').addEventListener('click', () => {
   location.reload();
 });
 
+// She is set down on a square at once, without the globe.
+function setDown(sq) {
+  globe.faceNow(sq.lat, sq.lon);
+  rollTo(dial, sq.date.year, 0.001); stepDial(dial, 10);
+  arrive(sq);
+}
+
 // Stills for screenshots: #shot=globe, or #shot=<id>,<then|sky|today>. #go=<id> starts
 // on that square.
 function still() {
   const shot = location.hash.match(/^#shot=(\w+)(?:,(then|sky|today))?$/);
   const go = location.hash.match(/^#go=(\w+)$/);
-  if (go && squareById(go[1])) {
-    const sq = squareById(go[1]);
-    globe.faceNow(sq.lat, sq.lon);
-    rollTo(dial, sq.date.year, 0.001); stepDial(dial, 10);
-    arrive(sq);
-    return;
-  }
+  if (go && squareById(go[1])) { setDown(squareById(go[1])); return; }
   if (!shot) return;
   if (shot[1] === 'globe') { globe.faceNow(41, 20); return; }
   const sq = squareById(shot[1]);
@@ -1108,8 +1109,14 @@ mark(globeMarks());
 layout();
 globe.faceNow(41, 20);
 still();
-// A first visit begins with the opening; a link straight to a square or a still does not.
-if (!loadOpened() && !location.hash) opening.open();
+// The game begins standing in Rome, not above the Earth (the user, 2026.10.8, three times:
+// "시작점을 로마로 해줘"); the globe is first seen on leaving. A first visit begins with the
+// opening and she is set down when it is closed; a link straight to a square or a still
+// has neither.
+if (!location.hash) {
+  if (loadOpened()) setDown(squareById(START));
+  else pager.open({ pages: OPENING, lastLabel: '수첩 펴기', skip: true, onDone: () => { saveOpened(); setDown(squareById(START)); } });
+}
 requestAnimationFrame(frame);
 // The first picture is on its way: the loading screen is put away.
 document.getElementById('loading').hidden = true;
