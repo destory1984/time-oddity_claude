@@ -37,6 +37,7 @@ export function createWalk(place, { scene = 0, x = 0.08, tried = [], been = [], 
     seen: [],            // the spots she has stood at, by id
     told: [],            // the scenes she has said her line in, by id
     tried: [...tried],   // what she has eaten, worn or used, by id
+    triedNow: [],        // what she has eaten or used on this visit, by id: it is not offered again until she comes back
     been: [...been],     // the scenes she has been in, by id
     remark: null,        // { id, text }: what she says of the thing that person is showing her, while it shows
     wearing: null,       // the outfit she has on, until she leaves
@@ -123,15 +124,26 @@ export function speak(walk, id = null) {
 // offered the dormouse of the man beside her: "이 사람 눌렀는데, 쥐 먹어보라고 나온다").
 export const withWhom = (walk) => (walk.heard ? sceneOf(walk).people.find((p) => p.id === walk.heard.id) : null) ?? nearby(walk);
 
+// What a person has for her to eat, wear or use now, or null. What she has on is not
+// offered again ("이미 입고 있는데, 버튼이 계속 보임"), nor what she has eaten or used on this
+// visit (the user, 2026.10.8, at the melon stall: "멜론을 계속 먹을 수 있네").
+export function offerOf(walk, person) {
+  const it = person?.try ?? null;
+  if (!it) return null;
+  if (it.verb === 'wear') return walk.wearing && walk.wearing === it.outfit ? null : it;
+  return walk.triedNow.includes(it.id) ? null : it;
+}
+
 // Tries what whoever is near has to offer. Returns { person, it: the person's try,
 // first: not tried before, errands: [ids done just now] }, or null when there is nothing.
 export function tryIt(walk, id = null) {
   const meant = id ? sceneOf(walk).people.find((p) => p.id === id && Math.abs(p.x - walk.x) <= REACH) : null;
   const person = meant ?? nearby(walk);
-  if (!person?.try) return null;
-  const it = person.try;
+  const it = offerOf(walk, person);
+  if (!it) return null;
   const first = !walk.tried.includes(it.id);
   if (first) walk.tried.push(it.id);
+  if (it.verb !== 'wear') walk.triedNow.push(it.id);
   if (it.verb === 'wear') { walk.wearing = it.outfit ?? null; walk.trips = it.trips ?? 0; }
   walk.heard = null;
   walk.goal = null;

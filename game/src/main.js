@@ -18,7 +18,7 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, VERBS, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf } from './core/walk.js';
+import { REACH, VERBS, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf } from './core/walk.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -554,7 +554,7 @@ window.addEventListener('keydown', (e) => {
   if (e.code === 'ArrowLeft' || e.code === 'KeyA') { keyWay = -1; walkWant = null; e.preventDefault(); }
   else if (e.code === 'ArrowRight' || e.code === 'KeyD') { keyWay = 1; walkWant = null; e.preventDefault(); }
   else if (e.code === 'Space' && !e.repeat && !e.target.closest?.('button')) { talk(); e.preventDefault(); }
-  else if (e.code === 'Enter' && !e.repeat && !e.target.closest?.('button')) { if (withWhom(walk)?.try) tryNear(); else talk(); e.preventDefault(); }
+  else if (e.code === 'Enter' && !e.repeat && !e.target.closest?.('button')) { if (offerOf(walk, withWhom(walk))) tryNear(); else talk(); e.preventDefault(); }
 });
 window.addEventListener('keyup', (e) => {
   if ((e.code === 'ArrowLeft' || e.code === 'KeyA') && keyWay < 0) keyWay = 0;
@@ -615,15 +615,18 @@ function frameWalk(dt) {
   // 2026.10.8: "내가 NPC 클릭하는게 말 걸기인데, 또 버튼을?"). Who is worth stopping for is
   // told by the gold round them and the mark over their head; Space still speaks.
   // What they have that she can eat, wear or use: the louder button the first time.
-  // What she already has on is not offered again ("이미 입고 있는데, 버튼이 계속 보임").
-  const has = near?.try ?? null;
-  const offer = has && !(has.verb === 'wear' && walk.wearing && walk.wearing === has.outfit) ? has : null;
+  // What she has on, or has eaten or used on this visit, is not offered again (core/walk.js).
+  const offer = offerOf(walk, near);
   const offerLabel = offer ? `${offer.name} ${VERBS[offer.verb]}` : '';
   if ($('tryButton').hidden !== !offer) $('tryButton').hidden = !offer;
   if (offer && $('tryButton').textContent !== offerLabel) $('tryButton').textContent = offerLabel;
   if (offer) $('tryButton').classList.toggle('again', walk.tried.includes(offer.id));
   // Grandmother's slip: what she wrote of the one seen from afar, or her answer.
-  const memo = (walkT < replyUntil ? walk.place.reply : null) ?? walkMemo?.text ?? spotAt(walk)?.memo ?? null;
+  // Where people speak in a bubble (the places in pixels) what she wrote of the thing being
+  // shown is on the slip too: the panel of the other look has a slip of its own (ui/walk.js).
+  // Until 2026.10.8 it was not shown there at all (the user, of the marble: "AUF 뜻을 나중에 알려줘?").
+  const shower = walk.heard && walk.place.talk !== 'face' ? sceneOf(walk).people.find((p) => p.id === walk.heard.id) : null;
+  const memo = (walkT < replyUntil ? walk.place.reply : null) ?? walkMemo?.text ?? (shower?.show ? shower.memo : null) ?? spotAt(walk)?.memo ?? null;
   hud.set({
     name: squareTitle(square), dateText: square.dateLabel, placeText: sceneOf(walk).name, subText: '',
     dots: { day: false, sky: false, remains: false }, memo, memoPlain: false, memoSky: false,

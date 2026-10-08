@@ -145,8 +145,12 @@ describe('eating, wearing and using what people have', () => {
     expect(did.first).toBe(true);
     expect(did.errands).toEqual(['e']);
     expect(walk.heard).toBe(null);
-    expect(tryIt(walk).first).toBe(false);
+    // Eaten once, it is not offered again on this visit; on the next it is, and is not new.
+    expect(tryIt(walk)).toBe(null);
     expect(walk.tried).toEqual(['eat-fish']);
+    const again = createWalk(market, { x: 0.3, tried: walk.tried });
+    expect(tryIt(again).first).toBe(false);
+    expect(again.tried).toEqual(['eat-fish']);
   });
   it('has nothing to try where nobody offers anything, or nobody is', () => {
     expect(tryIt(createWalk(market, { x: 0.9 }))).toBe(null);

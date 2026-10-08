@@ -351,6 +351,12 @@ export function createWalkView({ onPerson, onWay }) {
     }
     if (soraLine) { const hers = boxOf(soraSay); high = Math.max(high, hers.bottom + hers.tall); }
     card.style.bottom = card.classList.contains('on') && high + 10 > h * 0.53 ? `${high + 10}px` : '';
+    // Grandmother's slip for the thing on the card (main.js) lies just above the card, and
+    // the slip of errands makes room for it: under the card it could not be read.
+    const noted = card.classList.contains('on') && Boolean(heard?.person.memo);
+    root.classList.toggle('carded', noted);
+    if (noted) root.parentElement.style.setProperty('--cardTop', `${Math.max(h * 0.53, high + 10) + card.offsetHeight + 8}px`);
+    else root.parentElement.style.removeProperty('--cardTop');
   }
 
   // How a thing tasted, in a word that springs up beside her head: with or without an
