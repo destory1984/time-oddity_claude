@@ -18,7 +18,7 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, VERBS, canHop, canSpeak, hop, talkedOut, worth, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom } from './core/walk.js';
+import { REACH, VERBS, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom } from './core/walk.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -44,7 +44,7 @@ import { readReply, sendCard, takeCard } from './core/postcard.js';
 import { createPager } from './ui/opening.js';
 import { OPENING } from './core/opening.js';
 import { NOTES, dueNote, noteById, notePages } from './core/notes.js';
-import { forgetOpened, keepProgressAside,
+import { keepProgressAside,
   loadCards, loadMusic, loadMuted, loadOpened, loadProgress, saveCards, saveMusic, saveMuted, saveOpened, saveProgress,
 } from './ui/storage.js';
 
@@ -513,7 +513,6 @@ for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
   });
   for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) $(id).addEventListener(name, () => { walkWay = 0; });
 }
-$('talkButton').addEventListener('click', () => talk());
 $('tryButton').addEventListener('click', () => tryNear());
 window.addEventListener('keydown', (e) => {
   if (mode !== 'walk' || e.ctrlKey || e.altKey || e.metaKey) return;
@@ -577,15 +576,9 @@ function frameWalk(dt) {
   if (walkArrive) { walkArrive = false; walkView.arrive(); }
 
   const near = walk.moving ? null : withWhom(walk);
-  // A button to speak only by those worth stopping for, so that the button itself says
-  // "this one" (the user, 2026.10.8: "꼭 눌러봐야할 NPC와 그냥 지나쳐도 무방한 NPC의 차이점을
-  // 모르겠음"). The rest still say their two lines to one who touches them.
-  // When the last of their lines is up there is no button: a touch anywhere else ends the
-  // talk (the user, 2026.10.8: "화면 다른 곳을 누르면 대화는 마치게 되니까, 저 버튼은 없애").
-  const speaks = near && worth(walk, near) && canSpeak(walk, near) && !talkedOut(walk, near) ? near : null;
-  const label = !speaks ? '' : speaks.try ? '말 걸기' : `${speaks.name}에게 말 걸기`;
-  if ($('talkButton').hidden !== !speaks) $('talkButton').hidden = !speaks;
-  if (speaks && $('talkButton').textContent !== label) $('talkButton').textContent = label;
+  // There is no button to speak: touching a person is speaking to them (the user,
+  // 2026.10.8: "내가 NPC 클릭하는게 말 걸기인데, 또 버튼을?"). Who is worth stopping for is
+  // told by the gold round them and the mark over their head; Space still speaks.
   // What they have that she can eat, wear or use: the louder button the first time.
   // What she already has on is not offered again ("이미 입고 있는데, 버튼이 계속 보임").
   const has = near?.try ?? null;
@@ -1054,15 +1047,14 @@ function frame(now) {
   requestAnimationFrame(frame);
 }
 
-// Everything from the beginning: the notebook and the postcards are emptied and the game
-// opens again as on a first visit, loading screen and opening pages and all (the user,
-// 2026.10.8: "초기화 버튼을 누르면, 인트로부터 시작하자. 그래야 게임이 매끄럽게 이어지는지를 볼 수
-// 있어"). An address that leads straight to a square (#go=…) would skip the opening, so
-// that part of the address is dropped, here and on the page around the phone frame.
+// The notebook and the postcards are emptied and the game begins again where it begins,
+// in Rome. The opening is not told again (the user, 2026.10.8, afternoon: "초기화 -> 할머니네
+// 집으로 보내지마.. 그냥 기록만 초기화해"; that morning it had been asked for). It can be
+// read again from the settings. An address that leads straight to a square (#go=…) is
+// dropped, here and on the page around the phone frame.
 function startOver() {
   saveProgress(emptyProgress());
   saveCards({});
-  forgetOpened();
   for (const page of [window, window.top]) {
     try { page.history.replaceState(null, '', page.location.pathname + page.location.search); } catch { /* another site's page */ }
   }
