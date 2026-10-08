@@ -9,6 +9,7 @@
 // cut out on their own move in it (core/pieces.js), and whoever is spoken to answers in
 // a panel with their face in pixels (place.talk 'face') instead of a bubble overhead.
 import { piecesAt } from '../core/pieces.js';
+import { worth } from '../core/walk.js';
 
 const FOOT = 0.8;             // feet stand at this share of the screen's height
 const SORA_TALL = 176;        // she is this tall on a 812 px high screen, walking or standing
@@ -111,11 +112,15 @@ export function createWalkView({ onPerson, onWay }) {
       // Over the head of one who has a thing to show, that thing small in a ring of gold,
       // until she has seen it: such a one is easily walked past (the user, 2026.10.8:
       // "도시락 아주머니를 눌러야할지 .. 그냥 넘어가기 딱 좋은데").
+      // Those an errand asks for, and those with a thing to try, are marked the same way
+      // with a "!" (the user, of one an errand asked for: "얘도 그냥 넘어갈 뻔 함"). Whoever
+      // has no mark can be walked past.
       let mark = null;
-      if (person.show) {
+      if (worth({ place }, person)) {
         mark = document.createElement('i');
         mark.className = 'mark';
-        mark.style.backgroundImage = `url(./walks/${place.dir}/show-${person.show}.webp)`;
+        if (person.show) mark.style.backgroundImage = `url(./walks/${place.dir}/show-${person.show}.webp)`;
+        else { mark.classList.add('bang'); mark.textContent = '!'; }
         peopleEl.append(mark);
       }
       nodes.set(person.id, { img, mark, person, left: 0, top: 0, wide: 0, tall: 0 });
@@ -261,10 +266,14 @@ export function createWalkView({ onPerson, onWay }) {
     } else { badge.classList.remove('on'); badge.dataset.src = ''; }
 
     for (const node of nodes.values()) {
-      node.img.classList.toggle('near', Math.abs(node.person.x - walk.x) <= 0.05);
+      // Only those worth stopping for light up: gold all round until she has been to them,
+      // and brighter while she stands by them.
+      const fresh = Boolean(node.mark) && !((walk.said[node.person.id] ?? 0) > 0 || (node.person.try && walk.tried.includes(node.person.try.id)));
+      node.img.classList.toggle('worth', fresh);
+      node.img.classList.toggle('near', Boolean(node.mark) && Math.abs(node.person.x - walk.x) <= 0.05);
       node.img.classList.toggle('speaking', walk.heard?.id === node.person.id);
       // The mark gives way to what they are saying, and is gone for good once she has seen the thing.
-      node.mark?.classList.toggle('off', (walk.said[node.person.id] ?? 0) > 0 || walk.heard?.id === node.person.id || (walk.passing?.id === node.person.id && !soraLine));
+      node.mark?.classList.toggle('off', !fresh || walk.heard?.id === node.person.id || (walk.passing?.id === node.person.id && !soraLine));
     }
     const heard = walk.heard && nodes.has(walk.heard.id) ? nodes.get(walk.heard.id) : null;
     const panel = Boolean(heard) && place.talk === 'face';

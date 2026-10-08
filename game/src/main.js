@@ -18,7 +18,7 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, VERBS, canSpeak, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
+import { REACH, VERBS, canSpeak, worth, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -390,9 +390,15 @@ function talk(id = null) {
   sound.wake();
   sound.tick(true, false);
   if (said.person.sound) sound[said.person.sound]();
-  // What she makes of a thing they show her, said the first time she sees it.
-  if (said.person.pose) walkFace = { poses: [[said.person.pose, walkT + FACE_FOR_MS]] };
-  if (said.person.sora && !walk.told.includes(said.person.id)) { walk.told.push(said.person.id); walkSora = { text: said.person.sora, from: walkT + 900, until: walkT + 900 + SORA_FOR_MS }; }
+  // What she makes of a thing they show her, in word and face, the first time she sees it
+  // only: startled twice at one thing, and the second time without a word, she looked odd
+  // (the user, 2026.10.8).
+  const saw = `saw-${said.person.id}`;
+  if ((said.person.pose || said.person.sora) && !walk.told.includes(saw)) {
+    walk.told.push(saw);
+    if (said.person.pose) walkFace = { poses: [[said.person.pose, walkT + 900 + SORA_FOR_MS]] };
+    if (said.person.sora) walkSora = { text: said.person.sora, from: walkT + 900, until: walkT + 900 + SORA_FOR_MS };
+  }
   if (said.errands.length > 0) errandsDone();
 }
 // Eating, wearing or using what whoever is near has (plan v5, section 4): she says what
@@ -524,8 +530,10 @@ function frameWalk(dt) {
   if (walkArrive) { walkArrive = false; walkView.arrive(); }
 
   const near = walk.moving ? null : nearby(walk);
-  // A button to speak to whoever has more to say than what was heard in passing.
-  const speaks = canSpeak(walk, near) ? near : null;
+  // A button to speak only by those worth stopping for, so that the button itself says
+  // "this one" (the user, 2026.10.8: "꼭 눌러봐야할 NPC와 그냥 지나쳐도 무방한 NPC의 차이점을
+  // 모르겠음"). The rest still say their two lines to one who touches them.
+  const speaks = near && worth(walk, near) && canSpeak(walk, near) ? near : null;
   const label = !speaks ? '' : speaks.try ? '말 걸기' : `${speaks.name}에게 말 걸기`;
   if ($('talkButton').hidden !== !speaks) $('talkButton').hidden = !speaks;
   if (speaks && $('talkButton').textContent !== label) $('talkButton').textContent = label;
