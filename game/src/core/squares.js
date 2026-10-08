@@ -436,6 +436,22 @@ export const SQUARES = [
     reply: '네 시간이라니. 나 때는 하루가 걸렸단다.',
     quiz: { question: '새 기차는 오사카까지 얼마나 걸렸나?', answer: '네 시간', proof: '네 시간에', wrong: ['열 시간', '이틀'] },
   },
+  {
+    // The opening of the Games of Seoul at the Olympic Stadium in Jamsil, a Saturday. It
+    // began at 10:30; the boy with the hoop crossed the grass about an hour and a half in,
+    // after the flame was lit. The place is walked about (core/walks.js); the first plan's
+    // lines here (the card, the question) are not shown where a place is walked.
+    no: 113, id: 'seoul88', name: '굴렁쇠 소년', dateLabel: 'AD 1988.9.17', place: '서울, 대한민국',
+    lat: 37.5158, lon: 127.0728,
+    date: { year: 1988, month: 9, day: 17 }, calendar: 'gregorian', hourLocal: 12,
+    facingAz: 180, nightOnLook: true,
+    memo: '서울에서 올림픽이 열림.', sora: '경기장이 물결 같아!',
+    memoToday: '남은 것: 그 경기장. 그대로.', soraToday: '경기장은 그대로 있네.',
+    noteMemo: '1988.9.17. 잠실에서 올림픽이 열렸다. 텔레비전으로 본 날. 그날 달은 초승에서 반달 사이.',
+    card: '1988년 9월 17일 오전, 서울 잠실의 올림픽주경기장에서 스물네 번째 올림픽이 문을 열었습니다. 160개 나라가 왔습니다. 태권도 시범이 끝난 뒤 텅 빈 잔디 위를 국민학교 1학년 아이 하나가 굴렁쇠를 굴리며 가로질렀습니다.',
+    reply: '굴렁쇠 아이를 봤구나. 그날 온 나라가 숨을 죽였단다.',
+    quiz: { question: '텅 빈 잔디를 가로지른 것은?', answer: '굴렁쇠를 굴리는 아이', proof: '굴렁쇠를 굴리며', wrong: ['말을 탄 기수', '흰 비둘기 떼'] },
+  },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
 
