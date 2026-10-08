@@ -113,7 +113,9 @@ const STOPS = centuryStops(LIVE);
 // user, 2026.10.8: "시작점을 로마로 바꿔"). Until then it was the yard of 1969.
 const START = 'colosseum';
 const beenNowhere = () => LIVE.every((sq) => beenOf(progress, sq.id).length === 0);
-const startStop = () => (beenNowhere() ? 1 + Math.max(0, STOPS.findIndex((stop) => stop.ids.includes(START))) : STOPS.length);
+// The dial stands at Rome's century every time the game is opened, not only the first
+// (the user, again: "시작지점을 로마로 고쳐. 이건 지금").
+const startStop = () => 1 + Math.max(0, STOPS.findIndex((stop) => stop.ids.includes(START)));
 const eraDial = createDial({ year: startStop(), minYear: 1, maxYear: STOPS.length, px: 120 });
 eraDial.stops = STOPS.map((stop) => stop.label);
 let onEra = true;          // above the Earth the century dial is up; once a place is chosen, the year dial
