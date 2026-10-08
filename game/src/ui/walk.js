@@ -89,6 +89,7 @@ export function createWalkView({ onPerson, onWay }) {
       node.img.style.left = `${node.left}px`;
       node.img.style.top = `${node.top}px`;
       node.img.style.zIndex = String(10 + (lane % 3));
+      if (node.mark) { node.mark.style.left = `${person.x * wide}px`; node.mark.style.top = `${node.top - 8 * unit}px`; }
     }
   }
 
@@ -107,12 +108,23 @@ export function createWalkView({ onPerson, onWay }) {
       img.style.animationDelay = `${-((person.x * 7919) % 1600)}ms`;
       img.addEventListener('pointerdown', (e) => { e.stopPropagation(); onPerson(person.id); });
       peopleEl.append(img);
-      nodes.set(person.id, { img, person, left: 0, top: 0, wide: 0, tall: 0 });
+      // Over the head of one who has a thing to show, that thing small in a ring of gold,
+      // until she has seen it: such a one is easily walked past (the user, 2026.10.8:
+      // "도시락 아주머니를 눌러야할지 .. 그냥 넘어가기 딱 좋은데").
+      let mark = null;
+      if (person.show) {
+        mark = document.createElement('i');
+        mark.className = 'mark';
+        mark.style.backgroundImage = `url(./walks/${place.dir}/show-${person.show}.webp)`;
+        peopleEl.append(mark);
+      }
+      nodes.set(person.id, { img, mark, person, left: 0, top: 0, wide: 0, tall: 0 });
     }
     // What she may put on here, and how she stands on trying something, is fetched on arriving.
     for (const person of scene.people) {
       if (person.show) { const img = new Image(); img.src = `./walks/${place.dir}/show-${person.show}.webp`; }
       if (person.try?.pose) has(person.try.pose);
+      if (person.pose) has(person.pose);
       if (person.try?.trips) for (const i of FRAMES.slice(0, person.try.trips)) has(`${person.try.outfit}-trip-${i}`);
       if (person.try?.outfit) for (const i of FRAMES) { has(`${person.try.outfit}-idle-${i}`); has(`${person.try.outfit}-walk-${i}`); }
     }
@@ -251,6 +263,8 @@ export function createWalkView({ onPerson, onWay }) {
     for (const node of nodes.values()) {
       node.img.classList.toggle('near', Math.abs(node.person.x - walk.x) <= 0.05);
       node.img.classList.toggle('speaking', walk.heard?.id === node.person.id);
+      // The mark gives way to what they are saying, and is gone for good once she has seen the thing.
+      node.mark?.classList.toggle('off', (walk.said[node.person.id] ?? 0) > 0 || walk.heard?.id === node.person.id || (walk.passing?.id === node.person.id && !soraLine));
     }
     const heard = walk.heard && nodes.has(walk.heard.id) ? nodes.get(walk.heard.id) : null;
     const panel = Boolean(heard) && place.talk === 'face';

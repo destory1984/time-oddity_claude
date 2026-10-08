@@ -29,7 +29,6 @@ export function createWalk(place, { scene = 0, x = 0.08, tried = [] } = {}) {
     said: {},            // how many times each person has been spoken to
     heard: null,         // { id, line }: what was last said to her, while it is shown
     passing: null,       // { id, line }: what someone she is passing says, unasked, while she is near
-    passed: {},          // how many times each has been passed
     done: [],            // the errands done, by id
     seen: [],            // the spots she has stood at, by id
     told: [],            // the scenes she has said her line in, by id
@@ -51,19 +50,25 @@ export function nearby(walk) {
   return best;
 }
 
-// Who is worth stopping for: they have a thing to show her or for her to try, or an
-// errand asks for them. What the rest say can be heard or not, and nobody should have
-// to press anything for it (the user, 2026.10.8: "들어도 그만 안 들어도 그만인 대사는 소라가
-// 지나갈 때에 자동적으로 팝업됐다가, 멀리가면 없어지는 식으로"): it comes up over their head as
-// she passes and is gone when she has walked on.
+// Everyone has three things to say (the user, 2026.10.8: "그냥 팝업되는 대화 1개, 클릭해서
+// 나오는 대화 2개. 총 3개야"). One (`pass`) nobody has to press anything for: it comes up
+// over their head as she passes and is gone when she has walked on ("들어도 그만 안 들어도
+// 그만인 대사는 소라가 지나갈 때에 자동적으로 팝업됐다가, 멀리가면 없어지는 식으로"). Two (`lines`)
+// are said when they are spoken to, and then an ordinary person has no more to say ("일반적인
+// NPC는 2개 말하고, 대화를 그냥 끝내버려").
+// Who is worth coming back to: they have a thing to show her or for her to try, or an
+// errand asks for them. These say their two lines in turn for as long as she asks.
 export const worth = (walk, person) => Boolean(person.show || person.try || walk.place.errands.some((errand) => errand.at.includes(person.id)));
 
-// The nearest of those within hearing whose words are only heard in passing, or null.
+// Whether they have anything left to say when spoken to.
+export const canSpeak = (walk, person) => Boolean(person?.lines) && (worth(walk, person) || (walk.said[person.id] ?? 0) < person.lines.length);
+
+// The nearest of those within hearing, or null.
 function overheard(walk) {
   let best = null;
   for (const person of sceneOf(walk).people) {
     const far = Math.abs(person.x - walk.x);
-    if (far <= HEAR && person.lines && !worth(walk, person) && (!best || far < Math.abs(best.x - walk.x))) best = person;
+    if (far <= HEAR && person.pass && (!best || far < Math.abs(best.x - walk.x))) best = person;
   }
   return best;
 }
@@ -80,12 +85,13 @@ function finish(walk, id) {
 }
 
 // Speaks to whoever is near. Returns { person, line, errands: [ids done just now] }, or
-// null when nobody is. A person says a first line, then another, then the two in turn.
+// null when nobody is or they have no more to say. A person says a first line, then
+// another; one worth coming back to then says the two in turn.
 // id: the one meant, when several stand near.
 export function speak(walk, id = null) {
   const meant = id ? sceneOf(walk).people.find((p) => p.id === id && Math.abs(p.x - walk.x) <= REACH) : null;
   const person = meant ?? nearby(walk);
-  if (!person?.lines) return null;
+  if (!canSpeak(walk, person)) return null;
   const count = walk.said[person.id] ?? 0;
   const line = person.lines[count % person.lines.length];
   walk.said[person.id] = count + 1;
@@ -140,15 +146,8 @@ export function stepWalk(walk, dtMs, way = 0) {
     else if (way < 0 && next < EDGE && walk.scene > 0) { walk.scene -= 1; walk.x = 1 - EDGE * 2; walk.goal = null; out.scene = -1; }
     else walk.x = Math.max(EDGE, Math.min(1 - EDGE, next));
   }
-  // Each time she comes by, the next of their lines.
   const by = overheard(walk);
-  if ((by?.id ?? null) !== (walk.passing?.id ?? null)) {
-    if (by) {
-      const count = walk.passed[by.id] ?? 0;
-      walk.passed[by.id] = count + 1;
-      walk.passing = { id: by.id, line: by.lines[count % by.lines.length] };
-    } else walk.passing = null;
-  }
+  if ((by?.id ?? null) !== (walk.passing?.id ?? null)) walk.passing = by ? { id: by.id, line: by.pass } : null;
   const spot = spotAt(walk);
   if (spot && !walk.seen.includes(spot.id)) {
     walk.seen.push(spot.id);

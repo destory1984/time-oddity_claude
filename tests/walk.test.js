@@ -4,7 +4,7 @@ import { piecesAt } from '../game/src/core/pieces.js';
 import { squareById } from '../game/src/core/squares.js';
 import { WALKS } from '../game/src/core/walks.js';
 import { centuryLabel, centuryOf, centuryStart, centuryStops } from '../game/src/core/century.js';
-import { FACES, HEAR, REACH, VERBS, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from '../game/src/core/walk.js';
+import { FACES, HEAR, REACH, VERBS, canSpeak, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from '../game/src/core/walk.js';
 import { createDial, drag, grab, release, stepDial } from '../game/src/core/dial.js';
 
 describe('centuries', () => {
@@ -250,39 +250,50 @@ describe('the places that are walked about', () => {
 describe('what is heard in passing and what is shown', () => {
   const place = {
     scenes: [{ id: 'a', name: 'a', people: [
-      { id: 'idle', name: 'idle', x: 0.5, lines: ['one', 'two'] },
-      { id: 'seller', name: 'seller', x: 0.8, lines: ['look'], show: 'thing' },
-      { id: 'asked', name: 'asked', x: 0.3, lines: ['yes'] },
+      { id: 'idle', name: 'idle', x: 0.5, pass: 'hm', lines: ['one', 'two'] },
+      { id: 'seller', name: 'seller', x: 0.8, pass: 'come and see', lines: ['look', 'again'], show: 'thing' },
     ], spots: [] }],
-    errands: [{ id: 'ask', text: '', at: ['asked'] }],
+    errands: [],
   };
-  it('brings up what an ordinary person says as she comes near, and puts it away as she goes', () => {
+  it('brings up what a person says unasked as she comes near, and puts it away as she goes', () => {
     const walk = createWalk(place, { x: 0.65 });
-    const idle = place.scenes[0].people[0];
-    expect(worth(walk, idle)).toBe(false);
     stepWalk(walk, 16, 0);
     expect(walk.passing).toBe(null);
-    walk.x = idle.x + HEAR / 2;
+    walk.x = 0.5 + HEAR / 2;
     stepWalk(walk, 16, 0);
-    expect(walk.passing).toEqual({ id: 'idle', line: 'one' });
-    stepWalk(walk, 16, 0);
-    expect(walk.passing.line).toBe('one');
+    expect(walk.passing).toEqual({ id: 'idle', line: 'hm' });
     walk.x = 0.65;
     stepWalk(walk, 16, 0);
     expect(walk.passing).toBe(null);
-    walk.x = idle.x;
+    walk.x = 0.8;
     stepWalk(walk, 16, 0);
-    expect(walk.passing.line).toBe('two');
+    expect(walk.passing).toEqual({ id: 'seller', line: 'come and see' });
   });
-  it('leaves those worth stopping for to be spoken to: who shows a thing, and whom an errand asks for', () => {
+  it('lets an ordinary person say two lines when spoken to, and then no more', () => {
+    const walk = createWalk(place, { x: 0.5 });
+    const idle = place.scenes[0].people[0];
+    expect(worth(walk, idle)).toBe(false);
+    expect(canSpeak(walk, idle)).toBe(true);
+    expect(speak(walk).line).toBe('one');
+    expect(speak(walk).line).toBe('two');
+    expect(canSpeak(walk, idle)).toBe(false);
+    expect(speak(walk)).toBe(null);
+  });
+  it('lets one with a thing to show say theirs in turn for as long as she asks', () => {
     const walk = createWalk(place, { x: 0.8 });
-    expect(worth(walk, place.scenes[0].people[1])).toBe(true);
-    expect(worth(walk, place.scenes[0].people[2])).toBe(true);
-    stepWalk(walk, 16, 0);
-    expect(walk.passing).toBe(null);
-    walk.x = 0.3;
-    stepWalk(walk, 16, 0);
-    expect(walk.passing).toBe(null);
+    const seller = place.scenes[0].people[1];
+    expect(worth(walk, seller)).toBe(true);
+    expect([speak(walk).line, speak(walk).line, speak(walk).line]).toEqual(['look', 'again', 'look']);
+    expect(canSpeak(walk, seller)).toBe(true);
+  });
+  // The user, 2026.10.8: "그냥 팝업되는 대화 1개, 클릭해서 나오는 대화 2개. 총 3개야".
+  it('gives everyone who speaks three things to say, none longer than 25 letters', () => {
+    for (const [id, walked] of Object.entries(WALKS)) for (const scene of walked.scenes) for (const person of scene.people) {
+      if (!person.lines) continue;
+      expect(person.lines.length, `${id}/${scene.id}/${person.id}`).toBe(2);
+      expect(typeof person.pass, `${id}/${scene.id}/${person.id}`).toBe('string');
+      for (const line of [person.pass, ...person.lines]) expect(line.length, line).toBeLessThanOrEqual(25);
+    }
   });
   // The user, 2026.10.8: "매 장면마다 적어도 하나씩은 만들어놔야함".
   it('has in every scene someone with a thing to show, its picture there and a line of hers for it', () => {
@@ -293,6 +304,7 @@ describe('what is heard in passing and what is shown', () => {
         for (const person of showing) {
           expect(existsSync(`game/public/walks/${walked.dir}/show-${person.show}.webp`), `${walked.dir}/show-${person.show}`).toBe(true);
           if (person.sora) expect(person.sora.length).toBeLessThanOrEqual(25);
+          if (person.pose) expect(existsSync(`game/public/sora/${person.pose}.png`), person.pose).toBe(true);
         }
       }
     }

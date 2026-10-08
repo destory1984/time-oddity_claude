@@ -130,7 +130,9 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     palace: [[2500, 6000, windBell], [5000, 11000, birds]],
     bridge: [[9000, 16000, fogHorn], [4000, 9000, gulls]],
     station: [[8000, 14000, chime], [10000, 18000, whistle]],
-    train: [[900, 900, rails]],
+    // A joint in the rails every three seconds (the user, 2026.10.8: "기차가 움직이는게 너무
+    // 빨라. 기차 안 타봤지? 소리 간격을 3초로 해줘").
+    train: [[3000, 3000, rails]],
     night: [[900, 2200, crickets], [5000, 11000, frogs]],
     tv: [[1100, 2600, crickets], [3500, 7000, moonBeep]],
   };

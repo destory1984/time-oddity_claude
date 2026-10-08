@@ -51,6 +51,9 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkTalkLine{margin:0;font-size:calc(16px * var(--text,1));line-height:1.35}
 #walkPeople .person{position:absolute;height:auto;image-rendering:pixelated;transform-origin:50% 100%;animation:sway 1.6s ease-in-out infinite;cursor:pointer;-webkit-user-drag:none}
 #walkPeople .person.near{filter:drop-shadow(0 0 5px rgba(255,222,140,.95))}
+#walkPeople .mark{position:absolute;z-index:20;width:calc(46px * var(--text,1));height:calc(46px * var(--text,1));margin:calc(-46px * var(--text,1)) 0 0 calc(-23px * var(--text,1));border-radius:50%;border:3px solid var(--gold);background:#fff center/170% no-repeat;box-shadow:0 2px 8px #0009;pointer-events:none;animation:markBob 1.3s ease-in-out infinite}
+#walkPeople .mark.off{display:none}
+@keyframes markBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 #walkPeople .person.speaking{animation:hop .35s ease-out 1}
 @keyframes sway{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.972)}}
 @keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}

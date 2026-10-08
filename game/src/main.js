@@ -18,7 +18,7 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, VERBS, worth, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
+import { REACH, VERBS, canSpeak, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt } from './core/walk.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -391,6 +391,7 @@ function talk(id = null) {
   sound.tick(true, false);
   if (said.person.sound) sound[said.person.sound]();
   // What she makes of a thing they show her, said the first time she sees it.
+  if (said.person.pose) walkFace = { poses: [[said.person.pose, walkT + FACE_FOR_MS]] };
   if (said.person.sora && !walk.told.includes(said.person.id)) { walk.told.push(said.person.id); walkSora = { text: said.person.sora, from: walkT + 900, until: walkT + 900 + SORA_FOR_MS }; }
   if (said.errands.length > 0) errandsDone();
 }
@@ -523,8 +524,8 @@ function frameWalk(dt) {
   if (walkArrive) { walkArrive = false; walkView.arrive(); }
 
   const near = walk.moving ? null : nearby(walk);
-  // A button to speak only to those worth stopping for; the rest are heard in passing.
-  const speaks = near?.lines && worth(walk, near) ? near : null;
+  // A button to speak to whoever has more to say than what was heard in passing.
+  const speaks = canSpeak(walk, near) ? near : null;
   const label = !speaks ? '' : speaks.try ? '말 걸기' : `${speaks.name}에게 말 걸기`;
   if ($('talkButton').hidden !== !speaks) $('talkButton').hidden = !speaks;
   if (speaks && $('talkButton').textContent !== label) $('talkButton').textContent = label;
@@ -539,7 +540,8 @@ function frameWalk(dt) {
   hud.set({
     name: squareTitle(square), dateText: square.dateLabel, placeText: sceneOf(walk).name, subText: '',
     dots: { day: false, sky: false, remains: false }, memo, memoPlain: false, memoSky: false,
-    chips: walkT >= CHIPS_AT_MS, bubble: null, sora: soraPose({ now: performance.now(), hushAt }),
+    // No story card here: what it told, the people now tell (the user, 2026.10.8: "이야기 카드 빼").
+    chips: false, bubble: null, sora: soraPose({ now: performance.now(), hushAt }),
     todayLabel: '오늘로', showToday: false, showLeave: true, hint: null, soraFade: 1, glowSky: 0, glowToday: 0,
   });
 }
