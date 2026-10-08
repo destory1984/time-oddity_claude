@@ -31,6 +31,7 @@ export function createWalkView({ onPerson, onWay }) {
   const talk = $('walkTalk');
   const face = $('walkFace');
   const sora = $('walkSora');
+  const badge = $('walkBadge');
   const say = $('walkSay');
   const soraSay = $('walkSoraSay');
   let place = null;
@@ -56,6 +57,7 @@ export function createWalkView({ onPerson, onWay }) {
   }
   const POSES = ['taste-yum', 'taste-sour', 'taste-yuck', 'taste-hmm', 'bite-1', 'bite-2', 'turn-away'];
   for (const pose of POSES) has(pose);
+  for (const face of ['yum', 'sour', 'yuck', 'hmm']) has(`badge-${face}`);
   const FRAMES = [1, 2, 3, 4];
 
   function measure() {
@@ -109,10 +111,7 @@ export function createWalkView({ onPerson, onWay }) {
     for (const person of scene.people) {
       if (person.try?.pose) has(person.try.pose);
       if (person.try?.trips) for (const i of FRAMES.slice(0, person.try.trips)) has(`${person.try.outfit}-trip-${i}`);
-      if (person.try?.outfit) {
-        for (const i of FRAMES) { has(`${person.try.outfit}-idle-${i}`); has(`${person.try.outfit}-walk-${i}`); }
-        for (const pose of POSES) has(`${person.try.outfit}-${pose}`);
-      }
+      if (person.try?.outfit) for (const i of FRAMES) { has(`${person.try.outfit}-idle-${i}`); has(`${person.try.outfit}-walk-${i}`); }
     }
     for (const spot of scene.spots) if (spot.pose) has(spot.pose);
     root.dataset.look = place.look ?? 'pixel';
@@ -211,11 +210,15 @@ export function createWalkView({ onPerson, onWay }) {
     // four steps, each cut to her own outline. Both are shown the same height, feet on the street.
     const walking = walk.moving;
     const frame = 1 + (Math.floor(now / (walking ? STEP_MS : IDLE_MS)) % 4);
-    // In an outfit she is shown only in pictures of her in it (<outfit>-<pose>.png): with
-    // none she stays as she stands, since her clothes must not change for a moment and
-    // change back (the user, 2026.10.8).
-    const posed = pose && walk.wearing && !pose.startsWith(`${walk.wearing}-`) ? `${walk.wearing}-${pose}` : pose;
+    // In an outfit her clothes must not change for a moment and change back (the user,
+    // 2026.10.8), and an outfit is drawn standing and walking only, so that one more does
+    // not cost a picture for everything she does (the user chose this of three: "나"로
+    // 해보자). In one she stays as she stands, and how a thing tasted is told by a small
+    // face in a bubble beside her head (badge-<face>.png, the same four for every outfit).
+    const own = pose && walk.wearing && pose.startsWith(`${walk.wearing}-`);
+    const posed = !walk.wearing || own ? pose : null;
     const tasting = !walking && posed && has(posed);
+    const face = !walking && pose && walk.wearing && pose.startsWith('taste-') ? `badge-${pose.slice(6)}` : null;
     const tripping = walking && stride && has(stride);
     const worn = walk.wearing && has(`${walk.wearing}-${walking ? 'walk' : 'idle'}-${frame}`) ? `${walk.wearing}-` : '';
     const src = tasting ? `./sora/${posed}.png` : tripping ? `./sora/${stride}.png` : `./sora/${worn}${walking ? 'walk' : 'idle'}-${frame}.png`;
@@ -232,6 +235,14 @@ export function createWalkView({ onPerson, onWay }) {
     sora.style.top = `${top}px`;
     // The walking frames face right; standing she faces the eye.
     sora.style.transform = walking && walk.facing < 0 ? 'scaleX(-1)' : '';
+    if (face && has(face)) {
+      const side = 84 * unit;
+      if (badge.dataset.src !== face) { badge.dataset.src = face; badge.src = `./sora/${face}.png`; }
+      badge.style.height = `${side}px`;
+      badge.style.left = `${x + soraTall * 0.26}px`;
+      badge.style.top = `${FOOT * h - soraTall * 0.92}px`;
+      badge.classList.add('on');
+    } else { badge.classList.remove('on'); badge.dataset.src = ''; }
 
     for (const node of nodes.values()) {
       node.img.classList.toggle('near', Math.abs(node.person.x - walk.x) <= 0.05);

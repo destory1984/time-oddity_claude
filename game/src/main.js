@@ -409,7 +409,7 @@ function tryNear(id = null) {
   sound.tick(true, false);
   walkView.nudge(did.person.id);
   // What is eaten is first held up and put in her mouth; then her face says how it was.
-  const bite = it.verb === 'eat' ? BITE_MS : 0;
+  const bite = it.verb === 'eat' && !walk.wearing ? BITE_MS : 0;
   const pose = it.face ? `taste-${it.face}` : it.pose ?? null;
   walkFace = pose ? { poses: [...(bite ? [['bite-1', walkT + bite], ['bite-2', walkT + bite * 2]] : []), [pose, walkT + bite * 2 + FACE_FOR_MS]] } : null;
   walkSora = { text: it.sora, from: walkT + 300 + bite * 2, until: walkT + 300 + bite * 2 + SORA_FOR_MS };
