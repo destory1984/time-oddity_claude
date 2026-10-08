@@ -96,6 +96,12 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #errands.alldone::after{content:"참 잘했어요";position:absolute;right:-18px;bottom:-16px;display:grid;place-items:center;width:62px;height:62px;border:3px double #c0392b;border-radius:50%;color:#c0392b;font:700 12px/1.1 "Pretendard Variable",Pretendard,sans-serif;text-align:center;transform:rotate(-14deg);background:rgba(255,246,230,.7);animation:stampDown .45s cubic-bezier(.2,1.6,.4,1) 1}
 @keyframes stampDown{0%{transform:rotate(-14deg) scale(2.6);opacity:0}100%{transform:rotate(-14deg) scale(1);opacity:1}}
 #walkScene .spark{position:absolute;z-index:35;width:9px;height:9px;background:var(--gold);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);pointer-events:none;animation:sparkUp 1.6s ease-out 1 both}
+#walkScene .taste{position:absolute;z-index:36;transform:translate(-50%,0);padding:3px 10px;border-radius:999px;background:#1b1730e6;border:2px solid currentColor;font:800 calc(17px * var(--text,1))/1.25 "Pretendard Variable",Pretendard,sans-serif;font-style:normal;white-space:nowrap;pointer-events:none;animation:tasteUp 2.4s ease-out 1 both}
+#walkScene .taste.yum{color:#ffd978}
+#walkScene .taste.sour{color:#d9f26b}
+#walkScene .taste.yuck{color:#9be08a}
+#walkScene .taste.hmm{color:#cfd6ff}
+@keyframes tasteUp{0%{opacity:0;transform:translate(-50%,10px) scale(.6)}12%{opacity:1;transform:translate(-50%,-6px) scale(1.15)}22%{transform:translate(-50%,0) scale(1)}80%{opacity:1;transform:translate(-50%,-4px) scale(1)}100%{opacity:0;transform:translate(-50%,-18px) scale(1)}}
 #walk .cheer{position:absolute;left:50%;top:40%;z-index:60;padding:12px 20px;border:2px solid var(--gold);border-radius:14px;background:#1b1730ee;color:var(--gold);font:700 calc(19px * var(--text,1))/1.2 "Pretendard Variable",Pretendard,sans-serif;white-space:nowrap;box-shadow:0 0 22px rgba(255,214,110,.6);pointer-events:none;animation:cheerUp 3.6s ease-out 1 both}
 @keyframes cheerUp{0%{transform:translate(-50%,-50%) scale(.5);opacity:0}8%{transform:translate(-50%,-50%) scale(1.12);opacity:1}14%,82%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(-50%,-70%) scale(1);opacity:0}}
 @keyframes sparkUp{0%{transform:translate(0,0) scale(.4);opacity:0}15%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(1.5) rotate(200deg);opacity:0}}

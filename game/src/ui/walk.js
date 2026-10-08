@@ -210,15 +210,26 @@ export function createWalkView({ onPerson, onWay }) {
   for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) root.addEventListener(name, () => onWay(0));
 
   function bubble(el, text, x, top) {
-    el.textContent = text;
-    el.classList.add('on');
-    // Over the speaker's head, kept inside what the eye sees.
+    // Over the speaker's head, kept inside what the eye sees. It is centred by the width it
+    // really has: by the widest it may be, a short word hung far to the left of whoever
+    // said it (the user, 2026.10.8, of a child's "훌쩍…": "NPC 대화가 너무 멀어").
     const wide = Math.min(size.w * 0.7, 250 * size.unit + 40);
-    el.style.maxWidth = `${wide}px`;
-    const left = Math.max(camera + 8, Math.min(camera + size.w - wide - 8, x - wide / 2));
+    const key = `${text}|${Math.round(wide)}`;
+    if (el.dataset.key !== key) {
+      el.dataset.key = key;
+      el.textContent = text;
+      el.style.maxWidth = `${wide}px`;
+      el.style.left = `${camera}px`;      // measured where nothing squeezes it
+      el.classList.add('on');
+      el.dataset.wide = String(el.offsetWidth || wide);
+    }
+    el.classList.add('on');
+    const real = Number(el.dataset.wide);
+    const left = Math.max(camera + 8, Math.min(camera + size.w - real - 8, x - real / 2));
     el.style.left = `${left}px`;
     el.style.bottom = `${size.h - top + 6}px`;
   }
+  const boxOf = (el) => ({ left: parseFloat(el.style.left), wide: Number(el.dataset.wide), bottom: parseFloat(el.style.bottom), tall: el.offsetHeight });
 
   // walk: core/walk.js's state. soraLine: what she is saying now, or null. t: seconds
   // since she came down here (what moves in the scene goes by it). pose: a picture of hers
@@ -320,6 +331,36 @@ export function createWalkView({ onPerson, onWay }) {
     for (const node of nodes.values()) if (node.over && Math.abs(node.person.x * wide - x) < 90 * unit) lift = Math.max(lift, FOOT * h - soraTall - (node.top - node.over));
     if (soraLine) bubble(soraSay, soraLine, x, FOOT * h - soraTall - Math.max(0, lift));
     else soraSay.classList.remove('on');
+    // Where her words and theirs would lie one over the other, hers go above theirs (the
+    // user, 2026.10.8: "소라의 대화와 NPC의 대화가 겹침"); and a thing held up to be seen
+    // moves up out of the way of both.
+    let high = 0;
+    if (say.classList.contains('on')) {
+      const theirs = boxOf(say);
+      high = theirs.bottom + theirs.tall;
+      if (soraLine) {
+        const hers = boxOf(soraSay);
+        const apart = hers.left + hers.wide < theirs.left || theirs.left + theirs.wide < hers.left || hers.bottom + hers.tall < theirs.bottom || theirs.bottom + theirs.tall < hers.bottom;
+        if (!apart) soraSay.style.bottom = `${theirs.bottom + theirs.tall + 6}px`;
+      }
+    }
+    if (soraLine) { const hers = boxOf(soraSay); high = Math.max(high, hers.bottom + hers.tall); }
+    card.style.bottom = card.classList.contains('on') && high + 10 > h * 0.53 ? `${high + 10}px` : '';
+  }
+
+  // How a thing tasted, in a word that springs up beside her head: with or without an
+  // outfit on, it is plain at once whether it was good (the user, 2026.10.8: "맛있다~ 또는
+  // 맛없다 표현").
+  const TASTES = { yum: '맛있다!', sour: '아이, 셔!', yuck: '으엑, 맛없어!', hmm: '음… 묘한데?' };
+  function taste(face) {
+    if (!TASTES[face]) return;
+    const word = document.createElement('i');
+    word.className = `taste ${face}`;
+    word.textContent = TASTES[face];
+    word.style.left = `${parseFloat(sora.style.left) + parseFloat(sora.style.width) / 2}px`;
+    word.style.top = `${parseFloat(sora.style.top) + parseFloat(sora.style.height) * 0.45}px`;
+    scroll.append(word);
+    setTimeout(() => word.remove(), 2400);
   }
 
   // Leaving, a ring of gold rises from her feet and she is gone where it has passed
@@ -392,7 +433,7 @@ export function createWalkView({ onPerson, onWay }) {
   }
 
   return {
-    showScene, layout, update, nudge, clack, cheer,
+    showScene, layout, update, nudge, clack, cheer, taste,
     teleport: (ms) => passage('leaving', ms),
     arrive: () => { sora.classList.remove('leaving'); return passage('arriving'); },
   };

@@ -428,6 +428,7 @@ function talk(id = null) {
 // Eating, wearing or using what whoever is near has (plan v5, section 4): she says what
 // she makes of it, with a face if it was eaten, and grandmother's slip tells what it is.
 const FACE_FOR_MS = 2600;
+const SHOW_USE_MS = 4000;     // a thing she uses is held up this long
 const TRY_MEMO_MS = 9000;
 const BITE_MS = 420;         // each of the two pictures of her eating
 const HEM_EVERY_MS = 5200;   // walking in a toga she treads on its hem this often,
@@ -445,10 +446,13 @@ function tryNear(id = null) {
   // What is eaten is first held up and put in her mouth; then her face says how it was.
   const bite = it.verb === 'eat' && !walk.wearing ? BITE_MS : 0;
   const pose = it.face ? `taste-${it.face}` : it.pose ?? null;
-  walkFace = pose ? { poses: [...(bite ? [['bite-1', walkT + bite], ['bite-2', walkT + bite * 2]] : []), [pose, walkT + bite * 2 + FACE_FOR_MS]] } : null;
+  walkFace = pose ? { poses: [...(bite ? [['bite-1', walkT + bite], ['bite-2', walkT + bite * 2]] : []), [pose, walkT + (walk.wearing ? 300 + SORA_FOR_MS : bite * 2 + FACE_FOR_MS)]] } : null;   // in an outfit the small face by her head stays as long as her words
   walkSora = { text: it.sora, from: walkT + 300 + bite * 2, until: walkT + 300 + bite * 2 + SORA_FOR_MS };
+  if (it.face) setTimeout(() => { if (walk) walkView.taste(it.face); }, bite * 2 + 120);
   // What they showed her stays up while she tries it.
-  walkHeld = did.person.show ? { show: did.person.show, until: walkT + bite * 2 + FACE_FOR_MS } : null;
+  // (A thing that is used, not eaten, has no face of hers to wait for: it stays a little
+  // longer, and then gives way to grandmother's slip, which lies under it.)
+  walkHeld = did.person.show ? { show: did.person.show, until: walkT + (it.verb === 'eat' ? bite * 2 + FACE_FOR_MS : SHOW_USE_MS) } : null;
   if (it.verb === 'wear') walkHemMs = HEM_EVERY_MS - HEM_FIRST_MS;
   walkMemo = it.memo ? { text: it.memo, until: walkT + TRY_MEMO_MS } : null;
   if (did.first) keep(markTried(progress, square.id, it.id));
@@ -576,12 +580,16 @@ function frameWalk(dt) {
   // A button to speak only by those worth stopping for, so that the button itself says
   // "this one" (the user, 2026.10.8: "꼭 눌러봐야할 NPC와 그냥 지나쳐도 무방한 NPC의 차이점을
   // 모르겠음"). The rest still say their two lines to one who touches them.
-  const speaks = near && worth(walk, near) && canSpeak(walk, near) ? near : null;
-  const label = !speaks ? '' : talkedOut(walk, speaks) ? '대화 마치기' : speaks.try ? '말 걸기' : `${speaks.name}에게 말 걸기`;
+  // When the last of their lines is up there is no button: a touch anywhere else ends the
+  // talk (the user, 2026.10.8: "화면 다른 곳을 누르면 대화는 마치게 되니까, 저 버튼은 없애").
+  const speaks = near && worth(walk, near) && canSpeak(walk, near) && !talkedOut(walk, near) ? near : null;
+  const label = !speaks ? '' : speaks.try ? '말 걸기' : `${speaks.name}에게 말 걸기`;
   if ($('talkButton').hidden !== !speaks) $('talkButton').hidden = !speaks;
   if (speaks && $('talkButton').textContent !== label) $('talkButton').textContent = label;
   // What they have that she can eat, wear or use: the louder button the first time.
-  const offer = near?.try ?? null;
+  // What she already has on is not offered again ("이미 입고 있는데, 버튼이 계속 보임").
+  const has = near?.try ?? null;
+  const offer = has && !(has.verb === 'wear' && walk.wearing && walk.wearing === has.outfit) ? has : null;
   const offerLabel = offer ? `${offer.name} ${VERBS[offer.verb]}` : '';
   if ($('tryButton').hidden !== !offer) $('tryButton').hidden = !offer;
   if (offer && $('tryButton').textContent !== offerLabel) $('tryButton').textContent = offerLabel;
@@ -1070,7 +1078,13 @@ $('testReset').addEventListener('click', () => startOver());
 // And its opposite, for testing what comes after: every square done, every note read.
 $('testAll').addEventListener('click', () => {
   keepProgressAside();
-  saveProgress(fullProgress(SQUARES.map((sq) => sq.id), NOTES.map((note) => note.id)));
+  // Every errand of every walked place as well, or the notebook's count stayed at 0/6.
+  let all = fullProgress(SQUARES.map((sq) => sq.id), NOTES.map((note) => note.id));
+  for (const [id, place] of Object.entries(WALKS)) {
+    all = markErrands(all, id, place.errands.map((errand) => errand.id));
+    for (const scene of place.scenes) all = markBeen(all, id, scene.id);
+  }
+  saveProgress(all);
   saveOpened();
   location.reload();
 });

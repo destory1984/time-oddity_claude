@@ -48,13 +48,13 @@ export const WALKS = {
             try: { id: 'eat-garum', verb: 'eat', name: '생선 소스', face: 'yuck', sora: '으엑! 생선 썩은 맛이야!', memo: '로마의 간장이란다. 냄새는 지독한데 없으면 못 살았대.' } },
           { id: 'dormouse', pass: '귀한 구이요! 보고 가쇼.', show: 'dormouse', pose: 'see-gasp', name: '겨울잠쥐 장수', x: 0.39, w: 219, h: 290, lines: ['항아리에서 살찌운 놈이오.', '꿀 발라 구웠소. 귀한 손님상 거요.'],
             try: { id: 'eat-dormouse', verb: 'eat', name: '겨울잠쥐 구이', face: 'hmm', sora: '쥐… 쥐라고? 닭고기 맛인데.', memo: '쥐를 항아리에서 살찌워 먹었단다. 귀한 손님상에 올랐지.' } },
-          { id: 'lady', pass: '어머, 사람이 왜 이리 많니.', name: '귀부인', x: 0.47, w: 133, h: 320, lines: ['새 경기장? 자리는 신분대로 앉는단다.', '여자 자리는 맨 꼭대기라지 뭐니.'] },
-          { id: 'maid', pass: '아이고, 무거워라.', name: '하녀', x: 0.535, w: 123, h: 276, lines: ['마님 짐이 무거워요. 구경은 가요!', '꼭대기에서도 잘 보인대요.'] },
+          { id: 'lady', pass: '어머, 사람이 왜 이리 많니.', name: '귀부인', x: 0.47, w: 133, h: 320, lines: ['새 경기장? 자리는 신분대로 앉는단다.', '여자 자리는 맨 뒤쪽이라지 뭐니.'] },
+          { id: 'maid', pass: '아이고, 무거워라.', name: '하녀', x: 0.535, w: 123, h: 276, lines: ['마님 짐이 무거워요. 구경은 가요!', '뒤에서도 잘 보인대요.'] },
           { id: 'reader', pass: '소식이오, 오늘의 소식!', name: '글 읽는 노인', x: 0.635, w: 165, h: 296, lines: ['오늘의 소식! 새 경기장이 문을 연다!', '글 모르는 이는 내게 오시오. 한 닢.'] },
           { id: 'dog', pass: '킁킁.', name: '개', x: 0.74, w: 101, h: 153, lines: ['멍!', '(꼬리를 흔든다)'] },
           // Honeyed wine cooled with snow is what was sold; for a child it is honey water.
           { id: 'snow', pass: '눈이오, 진짜 눈! 보고 가쇼.', show: 'snow', pose: 'see-wow', name: '눈 장수', x: 0.812, w: 187, h: 290, lines: ['산에서 지고 온 눈이오!', '한 잔에 눈값이 반이지.'],
-            try: { id: 'eat-snow', verb: 'eat', name: '눈 넣은 꿀물', face: 'yum', sora: '차가워! 여름에 얼음이라니.', memo: '냉장고가 없으니 산의 눈을 지게로 날랐단다.' } },
+            try: { id: 'eat-snow', verb: 'eat', name: '눈 넣은 꿀물', face: 'yum', sora: '차가워! 더운 날에 얼음이라니.', memo: '냉장고가 없으니 산의 눈을 지게로 날랐단다.' } },
           { id: 'draper', pass: '토가 한번 걸쳐 보겠소?', name: '옷 가게 주인', x: 0.877, w: 196, h: 290, lines: ['혼자는 못 입어요. 둘은 붙어야지.', '시민만 입는 옷이라오.'],
             try: { id: 'wear-toga', verb: 'wear', name: '토가', outfit: 'toga', pose: 'toga-fuss', trips: 2, sora: '무거워! 자꾸 흘러내려.', memo: '시민만 입을 수 있었고, 무거워서 평소엔 다들 튜닉이었대.' } },
         ],
@@ -70,7 +70,7 @@ export const WALKS = {
             try: { id: 'use-token', verb: 'use', name: '입장 조각', sora: '스물셋… 스물셋 문은 저쪽이다!', memo: '입구에 번호가 있어서 오만 명이 금방 들어갔단다.' } },
           { id: 'wife', pass: '세상에, 저게 다 돌이야?', name: '아주머니', x: 0.33, w: 135, h: 278, lines: ['저 높이 좀 봐. 목이 아프네.', '아치마다 조각상이 서 있어.'] },
           // Not a person: it is used, not spoken to.
-          { id: 'clock', name: '물시계', x: 0.415, w: 83, h: 200,
+          { id: 'clock', show: 'clock', name: '물시계', x: 0.415, w: 83, h: 200,
             try: { id: 'use-clock', verb: 'use', name: '물시계', sora: '똑, 똑… 물로 시간을 재네.', memo: '낮을 열둘로 나눴으니 여름 한 시간이 더 길었단다.' } },
           { id: 'old', pass: '허허, 많이도 변했구먼.', name: '할아버지', x: 0.5, w: 137, h: 261, lines: ['여긴 황제의 연못이던 자리야, 암.', '물을 빼고 열 해 만에 이걸 세웠지.'] },
           { id: 'child', pass: '훌쩍…', name: '우는 아이', x: 0.63, w: 119, h: 182, lines: ['엄마가 없어졌어…', '스물셋이랬는데. 스물셋이 어디야?'] },
@@ -145,7 +145,7 @@ export const WALKS = {
         ],
         spots: [
           // Right under the middle of the arch, looking straight up.
-          { id: 'under', from: 0.45, to: 0.56, sora: '우와… 다리가 후들거려.', memo: '쇠 조각 만팔천 개를 못으로 이어 세운 탑이란다.' },
+          { id: 'under', from: 0.45, to: 0.56, sora: '우와… 다리가 후들거려.', memo: '쇠 조각 만팔천 개를 리벳으로 이어 세운 탑이란다.' },
         ],
       },
       {
@@ -198,7 +198,7 @@ export const WALKS = {
             // it came about the war of 1592 is the common account, and some dispute it.
             memo: '고추는 임진왜란(1592년) 무렵 일본을 거쳐 들어왔다고들 한단다. 본디는 바다 건너 아메리카의 열매야.', name: '옹기 장수', x: 0.3, w: 128, h: 289, lines: ['독 안을 보시오. 김치가 하얗지요?', '고추? 그런 건 들어 본 적 없소.'] },
           { id: 'reader', pass: '방이 붙었소! 다들 들으시오.', name: '방 읽어 주는 선비', x: 0.43, w: 141, h: 312, lines: ['새 글자 스물여덟 자가 나왔다오.', '슬기로우면 아침나절에 배운다오.'] },
-          { id: 'woodboy', pass: '나무 사려! 장작이오!', name: '나무꾼 소년', x: 0.52, w: 119, h: 225, lines: ['저게 글자야? 그림 같은데.', '기역, 니은… 나도 따라 했어!'] },
+          { id: 'woodboy', pass: '나무 사려! 장작이오!', name: '나무꾼 소년', x: 0.52, w: 119, h: 225, lines: ['저게 글자야? 그림 같은데.', '가, 나, 다… 나도 따라 했어!'] },
           { id: 'tteok', pass: '떡 사려, 따끈한 떡!', name: '떡 파는 할머니', x: 0.77, w: 109, h: 257, lines: ['시루떡 따끈해요. 하나 드시우.', '열흘이면 배운다니 나도 해 볼까.'] },
           { id: 'water', pass: '아이고, 물동이 무거워라.', name: '물동이 인 아낙', x: 0.881, w: 110, h: 320, lines: ['친정에 편지 한 장 못 썼다우.', '이제는 쓸 수 있으려나.'] },
         ],
@@ -229,10 +229,10 @@ export const WALKS = {
         people: [
           { id: 'books', pass: '볕이 좋구먼.', name: '책 말리는 아저씨', x: 0.2, w: 110, h: 311, lines: ['볕 좋은 날 책을 말려야 하오.', '좀이 슬면 큰일이라오.'] },
           { id: 'sleepy', pass: '하암… 졸려라.', name: '졸린 학사', x: 0.32, w: 125, h: 313, lines: ['밤새 풀이를 썼소. 하암…', '임금님이 더 늦게 주무신다오.'] },
-          { id: 'scholar', pass: '흠, 이 소리는 어찌 적을꼬.', name: '집현전 학사', x: 0.41, w: 132, h: 320, lines: ['글자마다 입 모양을 본떴다오.', '기역은 혀뿌리가 막히는 모양이지.'] },
+          { id: 'scholar', pass: '흠, 이 소리는 어찌 적을꼬.', name: '집현전 학사', x: 0.41, w: 132, h: 320, lines: ['글자마다 입 모양을 본떴다오.', '이 글자는 혀뿌리가 막힌 모양이지.'] },
           { id: 'tea', pass: '차 식어요. 비켜 주세요.', name: '차 나르는 궁녀', x: 0.66, w: 111, h: 301, lines: ['임금님 눈이 많이 나빠지셨대요.', '그래도 책을 놓지 않으세요.'] },
-          { id: 'child', pass: '기역, 니은, 디귿…', name: '글자 쓰는 아이', x: 0.75, w: 83, h: 204, lines: ['이거 봐! 내 이름이야. 내가 썼어!', '어제 배웠는데 벌써 다 써.'] },
-          { id: 'sundial', pass: '해시계 구경하고 가시오.', show: 'sundial', pose: 'see-peer', sora: '솥처럼 오목하구나! 그림자가 바늘.', name: '해시계 보는 관원', x: 0.87, w: 129, h: 309, lines: ['들여다보시오. 오목한 해시계라오.', '글 몰라도 짐승 그림으로 때를 알지.'] },
+          { id: 'child', pass: '가, 나, 다, 라…', name: '글자 쓰는 아이', x: 0.75, w: 83, h: 204, lines: ['이거 봐! 내 이름이야. 내가 썼어!', '어제 배웠는데 벌써 다 써.'] },
+          { id: 'sundial', pass: '해시계 구경하고 가시오.', show: 'sundial', pose: 'see-peer', sora: '솥처럼 오목하구나! 그림자가 바늘.', name: '해시계 보는 관원', x: 0.87, w: 129, h: 309, lines: ['혜정교 것과 같은 해시계라오.', '글 몰라도 짐승 그림으로 때를 알지.'] },
         ],
         spots: [
           // The king at his books, deep in the middle bay: seen, not spoken to. She stands a little to his right, so as not to hide him.
@@ -363,7 +363,7 @@ export const WALKS = {
           { id: 'flowers', pass: '아이, 떨려라.', name: '꽃다발 든 아가씨', x: 0.4, w: 122, h: 290, lines: ['기관사님께 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
           { id: 'driver', pass: '출발 준비 완료!', name: '기관사', x: 0.52, w: 112, h: 299, lines: ['시속 210km입니다. 손이 떨려요.', '선로가 눈앞으로 빨려 들어와요.'] },
           { id: 'master', pass: '물러서 주십시오!', name: '역장', x: 0.66, w: 106, h: 320, lines: ['여섯 시 정각, 히카리 1호 출발!', '일 초도 늦으면 안 됩니다.'] },
-          { id: 'banzai', pass: '만세! 만세!', name: '신이 난 회사원', x: 0.82, w: 155, h: 304, lines: ['테이프 끊는 걸 봤어! 박도 터졌어!', '만세! 우리가 해냈다고!'] },
+          { id: 'banzai', pass: '만세! 만세!', name: '신이 난 회사원', x: 0.82, w: 155, h: 304, lines: ['테이프 끊는 걸 봤어! 박수가 터졌어!', '만세! 우리가 해냈다고!'] },
         ],
         spots: [],
       },
@@ -384,7 +384,7 @@ export const WALKS = {
           { id: 'eater', pass: '우물우물.', name: '도시락 먹는 아저씨', x: 0.38, w: 117, h: 306, lines: ['빨라서 도시락 먹을 틈이 없네.', '(우물우물) 그래도 맛은 좋아.'] },
           { id: 'kid', pass: '우와, 빠르다!', name: '신난 꼬마', x: 0.52, w: 128, h: 218, lines: ['전봇대가 줄넘기처럼 지나가!', '나 커서 기관사 될 거야!'] },
           { id: 'granny', pass: '아이고, 벌써 여기야.', name: '창가의 할머니', x: 0.68, w: 134, h: 284, lines: ['저기 봐, 후지산이야! 벌써 여기야.', '옛날엔 걸어서 보름 길이었단다.'] },
-          { id: 'buffet', pass: '어서 오세요! 속도계 보고 가세요.', show: 'speedometer', pose: 'see-gasp', sora: '1964년에 시속 210km?!', name: '식당 칸 종업원', x: 0.9, w: 121, h: 320, lines: ['속도계 보세요. 지금 시속 210km!', '커피가 안 쏟아지는 게 자랑이죠.'] },
+          { id: 'buffet', pass: '어서 오세요! 속도계 보고 가세요.', show: 'speedometer', pose: 'see-gasp', sora: '1964년에 시속 210km?!', name: '뷔페 칸 종업원', x: 0.9, w: 121, h: 320, lines: ['속도계 보세요. 지금 시속 210km!', '커피가 안 쏟아지는 게 자랑이죠.'] },
         ],
         spots: [],
       },
@@ -433,7 +433,7 @@ export const WALKS = {
           { id: 'owner', pass: '어여 와. 테레비 구경하고 가.', show: 'tv', pose: 'see-peer', sora: '문 달린 흑백 텔레비전이구나!', name: '집주인 아저씨', x: 0.119, w: 105, h: 308, lines: ['마루 끝에 내놨지. 다들 보라고.', '동네에 한 대뿐인 테레비여.'] },
           { id: 'melon', pass: '수박 먹어라, 수박.', name: '수박 든 아주머니', x: 0.3, w: 110, h: 292, lines: ['수박 먹고들 봐요. 우물에 담갔던 거야.', '낮에도 봤는데 또 봐도 신기해.'] },
           { id: 'corn', pass: '냠냠.', name: '옥수수 먹는 아이', x: 0.44, w: 87, h: 214, lines: ['저 아저씨들 통통 뛰어다녀!', '달에서는 몸이 가볍대.'] },
-          { id: 'chief', pass: '조용, 조용! 나온다!', name: '이장님', x: 0.56, w: 134, h: 320, lines: ['낮에 본 걸 밤에 또 틀어 주는 거여.', '온 세상이 같이 보고 있다는구먼.'] },
+          { id: 'chief', pass: '조용, 조용! 나온다!', name: '이장님', x: 0.56, w: 134, h: 320, lines: ['밤 뉴스에서 또 보여 준다는구먼.', '온 세상이 같이 보고 있다는구먼.'] },
           { id: 'soldier', pass: '충성! …아, 버릇이네요.', name: '휴가 나온 군인', x: 0.816, w: 97, h: 303, lines: ['휴가 나왔다가 이걸 다 보네요.', '로켓이 나흘을 날아갔답니다.'] },
           { id: 'sleepy', pass: '하암…', name: '졸린 꼬마', x: 0.881, w: 78, h: 198, lines: ['졸려… 그래도 다 볼 거야.', '(눈을 비빈다)'] },
         ],
