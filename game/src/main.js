@@ -124,14 +124,20 @@ const START = devStart() ?? 'colosseum';
 const beenNowhere = () => LIVE.every((sq) => beenOf(progress, sq.id).length === 0);
 // The dial stands at Rome's century every time the game is opened, not only the first
 // (the user, again: "시작지점을 로마로 고쳐. 이건 지금").
-const startStop = () => 1 + Math.max(0, STOPS.findIndex((stop) => stop.ids.includes(START)));
-const eraDial = createDial({ year: startStop(), minYear: 1, maxYear: STOPS.length, px: 120 });
-eraDial.stops = STOPS.map((stop) => stop.label);
+const startStop = () => Math.max(0, STOPS.findIndex((stop) => stop.ids.includes(START)));
+// Between two centuries there are ten empty ticks, so that the dial is felt to turn (the
+// user, 2026.10.8: "돌리는 맛이 생기도록 각각 사이에 10칸씩 넣어줘"). It rests on a century only.
+const ERA_GAP = 11;
+const eraTick = (at) => 1 + at * ERA_GAP;                               // the tick of STOPS[at]
+const eraAt = () => Math.max(0, Math.min(STOPS.length - 1, Math.round((eraDial.year - 1) / ERA_GAP)));   // the stop the dial is nearest
+const eraDial = createDial({ year: eraTick(startStop()), minYear: 1, maxYear: eraTick(STOPS.length - 1), px: 12, onlyMarks: true });
+setMarks(eraDial, STOPS.map((stop, at) => eraTick(at)));
+eraDial.stops = STOPS.flatMap((stop, at) => (at === 0 ? [stop.label] : [...Array(ERA_GAP - 1).fill(null), stop.label]));
 let onEra = true;          // above the Earth the century dial is up; once a place is chosen, the year dial
 const overEarth = () => mode === 'globe' && onEra;
 const GUIDE_ON = false;    // the one line of guidance is switched off in plan v4
 const theDial = () => (overEarth() ? eraDial : dial);
-const eraStop = () => STOPS[eraDial.year - 1];
+const eraStop = () => STOPS[eraAt()];
 let shownEra = null;           // the stop the Earth was last turned to show (none yet: it turns to the first at once)
 const ERA_ASIDE_DEG = 24;      // a century's place comes into sight this far east of her
 let square = null;
@@ -236,7 +242,8 @@ const journal = createJournal({
   onWear: (outfit) => putOn(outfit),
 });
 // She puts on something from the wardrobe, or takes it off (null): at once if she is
-// walking about, and it is on her wherever she goes next.
+// walking about, and until she leaves the place. Chosen above the Earth, it is on her at
+// the next place she comes down to.
 function putOn(outfit) {
   saveOutfit(outfit);
   if (!walk) return;
@@ -503,7 +510,7 @@ function showWalk(sq) {
   visit = null; site = null;
   walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id), done: errandsOf(progress, sq.id), met: metOf(progress, sq.id) });
   walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyUntil = 0; walkNoteAt = 0;
-  // What she had on comes with her (the wardrobe).
+  // What she chose from the wardrobe above the Earth is on her as she comes down.
   const worn = OUTFITS.find((o) => o.outfit === loadOutfit());
   if (worn) { walk.wearing = worn.outfit; walk.trips = worn.trips; }
   $('errands').classList.remove('folded');
@@ -699,7 +706,7 @@ function loosen(sq = null) {
   onEra = true;
   target = null;
   globe.setTarget(null);
-  if (sq) { const at = STOPS.findIndex((stop) => stop.ids.includes(sq.id)); if (at >= 0) { rollTo(eraDial, at + 1, 0.001); stepDial(eraDial, 10); } }
+  if (sq) { const at = STOPS.findIndex((stop) => stop.ids.includes(sq.id)); if (at >= 0) { rollTo(eraDial, eraTick(at), 0.001); stepDial(eraDial, 10); } }
 }
 
 function pick(sq) {
@@ -782,6 +789,9 @@ async function leave() {
   visit = null;
   site = null;
   walk = null;
+  // What she put on is left where it was put on: the next place sees her in her own clothes
+  // (the user, 2026.10.8, in the yard of 1969 with Seoul's hat still on: "88년 벗어났으면, 옷은 원래대로").
+  if (fromWalk) saveOutfit(null);
   loosen(square);
   mark(globeMarks());
   // She comes back out over the Earth, growing from a point.
@@ -809,7 +819,7 @@ createTouch(stage, {
   onDialDrag: (dx) => drag(theDial(), dx),
   onDialRelease: (v) => release(theDial(), v),
   onDialTap: (side) => {
-    if (overEarth()) { const to = eraDial.year + side; if (to >= 1 && to <= STOPS.length) rollTo(eraDial, to, 0.35); return; }
+    if (overEarth()) { const to = eraAt() + side; if (to >= 0 && to < STOPS.length) rollTo(eraDial, eraTick(to), 0.35); return; }
     const year = nextMark(dial, side); if (year !== null) goTo(year);
   },
   // Pushing the finger up raises the head; it stays where it was left, up or down.
@@ -848,7 +858,8 @@ function tickSounds(years) {
   if (years.length === 0) return;
   dialView.tick();
   if (years.length > 2) sound.tick(false, true);
-  else for (const year of years) sound.tick(isDecade(year), false);
+  // On the century dial the low tick is a century's, the light ones the empty ticks between.
+  else for (const year of years) sound.tick(overEarth() ? (year - 1) % ERA_GAP === 0 : isDecade(year), false);
 }
 
 let eraPlacesOf = null;        // the stop whose places are named now
@@ -856,28 +867,21 @@ let eraPlacesNew = null;       // whether they were named for someone who has be
 function showEraPlaces(stop) {
   // Someone who has been nowhere yet is told where to begin: that place glows.
   const fresh = beenNowhere();
+  globe.setBegin(fresh ? START : null);
   if (stop === eraPlacesOf && fresh === eraPlacesNew) return;
   eraPlacesOf = stop; eraPlacesNew = fresh;
   const list = $('eraPlaces');
   list.hidden = !stop;
   if (!stop) return;
   list.replaceChildren();
+  // Only how many there are is told here. Until 2026.10.8 each was a button as well (the
+  // user: "이 버튼들은 없애자"); a place is gone to by its pin on the Earth, and one on the far
+  // side has its pin on the Earth's rim (render/globe.js).
   const first = fresh && stop.ids.includes(START);
   const head = document.createElement('span');
-  head.textContent = first ? '로마부터 가 보자. 아래 단추를 누른다' : `이 세기에 갈 곳 ${stop.ids.length}`;
+  head.textContent = first ? '로마부터 가 보자. 빛나는 곳을 누른다' : `이 세기에 갈 곳 ${stop.ids.length}`;
   head.classList.toggle('begin', first);
   list.append(head);
-  for (const id of stop.ids) {
-    const sq = squareById(id);
-    const button = document.createElement('button');
-    button.type = 'button'; button.className = first && id === START ? 'glass begin' : 'glass';
-    button.textContent = squareTitle(sq);
-    const where = document.createElement('small');
-    where.textContent = sq.place.split(',')[0];
-    button.append(where);
-    button.addEventListener('click', () => { sound.wake(); pick(sq); });
-    list.append(button);
-  }
 }
 
 function dateOnGlobe() {
@@ -1053,13 +1057,13 @@ function frame(now) {
   tickSounds(stepDial(theDial(), dt));
   // When the dial comes to rest on another century the Earth turns until that century's
   // place is in sight, a little to one side of her: lit, but still to be flown to.
-  if (overEarth() && eraDial.resting && shownEra !== eraDial.year) {
-    shownEra = eraDial.year;
+  if (overEarth() && eraDial.resting && shownEra !== eraAt()) {
+    shownEra = eraAt();
     const first = squareById(eraStop().ids[0]);
     globe.spinTo(0, first.lon - ERA_ASIDE_DEG, 0.9);
   }
-  // Its places are named beside the Earth, each a button: one on the far side of the
-  // globe is not to be missed (the user, 2026.10.7: "뭐가 있는지 모르니까, 계속 돌리기만 해").
+  // How many places it has is told beside the Earth: one on the far side of the globe is
+  // not to be missed (the user, 2026.10.7: "뭐가 있는지 모르니까, 계속 돌리기만 해").
   showEraPlaces(overEarth() && !held ? eraStop() : null);
   // Only the places of the century the dial rests nearest are on the globe.
   globe.setShown(overEarth() ? eraStop().ids : target ? [target.id] : LIVE.map((sq) => sq.id));

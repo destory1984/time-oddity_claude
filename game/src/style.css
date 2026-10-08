@@ -82,7 +82,7 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 @keyframes ringUp{0%{opacity:0;transform:scale(.2)}12%{opacity:1;transform:scale(1)}75%{opacity:1;transform:translateY(var(--rise)) scale(1)}100%{opacity:0;transform:translateY(calc(var(--rise) * 1.25)) scale(0)}}
 #walkBadge{z-index:29;display:none;image-rendering:pixelated;pointer-events:none;transform-origin:50% 100%}
 #walkBadge.on{display:block;animation:hop .35s ease-out 1}
-#walkSay,#walkSoraSay{z-index:30;display:none;padding:6px 11px;border-radius:12px;background:var(--white);color:#1b1730;font-size:calc(15px * var(--text,1));line-height:1.3;box-shadow:0 2px 8px #0006;pointer-events:none}
+#walkSay,#walkSoraSay{z-index:30;display:none;word-break:keep-all;white-space:pre-line;padding:6px 11px;border-radius:12px;background:var(--white);color:#1b1730;font-size:calc(15px * var(--text,1));line-height:1.3;box-shadow:0 2px 8px #0006;pointer-events:none}
 #walkSay.on,#walkSoraSay.on{display:block}
 #walkSoraSay{font-family:var(--seora);font-size:calc(18px * var(--text,1));line-height:1.2}
 #errands,#walkDo,#walkPrev,#walkNext{display:none}
@@ -171,11 +171,7 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #eraPlaces{top:118px;left:14px;display:flex;flex-direction:column;align-items:flex-start;gap:5px;pointer-events:auto}
 #eraPlaces[hidden]{display:none}
 #eraPlaces span{font-size:11px;opacity:.7;padding-left:4px;text-shadow:0 1px 4px rgba(5,3,48,.8)}
-#eraPlaces button{min-height:var(--tap);padding:0 16px;font-size:15px;font-weight:600;white-space:nowrap}
-#eraPlaces button small{margin-left:6px;opacity:.65;font-size:11px;font-weight:400}
 #eraPlaces span.begin{font-size:13px;opacity:1;color:#ffd978}
-#eraPlaces button.begin{border-color:#ffd978;animation:beginGlow 1.4s ease-in-out infinite}
-@keyframes beginGlow{0%,100%{box-shadow:0 0 0 0 rgba(255,217,120,.0)}50%{box-shadow:0 0 0 5px rgba(255,217,120,.45)}}
 #todayBtn{right:12px;top:64px;padding:9px 15px;border-color:var(--gold);color:var(--gold)}
 #leaveBtn{right:16px;bottom:156px;padding:8px 14px}
 #todayBtn.glow,#glowSky.glow{animation:glow 1.2s ease-in-out}
@@ -208,6 +204,11 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #pins .pin::before{content:"";position:absolute;left:15px;top:15px;width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(246,185,81,.35),0 0 14px var(--gold)}
 #pins .pin span{position:absolute;left:36px;top:calc(12px + var(--drop,0px));white-space:nowrap;font:12px var(--ui);color:var(--white);text-shadow:0 1px 4px #050330}
 #pins .pin.left span{left:auto;right:36px}
+/* A place on the far side of the Earth: a hollow pin on the rim. */
+#pins .pin.far::before{background:none;border:2px solid var(--gold);left:14px;top:14px;width:12px;height:12px;box-shadow:0 0 10px var(--gold)}
+#pins .pin.far span{opacity:.8}
+#pins .pin.begin::before{animation:beginGlow 1.4s ease-in-out infinite}
+@keyframes beginGlow{0%,100%{box-shadow:0 0 0 3px rgba(255,217,120,.35),0 0 14px var(--gold)}50%{box-shadow:0 0 0 9px rgba(255,217,120,.55),0 0 22px var(--gold)}}
 #fade{background:var(--night);opacity:0;pointer-events:none;transition:opacity .2s}
 #fade.on{opacity:1}
 #dial{pointer-events:none}

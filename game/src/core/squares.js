@@ -21,7 +21,9 @@ export const SQUARES = [
     // Until then Seoul stood in for it, right on the palace of the Hunminjeongeum square. The yard itself is made up, the one
     // exception to "what remains is real". hourLocal 20.5 is 9 pm Korean time.
     no: 0, id: 'yard1969', name: '이웃집 마당', dateLabel: 'AD 1969.7.21', place: '할머니의 마을',
-    lat: 36.48, lon: 127.29,
+    // By Busan, not in the middle of the country: there its pin lay under Seoul's (the user,
+    // 2026.10.8: "할머니 집 이동.. 부산으로.. (누르기가 너무 힘들어)").
+    lat: 35.18, lon: 129.08,
     date: { year: 1969, month: 7, day: 21 }, calendar: 'gregorian', hourLocal: 20.5,
     // 228 rather than straight at the moon (240): it then stands right of the middle, clear of Sora.
     facingAz: 228, nightOnLook: false,

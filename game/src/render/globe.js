@@ -16,6 +16,8 @@ import { squareTitle } from '../core/squares.js';
 
 const RAD = Math.PI / 180;
 const GLOBE_WIDTH = 0.8;      // the Earth's diameter as a share of the screen's width (of `span` on a wide window)
+const PIN_APART = 52;          // two pins' middles are at least this far apart, px: 44 across and 8 between
+const PIN_EDGE = 34;           // a pin's middle is at least this far inside the screen, px: 12 clear of its edge
 const TALL = 0.6;             // a window wider than this share of its height counts as this wide
 // The Earth stands upright, north at the top, and turns only about its own axis: left and
 // right (the user, 2026.10.8: "지구본을 3차원 회전시키지 말고, 축을 북극/남극으로 고정시켜서
@@ -77,6 +79,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
   let zoom = 1;                          // how close: 1 the whole Earth (core/zoom.js)
   let targetId = null;                   // the square she is flying to (it shines)
   let shownIds = null;                   // the squares whose pins are shown; null for all
+  let beginId = null;                    // the square someone who has been nowhere is shown to begin at (it glows)
   let underId = null;                    // the square under her, at the middle
   let views = [];                        // every pin as seen now: { id, x, y, z } (core/flight.js)
   let moved = { dx: 0, dy: 0 };          // how far the ground has moved on screen since last asked, px
@@ -258,14 +261,43 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
       // Told to the flight as she sees it: up and down from the height she flies at.
       views.push({ id: pin.square.id, x: at.x, y: at.y - focusY, z: at.z });
       const front = at.z < -0.12;
-      pin.button.style.display = front ? '' : 'none';
-      if (!front) continue;
-      const x = w / 2 + at.x * pxPerUnit;
-      const y = h / 2 - (at.y - centreY) * pxPerUnit;
-      pin.button.style.left = `${x.toFixed(1)}px`;
-      pin.button.style.top = `${y.toFixed(1)}px`;
-      shown.push({ pin, x, y });
-      taken.push({ left: x - 9, right: x + 9, top: y - 9, bottom: y + 9 });
+      pin.button.style.display = '';
+      pin.button.classList.toggle('far', !front);
+      let x = w / 2 + at.x * pxPerUnit;
+      let y = h / 2 - (at.y - centreY) * pxPerUnit;
+      if (!front) {
+        // A place on the far side waits on the rim of the Earth, on the side it would come
+        // round from, and is gone to from there like any other: nobody has to turn the
+        // globe to learn that it is there.
+        const far = Math.hypot(at.x, at.y) || 1;
+        const side = at.x === 0 && at.y === 0 ? 1 : at.x / far;
+        x = w / 2 + side * pxPerUnit;
+        y = h / 2 - ((at.y / far) - centreY) * pxPerUnit;
+      }
+      shown.push({ pin, x, y, front });
+    }
+    // Pins are buttons 44 px across: where two places lie closer than that on the screen
+    // (Seoul, the village, Tokyo) they are moved apart until a finger can tell them apart.
+    for (let round = 0; round < 30; round += 1) {
+      let pushed = false;
+      for (let i = 0; i < shown.length; i += 1) for (let j = i + 1; j < shown.length; j += 1) {
+        const a = shown[i]; const b = shown[j];
+        let dx = b.x - a.x; let dy = b.y - a.y;
+        const d = Math.hypot(dx, dy);
+        if (d >= PIN_APART) continue;
+        if (d < 0.01) { dx = 0; dy = 1; } else { dx /= d; dy /= d; }
+        const by = (PIN_APART - d) / 2 + 0.01;
+        a.x -= dx * by; a.y -= dy * by; b.x += dx * by; b.y += dy * by;
+        pushed = true;
+      }
+      if (!pushed) break;
+    }
+    for (const one of shown) {
+      one.x = Math.max(PIN_EDGE, Math.min(w - PIN_EDGE, one.x));
+      one.y = Math.max(PIN_EDGE, Math.min(h - PIN_EDGE, one.y));
+      one.pin.button.style.left = `${one.x.toFixed(1)}px`;
+      one.pin.button.style.top = `${one.y.toFixed(1)}px`;
+      taken.push({ left: one.x - 9, right: one.x + 9, top: one.y - 9, bottom: one.y + 9 });
     }
     for (const { pin, x, y } of shown) {
       const wide = pin.label.length * 11.5 + 6;
@@ -288,6 +320,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     for (const pin of pins) {
       pin.button.classList.toggle('target', pin.square.id === targetId);
       pin.button.classList.toggle('under', pin.square.id === underId);
+      pin.button.classList.toggle('begin', pin.square.id === beginId);
     }
   }
 
@@ -299,6 +332,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     // The square she is flying to (null for none), the one under her, and the arrow to the first.
     setTarget(id) { targetId = id; },
     setShown(ids) { shownIds = ids; },
+    setBegin(id) { beginId = id; },
     // Where she flies on the screen, px from the top: over the latitude of the nearest place.
     hoverY: () => h / 2 - ((focusY - centreY) * GLOBE_WIDTH * span) / 2,
     under: () => underId,

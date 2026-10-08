@@ -213,11 +213,14 @@ export function createWalkView({ onPerson, onWay }) {
     // Over the speaker's head, kept inside what the eye sees. It is centred by the width it
     // really has: by the widest it may be, a short word hung far to the left of whoever
     // said it (the user, 2026.10.8, of a child's "훌쩍…": "NPC 대화가 너무 멀어").
-    const wide = Math.min(size.w * 0.7, 250 * size.unit + 40);
+    // What runs past 25 letters is given more of the screen, so that it ends on its second line.
+    const long = text.length > 25;
+    const wide = Math.min(size.w * (long ? 0.9 : 0.7), (long ? 330 : 250) * size.unit + 40);
     const key = `${text}|${Math.round(wide)}`;
     if (el.dataset.key !== key) {
       el.dataset.key = key;
-      el.textContent = text;
+      // Two sentences in one balloon stand on a line each.
+      el.textContent = long ? text.replace(/([.!?…]) /, '$1\n') : text;
       el.style.maxWidth = `${wide}px`;
       el.style.left = `${camera}px`;      // measured where nothing squeezes it
       el.classList.add('on');

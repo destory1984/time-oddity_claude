@@ -273,8 +273,15 @@ export function createDialView(canvas) {
     c.strokeStyle = GOLD_LIT; c.fillStyle = GOLD_LIT; c.lineCap = 'butt';
     c.font = `600 12px ${UI}`; c.textAlign = 'center'; c.textBaseline = 'middle';
     for (let i = first; i <= final; i += 1) {
-      // A dial of named stops (the centuries, core/century.js): every tick is a stop and
-      // carries its name.
+      // A dial of named stops (the centuries, core/century.js): a stop carries its name,
+      // and the ticks between two stops are short and empty.
+      if (dial.stops && !dial.stops[i - dial.min]) {
+        const from = at(i, 11);
+        const to = at(i, 11 + 10);
+        c.globalAlpha = 0.85; c.lineWidth = 1.5;
+        c.beginPath(); c.moveTo(from.x, from.y); c.lineTo(to.x, to.y); c.stroke();
+        continue;
+      }
       if (dial.stops) {
         const from = at(i, 11);
         const to = at(i, 11 + 20);

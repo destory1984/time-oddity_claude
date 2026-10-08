@@ -203,7 +203,7 @@ describe('the places that are walked about', () => {
       expect(walk.reply.length, id).toBeLessThanOrEqual(60);
     }
   });
-  it('have six to ten people a scene, each with two lines of 25 characters at most', () => {
+  it('have six to ten people a scene, each with two things to say of 40 characters at most', () => {
     for (const walk of Object.values(WALKS)) {
       for (const scene of walk.scenes) {
         expect(scene.people.length, scene.id).toBeGreaterThanOrEqual(6);
@@ -215,7 +215,7 @@ describe('the places that are walked about', () => {
           expect(person.x > 0.03 && person.x < 0.97, person.id).toBe(true);
           if (!person.lines) { expect(person.try, person.id).toBeTruthy(); continue; }
           expect(person.lines.length, person.id).toBe(2);
-          for (const line of person.lines) expect(line.length, `${person.id}: ${line}`).toBeLessThanOrEqual(25);
+          for (const line of person.lines) expect(line.length, `${person.id}: ${line}`).toBeLessThanOrEqual(40);
         }
         for (const spot of scene.spots) {
           expect(spot.from < spot.to, spot.id).toBe(true);
@@ -340,12 +340,15 @@ describe('what is heard in passing and what is shown', () => {
     expect(speak(walk).line).toBe(tokyo.scenes[0].people.find((p) => p.id === 'bento').lines[0]);
   });
   // The user, 2026.10.8: "그냥 팝업되는 대화 1개, 클릭해서 나오는 대화 2개. 총 3개야".
-  it('gives everyone who speaks three things to say, none longer than 25 letters', () => {
+  // What is said when she asks may run to a second line in its balloon (the user, the same
+  // day: "응 두 줄까지 쓰게 해"): 40 letters. What is said in passing stays at 25.
+  it('gives everyone who speaks three things to say: 25 letters in passing, 40 when asked', () => {
     for (const [id, walked] of Object.entries(WALKS)) for (const scene of walked.scenes) for (const person of scene.people) {
       if (!person.lines) continue;
       expect(person.lines.length, `${id}/${scene.id}/${person.id}`).toBe(2);
       expect(typeof person.pass, `${id}/${scene.id}/${person.id}`).toBe('string');
-      for (const line of [person.pass, ...person.lines]) expect(line.length, line).toBeLessThanOrEqual(25);
+      expect(person.pass.length, person.pass).toBeLessThanOrEqual(25);
+      for (const line of person.lines) expect(line.length, line).toBeLessThanOrEqual(40);
     }
   });
   // The user, 2026.10.8: "매 장면마다 적어도 하나씩은 만들어놔야함".

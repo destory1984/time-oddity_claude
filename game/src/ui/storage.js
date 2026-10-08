@@ -35,7 +35,7 @@ export const saveTextSize = (size) => write(KEY.text, String(size));
 // On a PC: the phone-shaped frame (the default) or the whole window.
 export const loadScreen = () => (read(KEY.screen) === 'wide' ? 'wide' : 'phone');
 export const saveScreen = (choice) => write(KEY.screen, choice === 'wide' ? 'wide' : 'phone');
-// What she has on from the wardrobe (an outfit's name, or none), kept from place to place.
+// What she has on from the wardrobe (an outfit's name, or none), until she leaves the place.
 export const loadOutfit = () => { const name = read('timeoddity.outfit.v1'); return name && /^[a-z0-9-]+$/.test(name) ? name : null; };
 export const saveOutfit = (name) => write('timeoddity.outfit.v1', name ?? '');
 // The test buttons (main.js, the maker's machine only). The opening is shown again after a wipe.

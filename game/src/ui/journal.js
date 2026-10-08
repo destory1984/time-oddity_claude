@@ -136,7 +136,7 @@ export function createJournal({
       item.append(words, again);
       return item;
     });
-    // The wardrobe: what she has put on somewhere can be taken out again anywhere.
+    // The wardrobe: what she has put on somewhere can be taken out again anywhere, until she leaves.
     const clothes = wardrobe().map(({ outfit, name, on }) => {
       const item = el('li', 'row slip');
       const words = el('span', 'rowWords');

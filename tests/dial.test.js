@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { yearIndex } from '../game/src/core/when.js';
-import { PX_PER_YEAR, createDial, drag, grab, release, rollTo, stepDial } from '../game/src/core/dial.js';
+import { PX_PER_YEAR, createDial, drag, grab, release, rollTo, setMarks, stepDial } from '../game/src/core/dial.js';
 
 const run = (dial, ms, dt = 16) => { const seen = []; for (let t = 0; t < ms; t += dt) seen.push(...stepDial(dial, dt)); return seen; };
 const fresh = (year) => createDial({ year, maxYear: 2026 });
@@ -143,5 +143,23 @@ describe('marked years', () => {
     const first = fresh(-2560); setMarks(first, [2026, 1851, -2560]);
     expect(nextMark(first, -1)).toBe(null);
     expect(nextMark(first, 1)).toBe(1851);
+  });
+});
+
+// The century dial (main.js): a stop every eleventh tick, ten empty ticks between.
+describe('a dial that rests on its marks only', () => {
+  const centuries = () => { const d = createDial({ year: 1, minYear: 1, maxYear: 45, onlyMarks: true }); setMarks(d, [1, 12, 23, 34, 45]); return d; };
+  it('passes the empty ticks one by one and comes to rest on the nearest mark', () => {
+    const d = centuries(); grab(d); drag(d, -12 * 4);
+    expect(run(d, 16)).toEqual([2, 3, 4, 5]);
+    release(d, 0);
+    run(d, 3000);
+    expect(d.resting).toBe(true);
+    expect(d.year).toBe(1);
+  });
+  it('goes on to the next mark from past the middle', () => {
+    const d = centuries(); grab(d); drag(d, -12 * 7); release(d, 0);
+    run(d, 3000);
+    expect(d.year).toBe(12);
   });
 });

@@ -26,13 +26,14 @@ const MARK_PULL = 2;          // a dial coming to rest this many ticks from a ma
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
 // px: how far apart two ticks are on the screen (a year is 12 px; the stops of the
-// century dial are much further apart).
-export function createDial({ year, minYear = -2600, maxYear, px = PX_PER_YEAR }) {
+// century dial are further apart, with empty ticks between them). onlyMarks: the dial
+// comes to rest on a marked tick and nowhere else, however far that is.
+export function createDial({ year, minYear = -2600, maxYear, px = PX_PER_YEAR, onlyMarks = false }) {
   const at = yearIndex(year);
   return {
     year, offset: at, resting: true, rolling: false,
     min: yearIndex(minYear), max: yearIndex(maxYear),
-    held: false, speed: 0, carry: 0, reported: at, roll: null, marks: [], px,
+    held: false, speed: 0, carry: 0, reported: at, roll: null, marks: [], px, onlyMarks,
   };
 }
 
@@ -51,7 +52,7 @@ export function nextMark(dial, way) {
 }
 
 function restingTick(dial) {
-  const near = dial.marks.filter((m) => Math.abs(m - dial.offset) <= MARK_PULL + 0.5);
+  const near = dial.onlyMarks ? dial.marks : dial.marks.filter((m) => Math.abs(m - dial.offset) <= MARK_PULL + 0.5);
   if (near.length === 0) return Math.round(dial.offset);
   return near.reduce((best, m) => (Math.abs(m - dial.offset) < Math.abs(best - dial.offset) ? m : best));
 }
