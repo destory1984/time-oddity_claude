@@ -107,6 +107,7 @@ let mode = 'globe';        // 'globe' | 'travel' | 'ground' | 'site' | 'walk' | 
 // rest of the first plan's squares are switched off, not taken out. Above the Earth the
 // dial turns by centuries, and only the centuries that have a place have a stop.
 const LIVE = SQUARES.filter((sq) => WALKS[sq.id] || sq.no === 0);
+const PLACES = LIVE.map((sq) => sq.id);      // what grandmother's later notes count
 const STOPS = centuryStops(LIVE);
 // Where someone who has been nowhere yet begins: Rome, the oldest of the places, so that
 // the notebook is gone through from the far end of time toward grandmother's own day (the
@@ -166,12 +167,14 @@ const opening = {
 // A note is read; when it is folded Sora says her line, if she is on the ground to say it.
 function readNote(note) {
   pager.open({
-    pages: notePages(note), lastLabel: '쪽지를 접는다', skip: false,
+    pages: notePages(note), lastLabel: note.close ?? '쪽지를 접는다', skip: false,
     onDone: () => {
       keep(markNoteRead(progress, note.id));
       const last = note.says[note.says.length - 1];
       if (visit) bubble = { text: last, until: visit.t + SORA_FOR_MS };
       else if (walk) walkSora = { text: last, from: walkT, until: walkT + SORA_FOR_MS };
+      // Another may be due at once (the last place done is also the fifth, or the last of all).
+      if (walk && dueNote((id) => isComplete(progress, id), notesRead(progress), PLACES)) walkNoteAt = walkT + SORA_FOR_MS;
     },
   });
 }
@@ -573,8 +576,8 @@ function frameWalk(dt) {
   // A note that is due (the first leaf's) falls once grandmother's answer has been read.
   if (walkNoteAt > 0 && walkT >= walkNoteAt) {
     walkNoteAt = 0;
-    const note = dueNote((id) => isComplete(progress, id), notesRead(progress));
-    if (note && note.square === square.id) { walkWay = 0; keyWay = 0; sound.page(); readNote(note); }
+    const note = dueNote((id) => isComplete(progress, id), notesRead(progress), PLACES);
+    if (note && (!note.square || note.square === square.id)) { walkWay = 0; keyWay = 0; sound.page(); readNote(note); }
   }
 
   // The sky of that day and hour, as computed, behind the roofs.

@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { NOTES, dueNote, noteById, notePages } from '../game/src/core/notes.js';
 import { SQUARES } from '../game/src/core/squares.js';
@@ -6,7 +7,9 @@ import { emptyProgress, fillDot, isComplete, markNoteRead, notesRead, sanitizePr
 describe('grandmother\'s notes', () => {
   it('belong to squares that exist and keep Sora to 25 characters', () => {
     for (const note of NOTES) {
-      expect(SQUARES.some((s) => s.id === note.square), note.id).toBe(true);
+      if (note.square) expect(SQUARES.some((s) => s.id === note.square), note.id).toBe(true);
+      else expect(note.after === 'all' || note.after > 0, note.id).toBe(true);
+      expect(existsSync(`game/public/opening/${note.image}`), note.image).toBe(true);
       expect(note.says.length).toBe(note.text.length + 1);
       for (const say of note.says) expect(say.length, say).toBeLessThanOrEqual(25);
     }
@@ -30,6 +33,16 @@ describe('grandmother\'s notes', () => {
     p = markNoteRead(p, 'y1969');
     expect(due(p)).toBe(null);
     expect(markNoteRead(p, 'y1969')).toBe(p);
+  });
+  it('fall later for places done: one in Seoul, one after five, the last leaf after all', () => {
+    const places = ['a', 'b', 'c', 'd', 'e', 'seoul88', 'g'];
+    const due = (done, read = ['y1969']) => dueNote((id) => done.includes(id), read, places)?.id ?? null;
+    expect(due(['a', 'b', 'c', 'd'])).toBe(null);
+    expect(due(['a', 'seoul88'])).toBe('y1988');
+    expect(due(['a', 'b', 'c', 'd', 'e'])).toBe('y1989');
+    expect(due(places, ['y1969', 'y1988', 'y1989'])).toBe('last');
+    expect(due(places, ['y1969', 'y1988', 'y1989', 'last'])).toBe(null);
+    expect(dueNote(() => false, [])).toBe(null);
   });
   it('are remembered with the rest of the notebook, and only the ones that exist', () => {
     const p = markNoteRead(fillDot(emptyProgress(), 'khufu', 'day'), 'y1969');
