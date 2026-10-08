@@ -113,7 +113,7 @@ export function stepWalk(walk, dtMs, way = 0) {
   if (dir !== 0) {
     walk.facing = dir;
     walk.heard = null;
-    const next = walk.x + (dir * SPEED * dtMs) / 1000;
+    const next = walk.x + (dir * SPEED * (sceneOf(walk).pace ?? 1) * dtMs) / 1000;
     const scenes = walk.place.scenes.length;
     // Walking off an end goes on into the scene beside it, coming in at its near end.
     if (way > 0 && next > 1 - EDGE && walk.scene < scenes - 1) { walk.scene += 1; walk.x = EDGE * 2; walk.goal = null; out.scene = 1; }

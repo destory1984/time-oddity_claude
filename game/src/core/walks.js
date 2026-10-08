@@ -364,11 +364,15 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'car', name: '달리는 차 안', zoom: 1.3, ground: 0.645, scale: 0.66, air: 'train', floor: 'wood',
+        // The carriage was drawn twice too large for those in it (the user, 2026.10.8: "의자가
+        // 너무 커", "전체적으로 사람이 너무 작네"): its door stood 2.2 times as tall as a man.
+        // The picture is shown at 0.62 of that, with the roof and the sky over it, so it is
+        // narrower than the others (aspect) and she crosses it at the same pace on the screen.
+        id: 'car', name: '달리는 차 안', zoom: 1.012, ground: 0.7944, aspect: 1.1963, pace: 1.6, scale: 0.66, air: 'train', floor: 'wood',
         sora: '안 흔들려! 창밖이 휙휙 가.',
         // The land goes by behind the picture, seen through its six windows.
         moving: [
-          { kind: 'drift', id: 'land', src: 'view', from: 0.105, to: 0.885, foot: 0.456, tall: 0.19, wide: 0.38, gap: 0, speed: -0.09, bob: 0, behind: true },
+          { kind: 'drift', id: 'land', src: 'view', from: 0.105, to: 0.885, foot: 0.6440, tall: 0.1515, wide: 0.38, gap: 0, speed: -0.09, bob: 0, behind: true },
         ],
         people: [
           { id: 'conductor', name: '차장', x: 0.1, w: 112, h: 316, lines: ['표 좀 보여 주시겠습니까.', '신오사카까지 네 시간입니다.'] },

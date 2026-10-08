@@ -65,7 +65,7 @@ export function createWalkView({ onPerson, onWay }) {
   function measure() {
     const h = root.clientHeight;
     const w = root.clientWidth;
-    size = { w, h, unit: h / 812, wide: scene ? 1.5 * scene.zoom * h : w };
+    size = { w, h, unit: h / 812, wide: scene ? (scene.aspect ?? 1.5) * scene.zoom * h : w };
   }
 
   function layout() {
