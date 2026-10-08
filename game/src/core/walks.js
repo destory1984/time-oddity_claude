@@ -192,7 +192,11 @@ export const WALKS = {
         ],
         people: [
           { id: 'cloth', pass: '무명이오, 고운 무명!', name: '포목 장수', x: 0.159, w: 141, h: 299, lines: ['무명 한 필 보고 가시오. 곱지요?', '글자를 알면 장부 쓰기 좋겠구먼.'] },
-          { id: 'pots', pass: '독 사려! 독 안도 구경하시오!', show: 'kimchi', pose: 'see-gasp', sora: '김치가 하얘! 고추가 없었구나.', name: '옹기 장수', x: 0.3, w: 128, h: 289, lines: ['독 안을 보시오. 김치가 하얗지요?', '고추? 그런 건 들어 본 적 없소.'] },
+          { id: 'pots', pass: '독 사려! 독 안도 구경하시오!', show: 'kimchi', pose: 'see-gasp', sora: '김치가 하얘! 고추가 없었구나.',
+            // Looked up on 2026.10.8 (the user asked for the year and the way it came): the
+            // first word of it here is in a book of 1614, which says it came from Japan; that
+            // it came about the war of 1592 is the common account, and some dispute it.
+            memo: '고추는 임진왜란(1592년) 무렵 일본을 거쳐 들어왔다고들 한단다. 본디는 바다 건너 아메리카의 열매야.', name: '옹기 장수', x: 0.3, w: 128, h: 289, lines: ['독 안을 보시오. 김치가 하얗지요?', '고추? 그런 건 들어 본 적 없소.'] },
           { id: 'reader', pass: '방이 붙었소! 다들 들으시오.', name: '방 읽어 주는 선비', x: 0.43, w: 141, h: 312, lines: ['새 글자 스물여덟 자가 나왔다오.', '슬기로우면 아침나절에 배운다오.'] },
           { id: 'woodboy', pass: '나무 사려! 장작이오!', name: '나무꾼 소년', x: 0.52, w: 119, h: 225, lines: ['저게 글자야? 그림 같은데.', '기역, 니은… 나도 따라 했어!'] },
           { id: 'tteok', pass: '떡 사려, 따끈한 떡!', name: '떡 파는 할머니', x: 0.77, w: 109, h: 257, lines: ['시루떡 따끈해요. 하나 드시우.', '열흘이면 배운다니 나도 해 볼까.'] },
@@ -207,9 +211,9 @@ export const WALKS = {
           { kind: 'drift', id: 'parade', src: 'parade', from: 0, to: 1, foot: 0.7, tall: 0.2, wide: 0.3183, gap: 0.55, speed: 0.032, bob: 0.003 },
         ],
         people: [
-          { id: 'farmer', pass: '허어, 문이 산만 하구먼.', name: '시골 농부', x: 0.14, w: 116, h: 246, lines: ['대궐이 이리 큰 줄 몰랐소.', '억울한 일을 글로 적을 수 있다던데.'] },
+          { id: 'farmer', flip: true, pass: '허어, 문이 산만 하구먼.', name: '시골 농부', x: 0.14, w: 116, h: 246, lines: ['대궐이 이리 큰 줄 몰랐소.', '억울한 일을 글로 적을 수 있다던데.'] },
           { id: 'bearer', pass: '영차, 영차!', name: '가마꾼', x: 0.3, w: 113, h: 253, lines: ['아이고 어깨야. 대감은 무겁다니까.', '글자? 가마 멜 때는 쓸 데 없지.'] },
-          { id: 'guard', pass: '물렀거라!', name: '수문장', x: 0.42, w: 123, h: 320, lines: ['멈추시오. 여기는 대궐 문이오.', '임금님은 저 안 깊이 계시오.'] },
+          { id: 'guard', pass: '물렀거라!', name: '수문장', x: 0.42, w: 123, h: 320, lines: ['멈추시오. 여기는 대궐 문이오.', '광화문이오. 스무 해 전에 얻은 이름이지.'] },
           { id: 'elder', pass: '에헴!', name: '늙은 대신', x: 0.58, w: 107, h: 267, lines: ['한문이 있는데 새 글자가 웬 말이오.', '…허나 임금의 뜻이 굳으시오.'] },
           { id: 'official', pass: '새 글자요. 한번 보고 가시오.', show: 'letters', pose: 'see-aha', sora: '지금은 안 쓰는 글자가 넷이구나!', name: '젊은 관리', x: 0.7, w: 115, h: 263, lines: ['새 글자 스물여덟 자요. 보시오.', '소리 나는 대로 적으니 참 쉽소.'] },
           { id: 'girl', pass: '늦었다, 늦었어!', name: '심부름 가는 소녀', x: 0.86, w: 101, h: 230, lines: ['마님 심부름 가요. 바빠요!', '언니가 새 글자를 가르쳐 준댔어.'] },

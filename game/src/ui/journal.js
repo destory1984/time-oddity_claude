@@ -1,5 +1,7 @@
-// Grandmother's notebook: every square in a list, with its three dots and a "가기" that
-// takes Sora there, so that nobody has to know a year to choose where to go. A row opens
+// Grandmother's notebook: every square in a list, with how many of its errands are done.
+// Where all are done there is a stamp and a "가기" that takes Sora there; anywhere else is
+// reached by the dial and the globe (the user, 2026.10.8: "수첩으로 쉽게 갈 수 있는건, 그
+// 이벤트를 완료했을 때만"). A row opens
 // to show grandmother's memo (always, she wrote it beforehand) and, once Sora has been
 // there, Sora's note and the story card with its question.
 import { countProgress, dotsOf, isVisited, quizSolved } from '../core/progress.js';
@@ -23,9 +25,10 @@ const el = (tag, className, text) => {
 // cards: () => the postcards (core/postcard.js); today: () => 'YYYY-MM-DD'; onSend(id): a
 // postcard is sent; onReply(id): its answer has been shown.
 // tries(id): what can be eaten, worn or used there ([{ verb, name, done }], core/walk.js).
+// errands(id): { done, total } of grandmother's errands there, or null where there are none.
 export function createJournal({
   squares, progress, onGo, onSolve, here, canGo = () => true, notes = () => [], onNote = () => {},
-  cards = () => ({}), today = () => '', onSend = () => {}, onReply = () => {}, tries = () => [],
+  cards = () => ({}), today = () => '', onSend = () => {}, onReply = () => {}, tries = () => [], errands = () => null,
 }) {
   const dialog = $('journal');
   const ids = squares.map((s) => s.id);
@@ -39,8 +42,14 @@ export function createJournal({
 
     const head = el('button', 'rowHead');
     head.type = 'button';
-    const marks = el('span', 'rowDots');
-    for (const key of ['day', 'sky', 'remains']) marks.append(el('i', dots[key] ? 'on' : ''));
+    // The three dots of the first plan (the day, its sky, what is left) mean nothing where a
+    // place is walked about (the user: "왼쪽 달 3개는 이제 의미 없지않아?"): there it is the
+    // errands, and a stamp when all are done.
+    const errand = errands(square.id);
+    const finished = Boolean(errand) && errand.done >= errand.total;
+    let marks;
+    if (errand) marks = el('span', `rowErrands${finished ? ' all' : ''}`, finished ? '완료' : `${errand.done}/${errand.total}`);
+    else { marks = el('span', 'rowDots'); for (const key of ['day', 'sky', 'remains']) marks.append(el('i', dots[key] ? 'on' : '')); }
     const words = el('span', 'rowWords');
     words.append(el('b', '', squareTitle(square)), el('small', '', `${square.dateLabel} · ${square.place}`));
     head.append(marks, words);
@@ -50,7 +59,10 @@ export function createJournal({
     go.type = 'button';
     go.disabled = here() === square.id || !canGo();
     go.addEventListener('click', () => { dialog.close(); onGo(square.id); });
-    item.append(head, go);
+    // Not yet finished, it is not to be had so easily.
+    const far = el('small', 'rowFar', '다이얼과\n지구본으로');
+    far.style.whiteSpace = 'pre';
+    item.append(head, !errand || finished || here() === square.id ? go : far);
 
     if (open === square.id) {
       const more = el('div', 'more');
@@ -108,7 +120,7 @@ export function createJournal({
 
   function render() {
     const count = countProgress(progress(), ids);
-    $('journalProgress').textContent = `날 ${count.day}/${count.total} · 하늘 ${count.sky} · 남은 것 ${count.remains} · 맞힌 문제 ${count.quiz}`;
+    $('journalProgress').textContent = walked() ? `심부름을 다 한 자리 ${finishedCount()}/${count.total}` : `날 ${count.day}/${count.total} · 하늘 ${count.sky} · 남은 것 ${count.remains} · 맞힌 문제 ${count.quiz}`;
     const slips = notes().map(({ id, title }) => {
       const item = el('li', 'row slip');
       const words = el('span', 'rowWords');
@@ -122,10 +134,12 @@ export function createJournal({
     $('journalList').replaceChildren(...squares.map(row), ...slips);
   }
 
-  // The count on the top button: squares with all three dots filled.
+  // The count on the top button: the places with all their errands done.
+  const walked = () => ids.some((id) => errands(id));
+  const finishedCount = () => ids.filter((id) => { const e = errands(id); return e && e.done >= e.total; }).length;
   function showCount() {
     const count = countProgress(progress(), ids);
-    $('journalCount').textContent = `${count.complete}/${count.total}`;
+    $('journalCount').textContent = `${walked() ? finishedCount() : count.complete}/${count.total}`;
     $('journalButton').classList.toggle('has-reply', repliesWaiting(cards(), today()) > 0);
   }
   showCount();

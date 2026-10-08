@@ -37,8 +37,12 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkPieces .piece,#walkBehind .piece{position:absolute;width:auto;max-width:none;will-change:transform;-webkit-user-drag:none}
 #walkTalk{position:absolute;left:12px;right:12px;bottom:47%;z-index:40;display:none;align-items:center;gap:12px;padding:10px 14px 10px 10px;border-radius:14px;background:var(--white);color:#1b1730;box-shadow:0 3px 12px #0008;pointer-events:none}
 #walkTalk.on{display:flex}
-#walkTalk.showing{flex-wrap:wrap}
+#walkTalk.showing{flex-wrap:wrap;bottom:auto;top:58px}
+#walkTalk.noted #walkTalkShow{aspect-ratio:2.4/1}
 #walkTalkSora{display:none;flex:0 0 100%;margin:0;padding:2px 4px 0;font-family:var(--seora);font-size:calc(19px * var(--text,1));line-height:1.2;color:#3a2f7a}
+#walkTalkMemo{display:none;flex:0 0 100%;margin:2px 0 0;padding:6px 10px;border-radius:6px;background:var(--paper);color:var(--ink);font-family:var(--hand);font-size:calc(17px * var(--text,1));line-height:1.15}
+#walkTalkMemo.on{display:block}
+#walkTalkMemo::before{content:"할머니 ";font:600 11px/1 "Pretendard Variable",Pretendard,sans-serif;opacity:.55;vertical-align:middle}
 #walkTalkSora.on{display:block;animation:showUp .3s ease-out .7s 1 backwards}
 #walkTalkSora::before{content:"소라 ";font:600 11px/1 "Pretendard Variable",Pretendard,sans-serif;opacity:.55;vertical-align:middle}
 #walkTalk.showing>div{flex:1 1 0;min-width:0}
@@ -258,6 +262,9 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 .row.slip .rowWords{padding-left:6px}
 .rowHead{display:flex;align-items:center;gap:10px;min-width:0;padding:2px 0;border:0;background:none;color:inherit;font:inherit;text-align:left}
 .rowDots{display:flex;gap:4px;flex:none}
+.rowErrands{flex:none;display:grid;place-items:center;width:40px;height:40px;border:1.5px dashed #b9a777;border-radius:50%;font-size:13px;font-weight:600;color:#6b4a2b}
+.rowErrands.all{border:2.5px double #c0392b;color:#c0392b;font-size:11px;font-weight:700;transform:rotate(-12deg);background:rgba(255,246,230,.7)}
+.rowFar{font-size:11px;color:#6b4a2b;opacity:.75;text-align:right;line-height:1.25;white-space:nowrap}
 .rowDots i{width:11px;height:11px;border-radius:50%;border:1.5px solid #6b4a2b}
 .rowDots i.on{background:#c98a1c;border-color:#c98a1c}
 .rowWords{display:grid;min-width:0}

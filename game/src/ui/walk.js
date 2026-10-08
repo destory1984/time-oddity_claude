@@ -35,6 +35,7 @@ export function createWalkView({ onPerson, onWay }) {
   const badge = $('walkBadge');
   const shown = $('walkTalkShow');
   const remarkEl = $('walkTalkSora');
+  const memoEl = $('walkTalkMemo');
   const card = $('walkShow');
   const say = $('walkSay');
   const soraSay = $('walkSoraSay');
@@ -106,6 +107,8 @@ export function createWalkView({ onPerson, onWay }) {
       img.src = `./walks/${place.dir}/${person.id}.png`;
       img.alt = person.name; img.draggable = false;
       img.className = 'person';
+      // One drawn looking away from what they speak of is turned to face it.
+      if (person.flip) img.style.scale = '-1 1';
       // Each sways in a time of its own, so that the street does not move as one.
       img.style.animationDelay = `${-((person.x * 7919) % 1600)}ms`;
       img.addEventListener('pointerdown', (e) => { e.stopPropagation(); onPerson(person.id); });
@@ -304,6 +307,11 @@ export function createWalkView({ onPerson, onWay }) {
     // What she says of it, in the panel under it.
     const remark = panel && walk.remark?.id === walk.heard.id ? walk.remark.text : '';
     if (remarkEl.textContent !== remark) { remarkEl.textContent = remark; remarkEl.classList.toggle('on', Boolean(remark)); }
+    // And what grandmother wrote of it, on a slip of her paper.
+    const slip = panel && show ? heard.person.memo ?? '' : '';
+    // (A panel with a picture hangs from under the top buttons, so that it cannot run off
+    // the top of the screen; with a slip as well its picture is a little lower.)
+    if (memoEl.textContent !== slip) { memoEl.textContent = slip; memoEl.classList.toggle('on', Boolean(slip)); talk.classList.toggle('noted', Boolean(slip)); }
     const apart = show ? '' : big;
     if (card.dataset.src !== apart) { card.dataset.src = apart; if (apart) card.src = apart; card.classList.toggle('on', Boolean(apart)); }
     talk.classList.toggle('on', panel);
