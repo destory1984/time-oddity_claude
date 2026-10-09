@@ -1657,4 +1657,125 @@ export const WALKS = {
     ],
     reply: '그날 처음 두 세상이 만났단다. 그 호수는 메워져 지금의 멕시코시티가 되었지.',
   },
+  // Giza about 2560 BC: the pyramid of Khufu is building. Drawn as the tombs of that kingdom
+  // were carved and painted (the user, 2026.10.10, of five tries: "기자 1"). The day is not on
+  // record. Looked up on 2026.10.10 and found so: the logbook of the inspector Merer, found
+  // in 2013 with the oldest papyri known, who with some forty men brought white limestone by
+  // boat from Tura two or three times in ten days at the season of the flood, and reported
+  // to Ankhhaf, the king's half-brother; about thirty blocks to a boat; the workers' town
+  // with its tons of bread moulds in three sizes and its cattle, sheep and goats; the
+  // workers came by turns and were not slaves, and their gangs had names ("Friends of
+  // Khufu") written on the stones; some 2.3 million blocks, the casing of white Tura stone;
+  // water poured on sand before a sledge halves the pull (measured in 2014; the painting of
+  // it is some 700 years later); copper chisels and wooden mallets for limestone; the lock
+  // of hair children wore. From memory: beer made of bread, rope, the knotted cord.
+  // Made up: the errand of the tally, the foreman, the baker who speaks for her.
+  khufu: {
+    dir: 'giza2560', look: 'paper', pale: true,
+    drawn: '그 무렵 이집트 무덤 벽에 새기고 칠하던 그림처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'harbour', name: '이집트 기자 물길의 나루', short: '물길의 나루', zoom: 1.09, ground: 0.745, scale: 0.638, air: 'court', floor: 'dirt',
+        sora: '배에 돌을 싣고 왔어!',
+        people: [
+          { id: 'rower', pass: '영차, 다 왔다!', name: '뱃사공', x: 0.19, w: 127, h: 320, lines: ['강 건너 투라에서 흰 돌을 실어 왔지.', '열흘에 두세 번은 오간단다.'] },
+          { id: 'roper', pass: '꼬고, 또 꼬고.', name: '밧줄 꼬는 사람', x: 0.3, w: 129, h: 302, lines: ['돌을 끌려면 밧줄이 굵어야 해.', '하루에도 몇 타래를 꼰단다.'] },
+          { id: 'watergirl', pass: '물이오, 시원한 물!', name: '물 긷는 아이', x: 0.4, w: 84, h: 245, lines: ['강물이 넘치는 철이라 물길이 깊어.', '그래서 큰 배가 여기까지 와.'] },
+          { id: 'hauler', pass: '하나, 둘, 영차!', name: '돌 내리는 일꾼', x: 0.51, w: 131, h: 304, lines: ['돌 하나가 황소 몇 마리 무게란다.', '지렛대와 굴림대로 내리지.'] },
+          { id: 'linen', pass: '시원한 아마 옷이오.', name: '아마 옷 짓는 아주머니', x: 0.62, w: 118, h: 287, lines: ['풀 줄기로 짠 천이라 시원하단다.', '아이 옷도 있어. 입어 보련?'],
+            try: { id: 'wear-egypt', verb: 'wear', name: '이집트의 옷', outfit: 'egypt', sora: '얇아서 바람이 솔솔!', memo: '아마라는 풀의 줄기로 짠 천이란다. 더운 나라에 딱 맞았지.' } },
+          { id: 'merer', pass: '오늘도 적어 둬야지.', show: 'diary', pose: 'see-aha', sora: '날마다 한 일을 다 적었어!', memo: '이 사람이 날마다 적은 일지가 2013년에 발견됐단다. 가장 오래된 파피루스지.', name: '감독 메레르', x: 0.73, w: 118, h: 302, lines: ['돌을 몇 개 날랐는지 날마다 적는단다.', '적어 두지 않으면 다 잊히거든.'] },
+          { id: 'fisher', pass: '오늘 저녁은 생선이다.', name: '어부', x: 0.85, w: 155, h: 302, lines: ['일꾼들 먹일 생선이라오.', '강이 넘치면 고기도 많이 잡히지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'village', name: '이집트 기자 일꾼 마을', short: '일꾼 마을', zoom: 1.09, ground: 0.745, scale: 0.638, air: 'market', floor: 'dirt',
+        sora: '빵 굽는 냄새가 나!',
+        people: [
+          { id: 'brewer', pass: '걸러라, 걸러.', name: '맥주 빚는 아주머니', x: 0.18, w: 94, h: 279, lines: ['보리빵을 물에 불려 걸러 빚는단다.', '이건 어른들 마실 거야.'] },
+          { id: 'butcher', pass: '고기 왔소, 고기!', name: '고기 나누는 사람', x: 0.29, w: 158, h: 280, lines: ['일꾼들 먹일 소와 양이란다.', '힘쓰는 사람은 잘 먹어야지.'] },
+          { id: 'painter', pass: '우리 조가 으뜸이지!', show: 'gang', pose: 'see-aha', sora: '돌에 이름을 써 놨어!', memo: '일꾼들은 조를 짜서 일했고 조마다 이름이 있었단다. "쿠푸의 벗들" 같은 이름이지.', name: '조 이름 쓰는 일꾼', x: 0.4, w: 133, h: 273, lines: ['우리 조 이름을 돌에 써 두는 거야.', '끌려온 게 아니란다. 철 따라 와서 일하지.'] },
+          { id: 'potter', pass: '빵틀이 또 깨졌네.', name: '빵틀 빚는 옹기장이', x: 0.51, w: 129, h: 275, lines: ['빵틀은 크기가 세 가지란다.', '그래야 빵을 똑같이 나눠 주지.'] },
+          { id: 'kid', pass: '양파 먹을래?', name: '마을 아이', x: 0.62, w: 107, h: 199, lines: ['아빠는 돌 끄는 조야.', '나는 크면 서기가 될 거야.'] },
+          { id: 'baker', pass: '갓 구운 빵이오!', show: 'bread', name: '빵 굽는 아주머니', x: 0.73, w: 145, h: 280, lines: ['흙 틀에 넣어 숯불에 묻어 굽는단다.', '하나 먹어 보련?'],
+            try: { id: 'eat-bread', verb: 'eat', name: '원뿔 빵', face: 'yum', sora: '겉은 딱딱, 속은 쫀득해!', memo: '이 마을 자리에서는 깨진 빵틀 조각이 산더미로 나왔단다.' } },
+          { id: 'foreman', pass: '썰매 지나간다, 비켜라!', name: '일꾼 우두머리', x: 0.85, w: 160, h: 320, lines: ['돌 썰매가 다니는 길을 지킨단다.', '한눈팔면 큰일 나는 길이지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'ramp', name: '이집트 기자 피라미드 발치', short: '피라미드 발치', zoom: 1.16, ground: 0.69, scale: 0.678, air: 'masons', floor: 'dirt',
+        sora: '우와, 산을 쌓고 있어!',
+        people: [
+          { id: 'pourer', pass: '물 붓는다, 끌어라!', name: '물 붓는 사람', x: 0.18, w: 124, h: 288, lines: ['썰매 앞 모래에 물을 붓는단다.', '그러면 썰매가 잘 미끄러지지.'] },
+          { id: 'puller', pass: '영차! 영차!', name: '줄 끄는 일꾼', x: 0.29, w: 133, h: 273, lines: ['돌이 이백만 개가 넘게 든다더구나.', '하나씩 끌다 보면 산이 되지.'] },
+          { id: 'mason', pass: '톡톡, 반듯하게.', show: 'casing', pose: 'see-wow', sora: '돌이 눈처럼 하얘!', memo: '겉은 강 건너 투라의 흰 돌로 매끈하게 덮었단다. 햇빛에 눈부셨지.', name: '겉돌 다듬는 석공', x: 0.4, w: 133, h: 295, lines: ['겉에 붙일 흰 돌을 다듬는단다.', '구리 정으로 톡톡 쳐 보겠니?'],
+            try: { id: 'use-chisel', verb: 'use', name: '구리 정', sora: '톡, 톡! 돌가루가 날려.' } },
+          { id: 'scribe', pass: '서른, 서른하나…', show: 'sled', pose: 'see-wow', sora: '물을 부으니까 쑥쑥 나가!', memo: '젖은 모래 위에서는 끄는 힘이 절반이면 된단다. 요즘 사람들이 재어 보았지.', name: '감독의 서기', x: 0.51, w: 130, h: 309, lines: ['들어온 돌을 하나하나 적는단다.', '적은 것은 안크하프 님께 올리지.'] },
+          { id: 'surveyor', pass: '줄을 팽팽히!', name: '줄 재는 사람', x: 0.62, w: 105, h: 295, lines: ['매듭 지은 줄로 길이를 잰단다.', '조금만 틀려도 꼭대기가 안 맞아.'] },
+          { id: 'ankhhaf', pass: '오늘은 몇 단을 올렸느냐.', name: '일터를 맡은 안크하프', x: 0.73, w: 154, h: 320, lines: ['임금님의 무덤 쌓는 일을 맡았단다.', '다 쌓으면 세상에서 가장 높을 게다.'] },
+          { id: 'waterboy', pass: '물 왔어요, 물!', name: '물 나르는 아이', x: 0.85, w: 139, h: 229, lines: ['하루에 스무 번은 오르내려.', '물이 없으면 썰매가 안 나가거든.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The tally" (core/tale.js; the user, 2026.10.10, of the storyboard: "이대로 지어"): Merer
+    // has written on a flake of stone how many blocks he brought today; the foreman keeps
+    // her off the sledge road; the baker shows her the way the bread goes; she hands the
+    // flake to the scribe, choosing what to say; and he shows her the stone going up.
+    tale: {
+      thing: true,
+      ask: '돌은 어떻게 저 위로 올라갈까?',
+      gate: { scene: 'village', open: 3, sora: '우두머리가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'merer', goal: '물길의 나루에서 감독 메레르에게 가 보렴.', holds: '돌 조각: 메레르가 들고 있음',
+          lines: ['얘야, 심부름 하나 해 주련?', '오늘 실어 온 돌의 수를 여기 적었단다.', '피라미드 발치의 서기에게 전해 주렴.'],
+          offer: { ask: '돌 조각을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'foreman', goal: '일꾼 마을 끝의 큰 문으로 가 보렴.', holds: '돌 조각: 소라가 들고 있음',
+          lines: ['멈춰라. 돌 썰매가 지나가는 길이다.', '아이가 다닐 데가 아니야.'],
+          sora: '전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'baker', call: '얘야, 이리 와 보렴.', goal: '빵 굽는 아주머니가 부른다. 가 보렴.', holds: '돌 조각: 소라가 들고 있음',
+          lines: ['서기님께 가는 길이라고?', '빵 나르는 길로 가면 썰매를 안 만난단다.', '우두머리님께는 내가 말해 주마.'],
+          after: [{ who: 'foreman', line: '빵 길로 가거라. 썰매 길은 안 된다.' }],
+          sora: '빵 길로 가면 된대! 가자!',
+        },
+        {
+          who: 'scribe', goal: '피라미드 발치의 서기에게 돌 조각을 전하렴.', holds: '돌 조각: 소라가 들고 있음',
+          lines: ['어디 보자, 나루에서 온 거냐?'],
+          choice: {
+            ask: '돌 조각을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"메레르가 보냈어요"', sora: '메레르 아저씨가 보냈어요.', says: '투라의 흰 돌이 왔구나. 잘했다!' },
+              { id: 'E2', label: '"돌이 몇 개예요?"', sora: '오늘 돌이 몇 개 왔어요?', says: '서른 개란다. 하나도 안 빠졌구나.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'scribe', show: true, goal: '서기가 가리키는 비탈길을 보렴.',
+          lines: ['저기 보렴. 오늘 온 돌이 올라간다.', '썰매 앞에 물을 부으면 잘 나간단다.'],
+          sora: '다 같이 끄니까 돌이 올라가!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'merer', when: ['S1', 'S2', 'S3', 'S4'], lines: ['서기는 피라미드 발치에 있단다.', '일꾼 마을을 지나면 나온다.'] },
+        { who: 'merer', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '오늘 일지에 네 이야기도 적어야겠다.'] },
+      ],
+      done: '돌 조각을 전하고, 돌이 오르는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '돌 조각을 받는다.', at: [] },
+      { id: 'gave', text: '서기에게 돌 조각을 전한다.', at: [] },
+      { id: 'saw', text: '돌이 비탈길을 오르는 것을 본다.', at: [] },
+    ],
+    reply: '그 감독의 일지가 사천오백 해 뒤에 나왔단다. 적어 두면 남는 법이지.',
+  },
 };

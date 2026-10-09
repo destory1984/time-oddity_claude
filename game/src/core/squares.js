@@ -44,12 +44,12 @@ export const SQUARES = [
     // by computation; with the picture looking north, Thuban stands over the pyramid.
     date: { year: -2560, month: 4, day: 11 }, calendar: 'julian', hourLocal: 21,
     facingAz: 0, nightOnLook: false,
-    memo: '돌을 다 쌓음. 겉이 새하얗다.', sora: '지금이 새것일 때구나. 하얗다!',
+    memo: '임금의 큰 무덤을 쌓는 중.', sora: '하얗다! 아직 쌓는 중이야.',
     memoToday: '남은 것: 피라미드. 겉돌은 벗겨짐.', soraToday: '누렇게 됐네. 그래도 서 있다.', // (placeholder)
-    noteMemo: '기원전 2560년경. 왕의 무덤을 다 쌓았다고 책에서 읽음. 그날 밤 북쪽 별은 투반.', // (placeholder)
-    card: '기원전 2560년 무렵, 이집트 기자에 쿠푸 왕의 대피라미드가 다 지어졌습니다. 겉은 흰 석회암으로 매끈하게 덮여 햇빛에 빛났습니다. 겉돌은 훗날 벗겨져 다른 건물에 쓰였고, 지금은 계단 같은 속돌이 드러나 있습니다.', // (placeholder)
-    reply: '새하얀 것을 봤구나. 나는 누런 것만 사진으로 봤단다.', // (placeholder)
-    quiz: { question: '새로 지은 피라미드의 겉은 어땠나?', answer: '흰 돌로 매끈했다', proof: '흰 석회암으로 매끈하게', wrong: ['금으로 덮였다', '붉게 칠했다'] }, // (placeholder)
+    noteMemo: '기원전 2560년경. 왕의 큰 무덤을 쌓던 때라고 책에서 읽음. 그날 밤 북쪽 별은 투반.',
+    card: '기원전 2560년 무렵, 이집트 기자에서는 쿠푸 왕의 대피라미드를 쌓고 있었습니다. 겉을 덮을 흰 돌은 강 건너 투라에서 배로 실어 왔고, 그 일을 날마다 적은 감독 메레르의 일지가 2013년에 발견되었습니다. 겉돌은 훗날 벗겨져 지금은 계단 같은 속돌이 드러나 있습니다.',
+    reply: '그 감독의 일지가 사천오백 해 뒤에 나왔단다. 적어 두면 남는 법이지.',
+    quiz: { question: '겉을 덮을 흰 돌은 어떻게 실어 왔나?', answer: '배로', proof: '배로 실어 왔고', wrong: ['낙타로', '수레로'] },
   },
   {
     no: 10, id: 'pharos', name: '파로스의 등대', dateLabel: 'BC 280년경', place: '알렉산드리아, 이집트',
