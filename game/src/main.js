@@ -420,6 +420,10 @@ const walkView = createWalkView({
   onWay: (way) => { walkWay = panelOpen() ? 0 : way; if (way !== 0) walkWant = null; },
   onLook: (look) => openLook(look),
   onTap: (tap) => tapScene(tap),
+  // What is seen from a spot is touched: she walks to the spot and stands there, which is
+  // what does the errand (the user, 2026.10.10, having touched the king in his hall: "임금님
+  // 눌렀는데, 임무 한거 아님?"). Until then only walking into the spot did it.
+  onSpot: (spot) => { if (!walk || panelOpen()) return; sound.wake(); walkWay = 0; walkWant = null; sendTo(walk, (spot.from + spot.to) / 2); },
 });
 // A place in the picture touched: she says the next of what she has to say of it.
 function tapScene(tap) {

@@ -66,7 +66,8 @@ export function createSettings({ onOpen, onClose, today, sound, music, version, 
     $('musicNow').textContent = music.on() ? '지금은 켜져 있습니다.' : '지금은 꺼져 있습니다.';
     $('musicSwitch').textContent = music.on() ? '배경 음악 끄기' : '배경 음악 켜기';
     $('musicRepeat').setAttribute('aria-pressed', String(music.repeat()));
-    $('musicRepeat').textContent = music.repeat() ? '한 곡만 되풀이: 켜짐' : '한 곡만 되풀이: 꺼짐';
+    $('musicRepeat').textContent = music.repeat() ? '되풀이: 켜짐' : '되풀이: 꺼짐';
+    $('musicRepeat').title = '지금 나오는 한 곡만 되풀이합니다';
   }
   $('musicRepeat').addEventListener('click', () => { music.setRepeat(!music.repeat()); renderSound(); });
   $('musicSwitch').addEventListener('click', () => { music.setOn(!music.on()); renderSound(); });

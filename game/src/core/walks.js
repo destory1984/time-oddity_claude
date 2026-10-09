@@ -34,6 +34,11 @@
 // thousand pieces of iron, the hall's roof standing with no pillar.
 const SHEET = { market: 0.6, plaza: 0.66, inside: 0.62 };   // how large a sheet's figures are shown, of their px on a 812 px screen
 
+// A scene's `spots` are where she stands to see something: [{ id, from, to, memo?, pose?,
+// see? }]. Standing between `from` and `to` does the errand that names the spot. What is
+// seen from it may be touched, and she then walks there: `see` is where it is in the
+// picture (left, top, right, bottom as shares of it); without one, all of the picture
+// above the spot answers.
 // A scene's `taps` are places in its picture that may be touched for a word from Sora:
 // [{ id, name, box: left, top, right, bottom as shares of the picture, sora: [lines said in
 // turn], pose? }] (the user, 2026.10.9, of the new star in Kaifeng's sky: "하늘을 누르면, 소리가
@@ -289,7 +294,7 @@ export const WALKS = {
         ],
         spots: [
           // The king at his books, deep in the middle bay: seen, not spoken to. She stands a little to his right, so as not to hide him.
-          { id: 'sejong', from: 0.51, to: 0.57, memo: '저 안에 앉은 분이 세종대왕님이란다. 백성이 쉽게 쓰라고 만드셨지.' },
+          { id: 'sejong', from: 0.51, to: 0.57, see: [0.45, 0.55, 0.505, 0.67], memo: '저 안에 앉은 분이 세종대왕님이란다. 백성이 쉽게 쓰라고 만드셨지.' },
         ],
       },
     ],

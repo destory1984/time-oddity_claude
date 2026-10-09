@@ -23,7 +23,7 @@ const $ = (id) => document.getElementById(id);
 
 // onPerson(id): a person was touched. onWay(way): a finger went down on the left (-1) or
 // right (1) of the scene, or lifted (0).
-export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () => {} }) {
+export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () => {}, onSpot = () => {} }) {
   const root = $('walk');
   const scroll = $('walkScene');
   const picture = $('walkPicture');
@@ -46,6 +46,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
   let moving = new Map();     // piece id → { img, box: what hides the rest of it, or null }
   let looks = [];             // things in the picture that are looked at closely: { look, button }
   let taps = [];              // places in the picture touched for a word from her: { tap, button }
+  let spots = [];             // what is seen from a spot, touched to walk her to it: { spot, button }
   // What is carried in the tale: its picture, whether she has it, and its flight from one
   // to another ({ from, to, start }: a person's id or 'sora').
   const thing = document.createElement('img');
@@ -91,6 +92,15 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     // What is looked at closely lies over its place in the picture (a scene's `looks`).
     for (const { look, button } of looks) {
       const [x0, y0, x1, y1] = look.box;
+      button.style.left = `${x0 * wide}px`;
+      button.style.width = `${(x1 - x0) * wide}px`;
+      button.style.top = `${(FOOT - scene.ground * scene.zoom + y0 * scene.zoom) * h}px`;
+      button.style.height = `${(y1 - y0) * scene.zoom * h}px`;
+    }
+    // What is seen from a spot may be touched: where it is in the picture (`see`), else the
+    // whole of the picture above the spot.
+    for (const { spot, button } of spots) {
+      const [x0, y0, x1, y1] = spot.see ?? [spot.from, 0, spot.to, scene.ground - 0.03];
       button.style.left = `${x0 * wide}px`;
       button.style.width = `${(x1 - x0) * wide}px`;
       button.style.top = `${(FOOT - scene.ground * scene.zoom + y0 * scene.zoom) * h}px`;
@@ -149,6 +159,15 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       button.addEventListener('click', () => onTap(tap));
       scroll.append(button);
       return { tap, button };
+    });
+    for (const { button } of spots) button.remove();
+    spots = (scene.spots ?? []).map((spot) => {
+      const button = document.createElement('button');
+      button.type = 'button'; button.className = 'tap';
+      button.addEventListener('pointerdown', (e) => e.stopPropagation());
+      button.addEventListener('click', () => onSpot(spot));
+      scroll.append(button);
+      return { spot, button };
     });
     carried.flight = null;
     for (const person of scene.people) {
