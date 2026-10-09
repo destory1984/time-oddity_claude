@@ -437,6 +437,8 @@ function tapScene(tap) {
   walk.heard = null;
   walkSora = { text: tap.sora[said % tap.sora.length], from: walkT, until: walkT + SORA_FOR_MS };
   if (tap.pose && !walk.wearing && said === 0) walkFace = { poses: [[tap.pose, walkT + 2200]] };
+  // What grandmother knows of it, on her slip.
+  if (tap.memo) walkMemo = { text: tap.memo, until: walkT + TRY_MEMO_MS };
 }
 // A thing of the scene looked at closely: a photograph of it as it is today and what is
 // known of it, on a sheet of its own. The game waits while it is open.

@@ -152,12 +152,14 @@ export const WALKS = {
     now: {
       photo: 'photo-now.webp', name: '에펠탑의 지금 모습', when: '프랑스 파리 · 오늘날',
       text: [
-        '박람회가 끝나고 스무 해 뒤에 헐기로 했던 탑입니다.',
-        '꼭대기를 무선 통신의 안테나로 쓰게 되어 남았습니다.',
+        '박람회 스무 해 뒤에 헐기로 했으나, 꼭대기를 안테나로 쓰게 되어 남았습니다.',
         '지금 높이는 안테나까지 330미터입니다.',
         // The user, 2026.10.10: "보수 공사비 많이 들어가던데". Looked up at toureiffel.paris: painted twenty
         // times, about once in seven years, about 60 tonnes a time. What it costs differs by source and is left out.
-        '녹슬지 않게 일곱 해쯤마다 다시 칠합니다. 한 번에 페인트가 60톤쯤 듭니다.',
+        '녹슬지 않게 일곱 해쯤마다 페인트 60톤으로 다시 칠합니다.',
+        // The user, 2026.10.10: "보수 비용이 얼마나 들어가는지도 적어. 어른들은 숫자(돈) 좋아해". Reuters, July
+        // 2022, after the magazine Marianne: 60 million euros. The final sum was not found.
+        '스무 번째 칠(2019년 시작)에는 6천만 유로가 든다고 보도되었습니다.',
       ],
       credit: '사진: Benh LIEU SONG, 위키미디어 공용, 공개 저작물',
     },
@@ -165,6 +167,10 @@ export const WALKS = {
       {
         id: 'gate', name: '파리 만국박람회 입구', short: '박람회 입구', zoom: 1.03, ground: 0.785, scale: 0.602, air: 'street',
         sora: '깃발이 잔뜩! 저 끝에 탑이야.',
+        // The dome seen through the middle arch (the user, 2026.10.10, with a red ring about it: "누르면 설명
+        // 추가"). Looked up (nga.gov, toureiffel.paris): the Dôme Central, the way into the Palais des
+        // Industries Diverses, nearly 200 feet high, a statue of France 30 feet high on top.
+        taps: [{ id: 'dome', name: '중앙 돔', box: [0.456, 0.39, 0.612, 0.68], pose: 'see-wow', sora: ['저 둥근 지붕 좀 봐! 반짝반짝해.', '꼭대기에 누가 서 있어!'], memo: '박람회 한가운데에 선 중앙 돔이란다. 높이가 60미터쯤이고 꼭대기에 조각상이 섰지.' }],
         // People pour in at the middle arch from both sides, and are lost at its two pillars.
         moving: [
           { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 0.43, foot: 0.772, tall: 0.18, wide: 0.367, gap: 0.03, speed: 0.03, bob: 0.003 },
