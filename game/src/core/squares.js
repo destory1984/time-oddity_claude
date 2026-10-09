@@ -470,6 +470,21 @@ export const SQUARES = [
     quiz: { question: '그날 해 앞을 지나간 것은?', answer: '금성', proof: '금성이 해 앞을', wrong: ['수성', '혜성'] },
   },
   {
+    // Kaifeng, the Song capital, on the morning a new star was seen in the east at daybreak
+    // (the supernova whose remains are the Crab Nebula). The place is walked about
+    // (core/walks.js); its sky is in the pictures, which are in ink.
+    no: 25, id: 'guest1054', name: '낮에 뜬 별', dateLabel: 'AD 1054.7.4', place: '개봉, 중국',
+    lat: 34.797, lon: 114.307,
+    date: { year: 1054, month: 7, day: 4 }, calendar: 'julian', hourLocal: 5,
+    facingAz: 90, nightOnLook: true,
+    memo: '없던 별이 하늘에 나타남.', sora: '저 별, 엄청 밝아!',
+    memoToday: '남은 것: 그 별의 자취. 게성운.', soraToday: '그 별이 구름이 됐대!',
+    noteMemo: '1054.7.4. 없던 별이 나타났다고 읽음. 그 별은 낮에도 보였다고.',
+    card: '1054년 7월 4일 새벽, 송나라의 서울 개봉에서 천문 관원 양유덕이 동쪽 하늘에 없던 별이 나타난 것을 적었습니다. 금성보다 밝았고 스무사흘 동안 낮에도 보였습니다. 그 자리에는 지금 게성운이 있습니다.',
+    reply: '그 별은 스무사흘 동안 낮에도 보였단다. 지금은 게 모양 구름이 되어 그 자리에 있지.',
+    quiz: { question: '그 별은 얼마 동안 낮에도 보였나?', answer: '스무사흘', proof: '스무사흘 동안 낮에도', wrong: ['이틀', '한 해'] },
+  },
+  {
     // Milan while Leonardo was painting the Last Supper in the refectory of Santa Maria
     // delle Grazie. The day is not on record: a noon of high summer in 1497 is taken (the
     // duke's letter urging him on is of 29 June; Bandello writes of the sun in Leo; the

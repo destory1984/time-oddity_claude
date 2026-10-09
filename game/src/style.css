@@ -174,6 +174,8 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #dots i.on{background:var(--gold);box-shadow:0 0 10px var(--gold)}
 #name{font-size:13px;color:var(--gold)}
 #date{top:64px;left:18px;text-shadow:0 1px 6px rgba(5,3,48,.6)}
+#stage.pale #date{color:#1d2238;text-shadow:0 1px 6px rgba(255,255,255,.75)}
+#stage.pale #name{color:#8a6a1c}
 #date b{display:block;font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
 #date span{display:block}
 #subText{color:var(--gold);min-height:1.4em}

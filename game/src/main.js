@@ -714,7 +714,8 @@ function showWalk(sq) {
   showChoice(Boolean(walk.place.story?.choice) && allDone(walk) && !chosenOf());
   if (isLocalHost(location.hostname)) window.walkDebug = walk;
   globe.setActive(false);
-  stage.className = 'on-ground on-walk';
+  // (Where the sky of the picture is pale paper, the date over it is written dark.)
+  stage.className = walk.place.pale ? 'on-ground on-walk pale' : 'on-ground on-walk';
   mode = 'walk';
   keep(fillDot(progress, sq.id, 'day'));
   showErrands();

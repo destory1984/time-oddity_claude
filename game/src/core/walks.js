@@ -478,6 +478,125 @@ export const WALKS = {
     ],
     reply: '그 기차는 열 시 정각에 오사카에 닿았단다. 그날 달린 예순 편이 모두 제시각이었지.',
   },
+  // Kaifeng, 4 July 1054: a star nobody had seen before stood in the east at daybreak and
+  // stayed in sight after the sun was up. In ink (the user, 2026.10.9, of five tries: "3"):
+  // the sky is the paper of the picture, so the computed sky is not behind it.
+  // Looked up on 2026.10.9 and found so: the guest star first seen at daybreak in the east
+  // on 4 July 1054 and set down by the astronomer Yang Weide; a little brighter than Venus
+  // and in sight by day for 23 days; the Crab Nebula what is left of it. The bridge over the
+  // Bian with no piers, of great timbers curved like a rainbow; books printed from carved
+  // blocks, Kaifeng one of the places they were printed; tea ground to powder and whisked
+  // with a bamboo whisk; officials' black hats with long straight wings.
+  // The streets are as the scroll "Along the River at Qingming" shows them, which is of the
+  // next century. From memory: masts lowered to pass the bridge and the rice of the south
+  // coming up the canal, markets by night, the water clock, the armillary sphere, steamed buns.
+  // Made up: the apprentice and his note, the gatekeeper, the fortune-teller, what they say.
+  guest1054: {
+    dir: 'kaifeng1054', look: 'paper', pale: true,
+    scenes: [
+      {
+        id: 'bridge', name: '개봉 변하 무지개 다리 어귀', short: '무지개 다리', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
+        sora: '아직 새벽이야. 저 별 좀 봐!',
+        people: [
+          { id: 'tea', pass: '차 한 사발 하고 가요!', name: '찻집 아주머니', x: 0.18, w: 117, h: 278, lines: ['가루 낸 차에 더운물을 붓고 저어요.', '거품이 고울수록 잘 탄 차랍니다.'],
+            try: { id: 'use-whisk', verb: 'use', name: '차 젓는 솔', sora: '휘휘휘! 거품이 뽀얗게 올라와!', memo: '송나라에서는 차를 가루 내어 대나무 솔로 저어 마셨단다.' } },
+          { id: 'bun', pass: '따끈한 만두요, 만두!', name: '만두 장수', x: 0.28, w: 152, h: 276, lines: ['새벽부터 쪄서 김이 펄펄 나지.', '배 타는 사람들이 제일 먼저 사 가오.'],
+            try: { id: 'eat-mantou', verb: 'eat', name: '찐 만두', face: 'yum', sora: '호호, 뜨거워! 폭신폭신해.' } },
+          { id: 'carpenter', pass: '어디 보자, 여기도 멀쩡하군.', show: 'bridge', pose: 'see-wow', sora: '기둥이 하나도 없어!', memo: '통나무를 무지개처럼 휘어 강을 건넌 다리란다. 기둥이 없어 배가 걸리지 않았지.', name: '다리 고치는 목수', x: 0.39, w: 135, h: 279, lines: ['이 다리는 물속에 기둥이 없소.', '통나무를 무지개처럼 엮어 올렸지.'] },
+          { id: 'boatman', pass: '돛대 눕혀라, 다리다!', name: '뱃사공', x: 0.5, w: 130, h: 320, lines: ['다리 밑을 지날 땐 돛대를 눕힌다오.', '남쪽 쌀이 이 물길로 다 올라오지.'] },
+          { id: 'apprentice', pass: '저 별… 어제는 없었는데.', name: '별 보는 생도', x: 0.62, w: 114, h: 280, lines: ['하늘 보는 일을 배우는 중이야.', '밤을 꼬박 새웠더니 눈이 감겨.'] },
+          { id: 'porter', pass: '영차, 영차.', name: '짐꾼', x: 0.74, w: 176, h: 279, lines: ['새벽 장에 댈 채소라오.', '이 도시는 밤에도 장이 선다오.'] },
+          { id: 'child', pass: '하아암…', name: '졸린 아이', x: 0.85, w: 93, h: 203, lines: ['형아가 밤새 하늘만 봤어.', '나도 별 봤어. 엄청 밝았어!'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'street', name: '개봉 성 안 큰 거리', short: '큰 거리', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'street', floor: 'dirt',
+        sora: '해가 떴어. 그런데 저 별은 그대로야!',
+        people: [
+          { id: 'peddler', pass: '딸랑딸랑, 구경하세요!', name: '방물장수', x: 0.18, w: 158, h: 310, lines: ['부채, 빗, 바람개비, 없는 게 없소.', '온 거리를 지고 다닌다오.'] },
+          { id: 'printer', pass: '새 책 나왔소, 새 책!', show: 'print', pose: 'see-aha', sora: '글자가 거꾸로 새겨져 있어!', memo: '나무판에 글자를 뒤집어 새기고 먹을 발라 찍었단다. 판 하나로 수백 장을 찍었지.', name: '책 가게 주인', x: 0.28, w: 128, h: 313, lines: ['판 하나를 새기면 몇백 장을 찍소.', '손으로 베끼던 때는 지났지.'] },
+          { id: 'cloth', pass: '옷 구경하고 가요!', name: '옷 가게 주인', x: 0.39, w: 145, h: 304, lines: ['아이 옷도 곱게 지어 놨어요.', '한번 걸쳐 보겠니?'],
+            try: { id: 'wear-song', verb: 'wear', name: '송나라 옷', outfit: 'song', sora: '치마가 사락사락해!', memo: '송나라 아이들이 입던 저고리와 주름치마란다.' } },
+          { id: 'scholar', pass: '공자 왈, 맹자 왈…', name: '글 읽는 선비', x: 0.5, w: 153, h: 310, lines: ['과거 시험이 코앞이라오.', '찍어 낸 책 덕에 공부할 맛이 나오.'] },
+          { id: 'monk', pass: '나무아미타불.', name: '스님', x: 0.6, w: 115, h: 284, lines: ['새벽 예불을 마치고 오는 길이오.', '오늘 하늘이 심상치 않구려.'] },
+          { id: 'fortune', pass: '오늘 운세 보고 가시오.', show: 'daystar', pose: 'see-wow', sora: '낮인데 별이 보여!', memo: '금성보다 밝아서 스무사흘 동안 낮에도 보였단다.', name: '점쟁이', x: 0.72, w: 143, h: 305, lines: ['별을 보면 앞일이 보인다오.', '오늘 저 별은 나도 처음 보오.'] },
+          { id: 'guard', pass: '아함… 졸리다.', name: '천문대 문지기', x: 0.85, w: 128, h: 320, lines: ['여기는 나라의 천문대다.', '아무나 못 들어간다.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'yard', name: '개봉 천문대 마당', short: '천문대', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '고리가 겹겹인 저건 뭐지?',
+        people: [
+          { id: 'clockman', pass: '똑… 똑… 똑…', name: '물시계 지키는 관원', x: 0.18, w: 125, h: 305, lines: ['떨어지는 물로 시각을 잰단다.', '때가 되면 북을 쳐서 알리지.'] },
+          { id: 'sweeper', pass: '쓱싹, 쓱싹.', name: '마당 쓰는 아이', x: 0.27, w: 90, h: 248, lines: ['어른들이 오늘은 하늘만 봐요.', '빗자루질도 안 시켜요. 히히.'] },
+          { id: 'armil', pass: '고리를 이쪽으로…', show: 'armillary', pose: 'see-gasp', sora: '고리가 겹겹이야!', memo: '고리를 돌려 별이 하늘 어디에 있는지 재는 기구란다.', name: '혼천의 보는 관원', x: 0.47, w: 131, h: 316, lines: ['이 대롱으로 별을 겨눈단다.', '고리의 눈금을 읽으면 별의 자리가 나오지.'] },
+          { id: 'old', pass: '허어, 평생 처음이로다.', name: '늙은 관원', x: 0.37, w: 151, h: 311, lines: ['육십 평생 저런 별은 처음이오.', '해가 떴는데도 지지를 않소.'] },
+          { id: 'yang', pass: '천관 별 곁이라…', show: 'chart', pose: 'see-aha', sora: '별 그림에 빨간 점을 찍었어!', memo: '그날 적어 둔 덕분에 먼 훗날 사람들이 그 별의 자취를 찾아냈단다.', name: '천문 관원 양유덕', x: 0.69, w: 135, h: 320, lines: ['하늘에 없던 별은 손님별이라 한단다.', '언제 와서 언제 가는지 다 적어 두지.'] },
+          { id: 'scribe', pass: '사각사각.', name: '받아 적는 서리', x: 0.78, w: 95, h: 301, lines: ['날짜와 시각을 빠짐없이 적는다.', '훗날 누가 읽을지 모르니까.'] },
+          { id: 'messenger', pass: '준비됐습니다!', name: '궁으로 갈 전령', x: 0.86, w: 115, h: 283, lines: ['적은 것을 궁궐로 들고 뛸 사람이오.', '임금님도 하늘 일은 꼭 들으신다오.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The star that rose by day" (core/tale.js; the user, 2026.10.9, of the storyboard:
+    // "이대로 지어"): the apprentice who has watched all night gives her a note for his
+    // master; the gatekeeper of the observatory will not hear of a star by day; the
+    // fortune-teller shows her, and him, that it is still there; she hands the note over,
+    // choosing what to say; and the astronomer sets the star down on his chart.
+    tale: {
+      ask: '해가 떠도 안 지는 별이 있을까?',
+      steps: [
+        {
+          who: 'apprentice', goal: '무지개 다리 어귀의 별 보는 생도에게 가 보렴.', holds: '쪽지: 생도가 들고 있음',
+          lines: ['밤새 하늘을 봤는데, 없던 별이 떴어.', '해가 떠도 보이는지 지켜봐야 해.', '이 쪽지를 스승님께 전해 줄래?'],
+          offer: { ask: '쪽지를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'guard', goal: '큰 거리 끝의 천문대 문으로 가 보렴.', holds: '쪽지: 소라가 들고 있음',
+          lines: ['낮에 별이라니, 잠꼬대 말아라.', '해가 떴는데 별이 어디 있느냐.'],
+          sora: '진짜인데… 어? 점쟁이 할아버지가 불러!',
+        },
+        {
+          who: 'fortune', show: true, call: '얘야, 저 하늘 좀 보렴.', goal: '점쟁이 할아버지가 부른다. 가 보렴.', holds: '쪽지: 소라가 들고 있음',
+          lines: ['손으로 해를 가리고 저쪽을 보렴.', '보이지? 낮인데도 별이 떠 있단다.'],
+          after: [{ who: 'guard', line: '어디… 어이쿠, 정말이네! 들어가라.' }],
+          sora: '문지기 아저씨도 봤어! 들어가자!',
+        },
+        {
+          who: 'yang', goal: '천문대 마당의 천문 관원에게 쪽지를 전하렴.', holds: '쪽지: 소라가 들고 있음',
+          lines: ['무슨 일이냐. 쪽지라고?'],
+          choice: {
+            ask: '쪽지를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"제자가 밤새 봤대요"', sora: '제자가 밤새 지켜보고 적은 거예요.', says: '기특하구나. 어디 보자… 과연!' },
+              { id: 'E2', label: '"낮에도 보여요!"', sora: '그 별, 해가 떴는데도 보여요!', says: '낮에도? 이건 꼭 적어 둬야겠구나.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'yang', show: true, goal: '천문 관원이 별 그림에 적는 것을 보렴.',
+          lines: ['이리 와서 보렴. 여기가 그 자리란다.', '손님별이라 적고, 붉은 점을 찍어 두마.'],
+          sora: '빨간 점이 찍혔어! 오늘이 적힌 거야.',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'apprentice', when: ['S1', 'S2', 'S3', 'S4'], lines: ['스승님은 천문대에 계셔.', '큰 거리 끝까지 가면 문이 보여.'] },
+        { who: 'apprentice', when: ['S5'], lines: ['전해 줬구나! 정말 고마워.', '이제 눈 좀 붙여야겠어. 하암.'] },
+      ],
+      done: '쪽지를 전하고, 별이 적히는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '생도의 쪽지를 받는다.', at: [] },
+      { id: 'gave', text: '천문 관원에게 쪽지를 전한다.', at: [] },
+      { id: 'saw', text: '별이 적히는 것을 본다.', at: [] },
+    ],
+    reply: '그 별은 스무사흘 동안 낮에도 보였단다. 지금은 게 모양 구름이 되어 그 자리에 있지.',
+  },
   // Tahiti, 3 June 1769: Venus crossed the Sun and Cook's people timed it from the fort on
   // the point. Painted after Gauguin's oils and not in pixels (the user, 2026.10.9, having
   // seen nine tries: "좋아 8번"): the sand is coral pink and the sky is in the picture, so
