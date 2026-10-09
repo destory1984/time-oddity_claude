@@ -7,7 +7,7 @@
 
 - 열어 보기: https://destory1984.github.io/time-oddity_claude/play/
 - 휴대폰으로 열면 화면에 딱 맞는다. 앱을 깔거나 가입할 필요가 없고 광고도 없다. 어디까지 했는지는 그 휴대폰에만 저장된다.
-- 지금 판은 v0.1.119이다(2026.10.9). 갈 곳은 열셋이고, 한 곳을 다 보는 데 5분쯤 걸린다.
+- 지금 판은 v0.1.120이다(2026.10.9). 갈 곳은 열셋이고, 한 곳을 다 보는 데 5분쯤 걸린다.
 
 | 로마 제국 - 로마 AD 80 | 동로마 제국 - 콘스탄티노플 AD 537 | 송나라 - 개봉 AD 1054 | 이집트 맘루크 왕조 - 카이로 AD 1324 |
 |---|---|---|---|
@@ -50,7 +50,7 @@
 5. 왼쪽 위 쪽지에 적힌 할머니의 심부름 셋을 다 하면 도장이 찍힌다. 이야기가 있는 곳에서는 머리 위에 "!"가 뜬 사람에게 가면 되고, 마친 일은 쪽지에 줄이 그어진다. 할머니의 쪽지가 세 장(1969, 1988, 1989) 있고, 열세 곳을 다 마치면 수첩의 마지막 장이 펼쳐진다.
 6. "떠나기"를 누르면 지구 위로 올라간다. 아래 다이얼을 돌려 세기를 고르고, 금색 점을 눌러 다음 곳으로 간다. 지구 뒤쪽에 있는 곳은 지구 가장자리에 속 빈 점으로 보인다.
 7. 밀라노의 수도원 식당에서는 벽화를 누르면 지금의 "최후의 만찬" 사진과 설명 넉 줄이 뜬다.
-8. 콘스탄티노플에서는 이야기를 마치면 하기아 소피아의 지금 사진과 설명 넉 줄이 뜬다. 아무 데나 누르면 게임으로 돌아간다. 나머지 열두 곳에도 넣을 것이다.
+8. 어느 곳에서든 할 일을 다 마치면 그곳의 지금 사진과 설명 두세 줄이 뜬다(지금의 콜로세움, 타지마할, 금문교 등 열세 장). 아무 데나 누르면 게임으로 돌아간다. 개봉에서는 그 새 별이 남긴 게 성운을, 할머니의 마을에서는 달에 내린 자리를 보여 준다.
 
 위쪽 단추는 수첩(심부름을 다 한 곳의 수), 효과음, 배경 음악, 설정이다. 설정에서 글자 크기를 다섯 단계로 바꾼다. 효과음이나 음악을 끄면 소라가 손가락을 입에 대고 "쉬잇" 한다.
 
@@ -64,6 +64,7 @@
 - 사실과 다르게 그린 것이 있다. 타히티의 그 곶은 모래가 검은데 그림에서는 분홍빛이다. 고갱의 색을 따랐기 때문이다. 개봉의 거리는 12세기 그림 "청명상하도"의 모습을 빌렸으니 1054년보다 조금 뒤의 거리다.
 - 아직 확인하지 못한 것이 있다. 1969년 7월 21일 밤에 한국의 텔레비전이 달 착륙을 다시 보여 주었는지는 자료를 찾지 못했다. 낮 생중계(첫발은 한국 시각 오전 11시 56분)는 확인했다.
 - 하늘은 그림이 아니라 계산이다. 그날 그 자리의 달과 별을 계산해 지붕 뒤에 그린다. 그림체를 바꾼 일곱 곳(로마, 콘스탄티노플, 개봉, 카이로, 아그라, 타히티, 도쿄)은 하늘이 그림 안에 그려져 있어 계산한 하늘이 보이지 않는다.
+- 지금 사진에 붙인 설명은 콘스탄티노플의 것만 찾아 확인했다. 나머지 열두 곳의 숫자(세운 해, 높이, 속도)는 기억으로 썼고 아직 대조하지 않았다.
 - 볼거리로 쓴 사실과 쓰지 않은 후보, 출처는 [docs/신기한-사실.md](docs/신기한-사실.md)에 있다.
 - 틀린 것을 찾으면 [이슈](https://github.com/destory1984/time-oddity_claude/issues)에 적어 주면 고친다.
 
@@ -132,4 +133,20 @@ npm run build
 ## 빌려 쓴 것
 
 - "최후의 만찬" 사진: 위키미디어 공용의 `Última Cena - Da Vinci 5.jpg`. 1498년에 끝난 그림을 그대로 찍은 것이라 공개 저작물이다. 가로 1280px로 줄여 `game/public/walks/milan1497/photo-supper.webp` 에 넣었다.
-- 하기아 소피아의 지금 사진: 위키미디어 공용의 [`Hagia Sophia Mars 2013.jpg`](https://commons.wikimedia.org/wiki/File:Hagia_Sophia_Mars_2013.jpg). 찍은 이는 Arild Vågen이고 라이선스는 [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)이다. 가로 1280px 판을 WebP로 바꿔 `game/public/walks/byz537/photo-now.webp` 에 넣었다. 이 사진 파일은 같은 라이선스를 따른다.
+- 열세 곳의 지금 사진: 모두 위키미디어 공용에서 받았다. 가로 1280px 판(에펠탑은 800px)을 WebP로 바꿔 `game/public/walks/<곳>/photo-now.webp` 에 넣었다. 자르거나 고치지 않았다. 사진 파일은 저마다 아래 라이선스를 따른다.
+
+| 곳 | 파일 | 찍은 이 | 라이선스 |
+|---|---|---|---|
+| 로마 | [Rom (IT), Kolosseum -- 2024 -- 0610.jpg](https://commons.wikimedia.org/wiki/File:Rom_%28IT%29,_Kolosseum_--_2024_--_0610.jpg) | Anil Öztas | CC BY 4.0 |
+| 콘스탄티노플 | [Hagia Sophia Mars 2013.jpg](https://commons.wikimedia.org/wiki/File:Hagia_Sophia_Mars_2013.jpg) | Arild Vågen | CC BY-SA 3.0 |
+| 개봉 | [Crab Nebula.jpg](https://commons.wikimedia.org/wiki/File:Crab_Nebula.jpg) | NASA, ESA, J. Hester, A. Loll | 공개 저작물 |
+| 카이로 | [Bab Zuweila, Cairo (1) (52087518412).jpg](https://commons.wikimedia.org/wiki/File:Bab_Zuweila,_Cairo_%281%29_%2852087518412%29.jpg) | Richard Mortel | CC BY 2.0 |
+| 한양 | [Sujeongjeon 2018-09-05.jpg](https://commons.wikimedia.org/wiki/File:Sujeongjeon_2018-09-05.jpg) | De-Shao Liu | CC BY-SA 4.0 |
+| 밀라노 | [Santa Maria delle Grazie (Milan) Apse exterior 07.JPG](https://commons.wikimedia.org/wiki/File:Santa_Maria_delle_Grazie_%28Milan%29_Apse_exterior_07.JPG) | Carlo Dell’Orto | CC BY-SA 3.0 |
+| 아그라 | [Taj Mahal, Agra, India edit2.jpg](https://commons.wikimedia.org/wiki/File:Taj_Mahal,_Agra,_India_edit2.jpg) | Yann, King of Hearts | CC BY-SA 4.0 |
+| 타히티 | [Plage pointe Vénus.jpg](https://commons.wikimedia.org/wiki/File:Plage_pointe_Vénus.jpg) | Saga70 | CC BY-SA 4.0 |
+| 파리 | [Tour Eiffel Wikimedia Commons.jpg](https://commons.wikimedia.org/wiki/File:Tour_Eiffel_Wikimedia_Commons.jpg) | Benh LIEU SONG | 공개 저작물 |
+| 샌프란시스코 | [Golden Gate Bridge as seen from Marshall’s Beach, March 2018.jpg](https://commons.wikimedia.org/wiki/File:Golden_Gate_Bridge_as_seen_from_Marshall%E2%80%99s_Beach,_March_2018.jpg) | Frank Schulenburg | CC BY-SA 4.0 |
+| 도쿄 | [Tokaido Shinkansen N700S & N700A in Tokyo Station.jpg](https://commons.wikimedia.org/wiki/File:Tokaido_Shinkansen_N700S_%26_N700A_in_Tokyo_Station.jpg) | 電車(新幹線)でゴー！ | CC BY-SA 4.0 |
+| 할머니의 마을 | [LRO Apollo11 landing site 369440main lroc apollo11 lrg.jpg](https://commons.wikimedia.org/wiki/File:LRO_Apollo11_landing_site_369440main_lroc_apollo11_lrg.jpg) | NASA, GSFC, 애리조나 주립대 | 공개 저작물 |
+| 서울 | [Seoul Jamsil Main Stadium.jpg](https://commons.wikimedia.org/wiki/File:Seoul_Jamsil_Main_Stadium.jpg) | Jeong seolah | CC0 |

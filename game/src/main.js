@@ -379,8 +379,8 @@ let walkSora = null;        // { text, until }: what she says, while it shows
 let replyUntil = 0;         // grandmother's answer shows until then
 let walkArrive = false;     // she is to be set down in a shaft of light on the next frame
 let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
-let walkNowAt = 0;          // the photograph of the place as it is today comes up then (a tale's `now`)
-const NOW_AFTER_MS = 4500;  // after the tale's last word: she has had her say and the gold has flown
+let walkNowAt = 0;          // the photograph of the place as it is today comes up then (a place's `now`)
+const NOW_AFTER_MS = 4500;  // after the last thing is done: she has had her say and the gold has flown
 // Walking about a place she puts her finger to her lips as she does above the Earth, when
 // the sound or the music is switched off (the user, 2026.10.9: "소라가 원래 옷 입고 있을 때에는
 // 소리/음악 끄면 쉬잇~하는 액션"). In her own clothes only: there is no such picture of her
@@ -538,9 +538,6 @@ function stepDone(step, chosen = null) {
     if (walk !== was) return;
     if (step.sora) walkSora = { text: step.sora, from: walkT + 300, until: walkT + 300 + SORA_FOR_MS };
     if (over) { for (const errand of walk.place.errands) taleMark(errand.id); errandsDone(); }
-    // And when the tale is told, the place as it is today (the user, 2026.10.9: "마지막에 현재
-    // 사진을 팝업으로 보여주고").
-    if (over && told.now) walkNowAt = walkT + NOW_AFTER_MS;
   };
   if (lines.length > 0) setTimeout(last, AFTER_MS * (lines.length + 1));
   else if (ending) setTimeout(last, AFTER_MS);
@@ -595,6 +592,7 @@ function choose(option) {
   keep(markTried(progress, square.id, `chose-${option.id}`));
   walkSora = { text: option.sora, from: walkT + 200, until: walkT + 200 + SORA_FOR_MS };
   setTimeout(() => { if (walk) { sound.bell(); replyUntil = walkT + 12000; walkNoteAt = walkT + NOTE_AFTER_MS; } }, 2600);
+  if (walk.place.now) walkNowAt = walkT + 2600 + NOW_AFTER_MS;
 }
 // The slip lies open for as long as she is there (the user, 2026.10.9: "이건 그냥 게임 내내
 // 열어놓자"). Until then it folded to its heading after a few seconds; a touch still folds
@@ -619,6 +617,8 @@ function errandsDone() {
   // A story ends with her choice, and grandmother answers that; elsewhere she answers at once.
   if (walk.place.story?.choice && !chosenOf()) { setTimeout(() => { if (walk && allDone(walk) && !chosenOf()) showChoice(true); }, said ? 900 + SORA_FOR_MS - 2500 : 1500); return; }
   setTimeout(() => { if (walk) { sound.bell(); replyUntil = walkT + 10000; walkNoteAt = walkT + NOTE_AFTER_MS; } }, 1200);
+  // And the place as it is today (where the story ends in a choice, after that: choose()).
+  if (walk.place.now) walkNowAt = walkT + NOW_AFTER_MS;
 }
 function talk(id = null) {
   if (!walk) return;
@@ -799,7 +799,7 @@ function frameWalk(dt) {
     }
   }
   if (walkMemo && walkT > walkMemo.until) walkMemo = null;
-  if (walkNowAt > 0 && walkT >= walkNowAt) { walkNowAt = 0; if (walk.place.tale?.now) openLook(walk.place.tale.now); }
+  if (walkNowAt > 0 && walkT >= walkNowAt) { walkNowAt = 0; if (walk.place.now) openLook(walk.place.now); }
   // A note that is due (the first leaf's) falls once grandmother's answer has been read.
   if (walkNoteAt > 0 && walkT >= walkNoteAt) {
     walkNoteAt = 0;

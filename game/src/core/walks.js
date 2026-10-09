@@ -34,9 +34,24 @@
 // thousand pieces of iron, the hall's roof standing with no pillar.
 const SHEET = { market: 0.6, plaza: 0.66, inside: 0.62 };   // how large a sheet's figures are shown, of their px on a 812 px screen
 
+// A place's `now` is { photo, name, when, text: [lines], credit }: a photograph of the place
+// as it is today (or of what is left of the thing she came to see), shown on a sheet when
+// all is done there (the user, 2026.10.9: "마지막에 현재 사진을 팝업으로 보여주고, 클릭하면,
+// 다시 게임 화면으로"; asked whether at one place or all: "열세 자리 다"). The photographs are
+// from Wikimedia Commons, each downloaded with the user's leave; README lists them. What the
+// lines say was written from memory except Constantinople's, which was looked up.
 export const WALKS = {
   colosseum: {
     dir: 'rome', look: 'paper',
+    now: {
+      photo: 'photo-now.webp', name: '콜로세움의 지금 모습', when: '이탈리아 로마 · 오늘날',
+      text: [
+        '지금도 로마 한가운데에 서 있습니다. 문을 연 지 1,900년이 넘었습니다.',
+        '바깥 벽은 절반쯤만 남았습니다. 지진으로 무너진 돌을 가져다 다른 집을 지었습니다.',
+        '해마다 수백만 명이 보러 옵니다.',
+      ],
+      credit: '사진: Anil Öztas, 위키미디어 공용, CC BY 4.0',
+    },
     scenes: [
       {
         id: 'market', name: '로마 시장 거리', zoom: 1.25, ground: 0.765, scale: SHEET.market, air: 'market',
@@ -109,6 +124,15 @@ export const WALKS = {
   },
   eiffel: {
     dir: 'paris', look: 'paper', talk: 'face',
+    now: {
+      photo: 'photo-now.webp', name: '에펠탑의 지금 모습', when: '프랑스 파리 · 오늘날',
+      text: [
+        '박람회가 끝나고 스무 해 뒤에 헐기로 했던 탑입니다.',
+        '꼭대기를 무선 통신의 안테나로 쓰게 되어 남았습니다.',
+        '지금 높이는 안테나까지 330미터입니다.',
+      ],
+      credit: '사진: Benh LIEU SONG, 위키미디어 공용, 공개 저작물',
+    },
     scenes: [
       {
         id: 'gate', name: '파리 만국박람회 입구', short: '박람회 입구', zoom: 1.3, ground: 0.752, scale: 0.66, air: 'street',
@@ -187,6 +211,15 @@ export const WALKS = {
   // after the shapes of the mouth, the king's failing eyes, the bowl sundial of his reign.
   hunminjeongeum: {
     dir: 'hanyang', look: 'paper', talk: 'face',
+    now: {
+      photo: 'photo-now.webp', name: '집현전 자리의 지금 모습', when: '서울 경복궁 · 수정전',
+      text: [
+        '집현전이 있던 자리에 선 수정전입니다. 1867년에 다시 지었습니다.',
+        '경복궁은 1592년 전쟁 때 불탔고 270년 넘게 빈터였습니다.',
+        '그때 만든 글자를 지금 이 글에서 읽고 있습니다.',
+      ],
+      credit: '사진: De-Shao Liu, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'market', name: '한양 저잣거리', zoom: 1.3, ground: 0.674, scale: 0.66, air: 'market', floor: 'dirt',
@@ -265,6 +298,15 @@ export const WALKS = {
   // between the towers.
   goldenGate: {
     dir: 'sf', look: 'paper', talk: 'face',
+    now: {
+      photo: 'photo-now.webp', name: '금문교의 지금 모습', when: '미국 샌프란시스코 · 오늘날',
+      text: [
+        '문을 연 날과 같은 주황빛입니다. 해마다 조금씩 다시 칠합니다.',
+        '탑의 높이는 227미터입니다.',
+        '1964년까지 세상에서 가운데 칸이 가장 긴 매단 다리였습니다.',
+      ],
+      credit: '사진: Frank Schulenburg, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'plaza', name: '샌프란시스코 금문교 어귀', short: '금문교 어귀', zoom: 1.3, ground: 0.735, scale: 0.66, air: 'street',
@@ -340,6 +382,15 @@ export const WALKS = {
     // "1"): pixels again, the sky in the pictures, and people speaking in balloons (their
     // faces in a panel went with the flat look this place had).
     dir: 'tokyo',
+    now: {
+      photo: 'photo-now.webp', name: '신칸센의 지금 모습', when: '일본 도쿄역 · N700S와 N700A',
+      text: [
+        '소라가 탄 첫 열차의 뒤를 이은 열차들입니다. 같은 도쿄역 승강장입니다.',
+        '가장 빠른 속도가 시속 210킬로미터에서 285킬로미터가 되었습니다.',
+        '도쿄에서 오사카까지 4시간이던 길이 2시간 반이 안 걸립니다.',
+      ],
+      credit: '사진: 電車(新幹線)でゴー！, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'front', name: '도쿄역 앞', zoom: 1.3, ground: 0.765, scale: 0.66, air: 'street',
@@ -493,6 +544,21 @@ export const WALKS = {
   // Made up: the errand of the gold pieces, the guard, the deacon and the side door.
   hagiaSophia: {
     dir: 'byz537', look: 'paper', pale: true,
+    // Looked up on 2026.10.9: the first dome fell in 558 and the one there now was raised
+    // higher by Isidore the Younger and finished in 562; a mosque from 1453, a museum from
+    // 1935, a mosque again from July 2020; the minarets are Ottoman.
+    // The photograph: Wikimedia Commons, "Hagia Sophia Mars 2013.jpg" by Arild Vågen
+    // (CC BY-SA 3.0), made smaller.
+    now: {
+      photo: 'photo-now.webp', name: '하기아 소피아의 지금 모습', when: '튀르키예 이스탄불 · 오늘날',
+      text: [
+        '이 도시는 이제 이스탄불이라고 부릅니다. 성당은 1,500년 가까이 그 자리에 서 있습니다.',
+        '소라가 본 첫 지붕은 스물한 해 뒤에 지진으로 무너졌습니다. 지금 지붕은 562년에 더 높게 다시 올린 것입니다.',
+        '1453년부터 이슬람 사원으로 썼습니다. 둘레의 뾰족한 탑 넷은 그 뒤에 세운 것입니다.',
+        '1935년에 박물관이 되었다가 2020년에 다시 이슬람 사원이 되었습니다.',
+      ],
+      credit: '사진: Arild Vågen, 위키미디어 공용, CC BY-SA 3.0',
+    },
     scenes: [
       {
         id: 'square', name: '동로마 콘스탄티노플 성당 앞 광장', short: '성당 앞 광장', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'court', floor: 'dirt',
@@ -589,21 +655,6 @@ export const WALKS = {
         { who: 'glass', when: ['S5'], lines: ['전해 주었구나! 고맙다.', '이제 저 지붕도 다 된 거란다.'] },
       ],
       done: '금빛 조각을 전하고, 떠 있는 지붕을 보았다.',
-      // Looked up on 2026.10.9: the first dome fell in 558 and the one there now was raised
-      // higher by Isidore the Younger and finished in 562; a mosque from 1453, a museum from
-      // 1935, a mosque again from July 2020; the minarets are Ottoman.
-      // The photograph: Wikimedia Commons, "Hagia Sophia Mars 2013.jpg" by Arild Vågen
-      // (CC BY-SA 3.0), made smaller.
-      now: {
-        photo: 'photo-now.webp', name: '하기아 소피아의 지금 모습', when: '튀르키예 이스탄불 · 오늘날',
-        text: [
-          '이 도시는 이제 이스탄불이라고 부릅니다. 성당은 1,500년 가까이 그 자리에 서 있습니다.',
-          '소라가 본 첫 지붕은 스물한 해 뒤에 지진으로 무너졌습니다. 지금 지붕은 562년에 더 높게 다시 올린 것입니다.',
-          '1453년부터 이슬람 사원으로 썼습니다. 둘레의 뾰족한 탑 넷은 그 뒤에 세운 것입니다.',
-          '1935년에 박물관이 되었다가 2020년에 다시 이슬람 사원이 되었습니다.',
-        ],
-        credit: '사진: Arild Vågen, 위키미디어 공용, CC BY-SA 3.0',
-      },
     },
     errands: [
       { id: 'took', text: '금빛 조각을 받는다.', at: [] },
@@ -625,6 +676,15 @@ export const WALKS = {
   // Made up: the water-seller and his piece of gold, the guard, the interpreter, the king's words.
   musa1324: {
     dir: 'cairo1324', look: 'paper', pale: true,
+    now: {
+      photo: 'photo-now.webp', name: '카이로 옛 성문의 지금 모습', when: '이집트 카이로 · 주웨일라 문',
+      text: [
+        '카이로 옛 성의 남쪽 문입니다. 1092년에 세웠으니 만사 무사가 왔을 때에도 서 있었습니다.',
+        '문 위의 높은 탑 둘은 그보다 뒤인 1400년대에 올린 것입니다.',
+        '지금도 문 아래로 사람들이 다니고 둘레에 시장이 섭니다.',
+      ],
+      credit: '사진: Richard Mortel, 위키미디어 공용, CC BY 2.0',
+    },
     scenes: [
       {
         id: 'gate', name: '이집트 카이로 성문 앞 시장', short: '성문 앞 시장', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
@@ -744,6 +804,15 @@ export const WALKS = {
   // Made up: the apprentice and his note, the gatekeeper, the fortune-teller, what they say.
   guest1054: {
     dir: 'kaifeng1054', look: 'paper', pale: true,
+    now: {
+      photo: 'photo-now.webp', name: '그 새 별의 지금 모습', when: '황소자리 게 성운 · 허블 우주 망원경이 찍음',
+      text: [
+        '1054년에 보인 새 별은 큰 별이 터지는 빛이었습니다. 이것은 그때 흩어진 구름입니다.',
+        '이름은 게 성운입니다. 6,500광년쯤 떨어져 있고 지금도 퍼져 나가는 중입니다.',
+        '작은 망원경으로도 황소자리의 뿔 끝에서 뿌옇게 보입니다.',
+      ],
+      credit: '사진: NASA, ESA, J. Hester, A. Loll (애리조나 주립대), 위키미디어 공용, 공개 저작물',
+    },
     scenes: [
       {
         id: 'bridge', name: '중국 개봉 변하 무지개 다리 어귀', short: '무지개 다리', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
@@ -863,6 +932,15 @@ export const WALKS = {
   // Made up: the errand of the red stone, the overseer, that the calligrapher takes her up.
   tajMahal: {
     dir: 'agra1640', look: 'paper', pale: true,
+    now: {
+      photo: 'photo-now.webp', name: '타지마할의 지금 모습', when: '인도 아그라 · 오늘날',
+      text: [
+        '소라가 본 공사는 스무 해쯤 걸려 끝났습니다. 다 지은 흰 무덤입니다.',
+        '가운데 둥근 지붕의 꼭대기까지 73미터입니다.',
+        '1983년에 세계유산이 되었고 해마다 수백만 명이 보러 옵니다.',
+      ],
+      credit: '사진: Yann, King of Hearts, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'site', name: '인도 아그라 강가 공사터', short: '강가 공사터', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'works', floor: 'dirt',
@@ -987,6 +1065,15 @@ export const WALKS = {
   // Made up: the errand of the coconut, the chief taking her in, the astronomer letting her look.
   venus1769: {
     dir: 'tahiti1769', look: 'paper',
+    now: {
+      photo: 'photo-now.webp', name: '비너스 곶의 지금 모습', when: '프랑스령 폴리네시아 타히티 · 마타바이 만',
+      text: [
+        '지금도 이름이 비너스 곶입니다. 금성을 본 곳이라 붙은 이름입니다.',
+        '화산섬이라 모래가 검습니다.',
+        '요새는 남아 있지 않습니다. 곶에는 1867년에 세운 등대가 있습니다.',
+      ],
+      credit: '사진: Saga70, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'beach', name: '타히티 마타바이 만 바닷가', short: '마타바이 만', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
@@ -1101,6 +1188,15 @@ export const WALKS = {
   // two were still on the Moon at nine (they left at 02:54 on the 22nd, Korean time).
   yard1969: {
     dir: 'yard', look: 'paper', talk: 'face', night: true,
+    now: {
+      photo: 'photo-now.webp', name: '그날 그 달의 지금 모습', when: '달 고요의 바다 · 달 궤도선이 위에서 찍음',
+      text: [
+        '아폴로 11호가 내린 고요의 바다를 2009년에 달을 도는 탐사선이 찍었습니다.',
+        '착륙선의 아랫부분은 지금도 그 자리에 있습니다.',
+        '달에는 바람도 비도 없어 발자국이 오래 남습니다.',
+      ],
+      credit: '사진: NASA, GSFC, 애리조나 주립대, 위키미디어 공용, 공개 저작물',
+    },
     scenes: [
       {
         id: 'lane', name: '할머니의 마을 길', short: '마을 길', zoom: 1.3, ground: 0.698, scale: 0.66, air: 'night', floor: 'dirt',
@@ -1184,6 +1280,14 @@ export const WALKS = {
   // Grandmother was thirty-four and saw it on television.
   seoul88: {
     dir: 'seoul88',
+    now: {
+      photo: 'photo-now.webp', name: '올림픽주경기장의 지금 모습', when: '서울 잠실 · 오늘날',
+      text: [
+        '1984년에 문을 열었습니다. 올림픽 뒤에도 경기와 큰 공연이 열렸습니다.',
+        '지붕의 휜 선은 조선 백자 항아리의 선을 본떴습니다.',
+      ],
+      credit: '사진: Jeong seolah, 위키미디어 공용, CC0',
+    },
     scenes: [
       {
         id: 'road', name: '서울 잠실 올림픽로', short: '올림픽로', zoom: 1.08, ground: 0.72, scale: 0.62, air: 'street',
@@ -1261,6 +1365,15 @@ export const WALKS = {
   // Made up: everyone's words, the duke's messenger in the yard, that Leonardo passed the dock.
   cenacolo: {
     dir: 'milan1497',
+    now: {
+      photo: 'photo-now.webp', name: '그라치에 수도원의 지금 모습', when: '이탈리아 밀라노 · 산타 마리아 델레 그라치에 성당',
+      text: [
+        '벽화가 있는 식당은 이 성당 옆에 붙어 있습니다.',
+        '1943년 전쟁 때 폭탄이 떨어져 식당 지붕이 무너졌습니다. 모래주머니로 막아 둔 벽화의 벽은 남았습니다.',
+        '지금은 미리 표를 사야 하고 한 번에 15분만 볼 수 있습니다.',
+      ],
+      credit: '사진: Carlo Dell’Orto, 위키미디어 공용, CC BY-SA 3.0',
+    },
     scenes: [
       {
         id: 'court', name: '밀라노 코르테 베키아 뜰', short: '코르테 베키아', zoom: 1.02, ground: 0.8, scale: 0.62, air: 'court',
