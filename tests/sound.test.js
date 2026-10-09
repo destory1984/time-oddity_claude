@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createSound } from '../game/src/ui/sound.js';
 
-const playAll = (sound) => { sound.wake(); sound.tick(true, false); sound.tick(false, true); sound.paper(); sound.land(); sound.lift(); sound.stamp(); sound.bell(); sound.page(); sound.phonograph(); sound.step('stone', 0); sound.step('dirt', 1); sound.step('wood', 2); sound.air('market'); sound.airStep(60000); sound.air(null); sound.airStep(16); };
+const playAll = (sound) => { sound.wake(); sound.tick(true, false); sound.tick(false, true); sound.paper(); sound.land(); sound.lift(); sound.hop(); sound.stamp(); sound.bell(); sound.page(); sound.phonograph(); sound.step('stone', 0); sound.step('dirt', 1); sound.step('wood', 2); sound.air('market'); sound.airStep(60000); sound.air(null); sound.airStep(16); };
 
 describe('createSound', () => {
   it('stays silent without throwing when the browser has no AudioContext', () => {

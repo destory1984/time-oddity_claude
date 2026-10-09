@@ -377,7 +377,7 @@ let keyWay = 0;             // the same, by the keys
 let walkWant = null;        // the person she was sent to speak to
 let walkSora = null;        // { text, until }: what she says, while it shows
 let replyUntil = 0;         // grandmother's answer shows until then
-let walkArrive = false;     // she is to be set down in a shaft of light on the next frame
+let walkArrive = null;      // she is to be set down in a shaft of light on the next frame: 'land' from above the Earth, 'hop' from the scene beside
 let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
 let walkNowAt = 0;          // the photograph of the place as it is today comes up then (a place's `now`)
 const NOW_AFTER_MS = 4500;  // after the last thing is done: she has had her say and the gold has flown
@@ -720,7 +720,7 @@ function showWalk(sq) {
   keep(fillDot(progress, sq.id, 'day'));
   showErrands();
   enterScene();
-  walkArrive = true;
+  walkArrive = 'land';
   sound.paper();
 }
 // The two buttons at the foot walk her on toward the scene beside this one while held.
@@ -733,7 +733,7 @@ for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
     if (walk && canHop(walk, way)) {
       walkWay = 0; keyWay = 0; walkHopping = true;
       sound.wake(); sound.lift();
-      walkView.teleport(HOP_MS).then(() => { walkHopping = false; if (!walk || mode !== 'walk') return; hop(walk, way); enterScene(); walkArrive = true; });
+      walkView.teleport(HOP_MS).then(() => { walkHopping = false; if (!walk || mode !== 'walk') return; hop(walk, way); enterScene(); walkArrive = 'hop'; });
       return;
     }
     $(id).setPointerCapture?.(e.pointerId); walkWay = way;
@@ -810,7 +810,7 @@ function frameWalk(dt) {
   // The sky of that day and hour, as computed, behind the roofs.
   skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });
   walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.poses.find(([, until]) => walkT <= until)?.[0] ?? null, stride, walkHeld?.show ?? null);
-  if (walkArrive) { walkArrive = false; walkView.arrive(); sound.land(); }
+  if (walkArrive) { sound[walkArrive](); walkArrive = null; walkView.arrive(); }
 
   const near = walk.moving ? null : withWhom(walk);
   // There is no button to speak: touching a person is speaking to them (the user,

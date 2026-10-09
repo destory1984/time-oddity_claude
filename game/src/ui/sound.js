@@ -169,6 +169,12 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     });
   }
 
+  // One note of the jump: a music-box bell with its third harmonic, ringing 1.1 s.
+  const warpBell = (when, freq, volume) => {
+    tone(when, { seconds: 1.1, from: freq, gain: volume * WARP_VOLUME, attack: 0.01 });
+    tone(when, { seconds: 0.35, from: freq * 3, gain: volume * 0.2 * WARP_VOLUME, attack: 0.01 });
+  };
+
   return {
     wake,
     air, airStep, step, rails,
@@ -209,10 +215,7 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     warp() {
       play((at) => {
         const pace = WARP_PACE;
-        const bell = (freq, start, volume) => {
-          tone(at + start * pace, { seconds: 1.1, from: freq, gain: volume * WARP_VOLUME, attack: 0.01 });
-          tone(at + start * pace, { seconds: 0.35, from: freq * 3, gain: volume * 0.2 * WARP_VOLUME, attack: 0.01 });
-        };
+        const bell = (freq, start, volume) => warpBell(at + start * pace, freq, volume);
         const scale = [392, 440, 523, 587, 659, 784, 880, 1047, 1175, 1319, 1568, 1760, 2093, 2349, 2637, 3136];
         scale.forEach((freq, k) => {
           // Bunched toward the end.
@@ -229,24 +232,35 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
       });
     },
     // She is set down in a shaft of light (style.css `beamDown`, 0.62 s: she touches the
-    // ground 0.4 s in): a bright fall of pitch with a breath of air, a soft foot on the
-    // ground, and one small chime. And she is taken up in a ring of gold to the scene beside
-    // this one (`lift`, 0.42 s): the same going up. The user, 2026.10.9: "소라가 워프해서 땅에
-    // 내려올 때 효과음 넣어", "화면 간에 워프할 때에도 효과음 추가". Placeholders until heard.
+    // ground 0.4 s in). Coming down from above the Earth the jump's own chord has just
+    // sounded, so there is only her foot on the ground and one small chime (`land`). The
+    // user, 2026.10.9: "소라가 워프해서 땅에 내려올 때 효과음 넣어".
     land() {
       play((at) => {
-        tone(at, { seconds: 0.4, from: 2093, to: 523, gain: 0.05, attack: 0.02 });
-        tone(at, { seconds: 0.4, from: 3136, to: 784, gain: 0.02, attack: 0.02 });
-        hiss(at, { seconds: 0.4, from: 8000, to: 2500, gain: 0.03, type: 'highpass' });
         tone(at + 0.4, { seconds: 0.12, from: 170, to: 90, gain: 0.14 });
         ping(at + 0.42, 1047, 0.6, 0.05);
       });
     },
+    // Going to the scene beside this one in a ring of gold (0.42 s, main.js HOP_MS) is the
+    // jump of volume 1 made small: `lift` is its climb, eight music-box notes bunched toward
+    // the end with the shimmer under them, and `hop` is its arrival, the wide bright chord
+    // with her foot on the ground and three slow chimes stepping down. First these were a
+    // glide of pitch up and one down; the user, 2026.10.9: "장면간 워프 소리가 너무 가벼워....
+    // 우주한량 워프 소리처럼 해줘". Placeholders until heard.
     lift() {
       play((at) => {
-        tone(at, { seconds: 0.4, from: 523, to: 2093, gain: 0.05, attack: 0.02 });
-        tone(at, { seconds: 0.4, from: 784, to: 3136, gain: 0.02, attack: 0.02 });
-        hiss(at, { seconds: 0.4, from: 2500, to: 8000, gain: 0.03, type: 'highpass' });
+        const scale = [523, 659, 784, 1047, 1319, 1568, 2093, 2637];
+        scale.forEach((freq, k) => warpBell(at + 0.4 * (1 - (1 - k / scale.length) ** 1.7), freq, 0.03 + 0.045 * (k / scale.length)));
+        tone(at + 0.05, { seconds: 0.4, from: 1568, to: 3136, gain: 0.018 * WARP_VOLUME, attack: 0.01 });
+        hiss(at + 0.2, { seconds: 0.3, from: 6000, to: 9000, gain: 0.035 * WARP_VOLUME, type: 'highpass' });
+      });
+    },
+    hop() {
+      play((at) => {
+        [1047, 1319, 1568, 2093, 2637].forEach((freq, i) => warpBell(at + i * 0.03, freq, 0.085 - i * 0.008));
+        tone(at, { seconds: 1.6, from: 523, gain: 0.05 * WARP_VOLUME, attack: 0.01 });
+        tone(at + 0.4, { seconds: 0.12, from: 170, to: 90, gain: 0.14 });
+        [[2093, 0.5], [1568, 0.75], [1047, 1.0]].forEach(([freq, when], i) => warpBell(at + when, freq, 0.045 - i * 0.007));
       });
     },
     // The AudioContext, once a touch has woken it: the music plays through the same one.
