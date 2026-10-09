@@ -56,7 +56,9 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkTalk.showing>div{flex:1 1 0;min-width:0}
 #walkTalkShow{display:none;flex:0 0 100%;width:100%;aspect-ratio:2/1;object-fit:cover;border-radius:10px}
 #walkTalk.showing #walkTalkShow{display:block;animation:showUp .3s ease-out 1}
-#walkShow{position:absolute;left:14%;width:72%;bottom:53%;z-index:39;display:none;aspect-ratio:3/2;object-fit:cover;border:5px solid var(--white);border-radius:8px;box-shadow:0 4px 14px #000a;pointer-events:none;image-rendering:pixelated}
+/* What is shown her nearly fills the screen from side to side, 12 px clear of each edge (the
+   user, 2026.10.10: "참고 그림은 거의 화면 다 가득 차게"; it was 72% of the width). */
+#walkShow{position:absolute;left:12px;width:calc(100% - 24px);bottom:50%;z-index:39;display:none;aspect-ratio:3/2;object-fit:cover;border:5px solid var(--white);border-radius:8px;box-shadow:0 4px 14px #000a;pointer-events:none;image-rendering:pixelated}
 #walkShow.on{display:block;animation:showUp .3s ease-out 1}
 #walkScene.clack{animation:clack .7s linear 1}
 @keyframes clack{0%,8%,18.5%,26.5%,60%,68%,78.5%,86.5%,100%{translate:0 0}3%,63%{translate:0 2px}21.5%,81.5%{translate:0 1.4px}}
@@ -137,7 +139,6 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 .on-walk #walkNext{right:12px}
 .on-walk #memo{top:auto;bottom:var(--cardTop,61%)}
 #stage:has(#walk.carded) #errands{visibility:hidden}
-#walk.carded #walkShow{left:18%;width:64%}
 .on-walk #chips{left:auto;right:12px;top:116px}
 /* It hangs under the row of buttons at the top as one of them: the same right edge (12px),
    the same 8px between, the same 44px high (the user, twice: "버튼 규칙에 맞춰서"). */
@@ -285,7 +286,7 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 
 /* The notebook button carries its count under the icon. */
 #topButtons #journalButton{flex-direction:column;gap:0;font-size:10px;line-height:1;color:var(--gold);font-weight:600}
-#topButtons #journalButton::before{width:20px;height:20px;margin-bottom:2px;background-image:url("/ui/icon-journal.svg")}
+#topButtons #journalButton::before{width:24px;height:24px;margin-bottom:1px;background-image:url("/ui/icon-journal.svg")}
 
 /* Story card and question chips, under the memo slip. */
 #chips{left:16px;top:calc(64% + 46px * var(--text,1) + 8px);display:flex;gap:8px;opacity:0;visibility:hidden;transition:opacity .3s}
