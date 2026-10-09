@@ -377,9 +377,10 @@ let keyWay = 0;             // the same, by the keys
 let walkWant = null;        // the person she was sent to speak to
 let walkSora = null;        // { text, until }: what she says, while it shows
 let replyUntil = 0;         // grandmother's answer shows until then
-let errandsFoldAt = 0;      // the slip of errands folds itself then
 let walkArrive = false;     // she is to be set down in a shaft of light on the next frame
 let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
+let walkNowAt = 0;          // the photograph of the place as it is today comes up then (a tale's `now`)
+const NOW_AFTER_MS = 4500;  // after the tale's last word: she has had her say and the gold has flown
 // Walking about a place she puts her finger to her lips as she does above the Earth, when
 // the sound or the music is switched off (the user, 2026.10.9: "소라가 원래 옷 입고 있을 때에는
 // 소리/음악 끄면 쉬잇~하는 액션"). In her own clothes only: there is no such picture of her
@@ -427,8 +428,9 @@ function openLook(look) {
   $('lookCredit').textContent = look.credit;
   $('lookSheet').showModal();
 }
-$('closeLook').addEventListener('click', () => $('lookSheet').close());
-$('lookSheet').addEventListener('click', (e) => { if (e.target === $('lookSheet')) $('lookSheet').close(); });
+// A touch anywhere on it, or beside it, goes back to the game (the user, 2026.10.9: "클릭하면,
+// 다시 게임 화면으로").
+$('lookSheet').addEventListener('click', () => $('lookSheet').close());
 function showErrands() {
   const list = $('errands');
   list.replaceChildren();
@@ -506,8 +508,6 @@ function saveTale(next) {
   walk.tale = next;
   keep(markTale(progress, square.id, next));
   showErrands();
-  $('errands').classList.remove('folded');
-  errandsFoldAt = walkT + 6000;
   return true;
 }
 function taleMark(id) {
@@ -538,6 +538,9 @@ function stepDone(step, chosen = null) {
     if (walk !== was) return;
     if (step.sora) walkSora = { text: step.sora, from: walkT + 300, until: walkT + 300 + SORA_FOR_MS };
     if (over) { for (const errand of walk.place.errands) taleMark(errand.id); errandsDone(); }
+    // And when the tale is told, the place as it is today (the user, 2026.10.9: "마지막에 현재
+    // 사진을 팝업으로 보여주고").
+    if (over && told.now) walkNowAt = walkT + NOW_AFTER_MS;
   };
   if (lines.length > 0) setTimeout(last, AFTER_MS * (lines.length + 1));
   else if (ending) setTimeout(last, AFTER_MS);
@@ -593,14 +596,14 @@ function choose(option) {
   walkSora = { text: option.sora, from: walkT + 200, until: walkT + 200 + SORA_FOR_MS };
   setTimeout(() => { if (walk) { sound.bell(); replyUntil = walkT + 12000; walkNoteAt = walkT + NOTE_AFTER_MS; } }, 2600);
 }
-// The slip is read on arriving, then folds to its heading; a touch opens and folds it.
+// The slip lies open for as long as she is there (the user, 2026.10.9: "이건 그냥 게임 내내
+// 열어놓자"). Until then it folded to its heading after a few seconds; a touch still folds
+// and opens it.
 $('errands').addEventListener('click', () => $('errands').classList.toggle('folded'));
-const ERRANDS_OPEN_MS = 7000;
 function errandsDone() {
   keep(markErrands(progress, square.id, walk.done));
   showErrands();
   $('errands').classList.remove('folded');
-  errandsFoldAt = walkT + 3500;
   sound.stamp();
   // What she says as a step of the story is done.
   const said = walk.place.errands.find((errand) => errand.id === walk.done.at(-1))?.sora;
@@ -610,7 +613,6 @@ function errandsDone() {
   for (const dot of ['sky', 'remains']) keep(fillDot(progress, square.id, dot));
   // The slip is stamped, gold flies up round her and she is glad (the user, 2026.10.8, of the
   // slip that only said so: "다 했으면, 뭔가 효과를..").
-  errandsFoldAt = walkT + 9000;
   $('errands').classList.add('alldone');
   walkView.cheer();
   walkFace = { poses: [['see-wow', walkT + 3200]] };
@@ -702,15 +704,13 @@ function showWalk(sq) {
   visit = null; site = null;
   walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id), done: errandsOf(progress, sq.id), met: metOf(progress, sq.id), tale: taleOf(progress, sq.id) });
   closePanel();
-  walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyUntil = 0; walkNoteAt = 0;
+  walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyUntil = 0; walkNoteAt = 0; walkNowAt = 0;
   // What she chose from the wardrobe above the Earth is on her as she comes down.
   const worn = OUTFITS.find((o) => o.outfit === loadOutfit());
   if (worn) { walk.wearing = worn.outfit; walk.trips = worn.trips; }
   $('errands').classList.remove('folded');
-  // Come again with all of them done, the slip is folded from the first, its stamp on it.
+  // Come again with all of them done, the slip has its stamp on it from the first.
   $('errands').classList.toggle('alldone', allDone(walk));
-  $('errands').classList.toggle('folded', allDone(walk));
-  errandsFoldAt = allDone(walk) ? 0 : ERRANDS_OPEN_MS;
   showChoice(Boolean(walk.place.story?.choice) && allDone(walk) && !chosenOf());
   if (isLocalHost(location.hostname)) window.walkDebug = walk;
   globe.setActive(false);
@@ -732,7 +732,7 @@ for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
     if (walkHopping) return;
     if (walk && canHop(walk, way)) {
       walkWay = 0; keyWay = 0; walkHopping = true;
-      sound.wake(); sound.tick(true, false);
+      sound.wake(); sound.lift();
       walkView.teleport(HOP_MS).then(() => { walkHopping = false; if (!walk || mode !== 'walk') return; hop(walk, way); enterScene(); walkArrive = true; });
       return;
     }
@@ -799,7 +799,7 @@ function frameWalk(dt) {
     }
   }
   if (walkMemo && walkT > walkMemo.until) walkMemo = null;
-  if (errandsFoldAt > 0 && walkT >= errandsFoldAt) { errandsFoldAt = 0; $('errands').classList.add('folded'); }
+  if (walkNowAt > 0 && walkT >= walkNowAt) { walkNowAt = 0; if (walk.place.tale?.now) openLook(walk.place.tale.now); }
   // A note that is due (the first leaf's) falls once grandmother's answer has been read.
   if (walkNoteAt > 0 && walkT >= walkNoteAt) {
     walkNoteAt = 0;
@@ -810,7 +810,7 @@ function frameWalk(dt) {
   // The sky of that day and hour, as computed, behind the roofs.
   skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });
   walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.poses.find(([, until]) => walkT <= until)?.[0] ?? null, stride, walkHeld?.show ?? null);
-  if (walkArrive) { walkArrive = false; walkView.arrive(); }
+  if (walkArrive) { walkArrive = false; walkView.arrive(); sound.land(); }
 
   const near = walk.moving ? null : withWhom(walk);
   // There is no button to speak: touching a person is speaking to them (the user,

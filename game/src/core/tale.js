@@ -18,6 +18,8 @@
 // A step is done when the last of its lines has been said to her by `who` (and its offer
 // taken, or one of its choice chosen). A line is a string, or { by, text } when someone
 // else says it (the station master stepping in before the driver).
+// `now` is { photo, name, when, text: [lines], credit }: a photograph of the place as it is
+// today, shown on a sheet once the tale is told (the sheet of a scene's `looks`).
 // `gate` is { scene, open, sora }: the way on from that scene is shut until the step of
 // that number is reached (whoever turns her away does turn her away), and `sora` is what
 // she says on coming up against it.

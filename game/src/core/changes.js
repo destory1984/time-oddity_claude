@@ -7,6 +7,10 @@
 // a fault mended, does; moving buttons about or rewording a sentence does not.
 // Each line is 10 to 70 characters and ends in "니다." (tests/changes.test.js).
 export const CHANGES = [
+  { day: '2026-10-09', text: '콘스탄티노플 이야기를 마치면 하기아 소피아의 지금 사진이 뜹니다.' },
+  { day: '2026-10-09', text: '땅에 내려설 때와 장면 사이를 건너뛸 때 소리가 납니다.' },
+  { day: '2026-10-09', text: '할 일 쪽지가 접히지 않고 내내 펴져 있습니다.' },
+  { day: '2026-10-09', text: '콘스탄티노플 빵 장수가 고리 빵을 보여 줍니다.' },
   { day: '2026-10-09', text: '막는 사람이 있는 동안에는 다음 장면으로 넘어가지 못합니다.' },
   { day: '2026-10-09', text: '콜로세움에서 황제 앞을 지나면 소라가 알아보고 올려다봅니다.' },
   { day: '2026-10-09', text: '달리는 신칸센의 창으로 후지산이 꼭대기까지 다 보입니다.' },

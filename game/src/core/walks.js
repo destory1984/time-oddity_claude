@@ -505,7 +505,7 @@ export const WALKS = {
           { id: 'pilgrim', pass: '세상에, 저 지붕 좀 봐.', name: '먼 데서 온 순례자', x: 0.47, w: 134, h: 320, lines: ['먼 시골에서 걸어서 왔단다.', '저렇게 큰 둥근 지붕은 처음 봐.'] },
           { id: 'child', pass: '우와, 하늘만큼 커!', name: '구경 나온 아이', x: 0.56, w: 94, h: 239, lines: ['지붕이 꼭 뒤집은 그릇 같아.', '안은 금빛이래. 보고 싶다!'] },
           { id: 'glass', pass: '반짝반짝, 잘 구워졌군.', name: '유리 굽는 장인', x: 0.67, w: 115, h: 313, lines: ['유리 사이에 금을 끼워 굽는단다.', '그걸 잘게 쪼개 벽에 붙이지.'] },
-          { id: 'baker', pass: '갓 구운 빵이오!', name: '빵 장수', x: 0.8, w: 175, h: 301, lines: ['일꾼들이 새벽부터 줄을 섰지.', '고리 빵 하나 먹어 보련?'],
+          { id: 'baker', pass: '갓 구운 빵이오!', show: 'ringbread', name: '빵 장수', x: 0.8, w: 175, h: 301, lines: ['일꾼들이 새벽부터 줄을 섰지.', '고리 빵 하나 먹어 보련?'],
             try: { id: 'eat-ringbread', verb: 'eat', name: '고리 빵', face: 'yum', sora: '쫄깃쫄깃하고 따뜻해!' } },
         ],
         spots: [],
@@ -589,6 +589,21 @@ export const WALKS = {
         { who: 'glass', when: ['S5'], lines: ['전해 주었구나! 고맙다.', '이제 저 지붕도 다 된 거란다.'] },
       ],
       done: '금빛 조각을 전하고, 떠 있는 지붕을 보았다.',
+      // Looked up on 2026.10.9: the first dome fell in 558 and the one there now was raised
+      // higher by Isidore the Younger and finished in 562; a mosque from 1453, a museum from
+      // 1935, a mosque again from July 2020; the minarets are Ottoman.
+      // The photograph: Wikimedia Commons, "Hagia Sophia Mars 2013.jpg" by Arild Vågen
+      // (CC BY-SA 3.0), made smaller.
+      now: {
+        photo: 'photo-now.webp', name: '하기아 소피아의 지금 모습', when: '튀르키예 이스탄불 · 오늘날',
+        text: [
+          '이 도시는 이제 이스탄불이라고 부릅니다. 성당은 1,500년 가까이 그 자리에 서 있습니다.',
+          '소라가 본 첫 지붕은 스물한 해 뒤에 지진으로 무너졌습니다. 지금 지붕은 562년에 더 높게 다시 올린 것입니다.',
+          '1453년부터 이슬람 사원으로 썼습니다. 둘레의 뾰족한 탑 넷은 그 뒤에 세운 것입니다.',
+          '1935년에 박물관이 되었다가 2020년에 다시 이슬람 사원이 되었습니다.',
+        ],
+        credit: '사진: Arild Vågen, 위키미디어 공용, CC BY-SA 3.0',
+      },
     },
     errands: [
       { id: 'took', text: '금빛 조각을 받는다.', at: [] },

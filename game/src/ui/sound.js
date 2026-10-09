@@ -228,6 +228,27 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
         [[2093, 3.5], [1568, 4.0], [1319, 4.5], [1047, 5.0]].forEach(([freq, when], i) => bell(freq, when, 0.045 - i * 0.007));
       });
     },
+    // She is set down in a shaft of light (style.css `beamDown`, 0.62 s: she touches the
+    // ground 0.4 s in): a bright fall of pitch with a breath of air, a soft foot on the
+    // ground, and one small chime. And she is taken up in a ring of gold to the scene beside
+    // this one (`lift`, 0.42 s): the same going up. The user, 2026.10.9: "소라가 워프해서 땅에
+    // 내려올 때 효과음 넣어", "화면 간에 워프할 때에도 효과음 추가". Placeholders until heard.
+    land() {
+      play((at) => {
+        tone(at, { seconds: 0.4, from: 2093, to: 523, gain: 0.05, attack: 0.02 });
+        tone(at, { seconds: 0.4, from: 3136, to: 784, gain: 0.02, attack: 0.02 });
+        hiss(at, { seconds: 0.4, from: 8000, to: 2500, gain: 0.03, type: 'highpass' });
+        tone(at + 0.4, { seconds: 0.12, from: 170, to: 90, gain: 0.14 });
+        ping(at + 0.42, 1047, 0.6, 0.05);
+      });
+    },
+    lift() {
+      play((at) => {
+        tone(at, { seconds: 0.4, from: 523, to: 2093, gain: 0.05, attack: 0.02 });
+        tone(at, { seconds: 0.4, from: 784, to: 3136, gain: 0.02, attack: 0.02 });
+        hiss(at, { seconds: 0.4, from: 2500, to: 8000, gain: 0.03, type: 'highpass' });
+      });
+    },
     // The AudioContext, once a touch has woken it: the music plays through the same one.
     context: () => (failed ? null : ac),
     muted: () => muted,
