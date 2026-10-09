@@ -1,15 +1,18 @@
 // Background music, made the way volume 1's is: twenty tunes decided bar by bar in
 // core/music.js and played here with Web Audio. No sound files. It sits well under the
 // effects, and has its own switch, kept between visits.
-import { BAR_S, barInOrder, barPlan, nextTuneBar, tuneFor, tuneOrder } from '../core/music.js';
+import { BARS_PER_TUNE, BAR_S, TUNES, barInOrder, barOfTune, barPlan, nextTuneBar, sameTuneAgain, tuneFor, tuneOrder } from '../core/music.js';
 
 const PAD_VOLUME = 0.02;
 const BASS_VOLUME = 0.03;
 const MASTER_VOLUME = 0.8;
 
 // context: () => the AudioContext the effects use, or null until a touch has woken it.
-export function createMusic({ context, on: startOn = true }) {
+// repeat: the tune sounding is played over and over until another is chosen.
+export function createMusic({ context, on: startOn = true, repeat: startRepeat = false }) {
   let on = startOn;
+  let repeat = startRepeat;
+  let current = null;      // the id of the tune sounding, or just asked for
   let ctx = null;
   let bus = null;
   let barBuses = [];
@@ -83,9 +86,32 @@ export function createMusic({ context, on: startOn = true }) {
     }
   }
 
+  // The bars sounding are stilled and the next begins in a moment.
+  function cut() {
+    if (!ctx) return;
+    try {
+      for (const bar of barBuses) bar.out.gain.setTargetAtTime(0, ctx.currentTime, 0.12);
+      barBuses = [];
+      nextBarAt = ctx.currentTime + 0.3;
+    } catch { /* silence is fine */ }
+  }
+
   return {
     on: () => on,
     playing: () => playing,
+    // Every tune there is, as { id, name }, and the id of the one sounding (or about to).
+    tunes: () => TUNES.map(({ id, name }) => ({ id, name })),
+    playingId: () => current ?? tuneFor(barInOrder(barNumber, order)).id,
+    repeat: () => repeat,
+    setRepeat(next) { repeat = Boolean(next); },
+    // The tune chosen begins at once (the user, 2026.10.9: "음악 선택 가능하게, 반복도 가능하게").
+    choose(id) {
+      const tune = TUNES.findIndex((t) => t.id === id);
+      if (tune < 0) return;
+      barNumber = barOfTune(tune, barNumber, order);
+      current = id;
+      cut();
+    },
     setOn(next) {
       on = Boolean(next);
       if (!ctx) return;
@@ -101,12 +127,8 @@ export function createMusic({ context, on: startOn = true }) {
     // Another tune: the one sounding is stilled and the next in this sitting's order begins.
     another() {
       barNumber = nextTuneBar(Math.max(0, barNumber - 1));
-      if (!ctx) return;
-      try {
-        for (const bar of barBuses) bar.out.gain.setTargetAtTime(0, ctx.currentTime, 0.12);
-        barBuses = [];
-        nextBarAt = ctx.currentTime + 0.3;
-      } catch { /* silence is fine */ }
+      current = tuneFor(barInOrder(barNumber, order)).id;
+      cut();
     },
     // Called every frame with the mood ('surface' on the ground, 'near' above the Earth);
     // starts each bar a little ahead of time so that the audio clock keeps the beat.
@@ -121,6 +143,9 @@ export function createMusic({ context, on: startOn = true }) {
         playBar(barPlan(bar, mood), nextBarAt - now);
         playing = tuneFor(bar).name;
         barNumber += 1;
+        // Over and over: at the tune's end, its own next turn instead of the next tune.
+        current = tuneFor(bar).id;
+        if (repeat && barNumber % BARS_PER_TUNE === 0) barNumber = sameTuneAgain(barNumber, order);
         nextBarAt += BAR_S;
       } catch { /* a fault in the audio graph must never reach the game */ }
     },

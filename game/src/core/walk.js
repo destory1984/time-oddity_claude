@@ -26,7 +26,8 @@ const ARRIVE = 0.012;             // near enough to where she was sent
 
 // From earlier visits, by id: tried: what she has tried here. been: the scenes she has been
 // in. done: the errands done. met: the people she has spoken to.
-export function createWalk(place, { scene = 0, x = 0.08, tried = [], been = [], done = [], met = [], tale = null } = {}) {
+// (A place's `start` is where she is set down in its first scene, when not near its left end.)
+export function createWalk(place, { scene = 0, x = place.start ?? 0.08, tried = [], been = [], done = [], met = [], tale = null } = {}) {
   return {
     place, scene, x, facing: 1, moving: false, goal: null,
     // How many times each person has been spoken to. One met on an earlier visit has said

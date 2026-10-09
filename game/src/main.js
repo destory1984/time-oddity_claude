@@ -46,7 +46,7 @@ import { createPager } from './ui/opening.js';
 import { OPENING } from './core/opening.js';
 import { NOTES, dueNote, noteById, notePages } from './core/notes.js';
 import { keepProgressAside,
-  loadCards, loadMusic, loadMuted, loadOpened, loadOutfit, saveOutfit, loadProgress, saveCards, saveMusic, saveMuted, saveOpened, saveProgress,
+  loadCards, loadMusic, loadRepeat, saveRepeat, loadMuted, loadOpened, loadOutfit, saveOutfit, loadProgress, saveCards, saveMusic, saveMuted, saveOpened, saveProgress,
 } from './ui/storage.js';
 
 const RISE_MS = 800;
@@ -209,10 +209,15 @@ soundSwitch.setMuted(sound.muted());
 $('soundButton').addEventListener('click', () => { sound.wake(); soundSwitch.setMuted(!sound.muted()); });
 
 // Background music: twenty tunes of this game's own, with a switch of its own.
-const music = createMusic({ context: () => sound.context(), on: loadMusic() });
+const music = createMusic({ context: () => sound.context(), on: loadMusic(), repeat: loadRepeat() });
 const musicSwitch = {
   on: () => music.on(),
   another() { sound.wake(); music.another(); },
+  tunes: () => music.tunes(),
+  playingId: () => music.playingId(),
+  choose(id) { sound.wake(); music.choose(id); },
+  repeat: () => music.repeat(),
+  setRepeat(on) { music.setRepeat(on); saveRepeat(on); },
   setOn(on) {
     if (!on && music.on()) { hushAt = performance.now(); hushWalk(); }
     music.setOn(on);
@@ -311,7 +316,7 @@ const settings = createSettings({
   version: `v${__APP_VERSION__} · ${__APP_UPDATED__}`,
 });
 
-const globe = createGlobe($('globe'), $('pins'), { squares: LIVE, onPick: (id) => pick(squareById(id)) });
+const globe = createGlobe($('globe'), $('pins'), { squares: LIVE, onPick: (id) => pick(squareById(id)), done: (id) => isComplete(progress, id) });
 
 function layout() {
   skyCanvas.resize();
@@ -431,6 +436,19 @@ function openLook(look) {
 // A touch anywhere on it, or beside it, goes back to the game (the user, 2026.10.9: "클릭하면,
 // 다시 게임 화면으로").
 $('lookSheet').addEventListener('click', () => $('lookSheet').close());
+// When all is done the slip has a button under it that shows the photograph of the place
+// as it is today once more (the user, 2026.10.9: "도시 미션 클리어하고 나서 나오는 실제 사진을
+// 다시 볼 길이 없네").
+function nowRow(list) {
+  if (!walk.place.now || !allDone(walk)) return;
+  const li = document.createElement('li');
+  li.className = 'now';
+  const button = document.createElement('button');
+  button.type = 'button'; button.textContent = '지금 모습 사진 보기';
+  button.addEventListener('click', (e) => { e.stopPropagation(); openLook(walk.place.now); });
+  li.append(button);
+  list.append(li);
+}
 function showErrands() {
   const list = $('errands');
   list.replaceChildren();
@@ -451,6 +469,7 @@ function showErrands() {
     for (const errand of walk.place.errands) if (walk.done.includes(errand.id)) row(errand.text, 'done');
     if (!allDone(walk)) row(goalOf(told, walk.tale));
     if (holdsOf(told, walk.tale)) row(holdsOf(told, walk.tale), 'has');
+    nowRow(list);
     return;
   }
   if (story) head.textContent = `할머니의 물음 · ${story.ask}`;
@@ -464,6 +483,7 @@ function showErrands() {
     row.classList.toggle('done', walk.done.includes(errand.id));
     list.append(row);
   }
+  nowRow(list);
 }
 // The end of a place's story is hers to choose (`story.choice`): two buttons at the foot of
 // the screen. What she chose is kept with what she has tried there (`chose-<id>`), and

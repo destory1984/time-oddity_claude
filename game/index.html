@@ -118,7 +118,7 @@
     <section data-tab="options">
       <dl>
         <dt>글자 크기</dt><dd>위쪽의 "가−", "가+" 단추로 다섯 단계 가운데 고릅니다. 할머니의 메모, 소라의 말, 이 설정의 글자가 함께 커집니다.</dd>
-        <dt>배경 음악</dt><dd><span id="musicNow"></span> 화면 위의 음표 단추로도 켜고 끕니다. 스무 곡(다이얼, 모래시계, 해시계, 첫 장, 마당, 수첩, 옛 편지, 돌탑, 등대, 유리 집, 초승달, 북두칠성, 먼 옛날, 물시계, 종소리, 달력, 열기구, 항구, 망원경, 그믐)이 2분쯤씩 흐릅니다. 순서는 열 때마다 바뀝니다. 소리 파일이 아니라 그 자리에서 만들어 내는 소리입니다.<br><button type="button" id="musicSwitch"></button> <button type="button" id="musicAnother">다음 곡</button></dd>
+        <dt>배경 음악</dt><dd><span id="musicNow"></span> 화면 위의 음표 단추로도 켜고 끕니다. 스무 곡이 2분쯤씩 차례로 흐릅니다. 순서는 열 때마다 바뀝니다. 듣고 싶은 곡을 누르면 바로 그 곡이 나옵니다. 소리 파일이 아니라 그 자리에서 만들어 내는 소리입니다.<div id="musicTunes" role="group" aria-label="곡 고르기"></div><div class="row"><button type="button" id="musicSwitch"></button><button type="button" id="musicAnother">다음 곡</button><button type="button" id="musicRepeat"></button></div></dd>
         <dt>언어 · Language</dt><dd>지금은 한국어만 있습니다.</dd>
         <dt id="screenTerm" hidden>화면 비율</dt><dd id="screenRow" hidden><span id="screenNow"></span> 바꾸면 화면을 다시 엽니다(수첩은 그대로).<br><button type="button" id="screenButton"></button></dd>
         <dt>저장</dt><dd>수첩에 채운 것, 글자 크기, 효과음과 배경 음악을 켜고 끈 것이 이 기기에 남습니다. 서버와 계정은 없습니다.<br><button type="button" id="resetProgress">수첩 비우기</button></dd>
@@ -131,15 +131,14 @@
         <dt>갈 곳</dt><dd>다이얼이 선 세기의 갈 곳이 지구에 금색 점으로 켜지고, 왼쪽 위에 이름 단추로도 뜹니다. 점이나 단추를 누르면 다이얼이 그 해로 굴러가고 소라가 그 자리로 내려갑니다. 지구는 손가락으로 끌어 좌우로 돌리고, 오른쪽의 ＋ 단추나 두 손가락으로 가까이 당깁니다.</dd>
         <dt>걷기</dt><dd>화면의 왼쪽이나 오른쪽을 누르고 있으면 그쪽으로 걷습니다. 키보드는 좌우 화살표나 A, D입니다. 장면의 끝에서 계속 걸으면 옆 장면으로 넘어갑니다. 한 자리에 장면이 셋 있습니다.</dd>
         <dt>말 걸기</dt><dd>사람을 누르면 말을 겁니다(곁에 서서 스페이스 키를 눌러도 됩니다). 멀리 있는 사람을 누르면 걸어가서 말을 겁니다. 한 번 더 누르면 다음 말을 합니다. 금빛으로 빛나는 사람에게는 볼 것이 있습니다.</dd>
-        <dt>할머니의 심부름</dt><dd>자리에 내리면 할머니의 쪽지에 심부름 셋이 적혀 있습니다. 찾아서 말을 걸거나 그 앞에 서면 한 줄씩 지워지고, 셋을 다 하면 할머니의 답장이 옵니다. 쪽지를 누르면 접히고 펴집니다. 못 해도 언제든 떠날 수 있습니다.</dd>
+        <dt>할머니의 심부름</dt><dd>자리에 내리면 할머니의 쪽지에 심부름 셋이 적혀 있습니다. 찾아서 말을 걸거나 그 앞에 서면 한 줄씩 지워지고, 셋을 다 하면 할머니의 답장이 옵니다. 쪽지를 누르면 접히고 펴집니다. 다 마치면 그곳의 지금 사진이 뜨고, 쪽지의 "지금 모습 사진 보기"로 다시 봅니다. 못 해도 언제든 떠날 수 있습니다.</dd>
         <dt>수첩</dt><dd>위쪽의 수첩 단추를 누르면 할머니가 적어 둔 칸이 나옵니다. 줄을 누르면 할머니의 메모가 펼쳐지고 "가기"로 그 자리에 갑니다.</dd>
         <dt>이야기 카드</dt><dd>자리에 서면 오른쪽에 "이야기 카드"가 뜹니다. 그날 무슨 일이 있었는지 짧게 적혀 있습니다. 읽고 싶을 때만 읽습니다.</dd>
         <dt>떠나기</dt><dd>오른쪽 위의 "떠나기"를 누르면 금빛 고리를 타고 지구 위로 돌아갑니다.</dd>
         <dt>여는 이야기</dt><dd>처음 열 때 나온 다섯 쪽을 다시 봅니다.<br><button type="button" id="replayOpening">여는 이야기 다시 보기</button></dd>
         <dt>하늘은 계산한 것</dt><dd>달의 모양과 자리, 행성, 별은 그날 그 자리 그 시각의 실제 하늘입니다. 해와 달은 모양이 보이도록 실제보다 9배 크게 그렸습니다.</dd>
-        <dt>지금은</dt><dd>갈 곳이 일곱 있습니다: AD 80년 로마, 1446년 한양, 1889년 파리, 1937년 샌프란시스코, 1964년 도쿄, 1969년 할머니의 마을, 1988년 서울. 처음에는 로마부터 갑니다.</dd>
+        <dt>지금은</dt><dd>갈 곳이 열셋 있습니다: AD 80년 로마, 537년 콘스탄티노플, 1054년 개봉, 1324년 카이로, 1446년 한양, 1497년 밀라노, 1640년쯤 아그라, 1769년 타히티, 1889년 파리, 1937년 샌프란시스코, 1964년 도쿄, 1969년 할머니의 마을, 1988년 서울. 처음에는 로마부터 갑니다. 지구 위에서 다 마친 곳의 점에는 ✓가 붙습니다.</dd>
         <dt>빌려 쓴 것</dt><dd>하늘 계산은 Astronomy Engine(MIT). 별은 Yale Bright Star Catalogue. 지구 그림은 NASA Blue Marble. 글씨는 Pretendard, 나눔손글씨 펜, 개구(모두 SIL OFL). 그림은 그림 그리는 AI에 주문해 받았습니다.</dd>
-        <dt>만든 곳</dt><dd><a href="https://github.com/destory1984/time-oddity_claude" target="_blank" rel="noopener">github.com/destory1984/time-oddity_claude</a><br>1권: <a href="https://destory1984.github.io/oddity_claude/" target="_blank" rel="noopener">우주 한량</a></dd>
       </dl>
     </section>
     <section data-tab="news" hidden>
@@ -150,6 +149,7 @@
       <div id="aboutTitle"><img class="titleArt" src="./ui/title.png" alt="Time Oddity" width="900" height="221"><span>할머니의 수첩 2권</span></div>
       <dl>
         <dt>만든 사람</dt><dd>우주한량, 우주토끼</dd>
+        <dt>만든 곳</dt><dd><a href="https://github.com/destory1984/time-oddity_claude" target="_blank" rel="noopener">github.com/destory1984/time-oddity_claude</a></dd>
         <dt>개인정보</dt><dd>모으지 않습니다. 기록은 자신의 핸드폰이나 PC에만 남고, 서버로 보내지 않습니다.</dd>
       </dl>
     </section>

@@ -12,7 +12,7 @@ import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial.js'
 import { Texture } from '@babylonjs/core/Materials/Textures/texture.js';
 import { Color3, Color4 } from '@babylonjs/core/Maths/math.color.js';
 import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
-import { squareTitle } from '../core/squares.js';
+import { pinTitle } from '../core/squares.js';
 
 const RAD = Math.PI / 180;
 const GLOBE_WIDTH = 0.8;      // the Earth's diameter as a share of the screen's width (of `span` on a wide window)
@@ -38,7 +38,9 @@ function onSphere(lat, lon) {
 const smooth = (t) => t * t * (3 - 2 * t);
 const wrapPi = (a) => Math.atan2(Math.sin(a), Math.cos(a));
 
-export function createGlobe(canvas, pinsEl, { squares, onPick }) {
+// done: (id) => whether all is done at that square; its pin is then ticked (the user,
+// 2026.10.9, back above the Earth from a place finished: "미션 클리어했다는 표시가 없네").
+export function createGlobe(canvas, pinsEl, { squares, onPick, done = () => false }) {
   const engine = new Engine(canvas, true, { preserveDrawingBuffer: true, stencil: false });
   const scene = new Scene(engine);
   scene.clearColor = new Color4(0.008, 0.004, 0.11, 1);
@@ -66,10 +68,10 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'pin';
-    button.innerHTML = `<span>${squareTitle(square)}</span>`;
+    button.innerHTML = `<span>${pinTitle(square)}</span>`;
     button.addEventListener('click', () => onPick(square.id));
     pinsEl.append(button);
-    return { square, node, button, label: squareTitle(square) };
+    return { square, node, button, label: pinTitle(square) };
   });
 
   let w = 1;
@@ -300,7 +302,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
       taken.push({ left: one.x - 9, right: one.x + 9, top: one.y - 9, bottom: one.y + 9 });
     }
     for (const { pin, x, y } of shown) {
-      const wide = pin.label.length * 11.5 + 6;
+      const wide = pin.label.length * 11.5 + 6 + (pin.button.classList.contains('done') ? 14 : 0);
       const boxAt = (side, drop) => (side > 0
         ? { left: x + 12, right: x + 12 + wide, top: y - 8 + drop, bottom: y + 8 + drop }
         : { left: x - 12 - wide, right: x - 12, top: y - 8 + drop, bottom: y + 8 + drop });
@@ -321,6 +323,7 @@ export function createGlobe(canvas, pinsEl, { squares, onPick }) {
       pin.button.classList.toggle('target', pin.square.id === targetId);
       pin.button.classList.toggle('under', pin.square.id === underId);
       pin.button.classList.toggle('begin', pin.square.id === beginId);
+      pin.button.classList.toggle('done', done(pin.square.id));
     }
   }
 

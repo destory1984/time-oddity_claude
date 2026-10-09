@@ -6,7 +6,7 @@ import { sanitizeProgress } from '../core/progress.js';
 import { textSizeFrom } from '../core/textSize.js';
 
 const KEY = {
-  opened: 'timeoddity.opened.v1', muted: 'timeoddity.muted.v1', cards: 'timeoddity.postcards.v1', music: 'timeoddity.music.v1', text: 'timeoddity.text.v1', progress: 'timeoddity.progress.v1', screen: 'timeoddity.screen.v1',
+  opened: 'timeoddity.opened.v1', muted: 'timeoddity.muted.v1', cards: 'timeoddity.postcards.v1', music: 'timeoddity.music.v1', repeat: 'timeoddity.repeat.v1', text: 'timeoddity.text.v1', progress: 'timeoddity.progress.v1', screen: 'timeoddity.screen.v1',
 };
 
 function read(key) {
@@ -24,6 +24,9 @@ export const saveMuted = (muted) => write(KEY.muted, muted ? '1' : '0');
 // Background music is on unless the player turned it off.
 export const loadMusic = () => read(KEY.music) !== '0';
 export const saveMusic = (on) => write(KEY.music, on ? '1' : '0');
+// One tune over and over, if the player asked for that.
+export const loadRepeat = () => read(KEY.repeat) === '1';
+export const saveRepeat = (on) => write(KEY.repeat, on ? '1' : '0');
 // The notebook. ids: the squares that exist now; a record of one that no longer does is dropped.
 export const loadProgress = (ids, noteIds) => sanitizeProgress(read(KEY.progress), ids, noteIds);
 export const saveProgress = (progress) => write(KEY.progress, JSON.stringify(progress));

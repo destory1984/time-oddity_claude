@@ -231,6 +231,18 @@ export function nextTuneBar(bar) {
   return (Math.floor(bar / BARS_PER_TUNE) + 1) * BARS_PER_TUNE;
 }
 
+// The first bar of tune number `tune` (its place in TUNES) at or after the turn `bar` is in,
+// when the tunes go round in `order`: where to go on from when that tune is asked for.
+export function barOfTune(tune, bar, order) {
+  let turn = Math.floor(bar / BARS_PER_TUNE);
+  while (order[turn % order.length] !== tune) turn += 1;
+  return turn * BARS_PER_TUNE;
+}
+
+// Where to go on from when a tune has just ended (`position` is the first bar after it) and
+// the same one is to be heard again: its next turn, a round later, so its notes differ.
+export const sameTuneAgain = (position, order) => position + (order.length - 1) * BARS_PER_TUNE;
+
 // The tunes in a chance order for one sitting (random: a function giving 0..1), so the
 // game does not open with the same tune every time. Every tune comes once a round.
 export function tuneOrder(random = Math.random) {

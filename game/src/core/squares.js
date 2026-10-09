@@ -529,6 +529,10 @@ export const squareById = (id) => SQUARES.find((s) => s.id === id);
 // instead (2026.10.8).
 export const squareTitle = (square) => square.name;
 
+// Its name on the Earth, where the pins of many times lie side by side: the year after it
+// (the user, 2026.10.9: "도시 이름 뒤에 연도 표기").
+export const pinTitle = (square) => `${square.name} AD ${square.date.year}`;
+
 // What grandmother wrote of that day's sky: the last sentence of her memo ("그날 달은 보름.",
 // or that she could not note it for want of the day). It is shown while Sora looks up,
 // so that it is plain what the sky is there for: the thing grandmother could only read of.
