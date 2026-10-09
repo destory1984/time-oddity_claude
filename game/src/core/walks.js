@@ -217,7 +217,11 @@ export const WALKS = {
   // the ministers' one memorial against them (1444). Still from memory: the letters drawn
   // after the shapes of the mouth, the king's failing eyes, the bowl sundial of his reign.
   hunminjeongeum: {
-    dir: 'hanyang', look: 'paper', talk: 'face',
+    // Drawn again in the manner of the woodcuts of the Samgang haengsildo, printed under the
+    // same king in 1434 (the user, 2026.10.10: "한양도 그림체 바꾸자.", and of four tries:
+    // "1번으로 가자."). The words and errands are as they were. The sky is in the pictures
+    // (`pale`), and people speak in bubbles: the faces of the panel were of the old manner.
+    dir: 'hanyang', look: 'paper', pale: true,
     now: {
       photo: 'photo-now.webp', name: '집현전 자리의 지금 모습', when: '서울 경복궁 · 수정전',
       text: [
@@ -229,63 +233,63 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'market', name: '한양 저잣거리', zoom: 1.3, ground: 0.674, scale: 0.66, air: 'market', floor: 'dirt',
+        id: 'market', name: '한양 저잣거리', zoom: 1.07, ground: 0.75, scale: 0.626, air: 'market', floor: 'dirt',
         sora: '감이 주렁주렁! 시끌시끌해.',
         moving: [
-          { kind: 'drift', id: 'by', src: 'crowd', from: 0, to: 1, foot: 0.67, tall: 0.17, wide: 0.4115, gap: 0.12, speed: 0.028, bob: 0.003 },
+          { kind: 'drift', id: 'by', src: 'crowd', from: 0, to: 1, foot: 0.728, tall: 0.17, wide: 0.3853, gap: 0.12, speed: 0.028, bob: 0.003 },
         ],
         people: [
-          { id: 'cloth', pass: '무명이오, 고운 무명!', show: 'jongnu', pose: 'see-aha', sora: '집 밑으로 길이 지나가네!', memo: '밤에 종을 스물여덟 번 치면 성문이 닫혔단다. 새벽 서른세 번에 열렸지.', name: '포목 장수', x: 0.159, w: 141, h: 299, lines: ['저 종루 밑으로 길이 났지요.', '밤 종이 울리면 성문이 닫힌다오.'] },
+          { id: 'cloth', pass: '무명이오, 고운 무명!', show: 'jongnu', pose: 'see-aha', sora: '집 밑으로 길이 지나가네!', memo: '밤에 종을 스물여덟 번 치면 성문이 닫혔단다. 새벽 서른세 번에 열렸지.', name: '포목 장수', x: 0.18, w: 146, h: 303, lines: ['저 종루 밑으로 길이 났지요.', '밤 종이 울리면 성문이 닫힌다오.'] },
           { id: 'pots', pass: '독 사려! 독 안도 구경하시오!', show: 'kimchi', pose: 'see-gasp', sora: '김치가 하얘! 고추가 없었구나.',
             // Looked up on 2026.10.8 (the user asked for the year and the way it came): the
             // first word of it here is in a book of 1614, which says it came from Japan; that
             // it came about the war of 1592 is the common account, and some dispute it.
-            memo: '고추는 임진왜란(1592년) 무렵 일본을 거쳐 들어왔다고들 한단다. 본디는 바다 건너 아메리카의 열매야.', name: '옹기 장수', x: 0.3, w: 128, h: 289, lines: ['독 안을 보시오. 김치가 하얗지요?', '고추? 그런 건 들어 본 적 없소.'],
+            memo: '고추는 임진왜란(1592년) 무렵 일본을 거쳐 들어왔다고들 한단다. 본디는 바다 건너 아메리카의 열매야.', name: '옹기 장수', x: 0.3, w: 129, h: 292, lines: ['독 안을 보시오. 김치가 하얗지요?', '고추? 그런 건 들어 본 적 없소.'],
             try: { id: 'eat-kimchi', verb: 'eat', name: '하얀 김치', face: 'yum', sora: '안 매워! 시원하고 짭짤해.' } },
-          { id: 'reader', pass: '방이 붙었소! 다들 들으시오.', name: '방 읽어 주는 선비', x: 0.43, w: 141, h: 312, lines: ['새 글자 스물여덟 자가 나왔다오.', '슬기로우면 아침나절에 배운다오.'],
+          { id: 'reader', pass: '방이 붙었소! 다들 들으시오.', name: '방 읽어 주는 선비', x: 0.43, w: 144, h: 312, lines: ['새 글자 스물여덟 자가 나왔다오.', '슬기로우면 아침나절에 배운다오.'],
             try: { id: 'wear-gat', verb: 'wear', name: '갓과 도포', outfit: 'gat', sora: '어험! 선비가 된 것 같아.' } },
-          { id: 'woodboy', pass: '나무 사려! 장작이오!', name: '나무꾼 소년', x: 0.52, w: 119, h: 225, lines: ['저게 글자야? 그림 같은데.', '가, 나, 다… 나도 따라 했어!'] },
-          { id: 'tteok', pass: '떡 사려, 따끈한 떡!', show: 'tteok', name: '떡 파는 할머니', x: 0.77, w: 109, h: 257, lines: ['시루떡 따끈해요. 하나 드시우.', '열흘이면 배운다니 나도 해 볼까.'],
+          { id: 'woodboy', pass: '나무 사려! 장작이오!', name: '나무꾼 소년', x: 0.52, w: 119, h: 226, lines: ['저게 글자야? 그림 같은데.', '가, 나, 다… 나도 따라 했어!'] },
+          { id: 'tteok', pass: '떡 사려, 따끈한 떡!', show: 'tteok', name: '떡 파는 할머니', x: 0.77, w: 110, h: 257, lines: ['시루떡 따끈해요. 하나 드시우.', '열흘이면 배운다니 나도 해 볼까.'],
             try: { id: 'eat-tteok', verb: 'eat', name: '떡', face: 'yum', sora: '쫀득쫀득! 자꾸 손이 가.' } },
-          { id: 'water', pass: '아이고, 물동이 무거워라.', name: '물동이 인 아낙', x: 0.881, w: 110, h: 320, lines: ['친정에 편지 한 장 못 썼다우.', '이제는 쓸 수 있으려나.'] },
+          { id: 'water', pass: '아이고, 물동이 무거워라.', name: '물동이 인 아낙', x: 0.862, w: 113, h: 320, lines: ['친정에 편지 한 장 못 썼다우.', '이제는 쓸 수 있으려나.'] },
         ],
         spots: [],
       },
       {
-        id: 'gate', name: '한양 광화문 앞', short: '광화문 앞', zoom: 1.3, ground: 0.703, scale: 0.78, air: 'court', floor: 'dirt',
+        id: 'gate', name: '한양 광화문 앞', short: '광화문 앞', zoom: 1.15, ground: 0.7, scale: 0.673, air: 'court', floor: 'dirt',
         sora: '문이 엄청 커! 지붕이 두 층이야.',
         moving: [
-          { kind: 'drift', id: 'parade', src: 'parade', from: 0, to: 1, foot: 0.7, tall: 0.2, wide: 0.3183, gap: 0.55, speed: 0.032, bob: 0.003 },
+          { kind: 'drift', id: 'parade', src: 'parade', from: 0, to: 1, foot: 0.676, tall: 0.2, wide: 0.3169, gap: 0.55, speed: 0.032, bob: 0.003 },
         ],
         people: [
-          { id: 'farmer', flip: true, pass: '허어, 문이 산만 하구먼.', name: '시골 농부', x: 0.14, w: 116, h: 246, lines: ['대궐이 이리 큰 줄 몰랐소.', '억울한 일을 글로 적을 수 있다던데.'] },
-          { id: 'bearer', pass: '영차, 영차!', name: '가마꾼', x: 0.3, w: 113, h: 253, lines: ['아이고 어깨야. 대감은 무겁다니까.', '글자? 가마 멜 때는 쓸 데 없지.'] },
+          { id: 'farmer', flip: true, pass: '허어, 문이 산만 하구먼.', name: '시골 농부', x: 0.14, w: 118, h: 242, lines: ['대궐이 이리 큰 줄 몰랐소.', '억울한 일을 글로 적을 수 있다던데.'] },
+          { id: 'bearer', pass: '영차, 영차!', name: '가마꾼', x: 0.3, w: 115, h: 251, lines: ['아이고 어깨야. 대감은 무겁다니까.', '글자? 가마 멜 때는 쓸 데 없지.'] },
           { id: 'guard', pass: '물렀거라!', name: '수문장', x: 0.42, w: 123, h: 320, lines: ['멈추시오. 여기는 대궐 문이오.', '광화문이오. 스무 해 전에 얻은 이름이지.'] },
-          { id: 'elder', pass: '에헴!', name: '늙은 대신', x: 0.58, w: 107, h: 267, lines: ['한문이 있는데 새 글자가 웬 말이오.', '…허나 임금의 뜻이 굳으시오.'] },
-          { id: 'official', pass: '새 글자요. 한번 보고 가시오.', show: 'letters', pose: 'see-aha', sora: '지금은 안 쓰는 글자가 넷이구나!', name: '젊은 관리', x: 0.7, w: 115, h: 263, lines: ['새 글자 스물여덟 자요. 보시오.', '소리 나는 대로 적으니 참 쉽소.'] },
-          { id: 'girl', pass: '늦었다, 늦었어!', name: '심부름 가는 소녀', x: 0.86, w: 101, h: 230, lines: ['마님 심부름 가요. 바빠요!', '언니가 새 글자를 가르쳐 준댔어.'] },
+          { id: 'elder', pass: '에헴!', name: '늙은 대신', x: 0.58, w: 111, h: 267, lines: ['한문이 있는데 새 글자가 웬 말이오.', '…허나 임금의 뜻이 굳으시오.'] },
+          { id: 'official', pass: '새 글자요. 한번 보고 가시오.', show: 'letters', pose: 'see-aha', sora: '지금은 안 쓰는 글자가 넷이구나!', name: '젊은 관리', x: 0.7, w: 118, h: 263, lines: ['새 글자 스물여덟 자요. 보시오.', '소리 나는 대로 적으니 참 쉽소.'] },
+          { id: 'girl', pass: '늦었다, 늦었어!', name: '심부름 가는 소녀', x: 0.86, w: 103, h: 231, lines: ['마님 심부름 가요. 바빠요!', '언니가 새 글자를 가르쳐 준댔어.'] },
         ],
         spots: [],
       },
       {
-        id: 'hall', name: '경복궁 집현전 뜰', short: '집현전 뜰', zoom: 1.2, ground: 0.762, scale: 0.64, air: 'palace',
+        id: 'hall', name: '경복궁 집현전 뜰', short: '집현전 뜰', zoom: 1.09, ground: 0.74, scale: 0.638, air: 'palace',
         sora: '책이 마당 가득이야. 조용해.',
         moving: [
-          { kind: 'drift', id: 'books', src: 'scholars', from: 0, to: 1, foot: 0.758, tall: 0.17, wide: 0.282, gap: 0.6, speed: 0.026, bob: 0.003 },
+          { kind: 'drift', id: 'books', src: 'scholars', from: 0, to: 1, foot: 0.716, tall: 0.17, wide: 0.2807, gap: 0.6, speed: 0.026, bob: 0.003 },
         ],
         people: [
-          { id: 'books', pass: '볕이 좋구먼.', name: '책 말리는 아저씨', x: 0.2, w: 110, h: 311, lines: ['볕 좋은 날 책을 말려야 하오.', '좀이 슬면 큰일이라오.'] },
-          { id: 'sleepy', pass: '하암… 졸려라.', name: '졸린 학사', x: 0.32, w: 125, h: 313, lines: ['밤새 풀이를 썼소. 하암…', '임금님이 더 늦게 주무신다오.'] },
-          { id: 'scholar', pass: '흠, 이 소리는 어찌 적을꼬.', name: '집현전 학사', x: 0.41, w: 132, h: 320, lines: ['글자마다 입 모양을 본떴다오.', '이 글자는 혀뿌리가 막힌 모양이지.'] },
-          { id: 'tea', pass: '차 식어요. 비켜 주세요.', show: 'ongnu', pose: 'see-gasp', sora: '인형이 스스로 종을 쳐?!', memo: '종이로 만든 산을 금빛 해가 하루 한 바퀴 돌았단다. 때마다 인형이 종을 쳤지.', name: '차 나르는 궁녀', x: 0.66, w: 111, h: 301, lines: ['흠경각에는 인형 시계가 있답니다.', '종이 산을 금빛 해가 돌아요.'] },
-          { id: 'child', pass: '가, 나, 다, 라…', show: 'brush', name: '글자 쓰는 아이', x: 0.75, w: 83, h: 204, lines: ['이거 봐! 내 이름이야. 내가 썼어!', '어제 배웠는데 벌써 다 써.'],
+          { id: 'books', pass: '볕이 좋구먼.', name: '책 말리는 아저씨', x: 0.2, w: 114, h: 315, lines: ['볕 좋은 날 책을 말려야 하오.', '좀이 슬면 큰일이라오.'] },
+          { id: 'sleepy', pass: '하암… 졸려라.', name: '졸린 학사', x: 0.32, w: 127, h: 313, lines: ['밤새 풀이를 썼소. 하암…', '임금님이 더 늦게 주무신다오.'] },
+          { id: 'scholar', pass: '흠, 이 소리는 어찌 적을꼬.', name: '집현전 학사', x: 0.41, w: 134, h: 320, lines: ['글자마다 입 모양을 본떴다오.', '이 글자는 혀뿌리가 막힌 모양이지.'] },
+          { id: 'tea', pass: '차 식어요. 비켜 주세요.', show: 'ongnu', pose: 'see-gasp', sora: '인형이 스스로 종을 쳐?!', memo: '종이로 만든 산을 금빛 해가 하루 한 바퀴 돌았단다. 때마다 인형이 종을 쳤지.', name: '차 나르는 궁녀', x: 0.66, w: 116, h: 302, lines: ['흠경각에는 인형 시계가 있답니다.', '종이 산을 금빛 해가 돌아요.'] },
+          { id: 'child', pass: '가, 나, 다, 라…', show: 'brush', name: '글자 쓰는 아이', x: 0.75, w: 86, h: 206, lines: ['이거 봐! 내 이름이야. 내가 썼어!', '어제 배웠는데 벌써 다 써.'],
             try: { id: 'use-letters', verb: 'use', name: '새 글자', sora: 'ㅅ, ㅗ, ㄹ, ㅏ… 소라! 썼다!' } },
-          { id: 'sundial', pass: '해시계 구경하고 가시오.', show: 'sundial', name: '해시계 보는 관원', x: 0.87, w: 129, h: 309, lines: ['혜정교 것과 같은 해시계라오.', '글 몰라도 그림으로 때를 알지.'],
+          { id: 'sundial', pass: '해시계 구경하고 가시오.', show: 'sundial', name: '해시계 보는 관원', x: 0.862, w: 130, h: 311, lines: ['혜정교 것과 같은 해시계라오.', '글 몰라도 그림으로 때를 알지.'],
             try: { id: 'use-sundial', verb: 'use', name: '해시계', sora: '그림자 끝이 지금 시각이야!' } },
         ],
         spots: [
           // The king at his books, deep in the middle bay: seen, not spoken to. She stands a little to his right, so as not to hide him.
-          { id: 'sejong', from: 0.545, to: 0.605, memo: '저 안에 앉은 분이 세종대왕님이란다. 백성이 쉽게 쓰라고 만드셨지.' },
+          { id: 'sejong', from: 0.51, to: 0.57, memo: '저 안에 앉은 분이 세종대왕님이란다. 백성이 쉽게 쓰라고 만드셨지.' },
         ],
       },
     ],

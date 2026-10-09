@@ -60,6 +60,9 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
    user, 2026.10.10: "참고 그림은 거의 화면 다 가득 차게"; it was 72% of the width). */
 #walkShow{position:absolute;left:12px;width:calc(100% - 24px);bottom:50%;z-index:39;display:none;aspect-ratio:3/2;object-fit:cover;border:5px solid var(--white);border-radius:8px;box-shadow:0 4px 14px #000a;pointer-events:none;image-rendering:pixelated}
 #walkShow.on{display:block;animation:showUp .3s ease-out 1}
+/* With grandmother's slip over it the picture is a little lower (16:9), so that the slip does
+   not climb over the date and the button to leave. */
+#walk.carded #walkShow{aspect-ratio:1.9}
 #walkScene.clack{animation:clack .7s linear 1}
 @keyframes clack{0%,8%,18.5%,26.5%,60%,68%,78.5%,86.5%,100%{translate:0 0}3%,63%{translate:0 2px}21.5%,81.5%{translate:0 1.4px}}
 @keyframes showUp{0%{transform:scale(.9);opacity:0}100%{transform:none;opacity:1}}
