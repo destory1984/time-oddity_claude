@@ -141,7 +141,14 @@ export const WALKS = {
     reply: '그 지독한 걸 먹어 봤구나! 토가는 무겁더냐. 뱃사람 얘기가 정말이었네.',
   },
   eiffel: {
-    dir: 'paris', look: 'paper', talk: 'face',
+    // Drawn again in the manner of the Impressionists' oils of the streets of Paris (the
+    // user, 2026.10.10: "그림체 바꾸자", and of five tries: "1"). The words and errands are
+    // as they were. The sky is in the pictures (`pale`), and people speak in bubbles: the
+    // faces of the panel were of the old manner. Looked up: Seurat's "Eiffel Tower" is of
+    // about 1889, Monet's "Boulevard des Capucines" of 1873 → 1874, Pissarro's streets of
+    // 1897: so "about then", not "that year".
+    dir: 'paris', look: 'paper', pale: true,
+    drawn: '그 무렵 파리의 화가들이 짧은 붓질로 빛을 그리던 것처럼 그렸단다.',
     now: {
       photo: 'photo-now.webp', name: '에펠탑의 지금 모습', when: '프랑스 파리 · 오늘날',
       text: [
@@ -153,40 +160,40 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'gate', name: '파리 만국박람회 입구', short: '박람회 입구', zoom: 1.3, ground: 0.752, scale: 0.66, air: 'street',
+        id: 'gate', name: '파리 만국박람회 입구', short: '박람회 입구', zoom: 1.03, ground: 0.785, scale: 0.602, air: 'street',
         sora: '깃발이 잔뜩! 저 끝에 탑이야.',
-        // People pour in at the middle arch from both sides, and are lost behind its pillars.
+        // People pour in at the middle arch from both sides, and are lost at its two pillars.
         moving: [
-          { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 0.555, foot: 0.748, tall: 0.17, wide: 0.381, gap: 0.03, speed: 0.03, bob: 0.003 },
-          { kind: 'drift', id: 'out', src: 'crowd', from: 0.59, to: 1, foot: 0.748, tall: 0.17, wide: 0.381, gap: 0.03, speed: -0.026, bob: 0.003, flip: true },
+          { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 0.43, foot: 0.772, tall: 0.18, wide: 0.367, gap: 0.03, speed: 0.03, bob: 0.003 },
+          { kind: 'drift', id: 'out', src: 'crowd', from: 0.633, to: 1, foot: 0.772, tall: 0.18, wide: 0.367, gap: 0.03, speed: -0.026, bob: 0.003, flip: true },
         ],
         people: [
-          { id: 'ticket', pass: '표 사시오! 줄은 이쪽이오.', show: 'train', pose: 'see-wow', sora: '기차 앞을 사람이 걸어가!', memo: '박람회장을 도는 꼬마 기차란다. 깃발 든 사람이 앞서 걸었지.', name: '표 파는 사람', x: 0.159, w: 138, h: 277, lines: ['꼬마 기차도 타 보시오. 저기요.', '오늘부터 탑에 올라갈 수 있소.'] },
-          { id: 'news', pass: '호외요! 이 그림 좀 봐요!', name: '신문팔이 소년', x: 0.224, w: 107, h: 269, lines: ['탑 꼭대기 삼백 미터! 세계 제일!', '다른 탑은 죄다 절반이오!'] },
-          { id: 'flower', pass: '꽃 사세요, 꽃!', name: '꽃 파는 소녀', x: 0.31, w: 112, h: 255, lines: ['은방울꽃 사세요! 오월의 꽃이에요.', '오늘은 다들 탑만 올려다봐요.'] },
-          { id: 'parasol', pass: '어머, 볕이 따갑네.', name: '양산 든 부인', x: 0.44, w: 148, h: 320, lines: ['백 년 전 혁명을 기리는 잔치란다.', '서른다섯 나라가 왔다지 뭐니.'] },
-          { id: 'tophat', pass: '흠, 저게 예술이라고?', name: '실크해트 신사', x: 0.66, w: 119, h: 312, lines: ['쇠로 탑이라니. 난 반대했었소.', '…그래도 표는 샀소. 궁금해서.'],
+          { id: 'ticket', pass: '표 사시오! 줄은 이쪽이오.', show: 'train', pose: 'see-wow', sora: '기차 앞을 사람이 걸어가!', memo: '박람회장을 도는 꼬마 기차란다. 깃발 든 사람이 앞서 걸었지.', name: '표 파는 사람', x: 0.185, w: 146, h: 286, lines: ['꼬마 기차도 타 보시오. 저기요.', '오늘부터 탑에 올라갈 수 있소.'] },
+          { id: 'news', pass: '호외요! 이 그림 좀 봐요!', name: '신문팔이 소년', x: 0.265, w: 114, h: 275, lines: ['탑 꼭대기 삼백 미터! 세계 제일!', '다른 탑은 죄다 절반이오!'] },
+          { id: 'flower', pass: '꽃 사세요, 꽃!', name: '꽃 파는 소녀', x: 0.345, w: 119, h: 259, lines: ['은방울꽃 사세요! 오월의 꽃이에요.', '오늘은 다들 탑만 올려다봐요.'] },
+          { id: 'parasol', pass: '어머, 볕이 따갑네.', name: '양산 든 부인', x: 0.46, w: 152, h: 320, lines: ['백 년 전 혁명을 기리는 잔치란다.', '서른다섯 나라가 왔다지 뭐니.'] },
+          { id: 'tophat', pass: '흠, 저게 예술이라고?', name: '실크해트 신사', x: 0.66, w: 126, h: 313, lines: ['쇠로 탑이라니. 난 반대했었소.', '…그래도 표는 샀소. 궁금해서.'],
             try: { id: 'wear-tophat', verb: 'wear', name: '실크해트', outfit: 'tophat', sora: '모자가 굴뚝만 해! 휘청휘청.' } },
-          { id: 'kilt', pass: '허, 크긴 크구먼.', name: '먼 데서 온 아저씨', x: 0.86, w: 125, h: 286, lines: ['스코틀랜드에서 배 타고 왔다네.', '우리도 쇠로 큰 다리를 놓는 중이지.'] },
+          { id: 'kilt', pass: '허, 크긴 크구먼.', name: '먼 데서 온 아저씨', x: 0.855, w: 133, h: 291, lines: ['스코틀랜드에서 배 타고 왔다네.', '우리도 쇠로 큰 다리를 놓는 중이지.'] },
         ],
         spots: [],
       },
       {
-        id: 'tower', name: '파리 에펠탑 아래', short: '에펠탑 아래', zoom: 1.2, ground: 0.733, scale: 0.62, air: 'court', floor: 'dirt',
+        id: 'tower', name: '파리 에펠탑 아래', short: '에펠탑 아래', zoom: 1.09, ground: 0.735, scale: 0.638, air: 'court', floor: 'dirt',
         sora: '우와, 다리 하나가 집채만 해.',
-        // The stair in the east leg, three flights of it: people go up one after another.
+        // The stair up the right leg, one straight flight of it: people go up one after another.
         moving: [
           { kind: 'climb', id: 'up', srcs: ['climb-1', 'climb-2', 'climb-3', 'climb-4', 'climb-5', 'climb-6'],
-            path: [[0.962, 0.566], [0.841, 0.379], [0.913, 0.354], [0.809, 0.195], [0.874, 0.161], [0.778, 0.015]],
-            tall: 0.062, seconds: 42, step: 0.004 },
+            path: [[0.983, 0.635], [0.751, 0]],
+            tall: 0.075, seconds: 30, step: 0.004 },
         ],
         people: [
-          { id: 'down', pass: '아, 다리 아파. 그래도 좋았어!', show: 'press', pose: 'see-gasp', sora: '탑 위에서 신문을 찍어?!', memo: '탑 안에 신문사가 들어와 날마다 신문을 찍었단다. 오늘이 첫 호야.', name: '내려온 아가씨', x: 0.13, w: 106, h: 306, lines: ['탑 위에서 신문을 찍고 있어요!', '두 해 두 달 만에 다 지었대요.'] },
-          { id: 'painter', pass: '어이, 내 그림 좀 보고 가오.', name: '화가', x: 0.27, w: 148, h: 314, lines: ['내 그림 보겠소? 탑은 붉은 갈색이지.', '흉물이라던 이들이 다 올라가더군.'] },
-          { id: 'kid', pass: '우와아, 높다!', name: '올려다보는 아이', x: 0.38, w: 77, h: 199, lines: ['꼭대기가 구름에 닿을 것 같아!', '아빠가 나는 다음에 올라가래.'] },
-          { id: 'photo', pass: '자, 여기 보시오!', name: '사진사', x: 0.68, w: 150, h: 320, lines: ['움직이지 마시오! 하나, 둘…', '탑이 커서 한 장에 다 안 들어가.'] },
-          { id: 'puff', pass: '헉, 헉…', name: '숨 고르는 아저씨', x: 0.79, w: 151, h: 303, lines: ['헉, 헉… 1층만 갔다 왔네.', '위에서 보니 파리가 손바닥만 해.'] },
-          { id: 'stairs', pass: '계단은 이쪽입니다!', name: '계단 안내원', x: 0.874, w: 120, h: 316, lines: ['엘리베이터는 아직이에요. 계단으로!', '1층까지 삼백 계단이 넘어요.'] },
+          { id: 'down', pass: '아, 다리 아파. 그래도 좋았어!', show: 'press', pose: 'see-gasp', sora: '탑 위에서 신문을 찍어?!', memo: '탑 안에 신문사가 들어와 날마다 신문을 찍었단다. 오늘이 첫 호야.', name: '내려온 아가씨', x: 0.14, w: 109, h: 307, lines: ['탑 위에서 신문을 찍고 있어요!', '두 해 두 달 만에 다 지었대요.'] },
+          { id: 'painter', pass: '어이, 내 그림 좀 보고 가오.', name: '화가', x: 0.27, w: 152, h: 317, lines: ['내 그림 보겠소? 탑은 붉은 갈색이지.', '흉물이라던 이들이 다 올라가더군.'] },
+          { id: 'kid', pass: '우와아, 높다!', name: '올려다보는 아이', x: 0.38, w: 82, h: 201, lines: ['꼭대기가 구름에 닿을 것 같아!', '아빠가 나는 다음에 올라가래.'] },
+          { id: 'photo', pass: '자, 여기 보시오!', name: '사진사', x: 0.68, w: 156, h: 320, lines: ['움직이지 마시오! 하나, 둘…', '탑이 커서 한 장에 다 안 들어가.'] },
+          { id: 'puff', pass: '헉, 헉…', name: '숨 고르는 아저씨', x: 0.775, w: 155, h: 305, lines: ['헉, 헉… 1층만 갔다 왔네.', '위에서 보니 파리가 손바닥만 해.'] },
+          { id: 'stairs', pass: '계단은 이쪽입니다!', name: '계단 안내원', x: 0.865, w: 120, h: 317, lines: ['엘리베이터는 아직이에요. 계단으로!', '1층까지 삼백 계단이 넘어요.'] },
         ],
         spots: [
           // Right under the middle of the arch, looking straight up.
@@ -194,20 +201,20 @@ export const WALKS = {
         ],
       },
       {
-        id: 'hall', name: '파리 만국박람회 기계관', short: '박람회 기계관', zoom: 1.3, ground: 0.664, scale: 0.66, air: 'works', floor: 'wood',
+        id: 'hall', name: '파리 만국박람회 기계관', short: '박람회 기계관', zoom: 1.16, ground: 0.69, scale: 0.678, air: 'works', floor: 'wood',
         sora: '쿵쿵쿵! 바퀴가 진짜 돌아가.',
         // The two flywheels, cut out of the picture itself (tools/walk-art.py disc), turn where they lie.
         moving: [
-          { kind: 'spin', id: 'red', src: 'wheel-red', x: 0.2754, y: 0.5205, tall: 0.2139, rpm: 15 },
-          { kind: 'spin', id: 'blue', src: 'wheel-blue', x: 0.6725, y: 0.5205, tall: 0.2139, rpm: 15 },
+          { kind: 'spin', id: 'red', src: 'wheel-red', x: 0.2799, y: 0.4971, tall: 0.3291, rpm: 15 },
+          { kind: 'spin', id: 'blue', src: 'wheel-blue', x: 0.6751, y: 0.4971, tall: 0.3291, rpm: 15 },
         ],
         people: [
-          { id: 'reporter', pass: '어디 보자, 받아 적어야지.', name: '기자', x: 0.119, w: 106, h: 320, lines: ['기둥 하나 없이 이 넓이라니.', '쇠와 유리. 새 시대가 온 거요.'] },
-          { id: 'engineer', pass: '손대지 마시오! 도는 중이오.', name: '기술자', x: 0.4, w: 166, h: 320, lines: ['이 바퀴가 벨트로 기계를 다 돌려.', '기름을 안 치면 금세 멈추지.'] },
-          { id: 'ears', pass: '으아, 시끄러워!', name: '귀 막은 아이', x: 0.53, w: 107, h: 222, lines: ['너무 시끄러워! 귀가 멍멍해.', '(귀를 막고 고개를 젓는다)'] },
-          { id: 'student', pass: '우와, 다 쇠로 만들었네.', name: '학생', x: 0.76, w: 122, h: 300, lines: ['에디슨이라는 미국 사람 거래요.', '전구도 그 사람이 만들었대요.'] },
-          { id: 'queue', pass: '아이고, 줄이 안 줄어.', name: '줄 선 아주머니', x: 0.825, w: 121, h: 310, lines: ['한 시간째 줄이야. 그래도 들어야지.', '기계가 말을 한다니 믿어지니?'] },
-          { id: 'phono', pass: '말하는 기계요! 보고 가시오.', show: 'phonograph', pose: 'see-peer', sora: '밀랍 통에 소리를 새겼구나!', name: '말하는 기계 지기', x: 0.92, w: 153, h: 317, sound: 'phonograph', lines: ['통 속에 사람 목소리가 들었소.', '관을 귀에 대 봐요. 노래가 나오지.'],
+          { id: 'reporter', pass: '어디 보자, 받아 적어야지.', name: '기자', x: 0.13, w: 107, h: 320, lines: ['기둥 하나 없이 이 넓이라니.', '쇠와 유리. 새 시대가 온 거요.'] },
+          { id: 'engineer', pass: '손대지 마시오! 도는 중이오.', name: '기술자', x: 0.4, w: 167, h: 320, lines: ['이 바퀴가 벨트로 기계를 다 돌려.', '기름을 안 치면 금세 멈추지.'] },
+          { id: 'ears', pass: '으아, 시끄러워!', name: '귀 막은 아이', x: 0.53, w: 107, h: 223, lines: ['너무 시끄러워! 귀가 멍멍해.', '(귀를 막고 고개를 젓는다)'] },
+          { id: 'student', pass: '우와, 다 쇠로 만들었네.', name: '학생', x: 0.76, w: 125, h: 299, lines: ['에디슨이라는 미국 사람 거래요.', '전구도 그 사람이 만들었대요.'] },
+          { id: 'queue', pass: '아이고, 줄이 안 줄어.', name: '줄 선 아주머니', x: 0.825, w: 125, h: 308, lines: ['한 시간째 줄이야. 그래도 들어야지.', '기계가 말을 한다니 믿어지니?'] },
+          { id: 'phono', pass: '말하는 기계요! 보고 가시오.', show: 'phonograph', pose: 'see-peer', sora: '밀랍 통에 소리를 새겼구나!', name: '말하는 기계 지기', x: 0.92, w: 153, h: 315, sound: 'phonograph', lines: ['통 속에 사람 목소리가 들었소.', '관을 귀에 대 봐요. 노래가 나오지.'],
             try: { id: 'use-phono', verb: 'use', name: '말하는 기계', sora: '관에서 노래가 나와! 신기해.' } },
         ],
         spots: [],
