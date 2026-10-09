@@ -422,6 +422,7 @@ export const WALKS = {
     // word, what the driver says. She goes on through the scenes and is never sent back.
     tale: {
       ask: '이 꽃은 누구에게 가는 걸까?',
+      gate: { scene: 'platform', open: 4, sora: '아직 못 타. 꽃부터 전해야 해.' },
       steps: [
         {
           who: 'flowers0', goal: '도쿄역 앞의 꽃다발 든 아가씨에게 가 보렴.', holds: '꽃다발: 아가씨가 들고 있음',
@@ -546,6 +547,7 @@ export const WALKS = {
     // and she looks up at the dome.
     tale: {
       ask: '저 큰 지붕은 왜 안 떨어질까?',
+      gate: { scene: 'narthex', open: 3, sora: '문이 다 닫혀 있어. 못 들어가.' },
       steps: [
         {
           who: 'glass', goal: '성당 앞 광장의 유리 굽는 장인에게 가 보렴.', holds: '금빛 조각: 장인이 들고 있음',
@@ -661,6 +663,7 @@ export const WALKS = {
     // in; she holds it out to the king, choosing what to say; and he shows her his gold.
     tale: {
       ask: '금이 너무 많으면 어떻게 될까?',
+      gate: { scene: 'souk', open: 3, sora: '호위병이 막고 있어. 못 들어가.' },
       steps: [
         {
           who: 'water', goal: '성문 앞 시장의 물 파는 할아버지에게 가 보렴.', holds: '금 조각: 할아버지가 들고 있음',
@@ -780,6 +783,7 @@ export const WALKS = {
     // choosing what to say; and the astronomer sets the star down on his chart.
     tale: {
       ask: '해가 떠도 안 지는 별이 있을까?',
+      gate: { scene: 'street', open: 3, sora: '문지기가 막고 있어. 못 들어가.' },
       steps: [
         {
           who: 'apprentice', goal: '무지개 다리 어귀의 별 보는 생도에게 가 보렴.', holds: '쪽지: 생도가 들고 있음',
@@ -897,6 +901,7 @@ export const WALKS = {
     // over, choosing what to say; and the last petal is set.
     tale: {
       ask: '돌로 꽃을 피울 수 있을까?',
+      gate: { scene: 'yard', open: 3, sora: '감독관이 막고 있어. 못 올라가.' },
       steps: [
         {
           who: 'jeweller', goal: '강가 나루의 보석 장수에게 가 보렴.', holds: '붉은 돌: 보석 장수가 들고 있음',
@@ -1021,6 +1026,7 @@ export const WALKS = {
     // over, choosing what to say; and he lets her look.
     tale: {
       ask: '저 사람들은 왜 해만 볼까?',
+      gate: { scene: 'gate', open: 3, sora: '보초가 막고 있어. 못 들어가.' },
       steps: [
         {
           who: 'coconut', goal: '바닷가의 코코넛 파는 아주머니에게 가 보렴.', holds: '코코넛: 아주머니가 들고 있음',

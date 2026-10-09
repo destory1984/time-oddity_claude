@@ -18,6 +18,9 @@
 // A step is done when the last of its lines has been said to her by `who` (and its offer
 // taken, or one of its choice chosen). A line is a string, or { by, text } when someone
 // else says it (the station master stepping in before the driver).
+// `gate` is { scene, open, sora }: the way on from that scene is shut until the step of
+// that number is reached (whoever turns her away does turn her away), and `sora` is what
+// she says on coming up against it.
 // The state is 'S0' for the first step, 'S1' for the second, and one past the last when
 // the tale is told. A record is never changed in place.
 export const STATES = ['S0', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9'];
@@ -62,6 +65,11 @@ export const goalOf = (tale, t) => stepOf(tale, t)?.goal ?? tale.done;
 // line is gone: the errand struck through says as much (the user, 2026.10.9, of the line
 // left on the slip when all was done: "이게 남아있네").
 export const holdsOf = (tale, t) => (isTold(tale, t) ? tale.held : stepOf(tale, t).holds) ?? null;
+
+// What she says on finding the way on from a scene shut, or null when it is open (the user,
+// 2026.10.9, told by Tahiti's sentry that nobody goes in and walking in past him: "아무도 못
+// 들어간다고 했는데, 오른쪽으로 그냥 들어가는데?").
+export const barOf = (tale, t, sceneId) => (tale.gate && tale.gate.scene === sceneId && at(t) < tale.gate.open ? tale.gate.sora : null);
 
 // Whether someone is to be seen where they are placed: a person's `when` names the states.
 export const present = (t, person) => !person.when || person.when.includes(t?.state ?? 'S0');

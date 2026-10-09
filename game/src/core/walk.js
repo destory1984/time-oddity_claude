@@ -14,7 +14,7 @@
 //   (a picture of hers, public/sora/<pose>.png), trips?: how many frames there are of her
 //   treading on its hem as she walks (<outfit>-trip-N.png) }. Something that is not a person (a water clock)
 // has a try and no lines.
-import { callOf, emptyTale, partOf, present, speakerOf, textOf } from './tale.js';
+import { barOf, callOf, emptyTale, partOf, present, speakerOf, textOf } from './tale.js';
 
 export const VERBS = { eat: '먹어 볼래', wear: '입어 볼래', use: '써 볼래' };
 export const FACES = ['yum', 'sour', 'yuck', 'hmm'];
@@ -204,7 +204,9 @@ export const triesOf = (place) => place.scenes.flatMap((scene) => scene.people.f
 // Goes at once into the scene beside this one (way: -1 or 1) if she has been in it before:
 // a street once walked need not be walked again to get past it (the user, 2026.10.8: "한
 // 번 가본 곳은 저거만 누르면, 다음 장면으로 이동시켜줘"). Returns whether she went.
-export const canHop = (walk, way) => { const next = walk.place.scenes[walk.scene + way]; return Boolean(next) && walk.been.includes(next.id); };
+export const canHop = (walk, way) => { const next = walk.place.scenes[walk.scene + way]; return Boolean(next) && walk.been.includes(next.id) && !(way > 0 && barred(walk)); };
+// What she says when the way on from the scene she is in is shut by the tale, or null.
+export const barred = (walk) => (walk.tale ? barOf(walk.place.tale, walk.tale, sceneOf(walk).id) : null);
 export function hop(walk, way) {
   if (!canHop(walk, way)) return false;
   walk.scene += way;
@@ -221,9 +223,10 @@ export function sendTo(walk, x) {
 
 // One step. way: -1 left, 1 right, 0 neither (then she goes on to where she was sent).
 // Returns { scene: the scene changed (-1 or 1), arrived: she got to where she was sent,
-// spot: a spot stood at for the first time, errands: [ids done just now] }.
+// spot: a spot stood at for the first time, errands: [ids done just now], barred: what she
+// says on coming to the far end of a scene the tale has shut }.
 export function stepWalk(walk, dtMs, way = 0) {
-  const out = { scene: 0, arrived: false, spot: null, errands: [] };
+  const out = { scene: 0, arrived: false, spot: null, errands: [], barred: null };
   let dir = way;
   if (dir !== 0) walk.goal = null;
   else if (walk.goal !== null) {
@@ -237,7 +240,8 @@ export function stepWalk(walk, dtMs, way = 0) {
     const next = walk.x + (dir * SPEED * (sceneOf(walk).pace ?? 1) * dtMs) / 1000;
     const scenes = walk.place.scenes.length;
     // Walking off an end goes on into the scene beside it, coming in at its near end.
-    if (way > 0 && next > 1 - EDGE && walk.scene < scenes - 1) { walk.scene += 1; walk.x = EDGE * 2; walk.goal = null; out.scene = 1; }
+    if (way > 0 && next > 1 - EDGE && walk.scene < scenes - 1 && barred(walk)) { walk.x = 1 - EDGE; walk.moving = false; out.barred = barred(walk); }
+    else if (way > 0 && next > 1 - EDGE && walk.scene < scenes - 1) { walk.scene += 1; walk.x = EDGE * 2; walk.goal = null; out.scene = 1; }
     else if (way < 0 && next < EDGE && walk.scene > 0) { walk.scene -= 1; walk.x = 1 - EDGE * 2; walk.goal = null; out.scene = -1; }
     else walk.x = Math.max(EDGE, Math.min(1 - EDGE, next));
   }

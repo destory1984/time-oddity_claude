@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { WALKS } from '../game/src/core/walks.js';
 import { advance, calledOf, callOf, emptyTale, endingOf, goalOf, holdsOf, isTold, partOf, present, sanitizeTale, stepOf, textOf } from '../game/src/core/tale.js';
-import { createWalk, linesOf, peopleOf, speak, stepWalk, talkedOut } from '../game/src/core/walk.js';
+import { barred, canHop, createWalk, linesOf, peopleOf, speak, stepWalk, talkedOut } from '../game/src/core/walk.js';
 import { emptyProgress, markTale, sanitizeProgress, taleOf } from '../game/src/core/progress.js';
 
 // Tokyo, told as a thing carried (the user, 2026.10.9: "아가씨한테 꽃과 말을 전달받고,
@@ -108,6 +108,33 @@ describe('a tale of a thing carried', () => {
     expect(partOf(tale, upTo(1), 'flowers0').role).toBe('aside');
     expect(partOf(tale, upTo(1), 'driver').role).toBe('step');
     expect(partOf(tale, upTo(2), 'driver')).toBe(null);
+  });
+  // The user, 2026.10.9, in Tahiti: "아무도 못 들어간다고 했는데, 오른쪽으로 그냥 들어가는데?"
+  it('keeps the way on shut where she is turned away, until she is let in', () => {
+    for (const [id, walked] of Object.entries(WALKS)) {
+      if (!walked.tale) continue;
+      const { gate, steps } = walked.tale;
+      expect(gate, id).toBeTruthy();
+      const scene = walked.scenes.findIndex((s) => s.id === gate.scene);
+      expect(scene, id).toBeGreaterThanOrEqual(0);
+      expect(scene, id).toBeLessThan(walked.scenes.length - 1);
+      expect(gate.sora.length, gate.sora).toBeLessThanOrEqual(25);
+      // Every step before it opens can be done without going past it; the first after it cannot.
+      const sceneOfWho = (who) => walked.scenes.findIndex((s) => s.people.some((p) => p.id === who));
+      for (let n = 0; n < gate.open; n += 1) expect(sceneOfWho(steps[n].who), `${id} step ${n}`).toBeLessThanOrEqual(scene);
+      expect(sceneOfWho(steps[gate.open].who), id).toBeGreaterThan(scene);
+      let t = emptyTale();
+      for (let n = 0; n <= steps.length; n += 1) {
+        const walk = createWalk(walked, { tale: t, scene, x: 0.975, been: walked.scenes.map((s) => s.id) });
+        const shut = n < gate.open;
+        expect(barred(walk), `${id} at ${n}`).toBe(shut ? gate.sora : null);
+        expect(canHop(walk, 1), `${id} at ${n}`).toBe(!shut);
+        const out = stepWalk(walk, 400, 1);
+        expect(walk.scene, `${id} at ${n}`).toBe(shut ? scene : scene + 1);
+        expect(out.barred, `${id} at ${n}`).toBe(shut ? gate.sora : null);
+        t = advance(walked.tale, t, 'E1');
+      }
+    }
   });
   it('is kept and read back as it was, and a record of the first shape begins again', () => {
     const t = upTo(2);

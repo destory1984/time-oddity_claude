@@ -767,6 +767,8 @@ function frameWalk(dt) {
   const out = stepWalk(walk, dt, walkHopping || panelOpen() ? 0 : walkWay || keyWay);
   if (walk.remark && walk.heard?.id !== walk.remark.id) walk.remark = null;
   if (out.scene !== 0) enterScene();
+  // The way on is shut by the tale: she says so, once for as long as she stands against it.
+  if (out.barred && !(walkSora && walkSora.text === out.barred)) walkSora = { text: out.barred, from: walkT, until: walkT + SORA_FOR_MS };
   // Her footfalls, and the place's own sounds now and then.
   if (walk.moving) {
     walkStepMs += dt;
