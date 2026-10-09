@@ -193,7 +193,8 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #dots i.on{background:var(--gold);box-shadow:0 0 10px var(--gold)}
 #name{font-size:13px;color:var(--gold)}
 #date{top:64px;left:18px;text-shadow:0 1px 6px rgba(5,3,48,.6)}
-#stage.pale #date{color:#1d2238;text-shadow:0 1px 6px rgba(255,255,255,.75)}
+/* (Over a dark tree or a tower's leg the dark date wants a brighter halo: San Francisco, Paris.) */
+#stage.pale #date{color:#1d2238;text-shadow:0 0 2px rgba(255,255,255,.95),0 0 5px rgba(255,255,255,.9),0 1px 10px rgba(255,255,255,.85)}
 #stage.pale #name{color:#8a6a1c}
 #date b{display:block;font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
 #date span{display:block}
