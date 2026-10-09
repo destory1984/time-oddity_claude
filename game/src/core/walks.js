@@ -155,6 +155,9 @@ export const WALKS = {
         '박람회가 끝나고 스무 해 뒤에 헐기로 했던 탑입니다.',
         '꼭대기를 무선 통신의 안테나로 쓰게 되어 남았습니다.',
         '지금 높이는 안테나까지 330미터입니다.',
+        // The user, 2026.10.10: "보수 공사비 많이 들어가던데". Looked up at toureiffel.paris: painted twenty
+        // times, about once in seven years, about 60 tonnes a time. What it costs differs by source and is left out.
+        '녹슬지 않게 일곱 해쯤마다 다시 칠합니다. 한 번에 페인트가 60톤쯤 듭니다.',
       ],
       credit: '사진: Benh LIEU SONG, 위키미디어 공용, 공개 저작물',
     },
