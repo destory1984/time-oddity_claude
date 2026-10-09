@@ -434,7 +434,10 @@ function showErrands() {
     head.textContent = `할머니의 물음 · ${told.ask}`;
     list.append(head);
     const row = (text, cls) => { const li = document.createElement('li'); li.textContent = text; if (cls) li.className = cls; list.append(li); };
-    row(goalOf(told, walk.tale));
+    // What is done is ticked above what is to be done now (the user, 2026.10.9, the flowers
+    // handed over and nothing on the slip to show for it: "할머니 메모에 체크 안 됨").
+    for (const errand of walk.place.errands) if (walk.done.includes(errand.id)) row(errand.text, 'done');
+    if (!allDone(walk)) row(goalOf(told, walk.tale));
     if (holdsOf(told, walk.tale)) row(holdsOf(told, walk.tale), 'has');
     return;
   }
@@ -501,6 +504,7 @@ function taleMark(id) {
   if (walk.done.includes(id)) return;
   walk.done.push(id);
   keep(markErrands(progress, square.id, walk.done));
+  showErrands();
 }
 // A step is done: it is kept, its mark is made in the notebook, and what follows is said
 // one line after another, each long enough to read: what she says on handing the thing
