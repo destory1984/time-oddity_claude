@@ -594,6 +594,122 @@ export const WALKS = {
     ],
     reply: '그 지붕은 스무 해쯤 뒤 지진에 무너져 다시 올렸단다. 다시 올린 것이 지금도 그 자리에 있지.',
   },
+  // Cairo, the summer of 1324: Mansa Musa of Mali is in the city on his way to Mecca, and
+  // there is so much of his gold about that it is worth less than it was. Painted as the
+  // Arab manuscripts of that century were (the user, 2026.10.9, of five tries: "카이로 : 1").
+  // Looked up on 2026.10.9 and found so: he came through in the pilgrimage of 1324; there
+  // was no officer of the court he did not give gold to, and his people changed so much of
+  // it that its price fell (al-Umari: the mithqal had not gone under 25 dirhams, and after
+  // did not pass 22, still so years later); salt cut into slabs in the desert and carried
+  // south for gold; scholars went home with him; the Catalan Atlas of 1375 shows him
+  // enthroned with a round thing of gold in his hand. The numbers told of his train (sixty
+  // thousand people, eighty camels of gold) are of later telling and are not said.
+  // Made up: the water-seller and his piece of gold, the guard, the interpreter, the king's words.
+  musa1324: {
+    dir: 'cairo1324', look: 'paper', pale: true,
+    scenes: [
+      {
+        id: 'gate', name: '이집트 카이로 성문 앞 시장', short: '성문 앞 시장', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
+        sora: '낙타가 줄줄이 들어와! 무슨 날이야?',
+        people: [
+          { id: 'datewoman', pass: '대추야자요, 꿀맛이오!', name: '대추야자 파는 아주머니', x: 0.18, w: 108, h: 320, lines: ['사막을 건너는 이들이 먹는 열매란다.', '하나 먹어 보련?'],
+            try: { id: 'eat-date', verb: 'eat', name: '대추야자', face: 'yum', sora: '쫀득쫀득! 꿀처럼 달아.' } },
+          { id: 'spice', pass: '후추요, 계피요!', name: '향신료 장수', x: 0.27, w: 111, h: 297, lines: ['오늘은 손님들이 금으로 값을 치르네.', '금이 이렇게 흔한 날은 처음이야.'] },
+          { id: 'child', pass: '낙타가 끝이 안 보여!', name: '구경하는 아이', x: 0.36, w: 97, h: 207, lines: ['저 줄이 아침부터 들어오고 있어.', '임금님은 금빛 양산 밑에 계셨어!'] },
+          { id: 'porter', pass: '어이쿠, 무겁다.', name: '짐꾼', x: 0.46, w: 117, h: 305, lines: ['짐 자루가 왜 이리 무겁나 했더니.', '속에 든 게 금가루라지 뭐야.'] },
+          { id: 'camelboy', pass: '워워, 다 왔다!', show: 'caravan', pose: 'see-wow', sora: '줄이 끝이 없어!', memo: '서아프리카 말리에서 사막을 건너온 임금의 행렬이란다. 메카로 가는 길이었지.', name: '낙타 몰이 소년', x: 0.58, w: 103, h: 306, lines: ['말리에서 사막을 건너왔어.', '몇 달을 걸었는지 몰라.'] },
+          { id: 'pilgrim', pass: '나도 메카로 간다네.', name: '순례 가는 노인', x: 0.7, w: 109, h: 299, lines: ['저 임금님도 메카로 가는 길이라오.', '같은 길을 가는 길동무지.'] },
+          { id: 'water', pass: '시원한 물이오!', name: '물 파는 할아버지', x: 0.84, w: 114, h: 300, lines: ['물 한 잔이면 더위가 가신단다.', '오늘은 별일을 다 겪는구나.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'souk', name: '이집트 카이로 금 시장 골목', short: '금 시장 골목', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
+        sora: '가게마다 금이 번쩍번쩍해!',
+        people: [
+          { id: 'changer', pass: '어제는 스물다섯이었는데…', show: 'scale', pose: 'see-aha', sora: '금이 흔해져서 값이 내렸구나!', memo: '금이 한꺼번에 너무 많이 풀리면 금값이 떨어진단다. 그해 카이로가 그랬지.', name: '환전상', x: 0.18, w: 107, h: 272, lines: ['금 한 닢이 은 스물다섯 닢이었단다.', '오늘은 스물둘도 안 쳐 줘. 금이 넘쳐서.'] },
+          { id: 'goldsmith', pass: '땅, 땅. 금이 남아도네.', name: '금 세공사', x: 0.29, w: 90, h: 271, lines: ['금이 싸져서 일감이 밀려든다오.', '망치 한번 잡아 보겠니?'],
+            try: { id: 'use-hammer', verb: 'use', name: '세공 망치', sora: '땅, 땅! 금이 얇게 펴져.' } },
+          { id: 'saltman', pass: '소금이오, 사막 소금!', show: 'salt', pose: 'see-gasp', sora: '소금이 돌판 같아!', memo: '사막에서 캔 소금을 판으로 잘라 낙타에 실었단다. 소금을 주고 금을 받았지.', name: '소금 장수', x: 0.4, w: 99, h: 292, lines: ['사막 한가운데서 캔 소금이야.', '우리 고장에선 소금이 아주 귀해.'] },
+          { id: 'tailor', pass: '고운 옷 보고 가요!', name: '옷 가게 주인', x: 0.51, w: 119, h: 257, lines: ['말리 손님들 옷이 참 넉넉하지요.', '아이 것도 있단다. 입어 보련?'],
+            try: { id: 'wear-mali', verb: 'wear', name: '말리의 옷', outfit: 'mali', sora: '소매가 날개처럼 펄럭여!', memo: '품이 넓어 바람이 잘 통하는 서아프리카의 옷이란다.' } },
+          { id: 'bookseller', pass: '귀한 책이오, 귀한 책!', show: 'books', pose: 'see-aha', sora: '책 표지에 금무늬가 있어!', memo: '그 임금이 돌아갈 때 여러 학자가 함께 말리로 갔단다.', name: '책 장수', x: 0.62, w: 102, h: 271, lines: ['임금님 일행이 책을 많이 사 갔다오.', '금보다 책을 더 반기는 분이라지.'] },
+          { id: 'interp', pass: '이 책도 사 가야겠군.', name: '임금의 통역', x: 0.73, w: 103, h: 277, lines: ['임금님의 말을 옮기는 일을 한단다.', '카이로는 책이 많아 좋구나.'] },
+          { id: 'guard', pass: '여기부터는 임금님의 천막이다.', name: '임금의 호위병', x: 0.85, w: 124, h: 320, lines: ['임금님의 천막을 지킨단다.', '사막에서도 한 번도 졸지 않았지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'camp', name: '이집트 카이로 성 밖 임금의 천막', short: '임금의 천막', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'court', floor: 'dirt',
+        sora: '천막이 집보다 커! 북소리도 나.',
+        people: [
+          { id: 'attendant', pass: '지팡이를 높이, 높이!', name: '금 지팡이 든 시종', x: 0.19, w: 79, h: 300, lines: ['임금님 앞에서 금 지팡이를 든단다.', '햇빛을 받으면 눈이 부시지.'] },
+          { id: 'drummer', pass: '둥, 둥, 두둥!', name: '북 치는 사람', x: 0.3, w: 105, h: 267, lines: ['임금님이 나서실 때 북을 친단다.', '사막에서도 날마다 쳤지.'] },
+          { id: 'griot', pass: '옛날 옛적 말리에…', name: '이야기꾼', x: 0.39, w: 111, h: 272, lines: ['임금님들의 이야기를 노래로 전한단다.', '오늘 일도 노래가 될 거야.'] },
+          { id: 'king', pass: '허허, 좋은 날이로다.', show: 'map', pose: 'see-wow', sora: '지도에 임금님이 그려졌어!', memo: '쉰 해쯤 뒤 유럽의 지도에 금덩이를 든 이 임금이 그려졌단다.', name: '말리의 임금 만사 무사', x: 0.5, w: 136, h: 320, lines: ['먼 길을 가는 중이란다.', '가진 것은 나눠야 가벼워지지.'] },
+          { id: 'scholar', pass: '흠, 이 대목이 좋구나.', name: '말리의 학자', x: 0.61, w: 119, h: 289, lines: ['임금님은 배운 이를 귀하게 여기신다.', '돌아갈 때는 책이 한 짐일 게다.'] },
+          { id: 'cook', pass: '밥 다 됐다, 밥!', name: '밥 짓는 아주머니', x: 0.74, w: 100, h: 263, lines: ['이 많은 식구 밥을 날마다 짓는단다.', '사막에선 물이 금보다 귀했지.'] },
+          { id: 'envoy', pass: '술탄의 편지를 가져왔소.', name: '술탄의 사신', x: 0.85, w: 107, h: 315, lines: ['술탄께서 임금님을 궁으로 청하셨소.', '이런 손님은 카이로에 처음이라오.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The king who scattered gold" (core/tale.js; the user, 2026.10.9, of the storyboard:
+    // "이대로 지어"): the water-seller was paid a piece of gold for a cup of water and
+    // would give it back; the king's guard turns her away; the king's interpreter takes her
+    // in; she holds it out to the king, choosing what to say; and he shows her his gold.
+    tale: {
+      ask: '금이 너무 많으면 어떻게 될까?',
+      steps: [
+        {
+          who: 'water', goal: '성문 앞 시장의 물 파는 할아버지에게 가 보렴.', holds: '금 조각: 할아버지가 들고 있음',
+          lines: ['얘야, 이것 좀 보렴.', '물 한 잔 값으로 금 한 조각을 받았단다.', '이건 너무 많아. 돌려드려 줄래?'],
+          offer: { ask: '금 조각을 돌려드릴까?', label: '내가 돌려드릴게요' },
+          errand: 'took',
+        },
+        {
+          who: 'guard', goal: '금 시장 골목 끝의 천막 어귀로 가 보렴.', holds: '금 조각: 소라가 들고 있음',
+          lines: ['멈춰라. 임금님은 아무나 못 뵌다.', '무슨 일인지 나는 들은 바 없다.'],
+          sora: '돌려드리러 온 건데… 어? 누가 불러!',
+        },
+        {
+          who: 'interp', call: '얘야, 무슨 일이니?', goal: '임금의 통역이 부른다. 가 보렴.', holds: '금 조각: 소라가 들고 있음',
+          lines: ['금을 돌려주러 왔다고? 기특하구나.', '정직한 사람은 임금님이 만나 주신단다.', '나와 함께 가자.'],
+          after: [{ who: 'guard', line: '통역님의 손님이군. 지나가거라.' }],
+          sora: '들어가도 된대! 임금님께 가자!',
+        },
+        {
+          who: 'king', goal: '성 밖 천막의 임금에게 금 조각을 돌려드리렴.', holds: '금 조각: 소라가 들고 있음',
+          lines: ['어서 오너라. 내게 줄 것이 있다고?'],
+          choice: {
+            ask: '금 조각을 내밀며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"할아버지가 너무 많대요"', sora: '물 한 잔 값으로는 너무 많대요.', says: '허허, 준 것은 돌려받지 않는단다.' },
+              { id: 'E2', label: '"금이 정말 많으시네요"', sora: '임금님은 금이 정말 많으시네요!', says: '허허, 많으니 나누는 것이란다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'king', show: true, goal: '임금님이 보여 주는 것을 보렴.',
+          lines: ['정직한 아이로구나. 이걸 보렴.', '내 땅에는 금이 이만큼 난단다.'],
+          sora: '주먹만 한 금덩이야! 눈이 부셔.',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'water', when: ['S1', 'S2', 'S3', 'S4'], lines: ['임금님은 성 밖 천막에 계신다더구나.', '금 시장 골목을 지나면 나온단다.'] },
+        { who: 'water', when: ['S5'], lines: ['돌려받지 않으셨다고? 허허.', '그럼 오늘 물은 다 그냥 나눠야겠구나.'] },
+      ],
+      done: '금 조각을 들고 가서, 금덩이 든 임금을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '금 조각을 받는다.', at: [] },
+      { id: 'gave', text: '임금에게 금 조각을 내민다.', at: [] },
+      { id: 'saw', text: '임금의 금덩이를 본다.', at: [] },
+    ],
+    reply: '그 임금은 뒷날 지도에 금덩이를 든 모습으로 그려졌단다. 이집트의 금값은 여러 해 제자리로 못 돌아왔지.',
+  },
   // Kaifeng, 4 July 1054: a star nobody had seen before stood in the east at daybreak and
   // stayed in sight after the sun was up. In ink (the user, 2026.10.9, of five tries: "3"):
   // the sky is the paper of the picture, so the computed sky is not behind it.
@@ -712,6 +828,123 @@ export const WALKS = {
       { id: 'saw', text: '별이 적히는 것을 본다.', at: [] },
     ],
     reply: '그 별은 스무사흘 동안 낮에도 보였단다. 지금은 게 모양 구름이 되어 그 자리에 있지.',
+  },
+  // Agra, about 1640: the Taj Mahal is building. Painted as the miniatures of the Mughal
+  // court were (the user, 2026.10.9, of five tries: "아그라 : 1"). The day is not on record.
+  // Looked up on 2026.10.9 and found so: begun 1631 or 1632, the tomb itself done by 1648,
+  // all of it by 1653; white marble from Makrana; elephants hauled the stone; the writing
+  // round the arches by Amanat Khan (he signed it in 1638), its letters made larger the
+  // higher they stand so that they look one size from below; the flowers made by cutting a
+  // hollow in the marble and setting thin pieces of coloured stone into it, some tens of
+  // pieces to a flower; the French jeweller Tavernier came to Agra in 1640. From memory:
+  // the two sides alike as in a mirror, the garden in four parts with water between, the
+  // blue stone flecked with gold. Not found, and so not said: scaffolding of brick, the
+  // length of the ramp, how many kinds of stone, twenty thousand workers.
+  // Made up: the errand of the red stone, the overseer, that the calligrapher takes her up.
+  tajMahal: {
+    dir: 'agra1640', look: 'paper', pale: true,
+    scenes: [
+      {
+        id: 'site', name: '인도 아그라 강가 공사터', short: '강가 공사터', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'works', floor: 'dirt',
+        sora: '하얀 지붕이 발판에 싸여 있어!',
+        people: [
+          { id: 'mason', pass: '깡, 깡. 흰 돌가루 날린다.', name: '돌 깎는 석공', x: 0.19, w: 85, h: 275, lines: ['이 흰 돌은 먼 마크라나에서 왔단다.', '먼 길을 실려 온 귀한 돌이지.'] },
+          { id: 'clerk', pass: '오늘 품삯이… 어디 보자.', name: '장부 적는 서기', x: 0.28, w: 114, h: 282, lines: ['일꾼이 하도 많아 이름 적기도 벅차.', '벌써 여러 해째 짓고 있단다.'] },
+          { id: 'mahout', pass: '영차, 우리 코끼리 힘내라!', show: 'elephant', pose: 'see-wow', sora: '코끼리가 돌을 끌어!', memo: '무거운 대리석은 코끼리가 끌어 올렸단다.', name: '코끼리 몰이꾼', x: 0.4, w: 103, h: 297, lines: ['큰 돌은 우리 코끼리가 끈단다.', '비탈길을 하루에도 몇 번씩 오르지.'] },
+          { id: 'mango', pass: '달디단 망고요!', name: '망고 파는 아주머니', x: 0.52, w: 118, h: 262, lines: ['일하다 목마르면 망고가 제일이지.', '하나 먹어 보련?'],
+            try: { id: 'eat-mango', verb: 'eat', name: '망고', face: 'yum', sora: '달콤하고 물이 줄줄 흘러!' } },
+          { id: 'girl', pass: '물 가져왔어요, 물!', name: '물 나르는 소녀', x: 0.63, w: 97, h: 264, lines: ['강에서 물을 길어다 날라.', '돌을 켤 때도 물이 많이 든대.'] },
+          { id: 'boatman', pass: '돌 왔소, 돌!', name: '돌 싣고 온 뱃사공', x: 0.75, w: 80, h: 320, lines: ['무거운 돌은 강물로 실어 온다오.', '저 흰 지붕이 날마다 조금씩 자라지.'] },
+          { id: 'jeweller', pass: '어디 보자, 한 알이 비네.', name: '보석 장수', x: 0.85, w: 97, h: 296, lines: ['먼 나라에서 온 돌을 판단다.', '빛깔마다 고향이 다르지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'yard', name: '인도 아그라 돌 다듬는 마당', short: '돌 다듬는 마당', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'works', floor: 'dirt',
+        sora: '돌 켜는 소리가 쓱쓱 나!',
+        people: [
+          { id: 'cutter', pass: '쓱, 쓱. 물 좀 부어라.', show: 'saw', pose: 'see-aha', sora: '돌을 꽃잎 모양으로 잘라!', memo: '색돌을 얇게 켜고 갈아서, 흰 돌에 판 홈에 꼭 맞게 박았단다.', name: '돌 켜는 장인', x: 0.19, w: 112, h: 274, lines: ['색돌을 꽃잎 모양으로 켠단다.', '머리카락만큼만 어긋나도 안 맞아.'] },
+          { id: 'sorter', pass: '이건 파랑, 이건 초록.', show: 'stones', pose: 'see-gasp', sora: '돌 빛깔이 이렇게 많아?', memo: '파란 돌, 초록 돌, 붉은 돌. 꽃 한 송이에 여러 빛깔 돌이 들어갔단다.', name: '보석 고르는 아이', x: 0.29, w: 86, h: 216, lines: ['빛깔대로 그릇에 나눠 담아.', '파란 돌에는 금빛 점이 박혀 있어.'] },
+          { id: 'tailor', pass: '터번 천 보고 가시오!', name: '옷 파는 아저씨', x: 0.4, w: 125, h: 281, lines: ['이 고장 나들이옷이란다.', '아이 것도 있지. 입어 보련?'],
+            try: { id: 'wear-mughal', verb: 'wear', name: '무굴 나들이옷', outfit: 'mughal', sora: '숄이 나비 날개 같아!', memo: '무굴 사람들이 입던 긴 겉옷과 얇은 숄이란다.' } },
+          { id: 'calligrapher', pass: '위로 갈수록 크게, 크게.', show: 'letters', pose: 'see-aha', sora: '위쪽 글씨가 더 커!', memo: '높은 곳의 글씨를 더 크게 썼단다. 그래야 밑에서 보면 크기가 같아 보이지.', name: '글씨 쓰는 서예가', x: 0.56, w: 113, h: 285, lines: ['문 둘레의 글씨는 내가 쓴단다.', '높은 데 것은 일부러 더 크게 쓰지.'] },
+          { id: 'baker', pass: '빵 다 구워졌다!', name: '빵 굽는 아주머니', x: 0.67, w: 106, h: 255, lines: ['일꾼들 점심을 굽는 중이란다.', '하루에 몇 장인지 세다가 잊었어.'] },
+          { id: 'carpenter', pass: '장대 지나가요!', name: '발판 엮는 목수', x: 0.76, w: 96, h: 277, lines: ['발판 엮는 일을 한단다.', '저 꼭대기까지 올라가 봤지.'] },
+          { id: 'foreman', pass: '거기, 조심해라!', name: '기단 지키는 감독관', x: 0.85, w: 110, h: 320, lines: ['이 위는 내가 지킨단다.', '돌 하나 떨어져도 큰일이지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'tomb', name: '인도 아그라 흰 무덤 위', short: '흰 무덤 위', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'wood',
+        sora: '벽이 온통 하얘! 꽃이 새겨져 있어.',
+        people: [
+          { id: 'apprentice', pass: '스승님, 그릇 여기요.', name: '상감 견습생', x: 0.19, w: 87, h: 244, lines: ['꽃 한 송이 박는 데 여러 날이 걸려.', '나는 아직 돌 고르기만 배워.'] },
+          { id: 'inlayer', pass: '한 알이 모자라는구나…', show: 'flower', pose: 'see-wow', sora: '돌로 만든 꽃이야!', memo: '흰 돌에 홈을 파고 색돌 조각을 꼭 맞게 박았단다. 꽃 한 송이에 조각이 수십 개지.', name: '꽃을 박는 장인', x: 0.3, w: 104, h: 270, lines: ['돌로 꽃을 피우는 일을 한단다.', '시들지 않는 꽃이지.'] },
+          { id: 'carver', pass: '톡, 톡. 숨을 참고.', name: '꽃 새기는 조각가', x: 0.42, w: 113, h: 261, lines: ['이 꽃은 돌을 깎아 도드라지게 했단다.', '한 번 잘못 치면 처음부터지.'] },
+          { id: 'architect', pass: '왼쪽과 오른쪽이 똑같아야지.', name: '으뜸 건축가', x: 0.53, w: 149, h: 320, lines: ['이 집은 왼쪽과 오른쪽이 똑같단다.', '거울에 비춘 것처럼 지었지.'] },
+          { id: 'polisher', pass: '쓱쓱, 반들반들.', name: '대리석 닦는 일꾼', x: 0.65, w: 98, h: 270, lines: ['고운 모래로 문질러 윤을 낸단다.', '해가 뜨면 벽이 눈부시게 빛나지.'] },
+          { id: 'visitor', pass: '오, 이럴 수가!', name: '먼 나라에서 온 보석상', x: 0.75, w: 128, h: 293, lines: ['프랑스에서 온 보석 장수요.', '이런 솜씨는 어디서도 못 봤소.'] },
+          { id: 'gardener', pass: '나무야, 쑥쑥 자라라.', name: '뜰 가꾸는 정원사', x: 0.85, w: 135, h: 276, lines: ['무덤 앞에 큰 뜰을 꾸밀 거란다.', '물길을 내어 네 쪽으로 나눌 거야.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The day the white tomb was building" (core/tale.js; the user, 2026.10.9, of the
+    // storyboard: "이대로 지어"): a red stone left behind is taken from the jeweller at the
+    // landing to the master who sets flowers of stone; the overseer will let only workers
+    // up; the calligrapher has her carry his inkpot as his helper; she hands the stone
+    // over, choosing what to say; and the last petal is set.
+    tale: {
+      ask: '돌로 꽃을 피울 수 있을까?',
+      steps: [
+        {
+          who: 'jeweller', goal: '강가 나루의 보석 장수에게 가 보렴.', holds: '붉은 돌: 보석 장수가 들고 있음',
+          lines: ['얘야, 부탁 하나만 들어주련?', '붉은 돌 한 알이 빠진 채로 올라갔구나.', '꽃잎 하나가 비어 있을 게다. 전해 주련?'],
+          offer: { ask: '붉은 돌을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'foreman', goal: '돌 다듬는 마당 끝의 계단으로 가 보렴.', holds: '붉은 돌: 소라가 들고 있음',
+          lines: ['멈춰라. 이 위는 일꾼만 올라간다.', '아이가 다니다 다치면 큰일이지.'],
+          sora: '돌만 전하면 되는데… 어? 누가 불러!',
+        },
+        {
+          who: 'calligrapher', call: '얘야, 이리 와 보렴.', goal: '글씨 쓰는 서예가가 부른다. 가 보렴.', holds: '붉은 돌: 소라가 들고 있음',
+          lines: ['위에 볼일이 있다고? 그럼 이렇게 하자.', '내 먹통을 들어 주렴. 그러면 내 조수란다.'],
+          after: [{ who: 'foreman', line: '서예가 어른의 조수로군. 올라가거라.' }],
+          sora: '조수가 됐어! 올라가자!',
+        },
+        {
+          who: 'inlayer', goal: '흰 무덤 위의 꽃을 박는 장인에게 돌을 전하렴.', holds: '붉은 돌: 소라가 들고 있음',
+          lines: ['누구냐… 그 손에 든 것은?'],
+          choice: {
+            ask: '붉은 돌을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"한 알이 빠졌대요"', sora: '보석 장수 아저씨가 한 알이 빠졌대요.', says: '오, 이걸 찾고 있었단다. 고맙구나.' },
+              { id: 'E2', label: '"돌로 꽃을 만들어요?"', sora: '정말 돌로 꽃을 만들어요?', says: '그럼. 마침 꽃잎 하나가 비었단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'inlayer', show: true, goal: '장인이 꽃을 다 피우는 것을 보렴.',
+          lines: ['자, 빈자리에 꼭 맞게 넣는다.', '보렴. 이제 꽃 한 송이가 다 피었지.'],
+          sora: '진짜 꽃이 됐어! 안 시드는 꽃이야.',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'jeweller', when: ['S1', 'S2', 'S3', 'S4'], lines: ['장인은 저 흰 무덤 위에 계신단다.', '돌 다듬는 마당을 지나 올라가렴.'] },
+        { who: 'jeweller', when: ['S5'], lines: ['전해 주었구나! 고맙다.', '이제 그 꽃도 다 피었겠구나.'] },
+      ],
+      done: '붉은 돌을 전하고, 돌꽃이 피는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '붉은 돌을 받는다.', at: [] },
+      { id: 'gave', text: '꽃을 박는 장인에게 돌을 전한다.', at: [] },
+      { id: 'saw', text: '돌로 핀 꽃을 본다.', at: [] },
+    ],
+    reply: '그 꽃은 지금도 그 벽에 피어 있단다. 흰 무덤은 그 뒤로도 여러 해를 더 지었지.',
   },
   // Tahiti, 3 June 1769: Venus crossed the Sun and Cook's people timed it from the fort on
   // the point. Painted after Gauguin's oils and not in pixels (the user, 2026.10.9, having

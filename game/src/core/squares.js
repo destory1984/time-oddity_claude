@@ -232,15 +232,18 @@ export const SQUARES = [
     quiz: { question: '목성 곁의 작은 별들은 무엇이었나?', answer: '목성의 달', proof: '목성 둘레를 도는 달', wrong: ['혜성', '먼 행성'] },
   },
   {
-    no: 47, id: 'tajMahal', name: '타지마할', dateLabel: 'AD 1653년', place: '아그라, 인도',
+    // The Taj Mahal while it was building (begun 1631 or 1632, the tomb itself done by 1648,
+    // all of it by 1653): a morning of about 1640 is taken, the year the French jeweller
+    // Tavernier first came to Agra. The place is walked about (core/walks.js).
+    no: 47, id: 'tajMahal', name: '흰 무덤을 짓는 날', dateLabel: 'AD 1640년쯤', place: '아그라, 인도',
     lat: 27.175, lon: 78.042,
-    date: { year: 1653, month: 3, day: 1 }, calendar: 'gregorian', hourLocal: 12,
+    date: { year: 1640, month: 3, day: 1 }, calendar: 'gregorian', hourLocal: 9,
     facingAz: 0, nightOnLook: true,
-    memo: '황후의 흰 돌 무덤을 다 지음.', sora: '하얗다. 물에도 비쳐.',
+    memo: '황후의 흰 돌 무덤을 짓는 중.', sora: '하얗다. 아직 짓는 중이야!',
     memoToday: '남은 것: 타지마할. 그대로.', soraToday: '나무가 줄었네. 건물은 그대로.',
-    noteMemo: '1653년. 황제가 황후를 위해 스물두 해 걸려 흰 돌 무덤을 지었다고 읽음. 날을 몰라 달은 못 적음.',
-    card: '1653년 무렵, 인도 아그라에 흰 대리석 무덤 타지마할이 다 지어졌습니다. 무굴의 황제 샤자한이 먼저 떠난 황후 뭄타즈 마할을 위해 스물두 해에 걸쳐 지은 것입니다. 건물은 그대로 남았고, 과일나무가 빽빽하던 정원은 뒷날 잔디밭으로 바뀌었습니다.',
-    reply: '보고 싶은 마음을 돌로 쌓으면 그렇게 되는구나.',
+    noteMemo: '1640년쯤. 황제가 황후를 위해 스무 해 넘게 흰 돌 무덤을 지었다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '1640년쯤, 인도 아그라에서는 흰 대리석 무덤 타지마할을 한창 짓고 있었습니다. 무굴의 황제 샤자한이 먼저 떠난 황후 뭄타즈 마할을 위해 스무 해 넘게 지은 것입니다. 흰 벽에는 색색의 돌을 꽃 모양으로 박아 넣었고, 건물은 지금도 그대로 서 있습니다.',
+    reply: '그 꽃은 지금도 그 벽에 피어 있단다. 흰 무덤은 그 뒤로도 여러 해를 더 지었지.',
     quiz: { question: '타지마할은 누구를 위해 지었나?', answer: '황후', proof: '황후 뭄타즈 마할을 위해', wrong: ['황제의 어머니', '전쟁에서 진 장군'] },
   },
   {
@@ -321,7 +324,7 @@ export const SQUARES = [
     facingAz: 215, nightOnLook: true,
     memo: '둥근 지붕의 큰 성당이 열림.', sora: '지붕이 하늘처럼 둥글어. 크다!',
     memoToday: '남은 것: 건물. 탑이 넷 생김.', soraToday: '뾰족한 탑이 넷이나 생겼네.',
-    noteMemo: '537.12.27. 여섯 해 만에 지은 큰 돔 성당이 문을 열었다고 읽음. 그날 달은 반달을 지나 차는 중.',
+    noteMemo: '537.12.27. 다섯 해 만에 지은 큰 돔 성당이 문을 열었다고 읽음. 그날 달은 반달을 지나 차는 중.',
     card: '537년 12월 27일, 콘스탄티노플에서 유스티니아누스 황제가 새 성당 하기아 소피아의 문을 열었습니다. 큰 둥근 지붕을 얹은 이 건물은 천 년 가까이 세상에서 가장 큰 성당이었습니다. 1453년 뒤로 건물 둘레에 뾰족한 탑 넷이 세워졌고, 지금도 그 자리에 서 있습니다.',
     reply: '천오백 해를 서 있는 지붕이란다. 올려다보니 어떻더냐.',
     quiz: { question: '뒷날 건물 둘레에 무엇이 세워졌나?', answer: '뾰족한 탑 넷', proof: '뾰족한 탑 넷', wrong: ['높은 성벽', '둥근 지붕 하나 더'] },
@@ -337,6 +340,21 @@ export const SQUARES = [
     card: '825년 무렵, 자바 섬에 돌을 층층이 쌓아 올린 불교 사원 보로부두르가 다 지어졌습니다. 꼭대기의 둥근 단에는 종 모양의 돌탑 일흔두 개가 둘러서 있습니다. 사원은 화산재와 숲에 묻혀 잊혔다가 1814년에 다시 알려졌습니다.',
     reply: '천 년을 숲이 덮어 줬구나. 그래서 남았지.',
     quiz: { question: '사원은 무엇에 묻혀 잊혔나?', answer: '화산재와 숲', proof: '화산재와 숲', wrong: ['바닷물', '모래 언덕'] },
+  },
+  {
+    // Cairo in the summer of 1324, when Mansa Musa of Mali came through on his way to Mecca
+    // and his people changed so much gold that its price fell (al-Umari). The day is not on
+    // record: a noon of July is taken. The place is walked about (core/walks.js).
+    no: 28, id: 'musa1324', name: '금을 뿌린 임금', dateLabel: 'AD 1324년 여름', place: '카이로, 이집트',
+    lat: 30.045, lon: 31.262,
+    date: { year: 1324, month: 7, day: 15 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 180, nightOnLook: true,
+    memo: '말리의 임금이 금을 나눠 줌.', sora: '저 낙타들, 다 금을 실었어?',
+    memoToday: '남은 것: 지도 속 그의 그림.', soraToday: '지도에 임금님이 그려져 있대!',
+    noteMemo: '1324년 여름. 금을 너무 많이 나눠 줘서 금값이 떨어졌다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '1324년 여름, 서아프리카 말리의 임금 만사 무사가 메카로 가는 길에 카이로에 들렀습니다. 그는 궁정의 벼슬아치마다 금을 나눠 주었고, 일행이 금을 너무 많이 바꾸어 이집트의 금값이 떨어졌습니다. 뒷날 유럽의 지도에는 금덩이를 든 그의 모습이 그려졌습니다.',
+    reply: '그 임금은 뒷날 지도에 금덩이를 든 모습으로 그려졌단다. 이집트의 금값은 여러 해 제자리로 못 돌아왔지.',
+    quiz: { question: '금이 너무 많이 풀리자 어떻게 되었나?', answer: '금값이 떨어졌다', proof: '금값이 떨어졌습니다', wrong: ['금값이 올랐다', '금이 사라졌다'] },
   },
   {
     no: 29, id: 'timbuktu', name: '진흙 모스크', dateLabel: 'AD 1327년', place: '팀북투, 말리',

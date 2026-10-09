@@ -7,6 +7,7 @@
 // a fault mended, does; moving buttons about or rewording a sentence does not.
 // Each line is 10 to 70 characters and ends in "니다." (tests/changes.test.js).
 export const CHANGES = [
+  { day: '2026-10-09', text: '카이로 1324와 아그라 1640이 생겼습니다. 갈 곳이 열셋이 되었습니다.' },
   { day: '2026-10-09', text: '열한째 자리가 생겼습니다. 537년 콘스탄티노플에서 새 성당의 큰 지붕을 올려다봅니다.' },
   { day: '2026-10-09', text: '로마의 그림을 그 시대의 폼페이 벽화풍으로 모두 바꿨습니다.' },
   { day: '2026-10-09', text: '개봉의 장면 이름 앞에 중국을 붙였습니다.' },
