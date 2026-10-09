@@ -389,7 +389,7 @@ export const WALKS = {
         sora: '안 흔들려! 창밖이 휙휙 가.',
         // The land goes by behind the picture, seen through its six windows.
         moving: [
-          { kind: 'drift', id: 'land', src: 'view', from: 0.13, to: 0.87, foot: 0.50, tall: 0.24, wide: 0.48, gap: 0, speed: -0.09, bob: 0, behind: true },
+          { kind: 'drift', id: 'land', src: 'view', from: 0.13, to: 0.87, foot: 0.472, tall: 0.17, wide: 0.415, gap: 0, speed: -0.09, bob: 0, behind: true },
         ],
         people: [
           { id: 'conductor', pass: '실례하겠습니다.', name: '차장', x: 0.168, w: 158, h: 315, lines: ['표 좀 보여 주시겠습니까.', '신오사카까지 네 시간입니다.'] },
