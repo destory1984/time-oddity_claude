@@ -345,7 +345,6 @@ export const WALKS = {
         people: [
           { id: 'news', pass: '조간이오, 조간!', show: 'postcards', pose: 'see-gasp', sora: '엽서가 산더미야!', memo: '기차 이름을 지어 보낸 엽서가 오십육만 통이었단다. 일등이 히카리, 빛이야.', name: '신문 파는 아저씨', x: 0.159, w: 139, h: 320, lines: ['기차 이름은 온 나라가 지었소.', '아흐레 뒤엔 올림픽이오. 바쁘다!'] },
           { id: 'taxi', pass: '택시 타실 분!', name: '택시 기사', x: 0.3, w: 112, h: 296, lines: ['역까지 손님이 끊이질 않아요.', '오사카를 당일로 다녀온다니.'] },
-          { id: 'student', pass: '와, 드디어 오늘이야.', name: '여학생', x: 0.44, w: 108, h: 276, lines: ['수학여행은 저 기차로 가고 싶어.', '창밖이 휙휙 지나간대요.'] },
           { id: 'salary', pass: '어이쿠, 늦겠네.', name: '회사원', x: 0.56, w: 116, h: 313, lines: ['아침에 가서 저녁에 돌아온다네.', '전에는 여섯 시간 반이 걸렸지.'] },
           // Spoken to, she opens a box and shows what is in it (the user, 2026.10.8: "아주머니가
           // 도시락을 열어서 내용물을 보여주는걸로 하자"). What is in it was looked up on 2026.10.8
@@ -356,8 +355,10 @@ export const WALKS = {
           // pickle and the thin wooden box are from memory.
           { id: 'bento', pass: '도시락 구경하고 가세요!', name: '도시락 아주머니', x: 0.72, w: 108, h: 277, lines: ['차 안에서 먹는 도시락이에요.', '역에서 파니까 에키벤이라 해요.'],
             try: { id: 'eat-ekiben', verb: 'eat', name: '기차 도시락', face: 'yum', sora: '식었는데도 맛있어!' } },
-          // The one who asks: before the station until the flowers are handed over, on the platform after.
-          { id: 'flowers0', when: ['S0', 'S1', 'S2', 'S3'], pass: '아이, 떨려라.', name: '꽃다발 든 아가씨', x: 0.8, w: 122, h: 290, lines: ['첫 기차에 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
+          // The one who asks. She stays where she is and waits (the user, 2026.10.9, of her
+          // standing on the platform all at once when the flowers were handed over: "이 아가씨는 원래
+          // 있던 자리에서 기다리라고 해").
+          { id: 'flowers0', pass: '아이, 떨려라.', name: '꽃다발 든 아가씨', x: 0.8, w: 122, h: 290, lines: ['첫 기차에 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
           { id: 'tourist', pass: '와, 역이 정말 크네요.', name: '먼 데서 온 여행자', x: 0.88, w: 110, h: 308, lines: ['올림픽 보러 왔어요. 기차도 타요!', '시속 210km? 믿을 수 없어요.'] },
         ],
         spots: [],
@@ -372,7 +373,8 @@ export const WALKS = {
         people: [
           { id: 'fan', pass: '우와, 진짜 왔다! 코 좀 봐!', show: 'nose', pose: 'see-wow', sora: '코가 등불처럼 빛나!', memo: '코가 반투명이라 불빛이 새어 나왔단다. 속에는 연결 고리가 들어 있지.', name: '기차 좋아하는 소년', x: 0.12, w: 96, h: 239, lines: ['꿈의 초특급이다! 코가 비행기 같아.', '새벽 세 시에 일어나서 왔어.'] },
           { id: 'reporter', pass: '하나, 둘, 마이크 시험.', name: '방송 기자', x: 0.26, w: 103, h: 299, lines: ['여기는 도쿄역, 역사적인 아침입니다.', '세계에서 가장 빠른 열차입니다!'] },
-          { id: 'flowers', when: ['S4'], pass: '고마워요! 정말 고마워요!', name: '꽃다발 든 아가씨', x: 0.4, w: 122, h: 290, lines: ['첫 기차에 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
+          // (She stood before the station until 2026.10.9: she has the place the woman with the flowers had here.)
+          { id: 'student', pass: '와, 드디어 오늘이야.', name: '여학생', x: 0.4, w: 108, h: 276, lines: ['수학여행은 저 기차로 가고 싶어.', '창밖이 휙휙 지나간대요.'] },
           { id: 'driver', pass: '출발 준비 완료!', name: '기관사', x: 0.52, w: 112, h: 299, lines: ['시속 210km입니다. 손이 떨려요.', '선로가 눈앞으로 빨려 들어와요.'] },
           { id: 'master', pass: '물러서 주십시오!', name: '역장', x: 0.66, w: 106, h: 320, lines: ['여섯 시 정각, 히카리 1호 출발!', '일 초도 늦으면 안 됩니다.'] },
           { id: 'banzai', pass: '만세! 만세!', name: '신이 난 회사원', x: 0.82, w: 155, h: 304, lines: ['테이프 끊는 걸 봤어! 박수가 터졌어!', '만세! 우리가 해냈다고!'] },
@@ -406,7 +408,8 @@ export const WALKS = {
     // "Twenty minutes to go" (core/tale.js): a young woman before the station gives her the
     // flowers and a word for the driver of the first train; on the platform the station
     // master turns her away; the boy who has watched since three tells her when the driver
-    // will stand at the door; and she hands them over, choosing what to say. Told so after
+    // will stand at the door; she hands them over, choosing what to say; and the driver asks
+    // her to ride and look at the speed dial in the buffet car. Told so after
     // the user had tried the first telling on 2026.10.9 and said of its end, which was talk
     // with the woman and no more: "아가씨한테 꽃과 말을 전달받고, 기관사한테 가서 전달하고,
     // 이러는게 미션 아님?". What each one says last names where to go next, so that the slip
@@ -422,7 +425,7 @@ export const WALKS = {
         {
           who: 'flowers0', goal: '도쿄역 앞의 꽃다발 든 아가씨에게 가 보렴.', holds: '꽃다발: 아가씨가 들고 있음',
           lines: ['저기, 부탁 하나만 들어줄래요?', '이 꽃을 첫 기차 기관사님께 드리고 싶어요.', '아버지가 다섯 해 반 동안 이 철길을 놓으셨거든요.', '그런데 사람이 너무 많아서 못 들어가겠어요.'],
-          offer: { ask: '아가씨의 꽃을 전해 줄까?', label: '내가 전해 줄게요', later: '나중에' },
+          offer: { ask: '아가씨의 꽃을 전해 줄까?', label: '내가 전해 줄게요' },
           errand: 'took',
         },
         {
@@ -434,7 +437,6 @@ export const WALKS = {
           who: 'fan', call: '누나, 이리 와 봐! 방법이 있어!', goal: '기차 좋아하는 소년이 부른다. 가 보렴.', holds: '꽃다발: 소라가 들고 있음',
           lines: ['새벽 세 시부터 여기서 다 봤거든.', '점검이 끝나면 기관사님이 문 앞에 잠깐 서.', '봐, 지금이야! 얼른 가!'],
           sora: '지금이래! 기관사님께 가자!',
-          errand: 'way',
         },
         {
           who: 'driver', goal: '지금이야! 기관사에게 꽃을 전하렴.', holds: '꽃다발: 소라가 들고 있음',
@@ -446,26 +448,34 @@ export const WALKS = {
               { id: 'E2', label: '내 말도 보탠다', sora: '잘 달려 주세요! 이 기차, 육십 년 뒤에도 달려요!', says: '하하, 육십 년이라. 첫날부터 잘 달려야겠군.' },
             ],
           },
+          // What follows the handing over: he asks a thing of her in turn, and the train is sent off.
+          after: [{ who: 'driver', line: '타고 가 보렴. 뷔페 칸 속도계가 210인지 봐 주겠니?' }, { who: 'master', line: '여섯 시 정각, 히카리 1호 출발! 어서 타요!' }],
+          sora: '탈래요! 속도계는 뷔페 칸이랬지?',
           errand: 'gave',
         },
+        {
+          // The tale does not end on the platform: the train is to be ridden (the user,
+          // 2026.10.9: "신칸센 안에 안 들어가도 시나리오 끝나잖아. 속도계 보는 미션도 같이 넣어").
+          who: 'buffet', show: true, goal: '달리는 신칸센에 타서 뷔페 칸의 속도계를 보렴.', holds: '꽃다발: 기관사에게 전했음',
+          lines: ['어서 오세요! 기관사님 부탁이라고요?', '속도계 보세요. 바늘이 딱 210이죠!'],
+          sora: '진짜 210이야! 기관사님, 약속 지켰어요!',
+          errand: 'speed',
+        },
       ],
-      // What follows the handing over, each a few seconds after the last: the train is sent
-      // off, and the woman, who has come up to the platform, has seen it.
-      after: [{ who: 'master', line: '여섯 시 정각, 히카리 1호 출발!' }, { who: 'flowers', line: '봤어요! 꽃을 창가에 두셨어요. 고마워요.' }],
       // What those with a part say when it is not their turn.
       asides: [
         { who: 'flowers0', when: ['S1', 'S2', 'S3'], lines: ['"아버지 몫까지 잘 달려 주세요" 하고 전해 줘요.', '기관사님은 19번 승강장에 계세요. 오른쪽이에요.'] },
-        { who: 'flowers', when: ['S4'], lines: ['봤어요! 꽃을 창가에 두셨어요. 고마워요.', '아버지께도 꼭 말씀드릴게요.'] },
+        { who: 'flowers0', when: ['S4', 'S5'], lines: ['꽃을 전해 주셨군요! 정말 고마워요.', '아버지께도 꼭 말씀드릴게요.'] },
       ],
-      done: '꽃과 말을 기관사에게 전했다.',
+      done: '꽃을 전하고, 시속 210km를 눈으로 보았다.',
       held: '꽃다발: 기관사에게 전했음',
     },
     // The tale's three marks in the notebook. Nobody does them by being spoken to (`at` is
     // empty): the tale does (main.js, a step's `errand`).
     errands: [
       { id: 'took', text: '아가씨의 꽃을 받는다.', at: [] },
-      { id: 'way', text: '전할 틈을 알아낸다.', at: [] },
       { id: 'gave', text: '기관사에게 꽃을 전한다.', at: [] },
+      { id: 'speed', text: '달리는 기차에서 속도계를 본다.', at: [] },
     ],
     reply: '그 기차는 열 시 정각에 오사카에 닿았단다. 그날 달린 예순 편이 모두 제시각이었지.',
   },

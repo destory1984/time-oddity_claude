@@ -13,6 +13,8 @@
 // A place's `tale` (core/walks.js):
 // { ask, steps: [{ who, lines, call?, offer?, choice?, sora?, errand?, goal, holds? }],
 //   asides: [{ who, when: [states], lines }], done, held? }
+// A step's `after` is [{ who, line }], said one after another once it is done; `show`: what
+// its person holds up is shown with their lines (else they are said plainly).
 // A step is done when the last of its lines has been said to her by `who` (and its offer
 // taken, or one of its choice chosen). A line is a string, or { by, text } when someone
 // else says it (the station master stepping in before the driver).
@@ -43,7 +45,7 @@ export function advance(tale, t, chosen = null) {
 // when they have only their own things to say.
 export function partOf(tale, t, personId) {
   const step = stepOf(tale, t);
-  if (step?.who === personId) return { role: 'step', lines: step.lines };
+  if (step?.who === personId) return { role: 'step', lines: step.lines, show: Boolean(step.show) };
   const aside = (tale.asides ?? []).find((a) => a.who === personId && a.when.includes(t.state));
   return aside ? { role: 'aside', lines: aside.lines } : null;
 }

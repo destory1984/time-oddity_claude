@@ -28,8 +28,8 @@ describe('a tale of a thing carried', () => {
     expect(holdsOf(tale, t)).toBe(tale.held);
     expect(advance(tale, t, 'E1')).toBe(t);
   });
-  it('is not ended without one of the two things to say being chosen', () => {
-    const last = upTo(tale.steps.length - 1);
+  it('does not go past the handing over without one of the two things to say being chosen', () => {
+    const last = upTo(tale.steps.findIndex((s) => s.choice));
     expect(advance(tale, last)).toBe(last);
     expect(advance(tale, last, 'E9')).toBe(last);
     for (const id of ['E1', 'E2']) expect(endingOf(tale, told(id)).id).toBe(id);
@@ -43,18 +43,29 @@ describe('a tale of a thing carried', () => {
   });
   it('has the flowers in her hands from the taking up to the handing over', () => {
     expect(holdsOf(tale, upTo(0))).toContain('아가씨');
-    for (let n = 1; n < tale.steps.length; n += 1) expect(holdsOf(tale, upTo(n))).toContain('소라');
+    const gave = tale.steps.findIndex((s) => s.choice);
+    for (let n = 1; n <= gave; n += 1) expect(holdsOf(tale, upTo(n))).toContain('소라');
+    expect(holdsOf(tale, upTo(gave + 1))).toContain('기관사');
     expect(tale.held).toContain('기관사');
   });
-  it('has the one who asks before the station until it is done, and on the platform after', () => {
-    for (let n = 0; n < tale.steps.length; n += 1) {
+  it('has the one who asks wait where she is from first to last, with thanks at the end', () => {
+    for (let n = 0; n <= tale.steps.length; n += 1) {
       const walk = createWalk(place, { tale: upTo(n) });
       expect(peopleOf(walk).map((p) => p.id)).toContain('flowers0');
       walk.scene = 1;
-      expect(peopleOf(walk).map((p) => p.id)).not.toContain('flowers');
+      expect(peopleOf(walk).map((p) => p.id).filter((id) => id.startsWith('flowers'))).toEqual([]);
     }
-    const after = createWalk(place, { tale: told('E1'), scene: 1 });
-    expect(peopleOf(after).map((p) => p.id)).toContain('flowers');
+    expect(partOf(tale, told('E1'), 'flowers0').lines[0]).toContain('고마워요');
+    expect(tale.steps[0].offer.later).toBe(undefined);
+  });
+  it('ends in the running train, at the speed dial, which is held up to be seen', () => {
+    expect(sceneWith(tale.steps.at(-1).who)).toBe(place.scenes.length - 1);
+    expect(partOf(tale, upTo(tale.steps.length - 1), 'buffet').show).toBe(true);
+    const walk = createWalk(place, { tale: upTo(tale.steps.length - 1), scene: 2 });
+    walk.x = person('buffet').x;
+    expect(speak(walk, 'buffet').last).toBe(false);
+    expect(walk.heard.plain).toBe(false);
+    expect(speak(walk, 'buffet').last).toBe(true);
   });
   it('says a step out line by line from the first, though she has met them before', () => {
     const giver = person(tale.steps[0].who);
@@ -98,7 +109,6 @@ describe('a tale of a thing carried', () => {
     expect(partOf(tale, upTo(1), 'flowers0').role).toBe('aside');
     expect(partOf(tale, upTo(1), 'driver').role).toBe('step');
     expect(partOf(tale, upTo(2), 'driver')).toBe(null);
-    expect(partOf(tale, told('E1'), 'flowers').role).toBe('aside');
   });
   it('is kept and read back as it was, and a record of the first shape begins again', () => {
     const t = upTo(2);
@@ -111,7 +121,8 @@ describe('a tale of a thing carried', () => {
   it('is written within the limits, names people who are there and marks the three errands', () => {
     const ids = place.scenes.flatMap((scene) => scene.people.map((p) => p.id));
     expect(tale.ask.length).toBeLessThanOrEqual(25);
-    const said = [...tale.steps.flatMap((s) => s.lines), ...tale.asides.flatMap((a) => a.lines), ...tale.after.map((a) => a.line)];
+    const after = tale.steps.flatMap((s) => s.after ?? []);
+    const said = [...tale.steps.flatMap((s) => s.lines), ...tale.asides.flatMap((a) => a.lines), ...after.map((a) => a.line)];
     for (const line of said) expect(textOf(line).length, textOf(line)).toBeLessThanOrEqual(40);
     for (const step of tale.steps) {
       expect(ids).toContain(step.who);
@@ -119,8 +130,8 @@ describe('a tale of a thing carried', () => {
       if (step.call) expect(step.call.length).toBeLessThanOrEqual(25);
       if (step.sora) expect(step.sora.length, step.sora).toBeLessThanOrEqual(40);
     }
-    for (const who of [...tale.asides.map((a) => a.who), ...tale.after.map((a) => a.who)]) expect(ids).toContain(who);
-    const choice = tale.steps.at(-1).choice;
+    for (const who of [...tale.asides.map((a) => a.who), ...after.map((a) => a.who)]) expect(ids).toContain(who);
+    const choice = tale.steps.find((s) => s.choice).choice;
     expect(choice.options.map((o) => o.id)).toEqual(['E1', 'E2']);
     for (const option of choice.options) for (const line of [option.sora, option.says]) expect(line.length, line).toBeLessThanOrEqual(40);
     expect(tale.steps.map((s) => s.errand).filter(Boolean)).toEqual(place.errands.map((e) => e.id));

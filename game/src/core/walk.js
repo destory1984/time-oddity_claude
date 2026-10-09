@@ -153,10 +153,11 @@ export function speak(walk, id = null) {
   else walk.said[person.id] = count + 1;
   // (One who has spoken for the tale is not marked afterwards as someone not yet met.)
   if (key && !walk.said[person.id]) walk.said[person.id] = person.lines.length;
-  walk.heard = key ? { id: speakerOf(said, person.id), line, of: person.id, plain: true } : { id: person.id, line };
+  const part = key ? partOf(walk.place.tale, walk.tale, person.id) : null;
+  walk.heard = key ? { id: speakerOf(said, person.id), line, of: person.id, plain: !part.show } : { id: person.id, line };
   walk.goal = null;
   walk.facing = person.x >= walk.x ? 1 : -1;
-  const role = key ? partOf(walk.place.tale, walk.tale, person.id).role : null;
+  const role = part?.role ?? null;
   return { person, line, errands: finish(walk, person.id), role, last: Boolean(key) && (count + 1) % lines.length === 0 };
 }
 

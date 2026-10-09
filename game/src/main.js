@@ -19,7 +19,7 @@ import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
 import { REACH, VERBS, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf } from './core/walk.js';
-import { advance, calledOf, endingOf, goalOf, holdsOf, present, stepOf as taleStep } from './core/tale.js';
+import { advance, calledOf, endingOf, goalOf, holdsOf, isTold, present, stepOf as taleStep } from './core/tale.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -502,49 +502,52 @@ function taleMark(id) {
   walk.done.push(id);
   keep(markErrands(progress, square.id, walk.done));
 }
-// A step is done: its mark is made in the notebook, she says what she makes of it, and
-// whoever is next is named in that.
-function stepDone(step) {
-  if (step.errand) taleMark(step.errand);
-  if (step.sora) walkSora = { text: step.sora, from: walkT + 500, until: walkT + 500 + SORA_FOR_MS };
-  sound.stamp();
-}
-// What follows the handing over is said one line after another, each long enough to read,
-// and only then is the slip stamped and grandmother's answer shown.
+// A step is done: it is kept, its mark is made in the notebook, and what follows is said
+// one line after another, each long enough to read: what she says on handing the thing
+// over and what she is answered (a choice), what those about say next (`after`), and last
+// what she makes of it, which names where to go next. With the last step the slip is
+// stamped and grandmother answers.
 const AFTER_MS = 3200;
-function finishTale(step, id) {
-  closePanel();
+function stepDone(step, chosen = null) {
   const told = walk.place.tale;
   const was = walk;
-  if (!saveTale(advance(told, walk.tale, id))) return;
-  const ending = endingOf(told, walk.tale);
-  for (const errand of walk.place.errands) taleMark(errand.id);
-  walkSora = { text: ending.sora, from: walkT + 100, until: walkT + 100 + AFTER_MS };
-  walk.heard = null;
-  const lines = [{ who: step.who, line: ending.says }, ...(told.after ?? [])];
+  if (!saveTale(advance(told, walk.tale, chosen))) return false;
+  closePanel();
+  if (step.errand) taleMark(step.errand);
+  const over = isTold(told, walk.tale);
+  if (!over) sound.stamp();
+  const ending = step.choice ? endingOf(told, walk.tale) : null;
+  if (ending) { walkSora = { text: ending.sora, from: walkT + 100, until: walkT + 100 + AFTER_MS }; walk.heard = null; }
+  const lines = [...(ending ? [{ who: step.who, line: ending.says }] : []), ...(step.after ?? [])];
   lines.forEach(({ who, line }, n) => setTimeout(() => { if (walk === was && !walk.moving) walk.heard = { id: who, line, of: who, plain: true }; }, AFTER_MS * (n + 1)));
-  setTimeout(() => { if (walk === was) errandsDone(); }, AFTER_MS * (lines.length + 1));
+  const last = () => {
+    if (walk !== was) return;
+    if (step.sora) walkSora = { text: step.sora, from: walkT + 300, until: walkT + 300 + SORA_FOR_MS };
+    if (over) { for (const errand of walk.place.errands) taleMark(errand.id); errandsDone(); }
+  };
+  if (lines.length > 0) setTimeout(last, AFTER_MS * (lines.length + 1));
+  else if (ending) setTimeout(last, AFTER_MS);
+  else last();
+  return true;
 }
 // She has heard the last line of the step she is on from the one it names.
 function taleSpoke(person) {
-  const told = walk.place.tale;
-  const step = taleStep(told, walk.tale);
+  const step = taleStep(walk.place.tale, walk.tale);
   if (!step || step.who !== person.id) return;
   if (step.offer) {
+    // (One thing to press: the tale goes one way and there is nothing to put off. The user,
+    // 2026.10.9, of a second button that said "나중에": "어차피 시나리오는 하나야".)
     openPanel({ ask: step.offer.ask, back: closePanel, options: [
       { label: step.offer.label, pick: () => {
-        closePanel();
-        if (!saveTale(advance(told, walk.tale))) return;
-        stepDone(step);
+        if (!stepDone(step)) return;
         // What they say on being taken up follows at once: it is where she is sent next.
         walk.heard = null;
         speak(walk, person.id);
       } },
-      { label: step.offer.later, quiet: true, pick: closePanel },
     ] });
   } else if (step.choice) {
-    openPanel({ ask: step.choice.ask, back: closePanel, options: step.choice.options.map((option) => ({ label: option.label, pick: () => finishTale(step, option.id) })) });
-  } else if (saveTale(advance(told, walk.tale))) stepDone(step);
+    openPanel({ ask: step.choice.ask, back: closePanel, options: step.choice.options.map((option) => ({ label: option.label, pick: () => stepDone(step, option.id) })) });
+  } else stepDone(step);
 }
 
 const chosenOf = () => walk?.place.story?.choice?.options.find((o) => walk.tried.includes(`chose-${o.id}`)) ?? null;

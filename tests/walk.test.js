@@ -345,7 +345,7 @@ describe('what is heard in passing and what is shown', () => {
   // The user, 2026.10.8: "지구본으로 나갔다가, 다시 들어오니까 이벤트 다 한게 없어".
   it('comes again to a place with its errands still done and those she spoke to still met', () => {
     const tokyo = WALKS.shinkansen;
-    const walk = createWalk(tokyo, { done: ['took', 'way', 'gave'], met: ['bento'] });
+    const walk = createWalk(tokyo, { done: ['took', 'gave', 'speed'], met: ['bento'] });
     expect(allDone(walk)).toBe(true);
     expect(walk.said.bento).toBeGreaterThan(0);
     walk.x = tokyo.scenes[0].people.find((p) => p.id === 'bento').x;
