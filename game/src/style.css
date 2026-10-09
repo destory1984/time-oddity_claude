@@ -359,6 +359,7 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 #lookSheet small{display:block;margin:2px 8px 8px;font-size:12px;color:#6b4a2b}
 #lookSheet ul{margin:0 8px;padding-left:18px;font-size:calc(15px * var(--text,1));line-height:1.6}
 #lookSheet li{margin:5px 0}
+#journal small.drawn{display:block;margin:2px 0 6px;font-size:12px;opacity:.8}
 #lookSheet #lookCredit{margin-top:10px;font-size:11px;opacity:.75}
 #lookSheet #closeLook{display:block;width:calc(100% - 16px);margin:12px 8px 0;min-height:44px;border:1.5px solid var(--ink);border-radius:12px;background:none;color:var(--ink);font:inherit;font-weight:700}
 /* (Above the unseen squares that answer a touch, `.tap`: one of those, laid over the whole of

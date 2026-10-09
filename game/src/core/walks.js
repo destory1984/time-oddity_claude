@@ -34,6 +34,11 @@
 // thousand pieces of iron, the hall's roof standing with no pillar.
 const SHEET = { market: 0.6, plaza: 0.66, inside: 0.62 };   // how large a sheet's figures are shown, of their px on a 812 px screen
 
+// A place's `drawn` is a line of grandmother's on why the place looks as it does: whose
+// pictures its own are made after. It is on her slip each time Sora is set down there, and
+// in the notebook under the place (the user, 2026.10.10: "각 도시로 들어갈 때에 그림체를 그렇게
+// 선택한 이유에 대해서 설명해볼까?", and to my offer of a line of grandmother's: "넣어.").
+// The four places still in the first manner of the game have none.
 // A scene's `spots` are where she stands to see something: [{ id, from, to, memo?, pose?,
 // see? }]. Standing between `from` and `to` does the errand that names the spot. What is
 // seen from it may be touched, and she then walks there: `see` is where it is in the
@@ -55,6 +60,7 @@ const SHEET = { market: 0.6, plaza: 0.66, inside: 0.62 };   // how large a sheet
 export const WALKS = {
   colosseum: {
     dir: 'rome', look: 'paper',
+    drawn: '한 해 전 화산재에 묻힌 폼페이의 벽 그림처럼 그렸단다. 그때 로마의 집마다 있던 그림이지.',
     now: {
       photo: 'photo-now.webp', name: '콜로세움의 지금 모습', when: '이탈리아 로마 · 오늘날',
       text: [
@@ -227,6 +233,7 @@ export const WALKS = {
     // "1번으로 가자."). The words and errands are as they were. The sky is in the pictures
     // (`pale`), and people speak in bubbles: the faces of the panel were of the old manner.
     dir: 'hanyang', look: 'paper', pale: true,
+    drawn: '세종 임금 때 나무판에 새겨 찍은 책의 그림처럼 그렸단다.',
     now: {
       photo: 'photo-now.webp', name: '집현전 자리의 지금 모습', when: '서울 경복궁 · 수정전',
       text: [
@@ -398,6 +405,7 @@ export const WALKS = {
     // "1"): pixels again, the sky in the pictures, and people speaking in balloons (their
     // faces in a panel went with the flat look this place had).
     dir: 'tokyo',
+    drawn: '스무 해쯤 뒤 일본에서 나온 게임기의 네모 점 그림처럼 그렸단다.',
     now: {
       photo: 'photo-now.webp', name: '신칸센의 지금 모습', when: '일본 도쿄역 · N700S와 N700A',
       text: [
@@ -564,6 +572,7 @@ export const WALKS = {
     // of the picture (the user, 2026.10.9: "광장 에서 성당 전체 모습이 잘 드러나지 않는다. (돔이 잘
     // 안 보여)"): at the left end only the arcade was to be seen as she said how big the roof was.
     dir: 'byz537', look: 'paper', pale: true, start: 0.45,
+    drawn: '그때 사람들이 코끼리 엄니를 깎아 만들던 조각 판처럼 그렸단다.',
     // Looked up on 2026.10.9: the first dome fell in 558 and the one there now was raised
     // higher by Isidore the Younger and finished in 562; a mosque from 1453, a museum from
     // 1935, a mosque again from July 2020; the minarets are Ottoman.
@@ -697,6 +706,7 @@ export const WALKS = {
   // Made up: the water-seller and his piece of gold, the guard, the interpreter, the king's words.
   musa1324: {
     dir: 'cairo1324', look: 'paper', pale: true,
+    drawn: '그 무렵 아랍의 책에 그려 넣던 그림처럼 그렸단다.',
     now: {
       photo: 'photo-now.webp', name: '카이로 옛 성문의 지금 모습', when: '이집트 카이로 · 주웨일라 문',
       text: [
@@ -826,6 +836,7 @@ export const WALKS = {
   // Made up: the apprentice and his note, the gatekeeper, the fortune-teller, what they say.
   guest1054: {
     dir: 'kaifeng1054', look: 'paper', pale: true,
+    drawn: '송나라 사람들이 먹과 붓으로 그리던 그림처럼 그렸단다.',
     now: {
       photo: 'photo-now.webp', name: '그 새 별의 지금 모습', when: '황소자리 게 성운 · 허블 우주 망원경이 찍음',
       text: [
@@ -958,6 +969,7 @@ export const WALKS = {
   // Made up: the errand of the red stone, the overseer, that the calligrapher takes her up.
   tajMahal: {
     dir: 'agra1640', look: 'paper', pale: true,
+    drawn: '무굴의 임금들이 아끼던 작고 꼼꼼한 그림처럼 그렸단다.',
     now: {
       photo: 'photo-now.webp', name: '타지마할의 지금 모습', when: '인도 아그라 · 오늘날',
       text: [
@@ -1092,6 +1104,7 @@ export const WALKS = {
   // Made up: the errand of the coconut, the chief taking her in, the astronomer letting her look.
   venus1769: {
     dir: 'tahiti1769', look: 'paper',
+    drawn: '백 년쯤 뒤 이 섬에 와서 살던 화가 고갱의 그림처럼 그렸단다.',
     now: {
       photo: 'photo-now.webp', name: '비너스 곶의 지금 모습', when: '프랑스령 폴리네시아 타히티 · 마타바이 만',
       text: [
@@ -1396,6 +1409,7 @@ export const WALKS = {
     // (the user, 2026.10.10, walking it in pixels: "그림체 바꾸자", and of five tries: "1번으로
     // 가자."). The words and the tale are as they were. The sky is the paper of the pictures.
     dir: 'milan1497', look: 'paper', pale: true,
+    drawn: '그 화가 레오나르도가 공책에 펜으로 그리던 것처럼 그렸단다.',
     now: {
       photo: 'photo-now.webp', name: '그라치에 수도원의 지금 모습', when: '이탈리아 밀라노 · 산타 마리아 델레 그라치에 성당',
       text: [

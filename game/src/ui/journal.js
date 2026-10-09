@@ -31,7 +31,7 @@ const el = (tag, className, text) => {
 export function createJournal({
   squares, progress, onGo, onSolve, here, canGo = () => true, notes = () => [], onNote = () => {},
   cards = () => ({}), today = () => '', onSend = () => {}, onReply = () => {}, tries = () => [], errands = () => null,
-  wardrobe = () => [], onWear = () => {},
+  wardrobe = () => [], onWear = () => {}, drawn = () => null,
 }) {
   const dialog = $('journal');
   const ids = squares.map((s) => s.id);
@@ -70,6 +70,8 @@ export function createJournal({
     if (open === square.id) {
       const more = el('div', 'more');
       more.append(el('p', 'hand', square.noteMemo));
+      // Whose pictures the place is drawn after (core/walks.js `drawn`).
+      if (drawn(square.id)) more.append(el('small', 'drawn', t`그림: ${t(drawn(square.id))}`));
       if (visited) {
         more.append(el('p', 'seora', t`소라: ${t(square.sora)}`));
         const all = tries(square.id);

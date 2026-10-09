@@ -250,6 +250,7 @@ const journal = createJournal({
   // The wardrobe: what she has put on somewhere, and which of it she has on now.
   wardrobe: () => OUTFITS.filter((o) => LIVE.some((sq) => triedOf(progress, sq.id).includes(o.id))).map((o) => ({ ...o, on: loadOutfit() === o.outfit })),
   onWear: (outfit) => putOn(outfit),
+  drawn: (id) => WALKS[id]?.drawn ?? null,
 });
 // She puts on something from the wardrobe, or takes it off (null): at once if she is
 // walking about, and until she leaves the place. Chosen above the Earth, it is on her at
@@ -697,6 +698,7 @@ function talk(id = null) {
 const FACE_FOR_MS = 2600;
 const SHOW_USE_MS = 4000;     // a thing she uses is held up this long
 const TRY_MEMO_MS = 9000;
+const DRAWN_MS = 8000;       // the line on how a place is drawn stays this long from her being set down
 const BITE_MS = 420;         // each of the two pictures of her eating
 const HEM_EVERY_MS = 5200;   // walking in a toga she treads on its hem this often,
 const HEM_FIRST_MS = 1300;   // the first time this soon,
@@ -768,6 +770,9 @@ function showWalk(sq) {
   keep(fillDot(progress, sq.id, 'day'));
   showErrands();
   enterScene();
+  // As she is set down, grandmother's slip says whose pictures the place is drawn after (each
+  // time she comes: the user's words were "각 도시로 들어갈 때에").
+  if (walk.place.drawn) walkMemo = { text: walk.place.drawn, until: DRAWN_MS };
   walkArrive = 'land';
   sound.paper();
 }
