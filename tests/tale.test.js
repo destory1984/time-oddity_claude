@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { WALKS } from '../game/src/core/walks.js';
-import { advance, calledOf, callOf, emptyTale, endingOf, goalOf, holdsOf, isTold, partOf, present, sanitizeTale, stepOf, textOf, carrying } from '../game/src/core/tale.js';
+import { advance, calledOf, callOf, emptyTale, endingOf, goalOf, holdsOf, isTold, partOf, present, sanitizeTale, stepOf, textOf, carrying, thankerOf } from '../game/src/core/tale.js';
 import { barred, canHop, createWalk, linesOf, peopleOf, speak, stepWalk, talkedOut } from '../game/src/core/walk.js';
 import { emptyProgress, markTale, sanitizeProgress, taleOf } from '../game/src/core/progress.js';
 
@@ -178,6 +178,19 @@ describe('what is carried', () => {
       const gave = tale.steps.findIndex((step) => step.choice);
       tale.steps.forEach((_, i) => expect(carrying(tale, { state: `S${i}` }), `S${i}`).toBe(i > took && i <= gave));
       expect(carrying(tale, { state: `S${tale.steps.length}` })).toBe(false);
+    }
+  });
+});
+
+// The user, 2026.10.10: "다른 도시에서도 미션 끝내면, 감사하다는 인사 하던가".
+describe('the one who asked', () => {
+  it('has thanks to give in all six tales once the thing is handed over, and not before', () => {
+    for (const { tale } of Object.values(WALKS).filter((place) => place.tale)) {
+      const end = { state: `S${tale.steps.length}` };
+      expect(thankerOf(tale, { state: 'S1' })).toBe(null);
+      expect(thankerOf(tale, end)).toBe(tale.steps[0].who);
+      const said = tale.asides.find((a) => a.who === tale.steps[0].who && a.when.includes(end.state)).lines.join(' ');
+      expect(/고맙|고마워/.test(said), said).toBe(true);
     }
   });
 });

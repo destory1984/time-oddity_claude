@@ -21,7 +21,7 @@ import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
 import { REACH, offerLabel as offerText, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf } from './core/walk.js';
-import { advance, calledOf, carrying, endingOf, goalOf, holdsOf, isTold, present, stepOf as taleStep } from './core/tale.js';
+import { advance, calledOf, carrying, endingOf, goalOf, holdsOf, isTold, present, stepOf as taleStep, thankerOf } from './core/tale.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -668,7 +668,11 @@ function talk(id = null) {
   if (said.person.sound) sound[said.person.sound]();
   keep(markMet(progress, square.id, said.person.id));
   // What is said for the tale is the tale's: nothing is held up and she makes nothing of it.
-  if (said.role) { if (said.role === 'step' && said.last) taleSpoke(said.person); return; }
+  if (said.role) {
+    if (said.role === 'step' && said.last) taleSpoke(said.person);
+    if (said.role === 'aside' && said.person.id === thankerOf(walk.place.tale, walk.tale) && !walk.told.includes('thanked')) walk.told.push('thanked');
+    return;
+  }
   // What she makes of a thing they show her, in word and face, the first time she sees it
   // only: startled twice at one thing, and the second time without a word, she looked odd
   // (the user, 2026.10.8).
@@ -797,7 +801,9 @@ function frameWalk(dt) {
   // Who the tale calls for, and who is not in this scene just now, for the picture (ui/walk.js).
   if (walk.tale) {
     // (The mark is not over the head of one she is hearing out, or answering.)
-    walk.called = calledOf(walk.place.tale, walk.tale).filter((id) => !panelOpen() && (walk.heard?.of ?? walk.heard?.id) !== id);
+    // (When all is told, the one who asked is marked until their thanks have been heard.)
+    const thanker = thankerOf(walk.place.tale, walk.tale);
+    walk.called = [...calledOf(walk.place.tale, walk.tale), ...(thanker && !walk.told.includes('thanked') ? [thanker] : [])].filter((id) => !panelOpen() && (walk.heard?.of ?? walk.heard?.id) !== id);
     walk.absent = sceneOf(walk).people.filter((p) => !present(walk.tale, p)).map((p) => p.id);
   }
   const out = stepWalk(walk, dt, walkHopping || panelOpen() ? 0 : walkWay || keyWay);

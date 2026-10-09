@@ -57,6 +57,14 @@ export const speakerOf = (line, personId) => (typeof line === 'string' ? personI
 
 // Who is to be spoken to now: marked over their head until it is done.
 export const calledOf = (tale, t) => { const step = stepOf(tale, t); return step ? [step.who] : []; };
+// Who asked her (the first step's) and has something to say now that the tale is told, or
+// null: they wait where they were with their thanks (the user, 2026.10.10, thanked in Agra:
+// "다른 도시에서도 미션 끝내면, 감사하다는 인사 하던가").
+export function thankerOf(tale, t) {
+  if (!isTold(tale, t)) return null;
+  const who = tale.steps[0].who;
+  return (tale.asides ?? []).some((a) => a.who === who && a.when.includes(t.state)) ? who : null;
+}
 // What the one called for calls out as she comes near, or null.
 export const callOf = (tale, t, personId) => { const step = stepOf(tale, t); return step?.who === personId ? step.call ?? null : null; };
 
