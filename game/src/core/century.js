@@ -1,3 +1,5 @@
+import { english, ordinal, t } from './i18n.js';
+
 // The dial above the Earth turns by centuries, and only the centuries with somewhere to
 // go have a stop: an empty century is passed over, so that wherever the dial rests a
 // place on the globe is lit (docs/기획서-v4-사는-때로.md section 1).
@@ -8,7 +10,10 @@ export function centuryOf(year) {
   return year > 0 ? Math.ceil(year / 100) : -Math.ceil(-year / 100);
 }
 
-export const centuryLabel = (century) => (century > 0 ? `${century}세기` : `기원전 ${-century}세기`);
+// (English counts them 1st, 2nd, 3rd; the other languages take the number as it is.)
+export const centuryLabel = (century) => (english()
+  ? `${ordinal(Math.abs(century))} century${century > 0 ? '' : ' BC'}`
+  : century > 0 ? t`${century}세기` : t`기원전 ${-century}세기`);
 
 // The first year of a century: where the dial is put before it is drawn tight to the
 // exact year of the place chosen.

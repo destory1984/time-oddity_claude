@@ -4,7 +4,8 @@
 import { loadScreen, saveScreen } from './storage.js';
 import { CHANGES, changesUntil, dayLabel, startedLine } from '../core/changes.js';
 import { canResize, nextTextSize } from '../core/textSize.js';
-import { loadTextSize, saveTextSize } from './storage.js';
+import { loadTextSize, saveLanguage, saveTextSize } from './storage.js';
+import { language } from '../core/i18n.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -82,6 +83,16 @@ export function createSettings({ onOpen, onClose, today, sound, music, version, 
   $('musicSwitch').addEventListener('click', () => { music.setOn(!music.on()); renderSound(); });
   // Another tune; if the music was off, it is switched on to play it.
   $('musicAnother').addEventListener('click', () => { music.another(); if (!music.on()) music.setOn(true); renderSound(); });
+
+  // The language: the game starts again in the one chosen (what is kept is kept).
+  for (const [id, choice] of [['langKo', 'ko'], ['langEn', 'en'], ['langJa', 'ja'], ['langZh', 'zh']]) {
+    $(id).setAttribute('aria-pressed', String(language() === choice));
+    $(id).addEventListener('click', () => {
+      if (language() === choice) return;
+      saveLanguage(choice);
+      window.top.location.reload();
+    });
+  }
 
   // Emptying the notebook cannot be undone, so the button asks once more before it does.
   let sure = false;

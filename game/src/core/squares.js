@@ -11,6 +11,8 @@
 // choices are not; it asks what or why or where, never a number. reply is what
 // grandmother writes back when a postcard of the square reaches her: the heart of it, in
 // her way of speaking, 60 characters at most.
+import { t } from './i18n.js';
+
 export const SQUARES = [
   {
     // The first leaf: not one of the 120 squares but the day of grandmother's first note.
@@ -531,7 +533,7 @@ export const squareTitle = (square) => square.name;
 
 // Its name on the Earth, where the pins of many times lie side by side: the year after it
 // (the user, 2026.10.9: "도시 이름 뒤에 연도 표기").
-export const pinTitle = (square) => `${square.name} AD ${square.date.year}`;
+export const pinTitle = (square) => `${t(square.name)} AD ${square.date.year}`;
 
 // What grandmother wrote of that day's sky: the last sentence of her memo ("그날 달은 보름.",
 // or that she could not note it for want of the day). It is shown while Sora looks up,

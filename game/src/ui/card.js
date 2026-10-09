@@ -1,6 +1,7 @@
 // The story card of the square Sora stands on: three sentences in a newspaper voice and
 // the square's question, on a sheet that comes up over the ground.
 import { squareTitle } from '../core/squares.js';
+import { t } from '../core/i18n.js';
 import { renderQuiz } from './quiz.js';
 
 const $ = (id) => document.getElementById(id);
@@ -11,7 +12,7 @@ export function createCard({ solved, onSolve }) {
 
   function open(square, toQuiz = false) {
     $('cardName').textContent = squareTitle(square);
-    $('cardWhen').textContent = `${square.dateLabel} · ${square.place}`;
+    $('cardWhen').textContent = `${t(square.dateLabel)} · ${t(square.place)}`;
     $('cardText').textContent = square.card;
     renderQuiz($('cardQuiz'), square, solved(square.id), () => onSolve(square.id));
     if (!dialog.open) dialog.showModal();

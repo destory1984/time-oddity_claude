@@ -1,6 +1,7 @@
 import './style.css';
 import { phoneFrame } from './core/screen.js';
 import { loadScreen } from './ui/storage.js';
+import { language } from './core/i18n.js';
 
 // Which page this is: on a wide window the outer page only holds a phone-shaped frame
 // (ui/shell.js) and the game starts inside it; on a phone, inside that frame, or when the
@@ -14,5 +15,7 @@ if (framed) {
 } else {
   // The wide view was chosen: the game fills the window instead of a phone-wide column.
   if (!inFrame && loadScreen() === 'wide') document.documentElement.classList.add('wide');
-  import('./main.js');
+  // The dictionary of the language in use is fetched before anything is written (Korean has none).
+  const words = { en: () => import('./i18n/en.js'), ja: () => import('./i18n/ja.js'), zh: () => import('./i18n/zh.js') }[language()];
+  (words ? words().catch(() => {}) : Promise.resolve()).then(() => import('./main.js'));
 }

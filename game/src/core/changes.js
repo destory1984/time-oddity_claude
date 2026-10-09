@@ -6,7 +6,10 @@
 // volume 1, only what shows on screen or is heard goes in: a new thing to do or see, or
 // a fault mended, does; moving buttons about or rewording a sentence does not.
 // Each line is 10 to 70 characters and ends in "니다." (tests/changes.test.js).
+import { t } from './i18n.js';
+
 export const CHANGES = [
+  { day: '2026-10-09', text: '설정에서 언어를 고릅니다. 한국어, 영어, 일본어, 중국어가 있습니다.' },
   { day: '2026-10-09', text: '지구 위에서 다 마친 곳의 점에 표시가 붙고 이름 뒤에 연도가 보입니다.' },
   { day: '2026-10-09', text: '다 마친 곳의 쪽지에서 지금 모습 사진을 다시 봅니다.' },
   { day: '2026-10-09', text: '콘스탄티노플 광장에서 성당이 돔까지 통째로 보입니다.' },
@@ -207,9 +210,9 @@ export const STARTED = '2026-10-07';
 export function startedLine(today, started = STARTED) {
   const [y, m, d] = started.split('-').map(Number);
   const days = Math.round((stamp(today) - stamp(started)) / DAY_MS) + 1;
-  const began = `만들기 시작한 날: ${y}년 ${m}월 ${d}일`;
-  return days >= 1 ? `${began}
-시간 여행 오늘로 ${days.toLocaleString('ko-KR')}일째` : began;
+  const began = t`만들기 시작한 날: ${y}년 ${m}월 ${d}일`;
+  const count = days.toLocaleString('ko-KR');
+  return days >= 1 ? `${began}\n${t`시간 여행 오늘로 ${count}일째`}` : began;
 }
 
 // '2026-10-04' → '10.4'

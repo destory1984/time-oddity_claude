@@ -1,3 +1,4 @@
+import { t } from '../core/i18n.js';
 // "맞혀 보렴": a square's question with three choices. Nothing is lost by a wrong answer:
 // that choice dims and the others stay. The right one is stamped and remembered.
 // Used by the notebook and by the story card on the ground.
@@ -15,7 +16,7 @@ export function choicesFor(square) {
 export function renderQuiz(container, square, solved, onSolve) {
   const question = document.createElement('p');
   question.className = 'quizAsk';
-  question.textContent = `맞혀 보렴: ${square.quiz.question}`;
+  question.textContent = t`맞혀 보렴: ${t(square.quiz.question)}`;
   const list = document.createElement('div');
   list.className = 'quizChoices';
   for (const choice of choicesFor(square)) {

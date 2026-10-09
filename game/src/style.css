@@ -3,6 +3,14 @@
   --seora:"Gaegu","Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;
   --hand:"Nanum Pen Script","Gowun Batang","Nanum Myeongjo","AppleMyungjo","Batang",cursive;
   --night:#050330;--navy:#1a2894;--gold:#f6b951;--white:#fbf8f9;--lav:#e2daf6;--paper:#f2e6c8;--ink:#3b2a1a}
+/* In Japanese and Chinese (core/i18n.js) the three Korean typefaces have no letters of theirs:
+   the device's own rounded or brush-like faces stand in for grandmother's hand and Sora's. */
+:root:lang(ja){--ui:"Pretendard Variable",Pretendard,"Hiragino Sans","Yu Gothic UI","Meiryo","Noto Sans JP",sans-serif;
+  --seora:"Hiragino Maru Gothic ProN","Yu Gothic UI","Meiryo","Noto Sans JP",sans-serif;
+  --hand:"Klee One","Hiragino Maru Gothic ProN","Yu Mincho","YuMincho","Noto Serif JP",serif}
+:root:lang(zh-Hans){--ui:"Pretendard Variable",Pretendard,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --seora:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --hand:"KaiTi","STKaiti","Kaiti SC","Noto Serif SC",serif}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#02011c;overflow:hidden;overscroll-behavior:none}
 body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);font-size:13px;line-height:1.4;

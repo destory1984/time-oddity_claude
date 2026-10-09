@@ -7,6 +7,8 @@ import { SQUARES, skyMemoOf, squareById, squareTitle } from './core/squares.js';
 import { leadDays, momentJd } from './core/moment.js';
 import { skyAt, skyLight } from './core/sky.js';
 import { formatDate, formatYear, todayDate } from './core/when.js';
+import { t } from './core/i18n.js';
+import { startTranslating } from './ui/translate.js';
 import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, stepDial } from './core/dial.js';
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
 import { HUSH_S, soraPose } from './core/sora.js';
@@ -18,7 +20,7 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, VERBS, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf } from './core/walk.js';
+import { REACH, offerLabel as offerText, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf } from './core/walk.js';
 import { advance, calledOf, endingOf, goalOf, holdsOf, isTold, present, stepOf as taleStep } from './core/tale.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
@@ -68,6 +70,8 @@ const NO_PICTURE_FADE_MS = 400;
 const DIM_BACK_MS = 400;
 const LABELS_AFTER_MS = 1000;       // names appear this long after the head is fully raised
 
+// In another language than Korean, whatever is written on the page is put into it (ui/translate.js).
+startTranslating();
 const $ = (id) => document.getElementById(id);
 const clamp01 = (v) => Math.max(0, Math.min(1, v));
 const smoothstep = (a, b, x) => { const t = clamp01((x - a) / (b - a)); return t * t * (3 - 2 * t); };
@@ -272,7 +276,7 @@ const photo = createPhoto({
   onShot: (image) => {
     sound.shutter();
     const at = visitAt(visit, { dialYear: dial.year, thisYear: today.year });
-    const label = at === 'today' ? formatDate(today) : at === 'then' ? square.dateLabel : `${formatYear(dial.year)}년`;
+    const label = at === 'today' ? formatDate(today) : at === 'then' ? square.dateLabel : t`${formatYear(dial.year)}년`;
     keepCards(takeCard(cards, square.id, { image, at: at === 'today' ? 'today' : 'then', label }, dayToday()));
     bubble = { text: '찍었다! 엽서는 수첩에 넣었어.', until: visit.t + SORA_FOR_MS };
   },
@@ -461,7 +465,7 @@ function showErrands() {
   // and once it is told what she did, in order.
   if (walk.tale) {
     const told = walk.place.tale;
-    head.textContent = `할머니의 물음 · ${told.ask}`;
+    head.textContent = t`할머니의 물음 · ${t(told.ask)}`;
     list.append(head);
     const row = (text, cls) => { const li = document.createElement('li'); li.textContent = text; if (cls) li.className = cls; list.append(li); };
     // What is done is ticked above what is to be done now (the user, 2026.10.9, the flowers
@@ -472,8 +476,8 @@ function showErrands() {
     nowRow(list);
     return;
   }
-  if (story) head.textContent = `할머니의 물음 · ${story.ask}`;
-  else head.textContent = left > 0 ? `할머니의 심부름 · ${left}개 남음` : '할머니의 심부름 · 다 했다';
+  if (story) head.textContent = t`할머니의 물음 · ${t(story.ask)}`;
+  else head.textContent = left > 0 ? t`할머니의 심부름 · ${left}개 남음` : '할머니의 심부름 · 다 했다';
   list.append(head);
   const now = stepOf(walk);
   for (const errand of walk.place.errands) {
@@ -715,8 +719,8 @@ function enterScene() {
   // the first scene, which had a button to the right only: "반대로 가는게 없네").
   // A doubled arrow where one touch takes her there (she has been in it before).
   // The button has the scene's shorter name: the whole of it is under the date.
-  $('walkPrev').textContent = before ? `${walk.been.includes(before.id) ? '«' : '‹'} ${before.short ?? before.name}` : '‹';
-  $('walkNext').textContent = after ? `${after.short ?? after.name} ${walk.been.includes(after.id) ? '»' : '›'}` : '›';
+  $('walkPrev').textContent = before ? `${walk.been.includes(before.id) ? '«' : '‹'} ${t(before.short ?? before.name)}` : '‹';
+  $('walkNext').textContent = after ? `${t(after.short ?? after.name)} ${walk.been.includes(after.id) ? '»' : '›'}` : '›';
   sound.air(scene.air ?? null);
 }
 function showWalk(sq) {
@@ -839,7 +843,7 @@ function frameWalk(dt) {
   // What they have that she can eat, wear or use: the louder button the first time.
   // What she has on, or has eaten or used on this visit, is not offered again (core/walk.js).
   const offer = offerOf(walk, near);
-  const offerLabel = offer ? `${offer.name} ${VERBS[offer.verb]}` : '';
+  const offerLabel = offer ? offerText(offer) : '';
   if ($('tryButton').hidden !== !offer) $('tryButton').hidden = !offer;
   if (offer && $('tryButton').textContent !== offerLabel) $('tryButton').textContent = offerLabel;
   if (offer) $('tryButton').classList.toggle('again', walk.tried.includes(offer.id));
@@ -1109,13 +1113,13 @@ function showEraPlaces(stop) {
   // side has its pin on the Earth's rim (render/globe.js).
   const first = fresh && stop.ids.includes(START);
   const head = document.createElement('span');
-  head.textContent = first ? '로마부터 가 보자. 빛나는 곳을 누른다' : `이 세기에 갈 곳 ${stop.ids.length}`;
+  head.textContent = first ? '로마부터 가 보자. 빛나는 곳을 누른다' : t`이 세기에 갈 곳 ${stop.ids.length}`;
   head.classList.toggle('begin', first);
   list.append(head);
 }
 
 function dateOnGlobe() {
-  return { dateText: overEarth() ? eraStop().label : `${formatYear(dial.year)}년`, placeText: '지구 위', subText: '' };
+  return { dateText: overEarth() ? eraStop().label : t`${formatYear(dial.year)}년`, placeText: '지구 위', subText: '' };
 }
 
 // One frame at a place in three dimensions: the eye goes where it is wanted, the parts
@@ -1146,7 +1150,7 @@ function frameSite(dt) {
   $('flyHelp').classList.toggle('on', site.t > 1500 && (site.t < 12000 || !site.moved));
   hud.set({
     name: squareTitle(square),
-    dateText: dial.year === square.date.year ? square.dateLabel : dial.year === today.year ? formatDate(today) : `${formatYear(dial.year)}년`,
+    dateText: dial.year === square.date.year ? square.dateLabel : dial.year === today.year ? formatDate(today) : t`${formatYear(dial.year)}년`,
     placeText: square.place, subText: '', dots: { day: false, sky: false, remains: false },
     memo, memoPlain: dial.year >= today.year, memoSky: false,
     chips: site.t >= CHIPS_AT_MS, bubble: pose.saying ?? (bubble ? bubble.text : null), sora: pose,
@@ -1229,7 +1233,7 @@ function frameGround(dt) {
     else if (at === 'today' && visit.dots.remains && visit.t >= remainsAtMs + 200) memo = square.memoToday;
     else memo = square.memo;
   }
-  const dateText = at === 'then' ? square.dateLabel : at === 'today' ? formatDate(today) : `${formatYear(dial.year)}년`;
+  const dateText = at === 'then' ? square.dateLabel : at === 'today' ? formatDate(today) : t`${formatYear(dial.year)}년`;
   hud.set({
     name: squareTitle(square), dateText, placeText: square.place,
     // While she looks up it says whose sky this is: computed for that day and that place.
@@ -1267,7 +1271,7 @@ function frameGlobe(dt) {
   // The button names the square, so that it is plain where she would come down.
   if (overId && $('landButton').dataset.id !== overId) {
     $('landButton').dataset.id = overId;
-    $('landButton').textContent = `${squareById(overId).name}에 내려앉기`;
+    $('landButton').textContent = t`${t(squareById(overId).name)}에 내려앉기`;
   }
   const arrow = target && mode === 'globe' ? globe.pointer() : null;
   $('flyArrow').classList.toggle('on', Boolean(arrow) && !arrow.near);

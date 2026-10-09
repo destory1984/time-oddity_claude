@@ -2,6 +2,7 @@
 // touches, a gold ring on every thing found and a line that tells what happened to it,
 // and a bar with the count, a button that shows the day while it is held, and a way out.
 import { createFind, foundAll, foundCount, nextUnfound, touchFind } from '../core/find.js';
+import { t } from '../core/i18n.js';
 
 const FINGER_PX = 30;        // a circle is never smaller than this to the touch
 const HINT_AFTER_MS = 12000; // this long without a find, one thing left glimmers
@@ -20,7 +21,7 @@ export function createFindGame({ stage, pictureBox, onPeek, onFound, onMiss, onM
 
   function count() {
     const all = foundAll(find);
-    $('findCount').textContent = all ? '다 찾았구나!' : `달라진 것 ${foundCount(find)} / ${find.things.length}`;
+    $('findCount').textContent = all ? '다 찾았구나!' : t`달라진 것 ${foundCount(find)} / ${find.things.length}`;
     $('findStop').textContent = all ? '다 봤어' : '그만';
     $('findPeek').hidden = false;
   }

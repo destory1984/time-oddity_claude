@@ -10,6 +10,7 @@
 // a panel with their face in pixels (place.talk 'face') instead of a bubble overhead.
 import { piecesAt } from '../core/pieces.js';
 import { worth } from '../core/walk.js';
+import { t } from '../core/i18n.js';
 
 const FOOT = 0.8;             // feet stand at this share of the screen's height
 const SORA_TALL = 176;        // she is this tall on a 812 px high screen, walking or standing
@@ -117,7 +118,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
     looks = (scene.looks ?? []).map((look) => {
       const button = document.createElement('button');
       button.type = 'button'; button.className = 'look';
-      button.setAttribute('aria-label', `${look.name} 자세히 보기`);
+      button.setAttribute('aria-label', t`${t(look.name)} 자세히 보기`);
       button.innerHTML = '<i>자세히 보기</i>';
       button.addEventListener('pointerdown', (e) => e.stopPropagation());
       button.addEventListener('click', () => onLook(look));
@@ -238,7 +239,9 @@ export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
   });
   for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) root.addEventListener(name, () => onWay(0));
 
-  function bubble(el, text, x, top) {
+  function bubble(el, said, x, top) {
+    // (In the language in use before it is measured.)
+    const text = t(said);
     // Over the speaker's head, kept inside what the eye sees. It is centred by the width it
     // really has: by the widest it may be, a short word hung far to the left of whoever
     // said it (the user, 2026.10.8, of a child's "훌쩍…": "NPC 대화가 너무 멀어").

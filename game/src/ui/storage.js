@@ -4,6 +4,7 @@
 import { sanitizeCards } from '../core/postcard.js';
 import { sanitizeProgress } from '../core/progress.js';
 import { textSizeFrom } from '../core/textSize.js';
+import { LANG_KEY } from '../core/i18n.js';
 
 const KEY = {
   opened: 'timeoddity.opened.v1', muted: 'timeoddity.muted.v1', cards: 'timeoddity.postcards.v1', music: 'timeoddity.music.v1', repeat: 'timeoddity.repeat.v1', text: 'timeoddity.text.v1', progress: 'timeoddity.progress.v1', screen: 'timeoddity.screen.v1',
@@ -22,6 +23,8 @@ export const saveOpened = () => write(KEY.opened, '1');
 export const loadMuted = () => read(KEY.muted) === '1';
 export const saveMuted = (muted) => write(KEY.muted, muted ? '1' : '0');
 // Background music is on unless the player turned it off.
+// The language chosen in the settings (core/i18n.js reads it at the start).
+export const saveLanguage = (lang) => write(LANG_KEY, lang);
 export const loadMusic = () => read(KEY.music) !== '0';
 export const saveMusic = (on) => write(KEY.music, on ? '1' : '0');
 // One tune over and over, if the player asked for that.

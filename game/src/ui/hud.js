@@ -1,6 +1,8 @@
 // The words and buttons over the picture: date, the three dots, the memo slip, Sora's
 // bubble. set() takes the whole state every frame and touches the page only where a
 // value has changed.
+import { t } from '../core/i18n.js';
+
 export function createHud(el) {
   const $ = (id) => el.querySelector(`#${id}`);
   const parts = {
@@ -16,7 +18,7 @@ export function createHud(el) {
   for (const sheet of ['idle', 'see-hush', 'left', 'right', 'up', 'down', 'land-descend']) for (let i = 1; i <= 4; i += 1) { const img = new Image(); img.src = `./sora/${sheet}-${i}.png`; }
 
   const changed = (key, value) => { if (shown[key] === value) return false; shown[key] = value; return true; };
-  const text = (key, value) => { if (changed(key, value)) parts[key].textContent = value; };
+  const text = (key, value) => { if (changed(key, value)) parts[key].textContent = t(value); };
   const glow = (node) => { node.classList.remove('glow'); node.getBoundingClientRect(); node.classList.add('glow'); };
 
   // The date, with its "AD" or "BC" in letters half the size of the number.
@@ -35,7 +37,7 @@ export function createHud(el) {
   // glowSky (a count: glows once each time it goes up), glowToday (likewise) }
   function set(state) {
     text('name', state.name);
-    if (changed('dateText', state.dateText)) dateWithEra(parts.dateText, state.dateText);
+    if (changed('dateText', state.dateText)) dateWithEra(parts.dateText, t(state.dateText));
     text('placeText', state.placeText);
     text('subText', state.subText);
     // The guidance fades in and out; while it is up, a new line simply takes the old one's place.
@@ -51,12 +53,12 @@ export function createHud(el) {
     if (state.memo !== null && changed('memo', state.memo)) {
       // A slip already on the screen turns over to show its new line.
       const wasShown = parts.memo.textContent !== '';
-      parts.memo.textContent = state.memo;
+      parts.memo.textContent = t(state.memo);
       if (wasShown) { parts.memo.classList.remove('flip'); parts.memo.getBoundingClientRect(); parts.memo.classList.add('flip'); }
     }
     if (changed('chips', Boolean(state.chips))) parts.chips.classList.toggle('on', Boolean(state.chips));
     if (changed('bubbleOn', state.bubble !== null)) parts.bubble.classList.toggle('on', state.bubble !== null);
-    if (state.bubble !== null && changed('bubble', state.bubble)) parts.bubble.textContent = state.bubble;
+    if (state.bubble !== null && changed('bubble', state.bubble)) parts.bubble.textContent = t(state.bubble);
     text('todayBtn', state.todayLabel);
     if (changed('showToday', state.showToday)) parts.todayBtn.hidden = !state.showToday;
     if (changed('showLeave', state.showLeave)) parts.leaveBtn.hidden = !state.showLeave;

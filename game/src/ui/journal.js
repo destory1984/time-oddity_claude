@@ -6,6 +6,7 @@
 // there, Sora's note and the story card with its question.
 import { countProgress, dotsOf, isVisited, quizSolved } from '../core/progress.js';
 import { squareTitle } from '../core/squares.js';
+import { t } from '../core/i18n.js';
 import { repliesWaiting, replyDue } from '../core/postcard.js';
 import { renderQuiz } from './quiz.js';
 
@@ -53,7 +54,7 @@ export function createJournal({
     if (errand) marks = el('span', `rowErrands${finished ? ' all' : ''}`, finished ? '완료' : `${errand.done}/${errand.total}`);
     else { marks = el('span', 'rowDots'); for (const key of ['day', 'sky', 'remains']) marks.append(el('i', dots[key] ? 'on' : '')); }
     const words = el('span', 'rowWords');
-    words.append(el('b', '', squareTitle(square)), el('small', '', `${square.dateLabel} · ${square.place}`));
+    words.append(el('b', '', squareTitle(square)), el('small', '', `${t(square.dateLabel)} · ${t(square.place)}`));
     head.append(marks, words);
     head.addEventListener('click', () => { open = open === square.id ? null : square.id; render(); });
 
@@ -70,7 +71,7 @@ export function createJournal({
       const more = el('div', 'more');
       more.append(el('p', 'hand', square.noteMemo));
       if (visited) {
-        more.append(el('p', 'seora', `소라: ${square.sora}`));
+        more.append(el('p', 'seora', t`소라: ${t(square.sora)}`));
         const all = tries(square.id);
         if (all.length > 0) {
           // What she has done with her own body there; what she has not is only a blank.
@@ -79,8 +80,8 @@ export function createJournal({
             const of = all.filter((it) => it.verb === verb);
             if (of.length === 0) continue;
             const line = el('li');
-            line.append(el('b', '', `${title} ${of.filter((it) => it.done).length}/${of.length} `));
-            of.forEach((it, i) => { line.append(el(it.done ? 'span' : 'i', '', `${i > 0 ? ' · ' : ''}${it.done ? it.name : '?'}`)); });
+            line.append(el('b', '', `${t(title)} ${of.filter((it) => it.done).length}/${of.length} `));
+            of.forEach((it, i) => { line.append(el(it.done ? 'span' : 'i', '', `${i > 0 ? ' · ' : ''}${it.done ? t(it.name) : '?'}`)); });
             list.append(line);
           }
           more.append(list);
@@ -96,8 +97,8 @@ export function createJournal({
         if (card) {
           const post = el('div', 'postcard');
           const picture = el('img');
-          picture.src = card.image; picture.alt = `${square.name}의 엽서`;
-          post.append(picture, el('p', 'seora', card.at === 'today' ? square.soraToday : square.sora), el('small', '', `${card.label} · ${square.place} — 소라`));
+          picture.src = card.image; picture.alt = t`${t(square.name)}의 엽서`;
+          post.append(picture, el('p', 'seora', card.at === 'today' ? square.soraToday : square.sora), el('small', '', `${t(card.label)} · ${t(square.place)} — ${t('소라')}`));
           more.append(post);
           if (!card.sentDay) {
             const send = el('button', 'send', '할머니께 보내기');
@@ -125,11 +126,11 @@ export function createJournal({
 
   function render() {
     const count = countProgress(progress(), ids);
-    $('journalProgress').textContent = walked() ? `심부름을 다 한 자리 ${finishedCount()}/${count.total}` : `날 ${count.day}/${count.total} · 하늘 ${count.sky} · 남은 것 ${count.remains} · 맞힌 문제 ${count.quiz}`;
+    $('journalProgress').textContent = walked() ? t`심부름을 다 한 자리 ${finishedCount()}/${count.total}` : t`날 ${count.day}/${count.total} · 하늘 ${count.sky} · 남은 것 ${count.remains} · 맞힌 문제 ${count.quiz}`;
     const slips = notes().map(({ id, title }) => {
       const item = el('li', 'row slip');
       const words = el('span', 'rowWords');
-      words.append(el('b', '', `쪽지 ${title}`), el('small', '', '수첩 사이에서 떨어진 할머니의 쪽지'));
+      words.append(el('b', '', t`쪽지 ${title}`), el('small', '', '수첩 사이에서 떨어진 할머니의 쪽지'));
       const again = el('button', 'go', '읽기');
       again.type = 'button';
       again.addEventListener('click', () => { dialog.close(); onNote(id); });
@@ -140,7 +141,7 @@ export function createJournal({
     const clothes = wardrobe().map(({ outfit, name, on }) => {
       const item = el('li', 'row slip');
       const words = el('span', 'rowWords');
-      words.append(el('b', '', `옷장 · ${name}`), el('small', '', on ? '지금 입고 있다' : '입어 본 옷'));
+      words.append(el('b', '', t`옷장 · ${t(name)}`), el('small', '', on ? '지금 입고 있다' : '입어 본 옷'));
       const wear = el('button', 'go', on ? '벗기' : '입기');
       wear.type = 'button';
       wear.addEventListener('click', () => { onWear(on ? null : outfit); render(); });
