@@ -92,7 +92,9 @@ export const WALKS = {
         ],
         spots: [
           // The emperor in his box across the sand: seen, not spoken to.
-          { id: 'titus', from: 0.47, to: 0.63, memo: '저 사람이 티투스란다. 아버지가 짓기 시작한 걸 아들이 열었지.' },
+          // (She says so and looks up, since 2026.10.9: the user, of the emperor's box: "티투스 앞을
+          // 지나갈 때에 뭔가 리액션이 있어야겠어. 그냥 지나가네".)
+          { id: 'titus', from: 0.47, to: 0.63, sora: '저기 황제다! 머리에 잎사귀 관을 썼어.', pose: 'see-wow', memo: '저 사람이 티투스란다. 아버지가 짓기 시작한 걸 아들이 열었지.' },
           // The fighting itself is not seen: she watches the march and no more.
           { id: 'march', from: 0.2, to: 0.36, sora: '행진까지만 볼래. 싸움은 안 볼 거야.', pose: 'turn-away' },
         ],
