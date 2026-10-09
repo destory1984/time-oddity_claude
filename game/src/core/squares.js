@@ -455,6 +455,21 @@ export const SQUARES = [
     quiz: { question: '텅 빈 잔디를 가로지른 것은?', answer: '굴렁쇠를 굴리는 아이', proof: '굴렁쇠를 굴리며', wrong: ['말을 탄 기수', '흰 비둘기 떼'] },
   },
   {
+    // Tahiti on the day Venus crossed the Sun, timed from the fort Cook's people had built on
+    // the point at the east end of Matavai Bay (Point Venus, as it is still called). The
+    // place is walked about (core/walks.js). The transit took the middle of the day.
+    no: 50, id: 'venus1769', name: '해를 지나는 금성', dateLabel: 'AD 1769.6.3', place: '타히티, 남태평양',
+    lat: -17.495, lon: -149.494,
+    date: { year: 1769, month: 6, day: 3 }, calendar: 'gregorian', hourLocal: 12,
+    facingAz: 0, nightOnLook: true,
+    memo: '금성이 해 앞을 지나감.', sora: '다들 해만 쳐다보고 있어!',
+    memoToday: '남은 것: 그 곶의 이름. 비너스 곶.', soraToday: '곶 이름이 아직도 비너스래!',
+    noteMemo: '1769.6.3. 금성이 해 앞을 지나갔다고 읽음. 그날 해에 까만 점 하나가 있었다고.',
+    card: '1769년 6월 3일, 금성이 해 앞을 지나갔습니다. 영국의 쿡 대위와 천문학자 그린은 그 시각을 재려고 배로 여덟 달을 걸려 남태평양 타히티섬에 왔고, 곶에 작은 요새를 짓고 망원경을 세웠습니다. 그 곶은 지금도 비너스 곶이라고 부릅니다.',
+    reply: '그날 잰 시각으로 해까지의 거리를 셈하려 했단다. 금성은 105년 뒤에야 다시 해를 지났지.',
+    quiz: { question: '그날 해 앞을 지나간 것은?', answer: '금성', proof: '금성이 해 앞을', wrong: ['수성', '혜성'] },
+  },
+  {
     // Milan while Leonardo was painting the Last Supper in the refectory of Santa Maria
     // delle Grazie. The day is not on record: a noon of high summer in 1497 is taken (the
     // duke's letter urging him on is of 29 June; Bandello writes of the sun in Leo; the

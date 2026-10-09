@@ -479,6 +479,127 @@ export const WALKS = {
     ],
     reply: '그 기차는 열 시 정각에 오사카에 닿았단다. 그날 달린 예순 편이 모두 제시각이었지.',
   },
+  // Tahiti, 3 June 1769: Venus crossed the Sun and Cook's people timed it from the fort on
+  // the point. Painted after Gauguin's oils and not in pixels (the user, 2026.10.9, having
+  // seen nine tries: "좋아 8번"): the sand is coral pink and the sky is in the picture, so
+  // the computed sky is not behind it. The point's sand is in truth black.
+  // Looked up on 2026.10.9 and found so: the ship in Matavai Bay from 12 April; the fort
+  // and the observatory on the point; the day clear and the thermometer in the sun higher
+  // than they had yet seen it; coconuts given for a nail; the quadrant stolen on 2 May,
+  // taken to pieces and got back with the help of the chief Tubourai Tamaide; the flies
+  // that kept the artist Parkinson from his work, and his being marked on the arm by the
+  // islanders with a sharpened bone and blue-black dye; the three who watched timing the
+  // contacts differently. From memory: that the island had no iron, that "tattoo" comes
+  // from the island's word, the cloth beaten from bark, the transit lasting six hours, the
+  // next one 105 years after (1874).
+  // Made up: the errand of the coconut, the chief taking her in, the astronomer letting her look.
+  venus1769: {
+    dir: 'tahiti1769', look: 'paper',
+    scenes: [
+      {
+        id: 'beach', name: '타히티 마타바이 만 바닷가', short: '마타바이 만', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
+        sora: '모래가 따끈따끈해! 저 배는 뭐지?',
+        people: [
+          { id: 'fisher', pass: '오늘 바다는 잔잔하군.', name: '카누 타는 어부', x: 0.19, w: 118, h: 320, lines: ['저 큰 배는 두 달 가까이 저기 서 있어.', '우리 카누는 옆에 팔이 달려서 안 뒤집혀.'],
+            try: { id: 'use-paddle', verb: 'use', name: '카누의 노', sora: '영차! 어, 자꾸 옆으로만 가!' } },
+          { id: 'tapa', pass: '탁, 탁, 탁.', name: '천 두드리는 아주머니', x: 0.31, w: 113, h: 282, lines: ['나무껍질을 두드려서 천을 만들어.', '두드릴수록 넓고 얇아진단다.'],
+            try: { id: 'wear-tapa', verb: 'wear', name: '나무껍질 옷', outfit: 'tapa', sora: '가볍고 바삭바삭해!', memo: '나무껍질을 물에 불려 두드려 만든 천이란다.' } },
+          { id: 'tattoo', pass: '톡, 톡. 가만히 있거라.', show: 'tattoo', pose: 'see-gasp', sora: '뼈로 만든 빗이야!', memo: '이 섬 말로 "타타우"란다. 문신을 뜻하는 "타투"가 여기서 온 말이지.', name: '무늬 새기는 할아버지', x: 0.42, w: 107, h: 309, lines: ['뼈 빗에 검은 물을 묻혀 톡톡 친단다.', '배에서 온 젊은이도 팔에 새기고 갔지.'] },
+          { id: 'coconut', pass: '코코넛 있어요!', name: '코코넛 파는 아주머니', x: 0.53, w: 98, h: 280, lines: ['코코넛 물은 더울 때 제일이야.', '못 하나면 한 아름 준단다.'] },
+          { id: 'breadboy', pass: '앗 뜨거, 앗 뜨거!', name: '열매 굽는 소년', x: 0.63, w: 85, h: 244, lines: ['빵나무 열매야. 불에 구워 먹어.', '속이 하얗고 폭신폭신해.'],
+            try: { id: 'eat-breadfruit', verb: 'eat', name: '구운 빵나무 열매', face: 'yum', sora: '갓 구운 빵 같아! 고구마 같기도 해.' } },
+          { id: 'sailor', pass: '히히, 못 하나로 이만큼!', show: 'nail', pose: 'see-aha', sora: '못 하나에 이걸 다 줘?', memo: '이 섬에는 쇠가 없었단다. 그래서 못 하나가 보물이었지.', name: '못을 든 선원', x: 0.74, w: 116, h: 311, lines: ['여기선 못이 돈이야.', '다 빼 주다간 배가 흩어지겠어.'] },
+          { id: 'shipboy', pass: '와, 모래가 뜨거워!', name: '배의 심부름 소년', x: 0.85, w: 89, h: 287, lines: ['대위님은 오늘 요새에서 해를 보신대.', '금성이 해 앞을 지나간다나 봐.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'gate', name: '타히티 포트 비너스 문 앞', short: '요새 문 앞', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'court', floor: 'dirt',
+        sora: '말뚝 담이다! 요새인가 봐.',
+        people: [
+          { id: 'painter', pass: '저리 가, 파리들아!', show: 'flies', pose: 'see-gasp', sora: '파리가 그림을 먹었어!', memo: '파리 떼가 물감을 갉아 먹어서 화가가 애를 먹었단다.', name: '배의 화가', x: 0.14, w: 85, h: 276, lines: ['이 섬의 풀과 꽃을 다 그리는 중이야.', '칠하자마자 파리가 물감을 먹어 버려.'] },
+          { id: 'botanist', pass: '오, 이것도 처음 보는 풀!', name: '풀 모으는 학자', x: 0.23, w: 104, h: 271, lines: ['이 섬의 풀은 거의 다 처음 본다네.', '말려서 종이 사이에 끼워 가져가지.'] },
+          { id: 'smith', pass: '깡, 깡. 못 나가요!', name: '배의 대장장이', x: 0.34, w: 90, h: 266, lines: ['배에서 쓸 못과 쇠를 벼린다오.', '섬사람들이 쇠라면 눈을 못 떼지.'] },
+          { id: 'galley', pass: '어휴, 덥다 더워.', name: '배의 요리사', x: 0.46, w: 103, h: 260, lines: ['오늘은 불 앞에 서기가 싫구먼.', '온도계가 이렇게 오른 건 처음이래.'] },
+          { id: 'girl', pass: '안에 뭐가 있을까?', name: '궁금한 소녀', x: 0.57, w: 59, h: 207, lines: ['어른들이 긴 통으로 해를 봐.', '해를 보면 눈 아프다고 했는데.'] },
+          { id: 'chief', pass: '허허, 오늘은 다들 바쁘구먼.', name: '타히티의 족장', x: 0.68, w: 102, h: 304, lines: ['이 사람들과 나는 친구란다.', '과일과 돼지를 보내 주곤 하지.'] },
+          { id: 'sentry', pass: '멈춰라! 누구냐!', name: '문 지키는 보초', x: 0.85, w: 87, h: 320, lines: ['요새는 내가 지킨다.', '땀이 비 오듯 하는구나.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'fort', name: '타히티 포트 비너스 관측 터', short: '관측 터', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '망원경이다! 다들 하늘만 봐.',
+        people: [
+          { id: 'caller', pass: '똑, 딱, 똑, 딱.', name: '시계 읽는 선원', x: 0.15, w: 96, h: 318, lines: ['시계가 몇 초인지 소리쳐 주는 일이야.', '한 번이라도 틀리면 큰일이지.'] },
+          { id: 'captain', pass: '시각을 정확히 적게.', show: 'quadrant', pose: 'see-aha', sora: '놋쇠로 만든 부채 같아!', memo: '한 달 전에 도둑맞았다가 조각난 채로 되찾은 기구란다.', name: '쿡 대위', x: 0.26, w: 101, h: 320, lines: ['이 기구로 별의 높이를 잰다.', '이게 없으면 여기까지 온 보람이 없지.'] },
+          { id: 'kid', pass: '나도 볼래, 나도!', name: '망원경이 궁금한 아이', x: 0.36, w: 71, h: 201, lines: ['저 통에 눈을 대면 해가 커진대.', '아저씨들이 종일 저것만 봐.'] },
+          { id: 'green', pass: '저 점이… 지금!', show: 'transit', pose: 'see-wow', sora: '해에 까만 점이 있어!', memo: '저 점이 금성이란다. 해 앞을 여섯 시간에 걸쳐 지나갔지.', name: '천문학자 그린', x: 0.47, w: 101, h: 303, lines: ['금성이 해 앞을 지나는 날이란다.', '끝날 때까지 눈을 뗄 수가 없어.'] },
+          { id: 'clerk', pass: '사각사각.', name: '받아 적는 서기', x: 0.6, w: 93, h: 302, lines: ['부르시는 시각을 다 받아 적어.', '세 분이 본 시각이 조금씩 달라.'] },
+          { id: 'priest', pass: '흠, 낮에 별을 본다고?', name: '타히티의 길잡이', x: 0.72, w: 109, h: 306, lines: ['우리도 별을 보고 바다를 건넌단다.', '저 사람들은 통으로 별을 보는구나.'] },
+          { id: 'water', pass: '물이오, 물!', name: '물 나르는 선원', x: 0.85, w: 120, h: 291, lines: ['모래가 달아서 발이 익겠어.', '통에 든 물도 미지근해졌어.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The people who only look at the Sun" (core/tale.js; the user, 2026.10.9, of the
+    // storyboard: "이대로 지어"): a coconut is taken from the woman on the beach to the
+    // astronomer who has not left his telescope; the sentry turns her away because the
+    // quadrant was stolen a month ago; the chief who got it back takes her in; she hands it
+    // over, choosing what to say; and he lets her look.
+    tale: {
+      ask: '저 사람들은 왜 해만 볼까?',
+      steps: [
+        {
+          who: 'coconut', goal: '바닷가의 코코넛 파는 아주머니에게 가 보렴.', holds: '코코넛: 아주머니가 들고 있음',
+          lines: ['저 낯선 사람들, 아침부터 해만 쳐다봐.', '이 더위에 물 한 모금 안 마신단다.', '이 코코넛 좀 갖다 줄래?'],
+          offer: { ask: '코코넛을 갖다줄까?', label: '내가 갖다줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'sentry', goal: '오른쪽 곶의 요새 문으로 가 보렴.', holds: '코코넛: 소라가 들고 있음',
+          lines: ['멈춰라! 오늘은 아무도 못 들어간다.', '한 달 전에 큰 놋쇠 기구를 도둑맞았거든.'],
+          sora: '코코넛만 주면 되는데… 어? 족장님이 불러!',
+        },
+        {
+          who: 'chief', call: '얘야, 이리 와 보렴.', goal: '타히티의 족장이 부른다. 가 보렴.', holds: '코코넛: 소라가 들고 있음',
+          lines: ['그 기구는 내가 찾아 주었단다.', '조각조각 나 있었지만 다 돌아왔지.', '나와 함께라면 문을 열어 줄 게다.'],
+          after: [{ who: 'sentry', line: '족장님의 손님이군. 들어가라!' }],
+          sora: '문이 열렸어! 안으로 가자!',
+        },
+        {
+          who: 'green', goal: '요새 안의 천문학자에게 코코넛을 전하렴.', holds: '코코넛: 소라가 들고 있음',
+          lines: ['누구냐… 코코넛? 아이고, 살았다!'],
+          choice: {
+            ask: '코코넛을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"천천히 드세요"', sora: '천천히 드세요. 바닷가 아주머니가 보냈어요.', says: '고맙구나. 답례로 좋은 걸 보여 주마.' },
+              { id: 'E2', label: '"뭘 그렇게 보세요?"', sora: '아침부터 뭘 그렇게 보세요?', says: '하하, 궁금하지? 너도 한번 보렴.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'green', show: true, goal: '천문학자의 망원경을 들여다보렴.', holds: '코코넛: 천문학자에게 전했음',
+          lines: ['이 통에 눈을 대 보렴.', '해 위의 까만 점, 저게 금성이란다.'],
+          sora: '해에 점이 있어! 저게 별이라고?',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'coconut', when: ['S1', 'S2', 'S3', 'S4'], lines: ['해를 보는 사람들은 요새 안에 있어.', '요새는 오른쪽 곶에 있단다.'] },
+        { who: 'coconut', when: ['S5'], lines: ['다 마셨다니 다행이구나!', '해에 점이 있었다고? 신기하네.'] },
+      ],
+      done: '코코넛을 전하고, 해를 지나는 금성을 보았다.',
+      held: '코코넛: 천문학자에게 전했음',
+    },
+    errands: [
+      { id: 'took', text: '코코넛을 받는다.', at: [] },
+      { id: 'gave', text: '천문학자에게 코코넛을 전한다.', at: [] },
+      { id: 'saw', text: '해를 지나는 금성을 본다.', at: [] },
+    ],
+    reply: '그날 잰 시각으로 해까지의 거리를 셈하려 했단다. 금성은 105년 뒤에야 다시 해를 지났지.',
+  },
   // The first leaf: grandmother's village on the night of 21 July 1969, the one day in
   // the notebook she saw herself (the user, 2026.10.8, of the places made in Paris's
   // look: "할머니의 마을을 안 바꿨네"). It is night (`night`): the people are dimmed a
