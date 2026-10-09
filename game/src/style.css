@@ -264,7 +264,7 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 .sheetHead{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
 .sheetHead h1{margin:0;font-size:22px;font-weight:600}
 .sheetHead small{color:#9fb0dc;font-size:12px}
-.textSize{margin-left:auto;display:flex;gap:6px}
+.textSize{margin-left:auto;display:flex;gap:8px}
 #settings button{border:1px solid var(--glass-line);border-radius:12px;background:#182a5c99;color:#eef3ff;font:inherit;min-height:44px;padding:6px 14px}
 #settings button[aria-pressed="true"]{border-color:var(--gold);background:#f6b95133;color:#ffe9b8;font-weight:700}
 #settings .row{display:flex;flex-wrap:wrap;gap:8px}
@@ -272,7 +272,10 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 #settings .row.one button{flex:0 1 auto;padding:6px 10px;white-space:nowrap}
 #settings .row button{margin-top:8px}
 #settings button:disabled{opacity:.35}
-.textSize button{min-width:44px;padding:4px 8px}
+/* As in volume 1: the smaller "가−" in smaller letters, the larger "가+" in larger. (They were
+   written with the sign set low and high, which read as "가_": the user, 2026.10.10.) */
+#settings .textSize button{width:44px;height:44px;padding:0;font-size:16px;font-weight:700}
+#settings .textSize button[data-way="-1"]{font-size:12px}
 #settingsTabs{display:flex;gap:8px;margin:0 0 12px}
 #settingsTabs button{flex:1;padding:6px 4px;font-size:13px}
 #settingsTabs button[aria-selected="true"]{border-color:var(--gold);color:var(--gold)}
