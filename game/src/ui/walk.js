@@ -230,7 +230,11 @@ export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
   root.addEventListener('pointerdown', (e) => {
     if (e.target.closest('button')) return;
     root.setPointerCapture?.(e.pointerId);
-    onWay(e.clientX < root.getBoundingClientRect().left + size.w / 2 ? -1 : 1);
+    // (Toward the finger from where she stands, not from the middle of the screen: at an end
+    // of a scene, or on a wide screen, she is not in the middle, and a touch a little to her
+    // right sent her left. The user, 2026.10.9: "저 부분을 누르니까, 소라가 반대로 가는데".)
+    const at = sora.getBoundingClientRect();
+    onWay(e.clientX < at.left + at.width / 2 ? -1 : 1);
   });
   for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) root.addEventListener(name, () => onWay(0));
 
