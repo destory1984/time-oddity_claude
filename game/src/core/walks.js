@@ -2016,4 +2016,122 @@ export const WALKS = {
     ],
     reply: '색이 칠해진 신전을 봤구나. 지금은 흰 기둥만 남았단다.',
   },
+  // Angkor about 1150: Angkor Wat is all but built. Drawn as the low reliefs of its own
+  // galleries (the user, 2026.10.10, of five tries: "앙코르 1"). The day is not on record.
+  // Looked up on 2026.10.10 and found so: the state temple of Suryavarman II, of the first
+  // half of the 12th century; its sandstone from some fifty quarries at the foot of Mount
+  // Kulen, brought by canals some 35 km (a study of 2012); some 800 m of reliefs, among
+  // them the Churning of the Sea of Milk with 88 demons and 92 gods pulling the serpent and
+  // Vishnu as a turtle under the mountain; nearly 2,000 dancing figures with 37 ways of
+  // dressing the hair; traces of paint and gold leaf, of what time is not known.
+  // From memory: sugar-palm juice, the wrapped cloth, houses on stilts, the temple facing
+  // west, that elephants hauled stone here.
+  // Made up: the wife's errand of the chisel, the elephant driver, the child with the boat.
+  angkor1150: {
+    dir: 'angkor1150', look: 'paper', pale: true,
+    drawn: '그 절의 벽에 얕게 새긴 돌 그림처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'moat', name: '크메르 앙코르 해자 앞', short: '해자 앞', zoom: 1.15, ground: 0.705, scale: 0.673, air: 'market', floor: 'dirt',
+        sora: '탑이 연꽃 봉오리 같아!',
+        people: [
+          { id: 'fruit', pass: '망고요, 잘 익은 망고!', name: '과일 장수', x: 0.19, w: 153, h: 312, lines: ['절 짓는 이들이 사 먹는 과일이란다.', '일꾼이 많으니 장도 크게 서지.'] },
+          { id: 'fishwife', pass: '큰 호수에서 온 생선!', name: '생선 파는 아주머니', x: 0.3, w: 135, h: 320, lines: ['큰 호수에서 잡아 말린 생선이란다.', '비 오는 철엔 호수가 몇 배로 커지지.'] },
+          { id: 'carter', pass: '영차, 돌 나간다!', show: 'canal', pose: 'see-wow', sora: '돌이 뗏목을 타고 와!', memo: '돌은 쿨렌 산 기슭에서 캐어 물길로 실어 왔단다. 물길이 서른다섯 킬로미터쯤이었지.', name: '돌 수레 끄는 사람', x: 0.4, w: 144, h: 319, lines: ['이 돌은 먼 산에서 캐 온 거란다.', '물길에 뗏목을 띄워 실어 오지.'] },
+          { id: 'child', pass: '연잎 우산이다!', name: '물장난하는 아이', x: 0.51, w: 135, h: 242, lines: ['해자가 강처럼 넓어.', '저기 탑이 다섯 개야. 세어 봐.'] },
+          { id: 'weaver', pass: '고운 천 보고 가요.', name: '천 짜는 아주머니', x: 0.62, w: 137, h: 316, lines: ['천 한 장을 허리에 감아 입는단다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-sampot', verb: 'wear', name: '크메르의 옷', outfit: 'sampot', sora: '감기만 했는데 치마야!', memo: '긴 천을 허리에 감아 여며 입는 옷이란다. 삼폿이라고 하지.' } },
+          { id: 'wife', pass: '아이고, 이를 어쩌나.', name: '장인의 아내', x: 0.73, w: 109, h: 318, lines: ['우리 집 양반은 돌 새기는 장인이란다.', '새벽부터 회랑에서 일하지.'] },
+          { id: 'palm', pass: '달콤한 야자 즙이오!', show: 'palm', name: '야자 즙 받는 아저씨', x: 0.85, w: 140, h: 315, lines: ['사탕야자 나무에서 받은 즙이란다.', '한 모금 마셔 보련?'],
+            try: { id: 'eat-palm', verb: 'eat', name: '야자 즙', face: 'yum', sora: '달콤해! 꿀물 같아.' } },
+        ],
+        spots: [],
+      },
+      {
+        id: 'causeway', name: '크메르 앙코르와트 둑길', short: '둑길', zoom: 1.17, ground: 0.695, scale: 0.684, air: 'court',
+        sora: '난간이 뱀 모양이야!',
+        people: [
+          { id: 'monk', pass: '고맙습니다.', name: '탁발하는 스님', x: 0.18, w: 93, h: 269, lines: ['이 절은 비슈누 신께 바친 절이란다.', '해가 지는 서쪽을 보고 서 있지.'] },
+          { id: 'lotus', pass: '연꽃이 곱게 피었네.', name: '연꽃 따는 아주머니', x: 0.29, w: 106, h: 277, lines: ['절에 올릴 연꽃을 따는 중이란다.', '해자에는 연꽃이 끝도 없지.'] },
+          { id: 'porter', pass: '영차, 영차.', name: '돌 나르는 일꾼', x: 0.4, w: 177, h: 271, lines: ['깎고 남은 돌 부스러기란다.', '하루에도 수십 번을 나르지.'] },
+          { id: 'dancer', pass: '하나, 둘, 손끝을 젖히고.', show: 'towers', pose: 'see-wow', sora: '탑이 물에도 비쳐!', memo: '가운데 탑과 네 귀의 탑, 모두 다섯이란다. 신들이 사는 산을 본떴다고 하지.', name: '춤 배우는 소녀', x: 0.51, w: 109, h: 291, lines: ['벽에 새긴 여신처럼 추는 춤이야.', '손가락을 이렇게 뒤로 젖혀.'] },
+          { id: 'guard', pass: '둑길로 줄지어 가시오.', name: '문 지키는 병사', x: 0.62, w: 114, h: 320, lines: ['이 둑길은 해자를 건너 문까지 간단다.', '난간은 머리 일곱 달린 뱀이지.'] },
+          { id: 'boatkid', pass: '배 타실 분, 배요!', name: '배 젓는 아이', x: 0.73, w: 123, h: 239, lines: ['연꽃 사이로 배를 저어 다녀.', '해자 건너편도 금방이야.'] },
+          { id: 'mahout', pass: '코끼리 지나간다, 비켜라!', name: '코끼리 몰이꾼', x: 0.85, w: 114, h: 290, lines: ['코끼리가 돌을 끌고 다니는 길이란다.', '밟히면 큰일이니 물러서거라.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'gallery', name: '크메르 앙코르와트 회랑 앞', short: '회랑 앞', zoom: 1.15, ground: 0.71, scale: 0.673, air: 'masons',
+        sora: '벽이 온통 그림이야!',
+        people: [
+          { id: 'polisher', pass: '쓱쓱, 돌 가루 날린다.', name: '돌 닦는 일꾼', x: 0.18, w: 114, h: 296, lines: ['새긴 자리의 돌 가루를 닦아 낸단다.', '닦아야 그림이 또렷해지지.'] },
+          { id: 'drawer', pass: '선 하나 틀리면 큰일.', show: 'churn', pose: 'see-wow', sora: '다 같이 뱀을 당겨!', memo: '신과 마귀가 큰 뱀을 당겨 바다를 휘젓는 이야기란다. 양쪽을 합쳐 백여든이 당기지.', name: '밑그림 그리는 화공', x: 0.29, w: 106, h: 302, lines: ['숯으로 밑그림을 먼저 그린단다.', '이 벽 그림은 팔백 걸음을 이어지지.'] },
+          { id: 'gilder', pass: '숨도 조심조심.', name: '금 입히는 사람', x: 0.4, w: 112, h: 299, lines: ['새긴 돌 위에 금을 입히기도 한단다.', '바람만 불어도 날아가는 금이야.'] },
+          { id: 'carver', pass: '정이 무뎌졌구먼.', show: 'hair', pose: 'see-aha', sora: '머리 모양이 다 달라!', memo: '춤추는 여신이 이천쯤 새겨져 있단다. 머리 모양만 서른일곱 가지지.', name: '돌 새기는 장인', x: 0.51, w: 153, h: 314, lines: ['춤추는 여신을 새기는 중이란다.', '하나도 똑같이 새기지 않지.'] },
+          { id: 'priest', pass: '꽃을 올려야지.', name: '사제', x: 0.62, w: 111, h: 320, lines: ['임금님이 신께 바치는 절이란다.', '다 지으려면 아직 몇 해 남았지.'] },
+          { id: 'apprentice', pass: '톡, 톡… 어렵다.', name: '어린 제자', x: 0.73, w: 85, h: 227, lines: ['나는 아직 꽃잎만 새겨.', '스승님은 눈 감고도 새기신대.'] },
+          { id: 'envoy', pass: '허어, 놀랍구려.', name: '먼 나라에서 온 사신', x: 0.85, w: 113, h: 313, lines: ['먼 북쪽 나라에서 왔다오.', '돌로 이런 것을 짓다니 놀랍소.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The chisel" (core/tale.js; the user, 2026.10.10, of the storyboard: "이대로 지어"): the
+    // carver's wife has his new chisel, which he left at home; the elephant driver keeps her
+    // off the causeway; the child with the boat rows her over the moat; she hands it to the
+    // carver, choosing what to say; and he carves a dancer's hair with it.
+    tale: {
+      thing: true,
+      ask: '돌에 새긴 여신은 몇이나 될까?',
+      gate: { scene: 'causeway', open: 3, sora: '몰이꾼이 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'wife', goal: '해자 앞의 장인의 아내에게 가 보렴.', holds: '쇠 정: 아주머니가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '우리 집 양반이 새 정을 두고 갔단다.', '회랑에서 돌 새기는 장인에게 전해 주렴.'],
+          offer: { ask: '쇠 정을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'mahout', goal: '둑길 끝의 서쪽 문으로 가 보렴.', holds: '쇠 정: 소라가 들고 있음',
+          lines: ['멈춰라. 돌 끄는 코끼리가 지나간다.', '아이는 둑길로 못 간다.'],
+          sora: '정을 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'boatkid', call: '얘, 어디 가는데?', goal: '배 젓는 아이가 부른다. 가 보렴.', holds: '쇠 정: 소라가 들고 있음',
+          lines: ['회랑에 간다고? 그럼 내 배를 타.', '연꽃 사이로 가면 코끼리를 안 만나.', '몰이꾼 아저씨, 배로 갈게요!'],
+          after: [{ who: 'mahout', line: '배로 간다면 건너가거라.' }],
+          sora: '배로 건너면 된대! 가자!',
+        },
+        {
+          who: 'carver', goal: '회랑 앞의 돌 새기는 장인에게 쇠 정을 전하렴.', holds: '쇠 정: 소라가 들고 있음',
+          lines: ['어이쿠, 무딘 정으로 애를 먹던 참이다.'],
+          choice: {
+            ask: '쇠 정을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"아주머니가 보냈어요"', sora: '해자 앞의 아주머니가 보내셨어요.', says: '집사람이 보냈구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"뭘 새기세요?"', sora: '지금 무엇을 새기세요?', says: '춤추는 여신이란다. 보여 주마.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'carver', show: true, goal: '장인이 새기는 것을 보렴.',
+          lines: ['새 정이라 잘 먹는구나. 보렴.', '이 여신의 머리는 이렇게 올려 주마.'],
+          sora: '돌에서 머리 모양이 나와!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'wife', when: ['S1', 'S2', 'S3', 'S4'], lines: ['그 양반은 회랑 앞에 있단다.', '둑길을 건너 서쪽 문으로 가렴.'] },
+        { who: 'wife', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '오늘은 일이 잘되겠구나.'] },
+      ],
+      done: '쇠 정을 전하고, 여신이 새겨지는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '쇠 정을 받는다.', at: [] },
+      { id: 'gave', text: '장인에게 쇠 정을 전한다.', at: [] },
+      { id: 'saw', text: '여신이 새겨지는 것을 본다.', at: [] },
+    ],
+    reply: '그 벽의 여신들은 머리 모양이 서른일곱 가지란다. 지금도 그대로 춤추고 있지.',
+  },
 };

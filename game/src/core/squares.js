@@ -551,6 +551,21 @@ export const SQUARES = [
     reply: '그 붓과 끈은 천삼백 해 가까이 그 절의 창고에 그대로 있단다.',
     quiz: { question: '부처의 눈을 그려 넣은 스님은 어디에서 왔나?', answer: '인도', proof: '인도에서 온 스님 보리선나', wrong: ['당나라', '신라'] },
   },
+  {
+    // Angkor about 1150: Angkor Wat, the state temple of Suryavarman II, is all but built.
+    // The day is not on record: a morning of the dry season is taken. The place is walked
+    // about (core/walks.js).
+    no: 27, id: 'angkor1150', name: '돌에 새긴 춤', dateLabel: 'AD 1150년쯤', place: '앙코르, 크메르',
+    lat: 13.4125, lon: 103.867,
+    date: { year: 1150, month: 2, day: 1 }, calendar: 'julian', hourLocal: 9,
+    facingAz: 90, nightOnLook: true,
+    memo: '탑 다섯인 돌 절을 짓는 중.', sora: '탑이 연꽃 봉오리 같아!',
+    memoToday: '남은 것: 앙코르와트. 그대로.', soraToday: '숲이 둘러쌌네. 탑은 그대로.',
+    noteMemo: '1150년쯤. 크메르의 임금이 탑 다섯인 큰 돌 절을 지었다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '1150년쯤, 크메르 제국의 수도 앙코르에서는 임금 수리야바르만 2세의 큰 돌 절 앙코르와트를 거의 다 짓고 있었습니다. 돌은 쿨렌 산 기슭에서 캐어 물길로 실어 왔습니다. 회랑의 벽에는 800미터쯤의 부조와 춤추는 여신 이천쯤이 새겨져 있습니다.',
+    reply: '그 벽의 여신들은 머리 모양이 서른일곱 가지란다. 지금도 그대로 춤추고 있지.',
+    quiz: { question: '앙코르와트의 돌은 어떻게 실어 왔나?', answer: '물길로', proof: '물길로 실어 왔습니다', wrong: ['바닷길로', '산길로 굴려서'] },
+  },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
 
