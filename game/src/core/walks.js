@@ -356,8 +356,8 @@ export const WALKS = {
           // pickle and the thin wooden box are from memory.
           { id: 'bento', pass: '도시락 구경하고 가세요!', name: '도시락 아주머니', x: 0.72, w: 108, h: 277, lines: ['차 안에서 먹는 도시락이에요.', '역에서 파니까 에키벤이라 해요.'],
             try: { id: 'eat-ekiben', verb: 'eat', name: '기차 도시락', face: 'yum', sora: '식었는데도 맛있어!' } },
-          // The one who asks: before the station until she is taken up, on the platform after.
-          { id: 'flowers0', when: ['S0'], pass: '아이, 떨려라.', name: '꽃다발 든 아가씨', x: 0.8, w: 122, h: 290, lines: ['첫 기차에 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
+          // The one who asks: before the station until the flowers are handed over, on the platform after.
+          { id: 'flowers0', when: ['S0', 'S1', 'S2', 'S3'], pass: '아이, 떨려라.', name: '꽃다발 든 아가씨', x: 0.8, w: 122, h: 290, lines: ['첫 기차에 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
           { id: 'tourist', pass: '와, 역이 정말 크네요.', name: '먼 데서 온 여행자', x: 0.88, w: 110, h: 308, lines: ['올림픽 보러 왔어요. 기차도 타요!', '시속 210km? 믿을 수 없어요.'] },
         ],
         spots: [],
@@ -372,7 +372,7 @@ export const WALKS = {
         people: [
           { id: 'fan', pass: '우와, 진짜 왔다! 코 좀 봐!', show: 'nose', pose: 'see-wow', sora: '코가 등불처럼 빛나!', memo: '코가 반투명이라 불빛이 새어 나왔단다. 속에는 연결 고리가 들어 있지.', name: '기차 좋아하는 소년', x: 0.12, w: 96, h: 239, lines: ['꿈의 초특급이다! 코가 비행기 같아.', '새벽 세 시에 일어나서 왔어.'] },
           { id: 'reporter', pass: '하나, 둘, 마이크 시험.', name: '방송 기자', x: 0.26, w: 103, h: 299, lines: ['여기는 도쿄역, 역사적인 아침입니다.', '세계에서 가장 빠른 열차입니다!'] },
-          { id: 'flowers', when: ['S1', 'S2', 'S3', 'S4', 'S5'], pass: '아이, 떨려라.', name: '꽃다발 든 아가씨', x: 0.4, w: 122, h: 290, lines: ['첫 기차에 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
+          { id: 'flowers', when: ['S4'], pass: '고마워요! 정말 고마워요!', name: '꽃다발 든 아가씨', x: 0.4, w: 122, h: 290, lines: ['첫 기차에 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
           { id: 'driver', pass: '출발 준비 완료!', name: '기관사', x: 0.52, w: 112, h: 299, lines: ['시속 210km입니다. 손이 떨려요.', '선로가 눈앞으로 빨려 들어와요.'] },
           { id: 'master', pass: '물러서 주십시오!', name: '역장', x: 0.66, w: 106, h: 320, lines: ['여섯 시 정각, 히카리 1호 출발!', '일 초도 늦으면 안 됩니다.'] },
           { id: 'banzai', pass: '만세! 만세!', name: '신이 난 회사원', x: 0.82, w: 155, h: 304, lines: ['테이프 끊는 걸 봤어! 박수가 터졌어!', '만세! 우리가 해냈다고!'] },
@@ -403,52 +403,71 @@ export const WALKS = {
         spots: [],
       },
     ],
-    // Told as the plan the user brought on 2026.10.8 has it (its section 9, "출발 전에 전할
-    // 말"; core/tale.js): a young woman would thank those who run the new train and cannot
-    // bring herself to. Two are heard out in either order, one of two ways is tried, she is
-    // told how it went and may change once, and one of two ends is chosen. What people
-    // say is the plan's; what is on the buttons was written again in plainer words (the user,
-    // having tried it: "네가 문장을 좀 이상하게 썼어. 사용자가 어려워해"). Bound here to those already drawn: the woman with the flowers
-    // (before the station at first, on the platform once she is taken up), and on the platform
-    // the glad man for the passenger and the station master for the man of the railway: both
-    // where she goes next, so that nobody walks back to hear one of them (the user, sent back
-    // to the station front for the second: "이게 왜 출발지로 와서야 보여?"). All of
-    // it is made up; nobody goes up to the driver and the train is not kept.
+    // "Twenty minutes to go" (core/tale.js): a young woman before the station gives her the
+    // flowers and a word for the driver of the first train; on the platform the station
+    // master turns her away; the boy who has watched since three tells her when the driver
+    // will stand at the door; and she hands them over, choosing what to say. Told so after
+    // the user had tried the first telling on 2026.10.9 and said of its end, which was talk
+    // with the woman and no more: "아가씨한테 꽃과 말을 전달받고, 기관사한테 가서 전달하고,
+    // 이러는게 미션 아님?". What each one says last names where to go next, so that the slip
+    // need not be read ("저 가이드가 없으면, 게임을 제대로 못 하고 헤매게 되네").
+    // Looked up on 2026.10.9 and found so: the train stood at platform 19 from 05:40 and
+    // the leaving was held there; it left at six and came in at ten to the minute; the line
+    // was five and a half years in the building (ground broken 20 April 1959).
+    // Made up: the woman, her father, the flowers, the master turning her away, the boy's
+    // word, what the driver says. She goes on through the scenes and is never sent back.
     tale: {
-      ask: '고마운 마음을 어떻게 전할까?',
-      giver: 'flowers0', offer: '고맙다는 말을 하고 싶은데 떨리네요.',
-      holds: '꽃다발: 아가씨가 들고 있음',
-      clues: [
-        { id: 'c1', actor: 'master', line: '긴 이야기는 어렵지만, 인사는 전할게요.' },
-        { id: 'c2', actor: 'banzai', line: '직접 한마디라도 하면 마음에 남겠죠.' },
+      ask: '이 꽃은 누구에게 가는 걸까?',
+      steps: [
+        {
+          who: 'flowers0', goal: '도쿄역 앞의 꽃다발 든 아가씨에게 가 보렴.', holds: '꽃다발: 아가씨가 들고 있음',
+          lines: ['저기, 부탁 하나만 들어줄래요?', '이 꽃을 첫 기차 기관사님께 드리고 싶어요.', '아버지가 다섯 해 반 동안 이 철길을 놓으셨거든요.', '그런데 사람이 너무 많아서 못 들어가겠어요.'],
+          offer: { ask: '아가씨의 꽃을 전해 줄까?', label: '내가 전해 줄게요', later: '나중에' },
+          errand: 'took',
+        },
+        {
+          who: 'driver', goal: '도쿄역 승강장의 기관사에게 꽃을 전하렴.', holds: '꽃다발: 소라가 들고 있음',
+          lines: [{ by: 'master', text: '물러서 주십시오! 출발 이십 분 전이오.' }, { by: 'master', text: '기관사는 점검 중이라 아무도 못 만납니다.' }],
+          sora: '꽃만 전하면 되는데… 어? 저 소년이 불러!',
+        },
+        {
+          who: 'fan', call: '누나, 이리 와 봐! 방법이 있어!', goal: '기차 좋아하는 소년이 부른다. 가 보렴.', holds: '꽃다발: 소라가 들고 있음',
+          lines: ['새벽 세 시부터 여기서 다 봤거든.', '점검이 끝나면 기관사님이 문 앞에 잠깐 서.', '봐, 지금이야! 얼른 가!'],
+          sora: '지금이래! 기관사님께 가자!',
+          errand: 'way',
+        },
+        {
+          who: 'driver', goal: '지금이야! 기관사에게 꽃을 전하렴.', holds: '꽃다발: 소라가 들고 있음',
+          lines: ['점검 끝. 응? 나한테 볼일이 있니?'],
+          choice: {
+            ask: '꽃을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '아가씨의 말만 전한다', sora: '"아버지 몫까지 잘 달려 주세요", 래요.', says: '…그 철길이군요. 일 초도 안 늦겠습니다.' },
+              { id: 'E2', label: '내 말도 보탠다', sora: '잘 달려 주세요! 이 기차, 육십 년 뒤에도 달려요!', says: '하하, 육십 년이라. 첫날부터 잘 달려야겠군.' },
+            ],
+          },
+          errand: 'gave',
+        },
       ],
-      chooser: 'flowers', weigh: '두 분 말씀 들었어요. 어떻게 하면 좋을까요?',
-      routes: {
-        A: { label: '하고 싶은 말을 쪽지에 적는다', gain: '말이 다 담겨요.', loss: '하지만 읽기엔 길어요.', actor: 'flowers', result: '다 적으니 좋네요. 직접 읽기엔 길어요.', holds: '쪽지: 아가씨가 가지고 있음', record: '마음을 쪽지에 적었다' },
-        B: { label: '짧은 한마디를 연습한다', gain: '말하기 쉬워요.', loss: '하지만 못다 한 말이 남아요.', actor: 'flowers', result: '말은 할 수 있겠어요. 빠진 얘기도 많네요.', holds: '한마디: 아가씨가 외우고 있음', record: '짧은 인사를 연습했다' },
-      },
-      resolver: 'flowers', close: '이제 전할 시간이에요. 어떻게 할까요?',
-      endings: {
-        E1: { label: '직접 짧게 인사하고 꽃을 준다', says: '고맙습니다. 이 말을 하고 싶었어요.', reply: '많은 말 대신, 직접 건넨 한마디가 남는 날도 있구나.', record: '직접 전했다', holds: '꽃다발: 역장에게 전했음' },
-        E2: { label: '역장님께 꽃과 말을 맡긴다', says: '대신 전해 주셔서 고마워요.', reply: '누군가의 손을 빌려도, 전하려던 마음을 남길 수 있구나.', record: '역장에게 맡겼다', holds: '꽃다발과 말: 역장에게 맡겼음' },
-      },
-      goals: {
-        S0: '역 앞의 꽃다발 든 아가씨에게 가 보렴.',
-        S1: '승강장에서 ! 가 뜬 두 사람에게 물어보렴.',
-        S2: '아가씨에게 가서 어떻게 도울지 정하렴.',
-        S3: '승강장의 아가씨에게 가 보렴.',
-        S4: '아가씨와 마지막을 정하렴.',
-        S5: '고마운 마음을 전했다.',
-      },
+      // What follows the handing over, each a few seconds after the last: the train is sent
+      // off, and the woman, who has come up to the platform, has seen it.
+      after: [{ who: 'master', line: '여섯 시 정각, 히카리 1호 출발!' }, { who: 'flowers', line: '봤어요! 꽃을 창가에 두셨어요. 고마워요.' }],
+      // What those with a part say when it is not their turn.
+      asides: [
+        { who: 'flowers0', when: ['S1', 'S2', 'S3'], lines: ['"아버지 몫까지 잘 달려 주세요" 하고 전해 줘요.', '기관사님은 19번 승강장에 계세요. 오른쪽이에요.'] },
+        { who: 'flowers', when: ['S4'], lines: ['봤어요! 꽃을 창가에 두셨어요. 고마워요.', '아버지께도 꼭 말씀드릴게요.'] },
+      ],
+      done: '꽃과 말을 기관사에게 전했다.',
+      held: '꽃다발: 기관사에게 전했음',
     },
-    // The tale's three marks in the notebook: both heard, a way tried, the end chosen. Nobody
-    // does them by being spoken to (`at` is empty): the tale does (main.js).
+    // The tale's three marks in the notebook. Nobody does them by being spoken to (`at` is
+    // empty): the tale does (main.js, a step's `errand`).
     errands: [
-      { id: 'heard', text: '두 사람의 이야기를 듣는다.', at: [] },
-      { id: 'tried', text: '한 가지 방법을 해 본다.', at: [] },
-      { id: 'ended', text: '마지막을 정한다.', at: [] },
+      { id: 'took', text: '아가씨의 꽃을 받는다.', at: [] },
+      { id: 'way', text: '전할 틈을 알아낸다.', at: [] },
+      { id: 'gave', text: '기관사에게 꽃을 전한다.', at: [] },
     ],
-    reply: '고마운 마음을 전했구나. 그 기차는 지금도 달린단다.',
+    reply: '그 기차는 열 시 정각에 오사카에 닿았단다. 그날 달린 예순 편이 모두 제시각이었지.',
   },
   // The first leaf: grandmother's village on the night of 21 July 1969, the one day in
   // the notebook she saw herself (the user, 2026.10.8, of the places made in Paris's

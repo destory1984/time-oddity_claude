@@ -1,101 +1,131 @@
 import { describe, expect, it } from 'vitest';
 import { WALKS } from '../game/src/core/walks.js';
-import { accept, calledOf, choose, emptyTale, end, goalOf, hear, holdsOf, keepOn, lineOf, present, recordOf, revise, roleOf, sanitizeTale } from '../game/src/core/tale.js';
-import { createWalk, linesOf, peopleOf, speak } from '../game/src/core/walk.js';
+import { advance, calledOf, callOf, emptyTale, endingOf, goalOf, holdsOf, isTold, partOf, present, sanitizeTale, stepOf, textOf } from '../game/src/core/tale.js';
+import { createWalk, linesOf, peopleOf, speak, stepWalk, talkedOut } from '../game/src/core/walk.js';
 import { emptyProgress, markTale, sanitizeProgress, taleOf } from '../game/src/core/progress.js';
 
-// The plan the user brought on 2026.10.8 (sections 2, 3 and 11.4), for the place tried: Tokyo.
+// Tokyo, told as a thing carried (the user, 2026.10.9: "아가씨한테 꽃과 말을 전달받고,
+// 기관사한테 가서 전달하고, 이러는게 미션 아님?").
 const place = WALKS.shinkansen;
 const tale = place.tale;
-const heardBoth = (order = ['c1', 'c2']) => order.reduce((t, id) => hear(t, tale, id), accept(emptyTale()));
+const upTo = (n) => { let t = emptyTale(); for (let i = 0; i < n; i += 1) t = advance(tale, t, 'E1'); return t; };
+const told = (ending) => { let t = emptyTale(); for (let i = 0; i < tale.steps.length; i += 1) t = advance(tale, t, ending); return t; };
+const person = (id) => place.scenes.flatMap((scene) => scene.people).find((p) => p.id === id);
+const sceneWith = (id) => place.scenes.findIndex((scene) => scene.people.some((p) => p.id === id));
 
-describe('a tale with a try in the middle of it', () => {
-  it('begins when it is taken up, and not before', () => {
-    expect(hear(emptyTale(), tale, 'c1').state).toBe('S0');
-    expect(accept(emptyTale()).state).toBe('S1');
+describe('a tale of a thing carried', () => {
+  it('goes a step at a time, with one person to go to at each', () => {
+    let t = emptyTale();
+    for (const step of tale.steps) {
+      expect(stepOf(tale, t)).toBe(step);
+      expect(calledOf(tale, t)).toEqual([step.who]);
+      expect(goalOf(tale, t)).toBe(step.goal);
+      t = advance(tale, t, 'E1');
+    }
+    expect(isTold(tale, t)).toBe(true);
+    expect(calledOf(tale, t)).toEqual([]);
+    expect(goalOf(tale, t)).toBe(tale.done);
+    expect(holdsOf(tale, t)).toBe(tale.held);
+    expect(advance(tale, t, 'E1')).toBe(t);
   });
-  it('counts the same one heard twice as one, and takes the two in either order (QA01, QA02)', () => {
-    const once = hear(hear(accept(emptyTale()), tale, 'c1'), tale, 'c1');
-    expect(once.state).toBe('S1');
-    expect(once.clues).toEqual(['c1']);
-    expect(heardBoth(['c1', 'c2']).state).toBe('S2');
-    expect(heardBoth(['c2', 'c1']).state).toBe('S2');
+  it('is not ended without one of the two things to say being chosen', () => {
+    const last = upTo(tale.steps.length - 1);
+    expect(advance(tale, last)).toBe(last);
+    expect(advance(tale, last, 'E9')).toBe(last);
+    for (const id of ['E1', 'E2']) expect(endingOf(tale, told(id)).id).toBe(id);
   });
-  it('settles the way with the one who asked, once the two are heard', () => {
-    const t = heardBoth();
-    expect(calledOf(tale, t)).toEqual([tale.chooser]);
-    expect(roleOf(tale, t, tale.chooser)).toBe('chooser');
-    expect(lineOf(tale, t, tale.chooser)).toBe(tale.weigh);
-    expect(roleOf(tale, t, tale.clues[1].actor)).toBe('clue');
-    expect(tale.weigh.length).toBeLessThanOrEqual(40);
-  });
-  it('is told how the way chosen went by the one that way names (QA03)', () => {
-    for (const route of ['A', 'B']) {
-      const t = choose(heardBoth(), route);
-      expect(t.state).toBe('S3');
-      expect(calledOf(tale, t)).toEqual([tale.routes[route].actor]);
-      expect(lineOf(tale, t, tale.routes[route].actor)).toBe(tale.routes[route].result);
-      expect(holdsOf(tale, t)).toBe(tale.routes[route].holds);
-      expect(keepOn(t).state).toBe('S4');
+  it('never sends her back: each step is in the scene she is in or one further on', () => {
+    let scene = 0;
+    for (const step of tale.steps) {
+      expect(sceneWith(step.who)).toBeGreaterThanOrEqual(scene);
+      scene = sceneWith(step.who);
     }
   });
-  it('may change its way once, keeps both in their order, and not twice (QA04)', () => {
-    const once = revise(choose(heardBoth(), 'A'));
-    expect(once.route).toBe('B');
-    expect(once.attempts).toEqual(['A', 'B']);
-    expect(once.state).toBe('S3');
-    expect(revise(once)).toBe(once);
-    expect(keepOn(once).state).toBe('S4');
+  it('has the flowers in her hands from the taking up to the handing over', () => {
+    expect(holdsOf(tale, upTo(0))).toContain('아가씨');
+    for (let n = 1; n < tale.steps.length; n += 1) expect(holdsOf(tale, upTo(n))).toContain('소라');
+    expect(tale.held).toContain('기관사');
   });
-  it('comes to both ends by all four ways: eight in all (QA05)', () => {
-    const ways = [(t) => keepOn(choose(t, 'A')), (t) => keepOn(choose(t, 'B')), (t) => keepOn(revise(choose(t, 'A'))), (t) => keepOn(revise(choose(t, 'B')))];
-    for (const way of ways) for (const ending of ['E1', 'E2']) {
-      const t = end(way(heardBoth()), ending);
-      expect(t.state).toBe('S5');
-      expect(recordOf(tale, t).at(-1)).toBe(tale.endings[ending].record);
-      expect(recordOf(tale, t).length).toBe(t.attempts.length + 1);
-      expect(goalOf(tale, t)).toBe(tale.goals.S5);
+  it('has the one who asks before the station until it is done, and on the platform after', () => {
+    for (let n = 0; n < tale.steps.length; n += 1) {
+      const walk = createWalk(place, { tale: upTo(n) });
+      expect(peopleOf(walk).map((p) => p.id)).toContain('flowers0');
+      walk.scene = 1;
+      expect(peopleOf(walk).map((p) => p.id)).not.toContain('flowers');
     }
+    const after = createWalk(place, { tale: told('E1'), scene: 1 });
+    expect(peopleOf(after).map((p) => p.id)).toContain('flowers');
   });
-  it('cannot be ended before its time (QA20)', () => {
-    for (const t of [emptyTale(), accept(emptyTale()), heardBoth(), choose(heardBoth(), 'A')]) expect(end(t, 'E1')).toBe(t);
+  it('says a step out line by line from the first, though she has met them before', () => {
+    const giver = person(tale.steps[0].who);
+    const walk = createWalk(place, { met: [giver.id] });
+    walk.x = giver.x;
+    const lines = tale.steps[0].lines;
+    lines.forEach((line, n) => {
+      const said = speak(walk, giver.id);
+      expect(said.line).toBe(line);
+      expect(said.role).toBe('step');
+      expect(said.last).toBe(n === lines.length - 1);
+    });
+    expect(talkedOut(walk, giver)).toBe(true);
+    expect(speak(walk, giver.id).over).toBe(true);
+    expect(speak(walk, giver.id).line).toBe(lines[0]);
   });
-  it('is kept and read back as it was, and a record that is none is left out (QA06, QA12)', () => {
-    const t = revise(choose(heardBoth(), 'A'));
+  it('lets another answer for the one she goes to, and still counts it theirs', () => {
+    const walk = createWalk(place, { tale: upTo(1), scene: 1 });
+    const driver = person('driver');
+    walk.x = driver.x;
+    const said = speak(walk, 'driver');
+    expect(said.line).toBe(textOf(tale.steps[1].lines[0]));
+    expect(walk.heard.id).toBe('master');
+    expect(walk.heard.of).toBe('driver');
+    expect(speak(walk, 'driver').last).toBe(true);
+  });
+  it('has whoever is called for call out to her as she comes near', () => {
+    const walk = createWalk(place, { tale: upTo(2), scene: 1 });
+    walk.x = person('fan').x;
+    stepWalk(walk, 16, 0);
+    expect(walk.passing.line).toBe(tale.steps[2].call);
+    expect(callOf(tale, upTo(0), 'fan')).toBe(null);
+    const before = createWalk(place, { scene: 1 });
+    before.x = person('fan').x;
+    stepWalk(before, 16, 0);
+    expect(before.passing.line).toBe(person('fan').pass);
+  });
+  it('gives those with no part their own lines, and those waiting their aside', () => {
+    const walk = createWalk(place);
+    expect(linesOf(walk, person('bento'))).toBe(person('bento').lines);
+    expect(partOf(tale, upTo(1), 'flowers0').role).toBe('aside');
+    expect(partOf(tale, upTo(1), 'driver').role).toBe('step');
+    expect(partOf(tale, upTo(2), 'driver')).toBe(null);
+    expect(partOf(tale, told('E1'), 'flowers').role).toBe('aside');
+  });
+  it('is kept and read back as it was, and a record of the first shape begins again', () => {
+    const t = upTo(2);
     const kept = sanitizeProgress(JSON.stringify(markTale(emptyProgress(), 'shinkansen', t)), ['shinkansen']);
     expect(taleOf(kept, 'shinkansen')).toEqual(t);
-    expect(sanitizeTale({ state: 'S3' })).toBe(null);
-    expect(sanitizeTale({ state: 'S9', route: 'A' })).toBe(null);
+    expect(sanitizeTale({ state: 'S3', route: 'A', clues: ['c1', 'c2'], attempts: ['A'], revisionUsed: false, endingId: null })).toBe(null);
+    expect(sanitizeTale({ v: 2, state: 'S99' })).toBe(null);
     expect(sanitizeTale('S1')).toBe(null);
   });
-  it('has the one who asks in one place at a time', () => {
-    const before = createWalk(place);
-    expect(peopleOf(before).map((p) => p.id)).toContain('flowers0');
-    const after = createWalk(place, { tale: accept(emptyTale()) });
-    expect(peopleOf(after).map((p) => p.id)).not.toContain('flowers0');
-    after.scene = 1;
-    expect(peopleOf(after).map((p) => p.id)).toContain('flowers');
-    before.scene = 1;
-    expect(peopleOf(before).map((p) => p.id)).not.toContain('flowers');
-  });
-  it('gives whoever has a part their line of the tale, and the others their own', () => {
-    const walk = createWalk(place);
-    const giver = place.scenes[0].people.find((p) => p.id === tale.giver);
-    expect(roleOf(tale, walk.tale, giver.id)).toBe('giver');
-    expect(linesOf(walk, giver)).toEqual([tale.offer]);
-    const bento = place.scenes[0].people.find((p) => p.id === 'bento');
-    expect(linesOf(walk, bento)).toBe(bento.lines);
-    walk.x = giver.x;
-    expect(speak(walk, giver.id).line).toBe(tale.offer);
-  });
-  it('is written within the limits and names people who are there', () => {
+  it('is written within the limits, names people who are there and marks the three errands', () => {
     const ids = place.scenes.flatMap((scene) => scene.people.map((p) => p.id));
     expect(tale.ask.length).toBeLessThanOrEqual(25);
-    for (const id of [tale.giver, tale.resolver, ...tale.clues.map((c) => c.actor), tale.routes.A.actor, tale.routes.B.actor]) expect(ids).toContain(id);
-    for (const line of [tale.offer, tale.close, ...tale.clues.map((c) => c.line), tale.routes.A.result, tale.routes.B.result, tale.endings.E1.says, tale.endings.E2.says]) expect(line.length, line).toBeLessThanOrEqual(40);
-    for (const ending of Object.values(tale.endings)) expect(ending.reply.length, ending.reply).toBeLessThanOrEqual(60);
-    for (const state of ['S0', 'S1', 'S2', 'S3', 'S4', 'S5']) expect(typeof tale.goals[state]).toBe('string');
+    const said = [...tale.steps.flatMap((s) => s.lines), ...tale.asides.flatMap((a) => a.lines), ...tale.after.map((a) => a.line)];
+    for (const line of said) expect(textOf(line).length, textOf(line)).toBeLessThanOrEqual(40);
+    for (const step of tale.steps) {
+      expect(ids).toContain(step.who);
+      for (const line of step.lines) if (typeof line !== 'string') expect(ids).toContain(line.by);
+      if (step.call) expect(step.call.length).toBeLessThanOrEqual(25);
+      if (step.sora) expect(step.sora.length, step.sora).toBeLessThanOrEqual(40);
+    }
+    for (const who of [...tale.asides.map((a) => a.who), ...tale.after.map((a) => a.who)]) expect(ids).toContain(who);
+    const choice = tale.steps.at(-1).choice;
+    expect(choice.options.map((o) => o.id)).toEqual(['E1', 'E2']);
+    for (const option of choice.options) for (const line of [option.sora, option.says]) expect(line.length, line).toBeLessThanOrEqual(40);
+    expect(tale.steps.map((s) => s.errand).filter(Boolean)).toEqual(place.errands.map((e) => e.id));
+    expect(place.reply.length).toBeLessThanOrEqual(60);
     expect(present(emptyTale(), { when: ['S0'] })).toBe(true);
-    expect(present(accept(emptyTale()), { when: ['S0'] })).toBe(false);
+    expect(present(upTo(1), { when: ['S0'] })).toBe(false);
   });
 });

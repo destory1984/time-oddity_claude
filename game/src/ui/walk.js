@@ -354,9 +354,10 @@ export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
     }
     // What they open or hold up to show her is under their words, large.
     // Where they speak in a bubble, or she is trying the thing, it is a card of its own.
-    const showing = heard?.person.show ?? held;
+    // (What is said for a tale is said plainly: nothing is held up with it.)
+    const showing = (walk.heard?.plain ? null : heard?.person.show) ?? held;
     const big = showing ? `./walks/${place.dir}/show-${showing}.webp` : '';
-    const show = panel && heard.person.show ? big : '';
+    const show = panel && heard.person.show && !walk.heard.plain ? big : '';
     if (shown.dataset.src !== show) { shown.dataset.src = show; if (show) shown.src = show; talk.classList.toggle('showing', Boolean(show)); }
     // What she says of it, in the panel under it.
     const remark = panel && walk.remark?.id === walk.heard.id ? walk.remark.text : '';

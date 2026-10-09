@@ -1,96 +1,70 @@
-// A place told as a tale with a try in the middle of it (the plan the user brought on
-// 2026.10.8, "6개 도시 개발 인계 세부 기획", sections 2 and 3; Tokyo is the place tried this
-// way). Someone asks a thing of her; she hears two people out, in either order; she
-// chooses one of two ways; she is told how it went and may change her way, once; and at
-// the end she chooses one of two ends. Nothing is lost by any of it and nothing is timed.
+// A place told as a tale of a thing carried: someone asks her to take something to
+// someone else, she is stopped on the way, somebody tells her how it may be done, and she
+// hands it over, choosing what to say as she does. Tokyo is the place told this way.
 //
-// The states: S0 asked, S1 hearing the two out, S2 choosing a way, S3 told how it went,
-// S4 choosing the end, S5 done. A record is never changed in place: each step gives back
-// a new one, or the same one when the step is not to be taken now.
+// It was first written with a try in the middle of it (a way chosen out of two, and changed
+// once), after a plan the user brought on 2026.10.8. The user, having tried that on
+// 2026.10.9: of the box of two ways, "이건 없애줘. 의미가 없음"; of the slip, "저 가이드가
+// 없으면, 게임을 제대로 못 하고 헤매게 되네"; and of the end, which was only talk with the one
+// who asked, "아가씨한테 꽃과 말을 전달받고, 기관사한테 가서 전달하고, 이러는게 미션 아님?".
+// So: the steps come one after another, each with one person to go to; what is said at the
+// end of a step names where to go next; and the only choice is at the handing over.
 //
-// A place's `tale` (core/walks.js): { ask, giver, offer, clues: [{ id, actor, line }], chooser, weigh,
-// routes: { A, B: { label, gain, loss, actor, result, holds, record } },
-// resolver, close, endings: { E1, E2: { label, says, reply, record } }, goals: { S0…S5 } }.
-export const STATES = ['S0', 'S1', 'S2', 'S3', 'S4', 'S5'];
-const ROUTES = ['A', 'B'];
-const ENDS = ['E1', 'E2'];
+// A place's `tale` (core/walks.js):
+// { ask, steps: [{ who, lines, call?, offer?, choice?, sora?, errand?, goal, holds? }],
+//   asides: [{ who, when: [states], lines }], done, held? }
+// A step is done when the last of its lines has been said to her by `who` (and its offer
+// taken, or one of its choice chosen). A line is a string, or { by, text } when someone
+// else says it (the station master stepping in before the driver).
+// The state is 'S0' for the first step, 'S1' for the second, and one past the last when
+// the tale is told. A record is never changed in place.
+export const STATES = ['S0', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9'];
+const SHAPE = 2;      // records of the first shape (a way, a change, attempts) begin again
 
-export const emptyTale = () => ({ state: 'S0', clues: [], route: null, revisionUsed: false, attempts: [], endingId: null });
+export const emptyTale = () => ({ v: SHAPE, state: 'S0', endingId: null });
 
-export const accept = (t) => (t.state === 'S0' ? { ...t, state: 'S1' } : t);
+const at = (t) => STATES.indexOf(t?.state ?? 'S0');
+// The step she is on, or null once the tale is told.
+export const stepOf = (tale, t) => tale.steps[at(t)] ?? null;
+export const isTold = (tale, t) => at(t) >= tale.steps.length;
+const choiceOf = (tale) => tale.steps.find((step) => step.choice)?.choice ?? null;
+// What she chose at the handing over, or null.
+export const endingOf = (tale, t) => choiceOf(tale)?.options.find((o) => o.id === t.endingId) ?? null;
 
-// Hearing one of the two out. The same one twice is one; the second of the two opens the choice.
-export function hear(t, tale, clueId) {
-  if (t.state !== 'S1' || t.clues.includes(clueId) || !tale.clues.some((c) => c.id === clueId)) return t;
-  const clues = [...t.clues, clueId];
-  return { ...t, clues, state: clues.length >= tale.clues.length ? 'S2' : 'S1' };
+// The step she is on is done. Where it ends in a choice, `chosen` is the id of what she chose.
+export function advance(tale, t, chosen = null) {
+  const step = stepOf(tale, t);
+  if (!step) return t;
+  if (step.choice && !step.choice.options.some((o) => o.id === chosen)) return t;
+  return { ...t, state: STATES[at(t) + 1], endingId: step.choice ? chosen : t.endingId };
 }
 
-export const choose = (t, route) => (t.state === 'S2' && ROUTES.includes(route) ? { ...t, state: 'S3', route, attempts: [route], revisionUsed: false } : t);
-
-// Told how it went, she goes on as she is, or takes the other way: once in a tale.
-export const keepOn = (t) => (t.state === 'S3' ? { ...t, state: 'S4' } : t);
-export function revise(t) {
-  if (t.state !== 'S3' || t.revisionUsed) return t;
-  const route = t.route === 'A' ? 'B' : 'A';
-  return { ...t, route, attempts: [...t.attempts, route], revisionUsed: true };
+// What someone has to say for the tale just now: { role: 'step' | 'aside', lines }, or null
+// when they have only their own things to say.
+export function partOf(tale, t, personId) {
+  const step = stepOf(tale, t);
+  if (step?.who === personId) return { role: 'step', lines: step.lines };
+  const aside = (tale.asides ?? []).find((a) => a.who === personId && a.when.includes(t.state));
+  return aside ? { role: 'aside', lines: aside.lines } : null;
 }
+export const textOf = (line) => (typeof line === 'string' ? line : line.text);
+export const speakerOf = (line, personId) => (typeof line === 'string' ? personId : line.by ?? personId);
 
-export const end = (t, endingId) => (t.state === 'S4' && ENDS.includes(endingId) ? { ...t, state: 'S5', endingId } : t);
+// Who is to be spoken to now: marked over their head until it is done.
+export const calledOf = (tale, t) => { const step = stepOf(tale, t); return step ? [step.who] : []; };
+// What the one called for calls out as she comes near, or null.
+export const callOf = (tale, t, personId) => { const step = stepOf(tale, t); return step?.who === personId ? step.call ?? null : null; };
 
-// What someone is to the tale just now: 'giver', 'clue', 'result', 'resolver', or null.
-export function roleOf(tale, t, personId) {
-  if (t.state === 'S0') return personId === tale.giver ? 'giver' : null;
-  // The two heard, it is the one who asked that the way is settled with, not whoever spoke
-  // last (the user, 2026.10.8, the choice having come up on the second of them: "이 말은 꽃 든
-  // 아가씨를 클릭하면 나와야하는거 아님?").
-  if (t.state === 'S2' && personId === tale.chooser) return 'chooser';
-  if (t.state === 'S1' || t.state === 'S2') return tale.clues.some((c) => c.actor === personId) ? 'clue' : null;
-  if (t.state === 'S3') return personId === tale.routes[t.route].actor ? 'result' : null;
-  if (t.state === 'S4') return personId === tale.resolver ? 'resolver' : null;
-  return personId === tale.resolver ? 'after' : null;
-}
-
-// What they say in that part, or null when they have their own things to say.
-export function lineOf(tale, t, personId) {
-  const role = roleOf(tale, t, personId);
-  if (role === 'giver') return tale.offer;
-  if (role === 'clue') return tale.clues.find((c) => c.actor === personId).line;
-  if (role === 'chooser') return tale.weigh;
-  if (role === 'result') return tale.routes[t.route].result;
-  if (role === 'resolver') return tale.close;
-  if (role === 'after') return tale.endings[t.endingId].says;
-  return null;
-}
-
-// Who is to be spoken to now: they are marked over their heads until it is done.
-export function calledOf(tale, t) {
-  if (t.state === 'S0') return [tale.giver];
-  if (t.state === 'S1') return tale.clues.filter((c) => !t.clues.includes(c.id)).map((c) => c.actor);
-  if (t.state === 'S2') return [tale.chooser];
-  if (t.state === 'S3') return [tale.routes[t.route].actor];
-  if (t.state === 'S4') return [tale.resolver];
-  return [];
-}
-
-export const goalOf = (tale, t) => tale.goals[t.state];
+export const goalOf = (tale, t) => stepOf(tale, t)?.goal ?? tale.done;
 // What is in whose hands, in a line (there is no bag to open).
-export const holdsOf = (tale, t) => (t.state === 'S5' ? tale.endings[t.endingId].holds : t.route ? tale.routes[t.route].holds : tale.holds) ?? null;
-// What she did, in order, for the notebook: the ways tried, then the end.
-export const recordOf = (tale, t) => [...t.attempts.map((r) => tale.routes[r].record), ...(t.endingId ? [tale.endings[t.endingId].record] : [])];
+export const holdsOf = (tale, t) => (isTold(tale, t) ? tale.held : stepOf(tale, t).holds) ?? null;
 
 // Whether someone is to be seen where they are placed: a person's `when` names the states.
 export const present = (t, person) => !person.when || person.when.includes(t?.state ?? 'S0');
 
-// A kept record read back: anything that is not one is an empty one.
+// A kept record read back: anything that is not one of this shape is left out.
 export function sanitizeTale(raw) {
-  if (!raw || typeof raw !== 'object' || !STATES.includes(raw.state)) return null;
-  const clues = Array.isArray(raw.clues) ? [...new Set(raw.clues.filter((c) => typeof c === 'string' && c.length <= 8))].slice(0, 4) : [];
-  const attempts = Array.isArray(raw.attempts) ? raw.attempts.filter((r) => ROUTES.includes(r)).slice(0, 2) : [];
-  const route = ROUTES.includes(raw.route) ? raw.route : null;
-  const endingId = ENDS.includes(raw.endingId) ? raw.endingId : null;
-  // A record that does not hang together (a way with no state for it) begins again.
-  if ((raw.state === 'S3' || raw.state === 'S4') && !route) return null;
-  if (raw.state === 'S5' && (!route || !endingId)) return null;
-  return { state: raw.state, clues, route, revisionUsed: raw.revisionUsed === true, attempts, endingId };
+  if (!raw || typeof raw !== 'object' || raw.v !== SHAPE || !STATES.includes(raw.state)) return null;
+  const endingId = typeof raw.endingId === 'string' && raw.endingId.length <= 8 ? raw.endingId : null;
+  return { v: SHAPE, state: raw.state, endingId };
 }

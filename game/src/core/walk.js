@@ -14,7 +14,7 @@
 //   (a picture of hers, public/sora/<pose>.png), trips?: how many frames there are of her
 //   treading on its hem as she walks (<outfit>-trip-N.png) }. Something that is not a person (a water clock)
 // has a try and no lines.
-import { emptyTale, lineOf, present } from './tale.js';
+import { callOf, emptyTale, partOf, present, speakerOf, textOf } from './tale.js';
 
 export const VERBS = { eat: '먹어 볼래', wear: '입어 볼래', use: '써 볼래' };
 export const FACES = ['yum', 'sour', 'yuck', 'hmm'];
@@ -32,7 +32,8 @@ export function createWalk(place, { scene = 0, x = 0.08, tried = [], been = [], 
     // How many times each person has been spoken to. One met on an earlier visit has said
     // both lines, and begins again with the first.
     said: Object.fromEntries(met.map((id) => [id, 2])),
-    heard: null,         // { id, line }: what was last said to her, while it is shown
+    heard: null,         // { id, line, of?, plain? }: what was last said to her, while it is shown (of: whom she spoke to, when another answered; plain: nothing is held up with it)
+    part: null,          // { key, n }: how many lines of their part in the tale the one she is with has said
     passing: null,       // { id, line }: what someone she is passing says, unasked, while she is near
     hush: false,         // a talk has just been ended: nobody calls out to her until she walks on
     done: [...done],     // the errands done, by id
@@ -73,7 +74,16 @@ export function nearby(walk) {
 export const worth = (walk, person) => Boolean(person.show || person.try || walk.place.errands.some((errand) => errand.at.includes(person.id)));
 
 // Whether the one she is hearing has said the last of their lines: the next touch ends the talk.
-export const talkedOut = (walk, person) => walk.heard?.id === person.id && (walk.said[person.id] ?? 0) > 0 && (walk.said[person.id] ?? 0) % linesOf(walk, person).length === 0;
+export const talkedOut = (walk, person) => (walk.heard?.of ?? walk.heard?.id) === person.id && countOf(walk, person) > 0 && countOf(walk, person) % linesOf(walk, person).length === 0;
+
+// The lines of a part in the tale are counted apart from a person's own, and from the first
+// each time the tale comes to them: one spoken to before would else begin in the middle.
+const partKey = (walk, person) => (walk.tale && partOf(walk.place.tale, walk.tale, person.id) ? `${walk.tale.state}:${person.id}` : null);
+function countOf(walk, person) {
+  const key = partKey(walk, person);
+  if (!key) return walk.said[person.id] ?? 0;
+  return walk.part?.key === key ? walk.part.n : 0;
+}
 
 // Whether they can be spoken to. Anyone who speaks can, as often as she likes: one who fell
 // silent after two lines seemed broken ("클릭은 계속 되어야지..또 듣고 싶을 수도 있잖아").
@@ -110,13 +120,15 @@ function finish(walk, id) {
 export function linesOf(walk, person) {
   if (!person?.lines) return null;
   // In a tale whoever has a part in it just now says that, and nothing else.
-  const told = walk.tale ? lineOf(walk.place.tale, walk.tale, person.id) : null;
-  if (told) return [told];
+  const part = walk.tale ? partOf(walk.place.tale, walk.tale, person.id) : null;
+  if (part) return part.lines;
   const later = (person.then ?? []).filter((t) => walk.done.includes(t.after));
   return later.length > 0 ? later[later.length - 1].lines : person.lines;
 }
 
-// Speaks to whoever is near. Returns { person, line, errands: [ids done just now] }, or
+// Speaks to whoever is near. Returns { person, line, errands: [ids done just now], role:
+// their part in the tale as they spoke ('step', 'aside' or null), last: that was the last
+// line of it }, or
 // null when nobody is. Each time, the next of their lines; spoken to once more when the
 // last has been said, they end the talk (line: null, over: true); spoken to after that,
 // they begin again with the first (the user, 2026.10.8: "2개라면, 2개를 출력한 후에 대화를
@@ -126,7 +138,8 @@ export function speak(walk, id = null) {
   const meant = id ? peopleOf(walk).find((p) => p.id === id && Math.abs(p.x - walk.x) <= REACH) : null;
   const person = meant ?? nearby(walk);
   if (!canSpeak(walk, person)) return null;
-  const count = walk.said[person.id] ?? 0;
+  const count = countOf(walk, person);
+  const key = partKey(walk, person);
   if (talkedOut(walk, person)) {
     // The talk is over and it is quiet: the one beside them does not call out at once, as
     // if the talk went on (the user, 2026.10.8, of Rome's market).
@@ -134,18 +147,23 @@ export function speak(walk, id = null) {
     return { person, line: null, over: true, errands: [] };
   }
   const lines = linesOf(walk, person);
-  const line = lines[count % lines.length];
-  walk.said[person.id] = count + 1;
-  walk.heard = { id: person.id, line };
+  const said = lines[count % lines.length];
+  const line = textOf(said);
+  if (key) walk.part = { key, n: count + 1 };
+  else walk.said[person.id] = count + 1;
+  // (One who has spoken for the tale is not marked afterwards as someone not yet met.)
+  if (key && !walk.said[person.id]) walk.said[person.id] = person.lines.length;
+  walk.heard = key ? { id: speakerOf(said, person.id), line, of: person.id, plain: true } : { id: person.id, line };
   walk.goal = null;
   walk.facing = person.x >= walk.x ? 1 : -1;
-  return { person, line, errands: finish(walk, person.id) };
+  const role = key ? partOf(walk.place.tale, walk.tale, person.id).role : null;
+  return { person, line, errands: finish(walk, person.id), role, last: Boolean(key) && (count + 1) % lines.length === 0 };
 }
 
 // The one she is with: whoever she is hearing, else whoever is nearest. What can be done at
 // the foot of the screen is theirs (the user, 2026.10.8, having touched a lady and been
 // offered the dormouse of the man beside her: "이 사람 눌렀는데, 쥐 먹어보라고 나온다").
-export const withWhom = (walk) => (walk.heard ? peopleOf(walk).find((p) => p.id === walk.heard.id) : null) ?? nearby(walk);
+export const withWhom = (walk) => (walk.heard ? peopleOf(walk).find((p) => p.id === (walk.heard.of ?? walk.heard.id)) : null) ?? nearby(walk);
 
 // What a person has for her to eat, wear or use now, or null. What she has on is not
 // offered again ("이미 입고 있는데, 버튼이 계속 보임"), nor what she has eaten or used on this
@@ -223,7 +241,10 @@ export function stepWalk(walk, dtMs, way = 0) {
     else walk.x = Math.max(EDGE, Math.min(1 - EDGE, next));
   }
   const by = walk.hush ? null : overheard(walk);
-  if ((by?.id ?? null) !== (walk.passing?.id ?? null)) walk.passing = by ? { id: by.id, line: by.pass } : null;
+  // (Whoever the tale calls for calls out to her instead of saying what they always say.)
+  const called = by && walk.tale ? callOf(walk.place.tale, walk.tale, by.id) : null;
+  const passed = by ? called ?? by.pass : null;
+  if ((by?.id ?? null) !== (walk.passing?.id ?? null) || (by && walk.passing.line !== passed)) walk.passing = by ? { id: by.id, line: passed } : null;
   const spot = spotAt(walk);
   if (spot && !walk.seen.includes(spot.id)) {
     walk.seen.push(spot.id);
