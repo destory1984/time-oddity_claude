@@ -111,7 +111,22 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
   const windBell = (at) => { const notes = [1568, 1760, 2093, 2349]; ping(at, notes[Math.floor(Math.random() * notes.length)], 1.1, 0.035); };
   const drum = (at) => { [0, 0.4, 0.6, 0.8].forEach((t, i) => tone(at + t, { seconds: 0.22, from: i === 0 ? 95 : 80, to: 55, gain: 0.16 })); };
   const horn = (at) => { [[262, 0], [330, 0.28], [392, 0.56]].forEach(([f, t]) => { tone(at + t, { seconds: t > 0.5 ? 0.7 : 0.26, from: f, gain: 0.05, attack: 0.04 }); tone(at + t, { seconds: 0.25, from: f * 2, gain: 0.02, attack: 0.04 }); }); };
-  const clank = (at) => { tone(at, { seconds: 0.12, from: 72, to: 50, gain: 0.2 }); ping(at + 0.21, 1900, 0.05, 0.02); };
+  // A works was first one low thud every 0.42 s, as even as a clock: the user, 2026.10.10, at
+  // Agra's building site, "공사장 소리가.. 심장 소리 같아", "그닥 듣기 좋은 소리는 아니네". Now a
+  // hall of machines breathes steam with a light tick (`chuff`), and a mason's yard has a
+  // chisel struck on stone, high and short, now one blow and now three (`chisel`), a saw
+  // drawn through stone to and fro (`stoneSaw`) and a wooden mallet (`wood`), none of them in time.
+  const chuff = (at) => { hiss(at, { seconds: 0.2, from: 900, to: 500, gain: 0.045 }); ping(at + 0.3, 1500, 0.05, 0.012); };
+  const chisel = (at) => {
+    const blows = 1 + Math.floor(Math.random() * 3);
+    for (let i = 0; i < blows; i += 1) {
+      const t = at + i * (0.19 + Math.random() * 0.05);
+      const pitch = 2100 + Math.random() * 500;
+      hiss(t, { seconds: 0.035, from: 3400, gain: 0.07, q: 2 });
+      tone(t, { seconds: 0.07, from: pitch, to: pitch * 0.8, gain: 0.03 });
+    }
+  };
+  const stoneSaw = (at) => { for (let i = 0; i < 4; i += 1) hiss(at + i * 0.36, { seconds: 0.3, from: i % 2 ? 2400 : 1500, to: i % 2 ? 1500 : 2400, gain: 0.025, q: 3 }); };
   const fogHorn = (at) => { tone(at, { seconds: 1.6, from: 110, gain: 0.07, attack: 0.25 }); tone(at + 2.1, { seconds: 2.0, from: 98, gain: 0.07, attack: 0.25 }); };
   const gulls = (at) => { for (let i = 0; i < 3; i += 1) tone(at + i * 0.34, { seconds: 0.26, from: 1900, to: 1250, gain: 0.03, attack: 0.03 }); };
   const chime = (at) => { [784, 659, 523, 659].forEach((f, i) => ping(at + i * 0.42, f, 0.8, 0.045)); };
@@ -126,7 +141,8 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     court: [[3000, 7000, birds], [9000, 18000, farBell]],
     street: [[3500, 8000, birds], [7000, 15000, bikeBell], [12000, 22000, farBell]],
     arena: [[5000, 9000, drum], [9000, 16000, horn]],
-    works: [[420, 420, clank]],
+    works: [[640, 640, chuff]],
+    masons: [[500, 2000, chisel], [7000, 14000, stoneSaw], [5000, 11000, wood], [6000, 13000, birds]],
     palace: [[2500, 6000, windBell], [5000, 11000, birds]],
     bridge: [[9000, 16000, fogHorn], [4000, 9000, gulls]],
     station: [[8000, 14000, chime], [10000, 18000, whistle]],
