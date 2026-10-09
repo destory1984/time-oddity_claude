@@ -104,7 +104,7 @@ npm run dev
 npm run build
 ```
 
-- 코드는 `game/`, 시험은 `tests/`(261개), 지은 결과물은 `play/` 에 있다.
+- 코드는 `game/`, 시험은 `tests/`(262개), 지은 결과물은 `play/` 에 있다.
 - Vite와 Babylon.js(지구본)로 만들었다. 소리와 배경 음악 스무 곡은 파일이 아니라 그 자리에서 만들어 낸다.
 - 그림은 그림 모델에 발주해 받았다. 발주 글은 `docs/art-order-*.md` 에 있다.
 

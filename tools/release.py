@@ -1,5 +1,5 @@
 """Bumps the version by one patch and adds lines at the top of today's changes
-(game/src/core/changes.js). Run from the repository root before building and committing:
+(game/src/core/changes.js), then writes the same lines into docs/바뀐-것들.md. Run from the repository root before building and committing:
 
     python tools/release.py "line one" ["line two" ...]
 
@@ -25,4 +25,7 @@ s = load('game/src/core/changes.js')
 a = "export const CHANGES = [\n"
 assert s.count(a) == 1
 save('game/src/core/changes.js', s.replace(a, a + ''.join(f"  {{ day: '{DAY}', text: '{l}' }},\n" for l in lines)))
+# The same lines, for reading on GitHub (docs/바뀐-것들.md).
+import subprocess
+subprocess.run([sys.executable, 'tools/changes-doc.py'], check=True)
 print('v' + new)

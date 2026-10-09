@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { CHANGES, STARTED, changesUntil, dayLabel, startedLine } from '../game/src/core/changes.js';
 import { TEXT_SIZES, canResize, nextTextSize, textSizeFrom } from '../game/src/core/textSize.js';
@@ -10,6 +11,13 @@ describe('the changes page', () => {
       expect(text.endsWith('니다.') || text.endsWith('니다'), text).toBe(true);
     }
     expect(new Set(CHANGES.map((c) => c.text)).size).toBe(CHANGES.length);
+  });
+  // The same lines are kept for reading on GitHub (the user, 2026.10.9: "게임에도 당연히
+  // 넣지만, 깃헙에도 남겨놔야지"). tools/changes-doc.py writes them; tools/release.py runs it.
+  it('is written out in docs/바뀐-것들.md, every line of it', () => {
+    const doc = readFileSync(new URL('../docs/바뀐-것들.md', import.meta.url), 'utf8');
+    for (const { text } of CHANGES) expect(doc.includes(`- ${text}
+`), text).toBe(true);
   });
   it('runs from the newest day back to the day the making began', () => {
     const days = CHANGES.map((c) => c.day);
