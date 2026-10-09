@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isLocalHost } from '../game/src/core/host.js';
+import { TESTING, isLocalHost, showsTestBar } from '../game/src/core/host.js';
 import { countProgress, fullProgress, isComplete, notesRead, quizSolved, sanitizeProgress } from '../game/src/core/progress.js';
 
 describe('the maker\'s own machine', () => {
@@ -23,5 +23,13 @@ describe('a notebook filled for testing', () => {
   it('reads back unchanged from storage', () => {
     const full = fullProgress(ids, noteIds);
     expect(sanitizeProgress(JSON.stringify(full), ids, noteIds)).toEqual(full);
+  });
+});
+
+// The user, 2026.10.10: "초기화 버튼.. 아직은 테스트 중이니까, 깃헙으로 접속해도 쓸 수 있게 해줘".
+describe('the test buttons while the game is being tried', () => {
+  it('show on the public site for as long as TESTING is true, and always on the maker\'s machine', () => {
+    expect(showsTestBar('localhost')).toBe(true);
+    expect(showsTestBar('destory1984.github.io')).toBe(TESTING);
   });
 });

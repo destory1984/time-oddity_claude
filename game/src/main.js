@@ -36,7 +36,7 @@ import { createHud } from './ui/hud.js';
 import { createTouch } from './ui/touch.js';
 import { ZOOM_MAX, ZOOM_MIN, ZOOM_STEP } from './core/zoom.js';
 import { flyPose } from './core/flight.js';
-import { isLocalHost } from './core/host.js';
+import { isLocalHost, showsTestBar } from './core/host.js';
 import { WARP_CHORD_MS, createSound } from './ui/sound.js';
 import { createSettings } from './ui/settings.js';
 import { createMusic } from './ui/music.js';
@@ -1342,7 +1342,8 @@ function startOver() {
 // 만들어줘. 이건 테스트 버전에서만 보이는거"). Only the maker sees them: on the dev server,
 // not on the public site or in the store app. The settings (sound, music, text size,
 // screen shape) stay as they are.
-$('testBar').hidden = !isLocalHost(location.hostname);
+// (For as long as core/host.js TESTING is true they show on the public site as well.)
+$('testBar').hidden = !showsTestBar(location.hostname);
 $('testReset').addEventListener('click', () => startOver());
 // The maker tries one place's tale over and over (the user, 2026.10.8: "몇 번 더 해보고
 // 결정하자"): the place she stands in is begun again, the others left as they are.
