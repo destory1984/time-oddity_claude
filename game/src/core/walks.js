@@ -342,7 +342,12 @@ export const WALKS = {
   // the net that saved nineteen, four years of building, 67 m from the water, 1,280 m
   // between the towers.
   goldenGate: {
-    dir: 'sf', look: 'paper', talk: 'face',
+    // Drawn again in the manner of the posters the WPA printed in America in those years (the
+    // user, 2026.10.10, on being shown the place: "그림체는?", and of five tries: "샌프란은
+    // 1번이야"). The words and errands are as they were. The sky is in the pictures (`pale`),
+    // and people speak in bubbles: the faces of the panel were of the old manner.
+    dir: 'sf', look: 'paper', pale: true,
+    drawn: '그 무렵 미국의 포스터처럼 평평한 색 몇 가지로 그렸단다.',
     now: {
       photo: 'photo-now.webp', name: '금문교의 지금 모습', when: '미국 샌프란시스코 · 오늘날',
       text: [
@@ -354,56 +359,56 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'plaza', name: '샌프란시스코 금문교 어귀', short: '금문교 어귀', zoom: 1.3, ground: 0.735, scale: 0.66, air: 'street',
+        id: 'plaza', name: '샌프란시스코 금문교 어귀', short: '금문교 어귀', zoom: 1.09, ground: 0.74, scale: 0.638, air: 'street',
         sora: '다리가 빨개! 엄청 길다.',
         moving: [
-          { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.731, tall: 0.17, wide: 0.396, gap: 0.05, speed: 0.03, bob: 0.003 },
+          { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.736, tall: 0.16, wide: 0.386, gap: 0.05, speed: 0.03, bob: 0.003 },
         ],
         people: [
-          { id: 'hotdog', pass: '핫도그! 따끈한 핫도그 보고 가쇼!', show: 'hotdog', name: '핫도그 장수', x: 0.159, w: 119, h: 320, lines: ['핫도그요! 오늘 오만 개는 나가겠소.', '다리 구경엔 핫도그가 딱이지.'],
+          { id: 'hotdog', pass: '핫도그! 따끈한 핫도그 보고 가쇼!', show: 'hotdog', name: '핫도그 장수', x: 0.18, w: 122, h: 320, lines: ['핫도그요! 오늘 오만 개는 나가겠소.', '다리 구경엔 핫도그가 딱이지.'],
             try: { id: 'eat-hotdog', verb: 'eat', name: '핫도그', face: 'yum', sora: '겨자가 톡 쏴! 맛있다.' } },
-          { id: 'sleepy', pass: '하암… 드디어 열렸네.', name: '밤새 기다린 청년', x: 0.224, w: 120, h: 320, lines: ['어젯밤부터 줄 섰어요. 하암…', '맨 먼저 건너고 싶었거든요.'] },
-          { id: 'toll', pass: '한 줄로! 한 줄로 서요!', name: '요금 받는 사람', x: 0.36, w: 101, h: 311, lines: ['걸어서 건너는 값은 동전 한 닢이오.', '오늘은 사람만! 차는 내일부터요.'] },
-          { id: 'scout', pass: '길 잃은 분 안 계세요?', name: '보이스카우트 소년', x: 0.52, w: 112, h: 249, lines: ['아침 여섯 시에 문이 열렸어요.', '길 잃은 아이를 찾아 주는 중이에요.'] },
-          { id: 'badge', pass: '기념 배지 있어요!', name: '기념품 아주머니', x: 0.74, w: 120, h: 301, lines: ['기념 배지 사세요! 오늘뿐이에요.', '손주한테 줄 거라고들 사 가요.'],
+          { id: 'sleepy', pass: '하암… 드디어 열렸네.', name: '밤새 기다린 청년', x: 0.26, w: 122, h: 319, lines: ['어젯밤부터 줄 섰어요. 하암…', '맨 먼저 건너고 싶었거든요.'] },
+          { id: 'toll', pass: '한 줄로! 한 줄로 서요!', name: '요금 받는 사람', x: 0.37, w: 103, h: 310, lines: ['걸어서 건너는 값은 동전 한 닢이오.', '오늘은 사람만! 차는 내일부터요.'] },
+          { id: 'scout', pass: '길 잃은 분 안 계세요?', name: '보이스카우트 소년', x: 0.52, w: 115, h: 249, lines: ['아침 여섯 시에 문이 열렸어요.', '길 잃은 아이를 찾아 주는 중이에요.'] },
+          { id: 'badge', pass: '기념 배지 있어요!', name: '기념품 아주머니', x: 0.76, w: 122, h: 302, lines: ['기념 배지 사세요! 오늘뿐이에요.', '손주한테 줄 거라고들 사 가요.'],
             try: { id: 'wear-fedora', verb: 'wear', name: '중절모', outfit: 'fedora', sora: '다들 모자를 썼네. 나도!' } },
-          { id: 'camera', pass: '자, 찍습니다! 치즈!', show: 'stilts', pose: 'see-gasp', sora: '죽마로 다리를 건넌다고?!', memo: '호텔에서 일하던 사람이 죽마를 타고 건너갔다 돌아왔단다.', name: '사진기 든 아가씨', x: 0.88, w: 100, h: 303, lines: ['방금 찍었어요. 죽마 탄 사람!', '저마다 처음이 되려고 야단이에요.'] },
+          { id: 'camera', pass: '자, 찍습니다! 치즈!', show: 'stilts', pose: 'see-gasp', sora: '죽마로 다리를 건넌다고?!', memo: '호텔에서 일하던 사람이 죽마를 타고 건너갔다 돌아왔단다.', name: '사진기 든 아가씨', x: 0.865, w: 101, h: 305, lines: ['방금 찍었어요. 죽마 탄 사람!', '저마다 처음이 되려고 야단이에요.'] },
         ],
         spots: [],
       },
       {
-        id: 'deck', name: '샌프란시스코 금문교 위', short: '금문교 위', zoom: 1.2, ground: 0.8, scale: 0.64, air: 'bridge',
+        id: 'deck', name: '샌프란시스코 금문교 위', short: '금문교 위', zoom: 1.12, ground: 0.722, scale: 0.655, air: 'bridge',
         sora: '차가 없으니까 운동장 같아.',
         // The crowd goes over on foot, and now and then those who cross some odd way.
         moving: [
-          { kind: 'drift', id: 'over', src: 'crowd', from: 0, to: 1, foot: 0.794, tall: 0.17, wide: 0.396, gap: 0.08, speed: 0.03, bob: 0.003 },
-          { kind: 'drift', id: 'odd', src: 'stunts', from: 0, to: 1, foot: 0.8, tall: 0.17, wide: 0.304, gap: 0.9, speed: 0.06, bob: 0.004 },
+          { kind: 'drift', id: 'over', src: 'crowd', from: 0, to: 1, foot: 0.716, tall: 0.16, wide: 0.386, gap: 0.08, speed: 0.03, bob: 0.003 },
+          { kind: 'drift', id: 'odd', src: 'stunts', from: 0, to: 1, foot: 0.722, tall: 0.18, wide: 0.316, gap: 0.9, speed: 0.06, bob: 0.004 },
         ],
         people: [
-          { id: 'mother', pass: '바람이 시원하네, 아가.', name: '유모차 미는 어머니', x: 0.126, w: 214, h: 307, lines: ['아기도 오늘을 기억하면 좋겠어요.', '배 타고 건너던 길을 걸어서 가네.'] },
-          { id: 'grandpa', pass: '허허, 살다 보니 별일이야.', name: '할아버지', x: 0.25, w: 121, h: 319, lines: ['이 물목에 다리는 못 놓는다 했지.', '살아서 걸어 건널 줄이야.'] },
-          { id: 'worker', pass: '어이, 그물 구경해 볼 테요?', show: 'net', pose: 'see-gasp', sora: '다리 밑에 그물을 쳤구나!', name: '다리 일꾼', x: 0.42, w: 139, h: 320, lines: ['짓는 동안 밑에 그물을 쳤소. 보시오.', '그 그물에 떨어져 열아홉이 살았소.'] },
-          { id: 'skate', pass: '비켜요, 비켜! 지나가요!', name: '롤러스케이트 소녀', x: 0.57, w: 163, h: 249, lines: ['롤러스케이트로 건너는 중이야!', '끝까지 가면 내가 일등일걸.'] },
-          { id: 'backward', pass: '뒤로 가요, 뒤로!', name: '뒤로 걷는 남자', x: 0.71, w: 115, h: 315, lines: ['뒤로 걸어 건넌 건 내가 처음이오.', '신문에 나려면 별나야지.'] },
-          { id: 'harmonica', pass: '뿌우, 뿌!', name: '하모니카 소년', x: 0.86, w: 97, h: 246, lines: ['(하모니카를 분다) 뿌우 뿌!', '다리 건너며 한 곡 다 불 거야.'] },
+          { id: 'mother', pass: '바람이 시원하네, 아가.', name: '유모차 미는 어머니', x: 0.14, w: 217, h: 308, lines: ['아기도 오늘을 기억하면 좋겠어요.', '배 타고 건너던 길을 걸어서 가네.'] },
+          { id: 'grandpa', pass: '허허, 살다 보니 별일이야.', name: '할아버지', x: 0.25, w: 123, h: 318, lines: ['이 물목에 다리는 못 놓는다 했지.', '살아서 걸어 건널 줄이야.'] },
+          { id: 'worker', pass: '어이, 그물 구경해 볼 테요?', show: 'net', pose: 'see-gasp', sora: '다리 밑에 그물을 쳤구나!', name: '다리 일꾼', x: 0.42, w: 141, h: 320, lines: ['짓는 동안 밑에 그물을 쳤소. 보시오.', '그 그물에 떨어져 열아홉이 살았소.'] },
+          { id: 'skate', pass: '비켜요, 비켜! 지나가요!', name: '롤러스케이트 소녀', x: 0.57, w: 172, h: 252, lines: ['롤러스케이트로 건너는 중이야!', '끝까지 가면 내가 일등일걸.'] },
+          { id: 'backward', pass: '뒤로 가요, 뒤로!', name: '뒤로 걷는 남자', x: 0.71, w: 114, h: 315, lines: ['뒤로 걸어 건넌 건 내가 처음이오.', '신문에 나려면 별나야지.'] },
+          { id: 'harmonica', pass: '뿌우, 뿌!', name: '하모니카 소년', x: 0.86, w: 98, h: 246, lines: ['(하모니카를 분다) 뿌우 뿌!', '다리 건너며 한 곡 다 불 거야.'] },
         ],
         spots: [],
       },
       {
-        id: 'mid', name: '샌프란시스코 금문교 한가운데', short: '금문교 한가운데', zoom: 1.25, ground: 0.755, scale: 0.74, air: 'bridge',
+        id: 'mid', name: '샌프란시스코 금문교 한가운데', short: '금문교 한가운데', zoom: 1.17, ground: 0.692, scale: 0.684, air: 'bridge',
         sora: '바람이 세! 바다가 저 밑이야.',
         moving: [
-          { kind: 'drift', id: 'east', src: 'crowd', from: 0, to: 1, foot: 0.74, tall: 0.16, wide: 0.373, gap: 0.3, speed: -0.025, bob: 0.003, flip: true },
-          { kind: 'drift', id: 'west', src: 'crowd', from: 0, to: 1, foot: 0.751, tall: 0.17, wide: 0.396, gap: 0.2, speed: 0.03, bob: 0.003 },
+          { kind: 'drift', id: 'east', src: 'crowd', from: 0, to: 1, foot: 0.678, tall: 0.15, wide: 0.362, gap: 0.3, speed: -0.025, bob: 0.003, flip: true },
+          { kind: 'drift', id: 'west', src: 'crowd', from: 0, to: 1, foot: 0.688, tall: 0.16, wide: 0.386, gap: 0.2, speed: 0.03, bob: 0.003 },
         ],
         people: [
-          { id: 'runner', pass: '헉헉, 조금만 더!', name: '달리기 선수', x: 0.123, w: 98, h: 231, lines: ['헉헉. 끝에서 끝까지 뛰어왔어요.', '탑 사이가 천이백팔십 미터래요.'] },
-          { id: 'hat', pass: '어머, 내 모자!', name: '모자 잡는 아가씨', x: 0.26, w: 121, h: 248, lines: ['앗, 모자! 바람이 너무 세요.', '다리가 조금씩 흔들리는 것 같아요.'] },
-          { id: 'scope', pass: '우와, 다 보인다!', show: 'scope', name: '멀리 보는 소년', x: 0.39, w: 90, h: 204, lines: ['저기 섬이 감옥이래. 알카트라즈.', '배가 다리 밑으로 지나가!'],
+          { id: 'runner', pass: '헉헉, 조금만 더!', name: '달리기 선수', x: 0.13, w: 100, h: 233, lines: ['헉헉. 끝에서 끝까지 뛰어왔어요.', '탑 사이가 천이백팔십 미터래요.'] },
+          { id: 'hat', pass: '어머, 내 모자!', name: '모자 잡는 아가씨', x: 0.26, w: 125, h: 245, lines: ['앗, 모자! 바람이 너무 세요.', '다리가 조금씩 흔들리는 것 같아요.'] },
+          { id: 'scope', pass: '우와, 다 보인다!', show: 'scope', name: '멀리 보는 소년', x: 0.39, w: 91, h: 204, lines: ['저기 섬이 감옥이래. 알카트라즈.', '배가 다리 밑으로 지나가!'],
             try: { id: 'use-scope', verb: 'use', name: '망원경', sora: '저 섬에 건물이 보여!', memo: '저 섬은 알카트라즈란다. 그때는 감옥이었지.' } },
-          { id: 'painter', pass: '이 다리 색 얘기 들어 봤소?', show: 'stripes', pose: 'see-aha', sora: '줄무늬 다리가 될 뻔했구나!', name: '칠장이', x: 0.64, w: 113, h: 268, lines: ['해군은 노란 줄무늬를 하자 했소.', '이 주황은 안개 속에서도 보이라고.'] },
-          { id: 'sailor', pass: '바람 좋다!', name: '수병', x: 0.77, w: 122, h: 261, lines: ['군함이 이 밑으로 지나다닌다오.', '물에서 다리까지 예순일곱 미터.'] },
-          { id: 'piggy', pass: '꽉 잡아라, 얘야.', show: 'cable', pose: 'see-aha', sora: '줄 하나가 철사 다발이었구나!', memo: '철사가 이만 칠천 가닥이란다. 다 이으면 지구를 세 바퀴 돌지.', name: '목말 태운 아버지', x: 0.9, w: 106, h: 320, lines: ['저 굵은 줄 속이 다 철사란다.', '이십만 명이 건넜다니 대단하지.'] },
+          { id: 'painter', pass: '이 다리 색 얘기 들어 봤소?', show: 'stripes', pose: 'see-aha', sora: '줄무늬 다리가 될 뻔했구나!', name: '칠장이', x: 0.64, w: 114, h: 267, lines: ['해군은 노란 줄무늬를 하자 했소.', '이 주황은 안개 속에서도 보이라고.'] },
+          { id: 'sailor', pass: '바람 좋다!', name: '수병', x: 0.77, w: 123, h: 258, lines: ['군함이 이 밑으로 지나다닌다오.', '물에서 다리까지 예순일곱 미터.'] },
+          { id: 'piggy', pass: '꽉 잡아라, 얘야.', show: 'cable', pose: 'see-aha', sora: '줄 하나가 철사 다발이었구나!', memo: '철사가 이만 칠천 가닥이란다. 다 이으면 지구를 세 바퀴 돌지.', name: '목말 태운 아버지', x: 0.9, w: 111, h: 320, lines: ['저 굵은 줄 속이 다 철사란다.', '이십만 명이 건넜다니 대단하지.'] },
         ],
         spots: [
           { id: 'middle', from: 0.47, to: 0.57, sora: '우와… 발밑이 다 바다야.', memo: '그때 세상에서 가장 긴 매달린 다리였단다.' },
