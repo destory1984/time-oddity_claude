@@ -1896,4 +1896,124 @@ export const WALKS = {
     ],
     reply: '그 붓과 끈은 천삼백 해 가까이 그 절의 창고에 그대로 있단다.',
   },
+  // Athens about 432 BC: the Parthenon is just finished. Drawn as the potters of Athens
+  // painted black figures on their jars (the user, 2026.10.10, of five tries: "아테네 2").
+  // The day is not on record. Looked up on 2026.10.10 and found so: begun 447 BC, the
+  // building done by 438 and its sculpture by 432; the Athena inside by Phidias, gold and
+  // ivory over wood, some 12 m high, its gold made to come off; the sculptures were painted
+  // (Egyptian blue found on them in 2023); the columns swell a little in the middle, some
+  // 18 mm, and why is disputed (no reason is given here); the prize jars of the games held
+  // oil of Athena's sacred olive trees, some 39 litres, and were painted in black figure
+  // long after that manner had gone out; sherds with a name scratched on them were the
+  // votes that sent a man away for ten years. From memory: the new robe brought to the
+  // goddess, the owl of Athens, olives, figs, barley bread; that Socrates, then about
+  // forty, went barefoot about the agora asking questions (he is not named).
+  // Made up: the potter's errand, the gatekeeper, the mason who takes her up.
+  parthenon: {
+    dir: 'athens432', look: 'paper', pale: true,
+    drawn: '아테네 사람들이 항아리에 검은 그림을 그리던 것처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'agora', name: '그리스 아테네 아고라', short: '아고라', zoom: 1.15, ground: 0.715, scale: 0.673, air: 'market', floor: 'dirt',
+        sora: '저 언덕 위에 신전이야!',
+        people: [
+          { id: 'olive', pass: '올리브요, 갓 딴 올리브!', show: 'olive', name: '올리브 파는 아주머니', x: 0.19, w: 151, h: 296, lines: ['올리브는 여신이 주신 나무란다.', '하나 먹어 보련?'],
+            try: { id: 'eat-olive', verb: 'eat', name: '올리브', face: 'sour', sora: '짜고 떫어! 그래도 고소해.' } },
+          { id: 'fish', pass: '오늘 잡은 생선이오!', name: '생선 장수', x: 0.3, w: 145, h: 291, lines: ['아침 배로 들어온 생선이오.', '종이 울리면 장이 열린다오.'] },
+          { id: 'water', pass: '물 길어 가요.', name: '물 긷는 소녀', x: 0.4, w: 85, h: 320, lines: ['샘터에서 물을 긷는 중이야.', '사자 입에서 물이 나와.'] },
+          { id: 'voter', pass: '누구 이름을 쓸까…', show: 'ostrakon', pose: 'see-aha', sora: '그릇 조각에 이름을 써!', memo: '깨진 그릇 조각에 이름을 긁어 투표했단다. 많이 적힌 사람은 열 해 동안 떠나야 했지.', name: '그릇 조각에 이름 쓰는 사람', x: 0.51, w: 123, h: 300, lines: ['너무 힘센 사람을 내보내는 투표란다.', '깨진 그릇 조각에 이름을 긁어 쓰지.'] },
+          { id: 'asker', pass: '자네, 그게 무언지 아나?', name: '말 많은 할아버지', x: 0.62, w: 130, h: 289, lines: ['나는 아는 게 없어서 묻고 다닌단다.', '너는 무엇이 궁금하니?'] },
+          { id: 'potter', pass: '붓끝을 가늘게, 가늘게.', name: '도기 가게 주인', x: 0.73, w: 132, h: 299, lines: ['흙을 빚어 검은 그림을 그려 굽는단다.', '구우면 흙은 붉고 그림은 검어지지.'] },
+          { id: 'tailor', pass: '고운 옷 보고 가요.', name: '옷 짓는 아주머니', x: 0.85, w: 99, h: 292, lines: ['천 한 장을 핀으로 여며 입는단다.', '아이 옷도 있어. 입어 보련?'],
+            try: { id: 'wear-chiton', verb: 'wear', name: '그리스의 옷', outfit: 'chiton', sora: '천 한 장인데 옷이 됐어!', memo: '네모난 천을 접어 어깨에서 핀으로 여며 입었단다.' } },
+        ],
+        spots: [],
+      },
+      {
+        id: 'ascent', name: '그리스 아테네 언덕 오르는 길', short: '언덕 오르는 길', zoom: 1.2, ground: 0.68, scale: 0.702, air: 'court', floor: 'dirt',
+        sora: '다들 줄지어 올라가!',
+        people: [
+          { id: 'jar', pass: '물이 출렁, 조심조심.', name: '물 항아리 멘 청년', x: 0.18, w: 133, h: 310, lines: ['여신께 올릴 물을 지고 간단다.', '한 방울도 흘리면 안 되지.'] },
+          { id: 'basket', pass: '바구니가 흔들려.', name: '바구니 인 소녀', x: 0.29, w: 130, h: 320, lines: ['행렬 맨 앞에서 바구니를 인단다.', '뽑힌 것만도 큰 자랑이야.'] },
+          { id: 'piper', pass: '삘릴리, 삘릴리.', name: '피리 부는 사람', x: 0.4, w: 119, h: 270, lines: ['행렬은 피리 소리에 맞춰 걷는단다.', '언덕 꼭대기까지 불어야 해.'] },
+          { id: 'robe', pass: '구겨지면 안 돼.', name: '새 옷 든 아이', x: 0.51, w: 112, h: 240, lines: ['여신께 바칠 새 옷이야.', '아홉 달 동안 짰대.'] },
+          { id: 'elder', pass: '천천히, 천천히.', name: '올리브 가지 든 노인', x: 0.62, w: 143, h: 271, lines: ['저 신전을 열다섯 해 지었단다.', '내 눈으로 다 지은 것을 보는구나.'] },
+          { id: 'mason', pass: '톡톡, 반듯하게.', show: 'column', pose: 'see-aha', sora: '기둥 배가 볼록해!', memo: '신전의 기둥은 가운데가 손가락 한 마디쯤 볼록하단다. 왜 그랬는지는 아직도 다툰단다.', name: '석공', x: 0.73, w: 127, h: 269, lines: ['기둥은 곧게 깎지 않는단다.', '가운데를 아주 조금 볼록하게 하지.'] },
+          { id: 'gatekeeper', pass: '행렬이 먼저요, 행렬이.', name: '문지기', x: 0.85, w: 153, h: 279, lines: ['언덕 위는 여신의 땅이란다.', '오늘은 행렬이 먼저 오른다.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'temple', name: '그리스 아테네 파르테논 앞', short: '파르테논 앞', zoom: 1.22, ground: 0.67, scale: 0.714, air: 'hush',
+        sora: '우와, 기둥이 숲 같아!',
+        people: [
+          { id: 'painter', pass: '파랑이 모자라네.', show: 'colour', pose: 'see-wow', sora: '조각에 색을 칠해!', memo: '신전의 조각에는 파랗고 붉은 색이 칠해져 있었단다. 지금은 다 바랬지.', name: '색 칠하는 화가', x: 0.18, w: 155, h: 312, lines: ['조각은 깎고 나서 색을 입힌단다.', '옷은 파랗게, 머리는 붉게.'] },
+          { id: 'phidias', pass: '흠, 금이 잘 붙었군.', name: '조각가 페이디아스', x: 0.29, w: 125, h: 319, lines: ['안의 여신상은 내가 만들었단다.', '금 옷은 떼어 낼 수 있게 했지.'] },
+          { id: 'architect', pass: '줄을 팽팽히!', name: '기둥 재는 건축가', x: 0.4, w: 144, h: 319, lines: ['돌 하나하나를 재어 맞췄단다.', '틈에 머리카락 한 올도 안 들어가지.'] },
+          { id: 'keeper', pass: '등잔 기름이 다 됐네.', show: 'athena', pose: 'see-wow', sora: '여신님이 집보다 커!', memo: '금과 상아로 만든 여신상이었단다. 높이가 12미터쯤이었는데 지금은 남아 있지 않지.', name: '제단지기', x: 0.51, w: 144, h: 316, lines: ['여신의 등잔을 지키는 일을 한단다.', '불이 꺼지면 안 되거든.'] },
+          { id: 'runner', pass: '내가 이겼어, 내가!', show: 'prize', pose: 'see-aha', sora: '상이 기름 항아리야!', memo: '경기에서 이기면 여신의 올리브 기름을 항아리째 받았단다. 그 항아리엔 늘 검은 그림을 그렸지.', name: '달리기 이긴 청년', x: 0.62, w: 138, h: 320, lines: ['달리기에서 이겨 받은 상이란다.', '여신의 나무에서 짠 기름이지.'] },
+          { id: 'visitor', pass: '허어, 듣던 대로구나.', name: '멀리서 온 구경꾼', x: 0.73, w: 135, h: 320, lines: ['배를 타고 사흘을 왔다오.', '이런 집은 세상에 또 없을 게요.'] },
+          { id: 'owlkid', pass: '부엉, 부엉!', name: '부엉이 좋아하는 아이', x: 0.85, w: 96, h: 211, lines: ['부엉이는 여신님의 새야.', '우리 돈에도 부엉이가 있어.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The little jar of oil" (core/tale.js; the user, 2026.10.10, of the storyboard: "이대로
+    // 지어"): the potter has a small jar of oil for the lamp of the goddess; the gatekeeper
+    // lets the procession go first; the mason takes her up by the workmen's way; she hands
+    // it to the keeper of the altar, choosing what to say; and is shown the goddess.
+    tale: {
+      thing: true,
+      ask: '언덕 위 신전에는 누가 살까?',
+      gate: { scene: 'ascent', open: 3, sora: '문지기가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'potter', goal: '아고라의 도기 가게 주인에게 가 보렴.', holds: '기름병: 가게 주인이 들고 있음',
+          lines: ['얘야, 심부름 하나 해 주련?', '여신의 등잔에 넣을 기름이란다.', '언덕 위 제단지기에게 전해 주렴.'],
+          offer: { ask: '기름병을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'gatekeeper', goal: '언덕 오르는 길 끝의 큰 문으로 가 보렴.', holds: '기름병: 소라가 들고 있음',
+          lines: ['멈추어라. 행렬이 다 오를 때까지다.', '아이 혼자는 못 올라간다.'],
+          sora: '기름을 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'mason', call: '얘야, 그 병은 뭐니?', goal: '석공이 부른다. 가 보렴.', holds: '기름병: 소라가 들고 있음',
+          lines: ['등잔 기름이라고? 그럼 급하겠구나.', '일꾼들이 돌 나르던 옆길이 있단다.', '나를 따라 오너라.'],
+          after: [{ who: 'gatekeeper', line: '석공과 함께라면 올라가거라.' }],
+          sora: '옆길로 가면 된대! 올라가자!',
+        },
+        {
+          who: 'keeper', goal: '파르테논 앞의 제단지기에게 기름병을 전하렴.', holds: '기름병: 소라가 들고 있음',
+          lines: ['마침 기름이 다 되어 가던 참이란다.'],
+          choice: {
+            ask: '기름병을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"도기 가게에서 왔어요"', sora: '아고라의 도기 가게에서 왔어요.', says: '그 집 기름병이구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"안에 누가 있어요?"', sora: '신전 안에는 누가 있어요?', says: '여신 아테나가 계신단다. 보여 주마.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'keeper', show: true, goal: '제단지기가 가리키는 신전 안을 보렴.',
+          lines: ['문 안쪽을 올려다보렴.', '금과 상아로 지은 여신님이란다.'],
+          sora: '금빛이야! 고개가 다 아파.',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'potter', when: ['S1', 'S2', 'S3', 'S4'], lines: ['제단지기는 신전 앞에 있단다.', '언덕 오르는 길을 끝까지 가렴.'] },
+        { who: 'potter', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '오늘 밤 여신의 등잔은 내 기름으로 타겠구나.'] },
+      ],
+      done: '기름병을 전하고, 금빛 여신상을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '기름병을 받는다.', at: [] },
+      { id: 'gave', text: '제단지기에게 기름병을 전한다.', at: [] },
+      { id: 'saw', text: '금빛 여신상을 본다.', at: [] },
+    ],
+    reply: '색이 칠해진 신전을 봤구나. 지금은 흰 기둥만 남았단다.',
+  },
 };
