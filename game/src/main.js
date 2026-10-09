@@ -9,7 +9,7 @@ import { skyAt, skyLight } from './core/sky.js';
 import { formatDate, formatYear, todayDate } from './core/when.js';
 import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, stepDial } from './core/dial.js';
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
-import { soraPose } from './core/sora.js';
+import { HUSH_S, soraPose } from './core/sora.js';
 import { guideLine } from './core/guide.js';
 import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markBeen, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf, beenOf, errandsOf, metOf, markErrands, markMet, taleOf, markTale } from './core/progress.js';
 import { findsOf } from './core/find.js';
@@ -196,7 +196,7 @@ let noteDueAtMs = null;
 const soundSwitch = {
   muted: () => sound.muted(),
   setMuted(on) {
-    if (on && !sound.muted()) hushAt = performance.now();
+    if (on && !sound.muted()) { hushAt = performance.now(); hushWalk(); }
     sound.setMuted(on);
     saveMuted(on);
     $('soundButton').classList.toggle('off', on);
@@ -214,7 +214,7 @@ const musicSwitch = {
   on: () => music.on(),
   another() { sound.wake(); music.another(); },
   setOn(on) {
-    if (!on && music.on()) hushAt = performance.now();
+    if (!on && music.on()) { hushAt = performance.now(); hushWalk(); }
     music.setOn(on);
     saveMusic(on);
     $('musicButton').classList.toggle('off', !on);
@@ -380,6 +380,16 @@ let replyUntil = 0;         // grandmother's answer shows until then
 let errandsFoldAt = 0;      // the slip of errands folds itself then
 let walkArrive = false;     // she is to be set down in a shaft of light on the next frame
 let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
+// Walking about a place she puts her finger to her lips as she does above the Earth, when
+// the sound or the music is switched off (the user, 2026.10.9: "소라가 원래 옷 입고 있을 때에는
+// 소리/음악 끄면 쉬잇~하는 액션"). In her own clothes only: there is no such picture of her
+// in the others.
+function hushWalk() {
+  if (mode !== 'walk' || !walk || walk.wearing) return;
+  const step = 1000 / 6;
+  walkFace = { poses: [1, 2, 3, 4].map((n) => [`see-hush-${n}`, walkT + (n < 4 ? step * n : HUSH_S * 1000)]) };
+  walkSora = { text: '쉬잇~', from: walkT, until: walkT + HUSH_S * 1000 };
+}
 let walkFace = null;        // { poses: [[picture of hers, until], ...] }: how she takes what she has just tried, one after another
 let walkHemMs = 0;          // how long she has walked in what she put on since she last trod on its hem
 let walkHeld = null;        // { show, until }: what was shown her, kept up while she tries it

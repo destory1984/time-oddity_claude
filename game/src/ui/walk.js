@@ -61,7 +61,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
     }
     return art.get(name);
   }
-  const POSES = ['taste-yum', 'taste-sour', 'taste-yuck', 'taste-hmm', 'bite-1', 'bite-2', 'turn-away'];
+  const POSES = ['taste-yum', 'taste-sour', 'taste-yuck', 'taste-hmm', 'bite-1', 'bite-2', 'turn-away', 'see-hush-1', 'see-hush-2', 'see-hush-3', 'see-hush-4'];
   for (const pose of POSES) has(pose);
   for (const face of ['yum', 'sour', 'yuck', 'hmm']) has(`badge-${face}`);
   const FRAMES = [1, 2, 3, 4];
