@@ -520,6 +520,21 @@ export const SQUARES = [
     reply: '그 화가를 봤구나. 그 그림은 지금도 그 벽에 있단다.',
     quiz: { question: '"최후의 만찬"은 어디에 그려졌나?', answer: '수도원 식당 벽', proof: '수도원 식당 벽', wrong: ['대성당 천장', '궁전의 나무 판'] },
   },
+  {
+    // Tenochtitlan on 8 November 1519 (Julian), the day Moctezuma and Cortés first met on the
+    // causeway into the city on the lake. The Moon was two days past full, by computation.
+    // The place is walked about (core/walks.js).
+    no: 40, id: 'tenoch1519', name: '호수 위의 도시', dateLabel: 'AD 1519.11.8', place: '테노치티틀란, 아스테카',
+    lat: 19.433, lon: -99.133,
+    date: { year: 1519, month: 11, day: 8 }, calendar: 'julian', hourLocal: 10,
+    facingAz: 180, nightOnLook: true,
+    memo: '호수 위의 도시. 두 세상이 만남.', sora: '집이 물 위에 떠 있어!',
+    memoToday: '남은 것: 큰 신전의 터.', soraToday: '호수가 없어졌네!',
+    noteMemo: '1519.11.8. 호수 위의 도시에 바다 건너 손님이 처음 왔다고 읽음. 그날 달은 보름 이틀 뒤.',
+    card: '1519년 11월 8일, 아스테카의 임금 목테수마와 바다 건너온 코르테스가 호수 위 둑길에서 처음 만났습니다. 테노치티틀란은 호수 한가운데에 지은 도시였고, 사람들은 물 위에 쌓은 밭에서 옥수수를 길렀습니다. 호수는 뒷날 메워져 지금의 멕시코시티가 되었습니다.',
+    reply: '그날 처음 두 세상이 만났단다. 그 호수는 메워져 지금의 멕시코시티가 되었지.',
+    quiz: { question: '테노치티틀란은 어디에 지은 도시였나?', answer: '호수 한가운데', proof: '호수 한가운데에 지은 도시', wrong: ['높은 산꼭대기', '바닷가 모래밭'] },
+  },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
 

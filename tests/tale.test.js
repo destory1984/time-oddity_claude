@@ -169,9 +169,9 @@ describe('a tale of a thing carried', () => {
 
 // The user, 2026.10.9, in Kaifeng: "쪽지를 주는 액션은 없었는데, 쪽지는 받았네".
 describe('what is carried', () => {
-  it('is in her hands from the taking of it until it is handed over, in all six tales', () => {
+  it('is in her hands from the taking of it until it is handed over, in every tale', () => {
     const tales = Object.values(WALKS).filter((place) => place.tale);
-    expect(tales.length).toBe(6);
+    expect(tales.length).toBeGreaterThanOrEqual(6);
     for (const { tale } of tales) {
       expect(tale.thing).toBe(true);
       const took = tale.steps.findIndex((step) => step.offer);
@@ -184,7 +184,7 @@ describe('what is carried', () => {
 
 // The user, 2026.10.10: "다른 도시에서도 미션 끝내면, 감사하다는 인사 하던가".
 describe('the one who asked', () => {
-  it('has thanks to give in all six tales once the thing is handed over, and not before', () => {
+  it('has thanks to give in every tale once the thing is handed over, and not before', () => {
     for (const { tale } of Object.values(WALKS).filter((place) => place.tale)) {
       const end = { state: `S${tale.steps.length}` };
       expect(thankerOf(tale, { state: 'S1' })).toBe(null);

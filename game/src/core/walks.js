@@ -1536,4 +1536,125 @@ export const WALKS = {
     ],
     reply: '그 화가를 봤구나. 그 그림은 지금도 그 벽에 있단다.',
   },
+  // Tenochtitlan, 8 November 1519: Moctezuma and Cortés meet on the causeway into the city on
+  // the lake. Drawn as the Mexica carved and painted stone (the user, 2026.10.10, of five
+  // tries: "테노치티틀란 4"). Looked up on 2026.10.10 and found so: the meeting on the
+  // causeway that day, so full of people there was hardly room (Bernal Díaz); chinampas,
+  // plots heaped up on the water; cacao beans for money (a bean for a tomato, thirty for a
+  // rabbit, a hundred for a turkey hen in a list of 1545), and beans hollowed out and filled
+  // to cheat; chocolate drunk unsweetened with chili, poured from a height to froth it; the
+  // feather workers called amanteca; the two shrines on the great temple, blue stripes for
+  // the rain god and red for Huitzilopochtli; the huipil; horses first called deer.
+  // From memory: loads carried on the back, tortillas, the conch trumpet, the ground swept
+  // before the ruler, inspectors of the market, garlands for the guests.
+  // Made up: the grandmother and her garland, the overseer, the merchant, the steward.
+  // Left out: sacrifice, and the war that followed.
+  tenoch1519: {
+    dir: 'tenoch1519', look: 'paper', pale: true,
+    drawn: '아스테카 사람들이 돌에 새기고 색을 칠하던 것처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'canal', name: '테노치티틀란 물길 어귀', short: '물길 어귀', zoom: 1.12, ground: 0.715, scale: 0.655, air: 'market', floor: 'dirt',
+        sora: '집이 물 위에 떠 있어!',
+        people: [
+          { id: 'canoe', pass: '밭에 다녀오는 길이오.', show: 'chinampa', pose: 'see-wow', sora: '밭이 물 위에 떠 있어!', memo: '호수 바닥의 진흙을 퍼 올려 물 위에 만든 밭이란다. 치남파라고 했지.', name: '카누 젓는 아저씨', x: 0.19, w: 147, h: 320, lines: ['우리 밭은 물 위에 있단다.', '진흙을 퍼 올려 쌓으면 밭이 되지.'] },
+          { id: 'maize', pass: '옥수수 갈아요, 쓱쓱.', name: '옥수수 가는 아주머니', x: 0.3, w: 125, h: 306, lines: ['옥수수를 갈아 얇게 부쳐 먹는단다.', '아침마다 온 동네가 이 소리지.'] },
+          { id: 'kid', pass: '물고기다, 물고기!', name: '물가의 아이', x: 0.4, w: 125, h: 228, lines: ['우리 집 앞이 바로 물길이야.', '카누 타고 어디든 가.'] },
+          { id: 'weaver', pass: '한 줄, 또 한 줄.', name: '베 짜는 소녀', x: 0.51, w: 116, h: 288, lines: ['허리에 매고 짜는 베틀이야.', '내가 짠 옷이야. 입어 볼래?'],
+            try: { id: 'wear-aztec', verb: 'wear', name: '아스테카의 옷', outfit: 'aztec', sora: '헐렁해서 시원해!', memo: '네모난 천을 이어 만든 윗옷이란다. 우이필이라고 했지.' } },
+          { id: 'porter', pass: '영차, 길 좀 비켜 주오.', name: '짐꾼', x: 0.62, w: 140, h: 306, lines: ['짐은 사람이 등으로 나른단다.', '물길이 닿는 데는 카누로 가고.'] },
+          { id: 'flower', pass: '꽃이 곱게 피었구나.', name: '꽃 엮는 할머니', x: 0.73, w: 121, h: 282, lines: ['우리 밭에서 딴 꽃이란다.', '오늘은 꽃이 아주 많이 쓰일 게다.'] },
+          { id: 'fisher', pass: '오늘은 많이 잡혔네.', name: '어부', x: 0.85, w: 146, h: 298, lines: ['호수에서 잡은 물고기라오.', '이 도시는 호수가 먹여 살리지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'market', name: '테노치티틀란 큰 시장', short: '큰 시장', zoom: 1.16, ground: 0.69, scale: 0.678, air: 'market',
+        sora: '콩으로 물건을 사네?',
+        people: [
+          { id: 'choco', pass: '거품 낸 초콜릿 물이오!', show: 'chocolate', name: '초콜릿 물 파는 아주머니', x: 0.18, w: 114, h: 241, lines: ['높이서 부어야 거품이 인단다.', '한 모금 마셔 보련?'],
+            try: { id: 'eat-chocolate', verb: 'eat', name: '초콜릿 물', face: 'hmm', sora: '써! 맵기까지 해!', memo: '그때 초콜릿은 달지 않았단다. 카카오 콩을 갈아 고추를 넣어 마셨지.' } },
+          { id: 'feather', pass: '숨도 크게 못 쉰다오.', show: 'feather', pose: 'see-gasp', sora: '깃털로 그림을 그려!', memo: '깃털을 한 올씩 겹쳐 붙여 무늬를 만들었단다. 그 장인을 아만테카라 불렀지.', name: '깃털 장인', x: 0.29, w: 103, h: 264, lines: ['깃털을 한 올씩 붙여 무늬를 낸단다.', '초록 긴 깃은 먼 숲에서 온 거야.'] },
+          { id: 'veg', pass: '토마토요, 고추요!', name: '채소 장수', x: 0.4, w: 113, h: 233, lines: ['토마토도 고추도 이 땅의 열매란다.', '호박이랑 아보카도도 있지.'] },
+          { id: 'turkey', pass: '골골골, 살이 올랐소!', name: '칠면조 장수', x: 0.51, w: 113, h: 255, lines: ['칠면조 한 마리에 콩이 백 알이오.', '잔칫날에는 이놈이 빠질 수 없지.'] },
+          { id: 'child', pass: '하나, 둘, 셋… 넷.', name: '심부름하는 아이', x: 0.62, w: 90, h: 185, lines: ['콩을 잘 세야 안 속아.', '속 빈 가짜 콩도 있대.'] },
+          { id: 'pochteca', pass: '콩 세는 중이니 조용히.', show: 'cacao', pose: 'see-aha', sora: '콩이 돈이야!', memo: '카카오 콩을 돈처럼 썼단다. 한 알에 토마토 하나, 서른 알에 토끼 한 마리였지.', name: '카카오 콩 상인', x: 0.73, w: 123, h: 252, lines: ['이 콩이 여기서는 돈이란다.', '콩 한 알이면 토마토가 하나지.'] },
+          { id: 'overseer', pass: '저울 속이는 자 없느냐!', name: '시장 감독관', x: 0.85, w: 141, h: 320, lines: ['시장의 값과 되를 살피는 일을 한다.', '속이는 자는 가만두지 않지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'causeway', name: '테노치티틀란 호수 위 둑길', short: '호수 위 둑길', zoom: 1.15, ground: 0.7, scale: 0.673, air: 'court',
+        sora: '길이 호수를 가로질러!',
+        people: [
+          { id: 'sweeper', pass: '쓱쓱, 깨끗이.', name: '길 쓰는 사람', x: 0.18, w: 126, h: 240, lines: ['임금님이 지나실 길을 쓴단다.', '먼지 하나 없어야 하지.'] },
+          { id: 'conch', pass: '뿌우우우!', name: '소라 나팔 부는 사람', x: 0.29, w: 126, h: 247, lines: ['바다 소라로 만든 나팔이란다.', '네 이름도 소라라고? 허허!'] },
+          { id: 'noble', pass: '어험, 줄을 맞춰라.', name: '깃털 부채 든 귀족', x: 0.4, w: 162, h: 320, lines: ['오늘 임금님을 모시고 나왔단다.', '이런 손님맞이는 나도 처음이야.'] },
+          { id: 'steward', pass: '꽃이 모자라, 꽃이!', show: 'meeting', pose: 'see-wow', sora: '사슴 같은 걸 타고 왔어!', memo: '바다 건너온 이들이 탄 말을 이곳 사람들은 처음에 사슴이라 불렀단다.', name: '꽃 맡은 시종', x: 0.51, w: 129, h: 239, lines: ['손님들 목에 걸어 줄 꽃이란다.', '하나라도 모자라면 큰일이지.'] },
+          { id: 'eagle', pass: '둑길은 내가 지킨다.', name: '독수리 옷 입은 무사', x: 0.62, w: 145, h: 284, lines: ['독수리처럼 날쌔다는 뜻의 옷이란다.', '오늘은 싸움이 아니라 손님맞이야.'] },
+          { id: 'keeper', pass: '향을 올려야지.', show: 'temple', pose: 'see-wow', sora: '꼭대기에 집이 두 채야!', memo: '큰 신전 꼭대기의 사당 둘이란다. 파란 줄무늬는 비의 신, 붉은 것은 해와 싸움의 신 것이지.', name: '사당지기 할아버지', x: 0.73, w: 153, h: 255, lines: ['저 높은 신전이 보이느냐.', '꼭대기에 사당이 둘 나란히 있단다.'] },
+          { id: 'girl', pass: '와, 사람이 끝도 없어!', name: '구경 나온 아이', x: 0.85, w: 89, h: 188, lines: ['둑길이 사람으로 꽉 찼어!', '호수에도 카누가 가득해.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The garland" (core/tale.js; the user, 2026.10.10, of the storyboard: "이대로 지어"): the
+    // grandmother of the chinampa has strung a garland for the welcome and cannot walk so
+    // far; the overseer of the market lets nobody out on the causeway; the cacao merchant
+    // speaks for her; she hands it to the steward of the flowers, choosing what to say; and
+    // he points to where the two meet.
+    tale: {
+      thing: true,
+      ask: '꽃목걸이는 누구 목에 걸릴까?',
+      gate: { scene: 'market', open: 3, sora: '감독관이 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'flower', goal: '물길 어귀의 꽃 엮는 할머니에게 가 보렴.', holds: '꽃목걸이: 할머니가 들고 있음',
+          lines: ['얘야, 이 꽃목걸이 좀 보렴.', '오늘 손님맞이에 쓸 것인데 다리가 아프구나.', '둑길의 꽃 맡은 이에게 전해 줄래?'],
+          offer: { ask: '꽃목걸이를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'overseer', goal: '큰 시장 끝의 둑길 문으로 가 보렴.', holds: '꽃목걸이: 소라가 들고 있음',
+          lines: ['멈춰라. 오늘 둑길은 아무나 못 나간다.', '귀한 손님이 오시는 날이다.'],
+          sora: '꽃을 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'pochteca', call: '얘야, 그 꽃은 뭐니?', goal: '카카오 콩 상인이 부른다. 가 보렴.', holds: '꽃목걸이: 소라가 들고 있음',
+          lines: ['손님맞이 꽃이라고? 그럼 가야지.', '먼 길 다니는 장사꾼 말은 들어 주신단다.', '나와 같이 가서 말해 보자.'],
+          after: [{ who: 'overseer', line: '손님맞이 꽃이군. 서둘러 지나가거라.' }],
+          sora: '지나가도 된대! 둑길로 가자!',
+        },
+        {
+          who: 'steward', goal: '호수 위 둑길의 꽃 맡은 시종에게 꽃목걸이를 전하렴.', holds: '꽃목걸이: 소라가 들고 있음',
+          lines: ['아이고, 꽃이 모자라 애가 탔단다!'],
+          choice: {
+            ask: '꽃목걸이를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"할머니가 엮었어요"', sora: '물길 어귀 할머니가 엮으셨어요.', says: '그 할머니 솜씨구나. 곱기도 하지!' },
+              { id: 'E2', label: '"누가 오는 거예요?"', sora: '오늘 누가 오는 거예요?', says: '바다 건너온 손님들이란다. 곧 보일 게다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'steward', show: true, goal: '시종이 가리키는 둑길 끝을 보렴.',
+          lines: ['저기 보렴. 임금님이 나오신다.', '바다 건너온 손님들과 처음 만나시는 거란다.'],
+          sora: '두 무리가 마주 섰어! 조용해졌어.',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'flower', when: ['S1', 'S2', 'S3', 'S4'], lines: ['꽃 맡은 이는 둑길에 있단다.', '큰 시장을 지나 호수 쪽으로 가렴.'] },
+        { who: 'flower', when: ['S5'], lines: ['전해 주었다고? 고맙구나, 얘야.', '내 꽃이 임금님 곁에 갔구나.'] },
+      ],
+      done: '꽃목걸이를 전하고, 둑길의 만남을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '꽃목걸이를 받는다.', at: [] },
+      { id: 'gave', text: '시종에게 꽃목걸이를 전한다.', at: [] },
+      { id: 'saw', text: '둑길의 만남을 본다.', at: [] },
+    ],
+    reply: '그날 처음 두 세상이 만났단다. 그 호수는 메워져 지금의 멕시코시티가 되었지.',
+  },
 };
