@@ -23,7 +23,7 @@ const $ = (id) => document.getElementById(id);
 
 // onPerson(id): a person was touched. onWay(way): a finger went down on the left (-1) or
 // right (1) of the scene, or lifted (0).
-export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
+export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () => {} }) {
   const root = $('walk');
   const scroll = $('walkScene');
   const picture = $('walkPicture');
@@ -45,6 +45,14 @@ export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
   let nodes = new Map();      // person id → { img, person, left, top, wide, tall }
   let moving = new Map();     // piece id → { img, box: what hides the rest of it, or null }
   let looks = [];             // things in the picture that are looked at closely: { look, button }
+  let taps = [];              // places in the picture touched for a word from her: { tap, button }
+  // What is carried in the tale: its picture, whether she has it, and its flight from one
+  // to another ({ from, to, start }: a person's id or 'sora').
+  const thing = document.createElement('img');
+  thing.id = 'walkThing'; thing.alt = ''; thing.draggable = false;
+  scroll.append(thing);
+  let carried = { src: null, held: false, flight: null };
+  const FLIGHT_MS = 750;
   let size = { w: 1, h: 1, wide: 1, unit: 1 };
   let camera = 0;
 
@@ -88,6 +96,13 @@ export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
       button.style.top = `${(FOOT - scene.ground * scene.zoom + y0 * scene.zoom) * h}px`;
       button.style.height = `${(y1 - y0) * scene.zoom * h}px`;
     }
+    for (const { tap, button } of taps) {
+      const [x0, y0, x1, y1] = tap.box;
+      button.style.left = `${x0 * wide}px`;
+      button.style.width = `${(x1 - x0) * wide}px`;
+      button.style.top = `${(FOOT - scene.ground * scene.zoom + y0 * scene.zoom) * h}px`;
+      button.style.height = `${(y1 - y0) * scene.zoom * h}px`;
+    }
     // People stand along the street, those further right a little nearer the eye in turn,
     // so that two who stand close do not hide each other's feet.
     let lane = 0;
@@ -125,6 +140,17 @@ export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
       scroll.append(button);
       return { look, button };
     });
+    for (const { button } of taps) button.remove();
+    taps = (scene.taps ?? []).map((tap) => {
+      const button = document.createElement('button');
+      button.type = 'button'; button.className = 'tap';
+      button.setAttribute('aria-label', t(tap.name));
+      button.addEventListener('pointerdown', (e) => e.stopPropagation());
+      button.addEventListener('click', () => onTap(tap));
+      scroll.append(button);
+      return { tap, button };
+    });
+    carried.flight = null;
     for (const person of scene.people) {
       const img = document.createElement('img');
       img.src = `./walks/${place.dir}/${person.id}.png`;
@@ -325,6 +351,30 @@ export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
       badge.classList.add('on');
     } else { badge.classList.remove('on'); badge.dataset.src = ''; }
 
+    // The thing of the tale: on its way from one to another in an arc, else beside her hand.
+    const handOf = (who) => {
+      if (who === 'sora') return { x: x + soraTall * 0.27, y: FOOT * h - soraTall * 0.42 };
+      const node = nodes.get(who);
+      return node ? { x: node.left + node.wide / 2, y: node.top + node.tall * 0.5 } : null;
+    };
+    let thingAt = null;
+    if (carried.src && carried.flight) {
+      const p = Math.min(1, (now - carried.flight.start) / FLIGHT_MS);
+      const from = handOf(carried.flight.from);
+      const to = handOf(carried.flight.to);
+      if (p >= 1 || !from || !to) carried.flight = null;
+      else { const e = p * p * (3 - 2 * p); thingAt = { x: from.x + (to.x - from.x) * e, y: from.y + (to.y - from.y) * e - Math.sin(Math.PI * p) * 70 * unit, big: 1 + Math.sin(Math.PI * p) * 0.5 }; }
+    }
+    if (!thingAt && carried.src && carried.held) { const hand = handOf('sora'); thingAt = { x: hand.x, y: hand.y + Math.sin(now / 420) * 3 * unit, big: 1 }; }
+    if (thingAt) {
+      const side = 46 * unit * thingAt.big;
+      if (thing.dataset.src !== carried.src) { thing.dataset.src = carried.src; thing.src = carried.src; }
+      thing.style.height = `${side}px`;
+      thing.style.left = `${thingAt.x - side / 2}px`;
+      thing.style.top = `${thingAt.y - side / 2}px`;
+      thing.classList.add('on');
+    } else thing.classList.remove('on');
+
     for (const node of nodes.values()) {
       // Only those worth stopping for light up: gold all round until she has been to them,
       // and brighter while she stands by them.
@@ -492,6 +542,10 @@ export function createWalkView({ onPerson, onWay, onLook = () => {} }) {
 
   return {
     showScene, layout, update, nudge, clack, cheer, taste,
+    // The thing of the tale: its picture (or null) and whether she has it; and its flight
+    // from one to another (a person's id, or 'sora').
+    carry(src, held) { carried.src = src; carried.held = held; },
+    hand(from, to) { carried.flight = { from, to, start: performance.now() }; },
     teleport: (ms) => passage('leaving', ms),
     arrive: () => { sora.classList.remove('leaving'); return passage('arriving'); },
   };

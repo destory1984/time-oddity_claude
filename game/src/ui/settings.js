@@ -12,7 +12,7 @@ const $ = (id) => document.getElementById(id);
 // onOpen, onClose: the game is held while the settings are open.
 // today: () => 'YYYY-MM-DD', the device's own day.
 // sound: { muted(), setMuted(on) }, the same switch as the speaker button.
-// music: { on(), setOn(on), another(), tunes(), playingId(), choose(id), repeat(), setRepeat(on) },
+// music: { on(), setOn(on), another(), repeat(), setRepeat(on) },
 // the same switch as the note button.
 // version: the text for the head, such as 'v0.1.1 · 2026.10.7'.
 // onReset: the notebook is to be emptied (asked twice before it is done).
@@ -60,26 +60,15 @@ export function createSettings({ onOpen, onClose, today, sound, music, version, 
   }
   applyTextSize();
 
-  // Every tune has a button of its own, the one sounding lit; and one tune may be heard
-  // over and over (the user, 2026.10.9: "음악 선택 가능하게, 반복도 가능하게").
-  const tuneButtons = music.tunes().map(({ id, name }) => {
-    const button = document.createElement('button');
-    button.type = 'button'; button.textContent = name; button.dataset.tune = id;
-    button.addEventListener('click', () => { music.choose(id); if (!music.on()) music.setOn(true); renderSound(); });
-    return button;
-  });
-  $('musicTunes').replaceChildren(...tuneButtons);
+  // One tune may be heard over and over. (For an hour on 2026.10.9 every tune also had a
+  // button of its own to choose it by; the user, having seen it: "배경음악 선택하는거 삭제".)
   function renderSound() {
     $('musicNow').textContent = music.on() ? '지금은 켜져 있습니다.' : '지금은 꺼져 있습니다.';
     $('musicSwitch').textContent = music.on() ? '배경 음악 끄기' : '배경 음악 켜기';
-    const playing = music.on() ? music.playingId() : null;
-    for (const button of tuneButtons) button.setAttribute('aria-pressed', String(button.dataset.tune === playing));
     $('musicRepeat').setAttribute('aria-pressed', String(music.repeat()));
     $('musicRepeat').textContent = music.repeat() ? '한 곡만 되풀이: 켜짐' : '한 곡만 되풀이: 꺼짐';
   }
   $('musicRepeat').addEventListener('click', () => { music.setRepeat(!music.repeat()); renderSound(); });
-  // While the settings are open the lit button follows the tune as it changes.
-  let watch = 0;
   $('musicSwitch').addEventListener('click', () => { music.setOn(!music.on()); renderSound(); });
   // Another tune; if the music was off, it is switched on to play it.
   $('musicAnother').addEventListener('click', () => { music.another(); if (!music.on()) music.setOn(true); renderSound(); });
@@ -126,7 +115,6 @@ export function createSettings({ onOpen, onClose, today, sound, music, version, 
     sure = false; resetLabel();
     showTab('options');
     dialog.showModal();
-    watch = setInterval(renderSound, 1000);
   });
   $('closeSettings').addEventListener('click', () => dialog.close());
   // A press outside the sheet closes it, as the closing button does. Outside is told by
@@ -136,7 +124,7 @@ export function createSettings({ onOpen, onClose, today, sound, music, version, 
     const box = dialog.getBoundingClientRect();
     if (e.clientX < box.left || e.clientX > box.right || e.clientY < box.top || e.clientY > box.bottom) dialog.close();
   });
-  dialog.addEventListener('close', () => { clearInterval(watch); onClose(); });
+  dialog.addEventListener('close', () => onClose());
 
   return { isOpen: () => dialog.open };
 }

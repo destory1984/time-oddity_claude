@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { WALKS } from '../game/src/core/walks.js';
-import { advance, calledOf, callOf, emptyTale, endingOf, goalOf, holdsOf, isTold, partOf, present, sanitizeTale, stepOf, textOf } from '../game/src/core/tale.js';
+import { advance, calledOf, callOf, emptyTale, endingOf, goalOf, holdsOf, isTold, partOf, present, sanitizeTale, stepOf, textOf, carrying } from '../game/src/core/tale.js';
 import { barred, canHop, createWalk, linesOf, peopleOf, speak, stepWalk, talkedOut } from '../game/src/core/walk.js';
 import { emptyProgress, markTale, sanitizeProgress, taleOf } from '../game/src/core/progress.js';
 
@@ -164,5 +164,20 @@ describe('a tale of a thing carried', () => {
     expect(place.reply.length).toBeLessThanOrEqual(60);
     expect(present(emptyTale(), { when: ['S0'] })).toBe(true);
     expect(present(upTo(1), { when: ['S0'] })).toBe(false);
+  });
+});
+
+// The user, 2026.10.9, in Kaifeng: "쪽지를 주는 액션은 없었는데, 쪽지는 받았네".
+describe('what is carried', () => {
+  it('is in her hands from the taking of it until it is handed over, in all six tales', () => {
+    const tales = Object.values(WALKS).filter((place) => place.tale);
+    expect(tales.length).toBe(6);
+    for (const { tale } of tales) {
+      expect(tale.thing).toBe(true);
+      const took = tale.steps.findIndex((step) => step.offer);
+      const gave = tale.steps.findIndex((step) => step.choice);
+      tale.steps.forEach((_, i) => expect(carrying(tale, { state: `S${i}` }), `S${i}`).toBe(i > took && i <= gave));
+      expect(carrying(tale, { state: `S${tale.steps.length}` })).toBe(false);
+    }
   });
 });

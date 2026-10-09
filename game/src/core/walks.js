@@ -34,6 +34,13 @@
 // thousand pieces of iron, the hall's roof standing with no pillar.
 const SHEET = { market: 0.6, plaza: 0.66, inside: 0.62 };   // how large a sheet's figures are shown, of their px on a 812 px screen
 
+// A scene's `taps` are places in its picture that may be touched for a word from Sora:
+// [{ id, name, box: left, top, right, bottom as shares of the picture, sora: [lines said in
+// turn], pose? }] (the user, 2026.10.9, of the new star in Kaifeng's sky: "하늘을 누르면, 소리가
+// 뭔가 얘기를 해주게 추가").
+// A tale's `thing: true` says there is a picture of what is carried (walks/<dir>/thing.png):
+// it flies to her when she takes it, is seen beside her while she has it, and flies on when
+// she hands it over (the user, 2026.10.9: "쪽지를 주는 액션은 없었는데, 쪽지는 받았네").
 // A place's `now` is { photo, name, when, text: [lines], credit }: a photograph of the place
 // as it is today (or of what is left of the thing she came to see), shown on a sheet when
 // all is done there (the user, 2026.10.9: "마지막에 현재 사진을 팝업으로 보여주고, 클릭하면,
@@ -472,6 +479,7 @@ export const WALKS = {
     // Made up: the woman, her father, the flowers, the master turning her away, the boy's
     // word, what the driver says. She goes on through the scenes and is never sent back.
     tale: {
+      thing: true,
       ask: '이 꽃은 누구에게 가는 걸까?',
       gate: { scene: 'platform', open: 4, sora: '아직 못 타. 꽃부터 전해야 해.' },
       steps: [
@@ -615,6 +623,7 @@ export const WALKS = {
     // door; a deacon shows her the side door; she hands them over, choosing what to say;
     // and she looks up at the dome.
     tale: {
+      thing: true,
       ask: '저 큰 지붕은 왜 안 떨어질까?',
       gate: { scene: 'narthex', open: 3, sora: '문이 다 닫혀 있어. 못 들어가.' },
       steps: [
@@ -740,6 +749,7 @@ export const WALKS = {
     // would give it back; the king's guard turns her away; the king's interpreter takes her
     // in; she holds it out to the king, choosing what to say; and he shows her his gold.
     tale: {
+      thing: true,
       ask: '금이 너무 많으면 어떻게 될까?',
       gate: { scene: 'souk', open: 3, sora: '호위병이 막고 있어. 못 들어가.' },
       steps: [
@@ -819,13 +829,14 @@ export const WALKS = {
     scenes: [
       {
         id: 'bridge', name: '중국 개봉 변하 무지개 다리 어귀', short: '무지개 다리', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
+        taps: [{ id: 'star', name: '새 별', box: [0.884, 0.165, 0.932, 0.241], pose: 'see-wow', sora: ['저 별 좀 봐! 날이 밝는데도 안 져.', '어제까지는 없던 별이래.'] }],
         sora: '아직 새벽이야. 저 별 좀 봐!',
         people: [
-          { id: 'tea', pass: '차 한 사발 하고 가요!', name: '찻집 아주머니', x: 0.18, w: 117, h: 278, lines: ['가루 낸 차에 더운물을 붓고 저어요.', '거품이 고울수록 잘 탄 차랍니다.'],
+          { id: 'tea', pass: '차 한 사발 하고 가요!', show: 'tea', name: '찻집 아주머니', x: 0.18, w: 117, h: 278, lines: ['가루 낸 차에 더운물을 붓고 저어요.', '거품이 고울수록 잘 탄 차랍니다.'],
             try: { id: 'use-whisk', verb: 'use', name: '차 젓는 솔', sora: '휘휘휘! 거품이 뽀얗게 올라와!', memo: '송나라에서는 차를 가루 내어 대나무 솔로 저어 마셨단다.' } },
-          { id: 'bun', pass: '따끈한 만두요, 만두!', name: '만두 장수', x: 0.28, w: 152, h: 276, lines: ['새벽부터 쪄서 김이 펄펄 나지.', '배 타는 사람들이 제일 먼저 사 가오.'],
+          { id: 'bun', pass: '따끈한 만두요, 만두!', show: 'mantou', name: '만두 장수', x: 0.28, w: 152, h: 276, lines: ['새벽부터 쪄서 김이 펄펄 나지.', '배 타는 사람들이 제일 먼저 사 가오.'],
             try: { id: 'eat-mantou', verb: 'eat', name: '찐 만두', face: 'yum', sora: '호호, 뜨거워! 폭신폭신해.' } },
-          { id: 'carpenter', pass: '어디 보자, 여기도 멀쩡하군.', show: 'bridge', pose: 'see-wow', sora: '기둥이 하나도 없어!', memo: '통나무를 무지개처럼 휘어 강을 건넌 다리란다. 기둥이 없어 배가 걸리지 않았지.', name: '다리 고치는 목수', x: 0.39, w: 135, h: 279, lines: ['이 다리는 물속에 기둥이 없소.', '통나무를 무지개처럼 엮어 올렸지.'] },
+          { id: 'carpenter', pass: '어디 보자, 여기도 멀쩡하군.', show: 'bridge', pose: 'see-wow', sora: '기둥이 하나도 없어!', memo: '통나무를 무지개처럼 휘어 강을 건넌 다리란다. 기둥이 없어 배가 걸리지 않았지.', name: '다리 고치는 목수', x: 0.39, w: 135, h: 279, lines: ['이 다리는 물속에 기둥이 없소.', '그래서 큰 배도 걸리지 않고 지나간다오.'] },
           { id: 'boatman', pass: '돛대 눕혀라, 다리다!', name: '뱃사공', x: 0.5, w: 130, h: 320, lines: ['다리 밑을 지날 땐 돛대를 눕힌다오.', '남쪽 쌀이 이 물길로 다 올라오지.'] },
           { id: 'apprentice', pass: '저 별… 어제는 없었는데.', name: '별 보는 생도', x: 0.62, w: 114, h: 280, lines: ['하늘 보는 일을 배우는 중이야.', '밤을 꼬박 새웠더니 눈이 감겨.'] },
           { id: 'porter', pass: '영차, 영차.', name: '짐꾼', x: 0.74, w: 176, h: 279, lines: ['새벽 장에 댈 채소라오.', '이 도시는 밤에도 장이 선다오.'] },
@@ -835,10 +846,11 @@ export const WALKS = {
       },
       {
         id: 'street', name: '중국 개봉 성 안 큰 거리', short: '큰 거리', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'street', floor: 'dirt',
+        taps: [{ id: 'star', name: '새 별', box: [0.864, 0.050, 0.912, 0.126], pose: 'see-wow', sora: ['해가 떴는데 아직도 보여!', '손으로 해를 가리니까 더 잘 보여.'] }],
         sora: '해가 떴어. 그런데 저 별은 그대로야!',
         people: [
           { id: 'peddler', pass: '딸랑딸랑, 구경하세요!', name: '방물장수', x: 0.18, w: 158, h: 310, lines: ['부채, 빗, 바람개비, 없는 게 없소.', '온 거리를 지고 다닌다오.'] },
-          { id: 'printer', pass: '새 책 나왔소, 새 책!', show: 'print', pose: 'see-aha', sora: '글자가 거꾸로 새겨져 있어!', memo: '나무판에 글자를 뒤집어 새기고 먹을 발라 찍었단다. 판 하나로 수백 장을 찍었지.', name: '책 가게 주인', x: 0.28, w: 128, h: 313, lines: ['판 하나를 새기면 몇백 장을 찍소.', '손으로 베끼던 때는 지났지.'] },
+          { id: 'printer', pass: '새 책 나왔소, 새 책!', show: 'print', pose: 'see-aha', sora: '글자가 거꾸로 새겨져 있어!', memo: '나무판에 글자를 뒤집어 새기고 먹을 발라 찍었단다. 이 무렵 고려도 나무판에 대장경을 새기고 있었지.', name: '책 가게 주인', x: 0.28, w: 128, h: 313, lines: ['판 하나를 새기면 몇백 장을 찍소.', '손으로 베끼던 때는 지났지.'] },
           { id: 'cloth', pass: '옷 구경하고 가요!', name: '옷 가게 주인', x: 0.39, w: 145, h: 304, lines: ['아이 옷도 곱게 지어 놨어요.', '한번 걸쳐 보겠니?'],
             try: { id: 'wear-song', verb: 'wear', name: '송나라 옷', outfit: 'song', sora: '치마가 사락사락해!', memo: '송나라 아이들이 입던 저고리와 주름치마란다.' } },
           { id: 'scholar', pass: '공자 왈, 맹자 왈…', name: '글 읽는 선비', x: 0.5, w: 153, h: 310, lines: ['과거 시험이 코앞이라오.', '찍어 낸 책 덕에 공부할 맛이 나오.'] },
@@ -850,6 +862,7 @@ export const WALKS = {
       },
       {
         id: 'yard', name: '중국 개봉 천문대 마당', short: '천문대', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        taps: [{ id: 'star', name: '새 별', box: [0.829, 0.073, 0.877, 0.149], pose: 'see-wow', sora: ['낮에도 지지 않는 별이야.', '저 별을 오늘 처음 적는 거구나.'] }],
         sora: '고리가 겹겹인 저건 뭐지?',
         people: [
           { id: 'clockman', pass: '똑… 똑… 똑…', name: '물시계 지키는 관원', x: 0.18, w: 125, h: 305, lines: ['떨어지는 물로 시각을 잰단다.', '때가 되면 북을 쳐서 알리지.'] },
@@ -869,6 +882,7 @@ export const WALKS = {
     // fortune-teller shows her, and him, that it is still there; she hands the note over,
     // choosing what to say; and the astronomer sets the star down on his chart.
     tale: {
+      thing: true,
       ask: '해가 떠도 안 지는 별이 있을까?',
       gate: { scene: 'street', open: 3, sora: '문지기가 막고 있어. 못 들어가.' },
       steps: [
@@ -996,6 +1010,7 @@ export const WALKS = {
     // up; the calligrapher has her carry his inkpot as his helper; she hands the stone
     // over, choosing what to say; and the last petal is set.
     tale: {
+      thing: true,
       ask: '돌로 꽃을 피울 수 있을까?',
       gate: { scene: 'yard', open: 3, sora: '감독관이 막고 있어. 못 올라가.' },
       steps: [
@@ -1130,6 +1145,7 @@ export const WALKS = {
     // quadrant was stolen a month ago; the chief who got it back takes her in; she hands it
     // over, choosing what to say; and he lets her look.
     tale: {
+      thing: true,
       ask: '저 사람들은 왜 해만 볼까?',
       gate: { scene: 'gate', open: 3, sora: '보초가 막고 있어. 못 들어가.' },
       steps: [

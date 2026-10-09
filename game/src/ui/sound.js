@@ -263,6 +263,8 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
         [[2093, 0.5], [1568, 0.75], [1047, 1.0]].forEach(([freq, when], i) => warpBell(at + when, freq, 0.045 - i * 0.007));
       });
     },
+    // A thing changes hands: a small rising pluck, and a chime as it lands.
+    hand() { play((at) => { tone(at, { seconds: 0.14, from: 660, to: 990, gain: 0.07, attack: 0.01 }); ping(at + 0.7, 1319, 0.45, 0.045); }); },
     // The AudioContext, once a touch has woken it: the music plays through the same one.
     context: () => (failed ? null : ac),
     muted: () => muted,

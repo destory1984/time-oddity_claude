@@ -71,6 +71,14 @@ export const holdsOf = (tale, t) => (isTold(tale, t) ? tale.held : stepOf(tale, 
 // 들어간다고 했는데, 오른쪽으로 그냥 들어가는데?").
 export const barOf = (tale, t, sceneId) => (tale.gate && tale.gate.scene === sceneId && at(t) < tale.gate.open ? tale.gate.sora : null);
 
+// Whether the thing of the tale is in her hands: from the step after the one that offers it
+// until the step that ends in the choice (the handing over) is done.
+export function carrying(tale, t) {
+  const took = tale.steps.findIndex((step) => step.offer);
+  const gave = tale.steps.findIndex((step) => step.choice);
+  return took >= 0 && at(t) > took && (gave < 0 || at(t) <= gave);
+}
+
 // Whether someone is to be seen where they are placed: a person's `when` names the states.
 export const present = (t, person) => !person.when || person.when.includes(t?.state ?? 'S0');
 

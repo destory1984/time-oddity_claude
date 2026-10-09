@@ -21,7 +21,7 @@ import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
 import { REACH, offerLabel as offerText, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf } from './core/walk.js';
-import { advance, calledOf, endingOf, goalOf, holdsOf, isTold, present, stepOf as taleStep } from './core/tale.js';
+import { advance, calledOf, carrying, endingOf, goalOf, holdsOf, isTold, present, stepOf as taleStep } from './core/tale.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -217,9 +217,6 @@ const music = createMusic({ context: () => sound.context(), on: loadMusic(), rep
 const musicSwitch = {
   on: () => music.on(),
   another() { sound.wake(); music.another(); },
-  tunes: () => music.tunes(),
-  playingId: () => music.playingId(),
-  choose(id) { sound.wake(); music.choose(id); },
   repeat: () => music.repeat(),
   setRepeat(on) { music.setRepeat(on); saveRepeat(on); },
   setOn(on) {
@@ -422,7 +419,20 @@ const walkView = createWalkView({
   },
   onWay: (way) => { walkWay = panelOpen() ? 0 : way; if (way !== 0) walkWant = null; },
   onLook: (look) => openLook(look),
+  onTap: (tap) => tapScene(tap),
 });
+// A place in the picture touched: she says the next of what she has to say of it.
+function tapScene(tap) {
+  if (!walk || panelOpen()) return;
+  sound.wake(); sound.tick(false, false);
+  walkWay = 0; walkWant = null;
+  const key = `tap-${sceneOf(walk).id}-${tap.id}`;
+  const said = walk.told.filter((told) => told === key).length;
+  walk.told.push(key);
+  walk.heard = null;
+  walkSora = { text: tap.sora[said % tap.sora.length], from: walkT, until: walkT + SORA_FOR_MS };
+  if (tap.pose && !walk.wearing && said === 0) walkFace = { poses: [[tap.pose, walkT + 2200]] };
+}
 // A thing of the scene looked at closely: a photograph of it as it is today and what is
 // known of it, on a sheet of its own. The game waits while it is open.
 function openLook(look) {
@@ -552,6 +562,8 @@ function stepDone(step, chosen = null) {
   if (!saveTale(advance(told, walk.tale, chosen))) return false;
   closePanel();
   if (step.errand) taleMark(step.errand);
+  // The thing is seen to change hands: to her on being taken up, from her on being handed over.
+  if (told.thing && (step.offer || step.choice)) { walkView.hand(step.offer ? step.who : 'sora', step.offer ? 'sora' : step.who); sound.hand(); }
   const over = isTold(told, walk.tale);
   if (!over) sound.stamp();
   const ending = step.choice ? endingOf(told, walk.tale) : null;
@@ -833,6 +845,7 @@ function frameWalk(dt) {
 
   // The sky of that day and hour, as computed, behind the roofs.
   skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });
+  walkView.carry(walk.place.tale?.thing ? `./walks/${walk.place.dir}/thing.png` : null, Boolean(walk.tale) && carrying(walk.place.tale, walk.tale));
   walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.poses.find(([, until]) => walkT <= until)?.[0] ?? null, stride, walkHeld?.show ?? null);
   if (walkArrive) { sound[walkArrive](); walkArrive = null; walkView.arrive(); }
 
