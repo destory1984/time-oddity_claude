@@ -488,9 +488,13 @@ export const WALKS = {
   // taken to pieces and got back with the help of the chief Tubourai Tamaide; the flies
   // that kept the artist Parkinson from his work, and his being marked on the arm by the
   // islanders with a sharpened bone and blue-black dye; the three who watched timing the
-  // contacts differently. From memory: that the island had no iron, that "tattoo" comes
-  // from the island's word, the cloth beaten from bark, the transit lasting six hours, the
-  // next one 105 years after (1874).
+  // contacts differently. Looked up later that day: "tattoo" is from the island's "tatau"
+  // and is first written in English in the journals of this voyage; the cloth of bark soaked
+  // and beaten, mostly by women, and worn with a hole for the head; breadfruit roasted, tasting
+  // of bread crumb; iron prized there; a gap of 105 years and a half to the next transit.
+  // Not found, and so not said: that the island had no iron at all, how many hours the
+  // transit took. Kept out on purpose: the tale of sailors drawing the nails out of their
+  // ship (told of the Dolphin in 1767, of a trade not for children, and called a myth).
   // Made up: the errand of the coconut, the chief taking her in, the astronomer letting her look.
   venus1769: {
     dir: 'tahiti1769', look: 'paper',
@@ -507,7 +511,7 @@ export const WALKS = {
           { id: 'coconut', pass: '코코넛 있어요!', name: '코코넛 파는 아주머니', x: 0.53, w: 98, h: 280, lines: ['코코넛 물은 더울 때 제일이야.', '못 하나면 한 아름 준단다.'] },
           { id: 'breadboy', pass: '앗 뜨거, 앗 뜨거!', name: '열매 굽는 소년', x: 0.63, w: 85, h: 244, lines: ['빵나무 열매야. 불에 구워 먹어.', '속이 하얗고 폭신폭신해.'],
             try: { id: 'eat-breadfruit', verb: 'eat', name: '구운 빵나무 열매', face: 'yum', sora: '갓 구운 빵 같아! 고구마 같기도 해.' } },
-          { id: 'sailor', pass: '히히, 못 하나로 이만큼!', show: 'nail', pose: 'see-aha', sora: '못 하나에 이걸 다 줘?', memo: '이 섬에는 쇠가 없었단다. 그래서 못 하나가 보물이었지.', name: '못을 든 선원', x: 0.74, w: 116, h: 311, lines: ['여기선 못이 돈이야.', '다 빼 주다간 배가 흩어지겠어.'] },
+          { id: 'sailor', pass: '히히, 못 하나로 이만큼!', show: 'nail', pose: 'see-aha', sora: '못 하나에 이걸 다 줘?', memo: '이 섬에서는 쇠가 아주 귀했단다. 그래서 못 하나가 보물이었지.', name: '못을 든 선원', x: 0.74, w: 116, h: 311, lines: ['여기선 못이 돈이야.', '단추 하나로도 과일 한 바구니를 줘.'] },
           { id: 'shipboy', pass: '와, 모래가 뜨거워!', name: '배의 심부름 소년', x: 0.85, w: 89, h: 287, lines: ['대위님은 오늘 요새에서 해를 보신대.', '금성이 해 앞을 지나간다나 봐.'] },
         ],
         spots: [],
@@ -533,7 +537,7 @@ export const WALKS = {
           { id: 'caller', pass: '똑, 딱, 똑, 딱.', name: '시계 읽는 선원', x: 0.15, w: 96, h: 318, lines: ['시계가 몇 초인지 소리쳐 주는 일이야.', '한 번이라도 틀리면 큰일이지.'] },
           { id: 'captain', pass: '시각을 정확히 적게.', show: 'quadrant', pose: 'see-aha', sora: '놋쇠로 만든 부채 같아!', memo: '한 달 전에 도둑맞았다가 조각난 채로 되찾은 기구란다.', name: '쿡 대위', x: 0.26, w: 101, h: 320, lines: ['이 기구로 별의 높이를 잰다.', '이게 없으면 여기까지 온 보람이 없지.'] },
           { id: 'kid', pass: '나도 볼래, 나도!', name: '망원경이 궁금한 아이', x: 0.36, w: 71, h: 201, lines: ['저 통에 눈을 대면 해가 커진대.', '아저씨들이 종일 저것만 봐.'] },
-          { id: 'green', pass: '저 점이… 지금!', show: 'transit', pose: 'see-wow', sora: '해에 까만 점이 있어!', memo: '저 점이 금성이란다. 해 앞을 여섯 시간에 걸쳐 지나갔지.', name: '천문학자 그린', x: 0.47, w: 101, h: 303, lines: ['금성이 해 앞을 지나는 날이란다.', '끝날 때까지 눈을 뗄 수가 없어.'] },
+          { id: 'green', pass: '저 점이… 지금!', show: 'transit', pose: 'see-wow', sora: '해에 까만 점이 있어!', memo: '저 점이 금성이란다. 해 앞을 한나절에 걸쳐 지나갔지.', name: '천문학자 그린', x: 0.47, w: 101, h: 303, lines: ['금성이 해 앞을 지나는 날이란다.', '끝날 때까지 눈을 뗄 수가 없어.'] },
           { id: 'clerk', pass: '사각사각.', name: '받아 적는 서기', x: 0.6, w: 93, h: 302, lines: ['부르시는 시각을 다 받아 적어.', '세 분이 본 시각이 조금씩 달라.'] },
           { id: 'priest', pass: '흠, 낮에 별을 본다고?', name: '타히티의 길잡이', x: 0.72, w: 109, h: 306, lines: ['우리도 별을 보고 바다를 건넌단다.', '저 사람들은 통으로 별을 보는구나.'] },
           { id: 'water', pass: '물이오, 물!', name: '물 나르는 선원', x: 0.85, w: 120, h: 291, lines: ['모래가 달아서 발이 익겠어.', '통에 든 물도 미지근해졌어.'] },
