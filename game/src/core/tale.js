@@ -58,7 +58,9 @@ export const calledOf = (tale, t) => { const step = stepOf(tale, t); return step
 export const callOf = (tale, t, personId) => { const step = stepOf(tale, t); return step?.who === personId ? step.call ?? null : null; };
 
 export const goalOf = (tale, t) => stepOf(tale, t)?.goal ?? tale.done;
-// What is in whose hands, in a line (there is no bag to open).
+// What is in whose hands, in a line (there is no bag to open). Once it is handed over the
+// line is gone: the errand struck through says as much (the user, 2026.10.9, of the line
+// left on the slip when all was done: "이게 남아있네").
 export const holdsOf = (tale, t) => (isTold(tale, t) ? tale.held : stepOf(tale, t).holds) ?? null;
 
 // Whether someone is to be seen where they are placed: a person's `when` names the states.

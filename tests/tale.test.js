@@ -25,7 +25,7 @@ describe('a tale of a thing carried', () => {
     expect(isTold(tale, t)).toBe(true);
     expect(calledOf(tale, t)).toEqual([]);
     expect(goalOf(tale, t)).toBe(tale.done);
-    expect(holdsOf(tale, t)).toBe(tale.held);
+    expect(holdsOf(tale, t)).toBe(null);
     expect(advance(tale, t, 'E1')).toBe(t);
   });
   it('does not go past the handing over without one of the two things to say being chosen', () => {
@@ -45,8 +45,7 @@ describe('a tale of a thing carried', () => {
     expect(holdsOf(tale, upTo(0))).toContain('아가씨');
     const gave = tale.steps.findIndex((s) => s.choice);
     for (let n = 1; n <= gave; n += 1) expect(holdsOf(tale, upTo(n))).toContain('소라');
-    expect(holdsOf(tale, upTo(gave + 1))).toContain('기관사');
-    expect(tale.held).toContain('기관사');
+    expect(holdsOf(tale, upTo(gave + 1))).toBe(null);
   });
   it('has the one who asks wait where she is from first to last, with thanks at the end', () => {
     for (let n = 0; n <= tale.steps.length; n += 1) {

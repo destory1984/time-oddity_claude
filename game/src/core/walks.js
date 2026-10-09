@@ -456,7 +456,7 @@ export const WALKS = {
         {
           // The tale does not end on the platform: the train is to be ridden (the user,
           // 2026.10.9: "신칸센 안에 안 들어가도 시나리오 끝나잖아. 속도계 보는 미션도 같이 넣어").
-          who: 'buffet', show: true, goal: '달리는 신칸센에 타서 뷔페 칸의 속도계를 보렴.', holds: '꽃다발: 기관사에게 전했음',
+          who: 'buffet', show: true, goal: '달리는 신칸센에 타서 뷔페 칸의 속도계를 보렴.',
           lines: ['어서 오세요! 기관사님 부탁이라고요?', '속도계 보세요. 바늘이 딱 210이죠!'],
           sora: '진짜 210이야! 기관사님, 약속 지켰어요!',
           errand: 'speed',
@@ -468,7 +468,6 @@ export const WALKS = {
         { who: 'flowers0', when: ['S4', 'S5'], lines: ['꽃을 전해 주셨군요! 정말 고마워요.', '아버지께도 꼭 말씀드릴게요.'] },
       ],
       done: '꽃을 전하고, 시속 210km를 눈으로 보았다.',
-      held: '꽃다발: 기관사에게 전했음',
     },
     // The tale's three marks in the notebook. Nobody does them by being spoken to (`at` is
     // empty): the tale does (main.js, a step's `errand`).
@@ -580,7 +579,7 @@ export const WALKS = {
           errand: 'gave',
         },
         {
-          who: 'green', show: true, goal: '천문학자의 망원경을 들여다보렴.', holds: '코코넛: 천문학자에게 전했음',
+          who: 'green', show: true, goal: '천문학자의 망원경을 들여다보렴.',
           lines: ['이 통에 눈을 대 보렴.', '해 위의 까만 점, 저게 금성이란다.'],
           sora: '해에 점이 있어! 저게 별이라고?',
           errand: 'saw',
@@ -591,7 +590,6 @@ export const WALKS = {
         { who: 'coconut', when: ['S5'], lines: ['다 마셨다니 다행이구나!', '해에 점이 있었다고? 신기하네.'] },
       ],
       done: '코코넛을 전하고, 해를 지나는 금성을 보았다.',
-      held: '코코넛: 천문학자에게 전했음',
     },
     errands: [
       { id: 'took', text: '코코넛을 받는다.', at: [] },
