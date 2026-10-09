@@ -163,7 +163,8 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     for (const { button } of spots) button.remove();
     spots = (scene.spots ?? []).map((spot) => {
       const button = document.createElement('button');
-      button.type = 'button'; button.className = 'tap';
+      // (One whose place in the picture is given lies over a thing to look at closely, not under it.)
+      button.type = 'button'; button.className = spot.see ? 'tap seen' : 'tap';
       button.addEventListener('pointerdown', (e) => e.stopPropagation());
       button.addEventListener('click', () => onSpot(spot));
       scroll.append(button);

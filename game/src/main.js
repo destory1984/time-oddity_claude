@@ -742,6 +742,10 @@ function enterScene() {
   $('walkPrev').textContent = before ? `${walk.been.includes(before.id) ? '«' : '‹'} ${t(before.short ?? before.name)}` : '‹';
   $('walkNext').textContent = after ? `${t(after.short ?? after.name)} ${walk.been.includes(after.id) ? '»' : '›'}` : '›';
   sound.air(scene.air ?? null);
+  // One who did everything but did not choose, and has come again, is asked in the last scene,
+  // where the story ends: asked on being set down in the first, the question came from nowhere
+  // (the user, 2026.10.10: "칸 완료 버튼 누르면, 왜 저 버튼이 떠?").
+  showChoice(Boolean(walk.place.story?.choice) && allDone(walk) && !chosenOf() && walk.scene === walk.place.scenes.length - 1);
 }
 function showWalk(sq) {
   square = sq;
@@ -755,7 +759,7 @@ function showWalk(sq) {
   $('errands').classList.remove('folded');
   // Come again with all of them done, the slip has its stamp on it from the first.
   $('errands').classList.toggle('alldone', allDone(walk));
-  showChoice(Boolean(walk.place.story?.choice) && allDone(walk) && !chosenOf());
+  showChoice(false);
   if (isLocalHost(location.hostname)) window.walkDebug = walk;
   globe.setActive(false);
   // (Where the sky of the picture is pale paper, the date over it is written dark.)
@@ -1373,6 +1377,8 @@ $('testAll').addEventListener('click', () => {
   let all = fullProgress(SQUARES.map((sq) => sq.id), NOTES.map((note) => note.id));
   for (const [id, place] of Object.entries(WALKS)) {
     all = markErrands(all, id, place.errands.map((errand) => errand.id));
+    // (And the choice a story ends in, as if the first had been taken.)
+    if (place.story?.choice) all = markTried(all, id, `chose-${place.story.choice.options[0].id}`);
     for (const scene of place.scenes) all = markBeen(all, id, scene.id);
   }
   saveProgress(all);
