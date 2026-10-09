@@ -1778,4 +1778,122 @@ export const WALKS = {
     ],
     reply: '그 감독의 일지가 사천오백 해 뒤에 나왔단다. 적어 두면 남는 법이지.',
   },
+  // Nara, the 9th of the 4th month of 752 (26 May): the eyes of the Great Buddha are painted
+  // in. Drawn in ink on hemp, as the bodhisattva on hemp kept in the Shosoin (the user,
+  // 2026.10.10, of five tries: "나라 4"). Looked up on 2026.10.10 and found so: the day; the
+  // Indian monk Bodhisena dotted the eyes with a giant brush; the brush, the ink stick and a
+  // blue silk cord of that day are in the Shosoin, with masks and costumes; some ten thousand
+  // monks and four thousand musicians and dancers, troupes of Japan and of the mainland; the
+  // statue some 16 m high at first. Commonly told but not found this time: that those present
+  // held the cord (said here as "it is told"). From memory: the bronze lantern before the hall
+  // is of that time and stands there still, the gilding was not finished on the day, petals
+  // of paper scattered, tallies of wood, dress after the Tang.
+  // Made up: the cord maker's errand, the gatekeeper, the drummer who takes her in.
+  nara752: {
+    dir: 'nara752', look: 'paper', pale: true,
+    drawn: '그 무렵 나라 사람들이 삼베에 먹으로 그리던 그림처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'gate', name: '일본 나라 도다이지 문 앞', short: '절 문 앞', zoom: 1.13, ground: 0.715, scale: 0.661, air: 'street', floor: 'dirt',
+        sora: '깃발이 하늘까지 닿겠어!',
+        people: [
+          { id: 'rice', pass: '김 나는 찐 쌀이오!', show: 'rice', name: '찐 쌀 파는 아주머니', x: 0.19, w: 145, h: 306, lines: ['먼 데서 온 이들이 많아 잘 팔린단다.', '하나 먹어 보련?'],
+            try: { id: 'eat-rice', verb: 'eat', name: '찐 쌀 덩이', face: 'yum', sora: '쫀득쫀득, 꼭꼭 씹혀!' } },
+          { id: 'farmer', pass: '허어, 크기도 하다.', name: '먼 고을에서 온 농부', x: 0.3, w: 134, h: 302, lines: ['열흘을 걸어서 왔다오.', '큰 부처님을 한 번은 뵈어야지.'] },
+          { id: 'tiler', pass: '기와가 몇 장인지 아나?', name: '기와 굽는 장인', x: 0.4, w: 133, h: 310, lines: ['저 큰 집 지붕에 얹은 기와라오.', '굽고 또 구워도 모자랐지.'] },
+          { id: 'child', pass: '탑이 구름에 닿았어!', name: '구경하는 아이', x: 0.51, w: 92, h: 187, lines: ['저 탑은 일곱 층이야. 세어 봤어.', '꼭대기는 고개가 아파서 못 봐.'] },
+          { id: 'weaver', pass: '고운 옷 보고 가요.', name: '옷감 짜는 아주머니', x: 0.62, w: 130, h: 310, lines: ['바다 건너 당나라 옷을 본뜬 거란다.', '아이 옷도 있어. 입어 보련?'],
+            try: { id: 'wear-nara', verb: 'wear', name: '나라의 옷', outfit: 'nara', sora: '치마가 가슴까지 올라와!', memo: '그 무렵 일본은 당나라의 옷과 집과 글을 많이 배워 왔단다.' } },
+          { id: 'cord', pass: '한 올, 또 한 올.', name: '끈 꼬는 장인', x: 0.73, w: 128, h: 306, lines: ['비단실을 꼬아 끈을 만든단다.', '오늘 쓸 끈은 아주 길어야 해.'] },
+          { id: 'official', pass: '만 명, 만 하고도…', name: '글 쓰는 관리', x: 0.85, w: 115, h: 320, lines: ['오늘 모인 스님만 만 명이란다.', '나무 조각에 다 적는 중이지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'court', name: '일본 나라 도다이지 회랑 마당', short: '회랑 마당', zoom: 1.16, ground: 0.695, scale: 0.678, air: 'court', floor: 'dirt',
+        sora: '탈이 잔뜩 걸려 있어!',
+        people: [
+          { id: 'mask', pass: '얼쑤, 코가 길지?', show: 'mask', pose: 'see-wow', sora: '코가 엄청 긴 탈이야!', memo: '그날 쓴 탈과 춤옷이 지금도 쇼소인이라는 창고에 남아 있단다.', name: '탈춤꾼', x: 0.18, w: 130, h: 293, lines: ['먼 서쪽 나라 사람을 본뜬 탈이란다.', '이걸 쓰고 줄지어 춤을 추지.'] },
+          { id: 'biwa', pass: '둥, 디리링.', name: '비파 타는 악사', x: 0.29, w: 132, h: 277, lines: ['바다 건너에서 온 악기란다.', '오늘은 여러 나라 음악이 다 울려.'] },
+          { id: 'tang', pass: '나무아미타불.', name: '당나라에서 온 스님', x: 0.4, w: 102, h: 278, lines: ['바다를 건너 이 나라에 왔다오.', '오늘 눈을 그리는 스님은 인도 분이지.'] },
+          { id: 'petal', pass: '꽃잎 뿌려요, 꽃잎!', name: '꽃잎 뿌리는 동자', x: 0.51, w: 120, h: 230, lines: ['의식 때 하늘에 뿌릴 꽃잎이야.', '바구니가 벌써 세 개째야.'] },
+          { id: 'flute', pass: '삐이, 삘릴리.', name: '피리 부는 악사', x: 0.62, w: 119, h: 282, lines: ['악사와 춤꾼이 사천 명이란다.', '이런 큰 잔치는 처음이야.'] },
+          { id: 'drummer', pass: '둥! 둥! 북 나간다!', name: '큰 북 치는 악사', x: 0.73, w: 139, h: 285, lines: ['이 북은 사람 키보다 크단다.', '멀리까지 울리라고 힘껏 치지.'] },
+          { id: 'keeper', pass: '줄을 맞춰 들어가시오.', name: '안문 지키는 사람', x: 0.85, w: 136, h: 320, lines: ['안마당은 의식 맡은 이만 든단다.', '스님들 줄이 아직 길구나.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'hall', name: '일본 나라 도다이지 큰 부처 집 앞', short: '큰 부처 집 앞', zoom: 1.16, ground: 0.695, scale: 0.678, air: 'hush', floor: 'dirt',
+        sora: '부처님 손이 방만 해!',
+        people: [
+          { id: 'incense', pass: '향을 올립니다.', name: '향 올리는 스님', x: 0.18, w: 80, h: 304, lines: ['만 명이 함께 경을 읽는단다.', '소리가 산을 넘어가겠지.'] },
+          { id: 'caster', pass: '내가 부은 부처님이지!', show: 'buddha', pose: 'see-wow', sora: '사람이 손가락보다 작아!', memo: '처음 만든 부처는 높이가 16미터쯤이었단다. 구리를 녹여 부어 만들었지.', name: '부처를 부은 장인', x: 0.29, w: 106, h: 297, lines: ['구리를 녹여 틀에 부어 만들었단다.', '여러 해가 걸린 큰일이었지.'] },
+          { id: 'gilder', pass: '금이 아직 모자라.', name: '금 입히는 장인', x: 0.4, w: 79, h: 246, lines: ['부처님 몸에 금을 입히는 중이란다.', '아직 다 못 입혔어. 워낙 크셔서.'] },
+          { id: 'ritual', pass: '끈이, 끈이 아직인가.', show: 'eyes', pose: 'see-wow', sora: '다 같이 끈을 잡았어!', memo: '붓에 긴 끈을 매어 모인 이들이 함께 잡았다고 전한단다. 다 같이 눈을 그린 셈이지.', name: '의식을 맡은 스님', x: 0.51, w: 104, h: 243, lines: ['오늘 부처님의 눈을 그려 넣는단다.', '눈을 그려야 비로소 부처님이 되시지.'] },
+          { id: 'bodhi', pass: '붓이 묵직하구나.', show: 'brush', pose: 'see-aha', sora: '붓이 내 팔보다 길어!', memo: '인도에서 온 스님 보리선나가 이 붓으로 눈을 그렸단다. 붓은 지금도 남아 있지.', name: '인도에서 온 스님', x: 0.62, w: 95, h: 298, lines: ['먼 인도에서 바다를 건너왔단다.', '이 붓으로 눈동자를 찍을 게다.'] },
+          { id: 'lamp', pass: '불을 밝혀야지.', show: 'lantern', pose: 'see-aha', sora: '등에 피리 부는 이가 있어!', memo: '이 청동 등은 지금도 큰 부처 집 앞 그 자리에 서 있단다.', name: '등 지키는 사람', x: 0.73, w: 90, h: 320, lines: ['이 등은 여덟 모로 지었단다.', '문짝마다 악기 든 보살이 계시지.'] },
+          { id: 'granny', pass: '고맙습니다, 고맙습니다.', name: '절하는 할머니', x: 0.85, w: 88, h: 216, lines: ['살아서 이날을 보는구나.', '온 나라가 힘을 모아 지었단다.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The cord" (core/tale.js; the user, 2026.10.10, of the storyboard: "이대로 지어"): the cord
+    // maker has the silk cord for the brush; the keeper of the inner gate lets only the monks
+    // in; the drummer takes her round by the players' door; she hands it to the monk who
+    // sees to the rite, choosing what to say; and the eyes are painted in.
+    tale: {
+      thing: true,
+      ask: '부처의 눈은 누가 그릴까?',
+      gate: { scene: 'court', open: 3, sora: '문 지키는 사람이 막아. 못 가.' },
+      steps: [
+        {
+          who: 'cord', goal: '절 문 앞의 끈 꼬는 장인에게 가 보렴.', holds: '비단 끈: 장인이 들고 있음',
+          lines: ['얘야, 이 끈을 좀 보렴.', '오늘 눈 그리는 붓에 맬 끈이란다.', '의식 맡은 스님께 전해 줄래?'],
+          offer: { ask: '비단 끈을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'keeper', goal: '회랑 마당 끝의 안문으로 가 보렴.', holds: '비단 끈: 소라가 들고 있음',
+          lines: ['멈추어라. 스님들 줄이 들어가는 중이다.', '아이는 밖에서 기다려라.'],
+          sora: '끈을 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'drummer', call: '얘야, 그 끈은 뭐니?', goal: '큰 북 치는 악사가 부른다. 가 보렴.', holds: '비단 끈: 소라가 들고 있음',
+          lines: ['붓에 맬 끈이라고? 큰일 날 뻔했구나.', '악사들이 드나드는 옆문이 있단다.', '나를 따라 북 뒤로 오렴.'],
+          after: [{ who: 'keeper', line: '악사와 함께라면 지나가거라.' }],
+          sora: '옆문으로 가면 된대! 가자!',
+        },
+        {
+          who: 'ritual', goal: '큰 부처 집 앞의 의식 맡은 스님에게 끈을 전하렴.', holds: '비단 끈: 소라가 들고 있음',
+          lines: ['오오, 끈이 이제야 왔구나!'],
+          choice: {
+            ask: '비단 끈을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"장인이 꼬았어요"', sora: '문 앞의 장인이 꼬았어요.', says: '곱게도 꼬았구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"끈은 왜 매요?"', sora: '붓에 끈은 왜 매는 거예요?', says: '모두가 함께 잡으려고 맨단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'ritual', show: true, goal: '스님이 가리키는 큰 부처를 보렴.',
+          lines: ['이제 시작한다. 저 위를 보렴.', '끈을 잡은 모두가 함께 그리는 거란다.'],
+          sora: '눈이 생겼어! 부처님이 보셔.',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'cord', when: ['S1', 'S2', 'S3', 'S4'], lines: ['의식 맡은 스님은 큰 부처 집 앞에 계신다.', '회랑 마당을 지나 안문으로 가렴.'] },
+        { who: 'cord', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '내 끈이 그 붓에 매였다니 꿈만 같구나.'] },
+      ],
+      done: '비단 끈을 전하고, 눈 그리는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '비단 끈을 받는다.', at: [] },
+      { id: 'gave', text: '스님에게 비단 끈을 전한다.', at: [] },
+      { id: 'saw', text: '부처의 눈을 그려 넣는 것을 본다.', at: [] },
+    ],
+    reply: '그 붓과 끈은 천삼백 해 가까이 그 절의 창고에 그대로 있단다.',
+  },
 };

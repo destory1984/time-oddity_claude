@@ -535,6 +535,22 @@ export const SQUARES = [
     reply: '그날 처음 두 세상이 만났단다. 그 호수는 메워져 지금의 멕시코시티가 되었지.',
     quiz: { question: '테노치티틀란은 어디에 지은 도시였나?', answer: '호수 한가운데', proof: '호수 한가운데에 지은 도시', wrong: ['높은 산꼭대기', '바닷가 모래밭'] },
   },
+  {
+    // Nara on the 9th day of the 4th month of 752, which is 26 May 752 (Julian): the eyes of
+    // the Great Buddha of Todai-ji are painted in. The Moon was a little past its first
+    // quarter, by computation (the ninth day of a month of the Moon). The place is walked
+    // about (core/walks.js).
+    no: 22, id: 'nara752', name: '큰 부처의 눈', dateLabel: 'AD 752.5.26', place: '나라, 일본',
+    lat: 34.689, lon: 135.84,
+    date: { year: 752, month: 5, day: 26 }, calendar: 'julian', hourLocal: 10,
+    facingAz: 0, nightOnLook: true,
+    memo: '큰 부처의 눈을 그려 넣은 날.', sora: '부처님이 집보다 커!',
+    memoToday: '남은 것: 큰 부처와 그 붓.', soraToday: '부처님이 아직 앉아 계셔!',
+    noteMemo: '752.5.26. 나라의 큰 부처에 눈을 그려 넣었다고 책에서 읽음. 그날 달은 반달을 막 지난 달.',
+    card: '752년 5월 26일(음력 4월 9일), 일본 나라의 도다이지에서 큰 청동 부처의 눈을 그려 넣는 의식이 열렸습니다. 인도에서 온 스님 보리선나가 큰 붓으로 눈동자를 찍었고, 스님 만 명과 여러 나라의 악사와 춤꾼이 모였습니다. 그날 쓴 붓과 먹과 끈은 지금도 쇼소인이라는 창고에 남아 있습니다.',
+    reply: '그 붓과 끈은 천삼백 해 가까이 그 절의 창고에 그대로 있단다.',
+    quiz: { question: '부처의 눈을 그려 넣은 스님은 어디에서 왔나?', answer: '인도', proof: '인도에서 온 스님 보리선나', wrong: ['당나라', '신라'] },
+  },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
 
