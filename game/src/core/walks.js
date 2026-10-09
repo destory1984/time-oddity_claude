@@ -212,6 +212,12 @@ export const WALKS = {
       {
         id: 'hall', name: '파리 만국박람회 기계관', short: '박람회 기계관', zoom: 1.16, ground: 0.69, scale: 0.678, air: 'works', floor: 'wood',
         sora: '쿵쿵쿵! 바퀴가 진짜 돌아가.',
+        // The two flywheels may be touched (the user, 2026.10.10: "저 바퀴 설명도 넣어줘"). Looked up: a flywheel
+        // takes up the surplus of the stroke that drives and gives it back in the others, so the shaft turns evenly.
+        taps: [
+          { id: 'red', name: '플라이휠', box: [0.171, 0.333, 0.389, 0.661], pose: 'see-wow', sora: ['바퀴가 나보다 훨씬 커! 빙글빙글.', '한번 돌면 잘 안 멈춘대.'], memo: '플라이휠이라는 무거운 바퀴란다. 증기가 밀 때 힘을 모았다가 돌려줘서 기계가 고르게 돌지.' },
+          { id: 'blue', name: '플라이휠', box: [0.566, 0.333, 0.784, 0.661], pose: 'see-wow', sora: ['바퀴가 나보다 훨씬 커! 빙글빙글.', '한번 돌면 잘 안 멈춘대.'], memo: '플라이휠이라는 무거운 바퀴란다. 증기가 밀 때 힘을 모았다가 돌려줘서 기계가 고르게 돌지.' },
+        ],
         // The two flywheels, cut out of the picture itself (tools/walk-art.py disc), turn where they lie.
         moving: [
           { kind: 'spin', id: 'red', src: 'wheel-red', x: 0.2799, y: 0.4971, tall: 0.3291, rpm: 15 },
