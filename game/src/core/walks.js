@@ -478,6 +478,122 @@ export const WALKS = {
     ],
     reply: '그 기차는 열 시 정각에 오사카에 닿았단다. 그날 달린 예순 편이 모두 제시각이었지.',
   },
+  // Constantinople, 27 December 537: the new Hagia Sophia is opened. Carved as an ivory
+  // panel of that century (the user, 2026.10.9, of five tries: "콘스탄티노플 4번으로 가자"):
+  // one colour for the walls, and the people with more of their old paint left on them.
+  // Looked up on 2026.10.9 and found so: dedicated on this day, five years after it was
+  // begun in 532; built by Anthemius and Isidore, men of mathematics and machines; the round
+  // dome carried on a square by four curved triangles; its vaults all gold mosaic with no
+  // figures; the walls of marble slabs sawn thin and opened like a book, brought from many
+  // lands; the dome fell after the earthquake of 558 and was raised again. By tradition the
+  // emperor went in before the patriarch. From memory: gold leaf between two layers of
+  // glass, the lamps hung in rings, the windows round the foot of the first dome.
+  // Made up: the errand of the gold pieces, the guard, the deacon and the side door.
+  hagiaSophia: {
+    dir: 'byz537', look: 'paper', pale: true,
+    scenes: [
+      {
+        id: 'square', name: '동로마 콘스탄티노플 성당 앞 광장', short: '성당 앞 광장', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'court', floor: 'dirt',
+        sora: '우와, 지붕이 산처럼 커!',
+        people: [
+          { id: 'candle', pass: '초 사세요, 새 성당 초!', name: '초 파는 할머니', x: 0.18, w: 125, h: 301, lines: ['오늘 새 성당이 문을 여는 날이란다.', '초 하나 켜 보련?'],
+            try: { id: 'use-candle', verb: 'use', name: '초', sora: '후, 안 꺼지게 조심조심.' } },
+          { id: 'mason', pass: '깡, 깡. 다 됐다, 다 됐어.', show: 'tesserae', pose: 'see-gasp', sora: '유리 속에 금이 들었어!', memo: '얇은 유리 두 겹 사이에 금박을 끼운 조각이란다. 그걸 지붕 가득 붙였지.', name: '석공', x: 0.27, w: 121, h: 303, lines: ['돌은 내가 깎고, 금빛은 저 조각이 낸단다.', '손톱만 한 조각을 지붕 가득 붙였지.'] },
+          { id: 'porter', pass: '영차! 마지막 기둥이다.', name: '기둥 나르는 일꾼', x: 0.37, w: 153, h: 307, lines: ['이 돌기둥은 바다 건너에서 왔어.', '굴림대 없이는 꿈쩍도 안 해.'] },
+          { id: 'pilgrim', pass: '세상에, 저 지붕 좀 봐.', name: '먼 데서 온 순례자', x: 0.47, w: 134, h: 320, lines: ['먼 시골에서 걸어서 왔단다.', '저렇게 큰 둥근 지붕은 처음 봐.'] },
+          { id: 'child', pass: '우와, 하늘만큼 커!', name: '구경 나온 아이', x: 0.56, w: 94, h: 239, lines: ['지붕이 꼭 뒤집은 그릇 같아.', '안은 금빛이래. 보고 싶다!'] },
+          { id: 'glass', pass: '반짝반짝, 잘 구워졌군.', name: '유리 굽는 장인', x: 0.67, w: 115, h: 313, lines: ['유리 사이에 금을 끼워 굽는단다.', '그걸 잘게 쪼개 벽에 붙이지.'] },
+          { id: 'baker', pass: '갓 구운 빵이오!', name: '빵 장수', x: 0.8, w: 175, h: 301, lines: ['일꾼들이 새벽부터 줄을 섰지.', '고리 빵 하나 먹어 보련?'],
+            try: { id: 'eat-ringbread', verb: 'eat', name: '고리 빵', face: 'yum', sora: '쫄깃쫄깃하고 따뜻해!' } },
+        ],
+        spots: [],
+      },
+      {
+        id: 'narthex', name: '동로마 콘스탄티노플 성당 문간', short: '성당 문간', zoom: 1.06, ground: 0.8, scale: 0.66, air: 'hush', floor: 'wood',
+        sora: '문이 엄청 커! 다 닫혀 있네.',
+        people: [
+          { id: 'oiler', pass: '졸졸졸, 한 방울도 안 흘려.', name: '등잔에 기름 붓는 일꾼', x: 0.18, w: 113, h: 271, lines: ['등잔마다 기름을 채우는 중이야.', '밤에도 환하게 밝힐 거란다.'] },
+          { id: 'singer', pass: '아아아, 목이 잘 풀렸다.', name: '성가대 소년', x: 0.28, w: 80, h: 238, lines: ['오늘 처음으로 여기서 노래해.', '소리가 지붕까지 올라갔다 내려와.'] },
+          { id: 'lady', pass: '어머, 귀여운 아이구나.', name: '귀족 부인', x: 0.38, w: 88, h: 274, lines: ['폐하를 기다리는 중이란다.', '우리 딸 나들이옷이 맞겠구나. 입어 보련?'],
+            try: { id: 'wear-byz', verb: 'wear', name: '동로마 나들이옷', outfit: 'byz', sora: '망토가 어깨에서 찰랑거려!', memo: '어깨에서 핀으로 여미는 망토는 동로마 사람들의 나들이옷이란다.' } },
+          { id: 'guard', pass: '물러서라. 폐하의 문이다.', name: '황제의 근위병', x: 0.5, w: 114, h: 320, lines: ['이 문은 폐하만 드나드신다.', '나는 여기서 꼼짝 않는다.'] },
+          { id: 'polisher', pass: '쓱쓱, 거울 같아졌군.', show: 'marble', pose: 'see-aha', sora: '무늬가 양쪽이 똑같아!', memo: '돌 한 덩이를 얇게 켜서 책처럼 펼쳐 붙였단다. 그래서 무늬가 마주 보지.', name: '대리석 닦는 장인', x: 0.64, w: 110, h: 270, lines: ['이 돌판의 무늬를 가만히 보렴.', '한 덩이를 켜서 책처럼 펼친 거란다.'] },
+          { id: 'scribe', pass: '오늘 날짜를 적어야지.', name: '받아 적는 서기', x: 0.75, w: 92, h: 262, lines: ['오늘 일을 빠짐없이 적는단다.', '훗날 사람들이 읽을 테니까.'] },
+          { id: 'deacon', pass: '향이 잘 타는구나.', name: '향로 든 부제', x: 0.85, w: 110, h: 274, lines: ['향 연기가 위로 곧게 올라가지.', '오늘은 다들 마음이 바쁘단다.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'nave', name: '동로마 콘스탄티노플 돔 아래', short: '돔 아래', zoom: 1.06, ground: 0.8, scale: 0.78, air: 'hush', floor: 'wood',
+        sora: '안이 이렇게 넓어? 목이 아파.',
+        people: [
+          { id: 'carpenter', pass: '비계를 걷어야 하는데.', name: '비계 푸는 목수', x: 0.19, w: 92, h: 269, lines: ['다섯 해 만에 다 지었단다.', '마지막 한 줌이 모자라 비계를 못 걷어.'] },
+          { id: 'lighter', pass: '하나, 둘, 불 들어간다.', show: 'lamps', pose: 'see-wow', sora: '등잔이 고리에 조르르!', memo: '기름 등잔을 고리에 여럿 꽂아 높이 매달았단다.', name: '등잔 켜는 사람', x: 0.31, w: 75, h: 320, lines: ['고리 하나에 등잔이 여럿이란다.', '긴 장대로 하나씩 불을 붙이지.'] },
+          { id: 'emperor', pass: '다 지었도다!', name: '황제 유스티니아누스', x: 0.44, w: 103, h: 248, lines: ['다섯 해 만에 이 집을 다 지었노라.', '이런 지붕은 세상에 처음이니라.'] },
+          { id: 'patriarch', pass: '오늘은 큰 날이로다.', name: '총대주교', x: 0.53, w: 88, h: 232, lines: ['폐하께서 먼저 들어와 계셨구나.', '이제 문을 열 차례란다.'] },
+          { id: 'master', pass: '한 줌만 더 있으면…', show: 'dome', pose: 'see-wow', sora: '지붕이 빛 위에 떠 있어!', memo: '지붕 밑동에 창을 빙 둘러 뚫었단다. 빛이 들면 지붕이 떠 보이지.', name: '모자이크 장인', x: 0.63, w: 87, h: 228, lines: ['지붕 안쪽은 온통 금빛 조각이란다.', '하나하나 손으로 눌러 붙였지.'] },
+          { id: 'isidore', pass: '네모 위에 동그라미라…', show: 'triangle', pose: 'see-aha', sora: '세모난 벽이 지붕을 받쳐!', memo: '네모난 방 위에 둥근 지붕을 얹으려고 휜 세모 벽 넷을 끼웠단다.', name: '수학자 이시도로스', x: 0.74, w: 84, h: 233, lines: ['네모난 방에 둥근 지붕을 어찌 얹을까?', '모서리마다 휜 세모를 끼우면 된단다.'] },
+          { id: 'sweeper', pass: '쓱싹쓱싹, 반짝반짝.', name: '바닥 닦는 아이', x: 0.85, w: 68, h: 176, lines: ['바닥이 넓어서 끝이 없어.', '위를 보다가 자꾸 손이 멈춰.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The house with the sky on it" (core/tale.js; the user, 2026.10.9, of the storyboard:
+    // "이대로 지어"): a handful of gold pieces is taken from the glass-maker in the square to
+    // the mosaic master under the dome; the emperor's guard will let nobody in by the great
+    // door; a deacon shows her the side door; she hands them over, choosing what to say;
+    // and she looks up at the dome.
+    tale: {
+      ask: '저 큰 지붕은 왜 안 떨어질까?',
+      steps: [
+        {
+          who: 'glass', goal: '성당 앞 광장의 유리 굽는 장인에게 가 보렴.', holds: '금빛 조각: 장인이 들고 있음',
+          lines: ['얘야, 부탁 하나만 들어주련?', '지붕 밑에 붙일 금빛 조각이 모자란대.', '이 한 줌을 스승님께 갖다 드려 줄래?'],
+          offer: { ask: '금빛 조각을 갖다 드릴까?', label: '내가 갖다 드릴게요' },
+          errand: 'took',
+        },
+        {
+          who: 'guard', goal: '성당 문간의 큰 문으로 가 보렴.', holds: '금빛 조각: 소라가 들고 있음',
+          lines: ['멈춰라! 오늘은 폐하께서 먼저 드신다.', '이 문으로는 아무도 못 들어간다.'],
+          sora: '어쩌지… 어? 저기서 누가 불러!',
+        },
+        {
+          who: 'deacon', call: '얘야, 이쪽이란다.', goal: '향로 든 부제가 부른다. 가 보렴.', holds: '금빛 조각: 소라가 들고 있음',
+          lines: ['일하는 사람은 옆문으로 다닌단다.', '저 끝의 작은 문이야. 따라오렴.'],
+          sora: '옆문이 있었어! 들어가자!',
+        },
+        {
+          who: 'master', goal: '돔 아래의 모자이크 장인에게 조각을 전하렴.', holds: '금빛 조각: 소라가 들고 있음',
+          lines: ['오, 그 꾸러미는… 기다리던 것이구나!'],
+          choice: {
+            ask: '조각을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"늦어서 미안해요"', sora: '늦어서 미안해요. 문이 막혀서요.', says: '아니다, 꼭 맞게 왔단다. 고맙구나.' },
+              { id: 'E2', label: '"지붕이 떠 있는 것 같아요"', sora: '저 지붕, 꼭 떠 있는 것 같아요!', says: '허허, 그렇게 보이라고 지은 거란다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'master', show: true, goal: '장인과 함께 지붕을 올려다보렴.',
+          lines: ['이제 다 됐다. 고개를 들어 보렴.', '창으로 빛이 들면 지붕이 떠 보인단다.'],
+          sora: '진짜야! 빛 위에 얹혀 있어!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'glass', when: ['S1', 'S2', 'S3', 'S4'], lines: ['스승님은 큰 지붕 밑에 계신단다.', '성당 안으로 쭉 들어가면 돼.'] },
+        { who: 'glass', when: ['S5'], lines: ['전해 주었구나! 고맙다.', '이제 저 지붕도 다 된 거란다.'] },
+      ],
+      done: '금빛 조각을 전하고, 떠 있는 지붕을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '금빛 조각을 받는다.', at: [] },
+      { id: 'gave', text: '모자이크 장인에게 조각을 전한다.', at: [] },
+      { id: 'saw', text: '빛 위에 뜬 지붕을 본다.', at: [] },
+    ],
+    reply: '그 지붕은 스무 해쯤 뒤 지진에 무너져 다시 올렸단다. 다시 올린 것이 지금도 그 자리에 있지.',
+  },
   // Kaifeng, 4 July 1054: a star nobody had seen before stood in the east at daybreak and
   // stayed in sight after the sun was up. In ink (the user, 2026.10.9, of five tries: "3"):
   // the sky is the paper of the picture, so the computed sky is not behind it.
