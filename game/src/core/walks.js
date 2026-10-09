@@ -334,18 +334,21 @@ export const WALKS = {
   // and tape at the leaving, six and a half hours before, the speed dial in the buffet
   // car, the Games nine days after.
   shinkansen: {
-    dir: 'tokyo', look: 'paper', talk: 'face',
+    // In the manner of Nintendo's first 8-bit games since 2026.10.9 (the user, of four tries:
+    // "1"): pixels again, the sky in the pictures, and people speaking in balloons (their
+    // faces in a panel went with the flat look this place had).
+    dir: 'tokyo',
     scenes: [
       {
-        id: 'front', name: '도쿄역 앞', zoom: 1.3, ground: 0.75, scale: 0.66, air: 'street',
+        id: 'front', name: '도쿄역 앞', zoom: 1.3, ground: 0.765, scale: 0.66, air: 'street',
         sora: '벽돌 역이다! 깃발이 많아.',
         moving: [
-          { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.746, tall: 0.17, wide: 0.388, gap: 0.1, speed: 0.032, bob: 0.003 },
+          { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.745, tall: 0.17, wide: 0.451, gap: 0.1, speed: 0.032, bob: 0.003 },
         ],
         people: [
-          { id: 'news', pass: '조간이오, 조간!', show: 'postcards', pose: 'see-gasp', sora: '엽서가 산더미야!', memo: '기차 이름을 지어 보낸 엽서가 오십육만 통이었단다. 일등이 히카리, 빛이야.', name: '신문 파는 아저씨', x: 0.159, w: 139, h: 320, lines: ['기차 이름은 온 나라가 지었소.', '아흐레 뒤엔 올림픽이오. 바쁘다!'] },
-          { id: 'taxi', pass: '택시 타실 분!', name: '택시 기사', x: 0.3, w: 112, h: 296, lines: ['역까지 손님이 끊이질 않아요.', '오사카를 당일로 다녀온다니.'] },
-          { id: 'salary', pass: '어이쿠, 늦겠네.', name: '회사원', x: 0.56, w: 116, h: 313, lines: ['아침에 가서 저녁에 돌아온다네.', '전에는 여섯 시간 반이 걸렸지.'] },
+          { id: 'news', pass: '조간이오, 조간!', show: 'postcards', pose: 'see-gasp', sora: '엽서가 산더미야!', memo: '기차 이름을 지어 보낸 엽서가 오십육만 통이었단다. 일등이 히카리, 빛이야.', name: '신문 파는 아저씨', x: 0.159, w: 158, h: 320, lines: ['기차 이름은 온 나라가 지었소.', '아흐레 뒤엔 올림픽이오. 바쁘다!'] },
+          { id: 'taxi', pass: '택시 타실 분!', name: '택시 기사', x: 0.3, w: 115, h: 291, lines: ['역까지 손님이 끊이질 않아요.', '오사카를 당일로 다녀온다니.'] },
+          { id: 'salary', pass: '어이쿠, 늦겠네.', name: '회사원', x: 0.56, w: 130, h: 314, lines: ['아침에 가서 저녁에 돌아온다네.', '전에는 여섯 시간 반이 걸렸지.'] },
           // Spoken to, she opens a box and shows what is in it (the user, 2026.10.8: "아주머니가
           // 도시락을 열어서 내용물을 보여주는걸로 하자"). What is in it was looked up on 2026.10.8
           // (the user: "진짜지?"): the 150-yen lunch sold on the new trains in 1964, as it was
@@ -353,53 +356,49 @@ export const WALKS = {
           // stewed dark, rolled egg and fish cake (kfm.sakura.ne.jp/ekiben, as a search
           // told it; the page itself came through garbled). The stewed roots, the yellow
           // pickle and the thin wooden box are from memory.
-          { id: 'bento', pass: '도시락 구경하고 가세요!', name: '도시락 아주머니', x: 0.72, w: 108, h: 277, lines: ['차 안에서 먹는 도시락이에요.', '역에서 파니까 에키벤이라 해요.'],
+          { id: 'bento', pass: '도시락 구경하고 가세요!', name: '도시락 아주머니', x: 0.72, w: 140, h: 287, lines: ['차 안에서 먹는 도시락이에요.', '역에서 파니까 에키벤이라 해요.'],
             try: { id: 'eat-ekiben', verb: 'eat', name: '기차 도시락', face: 'yum', sora: '식었는데도 맛있어!' } },
           // The one who asks. She stays where she is and waits (the user, 2026.10.9, of her
           // standing on the platform all at once when the flowers were handed over: "이 아가씨는 원래
           // 있던 자리에서 기다리라고 해").
-          { id: 'flowers0', pass: '아이, 떨려라.', name: '꽃다발 든 아가씨', x: 0.8, w: 122, h: 290, lines: ['첫 기차에 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
-          { id: 'tourist', pass: '와, 역이 정말 크네요.', name: '먼 데서 온 여행자', x: 0.88, w: 110, h: 308, lines: ['올림픽 보러 왔어요. 기차도 타요!', '시속 210km? 믿을 수 없어요.'] },
+          { id: 'flowers0', pass: '아이, 떨려라.', name: '꽃다발 든 아가씨', x: 0.8, w: 124, h: 308, lines: ['첫 기차에 드릴 꽃다발이에요.', '떨려서 꽃이 다 흔들려요.'] },
+          { id: 'tourist', pass: '와, 역이 정말 크네요.', name: '먼 데서 온 여행자', x: 0.88, w: 133, h: 316, lines: ['올림픽 보러 왔어요. 기차도 타요!', '시속 210km? 믿을 수 없어요.'] },
         ],
         spots: [],
       },
       {
-        id: 'platform', name: '도쿄역 승강장', zoom: 1.3, ground: 0.693, scale: 0.66, air: 'station',
+        id: 'platform', name: '도쿄역 승강장', zoom: 1.3, ground: 0.83, scale: 0.76, air: 'station',
         sora: '우와, 진짜 온다! 코가 둥글어.',
-        // The train comes out from behind the stall and is gone behind the stair, again and again.
+        // The train runs along the track from one end of the platform to the other, again and again.
         moving: [
-          { kind: 'drift', id: 'train', src: 'train', from: 0.156, to: 0.86, foot: 0.682, tall: 0.38, wide: 1.63, gap: 2.5, speed: 0.16, bob: 0 },
+          { kind: 'drift', id: 'train', src: 'train', from: 0, to: 1, foot: 0.752, tall: 0.2, wide: 0.759, gap: 2.5, speed: 0.16, bob: 0 },
         ],
         people: [
-          { id: 'fan', pass: '우와, 진짜 왔다! 코 좀 봐!', show: 'nose', pose: 'see-wow', sora: '코가 등불처럼 빛나!', memo: '코가 반투명이라 불빛이 새어 나왔단다. 속에는 연결 고리가 들어 있지.', name: '기차 좋아하는 소년', x: 0.12, w: 96, h: 239, lines: ['꿈의 초특급이다! 코가 비행기 같아.', '새벽 세 시에 일어나서 왔어.'] },
-          { id: 'reporter', pass: '하나, 둘, 마이크 시험.', name: '방송 기자', x: 0.26, w: 103, h: 299, lines: ['여기는 도쿄역, 역사적인 아침입니다.', '세계에서 가장 빠른 열차입니다!'] },
+          { id: 'fan', pass: '우와, 진짜 왔다! 코 좀 봐!', show: 'nose', pose: 'see-wow', sora: '코가 등불처럼 빛나!', memo: '코가 반투명이라 불빛이 새어 나왔단다. 속에는 연결 고리가 들어 있지.', name: '기차 좋아하는 소년', x: 0.12, w: 121, h: 243, lines: ['꿈의 초특급이다! 코가 비행기 같아.', '새벽 세 시에 일어나서 왔어.'] },
+          { id: 'reporter', pass: '하나, 둘, 마이크 시험.', name: '방송 기자', x: 0.26, w: 112, h: 267, lines: ['여기는 도쿄역, 역사적인 아침입니다.', '세계에서 가장 빠른 열차입니다!'] },
           // (She stood before the station until 2026.10.9: she has the place the woman with the flowers had here.)
-          { id: 'student', pass: '와, 드디어 오늘이야.', name: '여학생', x: 0.4, w: 108, h: 276, lines: ['수학여행은 저 기차로 가고 싶어.', '창밖이 휙휙 지나간대요.'] },
-          { id: 'driver', pass: '출발 준비 완료!', name: '기관사', x: 0.52, w: 112, h: 299, lines: ['시속 210km입니다. 손이 떨려요.', '선로가 눈앞으로 빨려 들어와요.'] },
-          { id: 'master', pass: '물러서 주십시오!', name: '역장', x: 0.66, w: 106, h: 320, lines: ['여섯 시 정각, 히카리 1호 출발!', '일 초도 늦으면 안 됩니다.'] },
-          { id: 'banzai', pass: '만세! 만세!', name: '신이 난 회사원', x: 0.82, w: 155, h: 304, lines: ['테이프 끊는 걸 봤어! 박수가 터졌어!', '만세! 우리가 해냈다고!'] },
+          { id: 'student', pass: '와, 드디어 오늘이야.', name: '여학생', x: 0.4, w: 99, h: 244, lines: ['수학여행은 저 기차로 가고 싶어.', '창밖이 휙휙 지나간대요.'] },
+          { id: 'driver', pass: '출발 준비 완료!', name: '기관사', x: 0.52, w: 114, h: 269, lines: ['시속 210km입니다. 손이 떨려요.', '선로가 눈앞으로 빨려 들어와요.'] },
+          { id: 'master', pass: '물러서 주십시오!', name: '역장', x: 0.66, w: 120, h: 320, lines: ['여섯 시 정각, 히카리 1호 출발!', '일 초도 늦으면 안 됩니다.'] },
+          { id: 'banzai', pass: '만세! 만세!', name: '신이 난 회사원', x: 0.82, w: 147, h: 266, lines: ['테이프 끊는 걸 봤어! 박수가 터졌어!', '만세! 우리가 해냈다고!'] },
         ],
         spots: [],
       },
       {
-        // The carriage was drawn twice too large for those in it (the user, 2026.10.8: "의자가
-        // 너무 커", "전체적으로 사람이 너무 작네"): its door stood 2.2 times as tall as a man.
-        // The picture is shown at 0.62 of that, with the roof and the sky over it, so it is
-        // narrower than the others (aspect) and she crosses it at the same pace on the screen.
-        id: 'car', name: '달리는 신칸센 안', zoom: 1.012, ground: 0.7944, aspect: 1.1963, pace: 1.6, scale: 0.66, air: 'train', floor: 'wood',
+        id: 'car', name: '달리는 신칸센 안', zoom: 1.3, ground: 0.72, scale: 0.66, air: 'train', floor: 'wood',
         sora: '안 흔들려! 창밖이 휙휙 가.',
         // The land goes by behind the picture, seen through its six windows.
         moving: [
-          { kind: 'drift', id: 'land', src: 'view', from: 0.105, to: 0.885, foot: 0.6440, tall: 0.1515, wide: 0.38, gap: 0, speed: -0.09, bob: 0, behind: true },
+          { kind: 'drift', id: 'land', src: 'view', from: 0.13, to: 0.87, foot: 0.50, tall: 0.24, wide: 0.48, gap: 0, speed: -0.09, bob: 0, behind: true },
         ],
         people: [
-          { id: 'conductor', pass: '실례하겠습니다.', name: '차장', x: 0.168, w: 112, h: 316, lines: ['표 좀 보여 주시겠습니까.', '신오사카까지 네 시간입니다.'] },
-          { id: 'dozer', pass: '쿨… 쿨…', name: '조는 대학생', x: 0.24, w: 94, h: 289, lines: ['…음냐. 벌써 시즈오카예요?', '너무 조용해서 잠이 와요.'],
+          { id: 'conductor', pass: '실례하겠습니다.', name: '차장', x: 0.168, w: 158, h: 315, lines: ['표 좀 보여 주시겠습니까.', '신오사카까지 네 시간입니다.'] },
+          { id: 'dozer', pass: '쿨… 쿨…', name: '조는 대학생', x: 0.24, w: 133, h: 309, lines: ['…음냐. 벌써 시즈오카예요?', '너무 조용해서 잠이 와요.'],
             try: { id: 'wear-ivy', verb: 'wear', name: '아이비룩', outfit: 'ivy', sora: '단추가 금빛이야. 멋쟁이다!', memo: '그 무렵 도쿄 젊은이들 사이에 유행한 대학생 차림이란다.' } },
-          { id: 'eater', pass: '우물우물.', name: '도시락 먹는 아저씨', x: 0.38, w: 117, h: 306, lines: ['빨라서 도시락 먹을 틈이 없네.', '(우물우물) 그래도 맛은 좋아.'] },
-          { id: 'kid', pass: '우와, 빠르다!', show: 'cup', pose: 'see-aha', sora: '봉투에 물을 받아 마시네!', memo: '이 기차에 맞춰 만든 종이컵이란다. 납작하게 접혀 있었지.', name: '신난 꼬마', x: 0.52, w: 128, h: 218, lines: ['물은 봉투에 받아 마시는 거야!', '나 커서 기관사 될 거야!'] },
-          { id: 'granny', pass: '아이고, 벌써 여기야.', name: '창가의 할머니', x: 0.68, w: 134, h: 284, lines: ['저기 봐, 후지산이야! 벌써 여기야.', '옛날엔 걸어서 보름 길이었단다.'] },
-          { id: 'buffet', pass: '어서 오세요! 속도계 보고 가세요.', show: 'speedometer', pose: 'see-gasp', sora: '1964년에 시속 210km?!', name: '뷔페 칸 종업원', x: 0.9, w: 121, h: 320, lines: ['속도계 보세요. 지금 시속 210km!', '커피가 안 쏟아지는 게 자랑이죠.'],
+          { id: 'eater', pass: '우물우물.', name: '도시락 먹는 아저씨', x: 0.38, w: 160, h: 311, lines: ['빨라서 도시락 먹을 틈이 없네.', '(우물우물) 그래도 맛은 좋아.'] },
+          { id: 'kid', pass: '우와, 빠르다!', show: 'cup', pose: 'see-aha', sora: '봉투에 물을 받아 마시네!', memo: '이 기차에 맞춰 만든 종이컵이란다. 납작하게 접혀 있었지.', name: '신난 꼬마', x: 0.52, w: 146, h: 214, lines: ['물은 봉투에 받아 마시는 거야!', '나 커서 기관사 될 거야!'] },
+          { id: 'granny', pass: '아이고, 벌써 여기야.', name: '창가의 할머니', x: 0.68, w: 181, h: 280, lines: ['저기 봐, 후지산이야! 벌써 여기야.', '옛날엔 걸어서 보름 길이었단다.'] },
+          { id: 'buffet', pass: '어서 오세요! 속도계 보고 가세요.', show: 'speedometer', pose: 'see-gasp', sora: '1964년에 시속 210km?!', name: '뷔페 칸 종업원', x: 0.9, w: 136, h: 320, lines: ['속도계 보세요. 지금 시속 210km!', '커피가 안 쏟아지는 게 자랑이죠.'],
             try: { id: 'use-speed', verb: 'use', name: '속도계', sora: '바늘이 이백십에서 안 내려와!' } },
         ],
         spots: [],
