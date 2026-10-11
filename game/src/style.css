@@ -368,6 +368,11 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 #walkScene .look{position:absolute;z-index:6;padding:0;border:2px solid rgba(255,217,120,.85);border-radius:6px;background:none;box-shadow:0 0 12px rgba(255,217,120,.55),inset 0 0 14px rgba(255,217,120,.25);animation:lookGlow 2.2s ease-in-out infinite;cursor:pointer}
 #walkScene .tap{position:absolute;z-index:5;min-width:44px;min-height:44px;padding:0;border:0;background:none;cursor:pointer;transform:translate(0,0)}
 #walkScene .tap.seen{z-index:7}
+/* Where to look, when nothing has been found for a while (core/seek.js). */
+#walkScene .tap.hint{border-radius:14px;animation:seekHint 1.05s ease-in-out 3}
+#walkPeople .person.hint{animation:seekGlow 1.05s ease-in-out 3}
+@keyframes seekHint{0%,100%{box-shadow:0 0 0 0 rgba(255,214,110,0),inset 0 0 0 0 rgba(255,214,110,0)}50%{box-shadow:0 0 18px 4px rgba(255,214,110,.9),inset 0 0 16px 2px rgba(255,214,110,.45)}}
+@keyframes seekGlow{0%,100%{filter:none}50%{filter:drop-shadow(0 0 6px rgba(255,214,110,1)) drop-shadow(0 0 2px rgba(255,214,110,1))}}
 #walkThing{position:absolute;z-index:27;display:none;width:auto;pointer-events:none;filter:drop-shadow(0 2px 3px #0008)}
 #walkThing.on{display:block}
 #walkScene .look i{position:absolute;left:8px;bottom:8px;display:grid;place-items:center;min-height:28px;padding:0 10px;border-radius:999px;background:#1b1730e6;border:1.5px solid var(--gold);color:var(--gold);font:700 13px/1 "Pretendard Variable",Pretendard,sans-serif;font-style:normal;white-space:nowrap}

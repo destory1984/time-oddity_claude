@@ -5,7 +5,7 @@ import { piecesAt } from '../game/src/core/pieces.js';
 import { squareById } from '../game/src/core/squares.js';
 import { WALKS } from '../game/src/core/walks.js';
 import { centuryLabel, centuryOf, centuryStart, centuryStops } from '../game/src/core/century.js';
-import { FACES, HEAR, REACH, VERBS, canSpeak, hop, talkedOut, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, linesOf, stepOf } from '../game/src/core/walk.js';
+import { FACES, HEAR, REACH, VERBS, canSpeak, hop, talkedOut, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, linesOf, stepOf, touch } from '../game/src/core/walk.js';
 import { createDial, drag, grab, release, stepDial } from '../game/src/core/dial.js';
 
 describe('centuries', () => {
@@ -200,9 +200,11 @@ describe('the places that are walked about', () => {
       expect(squareById(id), id).toBeTruthy();
       expect(walk.scenes.length, id).toBeGreaterThanOrEqual(2);
       expect(walk.scenes.length, id).toBeLessThanOrEqual(4);
-      expect(walk.errands.length, id).toBe(3);
+      // (Where things are found there are three to a scene: tests/seek.test.js.)
+      expect(walk.errands.length, id).toBe(walk.seek ? walk.scenes.length * 3 : 3);
       const ids = walk.scenes.flatMap((scene) => [...scene.people.map((p) => p.id), ...scene.spots.map((s) => s.id), ...scene.people.filter((p) => p.try).map((p) => p.try.id)]);
       expect(new Set(ids).size, id).toBe(ids.length);
+      ids.push(...walk.scenes.flatMap((scene) => (scene.taps ?? []).map((tap) => tap.id)));
       for (const errand of walk.errands) expect(errand.at.every((at) => ids.includes(at)), errand.id).toBe(true);
       expect(walk.reply.length, id).toBeLessThanOrEqual(60);
     }
@@ -235,6 +237,7 @@ describe('the places that are walked about', () => {
       const walk = createWalk(place);
       for (const scene of place.scenes) {
         for (const person of scene.people) { walk.x = person.x; speak(walk, person.id); tryIt(walk, person.id); }
+        if (place.seek) for (const tap of scene.taps ?? []) touch(walk, tap.id);
         for (let x = 0.03; x < 0.97; x += 0.01) { walk.x = x; stepWalk(walk, 16, 0); }
         if (walk.scene < place.scenes.length - 1) { walk.scene += 1; walk.x = 0.05; }
       }

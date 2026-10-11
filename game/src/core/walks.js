@@ -346,7 +346,10 @@ export const WALKS = {
     // user, 2026.10.10, on being shown the place: "그림체는?", and of five tries: "샌프란은
     // 1번이야"). The words and errands are as they were. The sky is in the pictures (`pale`),
     // and people speak in bubbles: the faces of the panel were of the old manner.
-    dir: 'sf', look: 'paper', pale: true,
+    // Since 2026.10.12 what is done here is finding things (core/seek.js): three in each scene,
+    // by touching the person or the place in the picture, and the way on opens when all three
+    // are found. Of the flag: the United States had 48 states from 1912 to 1959 (from memory).
+    dir: 'sf', look: 'paper', pale: true, seek: true,
     drawn: '그 무렵 미국의 포스터처럼 평평한 색 몇 가지로 그렸단다.',
     now: {
       photo: 'photo-now.webp', name: '금문교의 지금 모습', when: '미국 샌프란시스코 · 오늘날',
@@ -375,6 +378,10 @@ export const WALKS = {
           { id: 'camera', pass: '자, 찍습니다! 치즈!', show: 'stilts', pose: 'see-gasp', sora: '죽마로 다리를 건넌다고?!', memo: '호텔에서 일하던 사람이 죽마를 타고 건너갔다 돌아왔단다.', name: '사진기 든 아가씨', x: 0.865, w: 101, h: 305, lines: ['방금 찍었어요. 죽마 탄 사람!', '저마다 처음이 되려고 야단이에요.'] },
         ],
         spots: [],
+        taps: [
+          { id: 'cart', name: '핫도그 수레', box: [0.036, 0.48, 0.165, 0.725], sora: ['김이 모락모락 나! 핫도그 수레다.', '소시지 삶는 냄새야.'] },
+          { id: 'flag', name: '미국 깃발', box: [0.212, 0.2, 0.262, 0.385], pose: 'see-aha', sora: ['깃발에 별이 마흔여덟 개야!', '지금은 쉰 개인데.'], memo: '그때 미국은 주가 마흔여덟이었단다. 지금은 쉰이지.' },
+        ],
       },
       {
         id: 'deck', name: '샌프란시스코 금문교 위', short: '금문교 위', zoom: 1.12, ground: 0.722, scale: 0.655, air: 'bridge',
@@ -411,14 +418,27 @@ export const WALKS = {
           { id: 'piggy', pass: '꽉 잡아라, 얘야.', show: 'cable', pose: 'see-aha', sora: '줄 하나가 철사 다발이었구나!', memo: '철사가 이만 칠천 가닥이란다. 다 이으면 지구를 세 바퀴 돌지.', name: '목말 태운 아버지', x: 0.9, w: 111, h: 320, lines: ['저 굵은 줄 속이 다 철사란다.', '이십만 명이 건넜다니 대단하지.'] },
         ],
         spots: [
-          { id: 'middle', from: 0.47, to: 0.57, sora: '우와… 발밑이 다 바다야.', memo: '그때 세상에서 가장 긴 매달린 다리였단다.' },
+          // (What is touched to walk there is the sea under the island: the island itself is found.)
+          { id: 'middle', from: 0.47, to: 0.57, see: [0.47, 0.48, 0.57, 0.53], sora: '우와… 발밑이 다 바다야.', memo: '그때 세상에서 가장 긴 매달린 다리였단다.' },
+        ],
+        taps: [
+          { id: 'telescope', name: '망원경', box: [0.33, 0.48, 0.39, 0.665], sora: ['바다 쪽을 보는 망원경이다!', '소년한테 빌려 볼까?'] },
+          { id: 'island', name: '감옥이 있는 섬', box: [0.455, 0.4, 0.615, 0.475], pose: 'see-gasp', sora: ['저 섬에 건물이 있어!', '저기가 감옥이라고?'], memo: '저 섬은 알카트라즈란다. 그때는 감옥이었지.' },
+          { id: 'cable-l', name: '다리를 매단 굵은 줄', box: [0.05, 0.08, 0.24, 0.33], pose: 'see-aha', sora: ['이 줄이 다리를 들고 있구나!', '내 몸통보다 굵어.'], memo: '철사가 이만 칠천 가닥이란다. 다 이으면 지구를 세 바퀴 돌지.' },
+          { id: 'cable-r', name: '다리를 매단 굵은 줄', box: [0.76, 0.08, 0.95, 0.33], pose: 'see-aha', sora: ['이 줄이 다리를 들고 있구나!', '내 몸통보다 굵어.'], memo: '철사가 이만 칠천 가닥이란다. 다 이으면 지구를 세 바퀴 돌지.' },
         ],
       },
     ],
     errands: [
-      { id: 'toll', text: '다리 건너는 값이 얼마인지 물어보렴.', at: ['toll'] },
-      { id: 'skate', text: '바퀴 달린 신을 신고 건넌 아이가 있다던데.', at: ['skate'] },
-      { id: 'middle', text: '다리 한가운데서 바다를 내려다보렴.', at: ['middle'] },
+      { id: 'cart', scene: 'plaza', text: '핫도그 수레', at: ['cart', 'hotdog', 'eat-hotdog'] },
+      { id: 'flag', scene: 'plaza', text: '미국 깃발', at: ['flag'] },
+      { id: 'toll', scene: 'plaza', text: '요금 받는 사람', at: ['toll'] },
+      { id: 'skate', scene: 'deck', text: '롤러스케이트 신은 아이', at: ['skate'] },
+      { id: 'backward', scene: 'deck', text: '뒤로 걷는 남자', at: ['backward'] },
+      { id: 'net', scene: 'deck', text: '다리 일꾼', at: ['worker'] },
+      { id: 'telescope', scene: 'mid', text: '망원경', at: ['telescope', 'scope', 'use-scope'] },
+      { id: 'island', scene: 'mid', text: '감옥이 있는 섬', at: ['island'] },
+      { id: 'cable', scene: 'mid', text: '다리를 매단 굵은 줄', at: ['cable-l', 'cable-r', 'piggy'] },
     ],
     reply: '동전 한 닢에 바다 위를 걸었구나. 나도 한번 걸어 보고 싶네.',
   },

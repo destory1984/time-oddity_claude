@@ -20,7 +20,8 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, offerLabel as offerText, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf } from './core/walk.js';
+import { REACH, offerLabel as offerText, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf, touch } from './core/walk.js';
+import { HINT_MS, hintOf, leftIn, soughtIn } from './core/seek.js';
 import { advance, calledOf, carrying, endingOf, goalOf, holdsOf, isTold, present, stepOf as taleStep, thankerOf } from './core/tale.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
@@ -386,6 +387,7 @@ let walkSora = null;        // { text, until }: what she says, while it shows
 let replyUntil = 0;         // grandmother's answer shows until then
 let walkArrive = null;      // she is to be set down in a shaft of light on the next frame: 'land' from above the Earth, 'hop' from the scene beside
 let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
+let seekIdleMs = 0;         // how long nothing has been found, where things are to be found (core/seek.js)
 let walkNowAt = 0;          // the photograph of the place as it is today comes up then (a place's `now`)
 const NOW_AFTER_MS = 4500;  // after the last thing is done: she has had her say and the gold has flown
 // Walking about a place she puts her finger to her lips as she does above the Earth, when
@@ -439,6 +441,7 @@ function tapScene(tap) {
   if (tap.pose && !walk.wearing && said === 0) walkFace = { poses: [[tap.pose, walkT + 2200]] };
   // What grandmother knows of it, on her slip.
   if (tap.memo) walkMemo = { text: tap.memo, until: walkT + TRY_MEMO_MS };
+  if (touch(walk, tap.id).length > 0) errandsDone();
 }
 // A thing of the scene looked at closely: a photograph of it as it is today and what is
 // known of it, on a sheet of its own. The game waits while it is open.
@@ -490,6 +493,20 @@ function showErrands() {
     for (const errand of walk.place.errands) if (walk.done.includes(errand.id)) row(errand.text, 'done');
     if (!allDone(walk)) row(goalOf(told, walk.tale));
     if (holdsOf(told, walk.tale)) row(holdsOf(told, walk.tale), 'has');
+    nowRow(list);
+    return;
+  }
+  // Where things are to be found (core/seek.js) the slip lists what is in the scene she is in.
+  if (walk.place.seek) {
+    const here = leftIn(walk.place, walk.done, sceneOf(walk).id);
+    head.textContent = here > 0 ? t`찾아보렴 · ${here}개 남음` : '찾아보렴 · 다 찾았다';
+    list.append(head);
+    for (const errand of soughtIn(walk.place, sceneOf(walk).id)) {
+      const row = document.createElement('li');
+      row.textContent = errand.text;
+      row.classList.toggle('done', walk.done.includes(errand.id));
+      list.append(row);
+    }
     nowRow(list);
     return;
   }
@@ -649,13 +666,17 @@ function errandsDone() {
   // What she says as a step of the story is done.
   const said = walk.place.errands.find((errand) => errand.id === walk.done.at(-1))?.sora;
   if (said) walkSora = { text: said, from: walkT + 900, until: walkT + 900 + SORA_FOR_MS };
+  seekIdleMs = 0;
+  if (walk.place.seek) { const all = soughtIn(walk.place, sceneOf(walk).id).length; walkView.found(t`찾았다! ${all - leftIn(walk.place, walk.done, sceneOf(walk).id)}/${all}`); }
+  // A scene with all three found is cleared: the way on is open.
+  if (walk.place.seek && !allDone(walk) && leftIn(walk.place, walk.done, sceneOf(walk).id) === 0) { walkView.cheer('다 찾았다! 다음으로 가자.'); sound.bell(); }
   if (!allDone(walk)) return;
   // All three: the square is filled and grandmother writes back.
   for (const dot of ['sky', 'remains']) keep(fillDot(progress, square.id, dot));
   // The slip is stamped, gold flies up round her and she is glad (the user, 2026.10.8, of the
   // slip that only said so: "다 했으면, 뭔가 효과를..").
   $('errands').classList.add('alldone');
-  walkView.cheer();
+  walkView.cheer(walk.place.seek ? '모두 다 찾았다!' : undefined);
   walkFace = { poses: [['see-wow', walkT + 3200]] };
   // A story ends with her choice, and grandmother answers that; elsewhere she answers at once.
   if (walk.place.story?.choice && !chosenOf()) { setTimeout(() => { if (walk && allDone(walk) && !chosenOf()) showChoice(true); }, said ? 900 + SORA_FOR_MS - 2500 : 1500); return; }
@@ -746,6 +767,7 @@ function enterScene() {
   $('walkPrev').textContent = before ? `${walk.been.includes(before.id) ? '«' : '‹'} ${t(before.short ?? before.name)}` : '‹';
   $('walkNext').textContent = after ? `${t(after.short ?? after.name)} ${walk.been.includes(after.id) ? '»' : '›'}` : '›';
   sound.air(scene.air ?? null);
+  if (walk.place.seek) { seekIdleMs = 0; showErrands(); }
   // One who did everything but did not choose, and has come again, is asked in the last scene,
   // where the story ends: asked on being set down in the first, the question came from nowhere
   // (the user, 2026.10.10: "칸 완료 버튼 누르면, 왜 저 버튼이 떠?").
@@ -838,6 +860,17 @@ function frameWalk(dt) {
   if (out.spot?.sora) walkSora = { text: out.spot.sora, until: walkT + SORA_FOR_MS, from: walkT };
   if (out.spot?.pose) walkFace = { poses: [[out.spot.pose, walkT + SORA_FOR_MS]] };
   if (out.errands.length > 0) errandsDone();
+  // Nothing found for a while: what is nearest of what is left twinkles, and she says which
+  // way it lies when it is out of sight.
+  if (walk.place.seek && !panelOpen()) {
+    seekIdleMs += dt;
+    const look = seekIdleMs >= HINT_MS ? hintOf(walk.place, sceneOf(walk), walk.done, walk.x) : null;
+    if (seekIdleMs >= HINT_MS) seekIdleMs = 0;
+    if (look) {
+      walkView.hint(look.id);
+      if (look.way !== 0) walkSora = { text: look.way > 0 ? '오른쪽으로 더 가 볼까?' : '왼쪽으로 더 가 볼까?', from: walkT, until: walkT + SORA_FOR_MS };
+    }
+  }
   if (walkSora && walkT > walkSora.until) walkSora = null;
   if (walkHeld && (walk.moving || walkT > walkHeld.until)) walkHeld = null;
   // How she stands for a moment is put away when its time is up, or when she walks on

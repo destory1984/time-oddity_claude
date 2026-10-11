@@ -15,6 +15,7 @@
 //   treading on its hem as she walks (<outfit>-trip-N.png) }. Something that is not a person (a water clock)
 // has a try and no lines.
 import { barOf, callOf, emptyTale, partOf, present, speakerOf, textOf } from './tale.js';
+import { SEEK_BAR, isSought, leftIn } from './seek.js';
 
 import { t } from './i18n.js';
 
@@ -76,7 +77,9 @@ export function nearby(walk) {
 // are said when they are spoken to, the first, then the second, then the first again.
 // Who is worth coming back to: they have a thing to show her or for her to try, or an
 // errand asks for them. These say their two lines in turn for as long as she asks.
-export const worth = (walk, person) => Boolean(person.show || person.try || walk.place.errands.some((errand) => errand.at.includes(person.id)));
+// (Where things are to be found, core/seek.js, whoever is one of them has no mark: it would
+// give them away.)
+export const worth = (walk, person) => !isSought(walk.place, person.id) && Boolean(person.show || person.try || walk.place.errands.some((errand) => errand.at.includes(person.id)));
 
 // Whether the one she is hearing has said the last of their lines: the next touch ends the talk.
 export const talkedOut = (walk, person) => (walk.heard?.of ?? walk.heard?.id) === person.id && countOf(walk, person) > 0 && countOf(walk, person) % linesOf(walk, person).length === 0;
@@ -130,6 +133,10 @@ export function linesOf(walk, person) {
   const later = (person.then ?? []).filter((t) => walk.done.includes(t.after));
   return later.length > 0 ? later[later.length - 1].lines : person.lines;
 }
+
+// A place in the picture is touched (a scene's `taps`). Returns the errands done just now:
+// where things are to be found it may be one of them (core/seek.js).
+export const touch = (walk, id) => finish(walk, id);
 
 // Speaks to whoever is near. Returns { person, line, errands: [ids done just now], role:
 // their part in the tale as they spoke ('step', 'aside' or null), last: that was the last
@@ -211,7 +218,8 @@ export const triesOf = (place) => place.scenes.flatMap((scene) => scene.people.f
 // 번 가본 곳은 저거만 누르면, 다음 장면으로 이동시켜줘"). Returns whether she went.
 export const canHop = (walk, way) => { const next = walk.place.scenes[walk.scene + way]; return Boolean(next) && walk.been.includes(next.id) && !(way > 0 && barred(walk)); };
 // What she says when the way on from the scene she is in is shut by the tale, or null.
-export const barred = (walk) => (walk.tale ? barOf(walk.place.tale, walk.tale, sceneOf(walk).id) : null);
+// (Where things are to be found, by what is still to be found in it.)
+export const barred = (walk) => (walk.tale ? barOf(walk.place.tale, walk.tale, sceneOf(walk).id) : leftIn(walk.place, walk.done, sceneOf(walk).id) > 0 ? SEEK_BAR : null);
 export function hop(walk, way) {
   if (!canHop(walk, way)) return false;
   walk.scene += way;

@@ -480,11 +480,11 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
   // outfit on, it is plain at once whether it was good (the user, 2026.10.8: "맛있다~ 또는
   // 맛없다 표현").
   const TASTES = { yum: '맛있다!', sour: '아이, 셔!', yuck: '으엑, 맛없어!', hmm: '음… 묘한데?' };
-  function taste(face) {
-    if (!TASTES[face]) return;
+  function taste(face, text = TASTES[face]) {
+    if (!text) return;
     const word = document.createElement('i');
     word.className = `taste ${face}`;
-    word.textContent = TASTES[face];
+    word.textContent = text;
     word.style.left = `${parseFloat(sora.style.left) + parseFloat(sora.style.width) / 2}px`;
     word.style.top = `${parseFloat(sora.style.top) + parseFloat(sora.style.height) * 0.45}px`;
     scroll.append(word);
@@ -538,7 +538,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
   function clack() { scroll.classList.remove('clack'); scroll.getBoundingClientRect(); scroll.classList.add('clack'); }
 
   // Gold flies up round her: all of grandmother's errands are done.
-  function cheer() {
+  function cheer(text = '할머니의 심부름을 다 했다!') {
     const left = parseFloat(sora.style.left) + parseFloat(sora.style.width) / 2;
     const foot = parseFloat(sora.style.top) + parseFloat(sora.style.height);
     for (let i = 0; i < 18; i += 1) {
@@ -555,13 +555,25 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     // itself may lie under the panel of the one she has just spoken to).
     const banner = document.createElement('div');
     banner.className = 'cheer';
-    banner.textContent = '할머니의 심부름을 다 했다!';
+    banner.textContent = t(text);
     root.append(banner);
     setTimeout(() => banner.remove(), 3600);
   }
 
+  // Where to look: the person or the place in the picture twinkles for a moment (core/seek.js).
+  function hint(id) {
+    const el = nodes.get(id)?.img ?? taps.find(({ tap }) => tap.id === id)?.button;
+    if (!el) return;
+    el.classList.remove('hint');
+    el.getBoundingClientRect();
+    el.classList.add('hint');
+    setTimeout(() => el.classList.remove('hint'), 3200);
+  }
+
   return {
-    showScene, layout, update, nudge, clack, cheer, taste,
+    showScene, layout, update, nudge, clack, cheer, taste, hint,
+    // A thing is found: said beside her head, with how many of the scene's that makes.
+    found: (text) => taste('yum', text),
     // The thing of the tale: its picture (or null) and whether she has it; and its flight
     // from one to another (a person's id, or 'sora').
     carry(src, held) { carried.src = src; carried.held = held; },
