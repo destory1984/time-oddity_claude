@@ -9,8 +9,12 @@ test('a phone, or a window as narrow as one, gets no frame', () => {
   assert.equal(phoneFrame({ width: 412, height: 915 }), null);
   assert.equal(phoneFrame({ width: 480, height: 800 }), null);
   assert.equal(phoneFrame({ width: 0, height: 0 }), null);
-  // A phone held sideways keeps the wide layout it always had.
-  assert.equal(phoneFrame({ width: 812, height: 375 }), null);
+});
+
+test('a phone held sideways gets the upright frame too, as tall as it is', () => {
+  const frame = phoneFrame({ width: 812, height: 375 });
+  assert.equal(frame.width, PHONE_WIDTH);
+  near(frame.height * frame.scale, 375, 1e-6);
 });
 
 test('a wide window gets a frame of a phone\'s shape, as tall as the window', () => {

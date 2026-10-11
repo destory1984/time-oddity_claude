@@ -871,6 +871,10 @@ function frameWalk(dt) {
       if (look.way !== 0) walkSora = { text: look.way > 0 ? '오른쪽으로 더 가 볼까?' : '왼쪽으로 더 가 볼까?', from: walkT, until: walkT + SORA_FOR_MS };
     }
   }
+  // A scene cleared: the button to the next twinkles until she goes (the user, 2026.10.12:
+  // "퍼즐을 풀었으면, 다음 화면에 깜박깜박~"). Not when the next is cleared as well.
+  const onward = walk.place.scenes[walk.scene + 1];
+  $('walkNext').classList.toggle('go', Boolean(walk.place.seek && onward) && leftIn(walk.place, walk.done, sceneOf(walk).id) === 0 && leftIn(walk.place, walk.done, onward.id) > 0);
   if (walkSora && walkT > walkSora.until) walkSora = null;
   if (walkHeld && (walk.moving || walkT > walkHeld.until)) walkHeld = null;
   // How she stands for a moment is put away when its time is up, or when she walks on

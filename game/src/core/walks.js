@@ -337,8 +337,9 @@ export const WALKS = {
   // San Francisco, 27 May 1937: the bridge was opened to people on foot for a day. Looked
   // up on 2026.10.8 and found so: the gates at six, about two hundred thousand, people
   // vying to be first across in some odd way, a sprinter the first across the whole span.
-  // The toll is given as 25 cents by some and 5 by a paper of the day, so the toll man
-  // names no sum. Still from memory: the first on skates and the first walking backward,
+  // The toll on foot that day was 25 cents, taken at coin turnstiles (looked up on 2026.10.12:
+  // goldengate.org and the Library of Congress both say so; one paper of the day said 5). The
+  // user, of "동전 한 닢": "센트 아님?". Still from memory: the first on skates and the first walking backward,
   // the net that saved nineteen, four years of building, 67 m from the water, 1,280 m
   // between the towers.
   goldenGate: {
@@ -371,7 +372,7 @@ export const WALKS = {
           { id: 'hotdog', pass: '핫도그! 따끈한 핫도그 보고 가쇼!', show: 'hotdog', name: '핫도그 장수', x: 0.18, w: 122, h: 320, lines: ['핫도그요! 오늘 오만 개는 나가겠소.', '다리 구경엔 핫도그가 딱이지.'],
             try: { id: 'eat-hotdog', verb: 'eat', name: '핫도그', face: 'yum', sora: '겨자가 톡 쏴! 맛있다.' } },
           { id: 'sleepy', pass: '하암… 드디어 열렸네.', name: '밤새 기다린 청년', x: 0.26, w: 122, h: 319, lines: ['어젯밤부터 줄 섰어요. 하암…', '맨 먼저 건너고 싶었거든요.'] },
-          { id: 'toll', pass: '한 줄로! 한 줄로 서요!', name: '요금 받는 사람', x: 0.37, w: 103, h: 310, lines: ['걸어서 건너는 값은 동전 한 닢이오.', '오늘은 사람만! 차는 내일부터요.'] },
+          { id: 'toll', pass: '한 줄로! 한 줄로 서요!', name: '요금 받는 사람', x: 0.37, w: 103, h: 310, lines: ['걸어서 건너는 값은 이십오 센트요.', '오늘은 사람만! 차는 내일부터요.'] },
           { id: 'scout', pass: '길 잃은 분 안 계세요?', name: '보이스카우트 소년', x: 0.52, w: 115, h: 249, lines: ['아침 여섯 시에 문이 열렸어요.', '길 잃은 아이를 찾아 주는 중이에요.'] },
           { id: 'badge', pass: '기념 배지 있어요!', name: '기념품 아주머니', x: 0.76, w: 122, h: 302, lines: ['기념 배지 사세요! 오늘뿐이에요.', '손주한테 줄 거라고들 사 가요.'],
             try: { id: 'wear-fedora', verb: 'wear', name: '중절모', outfit: 'fedora', sora: '다들 모자를 썼네. 나도!' } },
@@ -380,7 +381,7 @@ export const WALKS = {
         spots: [],
         taps: [
           { id: 'cart', name: '핫도그 수레', box: [0.036, 0.48, 0.165, 0.725], sora: ['김이 모락모락 나! 핫도그 수레다.', '소시지 삶는 냄새야.'] },
-          { id: 'flag', name: '미국 깃발', box: [0.212, 0.2, 0.262, 0.385], pose: 'see-aha', sora: ['깃발에 별이 마흔여덟 개야!', '지금은 쉰 개인데.'], memo: '그때 미국은 주가 마흔여덟이었단다. 지금은 쉰이지.' },
+          { id: 'flag', name: '가로등에 걸린 큰 깃발', box: [0.212, 0.2, 0.262, 0.385], pose: 'see-aha', sora: ['깃발에 별이 마흔여덟 개야!', '지금은 쉰 개인데.'], memo: '그때 미국은 주가 마흔여덟이었단다. 지금은 쉰이지.' },
         ],
       },
       {
@@ -431,7 +432,9 @@ export const WALKS = {
     ],
     errands: [
       { id: 'cart', scene: 'plaza', text: '핫도그 수레', at: ['cart', 'hotdog', 'eat-hotdog'] },
-      { id: 'flag', scene: 'plaza', text: '미국 깃발', at: ['flag'] },
+      // (The one on the lamp post: there are small flags too, in a child's hand and by the stall. The
+      // user, 2026.10.12: "미국 깃발은 저기도 있는데?")
+      { id: 'flag', scene: 'plaza', text: '가로등에 걸린 큰 깃발', at: ['flag'] },
       { id: 'toll', scene: 'plaza', text: '요금 받는 사람', at: ['toll'] },
       { id: 'skate', scene: 'deck', text: '롤러스케이트 신은 아이', at: ['skate'] },
       { id: 'backward', scene: 'deck', text: '뒤로 걷는 남자', at: ['backward'] },
@@ -440,7 +443,7 @@ export const WALKS = {
       { id: 'island', scene: 'mid', text: '감옥이 있는 섬', at: ['island'] },
       { id: 'cable', scene: 'mid', text: '다리를 매단 굵은 줄', at: ['cable-l', 'cable-r', 'piggy'] },
     ],
-    reply: '동전 한 닢에 바다 위를 걸었구나. 나도 한번 걸어 보고 싶네.',
+    reply: '이십오 센트에 바다 위를 걸었구나. 나도 한번 걸어 보고 싶네.',
   },
   // Tokyo, 1 October 1964: the first of the fast trains left at six. Looked up on
   // 2026.10.8 and found so: the day, six in the morning (one train from each end), four

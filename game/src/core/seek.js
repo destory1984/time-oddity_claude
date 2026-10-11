@@ -8,8 +8,9 @@
 // She is told where to look when nothing has been found for this long (the user, of 20
 // seconds: "너무 짧지않나").
 export const HINT_MS = 45000;
-// What she says at the end of a scene with something still to find in it.
-export const SEEK_BAR = '아직 다 못 찾았어.';
+// What she says at the end of a scene with something still to find in it: that it is why
+// she cannot go on (the user, of "아직 다 못 찾았어.": "넘어갈 수 없다는 뉘앙스가 없잖아").
+export const SEEK_BAR = '셋을 다 찾아야 건너갈 수 있어.';
 // A thing further from her than this is likely out of sight: she is told which way to go.
 const FAR = 0.14;
 

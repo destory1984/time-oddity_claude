@@ -12,17 +12,16 @@ export const PHONE_HEIGHT = 657;
 export const PHONE_RATIO = PHONE_WIDTH / PHONE_HEIGHT;
 // A window wider than this for its height is not phone-shaped and gets the frame.
 export const WIDE_RATIO = 0.62;
-// A window lower than this is a phone held sideways: it keeps its own wide layout.
-export const MIN_HEIGHT = 560;
 
 // The phone layout holds up to this width (the style sheet's `max-width:480px`).
 export const NARROW_WIDTH = 480;
 
 // The frame for a window of the given size, or null when the window is itself about as
-// narrow as a phone. Returns { width, height, scale }: the frame is laid out at
+// narrow as a phone. (A phone held sideways gets the frame too, small in the middle: there
+// is one layout, upright. The user, 2026.10.10: "우리 가로 버전은 포기하자.") Returns { width, height, scale }: the frame is laid out at
 // width x height and then scaled so that it is exactly as tall as the window.
 export function phoneFrame({ width, height }) {
-  if (!(width > 0 && height >= MIN_HEIGHT)) return null;
+  if (!(width > 0 && height > 0)) return null;
   if (width / height <= WIDE_RATIO) {
     // Shaped like a phone. As narrow as one: no frame. Wider (the installed app's
     // window on a PC, about 565 x 1065): the wide layout does not fit it, so it gets the

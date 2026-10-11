@@ -39,8 +39,6 @@ export const saveCards = (cards) => write(KEY.cards, JSON.stringify(cards));
 export const loadTextSize = () => textSizeFrom(read(KEY.text));
 export const saveTextSize = (size) => write(KEY.text, String(size));
 // On a PC: the phone-shaped frame (the default) or the whole window.
-export const loadScreen = () => (read(KEY.screen) === 'wide' ? 'wide' : 'phone');
-export const saveScreen = (choice) => write(KEY.screen, choice === 'wide' ? 'wide' : 'phone');
 // What she has on from the wardrobe (an outfit's name, or none), until she leaves the place.
 export const loadOutfit = () => { const name = read('timeoddity.outfit.v1'); return name && /^[a-z0-9-]+$/.test(name) ? name : null; };
 export const saveOutfit = (name) => write('timeoddity.outfit.v1', name ?? '');
