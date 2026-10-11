@@ -380,6 +380,7 @@ export const WALKS = {
         ],
         spots: [],
         taps: [
+          { id: 'gate', name: '동전 넣는 회전문', box: [0.245, 0.5, 0.7, 0.715], pose: 'see-aha', sora: ['동전을 넣으면 돌아가는 문이야!', '한 사람씩 돌려서 들어가네.'], memo: '걸어서 건너려면 이십오 센트를 넣었단다.' },
           { id: 'cart', name: '핫도그 수레', box: [0.036, 0.48, 0.165, 0.725], sora: ['김이 모락모락 나! 핫도그 수레다.', '소시지 삶는 냄새야.'] },
           { id: 'flag', name: '가로등에 걸린 큰 깃발', box: [0.212, 0.2, 0.262, 0.385], pose: 'see-aha', sora: ['깃발에 별이 마흔여덟 개야!', '지금은 쉰 개인데.'], memo: '그때 미국은 주가 마흔여덟이었단다. 지금은 쉰이지.' },
         ],
@@ -431,17 +432,18 @@ export const WALKS = {
       },
     ],
     errands: [
-      { id: 'cart', scene: 'plaza', text: '핫도그 수레', at: ['cart', 'hotdog', 'eat-hotdog'] },
-      // (The one on the lamp post: there are small flags too, in a child's hand and by the stall. The
-      // user, 2026.10.12: "미국 깃발은 저기도 있는데?")
-      { id: 'flag', scene: 'plaza', text: '가로등에 걸린 큰 깃발', at: ['flag'] },
-      { id: 'toll', scene: 'plaza', text: '요금 받는 사람', at: ['toll'] },
+// What is found has to do with the day itself, the bridge opened and crossed on foot (the
+      // user, 2026.10.12: "샌프란 메인 이벤트와 관련이 있는 것을 찾는걸로 하자"). The cart, the flag,
+      // the telescope and the island had not: they may still be touched, and find nothing.
+      { id: 'gate', scene: 'plaza', text: '동전 넣는 회전문', at: ['gate', 'toll'] },
+      { id: 'sleepy', scene: 'plaza', text: '밤새 줄 선 청년', at: ['sleepy'] },
+      { id: 'badge', scene: 'plaza', text: '기념 배지', at: ['badge'] },
       { id: 'skate', scene: 'deck', text: '롤러스케이트 신은 아이', at: ['skate'] },
       { id: 'backward', scene: 'deck', text: '뒤로 걷는 남자', at: ['backward'] },
-      { id: 'net', scene: 'deck', text: '다리 일꾼', at: ['worker'] },
-      { id: 'telescope', scene: 'mid', text: '망원경', at: ['telescope', 'scope', 'use-scope'] },
-      { id: 'island', scene: 'mid', text: '감옥이 있는 섬', at: ['island'] },
+      { id: 'net', scene: 'deck', text: '그물을 친 다리 일꾼', at: ['worker'] },
       { id: 'cable', scene: 'mid', text: '다리를 매단 굵은 줄', at: ['cable-l', 'cable-r', 'piggy'] },
+      { id: 'painter', scene: 'mid', text: '주황색을 칠한 칠장이', at: ['painter'] },
+      { id: 'runner', scene: 'mid', text: '달리기 선수', at: ['runner'] },
     ],
     reply: '이십오 센트에 바다 위를 걸었구나. 나도 한번 걸어 보고 싶네.',
   },
