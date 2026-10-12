@@ -63,6 +63,7 @@ const SHEET = { market: 0.6, plaza: 0.66, inside: 0.62 };   // how large a sheet
 // lines say was written from memory except Constantinople's, which was looked up.
 export const WALKS = {
   colosseum: {
+    first: '오늘은 콜로세움이 처음 문을 여는 날이란다. 심부름 셋을 해 보렴.',
     dir: 'rome', look: 'paper',
     drawn: '한 해 전 화산재에 묻힌 폼페이의 벽 그림처럼 그렸단다. 그때 로마의 집마다 있던 그림이지.',
     now: {
@@ -145,6 +146,7 @@ export const WALKS = {
     reply: '그 지독한 걸 먹어 봤구나! 토가는 무겁더냐. 뱃사람 얘기가 정말이었네.',
   },
   eiffel: {
+    first: '오늘은 에펠탑이 문을 연 날이란다. 심부름 셋을 해 보렴.',
     // Drawn again in the manner of the Impressionists' oils of the streets of Paris (the
     // user, 2026.10.10: "그림체 바꾸자", and of five tries: "1"). The words and errands are
     // as they were. The sky is in the pictures (`pale`), and people speak in bubbles: the
@@ -254,6 +256,7 @@ export const WALKS = {
   // the ministers' one memorial against them (1444). Still from memory: the letters drawn
   // after the shapes of the mouth, the king's failing eyes, the bowl sundial of his reign.
   hunminjeongeum: {
+    first: '새 글자 스물여덟 자가 세상에 나온 해란다. 심부름 셋을 해 보렴.',
     // Drawn again in the manner of the woodcuts of the Samgang haengsildo, printed under the
     // same king in 1434 (the user, 2026.10.10: "한양도 그림체 바꾸자.", and of four tries:
     // "1번으로 가자."). The words and errands are as they were. The sky is in the pictures
@@ -599,6 +602,7 @@ export const WALKS = {
   // glass, the lamps hung in rings, the windows round the foot of the first dome.
   // Made up: the errand of the gold pieces, the guard, the deacon and the side door.
   hagiaSophia: {
+    first: '오늘은 큰 성당이 문을 여는 날이란다. 금빛 조각을 전해 주렴.',
     // She is set down before the church, which stands whole across the square in the middle
     // of the picture (the user, 2026.10.9: "광장 에서 성당 전체 모습이 잘 드러나지 않는다. (돔이 잘
     // 안 보여)"): at the left end only the arcade was to be seen as she said how big the roof was.
@@ -736,6 +740,7 @@ export const WALKS = {
   // thousand people, eighty camels of gold) are of later telling and are not said.
   // Made up: the water-seller and his piece of gold, the guard, the interpreter, the king's words.
   musa1324: {
+    first: '금을 뿌리며 지나가는 임금이 온 여름이란다. 금 조각을 돌려주러 가렴.',
     dir: 'cairo1324', look: 'paper', pale: true,
     drawn: '그 무렵 아랍의 책에 그려 넣던 그림처럼 그렸단다.',
     now: {
@@ -866,6 +871,7 @@ export const WALKS = {
   // coming up the canal, markets by night, the water clock, the armillary sphere, steamed buns.
   // Made up: the apprentice and his note, the gatekeeper, the fortune-teller, what they say.
   guest1054: {
+    first: '낮에도 지지 않는 새 별이 뜬 날이란다. 별 보는 생도의 쪽지를 전해 주렴.',
     dir: 'kaifeng1054', look: 'paper', pale: true,
     drawn: '송나라 사람들이 먹과 붓으로 그리던 그림처럼 그렸단다.',
     now: {
@@ -999,6 +1005,7 @@ export const WALKS = {
   // length of the ramp, how many kinds of stone, twenty thousand workers.
   // Made up: the errand of the red stone, the overseer, that the calligrapher takes her up.
   tajMahal: {
+    first: '흰 돌 무덤을 한창 짓는 중이란다. 붉은 돌 한 알을 전해 주렴.',
     dir: 'agra1640', look: 'paper', pale: true,
     drawn: '무굴의 임금들이 아끼던 작고 꼼꼼한 그림처럼 그렸단다.',
     now: {
@@ -1134,6 +1141,7 @@ export const WALKS = {
   // ship (told of the Dolphin in 1767, of a trade not for children, and called a myth).
   // Made up: the errand of the coconut, the chief taking her in, the astronomer letting her look.
   venus1769: {
+    first: '오늘은 금성이 해 앞을 지나가는 날이란다. 코코넛을 전해 주렴.',
     dir: 'tahiti1769', look: 'paper',
     drawn: '백 년쯤 뒤 이 섬에 와서 살던 화가 고갱의 그림처럼 그렸단다.',
     now: {
@@ -1259,6 +1267,7 @@ export const WALKS = {
   // To be checked: that it was shown again that evening, four days' flight, that the
   // two were still on the Moon at nine (they left at 02:54 on the 22nd, Korean time).
   yard1969: {
+    first: '오늘 밤 사람이 처음 달에 내린단다. 심부름 셋을 해 보렴.',
     dir: 'yard', look: 'paper', talk: 'face', night: true,
     now: {
       photo: 'photo-now.webp', name: '그날 그 달의 지금 모습', when: '달 고요의 바다 · 달 궤도선이 위에서 찍음',
@@ -1351,6 +1360,7 @@ export const WALKS = {
   // street, what the volunteers wore, the colour of the telephones and the buses.
   // Grandmother was thirty-four and saw it on television.
   seoul88: {
+    first: '오늘은 올림픽이 열리는 날이란다. 심부름 셋을 해 보렴.',
     dir: 'seoul88',
     now: {
       photo: 'photo-now.webp', name: '올림픽주경기장의 지금 모습', when: '서울 잠실 · 오늘날',
@@ -1436,6 +1446,7 @@ export const WALKS = {
   // birth is given as 1484 or 1485): he is the novice, and unnamed. Leonardo is a spot.
   // Made up: everyone's words, the duke's messenger in the yard, that Leonardo passed the dock.
   cenacolo: {
+    first: '레오나르도가 벽에 큰 그림을 그리던 해란다. 화가를 찾아가 보렴.',
     // Drawn again in the manner of Leonardo's notebooks, pen and red chalk on yellowed paper
     // (the user, 2026.10.10, walking it in pixels: "그림체 바꾸자", and of five tries: "1번으로
     // 가자."). The words and the tale are as they were. The sky is the paper of the pictures.
@@ -1554,6 +1565,7 @@ export const WALKS = {
   // Made up: the grandmother and her garland, the overseer, the merchant, the steward.
   // Left out: sacrifice, and the war that followed.
   tenoch1519: {
+    first: '호수 위의 도시에 낯선 손님이 온 날이란다. 꽃목걸이를 전해 주렴.',
     dir: 'tenoch1519', look: 'paper', pale: true,
     drawn: '아스테카 사람들이 돌에 새기고 색을 칠하던 것처럼 그렸단다.',
     scenes: [
@@ -1675,6 +1687,7 @@ export const WALKS = {
   // of hair children wore. From memory: beer made of bread, rope, the knotted cord.
   // Made up: the errand of the tally, the foreman, the baker who speaks for her.
   khufu: {
+    first: '큰 피라미드를 한창 쌓는 중이란다. 돌 조각을 전해 주렴.',
     dir: 'giza2560', look: 'paper', pale: true,
     drawn: '그 무렵 이집트 무덤 벽에 새기고 칠하던 그림처럼 그렸단다.',
     scenes: [
@@ -1794,6 +1807,7 @@ export const WALKS = {
   // of paper scattered, tallies of wood, dress after the Tang.
   // Made up: the cord maker's errand, the gatekeeper, the drummer who takes her in.
   nara752: {
+    first: '오늘은 큰 부처님의 눈을 그려 넣는 날이란다. 비단 끈을 전해 주렴.',
     dir: 'nara752', look: 'paper', pale: true,
     drawn: '그 무렵 나라 사람들이 삼베에 먹으로 그리던 그림처럼 그렸단다.',
     scenes: [
@@ -1914,6 +1928,7 @@ export const WALKS = {
   // forty, went barefoot about the agora asking questions (he is not named).
   // Made up: the potter's errand, the gatekeeper, the mason who takes her up.
   parthenon: {
+    first: '파르테논 신전을 막 다 지은 해란다. 기름병을 전해 주렴.',
     dir: 'athens432', look: 'paper', pale: true,
     drawn: '아테네 사람들이 항아리에 검은 그림을 그리던 것처럼 그렸단다.',
     scenes: [
@@ -2032,6 +2047,7 @@ export const WALKS = {
   // west, that elephants hauled stone here.
   // Made up: the wife's errand of the chisel, the elephant driver, the child with the boat.
   angkor1150: {
+    first: '큰 사원을 거의 다 지은 때란다. 쇠 정을 전해 주렴.',
     dir: 'angkor1150', look: 'paper', pale: true,
     drawn: '그 절의 벽에 얕게 새긴 돌 그림처럼 그렸단다.',
     scenes: [
