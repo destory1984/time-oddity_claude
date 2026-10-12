@@ -29,6 +29,7 @@ const CAM_ENTER_MS = 1500;    // on coming into a scene it settles this slowly, 
 const CAM_ENTER_LAG_MS = 520;
 const CAM_AHEAD = 0.16;       // it looks this share of the screen ahead of her as she walks
 const CAM_LOOK = 0.4;         // and this share along the scene as she comes into it
+const CAM_EDGE = 0.22;       // she is kept this share of the screen from either edge
 const CAM_NEAR = 1.06;        // in talk the scene is this much larger
 const CAM_NEAR_MS = 260;
 const FORE_SPEED = 1.35;      // what is nearest the eye goes by this much faster than the street
@@ -382,6 +383,8 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       if (eye.at === null) eye.at = within(aim + (walk.x < 0.5 ? 1 : -1) * CAM_LOOK * w);
       const lag = now - eye.since < CAM_ENTER_MS ? CAM_ENTER_LAG_MS : CAM_LAG_MS;
       eye.at += (aim - eye.at) * (1 - Math.exp(-dt / lag));
+      // (She is never out of sight, nor nearer an edge than this, unless the scene ends there.)
+      eye.at = within(Math.max(x - w * (1 - CAM_EDGE), Math.min(x - w * CAM_EDGE, eye.at)));
       camera = eye.at;
       // In talk it draws nearer, about the ground between her and whoever speaks.
       const speaker = walk.heard ? nodes.get(walk.heard.of ?? walk.heard.id) : null;

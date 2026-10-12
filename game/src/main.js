@@ -421,7 +421,8 @@ const walkView = createWalkView({
     sendTo(walk, person.x + (walk.x < person.x ? -1 : 1) * REACH * 0.6);
     walkWant = id;
   },
-  onWay: (way) => { walkWay = panelOpen() ? 0 : way; if (way !== 0) walkWant = null; },
+  // (A box that may be put off, the riddle's, is put off by walking away: `panel.free`.)
+  onWay: (way) => { if (way !== 0 && panel?.free && !memoUp) panel.back(); walkWay = panelOpen() ? 0 : way; if (way !== 0) walkWant = null; },
   onLook: (look) => openLook(look),
   onTap: (tap) => tapScene(tap),
   // What is seen from a spot is touched: she walks to the spot and stands there, which is
@@ -662,7 +663,7 @@ function askRiddle(step) {
   // (Put off, the talk is over: the next touch asks again from the first.)
   const leave = () => { closePanel(); walk.heard = null; walk.part = null; };
   if (clues.length === 0) { walkSora = { text: riddle.none, from: walkT + 1600, until: walkT + 1600 + SORA_FOR_MS }; return; }
-  openPanel({ ask: riddle.ask, back: leave, options: [
+  openPanel({ ask: riddle.ask, back: leave, free: true, options: [
     ...clues.map((clue) => ({ label: clue.label, quiet: walk.told.includes(`held-${clue.id}`), pick: () => {
       if (clue.right) { stepDone(step, clue.id, clue); return; }
       const was = walk;
@@ -814,6 +815,7 @@ function tryNear(id = null) {
 }
 function enterScene() {
   const scene = sceneOf(walk);
+  closePanel();
   walkView.showScene(walk.place, walk.scene);
   walkFace = null; walkHeld = null;
   walkSora = scene.sora && !walk.told.includes(scene.id) ? { text: scene.sora, until: walkT + 900 + SORA_FOR_MS, from: walkT + 900 } : null;
@@ -871,6 +873,10 @@ for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
     // She goes as she leaves a place, in a ring of gold, and is set down in the next (the
     // user, 2026.10.8: "버튼을 눌러서, 다음/이전 장소로 이동할 떄에는 효과를 넣어줘. 금빛 고리 효과").
     if (walkHopping || memoUp) return;
+    // What is asked of her is put off first: left up, its box was hidden on coming into the
+    // next scene and she could not move again (the user, 2026.10.12, the gatekeeper's riddle
+    // up and gone back to the bridge: "지금 화면에서 왼쪽으로 못 감").
+    if (panel) (panel.back ?? closePanel)();
     if (walk && canHop(walk, way)) {
       walkWay = 0; keyWay = 0; walkHopping = true;
       sound.wake(); sound.lift();
