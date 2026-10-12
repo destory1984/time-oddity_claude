@@ -35,10 +35,14 @@
 const SHEET = { market: 0.6, plaza: 0.66, inside: 0.62 };   // how large a sheet's figures are shown, of their px on a 812 px screen
 
 // A place's `drawn` is a line of grandmother's on why the place looks as it does: whose
-// pictures its own are made after. It is on her slip each time Sora is set down there, and
+// pictures its own are made after. It was on her slip each time Sora was set down there, until
+// 2026.10.12 (the user, of it large in the middle of the screen: "너무 뜸금 없는 얘기야."); it is
 // in the notebook under the place (the user, 2026.10.10: "각 도시로 들어갈 때에 그림체를 그렇게
 // 선택한 이유에 대해서 설명해볼까?", and to my offer of a line of grandmother's: "넣어.").
 // The four places still in the first manner of the game have none.
+// A place's `first` is what she writes of the day and of what is to be done there: on her slip
+// the first time Sora is set down in the place, and not again (the user, 2026.10.12, of the
+// slip coming up in a place all done: "모든 칸 완료했는데, 저건 왜 또 떠?").
 // A scene's `spots` are where she stands to see something: [{ id, from, to, memo?, pose?,
 // see? }]. Standing between `from` and `to` does the errand that names the spot. What is
 // seen from it may be touched, and she then walks there: `see` is where it is in the
@@ -352,6 +356,7 @@ export const WALKS = {
     // are found (those who crossed some odd way: see its errands). Of the flag: the United States had 48 states from 1912 to 1959 (from memory).
     dir: 'sf', look: 'paper', pale: true, seek: true,
     drawn: '그 무렵 미국의 포스터처럼 평평한 색 몇 가지로 그렸단다.',
+    first: '오늘은 금문교가 처음 열린 날이란다. 별나게 건너는 사람들을 찾아보렴.',
     now: {
       photo: 'photo-now.webp', name: '금문교의 지금 모습', when: '미국 샌프란시스코 · 오늘날',
       text: [
@@ -467,6 +472,7 @@ export const WALKS = {
     // faces in a panel went with the flat look this place had).
     dir: 'tokyo', seek: true,
     drawn: '스무 해쯤 뒤 일본에서 나온 게임기의 네모 점 그림처럼 그렸단다.',
+    first: '오늘은 첫 고속 열차가 떠나는 날이란다. 오늘 처음 생긴 것들을 찾아보렴.',
     now: {
       photo: 'photo-now.webp', name: '신칸센의 지금 모습', when: '일본 도쿄역 · N700S와 N700A',
       text: [

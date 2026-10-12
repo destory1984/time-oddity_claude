@@ -793,6 +793,7 @@ function enterScene() {
 function showWalk(sq) {
   square = sq;
   visit = null; site = null;
+  const fresh = beenOf(progress, sq.id).length === 0;
   walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id), done: errandsOf(progress, sq.id), met: metOf(progress, sq.id), tale: taleOf(progress, sq.id) });
   closePanel();
   walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyDue = false; walkMemo = null; memoHere = null; memoUp = false; walkNoteAt = 0; walkNowAt = 0;
@@ -811,9 +812,10 @@ function showWalk(sq) {
   keep(fillDot(progress, sq.id, 'day'));
   showErrands();
   enterScene();
-  // As she is set down, grandmother's slip says whose pictures the place is drawn after (each
-  // time she comes: the user's words were "각 도시로 들어갈 때에").
-  if (walk.place.drawn) walkMemo = { text: walk.place.drawn, until: DRAWN_MS };
+  // The first time she is set down in a place grandmother's slip says what day it is and what
+  // is to be done there (a place's `first`). Whose pictures the place is drawn after (`drawn`)
+  // is in the notebook only.
+  if (fresh && walk.place.first) walkMemo = { text: walk.place.first };
   walkArrive = 'land';
   sound.paper();
 }
