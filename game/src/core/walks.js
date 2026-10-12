@@ -1767,7 +1767,8 @@ export const WALKS = {
       {
         id: 'harbour', name: '이집트 기자 물길의 나루', short: '물길의 나루', zoom: 1.09, ground: 0.745, scale: 0.638, air: 'court', floor: 'dirt',
         // The wall, the dune and the pyramid are a picture of their own behind the rest
-        // (harbour-far, harbour-near: cut from harbour.webp by assets/codex/giza-far/make.py).
+        // (harbour-far, harbour-near: cut from harbour.webp by assets/codex/giza-far/make.py; the
+        // other two scenes by make2.py).
         far: { aspect: 1 },
         fore: [
           { src: 'fore-dates', x: 0.1, at: 'top', tall: 0.38 }, { src: 'fore-papyrus', x: 0.27, at: 'foot', tall: 0.21 },
@@ -1789,6 +1790,8 @@ export const WALKS = {
       },
       {
         id: 'village', name: '이집트 기자 일꾼 마을', short: '일꾼 마을', zoom: 1.09, ground: 0.745, scale: 0.638, air: 'market', floor: 'dirt',
+        // (The wall and the pyramid behind this street are the harbour's: they stand in the same place in both pictures.)
+        far: { src: 'harbour-far', aspect: 1 },
         fore: [
           { src: 'fore-awning', x: 0.1, at: 'top', tall: 0.38 }, { src: 'fore-jars', x: 0.27, at: 'foot', tall: 0.21 },
           { src: 'fore-fronds', x: 0.45, at: 'top', tall: 0.36 }, { src: 'fore-bread', x: 0.62, at: 'foot', tall: 0.18 },
@@ -1809,6 +1812,8 @@ export const WALKS = {
       },
       {
         id: 'ramp', name: '이집트 기자 피라미드 발치', short: '피라미드 발치', zoom: 1.16, ground: 0.69, scale: 0.678, air: 'masons', floor: 'dirt',
+        // (The ramp leans on the pyramid, so here the far goes by nearly as fast as the street: it is wide.)
+        far: { aspect: 1.3 },
         fore: [
           { src: 'fore-shade', x: 0.1, at: 'top', tall: 0.38 }, { src: 'fore-block', x: 0.27, at: 'foot', tall: 0.21 },
           { src: 'fore-scaffold', x: 0.45, at: 'top', tall: 0.36 }, { src: 'fore-tools', x: 0.62, at: 'foot', tall: 0.18 },

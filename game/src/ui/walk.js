@@ -189,7 +189,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     scene = place.scenes[index];
     picture.src = `./walks/${place.dir}/${scene.id}${scene.far ? '-near' : ''}.webp`;
     farEl.hidden = !scene.far;
-    if (scene.far) farEl.src = `./walks/${place.dir}/${scene.id}-far.webp`; else farEl.removeAttribute('src');
+    if (scene.far) farEl.src = `./walks/${place.dir}/${scene.far.src ?? `${scene.id}-far`}.webp`; else farEl.removeAttribute('src');
     peopleEl.replaceChildren();
     nodes = new Map();
     // A thing in the picture that may be touched for more of it (the user, 2026.10.8, of the
