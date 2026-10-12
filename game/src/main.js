@@ -730,7 +730,14 @@ function talk(id = null) {
     else if (said.person.sora) walkSora = { text: said.person.sora, from: walkT + 900, until: walkT + 900 + SORA_FOR_MS };
   }
   // (Where things are found: what grandmother wrote of the one just found is on her slip.)
-  if (said.errands.length > 0 && walk.place.seek && said.person.memo && !said.person.show) walkMemo = { text: said.person.memo, real: true };
+  // (One who has nothing written of them stands by a thing in the picture that finds the same:
+  // what is written of that thing, and its picture, are shown.)
+  if (said.errands.length > 0 && walk.place.seek && !(said.person.show && said.person.memo)) {
+    const errand = walk.place.errands.find((one) => one.id === said.errands[0]);
+    const tap = (sceneOf(walk).taps ?? []).find((one) => errand.at.includes(one.id) && one.memo);
+    const text = said.person.memo ?? tap?.memo ?? null;
+    if (text) walkMemo = { text, real: true, show: said.person.show ?? tap?.show ?? null };
+  }
   if (said.errands.length > 0) errandsDone();
 }
 // Eating, wearing or using what whoever is near has (plan v5, section 4): she says what

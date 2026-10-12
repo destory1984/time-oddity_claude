@@ -67,7 +67,7 @@ function climb(m, t) {
     // They come in at the foot and are lost to sight at the top.
     const alpha = clamp(u / 0.06) * clamp((1 - u) / 0.06);
     // The figures are drawn facing left.
-    return { id: `${m.id}-${i}`, src, x: at.x, y: at.y - step, tall: m.tall, turn: 0, alpha, anchor: 'foot', flip: at.way > 0, behind: false, clip: null };
+    return { id: `${m.id}-${i}`, src, x: at.x, y: at.y - step, tall: m.tall, turn: 0, alpha, anchor: 'foot', flip: at.way > 0, behind: false, clip: null, touch: m.touch ?? null };
   });
 }
 

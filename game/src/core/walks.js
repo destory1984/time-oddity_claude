@@ -148,7 +148,11 @@ export const WALKS = {
     reply: '그 지독한 걸 먹어 봤구나! 토가는 무겁더냐. 뱃사람 얘기가 정말이었네.',
   },
   eiffel: {
-    first: '오늘은 에펠탑이 문을 연 날이란다. 심부름 셋을 해 보렴.',
+    first: '오늘은 에펠탑이 문을 연 날이란다. 박람회에 처음 나온 것들을 찾아보렴.',
+    // Since 2026.10.12 a place where things are found (core/seek.js; the user, of San Francisco
+    // and Tokyo made so: "파리도 이런 식으로 바꿔보자", and of the table of nine: "ㅇㅇ"): what was
+    // first shown to the world at the fair, three of them things that go by (`moving` with `touch`).
+    seek: true,
     // Drawn again in the manner of the Impressionists' oils of the streets of Paris (the
     // user, 2026.10.10: "그림체 바꾸자", and of five tries: "1"). The words and errands are
     // as they were. The sky is in the pictures (`pale`), and people speak in bubbles: the
@@ -178,9 +182,20 @@ export const WALKS = {
         // The dome seen through the middle arch (the user, 2026.10.10, with a red ring about it: "누르면 설명
         // 추가"). Looked up (nga.gov, toureiffel.paris): the Dôme Central, the way into the Palais des
         // Industries Diverses, nearly 200 feet high, a statue of France 30 feet high on top.
-        taps: [{ id: 'dome', name: '중앙 돔', box: [0.456, 0.39, 0.612, 0.68], pose: 'see-wow', sora: ['저 둥근 지붕 좀 봐! 반짝반짝해.', '꼭대기에 누가 서 있어!'], memo: '박람회 한가운데에 선 중앙 돔이란다. 높이가 60미터쯤이고 꼭대기에 조각상이 섰지.' }],
+        taps: [
+          { id: 'dome', name: '중앙 돔', box: [0.456, 0.39, 0.612, 0.68], pose: 'see-wow', sora: ['저 둥근 지붕 좀 봐! 반짝반짝해.', '꼭대기에 누가 서 있어!'], memo: '박람회 한가운데에 선 중앙 돔이란다. 높이가 60미터쯤이고 꼭대기에 조각상이 섰지.' },
+          { id: 'tall', show: 'tall', name: '세상에서 가장 높은 탑', box: [0.845, 0.03, 0.99, 0.56], pose: 'see-wow', sora: ['저 탑, 구름에 닿겠어!', '세상에서 제일 높대.'], memo: '높이 300미터, 그때 사람이 지은 것 가운데 가장 높았단다.' },
+          { id: 'flag-0', show: 'flags', name: '백 년 잔치의 삼색 깃발', box: [0.277, 0.42, 0.31, 0.58], pose: 'see-aha', sora: ['빨강, 하양, 파랑! 깃발이 많아.', '무슨 잔치일까?'], memo: '프랑스 혁명 백 년을 기리는 박람회였단다. 그래서 온통 삼색 깃발이지.' },
+          { id: 'flag-1', show: 'flags', name: '백 년 잔치의 삼색 깃발', box: [0.403, 0.35, 0.44, 0.58], pose: 'see-aha', sora: ['빨강, 하양, 파랑! 깃발이 많아.', '무슨 잔치일까?'], memo: '프랑스 혁명 백 년을 기리는 박람회였단다. 그래서 온통 삼색 깃발이지.' },
+          { id: 'flag-2', show: 'flags', name: '백 년 잔치의 삼색 깃발', box: [0.615, 0.35, 0.652, 0.58], pose: 'see-aha', sora: ['빨강, 하양, 파랑! 깃발이 많아.', '무슨 잔치일까?'], memo: '프랑스 혁명 백 년을 기리는 박람회였단다. 그래서 온통 삼색 깃발이지.' },
+          { id: 'flag-3', show: 'flags', name: '백 년 잔치의 삼색 깃발', box: [0.745, 0.42, 0.777, 0.58], pose: 'see-aha', sora: ['빨강, 하양, 파랑! 깃발이 많아.', '무슨 잔치일까?'], memo: '프랑스 혁명 백 년을 기리는 박람회였단다. 그래서 온통 삼색 깃발이지.' },
+          // (The train is a piece of the scene's `moving`, which names it by `touch`: it has no box.)
+          { id: 'train', show: 'train', name: '깃발 든 사람과 꼬마 기차', pose: 'see-wow', sora: ['꼬마 기차다! 깃발 든 아저씨가 앞서 걸어.', '걷는 것보다 조금 빠르네.'], memo: '박람회장을 도는 꼬마 기차란다. 깃발 든 사람이 앞서 걸었지.' },
+        ],
         // People pour in at the middle arch from both sides, and are lost at its two pillars.
         moving: [
+          // (The little train of the fair, a man with a flag walking before it, goes by to the left.)
+          { kind: 'drift', id: 'train', touch: 'train', src: 'train', from: 0, to: 1, foot: 0.8, tall: 0.32, wide: 0.619, gap: 1.6, speed: -0.045, bob: 0 },
           { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 0.43, foot: 0.772, tall: 0.18, wide: 0.367, gap: 0.03, speed: 0.03, bob: 0.003 },
           { kind: 'drift', id: 'out', src: 'crowd', from: 0.633, to: 1, foot: 0.772, tall: 0.18, wide: 0.367, gap: 0.03, speed: -0.026, bob: 0.003, flip: true },
         ],
@@ -200,7 +215,7 @@ export const WALKS = {
         sora: '우와, 다리 하나가 집채만 해.',
         // The stair up the right leg, one straight flight of it: people go up one after another.
         moving: [
-          { kind: 'climb', id: 'up', srcs: ['climb-1', 'climb-2', 'climb-3', 'climb-4', 'climb-5', 'climb-6'],
+          { kind: 'climb', id: 'up', touch: 'climb', srcs: ['climb-1', 'climb-2', 'climb-3', 'climb-4', 'climb-5', 'climb-6'],
             path: [[0.983, 0.635], [0.751, 0]],
             tall: 0.075, seconds: 30, step: 0.004 },
         ],
@@ -208,6 +223,7 @@ export const WALKS = {
           { id: 'down', pass: '아, 다리 아파. 그래도 좋았어!', show: 'press', pose: 'see-gasp', sora: '탑 위에서 신문을 찍어?!', memo: '탑 안에 신문사가 들어와 날마다 신문을 찍었단다. 오늘이 첫 호야.', name: '내려온 아가씨', x: 0.14, w: 109, h: 307, lines: ['탑 위에서 신문을 찍고 있어요!', '두 해 두 달 만에 다 지었대요.'] },
           { id: 'painter', pass: '어이, 내 그림 좀 보고 가오.', name: '화가', x: 0.27, w: 152, h: 317, lines: ['내 그림 보겠소? 탑은 붉은 갈색이지.', '흉물이라던 이들이 다 올라가더군.'] },
           { id: 'kid', pass: '우와아, 높다!', name: '올려다보는 아이', x: 0.38, w: 82, h: 201, lines: ['꼭대기가 구름에 닿을 것 같아!', '아빠가 나는 다음에 올라가래.'] },
+          { id: 'postcard', show: 'postcard', pass: '어머, 도장 좀 봐!', pose: 'see-aha', sora: '도장에도 탑이 있어!', memo: '탑 층마다 우체통이 있어 탑 그림 도장을 찍어 줬단다.', name: '엽서 든 아가씨', x: 0.6, w: 155, h: 294, lines: ['탑 위에서 부친 엽서예요.', '도장에 탑이 그려져 있지요?'] },
           { id: 'photo', pass: '자, 여기 보시오!', name: '사진사', x: 0.68, w: 156, h: 320, lines: ['움직이지 마시오! 하나, 둘…', '탑이 커서 한 장에 다 안 들어가.'] },
           { id: 'puff', pass: '헉, 헉…', name: '숨 고르는 아저씨', x: 0.775, w: 155, h: 305, lines: ['헉, 헉… 1층만 갔다 왔네.', '위에서 보니 파리가 손바닥만 해.'] },
           { id: 'stairs', pass: '계단은 이쪽입니다!', name: '계단 안내원', x: 0.865, w: 120, h: 317, lines: ['엘리베이터는 아직이에요. 계단으로!', '1층까지 삼백 계단이 넘어요.'] },
@@ -216,6 +232,10 @@ export const WALKS = {
           // Right under the middle of the arch, looking straight up.
           { id: 'under', from: 0.45, to: 0.56, sora: '우와… 다리가 후들거려.', memo: '쇠 조각 만팔천 개를 리벳으로 이어 세운 탑이란다.' },
         ],
+        taps: [
+          // (Those going up the stair are pieces of the scene's `moving`: no box. `x` is for pointing her to them.)
+          { id: 'climb', show: 'stairs', name: '계단을 걸어 오르는 사람들', x: 0.87, pose: 'see-gasp', sora: ['저 높은 데를 걸어서 올라가!', '다리 아프겠다.'], memo: '엘리베이터가 아직 안 돌아서 첫 주에 29,922명이 걸어 올랐단다.' },
+        ],
       },
       {
         id: 'hall', name: '파리 만국박람회 기계관', short: '박람회 기계관', zoom: 1.16, ground: 0.69, scale: 0.678, air: 'works', floor: 'wood',
@@ -223,11 +243,15 @@ export const WALKS = {
         // The two flywheels may be touched (the user, 2026.10.10: "저 바퀴 설명도 넣어줘"). Looked up: a flywheel
         // takes up the surplus of the stroke that drives and gives it back in the others, so the shaft turns evenly.
         taps: [
+          { id: 'table', show: 'phonograph', name: '말하는 기계', box: [0.8, 0.5, 0.975, 0.665], pose: 'see-aha', sora: ['통에서 목소리가 나온대!', '관을 귀에 대고 듣는 거구나.'], memo: '에디슨이 만든 말하는 기계란다. 밀랍 통에 소리를 새겼지.' },
+          { id: 'bridge', show: 'bridge', name: '기계 위를 지나가는 다리', pose: 'see-wow', sora: ['다리가 굴러가! 사람이 잔뜩 탔어.', '기계를 위에서 구경하는구나.'], memo: '기계들 위로 지나가는 굴러가는 다리란다. 한 번에 백오십 명도 넘게 탔지.' },
           { id: 'red', name: '플라이휠', box: [0.171, 0.333, 0.389, 0.661], pose: 'see-wow', sora: ['바퀴가 나보다 훨씬 커! 빙글빙글.', '한번 돌면 잘 안 멈춘대.'], memo: '플라이휠이라는 무거운 바퀴란다. 증기가 밀 때 힘을 모았다가 돌려줘서 기계가 고르게 돌지.' },
           { id: 'blue', name: '플라이휠', box: [0.566, 0.333, 0.784, 0.661], pose: 'see-wow', sora: ['바퀴가 나보다 훨씬 커! 빙글빙글.', '한번 돌면 잘 안 멈춘대.'], memo: '플라이휠이라는 무거운 바퀴란다. 증기가 밀 때 힘을 모았다가 돌려줘서 기계가 고르게 돌지.' },
         ],
         // The two flywheels, cut out of the picture itself (tools/walk-art.py disc), turn where they lie.
         moving: [
+          // (The rolling bridge of the hall goes by over the machines with those who ride it.)
+          { kind: 'drift', id: 'bridge', touch: 'bridge', src: 'bridge', from: 0, to: 1, foot: 0.33, tall: 0.23, wide: 0.541, gap: 1.2, speed: 0.035, bob: 0 },
           { kind: 'spin', id: 'red', src: 'wheel-red', x: 0.2799, y: 0.4971, tall: 0.3291, rpm: 15 },
           { kind: 'spin', id: 'blue', src: 'wheel-blue', x: 0.6751, y: 0.4971, tall: 0.3291, rpm: 15 },
         ],
@@ -235,6 +259,7 @@ export const WALKS = {
           { id: 'reporter', pass: '어디 보자, 받아 적어야지.', name: '기자', x: 0.13, w: 107, h: 320, lines: ['기둥 하나 없이 이 넓이라니.', '쇠와 유리. 새 시대가 온 거요.'] },
           { id: 'engineer', pass: '손대지 마시오! 도는 중이오.', name: '기술자', x: 0.4, w: 167, h: 320, lines: ['이 바퀴가 벨트로 기계를 다 돌려.', '기름을 안 치면 금세 멈추지.'] },
           { id: 'ears', pass: '으아, 시끄러워!', name: '귀 막은 아이', x: 0.53, w: 107, h: 223, lines: ['너무 시끄러워! 귀가 멍멍해.', '(귀를 막고 고개를 젓는다)'] },
+          { id: 'opera', show: 'theatrophone', pass: '쉿, 지금 노래 중이오.', pose: 'see-gasp', sora: '전화로 노래를 들어?', memo: '수화기를 귀에 대면 오페라 극장의 공연이 들렸단다. 테아트로폰이라 했지.', name: '수화기 든 신사', x: 0.645, w: 188, h: 301, lines: ['전화로 오페라 극장 소리를 듣는 중이오.', '가수가 바로 옆에 있는 것 같소!'] },
           { id: 'student', pass: '우와, 다 쇠로 만들었네.', name: '학생', x: 0.76, w: 125, h: 299, lines: ['에디슨이라는 미국 사람 거래요.', '전구도 그 사람이 만들었대요.'] },
           { id: 'queue', pass: '아이고, 줄이 안 줄어.', name: '줄 선 아주머니', x: 0.825, w: 125, h: 308, lines: ['한 시간째 줄이야. 그래도 들어야지.', '기계가 말을 한다니 믿어지니?'] },
           { id: 'phono', pass: '말하는 기계요! 보고 가시오.', show: 'phonograph', pose: 'see-peer', sora: '밀랍 통에 소리를 새겼구나!', name: '말하는 기계 지기', x: 0.92, w: 153, h: 315, sound: 'phonograph', lines: ['통 속에 사람 목소리가 들었소.', '관을 귀에 대 봐요. 노래가 나오지.'],
@@ -243,12 +268,20 @@ export const WALKS = {
         spots: [],
       },
     ],
+    // Each is on record (docs/신기한-사실.md section 3). Of the rolling bridge it is on record that
+    // the hall had two; whether they ran on this day was not found.
     errands: [
-      { id: 'under', text: '탑 밑에서 올려다보고 다리가 후들거리는지 보렴.', at: ['under'] },
-      { id: 'lift', text: '엘리베이터가 돈다던데 타 보렴.', at: ['stairs'] },
-      { id: 'phono', text: '말하는 기계 소리를 들어 보렴.', at: ['phono'] },
+      { id: 'tall', scene: 'gate', text: '세상에서 가장 높은 탑', at: ['tall'] },
+      { id: 'train', scene: 'gate', text: '깃발 든 사람과 꼬마 기차', at: ['train', 'ticket'] },
+      { id: 'flags', scene: 'gate', text: '백 년 잔치의 삼색 깃발', at: ['flag-0', 'flag-1', 'flag-2', 'flag-3'] },
+      { id: 'climb', scene: 'tower', text: '계단을 걸어 오르는 사람들', at: ['climb', 'stairs'] },
+      { id: 'press', scene: 'tower', text: '탑 위에서 찍은 신문', at: ['down'] },
+      { id: 'postcard', scene: 'tower', text: '탑 도장이 찍힌 엽서', at: ['postcard'] },
+      { id: 'phono', scene: 'hall', text: '말하는 기계', at: ['table', 'phono', 'use-phono'] },
+      { id: 'opera', scene: 'hall', text: '전화로 듣는 오페라', at: ['opera'] },
+      { id: 'bridge', scene: 'hall', text: '기계 위를 지나가는 다리', at: ['bridge'] },
     ],
-    reply: '엘리베이터는 못 탔구나. 그래도 말하는 기계 소리는 들었네.',
+    reply: '엘리베이터 없이 그 높은 탑을 걸어 올랐다니. 처음 보는 것투성이였겠구나.',
   },
   // Three more in Paris's look (the user, 2026.10.8: "파리식으로 한양 포함해서 3개 더 만들어").
   // Hanyang in the autumn of 1446, when the new letters were given out. That a notice
