@@ -2258,6 +2258,512 @@ export const WALKS = {
     ],
     reply: '그 벽의 여신들은 머리 모양이 서른일곱 가지란다. 지금도 그대로 춤추고 있지.',
   },
+  // Babylon about 575 BC, under Nebuchadnezzar II: the Ishtar Gate. Drawn as the glazed
+  // bricks of the gate itself (the user, of five tries: "바빌론 1"). The day is not on record.
+  // Not pale: the top of the pictures is deep blue brick.
+  // Looked up (docs/신기한-사실.md) and found so: the gate is Nebuchadnezzar II's and its
+  // glazed bricks are of about 575 BC; on blue, rows of dragons (mushhushshu) and bulls, the
+  // beasts of Marduk and Adad; lions, the beast of Ishtar, in rows along the walls of the
+  // Processional Way (their number is not said); the sky-watchers wrote the sky, the
+  // weather, the prices and the height of the river on clay tablets day by day from about
+  // 652 BC for six hundred years, and hundreds of the tablets are kept.
+  // Weak, so said only as "잔칫날 행렬이 지나는 길": the new year procession along this way.
+  // From memory: counting by sixties and the hour of sixty minutes, the wedge for one and
+  // the corner wedge for ten, the stepped tower, barley bread, dates, sesame oil, the reed
+  // pen, round reed boats tarred with bitumen, bricks set in bitumen, fringed robes, the
+  // dragon's parts (snake, lion, eagle), the bright star of Ishtar at dusk, that tablets
+  // were written while the clay was wet.
+  // Made up: the tablet-baker's errand, the keeper of the way, the craftsman and the
+  // workmen's path behind the wall, every other person.
+  // Kept off the screen: the taking of Jerusalem and the captives.
+  babylon575: {
+    dir: 'babylon575', look: 'paper',
+    drawn: '그 문의 푸른 유약 벽돌 그림처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'quay', name: '바빌론 유프라테스 강가 나루', short: '강가 나루', zoom: 1.13, ground: 0.72, scale: 0.661, air: 'market', floor: 'dirt',
+        sora: '배가 바구니처럼 둥글어!',
+        people: [
+          { id: 'boatman', pass: '배 들어온다, 비켜라!', name: '둥근 배 사공', x: 0.19, w: 132, h: 320, lines: ['갈대로 엮은 둥근 배란다.', '보리를 싣고 강을 내려왔지.'] },
+          { id: 'datewife', pass: '달콤한 대추야자요!', show: 'dates', name: '대추야자 장수', x: 0.3, w: 132, h: 278, lines: ['저 나무에서 딴 대추야자란다.', '보리빵이랑 먹어 보련?'],
+            try: { id: 'eat-dates', verb: 'eat', name: '대추야자와 보리빵', face: 'yum', sora: '쫀득쫀득! 꿀처럼 달아.' } },
+          { id: 'reedkid', pass: '갈대 펜 깎았다!', name: '갈대 베는 아이', x: 0.4, w: 117, h: 222, lines: ['갈대 끝을 깎으면 펜이 돼.', '젖은 흙에 꾹꾹 눌러 써.'] },
+          { id: 'baker', pass: '어이쿠, 가마를 못 비우는데.', name: '점토판 굽는 이', x: 0.51, w: 109, h: 286, lines: ['글을 적은 흙 판을 굽는단다.', '구우면 돌처럼 단단해지지.'] },
+          { id: 'counter', pass: '쉰아홉, 예순. 한 묶음!', show: 'sixty', pose: 'see-aha', sora: '예순이면 다시 하나래!', memo: '바빌론에서는 예순씩 묶어 세었단다. 한 시간이 예순 분인 것도 여기서 왔지.', name: '보리 세는 아저씨', x: 0.62, w: 135, h: 282, lines: ['우리는 예순씩 묶어 센단다.', '예순이 차면 쐐기 하나로 적지.'] },
+          { id: 'clothier', pass: '술 달린 옷 보고 가요.', name: '옷 짓는 아주머니', x: 0.73, w: 125, h: 280, lines: ['단에 술을 촘촘히 단 옷이란다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-babylon', verb: 'wear', name: '바빌론의 옷', outfit: 'babylon', sora: '걸으면 술이 찰랑거려!', memo: '긴 옷의 단과 숄에 술을 달아 입었단다.' } },
+          { id: 'gauge', pass: '오늘은 한 뼘 올랐군.', name: '강물 재는 사람', x: 0.85, w: 107, h: 299, lines: ['날마다 강물 높이를 잰단다.', '재어서 별 보는 서기에게 알리지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'way', name: '바빌론 행렬 길', short: '행렬 길', zoom: 1.15, ground: 0.705, scale: 0.673, air: 'masons',
+        sora: '벽에 사자가 줄지어 걸어!',
+        people: [
+          { id: 'porter', pass: '영차, 벽돌 나간다!', name: '벽돌 나르는 일꾼', x: 0.18, w: 121, h: 266, lines: ['유약을 발라 구운 벽돌이란다.', '깨질라, 살살 날라야 하지.'] },
+          { id: 'lionkid', pass: '하나, 둘, 셋… 또 있네!', show: 'lions', pose: 'see-wow', sora: '사자가 끝도 없어!', memo: '행렬 길의 두 벽에 사자가 줄지어 있단다. 사자는 이슈타르 여신의 짐승이지.', name: '사자 세는 아이', x: 0.29, w: 104, h: 197, lines: ['사자를 세는 중이야.', '세다가 자꾸 잊어버려.'] },
+          { id: 'mixer', pass: '푸른빛이 잘 나와야 할 텐데.', name: '유약 개는 사람', x: 0.4, w: 107, h: 269, lines: ['벽돌에 바를 푸른 유약이란다.', '불에 구우면 반들반들 빛나지.'] },
+          { id: 'glazier', pass: '이 장은 사자 꼬리 자리.', name: '벽돌 붙이는 장인', x: 0.51, w: 107, h: 271, lines: ['벽돌마다 제자리가 있단다.', '다 맞추면 사자 한 마리가 되지.'] },
+          { id: 'palmgirl', pass: '행렬은 언제 오려나.', name: '종려 가지 든 소녀', x: 0.62, w: 112, h: 288, lines: ['오늘은 잔칫날이야.', '행렬이 오면 가지를 흔들 거야.'] },
+          { id: 'drummer', pass: '둥, 둥, 두둥!', name: '북 치는 악사', x: 0.73, w: 119, h: 267, lines: ['잔칫날 행렬이 지나는 길이란다.', '북소리가 들리면 곧 온다는 거지.'] },
+          { id: 'keeper', pass: '길을 비켜라, 길을!', name: '행렬 길 문지기', x: 0.85, w: 111, h: 320, lines: ['잔칫날 행렬이 지나는 길이란다.', '지나갈 때까지 길을 비워야 하지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'gate', name: '바빌론 이슈타르 문 앞', short: '문 앞', zoom: 1.15, ground: 0.705, scale: 0.673, air: 'court',
+        sora: '문이 온통 파래! 용도 있어.',
+        people: [
+          { id: 'guard', pass: '줄지어 들어가시오.', name: '문 앞의 병사', x: 0.18, w: 118, h: 320, lines: ['이 문은 이슈타르 여신의 문이란다.', '임금님이 새로 지으셨지.'] },
+          { id: 'priest', pass: '용과 들소가 문을 지키지.', show: 'beasts', pose: 'see-wow', sora: '용 발이 앞뒤가 달라!', memo: '문에는 용과 들소가 줄지어 있단다. 용은 마르두크 신, 들소는 아다드 신의 짐승이지.', name: '사제', x: 0.29, w: 118, h: 311, lines: ['저 용은 마르두크 신의 짐승이란다.', '들소는 비를 내리는 신의 짐승이지.'] },
+          { id: 'merchant', pass: '허어, 이런 문은 처음이오.', name: '먼 나라 장사꾼', x: 0.4, w: 117, h: 306, lines: ['먼 서쪽 바닷가에서 왔다오.', '문이 하늘빛이라 눈이 부시오.'] },
+          { id: 'oilwoman', pass: '고소한 참깨 기름이오!', name: '참깨 기름 장수', x: 0.51, w: 110, h: 270, lines: ['참깨를 짜서 낸 기름이란다.', '등잔에도 넣고 빵에도 바르지.'] },
+          { id: 'scribe', pass: '어젯밤 판이 올 때가 됐는데.', show: 'stars', pose: 'see-aha', sora: '별을 흙에 적어 둬!', memo: '바빌론의 별 보는 이들은 날마다 하늘을 점토판에 적었단다. 육백 해를 이어 적었지.', name: '별 보는 서기', x: 0.62, w: 116, h: 308, lines: ['나는 밤마다 하늘을 본단다.', '본 것을 날마다 흙 판에 적지.'] },
+          { id: 'pupil', pass: '꾹, 꾹… 또 틀렸다.', name: '서기를 배우는 아이', x: 0.73, w: 86, h: 214, lines: ['쐐기 글자를 배우는 중이야.', '틀리면 흙을 뭉쳐서 다시 써.'] },
+          { id: 'lamp', pass: '해 지기 전에 불을 켜야지.', name: '등잔 켜는 사람', x: 0.85, w: 104, h: 271, lines: ['해가 지면 문 앞에 불을 켠단다.', '서기 어른은 그때 별을 보러 오르지.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The tablet of last night's sky" (core/tale.js): the tablet-baker by the river has the
+    // tablet on which the scribe wrote last night's sky, now baked hard; the keeper of the
+    // Processional Way lets no one cross till the feast-day procession has passed; the
+    // craftsman setting glazed bricks shows the workmen's path behind the wall; she hands
+    // the tablet to the scribe, choosing what to say; and at dusk he looks at the stars and
+    // writes a new one.
+    tale: {
+      thing: true,
+      ask: '어젯밤 하늘을 어떻게 적어 둘까?',
+      gate: { scene: 'way', open: 3, sora: '문지기가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'baker', goal: '강가 나루의 점토판 굽는 이에게 가 보렴.', holds: '점토판: 굽는 이가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '어젯밤 하늘을 적은 점토판이란다.', '이슈타르 문 앞의 별 보는 서기에게 전해 주렴.'],
+          offer: { ask: '점토판을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'keeper', goal: '행렬 길 끝의 이슈타르 문으로 가 보렴.', holds: '점토판: 소라가 들고 있음',
+          lines: ['멈춰라. 잔칫날 행렬이 지나는 길이다.', '다 지나갈 때까지는 못 건넌다.'],
+          sora: '점토판을 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'glazier', call: '얘, 어디 가는데?', goal: '벽돌 붙이는 장인이 부른다. 가 보렴.', holds: '점토판: 소라가 들고 있음',
+          lines: ['문 앞에 간다고? 그럼 이리 오렴.', '벽 뒤에 일꾼들이 다니는 길이 있단다.', '문지기 양반, 일꾼 길로 보낼게요!'],
+          after: [{ who: 'keeper', line: '일꾼 길이라면 가도 좋다.' }],
+          sora: '벽 뒤로 가면 된대! 가자!',
+        },
+        {
+          who: 'scribe', goal: '문 앞의 별 보는 서기에게 점토판을 전하렴.', holds: '점토판: 소라가 들고 있음',
+          lines: ['오, 어젯밤에 적은 판이 다 구워졌구나.'],
+          choice: {
+            ask: '점토판을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"굽는 아저씨가 보냈어요"', sora: '강가의 굽는 아저씨가 보내셨어요.', says: '단단히도 구웠구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"뭘 적으셨어요?"', sora: '여기에 무엇을 적으셨어요?', says: '달과 별이 어디 있었는지 적었단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'scribe', show: true, goal: '해가 진다. 서기가 별을 적는 것을 보렴.',
+          lines: ['해가 졌구나. 저기 첫 별이 떴다.', '오늘 밤 하늘도 새 판에 적어 두마.'],
+          sora: '젖은 흙에 별을 적어!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'baker', when: ['S1', 'S2', 'S3', 'S4'], lines: ['서기 어른은 이슈타르 문 앞에 있단다.', '행렬 길을 따라 끝까지 가렴.'] },
+        { who: 'baker', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '오늘 밤 판도 내가 구워야겠구나.'] },
+      ],
+      done: '점토판을 전하고, 서기가 별을 적는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '점토판을 받는다.', at: [] },
+      { id: 'gave', text: '서기에게 점토판을 전한다.', at: [] },
+      { id: 'saw', text: '서기가 별을 적는 것을 본다.', at: [] },
+    ],
+    reply: '그 점토판이 수백 장 남아 있단다. 그 옛날의 밤하늘을 지금도 읽을 수 있지.',
+  },
+  // Samarkand about 1428: Ulugh Beg at his observatory. Drawn as the tile mosaic of the
+  // city's own buildings (the user, 2026.10.13, of five tries: the second). The day is not
+  // on record: about the summer solstice, near noon.
+  // Looked up on 2026.10.13 and found so: Ulugh Beg founded the observatory in 1420 on a
+  // rocky hill outside Samarkand (one source has it finished in 1429); a round building
+  // some 46 m across, of three floors and some 30 m high, dressed with glazed tiles and
+  // marble; along its north-south line a great graduated arc of 40 m radius, 70 cm of it to
+  // one degree, of which only the part under the ground is left; a list of 1018 stars (992
+  // in another reading: "천 개쯤" here), which Ali Qushji saw finished.
+  // From memory: Ulugh Beg was Timur's grandson, a king who taught at his own school, and
+  // measured the length of the year closely; the school on the Registan with stars over
+  // its door; the paper of Samarkand, rubbed smooth with a stone, and its melons and flat
+  // bread; silk come from China; the brass astrolabe and how it is held; that the sunlight
+  // came in by an opening at the top of the arc; that Qushji means the keeper of falcons
+  // and that he was a young man in 1428; how tiles are glazed and fired; the striped silk
+  // coat; that there were no telescopes yet.
+  // Made up: the papermaker's errand of the bundle of paper, the gatekeeper, the mason and
+  // the workers' stair, and everyone else who stands about.
+  samarkand1428: {
+    dir: 'samarkand1428', look: 'paper',
+    drawn: '그 도시 건물의 푸른 타일 조각처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'registan', name: '사마르칸트 레기스탄의 학교 앞', short: '학교 앞', zoom: 1.085, ground: 0.755, scale: 0.635, air: 'market',
+        sora: '문이 온통 파란 타일이야!',
+        people: [
+          { id: 'melon', pass: '꿀보다 단 멜론이오!', show: 'melon', name: '멜론 장수', x: 0.18, w: 149, h: 306, lines: ['사마르칸트 멜론은 꿀처럼 달단다.', '갓 구운 빵이랑 먹어 보련?'],
+            try: { id: 'eat-melon', verb: 'eat', name: '멜론과 빵', face: 'yum', sora: '달콤해! 빵도 따끈따끈해.' } },
+          { id: 'student', pass: '오늘 밤엔 별을 봐야지.', name: '학교의 학생', x: 0.29, w: 106, h: 302, lines: ['이 학교에서 별과 셈을 배워.', '임금님이 직접 가르치실 때도 있어.'] },
+          { id: 'tiler', pass: '불이 세야 빛이 곱지.', show: 'tile', pose: 'see-wow', sora: '불에서 파란색이 나와!', memo: '흙 판에 유리 물을 발라 구우면 푸른 빛이 난단다. 천문대도 이 타일로 꾸몄지.', name: '타일 굽는 장인', x: 0.4, w: 118, h: 310, lines: ['흙 판에 유리 물을 발라 굽는단다.', '구우면 이렇게 파랗게 빛나지.'] },
+          { id: 'teacher', pass: '배움에는 끝이 없지.', name: '학교의 선생님', x: 0.51, w: 124, h: 320, lines: ['문 위의 별 무늬를 보렴.', '별을 배우는 학교라서 그렇단다.'] },
+          { id: 'silk', pass: '고운 비단 보고 가요.', name: '비단 장수', x: 0.62, w: 134, h: 295, lines: ['줄무늬 비단으로 지은 겉옷이란다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-ikat', verb: 'wear', name: '줄무늬 비단 옷', outfit: 'ikat', sora: '반들반들해! 줄무늬가 예뻐.', memo: '긴 겉옷을 앞에서 여며 띠로 묶어 입는단다. 비단이라 가볍고 시원하지.' } },
+          { id: 'paper', pass: '아이고, 가게를 못 비우는데.', name: '종이 장인', x: 0.73, w: 104, h: 303, lines: ['사마르칸트 종이는 먼 나라까지 간단다.', '돌로 문질러 매끈하게 윤을 내지.'] },
+          { id: 'merchant', pass: '휴, 먼 길이었어.', name: '낙타 타고 온 상인', x: 0.85, w: 149, h: 319, lines: ['먼 동쪽에서 비단을 싣고 왔단다.', '이 도시엔 온 세상 물건이 모이지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'hill', name: '사마르칸트 천문대 언덕길의 시장', short: '언덕길', zoom: 1.085, ground: 0.755, scale: 0.635, air: 'street',
+        sora: '언덕 위에 둥근 집이 있어!',
+        people: [
+          { id: 'apricot', pass: '살구요, 잘 익은 살구!', name: '살구 장수', x: 0.18, w: 110, h: 280, lines: ['언덕 오르기 전에 살구 하나 먹으렴.', '천문대 사람들도 사 간단다.'] },
+          { id: 'brass', pass: '눈금 하나라도 틀리면 안 돼.', show: 'astrolabe', pose: 'see-aha', sora: '판에 별 지도가 있어!', memo: '별이 얼마나 높이 떴는지 재는 놋쇠 판이란다. 손에 들고 별을 겨누지.', name: '놋쇠 장인', x: 0.29, w: 131, h: 269, lines: ['별을 재는 놋쇠 판이란다.', '들고 별을 겨누면 높이를 알지.'] },
+          { id: 'waterboy', pass: '시원한 물이요!', name: '물 나르는 아이', x: 0.4, w: 94, h: 210, lines: ['언덕 위까지 물을 날라.', '천문대 아저씨들은 밤에도 일해.'] },
+          { id: 'bricklayer', pass: '영차, 벽돌 올라간다.', name: '벽돌 나르는 일꾼', x: 0.51, w: 106, h: 270, lines: ['천문대는 둥근 삼 층 집이란다.', '겉은 푸른 타일과 흰 돌로 꾸몄지.'] },
+          { id: 'shepherd', pass: '오늘 밤도 맑겠구먼.', name: '양치기 할아버지', x: 0.62, w: 117, h: 258, lines: ['밤이면 이 언덕에 별이 쏟아진단다.', '그래서 여기에 천문대를 지었지.'] },
+          { id: 'mason', pass: '쓱쓱, 눈금이 잘 보여야지.', name: '눈금 돌 닦는 석공', x: 0.73, w: 118, h: 269, lines: ['큰 눈금 길에 놓는 흰 돌이란다.', '먼지 하나 없이 닦아야 하지.'] },
+          { id: 'gatekeeper', pass: '조용, 조용히 하시오.', name: '천문대 문지기', x: 0.85, w: 111, h: 320, lines: ['이 문 안이 임금님의 천문대란다.', '잴 때는 발소리도 내면 안 되지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'observatory', name: '사마르칸트 천문대 안 눈금 길 앞', short: '눈금 길 앞', zoom: 1.085, ground: 0.755, scale: 0.635, air: 'hush',
+        sora: '눈금 길이 땅속으로 내려가!',
+        people: [
+          { id: 'scribe', pass: '이 별은 여기, 저 별은 저기.', show: 'catalog', pose: 'see-wow', sora: '별마다 자리가 적혀 있어!', memo: '별 천 개쯤의 자리를 하나하나 재어 적었단다. 알리 쿠시지가 그 일을 마무리했지.', name: '별 적는 서기', x: 0.18, w: 109, h: 299, lines: ['잰 별의 자리를 책에 적는단다.', '별 천 개쯤을 다 적을 거야.'] },
+          { id: 'counter', pass: '더하고, 또 더하고.', name: '셈하는 학자', x: 0.29, w: 108, h: 294, lines: ['잰 것을 셈해야 쓸모가 있단다.', '한 해가 며칠인지도 꼼꼼히 쟀지.'] },
+          { id: 'ulughbeg', pass: '오늘은 해가 가장 높구나.', name: '울루그 베그', x: 0.4, w: 123, h: 312, lines: ['나는 임금이지만 별이 더 좋단다.', '학교에서 아이들도 가르치지.'] },
+          { id: 'oldmaster', pass: '허허, 잘들 하는구나.', name: '늙은 스승', x: 0.51, w: 110, h: 294, lines: ['임금님도 어릴 적엔 내 제자였단다.', '이제는 나보다 별을 잘 아시지.'] },
+          { id: 'aliqushji', pass: '종이가 모자라겠는걸.', show: 'light', pose: 'see-wow', sora: '빛이 눈금 위에 앉았어!', memo: '땅속까지 휘어 내려간 큰 눈금 길이란다. 눈금 한 칸이 어른 팔 길이쯤이었지.', name: '알리 쿠시지', x: 0.62, w: 122, h: 295, lines: ['나는 임금님께 별 재는 법을 배운단다.', '내 이름은 매 기르는 사람이란 뜻이지.'] },
+          { id: 'errandboy', pass: '먹물 쏟으면 안 돼.', name: '심부름하는 아이', x: 0.73, w: 88, h: 214, lines: ['나는 먹물이랑 붓을 날라.', '크면 나도 별을 잴 거야.'] },
+          { id: 'visitor', pass: '허어, 놀랍구려.', name: '먼 나라에서 온 학자', x: 0.85, w: 113, h: 320, lines: ['이 눈금을 보려고 먼 길을 왔다오.', '이렇게 큰 눈금은 처음 보오.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The bundle of paper" (core/tale.js; the storyboard of docs/신기한-사실.md): the
+    // papermaker has new paper for tonight's stars and cannot leave his stall; the
+    // gatekeeper keeps her out while the king measures; the mason who polishes the scale
+    // stones takes her down the workers' stair; she hands it to Ali Qushji, choosing what
+    // to say; and he shows her the spot of sunlight on the great scale.
+    tale: {
+      thing: true,
+      ask: '망원경도 없이 하늘을 어떻게 쟀을까?',
+      gate: { scene: 'hill', open: 3, sora: '문지기가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'paper', goal: '학교 앞의 종이 장인에게 가 보렴.', holds: '종이 묶음: 장인이 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '오늘 밤 별을 적을 새 종이란다.', '천문대의 알리 쿠시지에게 전해 주렴.'],
+          offer: { ask: '종이 묶음을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'gatekeeper', goal: '언덕길 끝의 천문대 문으로 가 보렴.', holds: '종이 묶음: 소라가 들고 있음',
+          lines: ['멈춰라. 임금님이 해를 재시는 중이다.', '지금은 아무도 못 들어간다.'],
+          sora: '종이를 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'mason', call: '얘, 그 종이 어디 가니?', goal: '눈금 돌 닦는 석공이 부른다. 가 보렴.', holds: '종이 묶음: 소라가 들고 있음',
+          lines: ['알리 쿠시지에게? 그럼 날 따라오렴.', '눈금 길 아래로 가는 일꾼 계단이 있단다.', '문지기 양반, 내 일손이오!'],
+          after: [{ who: 'gatekeeper', line: '일꾼 계단으로 조용히 가거라.' }],
+          sora: '일꾼 계단으로 가면 된대! 가자!',
+        },
+        {
+          who: 'aliqushji', goal: '천문대 안의 알리 쿠시지에게 종이 묶음을 전하렴.', holds: '종이 묶음: 소라가 들고 있음',
+          lines: ['오, 종이가 다 떨어진 참이었단다.'],
+          choice: {
+            ask: '종이 묶음을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"종이 장인이 보냈어요"', sora: '학교 앞의 종이 장인이 보내셨어요.', says: '그분 종이가 으뜸이지. 고맙다, 얘야.' },
+              { id: 'E2', label: '"뭘 재세요?"', sora: '지금 무엇을 재세요?', says: '해가 얼마나 높이 떴는지 잰단다. 보여 주마.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'aliqushji', show: true, goal: '눈금 위의 햇빛을 보렴.',
+          lines: ['저 위 구멍으로 햇빛이 든단다. 보렴.', '빛이 닿은 눈금이 오늘 해의 높이지.'],
+          sora: '빛 한 점이 눈금 위를 지나가!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'paper', when: ['S1', 'S2', 'S3', 'S4'], lines: ['알리 쿠시지는 천문대 안에 있단다.', '언덕길을 올라 문으로 가렴.'] },
+        { who: 'paper', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '오늘 밤 별도 잘 적히겠구나.'] },
+      ],
+      done: '종이 묶음을 전하고, 눈금 위의 햇빛을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '종이 묶음을 받는다.', at: [] },
+      { id: 'gave', text: '알리 쿠시지에게 종이 묶음을 전한다.', at: [] },
+      { id: 'saw', text: '눈금 위를 지나는 햇빛을 본다.', at: [] },
+    ],
+    reply: '망원경도 없던 때에 별 천 개쯤을 적었단다. 땅속의 눈금 길은 지금도 남아 있지.',
+  },
+  // Chichen Itza about 1000, the afternoon of the spring equinox. Drawn as the wall paintings
+  // of the Maya temple of Bonampak (the user, 2026.10.13, of five tries: style 2, "신전
+  // 벽화"). The try itself is the third scene. The year is not on record.
+  // Looked up on 2026.10.13 and found so: about the equinoxes, of an afternoon, seven
+  // triangles of light run down the balustrade of the north stair of the great pyramid and
+  // meet the stone serpent head at its foot, for some twenty minutes, and on the days about
+  // it (whether it was built to do so is disputed: it is only said to be seen); the round
+  // tower El Caracol, its windows toward where Venus sets farthest north and south; Venus
+  // comes back five times in eight years; the pyramid stands over an older one.
+  // Widely told, one source only: 91 steps on each of four sides and the top makes 365.
+  // From memory: cacao beans as money and the frothed drink of cacao with chilli; maize
+  // ground on a stone; the numbers of dots, bars and a shell for nought; the ball court,
+  // its stone ring high on the wall and the rubber ball struck with the hip; the huipil;
+  // honey of stingless bees in hollow logs; the white raised road; copal incense; the
+  // turtle-shell drum and the conch trumpet; the winding stair inside the Caracol; lime
+  // plaster; maize sown in spring with a planting stick; green feathers brought from far.
+  // Made up: the knotted cord that tells the day, the day-counter's errand, the drummer who
+  // bars the way, the ball player who shows the way round.
+  // Left out on purpose: human sacrifice, and what was thrown into the well.
+  chichen1000: {
+    dir: 'chichen1000', look: 'paper', pale: true,
+    drawn: '마야 신전의 벽에 그린 그림처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'market', name: '마야 치첸이트사 광장 어귀의 시장', short: '시장', zoom: 1.13, ground: 0.72, scale: 0.661, air: 'market',
+        sora: '저 멀리 피라미드가 보여!',
+        people: [
+          { id: 'maize', pass: '옥수수 빵 굽는다!', name: '옥수수 가는 아주머니', x: 0.19, w: 120, h: 308, lines: ['옥수수를 돌판에 갈아 반죽한단다.', '납작하게 구우면 빵이 되지.'] },
+          { id: 'merchant', pass: '점 하나, 점 둘, 막대 하나.', show: 'numbers', pose: 'see-aha', sora: '점이랑 막대로 세네!', memo: '마야 사람들은 점과 막대로 수를 적었단다. 점은 하나, 막대는 다섯, 조개는 영이지.', name: '셈하는 상인', x: 0.3, w: 129, h: 320, lines: ['여기서는 카카오 콩이 돈이란다.', '점은 하나, 막대는 다섯으로 세지.'] },
+          { id: 'counter', pass: '아이고, 숨이 차구나.', name: '날 세는 사람', x: 0.4, w: 136, h: 313, lines: ['나는 달팽이 집에서 날을 센단다.', '매듭 하나가 하루지.'] },
+          { id: 'child', pass: '오늘 뱀이 내려온대!', name: '구경 나온 아이', x: 0.51, w: 98, h: 214, lines: ['오늘은 다들 광장에 모여.', '해가 기울면 뭐가 보인대!'] },
+          { id: 'weaver', pass: '고운 옷 보고 가요.', name: '천 짜는 아주머니', x: 0.62, w: 127, h: 309, lines: ['무명으로 짠 겉옷이란다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-huipil', verb: 'wear', name: '마야의 옷', outfit: 'huipil', sora: '헐렁해서 시원해!', memo: '네모난 무명 천에 수를 놓은 겉옷이란다. 우이필이라고 하지.' } },
+          { id: 'honey', pass: '달콤한 꿀이오!', name: '꿀 장수', x: 0.73, w: 135, h: 313, lines: ['통나무 속에서 벌을 친단다.', '침이 없는 작은 벌이지.'] },
+          { id: 'cacao', pass: '거품 난 카카오요!', show: 'cacao', name: '카카오 장수', x: 0.85, w: 122, h: 305, lines: ['카카오 콩을 갈아 탄 물이란다.', '고추를 넣었지. 마셔 보련?'],
+            try: { id: 'eat-cacao', verb: 'eat', name: '고추 넣은 카카오', face: 'yum', sora: '쌉쌀하고 매콤해! 그래도 맛있어.' } },
+        ],
+        spots: [],
+      },
+      {
+        id: 'caracol', name: '마야 치첸이트사 달팽이 집 앞', short: '달팽이 집 앞', zoom: 1.13, ground: 0.72, scale: 0.661, air: 'court',
+        sora: '탑이 동그래!',
+        people: [
+          { id: 'stargazer', pass: '오늘 저녁엔 샛별이 뜨려나.', show: 'venus', pose: 'see-aha', sora: '창으로 별이 딱 보여!', memo: '달팽이 집의 창은 샛별(금성)이 지는 자리를 본단다. 샛별은 여덟 해에 다섯 번 돌아오지.', name: '별 보는 사람', x: 0.18, w: 132, h: 317, lines: ['저 둥근 탑에서 별을 본단다.', '좁은 창으로 샛별이 지는 걸 보지.'] },
+          { id: 'plasterer', pass: '쓱쓱, 하얗게 바른다.', name: '회 바르는 일꾼', x: 0.29, w: 120, h: 299, lines: ['돌 위에 흰 회를 바른단다.', '안의 계단은 달팽이처럼 돌지.'] },
+          { id: 'incense', pass: '향이 곱게 오르네.', name: '향 피우는 아주머니', x: 0.4, w: 105, h: 282, lines: ['나무 진으로 만든 향이란다.', '오늘 같은 날엔 꼭 피우지.'] },
+          { id: 'player', pass: '공은 엉덩이로 받는 거야!', name: '공놀이 선수', x: 0.51, w: 143, h: 307, lines: ['고무공을 엉덩이로 쳐 올린단다.', '저 높은 돌 고리에 넣으면 이기지.'] },
+          { id: 'feather', pass: '깃털 하나도 귀하지.', name: '깃털 장식 만드는 사람', x: 0.62, w: 132, h: 280, lines: ['먼 숲의 새 깃털이란다.', '제사장의 머리 장식을 만들지.'] },
+          { id: 'piper', pass: '삐리리, 삐리.', name: '피리 부는 아이', x: 0.73, w: 90, h: 208, lines: ['흙으로 빚은 피리야.', '북이 울리면 나도 같이 불 거야.'] },
+          { id: 'drummer', pass: '다 모이면 북을 친다.', name: '북 치는 사람', x: 0.85, w: 140, h: 320, lines: ['사람들이 다 모이면 북을 친단다.', '그때까지 계단 앞은 비워 두지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'pyramid', name: '마야 치첸이트사 큰 피라미드 발치', short: '피라미드 발치', zoom: 1.13, ground: 0.72, scale: 0.661, air: 'hush',
+        sora: '계단이 하늘까지 가!',
+        people: [
+          { id: 'sweeper', pass: '한 칸, 두 칸, 끝이 없네.', show: 'steps', pose: 'see-wow', sora: '한 해의 날 수랑 똑같아!', memo: '계단이 네 쪽에 아흔한 칸씩이란다. 꼭대기 단까지 더하면 삼백예순다섯, 한 해의 날 수와 같지.', name: '계단 쓰는 사람', x: 0.18, w: 120, h: 274, lines: ['이 계단을 날마다 쓴단다.', '네 쪽을 다 세면 한 해의 날 수지.'] },
+          { id: 'flower', pass: '꽃을 올려야지.', name: '꽃 든 아주머니', x: 0.29, w: 103, h: 251, lines: ['오늘은 낮과 밤의 길이가 같단다.', '그래서 다들 꽃을 들고 왔지.'] },
+          { id: 'farmer', pass: '이제 씨를 심어야지.', name: '농부 할아버지', x: 0.4, w: 94, h: 269, lines: ['이 무렵이면 옥수수 심을 채비를 한단다.', '막대로 구멍을 내고 씨를 넣지.'] },
+          { id: 'priest', pass: '해가 기울기를 기다린다.', show: 'serpent', pose: 'see-wow', sora: '빛이 뱀처럼 내려와!', memo: '봄날 오후에 계단 옆으로 세모꼴 빛 일곱이 줄지어 내려온단다. 아래의 돌 뱀 머리와 이어져 뱀처럼 보이지.', name: '제사장', x: 0.51, w: 131, h: 320, lines: ['이 피라미드는 옛 신전 위에 덧지었단다.', '깃털 달린 뱀의 신전이라고 하지.'] },
+          { id: 'conch', pass: '뿌우, 뿌우.', name: '조개 나팔 부는 사람', x: 0.62, w: 135, h: 271, lines: ['큰 소라 껍데기로 만든 나팔이란다.', '멀리 숲 너머까지 들리지.'] },
+          { id: 'tiptoe', pass: '어디, 어디? 안 보여!', name: '까치발 선 아이', x: 0.73, w: 92, h: 159, lines: ['계단 아래에 돌 뱀 머리가 있어.', '입을 쩍 벌리고 있어. 봤어?'] },
+          { id: 'trader', pass: '허어, 높기도 하다.', name: '먼 데서 온 상인', x: 0.85, w: 118, h: 256, lines: ['여러 날을 걸어서 왔단다.', '이 날을 보려고 맞춰 왔지.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The knotted cord" (core/tale.js; the storyboard of docs/신기한-사실.md): the day-counter,
+    // come down to the market out of breath, has the knotted cord that says today is the
+    // day; the drummer keeps everyone from the stair until all have gathered; the ball
+    // player shows the way round by the ball court; the cord is handed to the priest,
+    // choosing what to say; and as the sun sinks the serpent of light is seen on the stair.
+    tale: {
+      thing: true,
+      ask: '오늘 계단에 무엇이 보일까?',
+      gate: { scene: 'caracol', open: 3, sora: '북 치는 아저씨가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'counter', goal: '시장의 날 세는 사람에게 가 보렴.', holds: '매듭 끈: 할아버지가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '오늘이 그날이라고 알리는 매듭 끈이란다.', '나는 숨이 차구나. 제사장께 전해 주렴.'],
+          offer: { ask: '매듭 끈을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'drummer', goal: '달팽이 집 앞을 지나 피라미드로 가 보렴.', holds: '매듭 끈: 소라가 들고 있음',
+          lines: ['멈춰라. 아직 북을 치지 않았다.', '다 모일 때까지 계단 앞엔 못 간다.'],
+          sora: '끈을 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'player', call: '얘, 어디 가는데?', goal: '공놀이 선수가 부른다. 가 보렴.', holds: '매듭 끈: 소라가 들고 있음',
+          lines: ['제사장께 간다고? 그럼 나를 따라와.', '공놀이 마당 옆으로 돌아가면 돼.', '북 아저씨, 이 아이는 돌아서 갈게요!'],
+          after: [{ who: 'drummer', line: '돌아서 간다면 가 보거라.' }],
+          sora: '돌아서 가면 된대! 가자!',
+        },
+        {
+          who: 'priest', goal: '피라미드 발치의 제사장에게 매듭 끈을 전하렴.', holds: '매듭 끈: 소라가 들고 있음',
+          lines: ['오, 그 끈을 기다리던 참이란다.'],
+          choice: {
+            ask: '매듭 끈을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"할아버지가 보냈어요"', sora: '날 세는 할아버지가 보내셨어요.', says: '날 세는 이가 보냈구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"오늘이 무슨 날이에요?"', sora: '오늘이 무슨 날이에요?', says: '낮과 밤의 길이가 같은 날이란다. 보여 주마.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'priest', show: true, goal: '제사장과 함께 계단을 보렴.',
+          lines: ['매듭을 세어 보니 오늘이 맞구나.', '해가 기운다. 계단 옆을 보렴.'],
+          sora: '빛이 뱀처럼 내려와!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'counter', when: ['S1', 'S2', 'S3', 'S4'], lines: ['제사장은 큰 피라미드 발치에 계신단다.', '달팽이 집 앞을 지나서 가렴.'] },
+        { who: 'counter', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '올해도 날을 바로 세었구나.'] },
+      ],
+      done: '매듭 끈을 전하고, 계단에 내려온 빛의 뱀을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '매듭 끈을 받는다.', at: [] },
+      { id: 'gave', text: '제사장에게 매듭 끈을 전한다.', at: [] },
+      { id: 'saw', text: '계단에 내려온 빛의 뱀을 본다.', at: [] },
+    ],
+    reply: '그 빛의 뱀은 지금도 봄과 가을에 보인단다. 이십 분쯤 머물다 사라지지.',
+  },
+  // Seorabeol (Gyeongju) about 640, in the reign of Queen Seondeok: Cheomseongdae stands.
+  // Drawn as the heavenly horse on the birch-bark saddle flap of Cheonmachong (the user's
+  // choice of five tries: the second). The day is not on record. The pictures are in
+  // seorabeol640; the try itself is not a scene (it shows the pagoda of Hwangnyongsa, which
+  // did not stand until 645), so all three scenes were ordered anew and have no pagoda.
+  // Looked up on 2026.10.13 and found so: built in the reign of Queen Seondeok (632 to 647),
+  // the year given as 633 or as 647; 362 stones by the commonest count (356 and 365 are also
+  // given: "삼백예순 개쯤"), 27 courses, 12 above and 12 below the square window, a little
+  // over 9 m high; the pagoda of Hwangnyongsa begun in 643 and standing in 645.
+  // From memory: that a ladder was leaned to the window and the way up went on inside; that
+  // the window looks south (the square's card says so); the crossed long stones at the top;
+  // the gold crown with spangles and curved jade; stemmed dishes; small clay figures;
+  // wooden writing slips; the hwarang; the court astronomer called ilgwan; that the saddle
+  // flap kept mud off the rider; the mounds of stones under earth; that Hwangnyongsa was the
+  // greatest temple of the city; that Seondeok was the first queen of Silla; rice cake and
+  // honey; the dress of Silla; that farmers sowed by the stars.
+  // Made up: the errand of the gold plumb weight, the queen's coming that evening, the
+  // carpenter with the ladder, every other person.
+  cheomseongdae: {
+    dir: 'seorabeol640', look: 'paper',
+    drawn: '신라 무덤에서 나온 흰 말 그림처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'market', name: '신라 서라벌 저잣거리', short: '저잣거리', zoom: 1.13, ground: 0.725, scale: 0.661, air: 'market', floor: 'dirt',
+        sora: '하늘도 땅도 나무껍질 빛이야!',
+        people: [
+          { id: 'potter', pass: '갓 구운 그릇이오!', name: '토기장이', x: 0.18, w: 125, h: 317, lines: ['가마에서 막 꺼낸 그릇이란다.', '굽이 높아서 상 없이도 쓰지.'] },
+          { id: 'tteok', pass: '떡이오, 따끈한 떡!', show: 'tteok', name: '떡 파는 아주머니', x: 0.29, w: 130, h: 289, lines: ['시루에 갓 쪄 낸 떡이란다.', '꿀에 찍어 한 입 먹어 보련?'],
+            try: { id: 'eat-tteok', verb: 'eat', name: '떡과 꿀', face: 'yum', sora: '쫄깃해! 꿀이 달아.' } },
+          { id: 'toykid', pass: '내 말이 제일 빨라!', name: '흙 인형 든 아이', x: 0.4, w: 108, h: 232, lines: ['흙으로 빚은 말이야.', '아저씨가 가마에 같이 구워 줬어.'] },
+          { id: 'goldsmith', pass: '톡톡, 살살 두드려야지.', name: '금 두드리는 장인', x: 0.51, w: 142, h: 320, lines: ['금은 두드리면 종이처럼 얇아진단다.', '그걸 오려서 꾸미개를 만들지.'] },
+          { id: 'jade', pass: '옥은 천천히 갈아야 해.', show: 'crown', pose: 'see-wow', sora: '금이 나뭇가지 같아!', memo: '신라의 금관이란다. 작은 금 달개와 굽은 옥이 걸을 때마다 흔들렸겠지.', name: '옥 다듬는 장인', x: 0.62, w: 113, h: 313, lines: ['이 굽은 옥은 금관에 단단다.', '금 달개 사이에서 푸르게 빛나지.'] },
+          { id: 'weaver', pass: '고운 베 보고 가요.', name: '베 짜는 아주머니', x: 0.73, w: 122, h: 292, lines: ['긴 저고리에 띠를 매어 입는단다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-silla', verb: 'wear', name: '신라의 옷', outfit: 'silla', sora: '띠를 매니까 딱 맞아!', memo: '신라 사람들은 긴 저고리에 허리띠를 맸단다. 그 아래에 주름치마나 바지를 입었지.' } },
+          { id: 'monk', pass: '고맙습니다.', name: '황룡사 스님', x: 0.85, w: 112, h: 291, lines: ['황룡사는 서라벌에서 큰 절이란다.', '높은 탑은 아직 없단다.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'tombs', name: '신라 서라벌 큰 무덤 사이 길', short: '무덤 사이 길', zoom: 1.13, ground: 0.725, scale: 0.661, air: 'street', floor: 'dirt',
+        sora: '언덕인 줄 알았는데 무덤이래!',
+        people: [
+          { id: 'mower', pass: '풀이 금세 자라네.', name: '풀 베는 아저씨', x: 0.18, w: 123, h: 286, lines: ['옛 임금님들이 잠든 무덤이란다.', '집보다 커서 풀 베는 데 하루지.'] },
+          { id: 'granny', pass: '올해도 잘 익었구나.', show: 'dish', pose: 'see-aha', sora: '접시에 다리가 있어!', memo: '굽이 높은 접시란다. 굽에 네모난 구멍을 뚫어 멋을 냈지.', name: '제물 올리는 할머니', x: 0.29, w: 82, h: 254, lines: ['굽다리 접시에 과일을 올린단다.', '굽이 높아야 정성스러워 보이지.'] },
+          { id: 'carpenter', pass: '사다리 지나갑니다!', name: '사다리 멘 목수', x: 0.4, w: 134, h: 320, lines: ['첨성대 창에 걸칠 사다리란다.', '창이 높아서 사다리가 있어야 하지.'] },
+          { id: 'piper', pass: '삘리리, 삘리리.', name: '피리 부는 소년', x: 0.51, w: 89, h: 197, lines: ['대나무로 만든 피리야.', '무덤 사이는 소리가 잘 울려.'] },
+          { id: 'painter', pass: '흰 말아, 훨훨 달려라.', name: '말다래 그리는 화공', x: 0.62, w: 115, h: 266, lines: ['나무껍질에 흰 말을 그린단다.', '말 탄 이의 옷에 흙이 안 튀게 대지.'] },
+          { id: 'water', pass: '찰랑찰랑, 쏟을라.', name: '물동이 인 아주머니', x: 0.73, w: 108, h: 291, lines: ['우물에서 물을 길어 온단다.', '첨성대는 이 길 끝에 있지.'] },
+          { id: 'hwarang', pass: '오늘은 길을 잘 지켜야 해.', name: '길을 지키는 화랑', x: 0.85, w: 95, h: 306, lines: ['나는 서라벌의 화랑이다.', '동무들과 산과 들을 다니며 배우지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'tower', name: '신라 서라벌 첨성대 앞', short: '첨성대 앞', zoom: 1.13, ground: 0.725, scale: 0.661, air: 'hush', floor: 'dirt',
+        sora: '병처럼 생긴 돌탑이야!',
+        people: [
+          { id: 'mason', pass: '돌 하나하나 내 손을 거쳤지.', show: 'stones', pose: 'see-wow', sora: '돌이 동글동글 쌓였어!', memo: '돌이 삼백예순 개쯤, 스물일곱 단이란다. 창 위로 열두 단, 아래로 열두 단이지.', name: '돌 다듬는 석수', x: 0.18, w: 123, h: 278, lines: ['돌을 삼백예순 개쯤 쌓았단다.', '단을 세어 보렴. 스물일곱 단이지.'] },
+          { id: 'scribe', pass: '어디 보자, 첫 별이…', name: '별을 적는 젊은 관리', x: 0.29, w: 102, h: 280, lines: ['본 것을 나무쪽에 적어 둔단다.', '적어 두어야 내년에 견주어 보지.'] },
+          { id: 'lampkid', pass: '불 꺼질라, 살금살금.', name: '등불 든 아이', x: 0.4, w: 79, h: 204, lines: ['해가 지면 내가 불을 켜.', '별 볼 때는 불을 작게 해야 해.'] },
+          { id: 'queen', pass: '오늘 밤은 하늘이 맑겠구나.', name: '선덕여왕', x: 0.51, w: 135, h: 320, lines: ['별을 보려고 쌓은 돌탑이란다.', '너도 오늘 밤 하늘을 보고 가렴.'] },
+          { id: 'maid', pass: '여왕님, 바람이 찹니다.', name: '시녀', x: 0.62, w: 85, h: 241, lines: ['여왕님은 신라의 첫 여왕이시란다.', '별 보는 것을 무척 아끼시지.'] },
+          { id: 'ilgwan', pass: '추가 와야 할 텐데.', show: 'stars', pose: 'see-wow', sora: '꼭대기에서 별을 세!', memo: '창까지는 사다리로 오르고, 그 위는 탑 속으로 올라갔다고들 한단다.', name: '일관', x: 0.73, w: 111, h: 296, lines: ['나는 하늘을 살피는 일관이란다.', '밤마다 별을 보고 적어 두지.'] },
+          { id: 'farmer', pass: '내일은 비가 오려나.', name: '농부 할아버지', x: 0.85, w: 112, h: 248, lines: ['별을 보고 씨 뿌릴 때를 안단다.', '그래서 일관님께 여쭈러 왔지.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The plumb weight" (core/tale.js; the storyboard of docs/신기한-사실.md): the goldsmith
+    // has made a small gold weight on a cord for the court astronomer; the hwarang keeps the
+    // way to the tower, for the queen is coming; the carpenter with the ladder takes her along
+    // as his helper; she hands it to the astronomer, choosing what to say; and at dusk he
+    // climbs to the top and counts the first stars.
+    tale: {
+      thing: true,
+      ask: '첨성대의 돌은 몇 개나 될까?',
+      gate: { scene: 'tombs', open: 3, sora: '화랑이 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'goldsmith', goal: '저잣거리의 금 두드리는 장인에게 가 보렴.', holds: '금 추: 장인이 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '별 보는 일관께 드릴 금 추란다.', '첨성대 앞의 일관께 전해 주렴.'],
+          offer: { ask: '금 추를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'hwarang', goal: '무덤 사이 길 끝으로 가 보렴.', holds: '금 추: 소라가 들고 있음',
+          lines: ['멈춰라. 여왕님께서 첨성대에 오신다.', '오늘은 아무나 가까이 못 간다.'],
+          sora: '추를 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'carpenter', call: '얘, 어디 가는데?', goal: '사다리 멘 목수가 부른다. 가 보렴.', holds: '금 추: 소라가 들고 있음',
+          lines: ['일관께 간다고? 그럼 나를 따라오렴.', '나도 이 사다리를 가져가는 길이란다.', '화랑님, 이 아이는 저와 함께 갑니다!'],
+          after: [{ who: 'hwarang', line: '목수와 함께라면 지나가거라.' }],
+          sora: '목수 아저씨를 따라가면 된대! 가자!',
+        },
+        {
+          who: 'ilgwan', goal: '첨성대 앞의 일관에게 금 추를 전하렴.', holds: '금 추: 소라가 들고 있음',
+          lines: ['오, 기다리던 금 추로구나.'],
+          choice: {
+            ask: '금 추를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"장인 아저씨가 보냈어요"', sora: '저잣거리의 장인 아저씨가 보내셨어요.', says: '솜씨가 곱구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"이걸로 뭘 해요?"', sora: '이 추로 무엇을 하세요?', says: '줄에 달면 곧게 아래를 가리킨단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'ilgwan', show: true, goal: '일관이 별을 세는 것을 보렴.',
+          lines: ['해가 졌구나. 사다리로 올라가마.', '꼭대기에서 별을 하나씩 센단다.'],
+          sora: '첫 별이 떴어! 하나, 둘…',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'goldsmith', when: ['S1', 'S2', 'S3', 'S4'], lines: ['일관께서는 첨성대 앞에 계신단다.', '큰 무덤들 사이 길로 가렴.'] },
+        { who: 'goldsmith', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '오늘 밤은 별이 잘 보이겠구나.'] },
+      ],
+      done: '금 추를 전하고, 첨성대에서 별을 세는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '금 추를 받는다.', at: [] },
+      { id: 'gave', text: '일관에게 금 추를 전한다.', at: [] },
+      { id: 'saw', text: '첨성대에서 별을 세는 것을 본다.', at: [] },
+    ],
+    reply: '천사백 년 동안 같은 하늘을 본 돌이란다. 부럽지.',
+  },
 };
 
 // The far and the fore of every other scene are told from the pictures that are there (the

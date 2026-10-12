@@ -566,6 +566,58 @@ export const SQUARES = [
     reply: '그 벽의 여신들은 머리 모양이 서른일곱 가지란다. 지금도 그대로 춤추고 있지.',
     quiz: { question: '앙코르와트의 돌은 어떻게 실어 왔나?', answer: '물길로', proof: '물길로 실어 왔습니다', wrong: ['바닷길로', '산길로 굴려서'] },
   },
+  {
+    // Babylon about 575 BC, under Nebuchadnezzar II: the Ishtar Gate is new. The day is not
+    // on record: a spring day toward evening is taken. Years here are historical (no year
+    // 0), so 575 BC is -575, as 'thales' writes 585 BC. The place is walked about
+    // (core/walks.js). The picture looks through the gate at the stepped tower, which
+    // stood south of it (from memory): facingAz 180.
+    // From memory: that the gate now stands rebuilt in a museum in Berlin.
+    no: 6, id: 'babylon575', name: '푸른 문과 별 일지', dateLabel: 'BC 575년쯤', place: '바빌론, 이라크',
+    lat: 32.5435, lon: 44.4208,
+    date: { year: -575, month: 4, day: 1 }, calendar: 'julian', hourLocal: 17,
+    facingAz: 180, nightOnLook: true,
+    memo: '푸른 벽돌 문. 밤마다 하늘을 적음.', sora: '문이 온통 파래! 용도 있어.',
+    memoToday: '남은 것: 문은 베를린 박물관에.', soraToday: '빈터에 벽돌 터만 남았네.',
+    noteMemo: '기원전 575년쯤. 푸른 벽돌 문을 세우고 날마다 하늘을 적었다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '기원전 575년쯤, 바빌론의 임금 네부카드네자르 2세는 푸른 유약 벽돌로 덮은 이슈타르 문을 세웠습니다. 문에는 용과 들소가, 문으로 가는 행렬 길의 벽에는 사자가 줄지어 있습니다. 바빌론의 별 보는 이들은 육백 해 동안 날마다 하늘과 날씨와 강물 높이를 점토판에 적었습니다.',
+    reply: '그 점토판이 수백 장 남아 있단다. 그 옛날의 밤하늘을 지금도 읽을 수 있지.',
+    quiz: { question: '별 보는 이들은 하늘을 어디에 적었나?', answer: '점토판에', proof: '점토판에 적었습니다', wrong: ['종이에', '돌기둥에'] },
+  },
+  {
+    // Samarkand about 1428: Ulugh Beg measures the sun on the great arc of his observatory.
+    // The day is not on record: noon about the summer solstice is taken, when the sun
+    // stands highest on the arc (12 June in the Julian calendar of that century: worked
+    // out from memory, nine days before the Gregorian 21 June). The picture looks south,
+    // along the arc. The place is walked about (core/walks.js).
+    no: 33, id: 'samarkand1428', name: '땅속의 큰 눈금', dateLabel: 'AD 1428년쯤', place: '사마르칸트, 티무르 제국',
+    lat: 39.6747, lon: 67.0056,
+    date: { year: 1428, month: 6, day: 12 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 180, nightOnLook: true,
+    memo: '임금이 큰 눈금으로 해를 재는 중.', sora: '눈금 길이 땅속으로 내려가!',
+    memoToday: '남은 것: 땅속의 눈금 길.', soraToday: '집은 없고 눈금 길만 남았네.',
+    noteMemo: '1428년쯤. 사마르칸트 임금 울루그 베그가 큰 눈금으로 해와 별을 쟀다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '1428년쯤, 사마르칸트의 임금 울루그 베그는 언덕 위의 둥근 삼 층 천문대에서 해와 별을 재고 있었습니다. 건물 안에는 반지름 40미터의 큰 눈금 길이 땅속까지 휘어 내려갔습니다. 이 눈금으로 별 천 개쯤의 자리를 재어 별 목록을 만들었습니다.',
+    reply: '망원경도 없던 때에 별 천 개쯤을 적었단다. 땅속의 눈금 길은 지금도 남아 있지.',
+    quiz: { question: '천문대의 큰 눈금 길은 어디까지 내려갔나?', answer: '땅속까지', proof: '땅속까지 휘어 내려갔습니다', wrong: ['강물 속까지', '성벽 밖까지'] },
+  },
+  {
+    // Chichen Itza about 1000, the afternoon of the spring equinox: the light on the north
+    // stair of the great pyramid looks like a serpent coming down. The year is not on
+    // record: 1000 is taken, and 15 March in the Julian calendar, about when the equinox
+    // fell then. Whether the Maya built it to do so is disputed: it is only said to be seen.
+    // The place is walked about (core/walks.js).
+    no: 24, id: 'chichen1000', name: '계단을 내려오는 빛', dateLabel: 'AD 1000년쯤 봄', place: '치첸이트사, 마야',
+    lat: 20.6843, lon: -88.5678,
+    date: { year: 1000, month: 3, day: 15 }, calendar: 'julian', hourLocal: 16,
+    facingAz: 270, nightOnLook: true,
+    memo: '계단 옆에 빛의 뱀이 보임.', sora: '빛이 뱀처럼 내려와!',
+    memoToday: '남은 것: 큰 피라미드. 그대로.', soraToday: '지금도 봄마다 뱀이 보인대!',
+    noteMemo: '1000년쯤 봄. 마야의 큰 피라미드 계단 옆에 빛의 뱀이 보인다고 읽음. 해를 몰라 달은 못 적음.',
+    card: '1000년쯤, 마야의 도시 치첸이트사에는 큰 계단 피라미드가 서 있었습니다. 낮과 밤의 길이가 같아지는 봄날(춘분) 무렵 오후에는 북쪽 계단 난간에 세모꼴 빛 일곱이 줄지어 내려와 뱀처럼 보입니다. 둥근 탑 달팽이 집의 창은 금성이 지는 자리를 향해 있습니다.',
+    reply: '그 빛의 뱀은 지금도 봄과 가을에 보인단다. 이십 분쯤 머물다 사라지지.',
+    quiz: { question: '계단에 내려온 빛은 무엇처럼 보이나?', answer: '뱀', proof: '뱀처럼 보입니다', wrong: ['새', '거북'] },
+  },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
 
