@@ -1,6 +1,32 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "time-oddity", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev", "--", "--port", "4321", "--strictPort"], "port": 4321 }
+    {
+      "name": "time-oddity",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--",
+        "--port",
+        "4321",
+        "--strictPort"
+      ],
+      "port": 4321
+    },
+    {
+      "name": "tries",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4322",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "assets/codex"
+      ],
+      "port": 4322
+    }
   ]
 }

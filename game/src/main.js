@@ -20,7 +20,7 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, offerLabel as offerText, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf, touch } from './core/walk.js';
+import { REACH, offerLabel as offerText, barred, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf, touch } from './core/walk.js';
 import { HINT_MS, hintOf, isSought, leftIn, soughtIn } from './core/seek.js';
 import { advance, calledOf, carrying, cluesOf, endingOf, gain, goalOf, hintOf as clueHint, holdsOf, isTold, present, riddleOf, stepOf as taleStep, thankerOf } from './core/tale.js';
 import { createWalkView } from './ui/walk.js';
@@ -958,6 +958,9 @@ function frameWalk(dt) {
   // "퍼즐을 풀었으면, 다음 화면에 깜박깜박~"). Not when the next is cleared as well.
   const onward = walk.place.scenes[walk.scene + 1];
   $('walkNext').classList.toggle('go', Boolean(walk.place.seek && onward) && leftIn(walk.place, walk.done, sceneOf(walk).id) === 0 && leftIn(walk.place, walk.done, onward.id) > 0);
+  // While the tale bars the way on, the button to the next scene is pale and has a lock (the
+  // user, 2026.10.13, of one that looked as if it could be pressed: "다음 장면으로 못 가는데?").
+  $('walkNext').classList.toggle('shut', Boolean(walk.place.scenes[walk.scene + 1]) && Boolean(barred(walk)));
   if (walkSora && walkT > walkSora.until) walkSora = null;
   if (walkHeld && (walk.moving || walkT > walkHeld.until)) walkHeld = null;
   // How she stands for a moment is put away when its time is up, or when she walks on

@@ -135,13 +135,14 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
   // The beep that ended each sentence from the Moon, as the television had it.
   const moonBeep = (at) => tone(at, { seconds: 0.25, from: 2525, gain: 0.02, attack: 0.01 });
   const AIRS = {
-    market: [[2600, 6000, coins], [3500, 8000, wood], [4000, 9000, birds]],
-    court: [[3000, 7000, birds], [9000, 18000, farBell]],
-    street: [[3500, 8000, birds], [7000, 15000, bikeBell], [12000, 22000, farBell]],
+    // (Birds are heard half as often as they were: the user, 2026.10.13, "새소리 인터벌 길게".)
+    market: [[2600, 6000, coins], [3500, 8000, wood], [9000, 20000, birds]],
+    court: [[8000, 18000, birds], [9000, 18000, farBell]],
+    street: [[9000, 20000, birds], [7000, 15000, bikeBell], [12000, 22000, farBell]],
     arena: [[5000, 9000, drum], [9000, 16000, horn]],
     works: [[640, 640, chuff]],
-    masons: [[500, 2000, chisel], [7000, 14000, stoneSaw], [5000, 11000, wood], [6000, 13000, birds]],
-    palace: [[2500, 6000, windBell], [5000, 11000, birds]],
+    masons: [[500, 2000, chisel], [7000, 14000, stoneSaw], [5000, 11000, wood], [14000, 28000, birds]],
+    palace: [[2500, 6000, windBell], [12000, 24000, birds]],
     // (A street with no birds in it, San Francisco's: the user, 2026.10.12: "샌프란 새소리 없애줘".
     // The gulls over its bridge went with them, and the guard's whistle on Tokyo's platform:
     // "도쿄도 호각소리 없애줘".)
