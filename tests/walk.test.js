@@ -492,10 +492,10 @@ describe('a place that is deep', () => {
     }
   });
 
-  // The user, 2026.10.12, of the harbour of Giza: "뒷배경도 레이어를 2개로 두면", "여기를 그렇게 해보자"; and then: "기자 나머지 두 장면도 그렇게 해보자".
-  it('has the far of a scene as a picture of its own only at Giza, narrower than the street', () => {
+  // The user, 2026.10.12, of the harbour of Giza: "뒷배경도 레이어를 2개로 두면", "여기를 그렇게 해보자"; and then: "기자 나머지 두 장면도 그렇게 해보자", "개봉도 그렇게 해보자".
+  it('has the far of a scene as a picture of its own only at Kaifeng and Giza, narrower than the street', () => {
     const far = Object.values(WALKS).flatMap((place) => place.scenes.filter((scene) => scene.far).map((scene) => ({ place, scene })));
-    expect(far.map(({ place, scene }) => `${place.dir}/${scene.id}`)).toEqual(['giza2560/harbour', 'giza2560/village', 'giza2560/ramp']);
+    expect(far.map(({ place, scene }) => `${place.dir}/${scene.id}`)).toEqual(['kaifeng1054/bridge', 'kaifeng1054/street', 'kaifeng1054/yard', 'giza2560/harbour', 'giza2560/village', 'giza2560/ramp']);
     for (const { place, scene } of far) {
       for (const cut of [`${scene.id}-near`, scene.far.src ?? `${scene.id}-far`]) expect(existsSync(`game/public/walks/${place.dir}/${cut}.webp`), cut).toBe(true);
       // (Narrower, it goes by more slowly; no wider than a phone held upright, it would not go by at all.)

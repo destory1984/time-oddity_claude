@@ -924,6 +924,10 @@ export const WALKS = {
     scenes: [
       {
         id: 'bridge', name: '중국 개봉 변하 무지개 다리 어귀', short: '무지개 다리', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
+        // The sky and the city far off are a picture of their own (as at Giza: the user, 2026.10.13,
+        // "개봉도 그렇게 해보자"). The near is cut from the scene's picture by how dark its ink is, the
+        // far was ordered for it: assets/codex/kaifeng-far/make.py. The new star is of the near picture.
+        far: { aspect: 1.05 },
         // What stands nearest the eye (ui/walk.js): x along the scene, hung from the top of the
         // screen or stood on its foot, tall as a share of the screen's height.
         fore: [
@@ -948,6 +952,7 @@ export const WALKS = {
       },
       {
         id: 'street', name: '중국 개봉 성 안 큰 거리', short: '큰 거리', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'street', floor: 'dirt',
+        far: { aspect: 1.05 },
         fore: [
           { src: 'fore-banner', x: 0.1, at: 'top', tall: 0.4 }, { src: 'fore-cart', x: 0.26, at: 'foot', tall: 0.2 },
           { src: 'fore-eave', x: 0.44, at: 'top', tall: 0.32 }, { src: 'fore-baskets', x: 0.6, at: 'foot', tall: 0.19 },
@@ -969,6 +974,7 @@ export const WALKS = {
       },
       {
         id: 'yard', name: '중국 개봉 천문대 마당', short: '천문대', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        far: { aspect: 1.05 },
         fore: [
           { src: 'fore-pine', x: 0.1, at: 'top', tall: 0.36 }, { src: 'fore-rail', x: 0.27, at: 'foot', tall: 0.17 },
           { src: 'fore-bell', x: 0.45, at: 'top', tall: 0.32 }, { src: 'fore-burner', x: 0.61, at: 'foot', tall: 0.2 },
