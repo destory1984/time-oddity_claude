@@ -12,6 +12,11 @@ import { piecesAt } from '../core/pieces.js';
 import { worth } from '../core/walk.js';
 import { t } from '../core/i18n.js';
 
+// She walks a little nearer the eye than those who stand in the street, in every place (the
+// user, 2026.10.12, of Kaifeng: "소라는 약간만 아래로 (화면 느낌으로는 앞으로)", and then with two
+// lines drawn on Giza: "모든 도시 공통.. 다 바꿔줘. 그리고 입체감도 넣어주고"): this far lower on a
+// 812 px high screen. And everyone has a shadow on the ground under them.
+const SORA_FRONT = 20;
 const FOOT = 0.8;             // feet stand at this share of the screen's height
 const SORA_TALL = 176;        // she is this tall on a 812 px high screen, walking or standing
 const STEP_MS = 150;          // a frame of her walking, and of her standing, lasts this long
@@ -35,9 +40,6 @@ const CAM_NEAR_MS = 260;
 const FORE_SPEED = 1.35;      // what is nearest the eye goes by this much faster than the street
 const LEAN_WITHIN = 0.12;     // those this near her lean her way,
 const LEAN_DEG = 2.2;         // by this much
-// And she walks a little nearer the eye than those who stand in the street (the user,
-// 2026.10.12: "소라는 약간만 아래로 (화면 느낌으로는 앞으로)"): this far lower on a 812 px high screen.
-const SORA_FRONT = 20;
 
 const $ = (id) => document.getElementById(id);
 
@@ -79,6 +81,9 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
   thing.id = 'walkThing'; thing.alt = ''; thing.draggable = false;
   scroll.append(thing);
   let carried = { src: null, held: false, flight: null };
+  const shade = document.createElement('i');
+  shade.id = 'walkShade';
+  scroll.append(shade);
   const FLIGHT_MS = 750;
   let size = { w: 1, h: 1, wide: 1, unit: 1 };
   let camera = 0;
@@ -158,6 +163,11 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       node.img.style.top = `${node.top}px`;
       node.img.style.zIndex = String(10 + (lane % 3));
       if (node.mark) { node.mark.style.left = `${person.x * wide}px`; node.mark.style.top = `${node.top - 8 * unit}px`; }
+      const under = node.wide * 0.7;
+      node.shade.style.width = `${under}px`;
+      node.shade.style.height = `${under * 0.18}px`;
+      node.shade.style.left = `${person.x * wide - under / 2}px`;
+      node.shade.style.top = `${node.top + node.tall - under * 0.11}px`;
     }
   }
 
@@ -233,7 +243,10 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
         mark.addEventListener('pointerdown', (e) => { e.stopPropagation(); onPerson(person.id); });
         peopleEl.append(mark);
       }
-      nodes.set(person.id, { img, mark, person, left: 0, top: 0, wide: 0, tall: 0 });
+      const under = document.createElement('i');
+      under.className = 'shade';
+      peopleEl.append(under);
+      nodes.set(person.id, { img, mark, shade: under, person, left: 0, top: 0, wide: 0, tall: 0 });
     }
     // What she may put on here, and how she stands on trying something, is fetched on arriving.
     for (const person of scene.people) {
@@ -429,12 +442,18 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     // (Standing in a tall hat her picture is higher than 256 px: it is shown that much higher.)
     const shownTall = walking ? (soraTall * (sora.naturalHeight || 320)) / 320 : soraTall * IDLE_ROOM * (tasting || !worn ? 1 : (sora.naturalHeight || 256) / 256);
     const soraWide = sora.naturalHeight > 0 ? (shownTall * sora.naturalWidth) / sora.naturalHeight : shownTall * 0.75;
-    const front = place.deep ? SORA_FRONT * unit : 0;
+    const front = SORA_FRONT * unit;
     const top = FOOT * h + 8 * unit + front - shownTall + (walking ? 0 : soraTall * IDLE_FOOT);
     sora.style.height = `${shownTall}px`;
     sora.style.width = `${soraWide}px`;
     sora.style.left = `${x - soraWide / 2}px`;
     sora.style.top = `${top}px`;
+    const shadeWide = soraTall * 0.5;
+    shade.style.width = `${shadeWide}px`;
+    shade.style.height = `${shadeWide * 0.2}px`;
+    shade.style.left = `${x - shadeWide / 2}px`;
+    shade.style.top = `${FOOT * h + 8 * unit + front - shadeWide * 0.14}px`;
+    shade.style.visibility = sora.classList.contains('leaving') ? 'hidden' : '';
     // The walking frames face right; standing she faces the eye.
     sora.style.transform = walking && walk.facing < 0 ? 'scaleX(-1)' : '';
     if (mood && has(mood)) {
@@ -479,6 +498,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       const gone = walk.absent?.includes(node.person.id) ?? false;
       node.img.style.display = gone ? 'none' : '';
       if (node.mark) node.mark.style.display = gone ? 'none' : '';
+      node.shade.style.display = gone ? 'none' : '';
       const fresh = !gone && (called || (Boolean(node.mark) && !node.mark.dataset.tale && !((walk.said[node.person.id] ?? 0) > 0 || (node.person.try && walk.tried.includes(node.person.try.id)))));
       if (node.mark && called && !node.person.show) { node.mark.classList.add('bang'); node.mark.textContent = '!'; }
       node.img.classList.toggle('worth', fresh);

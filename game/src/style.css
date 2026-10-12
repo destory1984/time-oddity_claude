@@ -94,6 +94,10 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkFore img{position:absolute;left:0;width:auto;max-width:none;filter:blur(1.6px);opacity:.94;will-change:transform;-webkit-user-drag:none}
 @keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}
 #walkSora{image-rendering:pixelated;z-index:20;pointer-events:none}
+/* The shadow under her feet and under everyone in the street. */
+#walkShade,#walkPeople .shade{position:absolute;border-radius:50%;background:radial-gradient(closest-side,rgba(20,14,30,.42),rgba(20,14,30,.22) 55%,rgba(20,14,30,0));pointer-events:none}
+#walkShade{z-index:19}
+#walkPeople .shade{z-index:9}
 /* Arriving, she comes down as a line of light and fills out. */
 #walkSora.arriving{animation:beamDown .62s ease-out}
 @keyframes beamDown{0%{transform:translateY(-70%) scale(.06,2.2);filter:brightness(4) saturate(0);opacity:0}65%{transform:scale(1.06,.96);filter:brightness(2.2) saturate(.4);opacity:1}100%{transform:none;filter:none;opacity:1}}
