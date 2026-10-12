@@ -971,7 +971,7 @@ export const WALKS = {
     // "The star that rose by day" (core/tale.js; the user, 2026.10.9, of the storyboard:
     // "이대로 지어"): the apprentice who has watched all night gives her a note for his
     // master; the gatekeeper of the observatory will not hear of a star by day; the
-    // fortune-teller shows her, and him, that it is still there; she hands the note over,
+    // fortune-teller knows how it may be seen, which she has to find out and tell him; she hands the note over,
     // choosing what to say; and the astronomer sets the star down on his chart.
     tale: {
       thing: true,
@@ -987,12 +987,22 @@ export const WALKS = {
         {
           who: 'guard', goal: '큰 거리 끝의 천문대 문으로 가 보렴.', holds: '쪽지: 소라가 들고 있음',
           lines: ['낮에 별이라니, 잠꼬대 말아라.', '해가 떴는데 별이 어디 있느냐.'],
-          sora: '진짜인데… 어? 점쟁이 할아버지가 불러!',
+          sora: '진짜인데… 어떻게 해야 믿어 줄까?',
         },
+        // The riddle (the user, 2026.10.12, of the storyboard: "이대로 지어"): what will make
+        // him believe it. Three things that are true and do not answer him, and one that does.
         {
-          who: 'fortune', show: true, call: '얘야, 저 하늘 좀 보렴.', goal: '점쟁이 할아버지가 부른다. 가 보렴.', holds: '쪽지: 소라가 들고 있음',
-          lines: ['손으로 해를 가리고 저쪽을 보렴.', '보이지? 낮인데도 별이 떠 있단다.'],
-          after: [{ who: 'guard', line: '어디… 어이쿠, 정말이네! 들어가라.' }],
+          who: 'guard', goal: '문지기가 믿을 만한 말을 찾아보렴.', holds: '쪽지: 소라가 들고 있음',
+          lines: ['내 눈에는 별이 안 보인다.'],
+          riddle: {
+            ask: '문지기에게 뭐라고 할까?', none: '아직 할 말이 없어. 사람들에게 물어보자.', more: '더 알아볼게요',
+            clues: [
+              { id: 'night', from: 'child', label: '"형아가 밤새 봤대요"', sora: '별 보는 형아가 밤새 봤대요.', says: '밤에 별 뜨는 거야 당연하지. 지금은 낮이다.' },
+              { id: 'odd', from: 'monk', label: '"스님도 이상하대요"', sora: '스님도 오늘 하늘이 이상하대요.', says: '이상한 게 어디 한둘이냐. 어디 있느냐고 물었다.' },
+              { id: 'east', from: 'scholar', label: '"저기 동쪽에 있어요"', sora: '저기요, 동쪽 하늘에 있어요!', says: '해가 눈이 부셔서 아무것도 안 보인다.' },
+              { id: 'shade', from: 'fortune', right: true, label: '"해를 가려 보세요"', sora: '아저씨, 손으로 해를 가려 보세요!', says: '어디… 어이쿠, 정말이네! 들어가라.' },
+            ],
+          },
           sora: '문지기 아저씨도 봤어! 들어가자!',
         },
         {
@@ -1017,6 +1027,11 @@ export const WALKS = {
       asides: [
         { who: 'apprentice', when: ['S1', 'S2', 'S3', 'S4'], lines: ['스승님은 천문대에 계셔.', '큰 거리 끝까지 가면 문이 보여.'] },
         { who: 'apprentice', when: ['S5'], lines: ['전해 줬구나! 정말 고마워.', '이제 눈 좀 붙여야겠어. 하암.'] },
+        // What those with a clue say while the gatekeeper's riddle is asked.
+        { who: 'child', when: ['S2'], lines: ['형아가 밤새 하늘만 봤어.', '없던 별이 떴다고 좋아했어.'] },
+        { who: 'monk', when: ['S2'], lines: ['새벽부터 하늘이 심상치 않았소.', '없던 것이 보이니 큰일이오.'] },
+        { who: 'scholar', when: ['S2'], lines: ['그 별이라면 동쪽 하늘에 있었소.', '글 읽다 말고 한참 쳐다봤다오.'] },
+        { who: 'fortune', when: ['S2'], show: true, lines: ['손으로 해를 가리고 저쪽을 보렴.', '보이지? 낮인데도 별이 떠 있단다.'] },
       ],
       done: '쪽지를 전하고, 별이 적히는 것을 보았다.',
     },

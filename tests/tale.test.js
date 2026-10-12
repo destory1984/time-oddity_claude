@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { WALKS } from '../game/src/core/walks.js';
 import { TOKYO_TALE } from './fixtures/tokyo-tale.js';
-import { advance, calledOf, callOf, emptyTale, endingOf, goalOf, holdsOf, isTold, partOf, present, sanitizeTale, stepOf, textOf, carrying, thankerOf } from '../game/src/core/tale.js';
+import { advance, calledOf, callOf, emptyTale, endingOf, goalOf, holdsOf, isTold, partOf, present, sanitizeTale, stepOf, textOf, carrying, thankerOf, cluesOf, gain, hintOf, riddleOf, sourceOf } from '../game/src/core/tale.js';
 import { barred, canHop, createWalk, linesOf, peopleOf, speak, stepWalk, talkedOut } from '../game/src/core/walk.js';
 import { emptyProgress, markTale, sanitizeProgress, taleOf } from '../game/src/core/progress.js';
 
@@ -12,6 +12,11 @@ const tale = place.tale;
 const upTo = (n) => { let t = emptyTale(); for (let i = 0; i < n; i += 1) t = advance(tale, t, 'E1'); return t; };
 const told = (ending) => { let t = emptyTale(); for (let i = 0; i < tale.steps.length; i += 1) t = advance(tale, t, ending); return t; };
 const person = (id) => place.scenes.flatMap((scene) => scene.people).find((p) => p.id === id);
+// One step on in any tale: a riddle is answered with the clue that answers it, found first.
+const onward = (told, t) => {
+  const right = riddleOf(told, t)?.clues.find((clue) => clue.right);
+  return right ? advance(told, gain(told, t, right.from), right.id) : advance(told, t, 'E1');
+};
 const sceneWith = (id) => place.scenes.findIndex((scene) => scene.people.some((p) => p.id === id));
 
 describe('a tale of a thing carried', () => {
@@ -133,7 +138,7 @@ describe('a tale of a thing carried', () => {
         const out = stepWalk(walk, 400, 1);
         expect(walk.scene, `${id} at ${n}`).toBe(shut ? scene : scene + 1);
         expect(out.barred, `${id} at ${n}`).toBe(shut ? gate.sora : null);
-        t = advance(walked.tale, t, 'E1');
+        t = onward(walked.tale, t);
       }
     }
   });
@@ -193,5 +198,81 @@ describe('the one who asked', () => {
       const said = tale.asides.find((a) => a.who === tale.steps[0].who && a.when.includes(end.state)).lines.join(' ');
       expect(/고맙|고마워/.test(said), said).toBe(true);
     }
+  });
+});
+
+// The user, 2026.10.12: "조금 더 게임성을 투여해보자. 어드벤처 게임처럼", and of how: clues are
+// gathered and the right one is held out to whoever is in the way.
+describe('a riddle in the way', () => {
+  const place = WALKS.guest1054;
+  const tale = place.tale;
+  const at = tale.steps.findIndex((step) => step.riddle);
+  const asked = () => { let t = emptyTale(); for (let n = 0; n < at; n += 1) t = onward(tale, t); return t; };
+  const riddle = tale.steps[at].riddle;
+  const right = riddle.clues.find((clue) => clue.right);
+  const scene = place.scenes.find((s) => s.id === tale.gate.scene);
+
+  it('is asked by the one who shuts the way, in the scene that is shut', () => {
+    expect(at).toBeGreaterThan(0);
+    expect(tale.gate.open).toBe(at + 1);
+    expect(scene.people.map((p) => p.id)).toContain(tale.steps[at].who);
+    expect(riddleOf(tale, emptyTale())).toBe(null);
+    expect(riddleOf(tale, asked())).toBe(riddle);
+  });
+  it('gathers a clue from whoever has one, once, and only while it is asked', () => {
+    expect(gain(tale, emptyTale(), right.from)).toEqual(emptyTale());
+    let t = asked();
+    expect(cluesOf(tale, t)).toEqual([]);
+    expect(sourceOf(tale, t, right.from)).toBe(right);
+    const got = gain(tale, t, right.from);
+    expect(cluesOf(tale, got)).toEqual([right]);
+    expect(sourceOf(tale, got, right.from)).toBe(null);
+    expect(gain(tale, got, right.from)).toBe(got);
+    expect(gain(tale, got, 'nobody')).toBe(got);
+    for (const clue of riddle.clues) t = gain(tale, t, clue.from);
+    expect(cluesOf(tale, t)).toEqual(riddle.clues);
+  });
+  it('is not answered by a clue that is wrong, nor by the right one not yet found', () => {
+    let t = asked();
+    expect(advance(tale, t, right.id)).toBe(t);
+    for (const clue of riddle.clues) t = gain(tale, t, clue.from);
+    for (const clue of riddle.clues) if (!clue.right) expect(advance(tale, t, clue.id)).toBe(t);
+    const on = advance(tale, t, right.id);
+    expect(on.state).toBe(`S${at + 1}`);
+    expect(riddleOf(tale, on)).toBe(null);
+  });
+  it('has one right clue, to be had in the scene that is shut: she is never sent back', () => {
+    expect(riddle.clues.filter((clue) => clue.right).length).toBe(1);
+    expect(riddle.clues.length).toBeGreaterThanOrEqual(3);
+    const here = [...scene.people.map((p) => p.id), ...(scene.taps ?? []).map((tap) => tap.id)];
+    expect(here).toContain(right.from);
+    const everywhere = place.scenes.flatMap((s) => [...s.people.map((p) => p.id), ...(s.taps ?? []).map((tap) => tap.id)]);
+    for (const clue of riddle.clues) {
+      expect(everywhere, clue.id).toContain(clue.from);
+      // A person gives theirs by what they say while it is asked.
+      const person = place.scenes.flatMap((s) => s.people).find((p) => p.id === clue.from);
+      if (person) expect(partOf(tale, asked(), person.id)?.role, clue.id).toBe('aside');
+      expect(clue.label.length, clue.label).toBeLessThanOrEqual(16);
+      for (const line of [clue.sora, clue.says]) expect(line.length, line).toBeLessThanOrEqual(40);
+    }
+  });
+  it('says where to look: toward a clue not yet found, and to the one who asked once it is', () => {
+    const t = asked();
+    const near = hintOf(tale, t, scene, 0.5);
+    expect(riddle.clues.map((clue) => clue.from)).toContain(near.id);
+    const far = hintOf(tale, t, scene, 0.02);
+    expect(far.way).toBe(1);
+    const guard = scene.people.find((p) => p.id === tale.steps[at].who);
+    const got = gain(tale, t, right.from);
+    expect(hintOf(tale, got, scene, guard.x).id).toBe(guard.id);
+    expect(hintOf(tale, got, scene, guard.x).way).toBe(0);
+    expect(hintOf(tale, emptyTale(), scene, 0.5)).toBe(null);
+  });
+  it('is kept with the clues found, and a record from before there were clues has none', () => {
+    const t = gain(tale, asked(), right.from);
+    const kept = sanitizeProgress(JSON.stringify(markTale(emptyProgress(), 'guest1054', t)), ['guest1054']);
+    expect(taleOf(kept, 'guest1054')).toEqual(t);
+    expect(sanitizeTale({ v: 2, state: 'S1', endingId: null }).clues).toEqual([]);
+    expect(sanitizeTale({ v: 2, state: 'S1', endingId: null, clues: ['ok', 7, 'x'.repeat(20)] }).clues).toEqual(['ok']);
   });
 });

@@ -22,7 +22,7 @@ import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
 import { REACH, offerLabel as offerText, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf, touch } from './core/walk.js';
 import { HINT_MS, hintOf, isSought, leftIn, soughtIn } from './core/seek.js';
-import { advance, calledOf, carrying, endingOf, goalOf, holdsOf, isTold, present, stepOf as taleStep, thankerOf } from './core/tale.js';
+import { advance, calledOf, carrying, cluesOf, endingOf, gain, goalOf, hintOf as clueHint, holdsOf, isTold, present, riddleOf, stepOf as taleStep, thankerOf } from './core/tale.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -454,6 +454,7 @@ function tapScene(tap) {
   const found = touch(walk, tap.id).length > 0;
   if (tap.memo) walkMemo = { text: tap.memo, real: found || isSought(walk.place, tap.id), show: tap.show ?? null };
   if (found) errandsDone();
+  if (walk.tale) clueFrom(tap.id);
 }
 // A thing of the scene looked at closely: a photograph of it as it is today and what is
 // known of it, on a sheet of its own. The game waits while it is open.
@@ -504,6 +505,8 @@ function showErrands() {
     // handed over and nothing on the slip to show for it: "할머니 메모에 체크 안 됨").
     for (const errand of walk.place.errands) if (walk.done.includes(errand.id)) row(errand.text, 'done');
     if (!allDone(walk)) row(goalOf(told, walk.tale));
+    // (While a riddle is asked: how many clues to it she has.)
+    if (riddleOf(told, walk.tale)) row(t`모은 단서 · ${cluesOf(told, walk.tale).length}개`, 'has');
     if (holdsOf(told, walk.tale)) row(holdsOf(told, walk.tale), 'has');
     nowRow(list);
     return;
@@ -595,7 +598,7 @@ function taleMark(id) {
 // what she makes of it, which names where to go next. With the last step the slip is
 // stamped and grandmother answers.
 const AFTER_MS = 3200;
-function stepDone(step, chosen = null) {
+function stepDone(step, chosen = null, held = null) {
   const told = walk.place.tale;
   const was = walk;
   if (!saveTale(advance(told, walk.tale, chosen))) return false;
@@ -605,7 +608,8 @@ function stepDone(step, chosen = null) {
   if (told.thing && (step.offer || step.choice)) { walkView.hand(step.offer ? step.who : 'sora', step.offer ? 'sora' : step.who); sound.hand(); }
   const over = isTold(told, walk.tale);
   if (!over) sound.stamp();
-  const ending = step.choice ? endingOf(told, walk.tale) : null;
+  // (A riddle answered: the clue held out, `held`, is said and answered as a choice is.)
+  const ending = held ?? (step.choice ? endingOf(told, walk.tale) : null);
   if (ending) { walkSora = { text: ending.sora, from: walkT + 100, until: walkT + 100 + AFTER_MS }; walk.heard = null; }
   const lines = [...(ending ? [{ who: step.who, line: ending.says }] : []), ...(step.after ?? [])];
   lines.forEach(({ who, line }, n) => setTimeout(() => { if (walk === was && !walk.moving) walk.heard = { id: who, line, of: who, plain: true }; }, AFTER_MS * (n + 1)));
@@ -636,7 +640,40 @@ function taleSpoke(person) {
     ] });
   } else if (step.choice) {
     openPanel({ ask: step.choice.ask, back: closePanel, options: step.choice.options.map((option) => ({ label: option.label, pick: () => stepDone(step, option.id) })) });
-  } else stepDone(step);
+  } else if (step.riddle) askRiddle(step);
+  else stepDone(step);
+}
+// ---- A riddle in the way (a step's `riddle`, core/tale.js) ----
+// A clue is hers: kept, said beside her head with how many that makes.
+let clueIdleMs = 0;         // how long no clue has been found while a riddle is asked
+function clueFrom(id) {
+  const told = walk.place.tale;
+  if (!saveTale(gain(told, walk.tale, id))) return;
+  clueIdleMs = 0;
+  sound.stamp();
+  walkView.found(t`단서를 얻었다! ${cluesOf(told, walk.tale).length}개`);
+}
+// The one in the way is spoken to: the clues she has are in the box to be held out, those
+// already held out in vain quieter; with none, she says so. Whichever is held out, she says
+// it and is answered; the right one opens the way.
+function askRiddle(step) {
+  const { riddle } = step;
+  const clues = cluesOf(walk.place.tale, walk.tale);
+  // (Put off, the talk is over: the next touch asks again from the first.)
+  const leave = () => { closePanel(); walk.heard = null; walk.part = null; };
+  if (clues.length === 0) { walkSora = { text: riddle.none, from: walkT + 1600, until: walkT + 1600 + SORA_FOR_MS }; return; }
+  openPanel({ ask: riddle.ask, back: leave, options: [
+    ...clues.map((clue) => ({ label: clue.label, quiet: walk.told.includes(`held-${clue.id}`), pick: () => {
+      if (clue.right) { stepDone(step, clue.id, clue); return; }
+      const was = walk;
+      leave();
+      walk.told.push(`held-${clue.id}`);
+      clueIdleMs = 0;
+      walkSora = { text: clue.sora, from: walkT + 100, until: walkT + 100 + AFTER_MS };
+      setTimeout(() => { if (walk === was && !walk.moving) walk.heard = { id: step.who, line: clue.says, of: step.who, plain: true }; }, AFTER_MS);
+    } })),
+    { label: riddle.more, quiet: true, pick: leave },
+  ] });
 }
 
 const chosenOf = () => walk?.place.story?.choice?.options.find((o) => walk.tried.includes(`chose-${o.id}`)) ?? null;
@@ -714,6 +751,7 @@ function talk(id = null) {
   if (said.role) {
     if (said.role === 'step' && said.last) taleSpoke(said.person);
     if (said.role === 'aside' && said.person.id === thankerOf(walk.place.tale, walk.tale) && !walk.told.includes('thanked')) walk.told.push('thanked');
+    if (said.role === 'aside' && said.last) clueFrom(said.person.id);
     return;
   }
   // What she makes of a thing they show her, in word and face, the first time she sees it
@@ -893,6 +931,17 @@ function frameWalk(dt) {
     seekIdleMs += dt;
     const look = seekIdleMs >= HINT_MS ? hintOf(walk.place, sceneOf(walk), walk.done, walk.x) : null;
     if (seekIdleMs >= HINT_MS) seekIdleMs = 0;
+    if (look) {
+      walkView.hint(look.id);
+      if (look.way !== 0) walkSora = { text: look.way > 0 ? '오른쪽으로 더 가 볼까?' : '왼쪽으로 더 가 볼까?', from: walkT, until: walkT + SORA_FOR_MS };
+    }
+  }
+  // A riddle asked and no clue found for as long: likewise, toward whoever has one she has
+  // not, or, with the right one in hand, toward the one who asked.
+  if (walk.tale && riddleOf(walk.place.tale, walk.tale) && !panelOpen()) {
+    clueIdleMs += dt;
+    const look = clueIdleMs >= HINT_MS ? clueHint(walk.place.tale, walk.tale, sceneOf(walk), walk.x) : null;
+    if (clueIdleMs >= HINT_MS) clueIdleMs = 0;
     if (look) {
       walkView.hint(look.id);
       if (look.way !== 0) walkSora = { text: look.way > 0 ? '오른쪽으로 더 가 볼까?' : '왼쪽으로 더 가 볼까?', from: walkT, until: walkT + SORA_FOR_MS };

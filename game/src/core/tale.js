@@ -21,12 +21,20 @@
 // `gate` is { scene, open, sora }: the way on from that scene is shut until the step of
 // that number is reached (whoever turns her away does turn her away), and `sora` is what
 // she says on coming up against it.
+// A step's `riddle` (the user, 2026.10.12: "조금 더 게임성을 투여해보자. 어드벤처 게임처럼", and of
+// how: clues are gathered and held out to whoever is in the way) is { ask, none, more, clues:
+// [{ id, from, label, sora, says, right? }] }: while she is on that step a clue is hers once
+// its `from` has been heard out (a person, by an aside of theirs for that state) or touched
+// (a place in the picture). Spoken to, the step's `who` is held out one of the clues she has
+// (`label`; she says `sora`, they answer `says`), and the step is done by the one that is
+// `right`. What a wrong one is answered with says what is wanting. `none` is what she says
+// with no clue to hold out, `more` the button that puts it off.
 // The state is 'S0' for the first step, 'S1' for the second, and one past the last when
 // the tale is told. A record is never changed in place.
 export const STATES = ['S0', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9'];
 const SHAPE = 2;      // records of the first shape (a way, a change, attempts) begin again
 
-export const emptyTale = () => ({ v: SHAPE, state: 'S0', endingId: null });
+export const emptyTale = () => ({ v: SHAPE, state: 'S0', endingId: null, clues: [] });
 
 const at = (t) => STATES.indexOf(t?.state ?? 'S0');
 // The step she is on, or null once the tale is told.
@@ -41,7 +49,41 @@ export function advance(tale, t, chosen = null) {
   const step = stepOf(tale, t);
   if (!step) return t;
   if (step.choice && !step.choice.options.some((o) => o.id === chosen)) return t;
+  if (step.riddle && !cluesOf(tale, t).some((clue) => clue.right && clue.id === chosen)) return t;
   return { ...t, state: STATES[at(t) + 1], endingId: step.choice ? chosen : t.endingId };
+}
+
+// The riddle she is asked just now, or null.
+export const riddleOf = (tale, t) => stepOf(tale, t)?.riddle ?? null;
+// The clues to it she has, in the order they are written.
+export const cluesOf = (tale, t) => (riddleOf(tale, t)?.clues ?? []).filter((clue) => (t.clues ?? []).includes(clue.id));
+// The clue this person or place in the picture has for her and she has not yet, or null.
+export const sourceOf = (tale, t, from) => (riddleOf(tale, t)?.clues ?? []).find((clue) => clue.from === from && !(t.clues ?? []).includes(clue.id)) ?? null;
+// Their clue is hers.
+export function gain(tale, t, from) {
+  const clue = sourceOf(tale, t, from);
+  return clue ? { ...t, clues: [...(t.clues ?? []), clue.id] } : t;
+}
+// Where to look next while a riddle is asked: toward the nearest in the scene with a clue she
+// has not, or, with the right one in hand, to the one who asked; as { id, x, way: -1 or 1
+// when it is far off, else 0 }, or null (a thing that goes by cannot be pointed at).
+const FAR = 0.14;
+export function hintOf(tale, t, scene, x) {
+  const riddle = riddleOf(tale, t);
+  if (!riddle) return null;
+  const whereOf = (id) => {
+    const person = scene.people.find((p) => p.id === id);
+    const tap = (scene.taps ?? []).find((tp) => tp.id === id);
+    return person ? person.x : tap?.box ? (tap.box[0] + tap.box[2]) / 2 : tap?.x ?? null;
+  };
+  const solved = cluesOf(tale, t).some((clue) => clue.right);
+  const ids = solved ? [stepOf(tale, t).who] : riddle.clues.filter((clue) => !t.clues.includes(clue.id)).map((clue) => clue.from);
+  let best = null;
+  for (const id of ids) {
+    const at = whereOf(id);
+    if (at !== null && (!best || Math.abs(at - x) < Math.abs(best.x - x))) best = { id, x: at };
+  }
+  return best && { ...best, way: Math.abs(best.x - x) > FAR ? Math.sign(best.x - x) : 0 };
 }
 
 // What someone has to say for the tale just now: { role: 'step' | 'aside', lines }, or null
@@ -50,7 +92,7 @@ export function partOf(tale, t, personId) {
   const step = stepOf(tale, t);
   if (step?.who === personId) return { role: 'step', lines: step.lines, show: Boolean(step.show) };
   const aside = (tale.asides ?? []).find((a) => a.who === personId && a.when.includes(t.state));
-  return aside ? { role: 'aside', lines: aside.lines } : null;
+  return aside ? { role: 'aside', lines: aside.lines, show: Boolean(aside.show) } : null;
 }
 export const textOf = (line) => (typeof line === 'string' ? line : line.text);
 export const speakerOf = (line, personId) => (typeof line === 'string' ? personId : line.by ?? personId);
@@ -94,5 +136,6 @@ export const present = (t, person) => !person.when || person.when.includes(t?.st
 export function sanitizeTale(raw) {
   if (!raw || typeof raw !== 'object' || raw.v !== SHAPE || !STATES.includes(raw.state)) return null;
   const endingId = typeof raw.endingId === 'string' && raw.endingId.length <= 8 ? raw.endingId : null;
-  return { v: SHAPE, state: raw.state, endingId };
+  const clues = Array.isArray(raw.clues) ? raw.clues.filter((id) => typeof id === 'string' && id.length <= 8) : [];
+  return { v: SHAPE, state: raw.state, endingId, clues };
 }
