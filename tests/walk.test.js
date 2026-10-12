@@ -491,4 +491,16 @@ describe('a place that is deep', () => {
       }
     }
   });
+
+  // The user, 2026.10.12, of the harbour of Giza: "뒷배경도 레이어를 2개로 두면", "여기를 그렇게 해보자".
+  it('has the far of a scene as a picture of its own only at the harbour of Giza, narrower than the street', () => {
+    const far = Object.values(WALKS).flatMap((place) => place.scenes.filter((scene) => scene.far).map((scene) => ({ place, scene })));
+    expect(far.map(({ place, scene }) => `${place.dir}/${scene.id}`)).toEqual(['giza2560/harbour']);
+    for (const { place, scene } of far) {
+      for (const cut of ['near', 'far']) expect(existsSync(`game/public/walks/${place.dir}/${scene.id}-${cut}.webp`), cut).toBe(true);
+      // (Narrower, it goes by more slowly; no wider than a phone held upright, it would not go by at all.)
+      expect(scene.far.aspect).toBeLessThan(scene.aspect ?? 1.5);
+      expect(scene.far.aspect * scene.zoom).toBeGreaterThan(0.6);
+    }
+  });
 });

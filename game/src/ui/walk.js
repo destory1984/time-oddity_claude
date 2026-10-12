@@ -38,6 +38,11 @@ const CAM_EDGE = 0.22;       // she is kept this share of the screen from either
 const CAM_NEAR = 1.06;        // in talk the scene is this much larger
 const CAM_NEAR_MS = 260;
 const FORE_SPEED = 1.35;      // what is nearest the eye goes by this much faster than the street
+// Where a scene's picture is cut in two (a scene's `far`: the user, 2026.10.12, "뒷배경도
+// 레이어를 2개로 두면", and of the harbour of Giza, "여기를 그렇게 해보자"), what is far goes by
+// more slowly than the street. How much more slowly is in how wide the far picture is
+// (`far.aspect`, to the height of the street's): its left end is at the left of the screen
+// when the street's is, and its right at the right.
 const LEAN_WITHIN = 0.12;     // those this near her lean her way,
 const LEAN_DEG = 2.2;         // by this much
 
@@ -67,6 +72,9 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
   foreEl.id = 'walkFore';
   scroll.after(foreEl);
   let fores = [];             // { fore, img }
+  const farEl = document.createElement('img');
+  farEl.id = 'walkFar'; farEl.alt = ''; farEl.draggable = false; farEl.hidden = true;
+  scroll.prepend(farEl);
   const eye = { at: null, zoom: 1, focus: 0, last: 0, since: 0 };
   let place = null;
   let scene = null;
@@ -111,6 +119,8 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     const h = root.clientHeight;
     const w = root.clientWidth;
     size = { w, h, unit: h / 812, wide: scene ? (scene.aspect ?? 1.5) * scene.zoom * h : w };
+    // (On a screen wider than the far picture it is stretched to the screen.)
+    size.far = scene?.far ? Math.max(w, scene.far.aspect * scene.zoom * h) : 0;
   }
 
   function layout() {
@@ -120,6 +130,9 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     scroll.style.width = `${wide}px`;
     picture.style.height = `${scene.zoom * h}px`;
     picture.style.top = `${(FOOT - scene.ground * scene.zoom) * h}px`;
+    farEl.style.height = picture.style.height;
+    farEl.style.top = picture.style.top;
+    farEl.style.width = `${size.far}px`;
     // What is looked at closely lies over its place in the picture (a scene's `looks`).
     for (const { look, button } of looks) {
       const [x0, y0, x1, y1] = look.box;
@@ -174,7 +187,9 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
   function showScene(walkPlace, index) {
     place = walkPlace;
     scene = place.scenes[index];
-    picture.src = `./walks/${place.dir}/${scene.id}.webp`;
+    picture.src = `./walks/${place.dir}/${scene.id}${scene.far ? '-near' : ''}.webp`;
+    farEl.hidden = !scene.far;
+    if (scene.far) farEl.src = `./walks/${place.dir}/${scene.id}-far.webp`; else farEl.removeAttribute('src');
     peopleEl.replaceChildren();
     nodes = new Map();
     // A thing in the picture that may be touched for more of it (the user, 2026.10.8, of the
@@ -411,6 +426,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       scroll.style.transformOrigin = '';
       scroll.style.transform = `translateX(${-camera.toFixed(1)}px)`;
     }
+    if (scene.far) farEl.style.transform = `translateX(${(wide > w ? camera * (1 - (size.far - w) / (wide - w)) : 0).toFixed(1)}px)`;
     // The word on a thing that may be looked at closely stays in sight as the scene slides:
     // the thing itself is often wider than the screen.
     for (const { button } of looks) {

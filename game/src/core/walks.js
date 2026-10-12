@@ -1766,6 +1766,9 @@ export const WALKS = {
     scenes: [
       {
         id: 'harbour', name: '이집트 기자 물길의 나루', short: '물길의 나루', zoom: 1.09, ground: 0.745, scale: 0.638, air: 'court', floor: 'dirt',
+        // The wall, the dune and the pyramid are a picture of their own behind the rest
+        // (harbour-far, harbour-near: cut from harbour.webp by assets/codex/giza-far/make.py).
+        far: { aspect: 1 },
         fore: [
           { src: 'fore-dates', x: 0.1, at: 'top', tall: 0.38 }, { src: 'fore-papyrus', x: 0.27, at: 'foot', tall: 0.21 },
           { src: 'fore-fish', x: 0.45, at: 'top', tall: 0.36 }, { src: 'fore-post', x: 0.62, at: 'foot', tall: 0.18 },
