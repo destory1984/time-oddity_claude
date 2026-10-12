@@ -128,9 +128,7 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
   };
   const stoneSaw = (at) => { for (let i = 0; i < 4; i += 1) hiss(at + i * 0.36, { seconds: 0.3, from: i % 2 ? 2400 : 1500, to: i % 2 ? 1500 : 2400, gain: 0.025, q: 3 }); };
   const fogHorn = (at) => { tone(at, { seconds: 1.6, from: 110, gain: 0.07, attack: 0.25 }); tone(at + 2.1, { seconds: 2.0, from: 98, gain: 0.07, attack: 0.25 }); };
-  const gulls = (at) => { for (let i = 0; i < 3; i += 1) tone(at + i * 0.34, { seconds: 0.26, from: 1900, to: 1250, gain: 0.03, attack: 0.03 }); };
   const chime = (at) => { [784, 659, 523, 659].forEach((f, i) => ping(at + i * 0.42, f, 0.8, 0.045)); };
-  const whistle = (at) => { tone(at, { seconds: 0.35, from: 2150, gain: 0.03, attack: 0.02 }); tone(at + 0.5, { seconds: 0.7, from: 2150, gain: 0.03, attack: 0.02 }); };
   const rails = (at) => { [0, 0.13, 0.42, 0.55].forEach((t) => tone(at + t, { seconds: 0.06, from: 110, to: 70, gain: 0.13 })); };
   const crickets = (at) => { const f = 4100 + Math.random() * 500; for (let i = 0; i < 9; i += 1) tone(at + i * 0.055, { seconds: 0.035, from: f, gain: 0.014, attack: 0.008 }); };
   const frogs = (at) => { for (let i = 0; i < 2 + Math.floor(Math.random() * 2); i += 1) tone(at + i * 0.3, { seconds: 0.16, from: 250, to: 170, gain: 0.04, attack: 0.02 }); };
@@ -144,8 +142,12 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     works: [[640, 640, chuff]],
     masons: [[500, 2000, chisel], [7000, 14000, stoneSaw], [5000, 11000, wood], [6000, 13000, birds]],
     palace: [[2500, 6000, windBell], [5000, 11000, birds]],
-    bridge: [[9000, 16000, fogHorn], [4000, 9000, gulls]],
-    station: [[8000, 14000, chime], [10000, 18000, whistle]],
+    // (A street with no birds in it, San Francisco's: the user, 2026.10.12: "샌프란 새소리 없애줘".
+    // The gulls over its bridge went with them, and the guard's whistle on Tokyo's platform:
+    // "도쿄도 호각소리 없애줘".)
+    road: [[7000, 15000, bikeBell], [12000, 22000, farBell]],
+    bridge: [[9000, 16000, fogHorn]],
+    station: [[8000, 14000, chime]],
     // A joint in the rails every three seconds (the user, 2026.10.8: "기차가 움직이는게 너무
     // 빨라. 기차 안 타봤지? 소리 간격을 3초로 해줘").
     train: [[3000, 3000, rails]],

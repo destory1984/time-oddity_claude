@@ -406,7 +406,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'plaza', name: '샌프란시스코 금문교 어귀', short: '금문교 어귀', zoom: 1.09, ground: 0.74, scale: 0.638, air: 'street',
+        id: 'plaza', name: '샌프란시스코 금문교 어귀', short: '금문교 어귀', zoom: 1.09, ground: 0.74, scale: 0.638, air: 'road',
         sora: '다리가 빨개! 엄청 길다.',
         moving: [
           { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.736, tall: 0.16, wide: 0.386, gap: 0.05, speed: 0.03, bob: 0.003 },
@@ -1759,10 +1759,18 @@ export const WALKS = {
   khufu: {
     first: '큰 피라미드를 한창 쌓는 중이란다. 돌 조각을 전해 주렴.',
     dir: 'giza2560', look: 'paper', pale: true,
+    // As Kaifeng: the eye is a camera and things stand nearer it than the street (the user,
+    // 2026.10.12: "대피라미드만 개봉처럼 full로 다 해보자").
+    deep: true,
     drawn: '그 무렵 이집트 무덤 벽에 새기고 칠하던 그림처럼 그렸단다.',
     scenes: [
       {
         id: 'harbour', name: '이집트 기자 물길의 나루', short: '물길의 나루', zoom: 1.09, ground: 0.745, scale: 0.638, air: 'court', floor: 'dirt',
+        fore: [
+          { src: 'fore-dates', x: 0.1, at: 'top', tall: 0.38 }, { src: 'fore-papyrus', x: 0.27, at: 'foot', tall: 0.21 },
+          { src: 'fore-fish', x: 0.45, at: 'top', tall: 0.36 }, { src: 'fore-post', x: 0.62, at: 'foot', tall: 0.18 },
+          { src: 'fore-dates', x: 0.8, at: 'top', tall: 0.34 }, { src: 'fore-papyrus', x: 0.95, at: 'foot', tall: 0.19 },
+        ],
         sora: '배에 돌을 싣고 왔어!',
         people: [
           { id: 'rower', pass: '영차, 다 왔다!', name: '뱃사공', x: 0.19, w: 127, h: 320, lines: ['강 건너 투라에서 흰 돌을 실어 왔지.', '열흘에 두세 번은 오간단다.'] },
@@ -1778,6 +1786,11 @@ export const WALKS = {
       },
       {
         id: 'village', name: '이집트 기자 일꾼 마을', short: '일꾼 마을', zoom: 1.09, ground: 0.745, scale: 0.638, air: 'market', floor: 'dirt',
+        fore: [
+          { src: 'fore-awning', x: 0.1, at: 'top', tall: 0.38 }, { src: 'fore-jars', x: 0.27, at: 'foot', tall: 0.21 },
+          { src: 'fore-fronds', x: 0.45, at: 'top', tall: 0.36 }, { src: 'fore-bread', x: 0.62, at: 'foot', tall: 0.18 },
+          { src: 'fore-awning', x: 0.8, at: 'top', tall: 0.34 }, { src: 'fore-jars', x: 0.95, at: 'foot', tall: 0.19 },
+        ],
         sora: '빵 굽는 냄새가 나!',
         people: [
           { id: 'brewer', pass: '걸러라, 걸러.', name: '맥주 빚는 아주머니', x: 0.18, w: 94, h: 279, lines: ['보리빵을 물에 불려 걸러 빚는단다.', '이건 어른들 마실 거야.'] },
@@ -1793,6 +1806,11 @@ export const WALKS = {
       },
       {
         id: 'ramp', name: '이집트 기자 피라미드 발치', short: '피라미드 발치', zoom: 1.16, ground: 0.69, scale: 0.678, air: 'masons', floor: 'dirt',
+        fore: [
+          { src: 'fore-shade', x: 0.1, at: 'top', tall: 0.38 }, { src: 'fore-block', x: 0.27, at: 'foot', tall: 0.21 },
+          { src: 'fore-scaffold', x: 0.45, at: 'top', tall: 0.36 }, { src: 'fore-tools', x: 0.62, at: 'foot', tall: 0.18 },
+          { src: 'fore-shade', x: 0.8, at: 'top', tall: 0.34 }, { src: 'fore-block', x: 0.95, at: 'foot', tall: 0.19 },
+        ],
         sora: '우와, 산을 쌓고 있어!',
         people: [
           { id: 'pourer', pass: '물 붓는다, 끌어라!', name: '물 붓는 사람', x: 0.18, w: 124, h: 288, lines: ['썰매 앞 모래에 물을 붓는단다.', '그러면 썰매가 잘 미끄러지지.'] },

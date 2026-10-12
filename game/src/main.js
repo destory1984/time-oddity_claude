@@ -125,11 +125,12 @@ const STOPS = centuryStops(LIVE);
 // On the dev server the maker may begin somewhere else while a place is being tried (the
 // user, walking San Francisco: "시작점도 여기로 수정"): localStorage `timeoddity.devStart`
 // holds that place's id. The public game always begins in Rome.
+// (And then Giza, older still, once it was there: the user, 2026.10.12: "시작점을 피라미드로 이동".)
 function devStart() {
   if (!isLocalHost(location.hostname)) return null;
   try { const id = localStorage.getItem('timeoddity.devStart'); return id && WALKS[id] ? id : null; } catch { return null; }
 }
-const START = devStart() ?? 'colosseum';
+const START = devStart() ?? 'khufu';
 const beenNowhere = () => LIVE.every((sq) => beenOf(progress, sq.id).length === 0);
 // The dial stands at Rome's century every time the game is opened, not only the first
 // (the user, again: "시작지점을 로마로 고쳐. 이건 지금").

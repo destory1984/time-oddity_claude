@@ -474,8 +474,8 @@ describe('a place with a story', () => {
 
 // The user, 2026.10.12: "Until Then 움직임 따라하자", and of where: "개봉만 그렇게 해보자".
 describe('a place that is deep', () => {
-  it('is Kaifeng alone, and has things nearer the eye than the street in each of its scenes', () => {
-    expect(Object.entries(WALKS).filter(([, place]) => place.deep).map(([id]) => id)).toEqual(['guest1054']);
+  it('is Kaifeng and Giza, and has things nearer the eye than the street in each of its scenes', () => {
+    expect(Object.entries(WALKS).filter(([, place]) => place.deep).map(([id]) => id).sort()).toEqual(['guest1054', 'khufu']);
     for (const place of Object.values(WALKS)) {
       for (const scene of place.scenes) {
         if (!place.deep) { expect(scene.fore, scene.id).toBe(undefined); continue; }
