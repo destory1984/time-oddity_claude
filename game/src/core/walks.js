@@ -48,6 +48,8 @@ const SHEET = { market: 0.6, plaza: 0.66, inside: 0.62 };   // how large a sheet
 // seen from it may be touched, and she then walks there: `see` is where it is in the
 // picture (left, top, right, bottom as shares of it); without one, all of the picture
 // above the spot answers.
+// (A tap's `show` is a picture of the thing, show-<show>.webp, put on grandmother's slip with
+// what she wrote of it. The user, 2026.10.12, of the paper cup: "이런건 보여줘야지".)
 // A scene's `taps` are places in its picture that may be touched for a word from Sora:
 // [{ id, name, box: left, top, right, bottom as shares of the picture, sora: [lines said in
 // turn], pose? }] (the user, 2026.10.9, of the new star in Kaifeng's sky: "하늘을 누르면, 소리가
@@ -109,7 +111,7 @@ export const WALKS = {
           { id: 'wife', pass: '세상에, 저게 다 돌이야?', name: '아주머니', x: 0.33, w: 108, h: 270, lines: ['저 높이 좀 봐. 목이 아프네.', '아치마다 조각상이 서 있어.'] },
           // Not a person: it is used, not spoken to.
           { id: 'clock', show: 'clock', name: '물시계', x: 0.415, w: 83, h: 212,
-            try: { id: 'use-clock', verb: 'use', name: '물시계', sora: '똑, 똑… 물로 시간을 재네.', memo: '낮을 열둘로 나눴으니 여름 한 시간이 더 길었단다.' } },
+            try: { id: 'use-clock', verb: 'use', name: '물시계', label: '물시계 볼래', sora: '똑, 똑… 물로 시간을 재네.', memo: '낮을 열둘로 나눴으니 여름 한 시간이 더 길었단다.' } },
           { id: 'old', pass: '허허, 많이도 변했구먼.', name: '할아버지', x: 0.5, w: 97, h: 275, lines: ['여긴 황제의 연못이던 자리야, 암.', '물을 빼고 열 해 만에 이걸 세웠지.'] },
           { id: 'child', pass: '훌쩍…', name: '우는 아이', x: 0.63, w: 63, h: 170, lines: ['엄마가 없어졌어…', '스물셋이랬는데. 스물셋이 어디야?'] },
           { id: 'guard', pass: '줄을 서시오, 줄!', show: 'rednumbers', pose: 'see-aha', sora: '번호가 빨개서 멀리서도 보여!', memo: '문 번호를 돌에 새기고 붉게 칠했단다. 지금은 칠이 다 벗겨졌지.', name: '경비병', x: 0.8, w: 133, h: 320, lines: ['번호 봐요, 번호. 스물셋은 저쪽.', '밀지 마시오. 문은 여든 개요.'] },
@@ -236,7 +238,7 @@ export const WALKS = {
           { id: 'student', pass: '우와, 다 쇠로 만들었네.', name: '학생', x: 0.76, w: 125, h: 299, lines: ['에디슨이라는 미국 사람 거래요.', '전구도 그 사람이 만들었대요.'] },
           { id: 'queue', pass: '아이고, 줄이 안 줄어.', name: '줄 선 아주머니', x: 0.825, w: 125, h: 308, lines: ['한 시간째 줄이야. 그래도 들어야지.', '기계가 말을 한다니 믿어지니?'] },
           { id: 'phono', pass: '말하는 기계요! 보고 가시오.', show: 'phonograph', pose: 'see-peer', sora: '밀랍 통에 소리를 새겼구나!', name: '말하는 기계 지기', x: 0.92, w: 153, h: 315, sound: 'phonograph', lines: ['통 속에 사람 목소리가 들었소.', '관을 귀에 대 봐요. 노래가 나오지.'],
-            try: { id: 'use-phono', verb: 'use', name: '말하는 기계', sora: '관에서 노래가 나와! 신기해.' } },
+            try: { id: 'use-phono', verb: 'use', name: '말하는 기계', label: '말하는 기계 들어 볼래', sora: '관에서 노래가 나와! 신기해.' } },
         ],
         spots: [],
       },
@@ -326,7 +328,7 @@ export const WALKS = {
           { id: 'child', pass: '가, 나, 다, 라…', show: 'brush', name: '글자 쓰는 아이', x: 0.75, w: 86, h: 206, lines: ['이거 봐! 내 이름이야. 내가 썼어!', '어제 배웠는데 벌써 다 써.'],
             try: { id: 'use-letters', verb: 'use', name: '새 글자', sora: 'ㅅ, ㅗ, ㄹ, ㅏ… 소라! 썼다!' } },
           { id: 'sundial', pass: '해시계 구경하고 가시오.', show: 'sundial', name: '해시계 보는 관원', x: 0.862, w: 130, h: 311, lines: ['혜정교 것과 같은 해시계라오.', '글 몰라도 그림으로 때를 알지.'],
-            try: { id: 'use-sundial', verb: 'use', name: '해시계', sora: '그림자 끝이 지금 시각이야!' } },
+            try: { id: 'use-sundial', verb: 'use', name: '해시계', label: '해시계 볼래', sora: '그림자 끝이 지금 시각이야!' } },
         ],
         spots: [
           // The king at his books, deep in the middle bay: seen, not spoken to. She stands a little to his right, so as not to hide him.
@@ -427,7 +429,7 @@ export const WALKS = {
           { id: 'cat', pass: '야옹.', pose: 'see-wow', sora: '고양이가 다리를 건너!', memo: '목줄을 맨 샴고양이도 걸어서 건넜단다.', name: '목줄 맨 샴고양이', x: 0.145, w: 273, h: 300, lines: ['우리 고양이도 걸어서 건넌답니다.', '샴고양이예요. 목줄도 했지요.'] },
           { id: 'hat', pass: '어머, 내 모자!', name: '모자 잡는 아가씨', x: 0.272, w: 125, h: 245, lines: ['앗, 모자! 바람이 너무 세요.', '다리가 조금씩 흔들리는 것 같아요.'] },
           { id: 'scope', pass: '우와, 다 보인다!', show: 'scope', name: '멀리 보는 소년', x: 0.356, w: 91, h: 204, lines: ['저기 섬이 감옥이래. 알카트라즈.', '배가 다리 밑으로 지나가!'],
-            try: { id: 'use-scope', verb: 'use', name: '망원경', sora: '저 섬에 건물이 보여!', memo: '저 섬은 알카트라즈란다. 그때는 감옥이었지.' } },
+            try: { id: 'use-scope', verb: 'use', name: '망원경', label: '망원경 들여다볼래', sora: '저 섬에 건물이 보여!', memo: '저 섬은 알카트라즈란다. 그때는 감옥이었지.' } },
           { id: 'tap', pass: '탁, 타닥, 탁!', pose: 'see-wow', sora: '발에서 소리가 나!', memo: '탭댄스를 추면서 건넌 사람도 있었단다.', name: '탭댄스 추는 사람', x: 0.46, w: 212, h: 308, lines: ['춤추면서 건너는 중이에요!', '탭댄스로는 내가 처음일걸요.'] },
           { id: 'painter', pass: '이 다리 색 얘기 들어 봤소?', show: 'stripes', pose: 'see-aha', sora: '줄무늬 다리가 될 뻔했구나!', name: '칠장이', x: 0.57, w: 114, h: 267, lines: ['해군은 노란 줄무늬를 하자 했소.', '이 주황은 안개 속에서도 보이라고.'] },
           { id: 'coal', pass: '무겁구나, 얘야.', pose: 'see-gasp', sora: '석탄을 들고 온 거야?', memo: '펜실베이니아에서 온 아버지와 딸이 고향 석탄 11킬로그램을 들고 건넜단다.', name: '석탄을 든 아버지와 딸', x: 0.69, w: 253, h: 300, lines: ['펜실베이니아에서 왔소. 고향 석탄이오.', '이걸 들고 건넌 건 우리가 처음이지.'] },
@@ -495,7 +497,7 @@ export const WALKS = {
         people: [
           { id: 'news', pass: '조간이오, 조간!', show: 'postcards', pose: 'see-gasp', sora: '엽서가 산더미야!', memo: '기차 이름을 지어 보낸 엽서가 오십육만 통이었단다. 일등이 히카리, 빛이야.', name: '신문 파는 아저씨', x: 0.159, w: 158, h: 320, lines: ['기차 이름은 온 나라가 지었소.', '아흐레 뒤엔 올림픽이오. 바쁘다!'] },
           { id: 'taxi', pass: '택시 타실 분!', name: '택시 기사', x: 0.3, w: 115, h: 291, lines: ['역까지 손님이 끊이질 않아요.', '오사카를 당일로 다녀온다니.'] },
-          { id: 'ticket', pass: '샀다, 드디어 샀어!', pose: 'see-gasp', sora: '표 한 장이 그렇게 비싸?', memo: '오사카까지 2등 표가 2,480엔, 그때 이틀 치 품삯쯤이었단다.', name: '표를 산 아저씨', x: 0.43, w: 172, h: 299, lines: ['오사카까지 이천사백팔십 엔이오.', '이틀 치 품삯이지만 아깝지 않소!'] },
+          { id: 'ticket', show: 'ticket', pass: '샀다, 드디어 샀어!', pose: 'see-gasp', sora: '표 한 장이 그렇게 비싸?', memo: '오사카까지 2등 표가 2,480엔, 그때 이틀 치 품삯쯤이었단다.', name: '표를 산 아저씨', x: 0.43, w: 172, h: 299, lines: ['오사카까지 이천사백팔십 엔이오.', '이틀 치 품삯이지만 아깝지 않소!'] },
           { id: 'salary', pass: '어이쿠, 늦겠네.', name: '회사원', x: 0.56, w: 130, h: 314, lines: ['아침에 가서 저녁에 돌아온다네.', '전에는 여섯 시간 반이 걸렸지.'] },
           // Spoken to, she opens a box and shows what is in it (the user, 2026.10.8: "아주머니가
           // 도시락을 열어서 내용물을 보여주는걸로 하자"). What is in it was looked up on 2026.10.8
@@ -514,7 +516,7 @@ export const WALKS = {
         ],
         spots: [],
         taps: [
-          { id: 'banner', name: '올림픽 현수막', box: [0.397, 0.385, 0.603, 0.45], pose: 'see-aha', sora: ['동그라미 다섯 개! 올림픽이야.', '온 도시가 손님맞이 중이네.'], memo: '아흐레 뒤가 도쿄 올림픽이었단다. 이 기차는 그날에 맞춰 열었지.' },
+          { id: 'banner', show: 'banner', name: '올림픽 현수막', box: [0.397, 0.385, 0.603, 0.45], pose: 'see-aha', sora: ['동그라미 다섯 개! 올림픽이야.', '온 도시가 손님맞이 중이네.'], memo: '아흐레 뒤가 도쿄 올림픽이었단다. 이 기차는 그날에 맞춰 열었지.' },
         ],
       },
       {
@@ -539,11 +541,11 @@ export const WALKS = {
         ],
         spots: [],
         taps: [
-          { id: 'clock', name: '여섯 시를 가리키는 시계', x: 0.6, pose: 'see-aha', sora: ['여섯 시 정각이야!', '일 초도 안 틀리려나 봐.'], memo: '첫 기차는 여섯 시 정각에 떠나 열 시 정각에 닿았단다. 그날 예순 편이 모두 제시각이었지.' },
-          { id: 'track', name: '19번 승강장 표지', x: 0.19, pose: 'see-aha', sora: ['여기가 십구 번 승강장이래.', '첫 기차가 서는 곳이야.'], memo: '첫 기차 히카리 1호는 도쿄역 19번 승강장에서 떠났단다.' },
+          { id: 'clock', show: 'clock6', name: '여섯 시를 가리키는 시계', x: 0.6, pose: 'see-aha', sora: ['여섯 시 정각이야!', '일 초도 안 틀리려나 봐.'], memo: '첫 기차는 여섯 시 정각에 떠나 열 시 정각에 닿았단다. 그날 예순 편이 모두 제시각이었지.' },
+          { id: 'track', show: 'track19', name: '19번 승강장 표지', x: 0.19, pose: 'see-aha', sora: ['여기가 십구 번 승강장이래.', '첫 기차가 서는 곳이야.'], memo: '첫 기차 히카리 1호는 도쿄역 19번 승강장에서 떠났단다.' },
           // (These three are pieces of the scene's `moving`, which names them by `touch`: they have no
           // box. `x` is where one that stands still is, for pointing her to it.)
-          { id: 'nose', name: '빛나는 둥근 코', pose: 'see-wow', sora: ['코가 등불처럼 빛나!', '둥글둥글, 꼭 비행기 같아.'], memo: '코가 반투명이라 불빛이 새어 나왔단다. 속에는 연결 고리가 들어 있지.' },
+          { id: 'nose', show: 'nose', name: '빛나는 둥근 코', pose: 'see-wow', sora: ['코가 등불처럼 빛나!', '둥글둥글, 꼭 비행기 같아.'], memo: '코가 반투명이라 불빛이 새어 나왔단다. 속에는 연결 고리가 들어 있지.' },
         ],
       },
       {
@@ -561,13 +563,13 @@ export const WALKS = {
           { id: 'kid', pass: '우와, 빠르다!', show: 'cup', pose: 'see-aha', sora: '봉투에 물을 받아 마시네!', memo: '이 기차에 맞춰 만든 종이컵이란다. 납작하게 접혀 있었지.', name: '신난 꼬마', x: 0.52, w: 146, h: 214, lines: ['물은 봉투에 받아 마시는 거야!', '나 커서 기관사 될 거야!'] },
           { id: 'granny', pass: '아이고, 벌써 여기야.', name: '창가의 할머니', x: 0.68, w: 181, h: 280, lines: ['저기 봐, 후지산이야! 벌써 여기야.', '옛날엔 걸어서 보름 길이었단다.'] },
           { id: 'buffet', pass: '어서 오세요! 속도계 보고 가세요.', show: 'speedometer', pose: 'see-gasp', sora: '1964년에 시속 210km?!', name: '뷔페 칸 종업원', x: 0.9, w: 136, h: 320, lines: ['속도계 보세요. 지금 시속 210km!', '커피가 안 쏟아지는 게 자랑이죠.'],
-            try: { id: 'use-speed', verb: 'use', name: '속도계', sora: '바늘이 이백십에서 안 내려와!' } },
+            try: { id: 'use-speed', verb: 'use', name: '속도계', label: '속도계 볼래', sora: '바늘이 이백십에서 안 내려와!' } },
         ],
         spots: [],
         taps: [
-          { id: 'dial', name: '속도계', box: [0.898, 0.244, 0.99, 0.386], pose: 'see-gasp', sora: ['바늘이 이백십이야!', '1964년에 시속 210km?!'], memo: '시속 210킬로미터, 그때 세상에서 가장 빠른 기차였단다.' },
-          { id: 'cooler', name: '봉투 종이컵과 냉수기', box: [0.9, 0.4, 0.997, 0.508], pose: 'see-aha', sora: ['컵이 봉투처럼 납작해!', '물을 받으면 벌어지네.'], memo: '이 기차에 맞춰 만든 종이컵이란다. 납작하게 접혀 있었지.' },
-          { id: 'seat', name: '등받이를 넘기는 의자', box: [0.114, 0.488, 0.872, 0.664], pose: 'see-aha', sora: ['의자 등받이가 넘어가네!', '가는 쪽을 보고 앉는 거구나.'], memo: '등받이를 앞뒤로 넘겨 앉는 쪽을 바꿨단다.' },
+          { id: 'dial', show: 'speedometer', name: '속도계', box: [0.898, 0.244, 0.99, 0.386], pose: 'see-gasp', sora: ['바늘이 이백십이야!', '1964년에 시속 210km?!'], memo: '시속 210킬로미터, 그때 세상에서 가장 빠른 기차였단다.' },
+          { id: 'cooler', show: 'cup', name: '봉투 종이컵과 냉수기', box: [0.9, 0.4, 0.997, 0.508], pose: 'see-aha', sora: ['컵이 봉투처럼 납작해!', '물을 받으면 벌어지네.'], memo: '이 기차에 맞춰 만든 종이컵이란다. 납작하게 접혀 있었지.' },
+          { id: 'seat', show: 'seat', name: '등받이를 넘기는 의자', box: [0.114, 0.488, 0.872, 0.664], pose: 'see-aha', sora: ['의자 등받이가 넘어가네!', '가는 쪽을 보고 앉는 거구나.'], memo: '등받이를 앞뒤로 넘겨 앉는 쪽을 바꿨단다.' },
         ],
       },
     ],
@@ -629,7 +631,7 @@ export const WALKS = {
         sora: '우와, 지붕이 산처럼 커!',
         people: [
           { id: 'candle', pass: '초 사세요, 새 성당 초!', show: 'candle', name: '초 파는 할머니', x: 0.14, w: 125, h: 301, lines: ['오늘 새 성당이 문을 여는 날이란다.', '초 하나 켜 보련?'],
-            try: { id: 'use-candle', verb: 'use', name: '초', sora: '후, 안 꺼지게 조심조심.' } },
+            try: { id: 'use-candle', verb: 'use', name: '초', label: '초 켜 볼래', sora: '후, 안 꺼지게 조심조심.' } },
           { id: 'mason', pass: '깡, 깡. 다 됐다, 다 됐어.', show: 'tesserae', pose: 'see-gasp', sora: '유리 속에 금이 들었어!', memo: '얇은 유리 두 겹 사이에 금박을 끼운 조각이란다. 그걸 지붕 가득 붙였지.', name: '석공', x: 0.23, w: 121, h: 303, lines: ['돌은 내가 깎고, 금빛은 저 조각이 낸단다.', '손톱만 한 조각을 지붕 가득 붙였지.'] },
           { id: 'porter', pass: '영차! 마지막 기둥이다.', name: '기둥 나르는 일꾼', x: 0.33, w: 153, h: 307, lines: ['이 돌기둥은 바다 건너에서 왔어.', '굴림대 없이는 꿈쩍도 안 해.'] },
           { id: 'child', pass: '우와, 하늘만큼 커!', name: '구경 나온 아이', x: 0.56, w: 94, h: 239, lines: ['지붕이 꼭 뒤집은 그릇 같아.', '안은 금빛이래. 보고 싶다!'] },
@@ -890,7 +892,7 @@ export const WALKS = {
         sora: '아직 새벽이야. 저 별 좀 봐!',
         people: [
           { id: 'tea', pass: '차 한 사발 하고 가요!', show: 'tea', name: '찻집 아주머니', x: 0.18, w: 117, h: 278, lines: ['가루 낸 차에 더운물을 붓고 저어요.', '거품이 고울수록 잘 탄 차랍니다.'],
-            try: { id: 'use-whisk', verb: 'use', name: '차 젓는 솔', sora: '휘휘휘! 거품이 뽀얗게 올라와!', memo: '송나라에서는 차를 가루 내어 대나무 솔로 저어 마셨단다.' } },
+            try: { id: 'use-whisk', verb: 'use', name: '차 젓는 솔', label: '차 저어 볼래', sora: '휘휘휘! 거품이 뽀얗게 올라와!', memo: '송나라에서는 차를 가루 내어 대나무 솔로 저어 마셨단다.' } },
           { id: 'bun', pass: '따끈한 만두요, 만두!', show: 'mantou', name: '만두 장수', x: 0.28, w: 152, h: 276, lines: ['새벽부터 쪄서 김이 펄펄 나지.', '배 타는 사람들이 제일 먼저 사 가오.'],
             try: { id: 'eat-mantou', verb: 'eat', name: '찐 만두', face: 'yum', sora: '호호, 뜨거워! 폭신폭신해.' } },
           { id: 'carpenter', pass: '어디 보자, 여기도 멀쩡하군.', show: 'bridge', pose: 'see-wow', sora: '기둥이 하나도 없어!', memo: '통나무를 무지개처럼 휘어 강을 건넌 다리란다. 기둥이 없어 배가 걸리지 않았지.', name: '다리 고치는 목수', x: 0.39, w: 135, h: 279, lines: ['이 다리는 물속에 기둥이 없소.', '그래서 큰 배도 걸리지 않고 지나간다오.'] },
@@ -1159,7 +1161,7 @@ export const WALKS = {
         sora: '모래가 따끈따끈해! 저 배는 뭐지?',
         people: [
           { id: 'fisher', pass: '오늘 바다는 잔잔하군.', show: 'paddle', name: '카누 타는 어부', x: 0.19, w: 118, h: 320, lines: ['저 큰 배는 두 달 가까이 저기 서 있어.', '우리 카누는 옆에 팔이 달려서 안 뒤집혀.'],
-            try: { id: 'use-paddle', verb: 'use', name: '카누의 노', sora: '영차! 어, 자꾸 옆으로만 가!' } },
+            try: { id: 'use-paddle', verb: 'use', name: '카누의 노', label: '노 저어 볼래', sora: '영차! 어, 자꾸 옆으로만 가!' } },
           { id: 'tapa', pass: '탁, 탁, 탁.', name: '천 두드리는 아주머니', x: 0.31, w: 113, h: 282, lines: ['나무껍질을 두드려서 천을 만들어.', '두드릴수록 넓고 얇아진단다.'],
             try: { id: 'wear-tapa', verb: 'wear', name: '나무껍질 옷', outfit: 'tapa', sora: '가볍고 바삭바삭해!', memo: '나무껍질을 물에 불려 두드려 만든 천이란다.' } },
           { id: 'tattoo', pass: '톡, 톡. 가만히 있거라.', show: 'tattoo', pose: 'see-gasp', sora: '뼈로 만든 빗이야!', memo: '이 섬 말로 "타타우"란다. 문신을 뜻하는 "타투"가 여기서 온 말이지.', name: '무늬 새기는 할아버지', x: 0.42, w: 107, h: 309, lines: ['뼈 빗에 검은 물을 묻혀 톡톡 친단다.', '배에서 온 젊은이도 팔에 새기고 갔지.'] },
@@ -1325,7 +1327,7 @@ export const WALKS = {
         ],
         people: [
           { id: 'radio', pass: '쉿, 중계 나와요. 들어 봐요.', show: 'radio', pose: 'see-aha', sora: '건전지를 고무줄로 묶었구나!', name: '라디오 든 청년', x: 0.123, w: 95, h: 249, lines: ['라디오로도 중계를 해 줘요. 볼래요?', '지금도 둘은 달 위에 있대요.'],
-            try: { id: 'use-radio', verb: 'use', name: '라디오', sora: '지지직… 사람 목소리가 나와.' } },
+            try: { id: 'use-radio', verb: 'use', name: '라디오', label: '라디오 들어 볼래', sora: '지지직… 사람 목소리가 나와.' } },
           { id: 'schoolgirl', pass: '달이 참 예쁘다.', name: '여학생', x: 0.21, w: 74, h: 200, lines: ['나도 커서 달에 가 보고 싶어.', '선생님이 꼭 보라고 하셨어.'] },
           { id: 'granny', pass: '세상 참 좋아졌어.', name: '달 보는 할머니', x: 0.34, w: 99, h: 217, lines: ['저 달에 사람이 갔다니, 원.', '토끼는 놀라 달아났겠구먼.'] },
           { id: 'point', pass: '저기야, 저기!', name: '달을 가리키는 아이', x: 0.63, w: 72, h: 192, lines: ['저기! 저기 사람이 있대!', '손 흔들면 보일까?'] },
@@ -1408,7 +1410,7 @@ export const WALKS = {
           { id: 'granny', pass: '아이고, 좋은 날이다.', name: '눈물 닦는 할머니', x: 0.14, w: 140, h: 300, lines: ['내 생전에 이런 걸 다 보는구나.', '온 세상 사람이 우리 집에 왔어.'] },
           { id: 'drinks', pass: '(작게) 음료수 있어요…', name: '음료 파는 아이', x: 0.24, w: 150, h: 311, lines: ['지금은 조용히 팔아야 해요.', '태권도 때는 다들 소리쳤는데.'] },
           { id: 'binoc', pass: '쉿… 저 아이 좀 봐.', show: 'hoop', pose: 'see-peer', sora: '혼자야. 저 넓은 데를 혼자.', memo: '서울이 올림픽을 따낸 날 태어난 아이란다. 나는 텔레비전으로 봤지.', name: '쌍안경 든 아가씨', x: 0.37, w: 154, h: 314, lines: ['국민학교 일학년이래. 혼자 나왔어.', '한가운데서 손을 흔들었어!'],
-            try: { id: 'use-binoc', verb: 'use', name: '쌍안경', sora: '손을 흔들어! 나도 흔들래.' } },
+            try: { id: 'use-binoc', verb: 'use', name: '쌍안경', label: '쌍안경 들여다볼래', sora: '손을 흔들어! 나도 흔들래.' } },
           { id: 'hush', pass: '(숨을 죽인다)', name: '숨죽인 아이', x: 0.6, w: 106, h: 262, lines: ['쉿! 지금은 조용히 하는 거래.', '아까는 태권도 형들이 천 명이었어.'] },
           { id: 'official', pass: '뷰티풀… 원더풀.', name: '외국 선수단 임원', x: 0.69, w: 130, h: 320, lines: ['아이 하나에 온 경기장이 조용하오.', '이런 개회식은 처음 보오.'] },
           { id: 'fan', pass: '저기 봐, 저 불!', show: 'cauldron', pose: 'see-wow', sora: '세 사람이 같이 붙였구나!', memo: '선생님, 달리기 선수, 춤추는 학생. 세 사람이 함께 붙였단다.', name: '부채 든 아저씨', x: 0.8, w: 148, h: 317, lines: ['성화는 세 사람이 같이 붙였어.', '승강기를 타고 저 위로 올라갔지.'] },
@@ -1468,7 +1470,7 @@ export const WALKS = {
         people: [
           { id: 'salai', pass: '헤헤, 스승님 공책이다.', show: 'mirror', name: '화가의 제자', x: 0.18, w: 151, h: 302, lines: ['스승님은 글씨를 거꾸로 써.', '거울에 비춰야 읽혀. 볼래?'],
             then: [{ after: 'letter', lines: ['스승님? 방금 나가셨어.', '대성당 뒤 나루 쪽으로 가셨을걸.'] }],
-            try: { id: 'use-mirror', verb: 'use', name: '거울', sora: '오, 거울 속에선 똑바로야!', memo: '레오나르도는 글씨를 오른쪽에서 왼쪽으로 썼단다.' } },
+            try: { id: 'use-mirror', verb: 'use', name: '거울', label: '거울 비춰 볼래', sora: '오, 거울 속에선 똑바로야!', memo: '레오나르도는 글씨를 오른쪽에서 왼쪽으로 썼단다.' } },
           { id: 'clayboy', pass: '영차, 갈라진 데 메워야지!', name: '진흙 나르는 견습생', x: 0.26, w: 116, h: 274, lines: ['이 말은 전부 흙으로 빚었어.', '어른 키의 네 배가 넘는대.'] },
           { id: 'founder', pass: '에휴, 내 쇳물…', name: '쇠 녹이는 장인', x: 0.34, w: 124, h: 318, lines: ['청동을 부어 굳히려던 말이오.', '그 청동은 대포 만들러 가 버렸소.'] },
           { id: 'pacioli', pass: '모서리가 몇 개인고…', show: 'solid', pose: 'see-aha', sora: '속이 다 들여다보여!', memo: '수학 선생의 책에 레오나르도가 그림을 그려 주었단다.', name: '수학 선생 수도사', x: 0.64, w: 142, h: 318, lines: ['내 책의 그림은 그 친구가 그렸네.', '뼈대만 그려서 뒤쪽까지 보이지.'] },

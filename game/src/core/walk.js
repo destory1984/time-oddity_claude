@@ -21,7 +21,9 @@ import { t } from './i18n.js';
 
 export const VERBS = { eat: '먹어 볼래', wear: '입어 볼래', use: '써 볼래' };
 // The button that offers a thing, in the language in use: "고리 빵 먹어 볼래", "Taste the ring bread".
-export const offerLabel = (it) => ({ eat: t`${t(it.name)} 먹어 볼래`, wear: t`${t(it.name)} 입어 볼래`, use: t`${t(it.name)} 써 볼래` }[it.verb]);
+// (A thing that is looked at or listened to says so itself, `label`: "속도계 써 볼래" made no
+// sense. The user, 2026.10.12: "\"속도계 써 볼래\":가 무슨 얘기야".)
+export const offerLabel = (it) => (it.label ? t(it.label) : null) ?? ({ eat: t`${t(it.name)} 먹어 볼래`, wear: t`${t(it.name)} 입어 볼래`, use: t`${t(it.name)} 써 볼래` }[it.verb]);
 export const FACES = ['yum', 'sour', 'yuck', 'hmm'];
 export const SPEED = 0.11;        // of a scene's width a second: nine seconds from end to end
 export const REACH = 0.05;        // she can speak to someone this near

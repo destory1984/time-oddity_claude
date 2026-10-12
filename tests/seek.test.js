@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { existsSync } from 'node:fs';
 import { HINT_MS, SEEK_BAR, hintOf, isSought, leftIn, soughtIn } from '../game/src/core/seek.js';
 import { allDone, barred, canHop, createWalk, speak, stepWalk, touch, worth } from '../game/src/core/walk.js';
 import { WALKS } from '../game/src/core/walks.js';
@@ -73,6 +74,8 @@ describe('the places where things are found', () => {
         for (const tap of (scene.taps ?? []).filter((one) => one.box)) expect(tap.box.every((v) => v >= 0 && v <= 1) && tap.box[0] < tap.box[2] && tap.box[1] < tap.box[3], tap.id).toBe(true);
       }
       expect(walk.errands.every((errand) => walk.scenes.some((scene) => scene.id === errand.scene)), id).toBe(true);
+      // What is shown on the slip of a thing touched has its picture.
+      for (const scene of walk.scenes) for (const tap of scene.taps ?? []) if (tap.show) expect(existsSync(new URL(`../game/public/walks/${walk.dir}/show-${tap.show}.webp`, import.meta.url)), tap.show).toBe(true);
     }
   });
 });

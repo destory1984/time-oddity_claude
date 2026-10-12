@@ -452,7 +452,7 @@ function tapScene(tap) {
   if (tap.pose && !walk.wearing && said === 0) walkFace = { poses: [[tap.pose, walkT + 2200]] };
   // What grandmother knows of it, on her slip.
   const found = touch(walk, tap.id).length > 0;
-  if (tap.memo) walkMemo = { text: tap.memo, real: found || isSought(walk.place, tap.id) };
+  if (tap.memo) walkMemo = { text: tap.memo, real: found || isSought(walk.place, tap.id), show: tap.show ?? null };
   if (found) errandsDone();
 }
 // A thing of the scene looked at closely: a photograph of it as it is today and what is
@@ -950,14 +950,14 @@ function frameWalk(dt) {
   // what was just done first, then her answer. What she wrote of the one being heard, or of the
   // spot stood at, is put on the slip as it comes up, once.
   const here = (shower?.show ? shower.memo : null) ?? spotAt(walk)?.memo ?? null;
-  if (here && here !== memoHere) walkMemo = { text: here, real: Boolean(shower?.show) && isSought(walk.place, shower.id) };
+  if (here && here !== memoHere) walkMemo = { text: here, real: Boolean(shower?.show) && isSought(walk.place, shower.id), show: shower?.show && shower.memo === here ? shower.show : null };
   memoHere = here;
   const memo = walkMemo?.text ?? (replyDue ? replyOf() : null);
   if (memo !== null && !memoUp) { walkWay = 0; keyWay = 0; walkWant = null; walk.goal = null; }
   memoUp = memo !== null;
   hud.set({
     name: squareTitle(square), dateText: square.dateLabel, placeText: sceneOf(walk).name, subText: '',
-    dots: { day: false, sky: false, remains: false }, memo, memoOk: true, memoTag: walkMemo?.real ? REAL_TAG : null, memoPlain: false, memoSky: false,
+    dots: { day: false, sky: false, remains: false }, memo, memoOk: true, memoTag: walkMemo?.real ? REAL_TAG : null, memoShow: walkMemo?.show ? `./walks/${walk.place.dir}/show-${walkMemo.show}.webp` : null, memoPlain: false, memoSky: false,
     // No story card here: what it told, the people now tell (the user, 2026.10.8: "이야기 카드 빼").
     chips: false, bubble: null, sora: soraPose({ now: performance.now(), hushAt }),
     todayLabel: '오늘로', showToday: false, showLeave: true, hint: null, soraFade: 1, glowSky: 0, glowToday: 0,

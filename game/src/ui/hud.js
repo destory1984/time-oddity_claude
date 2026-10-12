@@ -52,10 +52,13 @@ export function createHud(el, { onMemoOk = () => {} } = {}) {
     if (changed('memoSky', Boolean(state.memoSky))) parts.memo.classList.toggle('sky', Boolean(state.memoSky));
     if (changed('memoHeld', Boolean(state.memoOk))) parts.memo.classList.toggle('held', Boolean(state.memoOk));
     if (changed('memoOn', state.memo !== null)) parts.memo.classList.toggle('on', state.memo !== null);
-    if (state.memo !== null && changed('memo', `${state.memoOk ? 'ok:' : ''}${state.memoTag ?? ''}:${state.memo}`)) {
+    if (state.memo !== null && changed('memo', `${state.memoOk ? 'ok:' : ''}${state.memoTag ?? ''}:${state.memoShow ?? ''}:${state.memo}`)) {
       // A slip already on the screen turns over to show its new line.
       const wasShown = parts.memo.textContent !== '';
       parts.memo.textContent = t(state.memo);
+      // A picture of the thing she wrote of, over her words.
+      parts.memo.classList.toggle('shown', Boolean(state.memoShow));
+      if (state.memoShow) { const shot = document.createElement('img'); shot.className = 'shot'; shot.alt = ''; shot.draggable = false; shot.src = state.memoShow; parts.memo.prepend(shot); }
       // A word over it in print, saying what kind of thing it is (that it is on record).
       if (state.memoTag) { const tag = document.createElement('b'); tag.className = 'tag'; tag.textContent = t(state.memoTag); parts.memo.prepend(tag); }
       // What grandmother wrote stays until it is put away by its button (the user, 2026.10.12:
