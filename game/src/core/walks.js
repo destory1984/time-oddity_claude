@@ -465,7 +465,7 @@ export const WALKS = {
     // In the manner of Nintendo's first 8-bit games since 2026.10.9 (the user, of four tries:
     // "1"): pixels again, the sky in the pictures, and people speaking in balloons (their
     // faces in a panel went with the flat look this place had).
-    dir: 'tokyo',
+    dir: 'tokyo', seek: true,
     drawn: '스무 해쯤 뒤 일본에서 나온 게임기의 네모 점 그림처럼 그렸단다.',
     now: {
       photo: 'photo-now.webp', name: '신칸센의 지금 모습', when: '일본 도쿄역 · N700S와 N700A',
@@ -486,6 +486,7 @@ export const WALKS = {
         people: [
           { id: 'news', pass: '조간이오, 조간!', show: 'postcards', pose: 'see-gasp', sora: '엽서가 산더미야!', memo: '기차 이름을 지어 보낸 엽서가 오십육만 통이었단다. 일등이 히카리, 빛이야.', name: '신문 파는 아저씨', x: 0.159, w: 158, h: 320, lines: ['기차 이름은 온 나라가 지었소.', '아흐레 뒤엔 올림픽이오. 바쁘다!'] },
           { id: 'taxi', pass: '택시 타실 분!', name: '택시 기사', x: 0.3, w: 115, h: 291, lines: ['역까지 손님이 끊이질 않아요.', '오사카를 당일로 다녀온다니.'] },
+          { id: 'ticket', pass: '샀다, 드디어 샀어!', pose: 'see-gasp', sora: '표 한 장이 그렇게 비싸?', memo: '오사카까지 2등 표가 2,480엔, 그때 이틀 치 품삯쯤이었단다.', name: '표를 산 아저씨', x: 0.43, w: 172, h: 299, lines: ['오사카까지 이천사백팔십 엔이오.', '이틀 치 품삯이지만 아깝지 않소!'] },
           { id: 'salary', pass: '어이쿠, 늦겠네.', name: '회사원', x: 0.56, w: 130, h: 314, lines: ['아침에 가서 저녁에 돌아온다네.', '전에는 여섯 시간 반이 걸렸지.'] },
           // Spoken to, she opens a box and shows what is in it (the user, 2026.10.8: "아주머니가
           // 도시락을 열어서 내용물을 보여주는걸로 하자"). What is in it was looked up on 2026.10.8
@@ -503,13 +504,20 @@ export const WALKS = {
           { id: 'tourist', pass: '와, 역이 정말 크네요.', name: '먼 데서 온 여행자', x: 0.88, w: 133, h: 316, lines: ['올림픽 보러 왔어요. 기차도 타요!', '시속 210km? 믿을 수 없어요.'] },
         ],
         spots: [],
+        taps: [
+          { id: 'banner', name: '올림픽 현수막', box: [0.397, 0.385, 0.603, 0.45], pose: 'see-aha', sora: ['동그라미 다섯 개! 올림픽이야.', '온 도시가 손님맞이 중이네.'], memo: '아흐레 뒤가 도쿄 올림픽이었단다. 이 기차는 그날에 맞춰 열었지.' },
+        ],
       },
       {
         id: 'platform', name: '도쿄역 승강장', zoom: 1.3, ground: 0.83, scale: 0.76, air: 'station',
         sora: '우와, 진짜 온다! 코가 둥글어.',
         // The train runs along the track from one end of the platform to the other, again and again.
         moving: [
-          { kind: 'drift', id: 'train', src: 'train', from: 0, to: 1, foot: 0.752, tall: 0.2, wide: 0.759, gap: 2.5, speed: 0.16, bob: 0 },
+          // (The clock and the number of the track stand on the platform as pieces of their own: those
+          // in the picture hang above what the screen shows of it. They may be touched: `touch`.)
+          { kind: 'spin', id: 'clock', touch: 'clock', src: 'clock', x: 0.6, y: 0.655, tall: 0.33, rpm: 0 },
+          { kind: 'spin', id: 'track', touch: 'track', src: 'track', x: 0.19, y: 0.685, tall: 0.27, rpm: 0 },
+          { kind: 'drift', id: 'train', touch: 'nose', src: 'train', from: 0, to: 1, foot: 0.752, tall: 0.2, wide: 0.759, gap: 2.5, speed: 0.16, bob: 0 },
         ],
         people: [
           { id: 'fan', pass: '우와, 진짜 왔다! 코 좀 봐!', show: 'nose', pose: 'see-wow', sora: '코가 등불처럼 빛나!', memo: '코가 반투명이라 불빛이 새어 나왔단다. 속에는 연결 고리가 들어 있지.', name: '기차 좋아하는 소년', x: 0.12, w: 121, h: 243, lines: ['꿈의 초특급이다! 코가 비행기 같아.', '새벽 세 시에 일어나서 왔어.'] },
@@ -521,6 +529,13 @@ export const WALKS = {
           { id: 'banzai', pass: '만세! 만세!', name: '신이 난 회사원', x: 0.82, w: 147, h: 266, lines: ['테이프 끊는 걸 봤어! 박수가 터졌어!', '만세! 우리가 해냈다고!'] },
         ],
         spots: [],
+        taps: [
+          { id: 'clock', name: '여섯 시를 가리키는 시계', x: 0.6, pose: 'see-aha', sora: ['여섯 시 정각이야!', '일 초도 안 틀리려나 봐.'], memo: '첫 기차는 여섯 시 정각에 떠나 열 시 정각에 닿았단다. 그날 예순 편이 모두 제시각이었지.' },
+          { id: 'track', name: '19번 승강장 표지', x: 0.19, pose: 'see-aha', sora: ['여기가 십구 번 승강장이래.', '첫 기차가 서는 곳이야.'], memo: '첫 기차 히카리 1호는 도쿄역 19번 승강장에서 떠났단다.' },
+          // (These three are pieces of the scene's `moving`, which names them by `touch`: they have no
+          // box. `x` is where one that stands still is, for pointing her to it.)
+          { id: 'nose', name: '빛나는 둥근 코', pose: 'see-wow', sora: ['코가 등불처럼 빛나!', '둥글둥글, 꼭 비행기 같아.'], memo: '코가 반투명이라 불빛이 새어 나왔단다. 속에는 연결 고리가 들어 있지.' },
+        ],
       },
       {
         id: 'car', name: '달리는 신칸센 안', zoom: 1.3, ground: 0.72, scale: 0.66, air: 'train', floor: 'wood',
@@ -540,80 +555,29 @@ export const WALKS = {
             try: { id: 'use-speed', verb: 'use', name: '속도계', sora: '바늘이 이백십에서 안 내려와!' } },
         ],
         spots: [],
+        taps: [
+          { id: 'dial', name: '속도계', box: [0.898, 0.244, 0.99, 0.386], pose: 'see-gasp', sora: ['바늘이 이백십이야!', '1964년에 시속 210km?!'], memo: '시속 210킬로미터, 그때 세상에서 가장 빠른 기차였단다.' },
+          { id: 'cooler', name: '봉투 종이컵과 냉수기', box: [0.9, 0.4, 0.997, 0.508], pose: 'see-aha', sora: ['컵이 봉투처럼 납작해!', '물을 받으면 벌어지네.'], memo: '이 기차에 맞춰 만든 종이컵이란다. 납작하게 접혀 있었지.' },
+          { id: 'seat', name: '등받이를 넘기는 의자', box: [0.114, 0.488, 0.872, 0.664], pose: 'see-aha', sora: ['의자 등받이가 넘어가네!', '가는 쪽을 보고 앉는 거구나.'], memo: '등받이를 앞뒤로 넘겨 앉는 쪽을 바꿨단다.' },
+        ],
       },
     ],
-    // "Twenty minutes to go" (core/tale.js): a young woman before the station gives her the
-    // flowers and a word for the driver of the first train; on the platform the station
-    // master turns her away; the boy who has watched since three tells her when the driver
-    // will stand at the door; she hands them over, choosing what to say; and the driver asks
-    // her to ride and look at the speed dial in the buffet car. Told so after
-    // the user had tried the first telling on 2026.10.9 and said of its end, which was talk
-    // with the woman and no more: "아가씨한테 꽃과 말을 전달받고, 기관사한테 가서 전달하고,
-    // 이러는게 미션 아님?". What each one says last names where to go next, so that the slip
-    // need not be read ("저 가이드가 없으면, 게임을 제대로 못 하고 헤매게 되네").
-    // Looked up on 2026.10.9 and found so: the train stood at platform 19 from 05:40 and
-    // the leaving was held there; it left at six and came in at ten to the minute; the line
-    // was five and a half years in the building (ground broken 20 April 1959).
-    // Made up: the woman, her father, the flowers, the master turning her away, the boy's
-    // word, what the driver says. She goes on through the scenes and is never sent back.
-    tale: {
-      thing: true,
-      ask: '이 꽃은 누구에게 가는 걸까?',
-      gate: { scene: 'platform', open: 4, sora: '아직 못 타. 꽃부터 전해야 해.' },
-      steps: [
-        {
-          who: 'flowers0', goal: '도쿄역 앞의 꽃다발 든 아가씨에게 가 보렴.', holds: '꽃다발: 아가씨가 들고 있음',
-          lines: ['저기, 부탁 하나만 들어줄래요?', '이 꽃을 첫 기차 기관사님께 드리고 싶어요.', '아버지가 다섯 해 반 동안 이 철길을 놓으셨거든요.', '그런데 사람이 너무 많아서 못 들어가겠어요.'],
-          offer: { ask: '아가씨의 꽃을 전해 줄까?', label: '내가 전해 줄게요' },
-          errand: 'took',
-        },
-        {
-          who: 'driver', goal: '도쿄역 승강장의 기관사에게 꽃을 전하렴.', holds: '꽃다발: 소라가 들고 있음',
-          lines: [{ by: 'master', text: '물러서 주십시오! 출발 이십 분 전이오.' }, { by: 'master', text: '기관사는 점검 중이라 아무도 못 만납니다.' }],
-          sora: '꽃만 전하면 되는데… 어? 저 소년이 불러!',
-        },
-        {
-          who: 'fan', call: '누나, 이리 와 봐! 방법이 있어!', goal: '기차 좋아하는 소년이 부른다. 가 보렴.', holds: '꽃다발: 소라가 들고 있음',
-          lines: ['새벽 세 시부터 여기서 다 봤거든.', '점검이 끝나면 기관사님이 문 앞에 잠깐 서.', '봐, 지금이야! 얼른 가!'],
-          sora: '지금이래! 기관사님께 가자!',
-        },
-        {
-          who: 'driver', goal: '지금이야! 기관사에게 꽃을 전하렴.', holds: '꽃다발: 소라가 들고 있음',
-          lines: ['점검 끝. 응? 나한테 볼일이 있니?'],
-          choice: {
-            ask: '꽃을 건네며 뭐라고 할까?',
-            options: [
-              { id: 'E1', label: '아가씨의 말만 전한다', sora: '"아버지 몫까지 잘 달려 주세요", 래요.', says: '…그 철길이군요. 일 초도 안 늦겠습니다.' },
-              { id: 'E2', label: '내 말도 보탠다', sora: '잘 달려 주세요! 이 기차, 육십 년 뒤에도 달려요!', says: '하하, 육십 년이라. 첫날부터 잘 달려야겠군.' },
-            ],
-          },
-          // What follows the handing over: he asks a thing of her in turn, and the train is sent off.
-          after: [{ who: 'driver', line: '타고 가 보렴. 뷔페 칸 속도계가 210인지 봐 주겠니?' }, { who: 'master', line: '여섯 시 정각, 히카리 1호 출발! 어서 타요!' }],
-          sora: '탈래요! 속도계는 뷔페 칸이랬지?',
-          errand: 'gave',
-        },
-        {
-          // The tale does not end on the platform: the train is to be ridden (the user,
-          // 2026.10.9: "신칸센 안에 안 들어가도 시나리오 끝나잖아. 속도계 보는 미션도 같이 넣어").
-          who: 'buffet', show: true, goal: '달리는 신칸센에 타서 뷔페 칸의 속도계를 보렴.',
-          lines: ['어서 오세요! 기관사님 부탁이라고요?', '속도계 보세요. 바늘이 딱 210이죠!'],
-          sora: '진짜 210이야! 기관사님, 약속 지켰어요!',
-          errand: 'speed',
-        },
-      ],
-      // What those with a part say when it is not their turn.
-      asides: [
-        { who: 'flowers0', when: ['S1', 'S2', 'S3'], lines: ['"아버지 몫까지 잘 달려 주세요" 하고 전해 줘요.', '기관사님은 19번 승강장에 계세요. 오른쪽이에요.'] },
-        { who: 'flowers0', when: ['S4', 'S5'], lines: ['꽃을 전해 주셨군요! 정말 고마워요.', '아버지께도 꼭 말씀드릴게요.'] },
-      ],
-      done: '꽃을 전하고, 시속 210km를 눈으로 보았다.',
-    },
-    // The tale's three marks in the notebook. Nobody does them by being spoken to (`at` is
-    // empty): the tale does (main.js, a step's `errand`).
+    // What is found is what was new that day (the user, 2026.10.12, San Francisco having been
+    // made so: "도쿄를 이런 식으로 다시 바꿔보자", and of this table: "이대로 지어"). Each is on
+    // record (docs/신기한-사실.md section 5), but for the platform's number and the dial in the
+    // buffet car, looked up on 2026.10.12: the leaving was from track 19, and the buffet cars had
+    // a speed dial with a needle. The gilt ball over the platform is in the picture and is not
+    // said to have been there: no record of it was found.
     errands: [
-      { id: 'took', text: '아가씨의 꽃을 받는다.', at: [] },
-      { id: 'gave', text: '기관사에게 꽃을 전한다.', at: [] },
-      { id: 'speed', text: '달리는 기차에서 속도계를 본다.', at: [] },
+      { id: 'banner', scene: 'front', text: '올림픽 현수막', at: ['banner'] },
+      { id: 'postcards', scene: 'front', text: '기차 이름 엽서 더미', at: ['news'] },
+      { id: 'ticket', scene: 'front', text: '2,480엔짜리 표', at: ['ticket'] },
+      { id: 'clock', scene: 'platform', text: '여섯 시를 가리키는 시계', at: ['clock'] },
+      { id: 'nose', scene: 'platform', text: '빛나는 둥근 코', at: ['nose', 'fan'] },
+      { id: 'track', scene: 'platform', text: '19번 승강장 표지', at: ['track'] },
+      { id: 'dial', scene: 'car', text: '속도계', at: ['dial', 'buffet', 'use-speed'] },
+      { id: 'cup', scene: 'car', text: '봉투 종이컵과 냉수기', at: ['cooler', 'kid'] },
+      { id: 'seat', scene: 'car', text: '등받이를 넘기는 의자', at: ['seat'] },
     ],
     reply: '그 기차는 열 시 정각에 오사카에 닿았단다. 그날 달린 예순 편이 모두 제시각이었지.',
   },

@@ -151,7 +151,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       return { look, button };
     });
     for (const { button } of taps) button.remove();
-    taps = (scene.taps ?? []).map((tap) => {
+    taps = (scene.taps ?? []).filter((tap) => tap.box).map((tap) => {
       const button = document.createElement('button');
       button.type = 'button'; button.className = 'tap';
       button.setAttribute('aria-label', t(tap.name));
@@ -231,6 +231,12 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     const img = document.createElement('img');
     img.src = `./walks/${place.dir}/${piece.src}.png`;
     img.alt = ''; img.draggable = false; img.className = 'piece';
+    // One that may be touched as it goes by (a piece's `touch`: one of the scene's `taps`).
+    const tap = piece.touch ? (scene.taps ?? []).find((one) => one.id === piece.touch) : null;
+    if (tap) {
+      img.classList.add('touch');
+      img.addEventListener('pointerdown', (e) => { e.stopPropagation(); onTap(tap); });
+    }
     // What goes by behind the picture is seen through the holes cut in it.
     const layer = piece.behind ? behindEl : piecesEl;
     let parent = layer;
@@ -244,7 +250,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       }
     }
     parent.append(img);
-    node = { img, box: piece.clip ? parent : null };
+    node = { img, box: piece.clip ? parent : null, touch: piece.touch ?? null };
     moving.set(piece.id, node);
     return node;
   }
@@ -562,7 +568,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
 
   // Where to look: the person or the place in the picture twinkles for a moment (core/seek.js).
   function hint(id) {
-    const el = nodes.get(id)?.img ?? taps.find(({ tap }) => tap.id === id)?.button;
+    const el = nodes.get(id)?.img ?? taps.find(({ tap }) => tap.id === id)?.button ?? [...moving.values()].find((node) => node.touch === id)?.img;
     if (!el) return;
     el.classList.remove('hint');
     el.getBoundingClientRect();

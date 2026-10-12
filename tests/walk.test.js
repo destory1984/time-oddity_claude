@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { piecesAt } from '../game/src/core/pieces.js';
 import { squareById } from '../game/src/core/squares.js';
 import { WALKS } from '../game/src/core/walks.js';
+import { TOKYO_TALE } from './fixtures/tokyo-tale.js';
 import { centuryLabel, centuryOf, centuryStart, centuryStops } from '../game/src/core/century.js';
 import { FACES, HEAR, REACH, VERBS, canSpeak, hop, talkedOut, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, linesOf, stepOf, touch } from '../game/src/core/walk.js';
 import { createDial, drag, grab, release, stepDial } from '../game/src/core/dial.js';
@@ -347,7 +348,7 @@ describe('what is heard in passing and what is shown', () => {
   });
   // The user, 2026.10.8: "지구본으로 나갔다가, 다시 들어오니까 이벤트 다 한게 없어".
   it('comes again to a place with its errands still done and those she spoke to still met', () => {
-    const tokyo = WALKS.shinkansen;
+    const tokyo = TOKYO_TALE;
     const walk = createWalk(tokyo, { done: ['took', 'gave', 'speed'], met: ['bento'] });
     expect(allDone(walk)).toBe(true);
     expect(walk.said.bento).toBeGreaterThan(0);
@@ -401,7 +402,7 @@ describe('where she appears', () => {
 // The user, 2026.10.8: "한 번 가본 곳은 저거만 누르면, 다음 장면으로 이동시켜줘".
 describe('going at a touch to a scene she has been in', () => {
   it('does not go where she has not been, and goes at once where she has', () => {
-    const place = WALKS.shinkansen;
+    const place = TOKYO_TALE;
     const walk = createWalk(place, { been: ['front'] });
     expect(hop(walk, 1)).toBe(false);
     expect(walk.scene).toBe(0);

@@ -21,7 +21,7 @@ import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
 import { REACH, offerLabel as offerText, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf, touch } from './core/walk.js';
-import { HINT_MS, hintOf, leftIn, soughtIn } from './core/seek.js';
+import { HINT_MS, hintOf, isSought, leftIn, soughtIn } from './core/seek.js';
 import { advance, calledOf, carrying, endingOf, goalOf, holdsOf, isTold, present, stepOf as taleStep, thankerOf } from './core/tale.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
@@ -451,8 +451,9 @@ function tapScene(tap) {
   walkSora = { text: tap.sora[said % tap.sora.length], from: walkT, until: walkT + SORA_FOR_MS };
   if (tap.pose && !walk.wearing && said === 0) walkFace = { poses: [[tap.pose, walkT + 2200]] };
   // What grandmother knows of it, on her slip.
-  if (tap.memo) walkMemo = { text: tap.memo, until: walkT + TRY_MEMO_MS };
-  if (touch(walk, tap.id).length > 0) errandsDone();
+  const found = touch(walk, tap.id).length > 0;
+  if (tap.memo) walkMemo = { text: tap.memo, real: found || isSought(walk.place, tap.id) };
+  if (found) errandsDone();
 }
 // A thing of the scene looked at closely: a photograph of it as it is today and what is
 // known of it, on a sheet of its own. The game waits while it is open.
@@ -947,7 +948,7 @@ function frameWalk(dt) {
   // what was just done first, then her answer. What she wrote of the one being heard, or of the
   // spot stood at, is put on the slip as it comes up, once.
   const here = (shower?.show ? shower.memo : null) ?? spotAt(walk)?.memo ?? null;
-  if (here && here !== memoHere) walkMemo = { text: here };
+  if (here && here !== memoHere) walkMemo = { text: here, real: Boolean(shower?.show) && isSought(walk.place, shower.id) };
   memoHere = here;
   const memo = walkMemo?.text ?? (replyDue ? replyOf() : null);
   if (memo !== null && !memoUp) { walkWay = 0; keyWay = 0; walkWant = null; walk.goal = null; }

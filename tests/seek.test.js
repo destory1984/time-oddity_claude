@@ -70,7 +70,7 @@ describe('the places where things are found', () => {
           expect(errand.at.every((at) => here.includes(at)), errand.id).toBe(true);
           expect(errand.text.length, errand.id).toBeLessThanOrEqual(16);
         }
-        for (const tap of scene.taps ?? []) expect(tap.box.every((v) => v >= 0 && v <= 1) && tap.box[0] < tap.box[2] && tap.box[1] < tap.box[3], tap.id).toBe(true);
+        for (const tap of (scene.taps ?? []).filter((one) => one.box)) expect(tap.box.every((v) => v >= 0 && v <= 1) && tap.box[0] < tap.box[2] && tap.box[1] < tap.box[3], tap.id).toBe(true);
       }
       expect(walk.errands.every((errand) => walk.scenes.some((scene) => scene.id === errand.scene)), id).toBe(true);
     }

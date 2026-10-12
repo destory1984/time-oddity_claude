@@ -10,7 +10,7 @@
 export const HINT_MS = 45000;
 // What she says at the end of a scene with something still to find in it: that it is why
 // she cannot go on (the user, of "아직 다 못 찾았어.": "넘어갈 수 없다는 뉘앙스가 없잖아").
-export const SEEK_BAR = '셋을 다 찾아야 건너갈 수 있어.';
+export const SEEK_BAR = '셋을 다 찾아야 넘어갈 수 있어.';
 // A thing further from her than this is likely out of sight: she is told which way to go.
 const FAR = 0.14;
 
@@ -30,7 +30,9 @@ export function hintOf(place, scene, done, x) {
     for (const id of errand.at) {
       const person = scene.people.find((p) => p.id === id);
       const tap = (scene.taps ?? []).find((tp) => tp.id === id);
-      const at = person ? person.x : tap ? (tap.box[0] + tap.box[2]) / 2 : null;
+      // (A tap with no box is a piece of the scene: one that stands still says where, `x`;
+      // one that goes by cannot be pointed at.)
+      const at = person ? person.x : tap?.box ? (tap.box[0] + tap.box[2]) / 2 : tap?.x ?? null;
       if (at === null) continue;
       if (!best || Math.abs(at - x) < Math.abs(best.x - x)) best = { errand, id, x: at };
     }

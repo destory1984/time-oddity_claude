@@ -1,12 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { WALKS } from '../game/src/core/walks.js';
+import { TOKYO_TALE } from './fixtures/tokyo-tale.js';
 import { advance, calledOf, callOf, emptyTale, endingOf, goalOf, holdsOf, isTold, partOf, present, sanitizeTale, stepOf, textOf, carrying, thankerOf } from '../game/src/core/tale.js';
 import { barred, canHop, createWalk, linesOf, peopleOf, speak, stepWalk, talkedOut } from '../game/src/core/walk.js';
 import { emptyProgress, markTale, sanitizeProgress, taleOf } from '../game/src/core/progress.js';
 
-// Tokyo, told as a thing carried (the user, 2026.10.9: "아가씨한테 꽃과 말을 전달받고,
+// Tokyo as it was told until 2026.10.12 (tests/fixtures/tokyo-tale.js), a thing carried (the user, 2026.10.9: "아가씨한테 꽃과 말을 전달받고,
 // 기관사한테 가서 전달하고, 이러는게 미션 아님?").
-const place = WALKS.shinkansen;
+const place = TOKYO_TALE;
 const tale = place.tale;
 const upTo = (n) => { let t = emptyTale(); for (let i = 0; i < n; i += 1) t = advance(tale, t, 'E1'); return t; };
 const told = (ending) => { let t = emptyTale(); for (let i = 0; i < tale.steps.length; i += 1) t = advance(tale, t, ending); return t; };

@@ -10,10 +10,12 @@
 //   another). speed is in scene widths a second, less than 0 to go left; flip: the strip
 //   is turned to face left; behind: it goes by behind the scene's picture, seen through
 //   what is cut out of it (the land outside a carriage's windows).
-//   { kind, id, src, from, to, foot, tall, wide, gap, speed, bob, flip, behind }
+//   { kind, id, src, from, to, foot, tall, wide, gap, speed, bob, flip, behind, touch }
+//   touch: the id of one of the scene's `taps`: the strip may be touched as it goes by (a train).
 // - climb: several small figures going along a path of straight stretches (a stair),
 //   one after another, round and round. { kind, id, srcs, path: [[x, y], ...], tall, seconds, step }
-// - spin: a wheel turning where it stands. { kind, id, src, x, y, tall, rpm }
+// - spin: a wheel turning where it stands. { kind, id, src, x, y, tall, rpm, touch }
+//   (With rpm 0 it is a thing that stands still, as a clock on a platform.)
 //
 // Along the scene x runs 0 → 1; y and `tall` are shares of the picture's height, y from
 // its top; `wide` is a strip's width in shares of the scene's width.
@@ -32,7 +34,7 @@ function drift(m, t) {
     if (left > m.to) continue;
     // The whole line steps together, a little: paper figures on one stick.
     const bob = m.bob * Math.abs(Math.sin((t * Math.PI) / 0.55 + i));
-    out.push({ id: `${m.id}-${i}`, src: m.src, x: left + m.wide / 2, y: m.foot - bob, tall: m.tall, turn: 0, alpha: 1, anchor: 'foot', flip: Boolean(m.flip), behind: Boolean(m.behind), clip: [m.from, m.to] });
+    out.push({ id: `${m.id}-${i}`, src: m.src, x: left + m.wide / 2, y: m.foot - bob, tall: m.tall, turn: 0, alpha: 1, anchor: 'foot', flip: Boolean(m.flip), behind: Boolean(m.behind), clip: [m.from, m.to], touch: m.touch ?? null });
   }
   return out;
 }
@@ -69,7 +71,7 @@ function climb(m, t) {
   });
 }
 
-const spin = (m, t) => [{ id: m.id, src: m.src, x: m.x, y: m.y, tall: m.tall, turn: wrap((t * m.rpm) / 60) * TAU, alpha: 1, anchor: 'centre', flip: false, behind: false, clip: null }];
+const spin = (m, t) => [{ id: m.id, src: m.src, x: m.x, y: m.y, tall: m.tall, turn: wrap((t * m.rpm) / 60) * TAU, alpha: 1, anchor: 'centre', flip: false, behind: false, clip: null, touch: m.touch ?? null }];
 
 const KINDS = { drift, climb, spin };
 
