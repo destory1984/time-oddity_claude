@@ -714,6 +714,8 @@ function talk(id = null) {
     if (said.person.sora && walk.place.talk === 'face') walk.remark = { id: said.person.id, text: said.person.sora };
     else if (said.person.sora) walkSora = { text: said.person.sora, from: walkT + 900, until: walkT + 900 + SORA_FOR_MS };
   }
+  // (Where things are found: what grandmother wrote of the one just found is on her slip.)
+  if (said.errands.length > 0 && walk.place.seek && said.person.memo && !said.person.show) walkMemo = { text: said.person.memo, until: walkT + TRY_MEMO_MS };
   if (said.errands.length > 0) errandsDone();
 }
 // Eating, wearing or using what whoever is near has (plan v5, section 4): she says what
