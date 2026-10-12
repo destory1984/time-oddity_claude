@@ -3,7 +3,8 @@
 // value has changed.
 import { t } from '../core/i18n.js';
 
-export function createHud(el) {
+// onMemoOk: the button on grandmother's slip was pressed (the slip then has one: state.memoOk).
+export function createHud(el, { onMemoOk = () => {} } = {}) {
   const $ = (id) => el.querySelector(`#${id}`);
   const parts = {
     name: $('name'), dateText: $('dateText'), placeText: $('placeText'), subText: $('subText'),
@@ -50,10 +51,21 @@ export function createHud(el) {
     // memoSky: the slip is what grandmother wrote of the sky, shown higher up while Sora looks up.
     if (changed('memoSky', Boolean(state.memoSky))) parts.memo.classList.toggle('sky', Boolean(state.memoSky));
     if (changed('memoOn', state.memo !== null)) parts.memo.classList.toggle('on', state.memo !== null);
-    if (state.memo !== null && changed('memo', state.memo)) {
+    if (state.memo !== null && changed('memo', `${state.memoOk ? 'ok:' : ''}${state.memoTag ?? ''}:${state.memo}`)) {
       // A slip already on the screen turns over to show its new line.
       const wasShown = parts.memo.textContent !== '';
       parts.memo.textContent = t(state.memo);
+      // A word over it in print, saying what kind of thing it is (that it is on record).
+      if (state.memoTag) { const tag = document.createElement('b'); tag.className = 'tag'; tag.textContent = t(state.memoTag); parts.memo.prepend(tag); }
+      // What grandmother wrote stays until it is put away by its button (the user, 2026.10.12:
+      // "꼭 읽어야하는 것들은 확인 버튼 눌러야 없어지는걸로", "할머니 얘기도 중요한거야").
+      if (state.memoOk) {
+        const ok = document.createElement('button');
+        ok.type = 'button'; ok.className = 'ok'; ok.textContent = t('확인');
+        ok.addEventListener('pointerdown', (e) => e.stopPropagation());
+        ok.addEventListener('click', (e) => { e.stopPropagation(); onMemoOk(); });
+        parts.memo.append(ok);
+      }
       if (wasShown) { parts.memo.classList.remove('flip'); parts.memo.getBoundingClientRect(); parts.memo.classList.add('flip'); }
     }
     if (changed('chips', Boolean(state.chips))) parts.chips.classList.toggle('on', Boolean(state.chips));

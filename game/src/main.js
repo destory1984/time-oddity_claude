@@ -84,7 +84,7 @@ const sound = createSound();
 const skyCanvas = createSkyCanvas($('sky'));
 const ground = createGround($('ground'));
 const dialView = createDialView($('dial'));
-const hud = createHud($('hud'));
+const hud = createHud($('hud'), { onMemoOk: () => memoOk() });
 const dial = createDial({ year: today.year, maxYear: today.year });
 
 // The notebook: what has been filled, kept on this device.
@@ -384,7 +384,8 @@ let walkWay = 0;            // the way a finger or a button holds her going: -1,
 let keyWay = 0;             // the same, by the keys
 let walkWant = null;        // the person she was sent to speak to
 let walkSora = null;        // { text, until }: what she says, while it shows
-let replyUntil = 0;         // grandmother's answer shows until then
+let replyDue = false;       // grandmother's answer is to be shown, until it is put away
+let memoHere = null;        // what she wrote of the one being heard or the spot stood at, as last seen: it goes on her slip once
 let walkArrive = null;      // she is to be set down in a shaft of light on the next frame: 'land' from above the Earth, 'hop' from the scene beside
 let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
 let seekIdleMs = 0;         // how long nothing has been found, where things are to be found (core/seek.js)
@@ -405,7 +406,7 @@ let walkHemMs = 0;          // how long she has walked in what she put on since 
 let walkHeld = null;        // { show, until }: what was shown her, kept up while she tries it
 let walkHopping = false;    // she is on her way to the scene beside this one in a ring of gold
 const HOP_MS = 420;
-let walkMemo = null;        // { text, until }: what grandmother wrote of what she has just tried
+let walkMemo = null;        // { text }: what grandmother wrote, on her slip until its button is pressed (`until` is no longer read)
 let walkStepMs = 0;         // how long she has walked since her last footfall
 let walkSteps = 0;
 const FOOTFALL_MS = 300;    // two frames of her walking (ui/walk.js STEP_MS)
@@ -429,6 +430,16 @@ const walkView = createWalkView({
   onSpot: (spot) => { if (!walk || panelOpen()) return; sound.wake(); walkWay = 0; walkWant = null; sendTo(walk, (spot.from + spot.to) / 2); },
 });
 // A place in the picture touched: she says the next of what she has to say of it.
+// Over what she wrote of one who is found: that it happened (the user, 2026.10.12, of the man on
+// stilts: "실제로 그랬다는 느낌이 안 들음.").
+const REAL_TAG = '그날 정말 있던 일';
+// The button on grandmother's slip: what is on it is put away, and what waits behind it comes up.
+function memoOk() {
+  if (!walk) return;
+  sound.wake(); sound.tick(true, false);
+  if (walkMemo) walkMemo = null;
+  else replyDue = false;
+}
 function tapScene(tap) {
   if (!walk || panelOpen()) return;
   sound.wake(); sound.tick(false, false);
@@ -530,7 +541,10 @@ function showErrands() {
 // What is asked of her is put in the box at the foot of the screen: a line, perhaps a note
 // under it, and two things to press. While it is up she stands still.
 let panel = null;                    // what the box holds now, or null: { ask, note, options, back }
-const panelOpen = () => panel !== null;
+// (While grandmother's slip is up with its button, likewise: nothing goes on until it is put
+// away. The user, 2026.10.12: "[확인] 버튼이 생겼다는건, 그걸 눌러야만 게임 진행이 되어야한다는 얘기겠지?")
+let memoUp = false;
+const panelOpen = () => panel !== null || memoUp;
 function openPanel(spec) {
   panel = spec;
   walkWay = 0; keyWay = 0; walkWant = null;
@@ -651,7 +665,7 @@ function choose(option) {
   walk.tried.push(`chose-${option.id}`);
   keep(markTried(progress, square.id, `chose-${option.id}`));
   walkSora = { text: option.sora, from: walkT + 200, until: walkT + 200 + SORA_FOR_MS };
-  setTimeout(() => { if (walk) { sound.bell(); replyUntil = walkT + 12000; walkNoteAt = walkT + NOTE_AFTER_MS; } }, 2600);
+  setTimeout(() => { if (walk) { sound.bell(); replyDue = true; walkNoteAt = walkT + NOTE_AFTER_MS; } }, 2600);
   if (walk.place.now) walkNowAt = walkT + 2600 + NOW_AFTER_MS;
 }
 // The slip lies open for as long as she is there (the user, 2026.10.9: "이건 그냥 게임 내내
@@ -680,7 +694,7 @@ function errandsDone() {
   walkFace = { poses: [['see-wow', walkT + 3200]] };
   // A story ends with her choice, and grandmother answers that; elsewhere she answers at once.
   if (walk.place.story?.choice && !chosenOf()) { setTimeout(() => { if (walk && allDone(walk) && !chosenOf()) showChoice(true); }, said ? 900 + SORA_FOR_MS - 2500 : 1500); return; }
-  setTimeout(() => { if (walk) { sound.bell(); replyUntil = walkT + 10000; walkNoteAt = walkT + NOTE_AFTER_MS; } }, 1200);
+  setTimeout(() => { if (walk) { sound.bell(); replyDue = true; walkNoteAt = walkT + NOTE_AFTER_MS; } }, 1200);
   // And the place as it is today (where the story ends in a choice, after that: choose()).
   if (walk.place.now) walkNowAt = walkT + NOW_AFTER_MS;
 }
@@ -715,7 +729,7 @@ function talk(id = null) {
     else if (said.person.sora) walkSora = { text: said.person.sora, from: walkT + 900, until: walkT + 900 + SORA_FOR_MS };
   }
   // (Where things are found: what grandmother wrote of the one just found is on her slip.)
-  if (said.errands.length > 0 && walk.place.seek && said.person.memo && !said.person.show) walkMemo = { text: said.person.memo, until: walkT + TRY_MEMO_MS };
+  if (said.errands.length > 0 && walk.place.seek && said.person.memo && !said.person.show) walkMemo = { text: said.person.memo, real: true };
   if (said.errands.length > 0) errandsDone();
 }
 // Eating, wearing or using what whoever is near has (plan v5, section 4): she says what
@@ -755,7 +769,7 @@ function tryNear(id = null) {
 function enterScene() {
   const scene = sceneOf(walk);
   walkView.showScene(walk.place, walk.scene);
-  walkFace = null; walkMemo = null; walkHeld = null;
+  walkFace = null; walkHeld = null;
   walkSora = scene.sora && !walk.told.includes(scene.id) ? { text: scene.sora, until: walkT + 900 + SORA_FOR_MS, from: walkT + 900 } : null;
   if (!walk.told.includes(scene.id)) walk.told.push(scene.id);
   if (!walk.been.includes(scene.id)) { walk.been.push(scene.id); keep(markBeen(progress, square.id, scene.id)); }
@@ -780,7 +794,7 @@ function showWalk(sq) {
   visit = null; site = null;
   walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id), done: errandsOf(progress, sq.id), met: metOf(progress, sq.id), tale: taleOf(progress, sq.id) });
   closePanel();
-  walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyUntil = 0; walkNoteAt = 0; walkNowAt = 0;
+  walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyDue = false; walkMemo = null; memoHere = null; memoUp = false; walkNoteAt = 0; walkNowAt = 0;
   // What she chose from the wardrobe above the Earth is on her as she comes down.
   const worn = OUTFITS.find((o) => o.outfit === loadOutfit());
   if (worn) { walk.wearing = worn.outfit; walk.trips = worn.trips; }
@@ -808,7 +822,7 @@ for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
     walkWant = null;
     // She goes as she leaves a place, in a ring of gold, and is set down in the next (the
     // user, 2026.10.8: "버튼을 눌러서, 다음/이전 장소로 이동할 떄에는 효과를 넣어줘. 금빛 고리 효과").
-    if (walkHopping) return;
+    if (walkHopping || memoUp) return;
     if (walk && canHop(walk, way)) {
       walkWay = 0; keyWay = 0; walkHopping = true;
       sound.wake(); sound.lift();
@@ -819,10 +833,11 @@ for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
   });
   for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) $(id).addEventListener(name, () => { walkWay = 0; });
 }
-$('tryButton').addEventListener('click', () => tryNear());
+$('tryButton').addEventListener('click', () => { if (!memoUp) tryNear(); });
 window.addEventListener('keydown', (e) => {
   if (mode !== 'walk' || e.ctrlKey || e.altKey || e.metaKey) return;
   // While something is asked of her the keys are the box's: Esc goes back, the rest is left to its buttons.
+  if (memoUp) { if (['Enter', 'Space', 'Escape'].includes(e.code) && !e.repeat) { e.preventDefault(); memoOk(); } return; }
   if (panelOpen()) { if (e.code === 'Escape') { e.preventDefault(); panel.back?.(); } return; }
   if (e.code === 'ArrowLeft' || e.code === 'KeyA') { keyWay = -1; walkWant = null; e.preventDefault(); }
   else if (e.code === 'ArrowRight' || e.code === 'KeyD') { keyWay = 1; walkWant = null; e.preventDefault(); }
@@ -894,10 +909,11 @@ function frameWalk(dt) {
       if (into < dt && !walk.told.includes('hem')) { walk.told.push('hem'); walkSora = { text: '어어, 밟았다!', from: walkT, until: walkT + SORA_FOR_MS }; }
     }
   }
-  if (walkMemo && walkT > walkMemo.until) walkMemo = null;
-  if (walkNowAt > 0 && walkT >= walkNowAt) { walkNowAt = 0; if (walk.place.now) openLook(walk.place.now); }
+  // (The photograph and the note wait until what grandmother wrote has been put away.)
+  const reading = Boolean(walkMemo) || replyDue;
+  if (walkNowAt > 0 && walkT >= walkNowAt && !reading) { walkNowAt = 0; if (walk.place.now) openLook(walk.place.now); }
   // A note that is due (the first leaf's) falls once grandmother's answer has been read.
-  if (walkNoteAt > 0 && walkT >= walkNoteAt) {
+  if (walkNoteAt > 0 && walkT >= walkNoteAt && !reading) {
     walkNoteAt = 0;
     const note = dueNote((id) => isComplete(progress, id), notesRead(progress), PLACES);
     if (note && (!note.square || note.square === square.id)) { walkWay = 0; keyWay = 0; sound.page(); readNote(note); }
@@ -925,10 +941,18 @@ function frameWalk(dt) {
   // shown is on the slip too: the panel of the other look has a slip of its own (ui/walk.js).
   // Until 2026.10.8 it was not shown there at all (the user, of the marble: "AUF 뜻을 나중에 알려줘?").
   const shower = walk.heard && walk.place.talk !== 'face' ? sceneOf(walk).people.find((p) => p.id === walk.heard.id) : null;
-  const memo = (walkT < replyUntil ? replyOf() : null) ?? walkMemo?.text ?? (shower?.show ? shower.memo : null) ?? spotAt(walk)?.memo ?? null;
+  // It stays on the slip until its button is pressed, one after another: what she wrote of
+  // what was just done first, then her answer. What she wrote of the one being heard, or of the
+  // spot stood at, is put on the slip as it comes up, once.
+  const here = (shower?.show ? shower.memo : null) ?? spotAt(walk)?.memo ?? null;
+  if (here && here !== memoHere) walkMemo = { text: here };
+  memoHere = here;
+  const memo = walkMemo?.text ?? (replyDue ? replyOf() : null);
+  if (memo !== null && !memoUp) { walkWay = 0; keyWay = 0; walkWant = null; walk.goal = null; }
+  memoUp = memo !== null;
   hud.set({
     name: squareTitle(square), dateText: square.dateLabel, placeText: sceneOf(walk).name, subText: '',
-    dots: { day: false, sky: false, remains: false }, memo, memoPlain: false, memoSky: false,
+    dots: { day: false, sky: false, remains: false }, memo, memoOk: true, memoTag: walkMemo?.real ? REAL_TAG : null, memoPlain: false, memoSky: false,
     // No story card here: what it told, the people now tell (the user, 2026.10.8: "이야기 카드 빼").
     chips: false, bubble: null, sora: soraPose({ now: performance.now(), hushAt }),
     todayLabel: '오늘로', showToday: false, showLeave: true, hint: null, soraFade: 1, glowSky: 0, glowToday: 0,
