@@ -278,7 +278,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     foreEl.replaceChildren();
     fores = (scene.fore ?? []).map((fore) => {
       const img = document.createElement('img');
-      img.src = `./walks/${place.dir}/${fore.src}.png`;
+      img.src = `./walks/${place.dir}/${fore.src}.${fore.webp ? 'webp' : 'png'}`;
       img.alt = ''; img.draggable = false;
       foreEl.append(img);
       return { fore, img };
@@ -420,12 +420,13 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       eye.zoom += ((speaker ? CAM_NEAR : 1) - eye.zoom) * (1 - Math.exp(-dt / CAM_NEAR_MS));
       scroll.style.transformOrigin = `${eye.focus.toFixed(1)}px ${(FOOT * h).toFixed(1)}px`;
       scroll.style.transform = `translateX(${-camera.toFixed(1)}px) scale(${eye.zoom.toFixed(4)})`;
-      for (const { fore, img } of fores) img.style.transform = `translateX(${((fore.x * wide - camera - w / 2) * FORE_SPEED + w / 2).toFixed(1)}px) translateX(-50%)`;
     } else {
       eye.zoom = 1;
       scroll.style.transformOrigin = '';
       scroll.style.transform = `translateX(${-camera.toFixed(1)}px)`;
     }
+    // (What is nearest the eye goes by faster in every place that has it, deep or not.)
+    for (const { fore, img } of fores) img.style.transform = `translateX(${((fore.x * wide - camera - w / 2) * FORE_SPEED + w / 2).toFixed(1)}px) translateX(-50%)`;
     if (scene.far) farEl.style.transform = `translateX(${(wide > w ? camera * (1 - (size.far - w) / (wide - w)) : 0).toFixed(1)}px)`;
     // The word on a thing that may be looked at closely stays in sight as the scene slides:
     // the thing itself is often wider than the screen.

@@ -6,7 +6,7 @@ import { squareById } from '../game/src/core/squares.js';
 import { WALKS } from '../game/src/core/walks.js';
 import { TOKYO_TALE } from './fixtures/tokyo-tale.js';
 import { centuryLabel, centuryOf, centuryStart, centuryStops } from '../game/src/core/century.js';
-import { FACES, HEAR, REACH, VERBS, canSpeak, hop, talkedOut, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, linesOf, stepOf, touch } from '../game/src/core/walk.js';
+import { FACES, barred, canHop, HEAR, REACH, VERBS, canSpeak, hop, talkedOut, worth, allDone, createWalk, errandsLeft, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, linesOf, stepOf, touch } from '../game/src/core/walk.js';
 import { createDial, drag, grab, release, stepDial } from '../game/src/core/dial.js';
 
 describe('centuries', () => {
@@ -478,10 +478,11 @@ describe('a place that is deep', () => {
     expect(Object.entries(WALKS).filter(([, place]) => place.deep).map(([id]) => id).sort()).toEqual(['guest1054', 'khufu']);
     for (const place of Object.values(WALKS)) {
       for (const scene of place.scenes) {
-        if (!place.deep) { expect(scene.fore, scene.id).toBe(undefined); continue; }
+        // (Since 2026.10.13 other places have them too, where the pictures are there: core/layers.js.)
+        if (!place.deep && !scene.fore) continue;
         expect(scene.fore.length, scene.id).toBeGreaterThanOrEqual(4);
         for (const fore of scene.fore) {
-          expect(existsSync(`game/public/walks/${place.dir}/${fore.src}.png`), fore.src).toBe(true);
+          expect(existsSync(`game/public/walks/${place.dir}/${fore.src}.${fore.webp ? 'webp' : 'png'}`), fore.src).toBe(true);
           expect(['top', 'foot']).toContain(fore.at);
           expect(fore.x).toBeGreaterThanOrEqual(0);
           expect(fore.x).toBeLessThanOrEqual(1);
@@ -493,14 +494,27 @@ describe('a place that is deep', () => {
   });
 
   // The user, 2026.10.12, of the harbour of Giza: "뒷배경도 레이어를 2개로 두면", "여기를 그렇게 해보자"; and then: "기자 나머지 두 장면도 그렇게 해보자", "개봉도 그렇게 해보자".
-  it('has the far of a scene as a picture of its own only at Kaifeng and Giza, narrower than the street', () => {
+  it('has the far of a scene as a picture of its own wherever its pictures are there, narrower than the street', () => {
     const far = Object.values(WALKS).flatMap((place) => place.scenes.filter((scene) => scene.far).map((scene) => ({ place, scene })));
-    expect(far.map(({ place, scene }) => `${place.dir}/${scene.id}`)).toEqual(['kaifeng1054/bridge', 'kaifeng1054/street', 'kaifeng1054/yard', 'giza2560/harbour', 'giza2560/village', 'giza2560/ramp']);
+    for (const key of ['kaifeng1054/bridge', 'kaifeng1054/street', 'kaifeng1054/yard', 'giza2560/harbour', 'giza2560/village', 'giza2560/ramp']) expect(far.map(({ place, scene }) => `${place.dir}/${scene.id}`)).toContain(key);
     for (const { place, scene } of far) {
       for (const cut of [`${scene.id}-near`, scene.far.src ?? `${scene.id}-far`]) expect(existsSync(`game/public/walks/${place.dir}/${cut}.webp`), cut).toBe(true);
       // (Narrower, it goes by more slowly; no wider than a phone held upright, it would not go by at all.)
       expect(scene.far.aspect).toBeLessThan(scene.aspect ?? 1.5);
       expect(scene.far.aspect * scene.zoom).toBeGreaterThan(0.6);
     }
+  });
+});
+
+// The user, 2026.10.13, of the foreman at Giza still barring the way with every errand done:
+// "완료했으면, 그냥 지나가게 해주고, 장면 간 점프도 가능하게 해줘".
+describe('a place where all is done', () => {
+  it('bars no way, and lets her hop to a scene she has not walked into', () => {
+    const place = WALKS.khufu;
+    const walk = createWalk(place, { scene: 1, done: place.errands.map((errand) => errand.id) });
+    expect(allDone(walk)).toBe(true);
+    expect(barred(walk)).toBe(null);
+    expect(walk.been).not.toContain('ramp');
+    expect(canHop(walk, 1)).toBe(true);
   });
 });

@@ -63,6 +63,8 @@ const SHEET = { market: 0.6, plaza: 0.66, inside: 0.62 };   // how large a sheet
 // 다시 게임 화면으로"; asked whether at one place or all: "열세 자리 다"). The photographs are
 // from Wikimedia Commons, each downloaded with the user's leave; README lists them. What the
 // lines say was written from memory except Constantinople's, which was looked up.
+import { LAYERS } from './layers.js';
+
 export const WALKS = {
   colosseum: {
     first: '오늘은 콜로세움이 처음 문을 여는 날이란다. 심부름 셋을 해 보렴.',
@@ -2257,3 +2259,13 @@ export const WALKS = {
     reply: '그 벽의 여신들은 머리 모양이 서른일곱 가지란다. 지금도 그대로 춤추고 있지.',
   },
 };
+
+// The far and the fore of every other scene are told from the pictures that are there (the
+// user, 2026.10.13: "배경은 이렇게 다 바꾸자", "아. 전경도"): core/layers.js.
+for (const place of Object.values(WALKS)) {
+  for (const scene of place.scenes) {
+    const layers = LAYERS[`${place.dir}/${scene.id}`];
+    if (layers?.far) scene.far ??= layers.far;
+    if (layers?.fore) scene.fore ??= layers.fore;
+  }
+}

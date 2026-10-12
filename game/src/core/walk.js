@@ -218,10 +218,12 @@ export const triesOf = (place) => place.scenes.flatMap((scene) => scene.people.f
 // Goes at once into the scene beside this one (way: -1 or 1) if she has been in it before:
 // a street once walked need not be walked again to get past it (the user, 2026.10.8: "한
 // 번 가본 곳은 저거만 누르면, 다음 장면으로 이동시켜줘"). Returns whether she went.
-export const canHop = (walk, way) => { const next = walk.place.scenes[walk.scene + way]; return Boolean(next) && walk.been.includes(next.id) && !(way > 0 && barred(walk)); };
+// (Once all is done here nothing bars the way, and she may hop to a scene she has not walked
+// into: the user, 2026.10.13, "완료했으면, 그냥 지나가게 해주고, 장면 간 점프도 가능하게 해줘".)
+export const canHop = (walk, way) => { const next = walk.place.scenes[walk.scene + way]; return Boolean(next) && (walk.been.includes(next.id) || allDone(walk)) && !(way > 0 && barred(walk)); };
 // What she says when the way on from the scene she is in is shut by the tale, or null.
 // (Where things are to be found, by what is still to be found in it.)
-export const barred = (walk) => (walk.tale ? barOf(walk.place.tale, walk.tale, sceneOf(walk).id) : leftIn(walk.place, walk.done, sceneOf(walk).id) > 0 ? SEEK_BAR : null);
+export const barred = (walk) => (allDone(walk) ? null : walk.tale ? barOf(walk.place.tale, walk.tale, sceneOf(walk).id) : leftIn(walk.place, walk.done, sceneOf(walk).id) > 0 ? SEEK_BAR : null);
 export function hop(walk, way) {
   if (!canHop(walk, way)) return false;
   walk.scene += way;
