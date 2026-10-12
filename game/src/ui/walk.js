@@ -19,6 +19,25 @@ const IDLE_MS = 260;
 const IDLE_ROOM = 256 / 244;  // her standing picture is this much taller than she is in it
 const IDLE_FOOT = 6 / 244;    // and her shoes end this far above its foot
 
+// Where a place is `deep` (the user, 2026.10.12: "Until Then 움직임 따라하자", and of where:
+// "개봉만 그렇게 해보자") the eye is a camera of its own: it comes after her a little late and
+// looks a little ahead of where she walks, draws nearer while she is in talk, and on coming
+// into a scene looks along it before it settles on her. What stands nearest the eye (a
+// scene's `fore`) goes by faster than the street, and those she passes lean her way.
+const CAM_LAG_MS = 300;       // the eye is this far behind her
+const CAM_ENTER_MS = 1500;    // on coming into a scene it settles this slowly, for this long
+const CAM_ENTER_LAG_MS = 520;
+const CAM_AHEAD = 0.16;       // it looks this share of the screen ahead of her as she walks
+const CAM_LOOK = 0.4;         // and this share along the scene as she comes into it
+const CAM_NEAR = 1.06;        // in talk the scene is this much larger
+const CAM_NEAR_MS = 260;
+const FORE_SPEED = 1.35;      // what is nearest the eye goes by this much faster than the street
+const LEAN_WITHIN = 0.12;     // those this near her lean her way,
+const LEAN_DEG = 2.2;         // by this much
+// And she walks a little nearer the eye than those who stand in the street (the user,
+// 2026.10.12: "소라는 약간만 아래로 (화면 느낌으로는 앞으로)"): this far lower on a 812 px high screen.
+const SORA_FRONT = 20;
+
 const $ = (id) => document.getElementById(id);
 
 // onPerson(id): a person was touched. onWay(way): a finger went down on the left (-1) or
@@ -40,6 +59,12 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
   const card = $('walkShow');
   const say = $('walkSay');
   const soraSay = $('walkSoraSay');
+  // What stands nearest the eye lies over the scene and is not moved with it.
+  const foreEl = document.createElement('div');
+  foreEl.id = 'walkFore';
+  scroll.after(foreEl);
+  let fores = [];             // { fore, img }
+  const eye = { at: null, zoom: 1, focus: 0, last: 0, since: 0 };
   let place = null;
   let scene = null;
   let nodes = new Map();      // person id → { img, person, left, top, wide, tall }
@@ -113,6 +138,10 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       button.style.top = `${(FOOT - scene.ground * scene.zoom + y0 * scene.zoom) * h}px`;
       button.style.height = `${(y1 - y0) * scene.zoom * h}px`;
     }
+    for (const { fore, img } of fores) {
+      img.style.height = `${fore.tall * h}px`;
+      if (fore.at === 'top') img.style.top = '0'; else img.style.bottom = '0';
+    }
     // People stand along the street, those further right a little nearer the eye in turn,
     // so that two who stand close do not hide each other's feet.
     let lane = 0;
@@ -179,7 +208,9 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       // One drawn looking away from what they speak of is turned to face it.
       if (person.flip) img.style.scale = '-1 1';
       // Each sways in a time of its own, so that the street does not move as one.
-      img.style.animationDelay = `${-((person.x * 7919) % 1600)}ms`;
+      // (Where the place is deep, each at a pace of its own as well: style.css.)
+      if (place.deep) { img.style.setProperty('--off', `${-((person.x * 7919) % 1600)}ms`); img.style.setProperty('--beat', `${1400 + ((person.x * 5417) % 700)}ms`); }
+      else img.style.animationDelay = `${-((person.x * 7919) % 1600)}ms`;
       img.addEventListener('pointerdown', (e) => { e.stopPropagation(); onPerson(person.id); });
       peopleEl.append(img);
       // Over the head of one who has a thing to show, that thing small in a ring of gold,
@@ -214,6 +245,16 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     for (const spot of scene.spots) if (spot.pose) has(spot.pose);
     root.dataset.look = place.look ?? 'pixel';
     root.dataset.night = place.night ? '1' : '';
+    root.dataset.deep = place.deep ? '1' : '';
+    foreEl.replaceChildren();
+    fores = (scene.fore ?? []).map((fore) => {
+      const img = document.createElement('img');
+      img.src = `./walks/${place.dir}/${fore.src}.png`;
+      img.alt = ''; img.draggable = false;
+      foreEl.append(img);
+      return { fore, img };
+    });
+    eye.at = null; eye.zoom = 1; eye.since = performance.now();
     piecesEl.replaceChildren();
     behindEl.replaceChildren();
     moving = new Map();
@@ -312,7 +353,10 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     }
     el.classList.add('on');
     const real = Number(el.dataset.wide);
-    const left = Math.max(camera + 8, Math.min(camera + size.w - real - 8, x - real / 2));
+    // (Drawn nearer, a little less of the scene is in sight on either side.)
+    const from = eye.focus - (eye.focus - camera) / eye.zoom;
+    const to = eye.focus + (camera + size.w - eye.focus) / eye.zoom;
+    const left = Math.max(from + 8, Math.min(to - real - 8, x - real / 2));
     el.style.left = `${left}px`;
     el.style.bottom = `${size.h - top + 6}px`;
   }
@@ -328,8 +372,29 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     movePieces(t);
     const { w, h, wide, unit } = size;
     const x = walk.x * wide;
-    camera = Math.max(0, Math.min(wide - w, x - w / 2));
-    scroll.style.transform = `translateX(${-camera.toFixed(1)}px)`;
+    const within = (at) => Math.max(0, Math.min(wide - w, at));
+    camera = within(x - w / 2);
+    if (place.deep) {
+      const dt = Math.min(100, Math.max(0, now - eye.last));
+      eye.last = now;
+      const aim = within(x - w / 2 + (walk.moving ? walk.facing * CAM_AHEAD * w : 0));
+      // (Come into a scene, it begins looking along it, away from the end she came in by.)
+      if (eye.at === null) eye.at = within(aim + (walk.x < 0.5 ? 1 : -1) * CAM_LOOK * w);
+      const lag = now - eye.since < CAM_ENTER_MS ? CAM_ENTER_LAG_MS : CAM_LAG_MS;
+      eye.at += (aim - eye.at) * (1 - Math.exp(-dt / lag));
+      camera = eye.at;
+      // In talk it draws nearer, about the ground between her and whoever speaks.
+      const speaker = walk.heard ? nodes.get(walk.heard.of ?? walk.heard.id) : null;
+      if (speaker && eye.zoom < 1.002) eye.focus = (x + speaker.left + speaker.wide / 2) / 2;
+      eye.zoom += ((speaker ? CAM_NEAR : 1) - eye.zoom) * (1 - Math.exp(-dt / CAM_NEAR_MS));
+      scroll.style.transformOrigin = `${eye.focus.toFixed(1)}px ${(FOOT * h).toFixed(1)}px`;
+      scroll.style.transform = `translateX(${-camera.toFixed(1)}px) scale(${eye.zoom.toFixed(4)})`;
+      for (const { fore, img } of fores) img.style.transform = `translateX(${((fore.x * wide - camera - w / 2) * FORE_SPEED + w / 2).toFixed(1)}px) translateX(-50%)`;
+    } else {
+      eye.zoom = 1;
+      scroll.style.transformOrigin = '';
+      scroll.style.transform = `translateX(${-camera.toFixed(1)}px)`;
+    }
     // The word on a thing that may be looked at closely stays in sight as the scene slides:
     // the thing itself is often wider than the screen.
     for (const { button } of looks) {
@@ -361,7 +426,8 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     // (Standing in a tall hat her picture is higher than 256 px: it is shown that much higher.)
     const shownTall = walking ? (soraTall * (sora.naturalHeight || 320)) / 320 : soraTall * IDLE_ROOM * (tasting || !worn ? 1 : (sora.naturalHeight || 256) / 256);
     const soraWide = sora.naturalHeight > 0 ? (shownTall * sora.naturalWidth) / sora.naturalHeight : shownTall * 0.75;
-    const top = FOOT * h + 8 * unit - shownTall + (walking ? 0 : soraTall * IDLE_FOOT);
+    const front = place.deep ? SORA_FRONT * unit : 0;
+    const top = FOOT * h + 8 * unit + front - shownTall + (walking ? 0 : soraTall * IDLE_FOOT);
     sora.style.height = `${shownTall}px`;
     sora.style.width = `${soraWide}px`;
     sora.style.left = `${x - soraWide / 2}px`;
@@ -373,13 +439,13 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       if (badge.dataset.src !== mood) { badge.dataset.src = mood; badge.src = `./sora/${mood}.png`; }
       badge.style.height = `${side}px`;
       badge.style.left = `${x + soraTall * 0.26}px`;
-      badge.style.top = `${FOOT * h - soraTall * 0.92}px`;
+      badge.style.top = `${FOOT * h + front - soraTall * 0.92}px`;
       badge.classList.add('on');
     } else { badge.classList.remove('on'); badge.dataset.src = ''; }
 
     // The thing of the tale: on its way from one to another in an arc, else beside her hand.
     const handOf = (who) => {
-      if (who === 'sora') return { x: x + soraTall * 0.27, y: FOOT * h - soraTall * 0.42 };
+      if (who === 'sora') return { x: x + soraTall * 0.27, y: FOOT * h + front - soraTall * 0.42 };
       const node = nodes.get(who);
       return node ? { x: node.left + node.wide / 2, y: node.top + node.tall * 0.5 } : null;
     };
@@ -415,6 +481,12 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       node.img.classList.toggle('worth', fresh);
       node.img.classList.toggle('near', Boolean(node.mark) && Math.abs(node.person.x - walk.x) <= 0.05);
       node.img.classList.toggle('speaking', walk.heard?.id === node.person.id);
+      // (Where the place is deep, those she is near lean her way.)
+      if (place.deep) {
+        const far = node.person.x - walk.x;
+        const lean = Math.abs(far) <= LEAN_WITHIN && Math.abs(far) > 0.012 ? `${(-Math.sign(far) * LEAN_DEG).toFixed(1)}deg` : '0deg';
+        if (node.lean !== lean) { node.lean = lean; node.img.style.rotate = lean; }
+      }
       // The mark gives way to what they are saying, and is gone for good once she has seen the thing.
       // The mark stays while they speak (the user: "근처에 가면, 머리 위에 있던 아이콘이 없어짐"):
       // what they say goes above it.
@@ -457,7 +529,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     let lift = 0;
     for (const node of nodes.values()) if (node.over && Math.abs(node.person.x * wide - x) < 90 * unit) lift = Math.max(lift, FOOT * h - soraTall - (node.top - node.over));
     // (In a tall hat her words go above the hat.)
-    if (soraLine) bubble(soraSay, soraLine, x, Math.min(FOOT * h - soraTall, top + 14 * unit) - Math.max(0, lift));
+    if (soraLine) bubble(soraSay, soraLine, x, Math.min(FOOT * h + front - soraTall, top + 14 * unit) - Math.max(0, lift));
     else soraSay.classList.remove('on');
     // Where her words and theirs would lie one over the other, hers go above theirs (the
     // user, 2026.10.8: "소라의 대화와 NPC의 대화가 겹침"); and a thing held up to be seen

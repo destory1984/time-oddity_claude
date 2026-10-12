@@ -83,6 +83,15 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 @keyframes markBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 #walkPeople .person.speaking{animation:hop .35s ease-out 1}
 @keyframes sway{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.972)}}
+/* A place that is `deep` (ui/walk.js): each sways at a pace of its own, leans toward her as she comes near, and nods on while speaking. */
+#walk[data-deep="1"] #walkPeople .person{transition:rotate .45s ease-out;animation:sway var(--beat,1.6s) ease-in-out var(--off,0s) infinite}
+#walk[data-deep="1"] #walkPeople .person.speaking{animation:hop .35s ease-out 1,chat .9s ease-in-out .35s infinite}
+#walk[data-deep="1"] #walkPeople .person.tried{animation:hop .35s ease-out 1}
+#walk[data-deep="1"] #walkPeople .person.hint{animation:seekGlow 1.05s ease-in-out 3}
+@keyframes chat{0%,100%{transform:translateY(0) scaleY(1)}30%{transform:translateY(-2px) scaleY(1.012)}62%{transform:translateY(0) scaleY(.984)}}
+/* What stands nearest the eye: over the scene, a little out of focus, and never in the way of a touch. */
+#walkFore{position:absolute;inset:0;pointer-events:none}
+#walkFore img{position:absolute;left:0;width:auto;max-width:none;filter:blur(1.6px);opacity:.94;will-change:transform;-webkit-user-drag:none}
 @keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}
 #walkSora{image-rendering:pixelated;z-index:20;pointer-events:none}
 /* Arriving, she comes down as a line of light and fills out. */

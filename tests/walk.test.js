@@ -471,3 +471,24 @@ describe('a place with a story', () => {
     }
   });
 });
+
+// The user, 2026.10.12: "Until Then 움직임 따라하자", and of where: "개봉만 그렇게 해보자".
+describe('a place that is deep', () => {
+  it('is Kaifeng alone, and has things nearer the eye than the street in each of its scenes', () => {
+    expect(Object.entries(WALKS).filter(([, place]) => place.deep).map(([id]) => id)).toEqual(['guest1054']);
+    for (const place of Object.values(WALKS)) {
+      for (const scene of place.scenes) {
+        if (!place.deep) { expect(scene.fore, scene.id).toBe(undefined); continue; }
+        expect(scene.fore.length, scene.id).toBeGreaterThanOrEqual(4);
+        for (const fore of scene.fore) {
+          expect(existsSync(`game/public/walks/${place.dir}/${fore.src}.png`), fore.src).toBe(true);
+          expect(['top', 'foot']).toContain(fore.at);
+          expect(fore.x).toBeGreaterThanOrEqual(0);
+          expect(fore.x).toBeLessThanOrEqual(1);
+          // (Hung from above it ends over the heads of those in the street; stood on its foot it is no higher than their knees.)
+          expect(fore.tall, fore.src).toBeLessThanOrEqual(fore.at === 'top' ? 0.42 : 0.22);
+        }
+      }
+    }
+  });
+});

@@ -908,6 +908,9 @@ export const WALKS = {
   guest1054: {
     first: '낮에도 지지 않는 새 별이 뜬 날이란다. 별 보는 생도의 쪽지를 전해 주렴.',
     dir: 'kaifeng1054', look: 'paper', pale: true,
+    // The eye is a camera here, and things stand nearer it than the street (ui/walk.js; the
+    // user, 2026.10.12: "Until Then 움직임 따라하자", "개봉만 그렇게 해보자").
+    deep: true,
     drawn: '송나라 사람들이 먹과 붓으로 그리던 그림처럼 그렸단다.',
     now: {
       photo: 'photo-now.webp', name: '그 새 별의 지금 모습', when: '황소자리 게 성운 · 허블 우주 망원경이 찍음',
@@ -921,6 +924,13 @@ export const WALKS = {
     scenes: [
       {
         id: 'bridge', name: '중국 개봉 변하 무지개 다리 어귀', short: '무지개 다리', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
+        // What stands nearest the eye (ui/walk.js): x along the scene, hung from the top of the
+        // screen or stood on its foot, tall as a share of the screen's height.
+        fore: [
+          { src: 'fore-willow', x: 0.1, at: 'top', tall: 0.4 }, { src: 'fore-reeds', x: 0.27, at: 'foot', tall: 0.2 },
+          { src: 'fore-lantern', x: 0.45, at: 'top', tall: 0.34 }, { src: 'fore-post', x: 0.62, at: 'foot', tall: 0.17 },
+          { src: 'fore-willow', x: 0.8, at: 'top', tall: 0.36 }, { src: 'fore-reeds', x: 0.94, at: 'foot', tall: 0.18 },
+        ],
         taps: [{ id: 'star', name: '새 별', box: [0.884, 0.165, 0.932, 0.241], pose: 'see-wow', sora: ['저 별 좀 봐! 날이 밝는데도 안 져.', '어제까지는 없던 별이래.'] }],
         sora: '아직 새벽이야. 저 별 좀 봐!',
         people: [
@@ -938,6 +948,11 @@ export const WALKS = {
       },
       {
         id: 'street', name: '중국 개봉 성 안 큰 거리', short: '큰 거리', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'street', floor: 'dirt',
+        fore: [
+          { src: 'fore-banner', x: 0.1, at: 'top', tall: 0.4 }, { src: 'fore-cart', x: 0.26, at: 'foot', tall: 0.2 },
+          { src: 'fore-eave', x: 0.44, at: 'top', tall: 0.32 }, { src: 'fore-baskets', x: 0.6, at: 'foot', tall: 0.19 },
+          { src: 'fore-banner', x: 0.78, at: 'top', tall: 0.36 }, { src: 'fore-cart', x: 0.95, at: 'foot', tall: 0.18 },
+        ],
         taps: [{ id: 'star', name: '새 별', box: [0.864, 0.050, 0.912, 0.126], pose: 'see-wow', sora: ['해가 떴는데 아직도 보여!', '손으로 해를 가리니까 더 잘 보여.'] }],
         sora: '해가 떴어. 그런데 저 별은 그대로야!',
         people: [
@@ -954,6 +969,11 @@ export const WALKS = {
       },
       {
         id: 'yard', name: '중국 개봉 천문대 마당', short: '천문대', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        fore: [
+          { src: 'fore-pine', x: 0.1, at: 'top', tall: 0.36 }, { src: 'fore-rail', x: 0.27, at: 'foot', tall: 0.17 },
+          { src: 'fore-bell', x: 0.45, at: 'top', tall: 0.32 }, { src: 'fore-burner', x: 0.61, at: 'foot', tall: 0.2 },
+          { src: 'fore-pine', x: 0.8, at: 'top', tall: 0.34 }, { src: 'fore-rail', x: 0.95, at: 'foot', tall: 0.16 },
+        ],
         taps: [{ id: 'star', name: '새 별', box: [0.829, 0.073, 0.877, 0.149], pose: 'see-wow', sora: ['낮에도 지지 않는 별이야.', '저 별을 오늘 처음 적는 거구나.'] }],
         sora: '고리가 겹겹인 저건 뭐지?',
         people: [
