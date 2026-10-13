@@ -510,7 +510,9 @@ function showErrands() {
     if (!allDone(walk)) row(goalOf(told, walk.tale));
     // (While a riddle is asked: how many clues to it she has.)
     if (riddleOf(told, walk.tale)) row(t`모은 단서 · ${cluesOf(told, walk.tale).length}개`, 'has');
-    if (holdsOf(told, walk.tale)) row(holdsOf(told, walk.tale), 'has');
+    // (Not when all is done: the test button that finishes every square leaves the tale at its
+    // first step, and the slip then said the giver still held the thing: the user, 2026.10.13.)
+    if (!allDone(walk) && holdsOf(told, walk.tale)) row(holdsOf(told, walk.tale), 'has');
     nowRow(list);
     return;
   }
