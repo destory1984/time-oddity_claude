@@ -49,19 +49,23 @@ describe('muting', () => {
     sound.warp();
     expect(nodes - quiet).toBeGreaterThan(50);
     // A place's own sounds come now and then, and footfalls as she walks.
-    for (const kind of ['market', 'court', 'street', 'arena', 'works', 'palace', 'bridge', 'station', 'train', 'night', 'tv']) {
+    for (const kind of ['court', 'street', 'arena', 'works', 'palace', 'bridge', 'station', 'train', 'night', 'tv']) {
       const had = nodes;
       sound.air(kind);
       sound.airStep(60000);
       expect(nodes, kind).toBeGreaterThan(had);
     }
-    sound.air('nowhere');
+    // A market has no sound of its own (no birds, coins or knocking on wood), nor has a place unknown.
+    for (const kind of ['market', 'nowhere']) {
+      sound.air(kind);
+      const had = nodes;
+      sound.airStep(60000);
+      expect(nodes, kind).toBe(had);
+    }
     const still = nodes;
-    sound.airStep(60000);
-    expect(nodes).toBe(still);
     sound.step('stone', 0);
     expect(nodes).toBeGreaterThan(still);
-    sound.air('market');
+    sound.air('court');
     const before = nodes;
     sound.setMuted(true);
     sound.stamp(); sound.bell(); sound.page(); sound.warp(); sound.step('wood', 1); sound.airStep(60000);

@@ -99,13 +99,6 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     tone(at, { seconds, from: freq, gain, attack: 0.005 });
     tone(at, { seconds: seconds * 0.4, from: freq * 2.76, gain: gain * 0.25, attack: 0.005 });
   };
-  const knock = (at, freq, gain) => tone(at, { seconds: 0.07, from: freq, to: freq * 0.6, gain });
-  const birds = (at) => {
-    const base = 2600 + Math.random() * 900;
-    for (let i = 0; i < 2 + Math.floor(Math.random() * 3); i += 1) tone(at + i * 0.13, { seconds: 0.09, from: base, to: base * 1.25, gain: 0.03, attack: 0.01 });
-  };
-  const coins = (at) => { ping(at, 3100, 0.12, 0.035); ping(at + 0.07, 3700, 0.14, 0.03); };
-  const wood = (at) => { knock(at, 300, 0.09); knock(at + 0.16, 260, 0.07); };
   const farBell = (at) => ping(at, 660, 1.6, 0.045);
   const bikeBell = (at) => { for (let i = 0; i < 2; i += 1) for (let k = 0; k < 4; k += 1) ping(at + i * 0.32 + k * 0.045, 2300, 0.08, 0.03); };
   const windBell = (at) => { const notes = [1568, 1760, 2093, 2349]; ping(at, notes[Math.floor(Math.random() * notes.length)], 1.1, 0.035); };
@@ -115,7 +108,7 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
   // Agra's building site, "공사장 소리가.. 심장 소리 같아", "그닥 듣기 좋은 소리는 아니네". Now a
   // hall of machines breathes steam with a light tick (`chuff`), and a mason's yard has a
   // chisel struck on stone, high and short, now one blow and now three (`chisel`), a saw
-  // drawn through stone to and fro (`stoneSaw`) and a wooden mallet (`wood`), none of them in time.
+  // drawn through stone to and fro (`stoneSaw`), neither of them in time.
   const chuff = (at) => { hiss(at, { seconds: 0.2, from: 900, to: 500, gain: 0.045 }); ping(at + 0.3, 1500, 0.05, 0.012); };
   const chisel = (at) => {
     const blows = 1 + Math.floor(Math.random() * 3);
@@ -135,14 +128,17 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
   // The beep that ended each sentence from the Moon, as the television had it.
   const moonBeep = (at) => tone(at, { seconds: 0.25, from: 2525, gain: 0.02, attack: 0.01 });
   const AIRS = {
-    // (Birds are heard half as often as they were: the user, 2026.10.13, "새소리 인터벌 길게".)
-    market: [[2600, 6000, coins], [3500, 8000, wood], [9000, 20000, birds]],
-    court: [[8000, 18000, birds], [9000, 18000, farBell]],
-    street: [[9000, 20000, birds], [7000, 15000, bikeBell], [12000, 22000, farBell]],
+    // No birds, no coins and no knocking on wood anywhere (the user, 2026.10.13, hearing birds
+    // at Padua's market on a January evening: "스토리나 배경에 특별히 새가 나오지않는한, 새소리,
+    // 나무,동전는 없애줘", "다른 곳도 마찬가지"). A market has no sound of its own now. If a scene
+    // comes to have birds in its tale or its picture, they are given to that scene alone.
+    market: [],
+    court: [[9000, 18000, farBell]],
+    street: [[7000, 15000, bikeBell], [12000, 22000, farBell]],
     arena: [[5000, 9000, drum], [9000, 16000, horn]],
     works: [[640, 640, chuff]],
-    masons: [[500, 2000, chisel], [7000, 14000, stoneSaw], [5000, 11000, wood], [14000, 28000, birds]],
-    palace: [[2500, 6000, windBell], [12000, 24000, birds]],
+    masons: [[500, 2000, chisel], [7000, 14000, stoneSaw]],
+    palace: [[2500, 6000, windBell]],
     // (A street with no birds in it, San Francisco's: the user, 2026.10.12: "샌프란 새소리 없애줘".
     // The gulls over its bridge went with them, and the guard's whistle on Tokyo's platform:
     // "도쿄도 호각소리 없애줘".)
