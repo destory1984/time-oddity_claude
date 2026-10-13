@@ -135,6 +135,19 @@ function devStart() {
 // place's `begin`. And on 2026.10.14, once Göbekli Tepe was there, the oldest of all: "시작점을
 // 테페로".)
 const START = devStart() ?? 'gobekli';
+// On the dev server a page that is opened again (by a test button, by the dev server itself
+// when a file is changed, by the maker) comes back to the place she stood in, not to where the
+// game begins: the user, 2026.10.14, sent to a place and finding herself at the start again and
+// again: "올림피아 다시", "페르세폴리스로 가자". Kept for the tab only; "모든 기록 초기화" and
+// leaving for the Earth put it away. The public game always begins where it begins.
+const DEV_AT = 'timeoddity.devAt';
+function devStand(id) {
+  try { if (id) sessionStorage.setItem(DEV_AT, id); else sessionStorage.removeItem(DEV_AT); } catch { /* no storage */ }
+}
+function devStood() {
+  if (!isLocalHost(location.hostname)) return null;
+  try { const id = sessionStorage.getItem(DEV_AT); return id && WALKS[id] ? id : null; } catch { return null; }
+}
 const beenNowhere = () => LIVE.every((sq) => beenOf(progress, sq.id).length === 0);
 // The dial stands at Rome's century every time the game is opened, not only the first
 // (the user, again: "시작지점을 로마로 고쳐. 이건 지금").
@@ -859,7 +872,7 @@ function showWalk(sq) {
   // Come again with all of them done, the slip has its stamp on it from the first.
   $('errands').classList.toggle('alldone', allDone(walk));
   showChoice(false);
-  if (isLocalHost(location.hostname)) window.walkDebug = walk;
+  if (isLocalHost(location.hostname)) { window.walkDebug = walk; devStand(sq.id); }
   globe.setActive(false);
   // (Where the sky of the picture is pale paper, the date over it is written dark.)
   stage.className = walk.place.pale ? 'on-ground on-walk pale' : 'on-ground on-walk';
@@ -1181,6 +1194,7 @@ async function land(sq) {
 $('landButton').addEventListener('click', () => { const id = globe.under(); if (id) land(squareById(id)); });
 
 async function leave() {
+  if (isLocalHost(location.hostname)) devStand(null);
   if (mode !== 'ground' && mode !== 'site' && mode !== 'walk') return;
   const fromSite = mode === 'site' || mode === 'walk';
   const fromWalk = mode === 'walk';
@@ -1499,6 +1513,7 @@ function startOver() {
   saveProgress(emptyProgress());
   saveCards({});
   saveOutfit(null);
+  devStand(null);
   for (const page of [window, window.top]) {
     try { page.history.replaceState(null, '', page.location.pathname + page.location.search); } catch { /* another site's page */ }
   }
@@ -1578,7 +1593,7 @@ still();
 // opening and she is set down when it is closed; a link straight to a square or a still
 // has neither.
 if (!location.hash) {
-  if (loadOpened()) setDown(squareById(START));
+  if (loadOpened()) setDown(squareById(devStood() ?? START));
   else pager.open({ pages: OPENING, lastLabel: '수첩 펴기', skip: true, onDone: () => { saveOpened(); setDown(squareById(START)); } });
 }
 requestAnimationFrame(frame);
