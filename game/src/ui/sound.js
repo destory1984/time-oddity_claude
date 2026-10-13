@@ -141,6 +141,10 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     arena: [[5000, 9000, drum], [9000, 16000, horn]],
     works: [[640, 640, chuff]],
     masons: [[500, 2000, chisel], [7000, 14000, stoneSaw]],
+    // Where stone was cut with no saw: the chisel alone. (And where there was no bell to be
+    // heard from afar, or no metal on the stone at all, a scene is `hush`: nothing. The user,
+    // 2026.10.13, of the far bell at Giza and Babylon and the saw at Stonehenge: "빼고 조용히 둬".)
+    chisels: [[500, 2000, chisel]],
     palace: [[2500, 6000, windBell]],
     // (A street with no birds in it, San Francisco's: the user, 2026.10.12: "샌프란 새소리 없애줘".
     // The gulls over its bridge went with them, and the guard's whistle on Tokyo's platform:

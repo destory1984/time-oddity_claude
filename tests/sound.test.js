@@ -49,7 +49,7 @@ describe('muting', () => {
     sound.warp();
     expect(nodes - quiet).toBeGreaterThan(50);
     // A place's own sounds come now and then, and footfalls as she walks.
-    for (const kind of ['court', 'street', 'arena', 'works', 'palace', 'bridge', 'station', 'train', 'night', 'tv']) {
+    for (const kind of ['court', 'street', 'masons', 'chisels', 'arena', 'works', 'palace', 'bridge', 'station', 'train', 'night', 'tv']) {
       const had = nodes;
       sound.air(kind);
       sound.airStep(60000);
