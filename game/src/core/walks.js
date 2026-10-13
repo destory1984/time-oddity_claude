@@ -3958,7 +3958,7 @@ export const WALKS = {
         '2007년에 유네스코 세계유산이 되었습니다.',
         '해마다 천만 명 넘게 찾아옵니다.',
       ],
-      credit: '사진: Dietmar Rabich, 위키미디어 공용, CC BY-SA 4.0',
+      credit: '사진: Diliff, 위키미디어 공용, CC BY-SA 3.0',
     },
     scenes: [
       {
