@@ -519,6 +519,62 @@
 "q": 78,
 "sha": "124ae33471d77f420b00a907db86e97afea3fdc9"
 },
+"gobekli9500/camp-far.webp": {
+"q": 78,
+"sha": "2522f91846f8d38b76c03cbf8f75a21393a518c8"
+},
+"gobekli9500/camp-near.webp": {
+"q": 70,
+"sha": "128223c9388540011343c2259533114faa01a171"
+},
+"gobekli9500/camp.webp": {
+"q": 78,
+"sha": "832fccda5bfac419ea0cac27780e231f28d0b3f9"
+},
+"gobekli9500/quarry-far.webp": {
+"q": 78,
+"sha": "b6bd1d7b59ae3da791f5ea5f151c4ad08ce00514"
+},
+"gobekli9500/quarry-near.webp": {
+"q": 70,
+"sha": "0e70ad08d8b6c0818e0478f1465f0d84b62f68da"
+},
+"gobekli9500/quarry.webp": {
+"q": 78,
+"sha": "fcb83cdb64d63e5efb9aa69e7b3988bcf6b2339f"
+},
+"gobekli9500/ring-far.webp": {
+"q": 78,
+"sha": "8880278e833e770c42fa98ac8f1fd0d89c3e85be"
+},
+"gobekli9500/ring-near.webp": {
+"q": 70,
+"sha": "54611b9a7137aed22411c3d1faa7f0ca18a93157"
+},
+"gobekli9500/ring.webp": {
+"q": 78,
+"sha": "c5a459162bd93955f546e5be7d00ac04c41cbb31"
+},
+"gobekli9500/show-arms.webp": {
+"q": 78,
+"sha": "5e80dfcbbaac661dab6b8d346337a778b7071800"
+},
+"gobekli9500/show-flint.webp": {
+"q": 78,
+"sha": "b49474a57082b8be750cdac90be6d3b9c66bb731"
+},
+"gobekli9500/show-fox.webp": {
+"q": 78,
+"sha": "e081b382af6046869b7414f53c68c6926546def3"
+},
+"gobekli9500/show-porridge.webp": {
+"q": 78,
+"sha": "711aa1f5642f2c175b032017504576fb89f9d637"
+},
+"gobekli9500/show-quern.webp": {
+"q": 78,
+"sha": "c6b6c98748644ee2aad4e5aeb4a0463689418902"
+},
 "hanyang/gate-far.webp": {
 "q": 78,
 "sha": "36662140d130cdeff0465937d0f211848b7fee88"
@@ -779,6 +835,62 @@
 "q": 78,
 "sha": "ae81033fb00f455a136c9adb8203d55a5ab2f387"
 },
+"olympia776/altar-far.webp": {
+"q": 78,
+"sha": "9cc02b2f95e09eeb633367432f809799f9a4e948"
+},
+"olympia776/altar-near.webp": {
+"q": 70,
+"sha": "54f112c68feaedb2cdce40456c91319d76c5e044"
+},
+"olympia776/altar.webp": {
+"q": 78,
+"sha": "f530fc738bb56db1589319f4473aac16a7983ac7"
+},
+"olympia776/camp-far.webp": {
+"q": 78,
+"sha": "a07e1fe95a56f7ad920ef114ce4e6c7bff8d439a"
+},
+"olympia776/camp-near.webp": {
+"q": 70,
+"sha": "bd1727926696c55dfda31836e6e81e7d171e55ce"
+},
+"olympia776/camp.webp": {
+"q": 78,
+"sha": "d2062c9fc1c03470763c3057ae229878294610ec"
+},
+"olympia776/show-altar.webp": {
+"q": 78,
+"sha": "dbb99c4d4ffbc52398ceeaed788d9cae27896208"
+},
+"olympia776/show-bread.webp": {
+"q": 78,
+"sha": "cdca789416c8c10dd75b9b41b77fb245f9cc6dd1"
+},
+"olympia776/show-crown.webp": {
+"q": 78,
+"sha": "aee29383cbdf411ac1e17ed3dab06e52916353bc"
+},
+"olympia776/show-track.webp": {
+"q": 78,
+"sha": "96717434025860607d340d5adc7a55a426d0d6a8"
+},
+"olympia776/show-tripod.webp": {
+"q": 78,
+"sha": "2c0d388cf34d0d2fc7673c579f5c93b0ec9694c8"
+},
+"olympia776/track-far.webp": {
+"q": 78,
+"sha": "32a4a07f46809534bf7235e8def558618f8c6f35"
+},
+"olympia776/track-near.webp": {
+"q": 70,
+"sha": "a30f84a575422f69cf34f0fe240467eda268e2cb"
+},
+"olympia776/track.webp": {
+"q": 78,
+"sha": "f4f34d435f0b1f1c6d2d00c4cb42680908c7be9c"
+},
 "padua1610/garden-far.webp": {
 "q": 78,
 "sha": "3802582fb43cbf21572ab2e657eb746ce18879d6"
@@ -902,6 +1014,118 @@
 "paris/tower.webp": {
 "q": 78,
 "sha": "aeb21bd2f014ba0a4de3304be4a55a5da18efe30"
+},
+"persepolis518/camp-far.webp": {
+"q": 78,
+"sha": "2688d325d9d3bd846489a80a19d125f688745905"
+},
+"persepolis518/camp-near.webp": {
+"q": 70,
+"sha": "a54c3c8ccef942b5adf8831c20065f201c7331ad"
+},
+"persepolis518/camp.webp": {
+"q": 78,
+"sha": "15a0653dc73de0bba3757799aef2db92afdb19e5"
+},
+"persepolis518/show-bread.webp": {
+"q": 78,
+"sha": "495ef04a95bf707321611194762c992c589882f8"
+},
+"persepolis518/show-capital.webp": {
+"q": 78,
+"sha": "05544308027565e05e0b236ab24f2330ae3ed510"
+},
+"persepolis518/show-column.webp": {
+"q": 78,
+"sha": "3e419ad8afb5a914a63fc24a4cb4f78ec364b6ff"
+},
+"persepolis518/show-lines.webp": {
+"q": 78,
+"sha": "c67e8bdde6738cc24eb32d90cff33e3d03688040"
+},
+"persepolis518/show-tablet.webp": {
+"q": 78,
+"sha": "0d9fa90bb5f4beaac826654dbbee62782c579a02"
+},
+"persepolis518/stairs-far.webp": {
+"q": 78,
+"sha": "ed72c8ef61775c70c2af62f33fed9e27de7e5015"
+},
+"persepolis518/stairs-near.webp": {
+"q": 70,
+"sha": "10eb4f13961cf052e7ad95ed1c838bc17a5d9fe6"
+},
+"persepolis518/stairs.webp": {
+"q": 78,
+"sha": "fbb2a12ef0b361f604be49c52b90fca1a583c5f2"
+},
+"persepolis518/yard-far.webp": {
+"q": 78,
+"sha": "137038e5446d4a45da13726f1286da3743eba28c"
+},
+"persepolis518/yard-near.webp": {
+"q": 70,
+"sha": "a8f502addc4ef0f7a4bf4bf7e40415172724abe5"
+},
+"persepolis518/yard.webp": {
+"q": 78,
+"sha": "80ecc19544ce09f024ebc7065df06d67f09e679b"
+},
+"pharos280/causeway-far.webp": {
+"q": 78,
+"sha": "cf6a9f7fbc7ecf7e497e461f73bc8d7eb527424b"
+},
+"pharos280/causeway-near.webp": {
+"q": 70,
+"sha": "c95cdfcf19cf6696c40f99068249e842285d659b"
+},
+"pharos280/causeway.webp": {
+"q": 78,
+"sha": "a4a7d37a355f641aee41e6fd02858f20b8516d6e"
+},
+"pharos280/harbor-far.webp": {
+"q": 78,
+"sha": "c2af86cdeb8094e35761deb98e2e31f87d07f6e2"
+},
+"pharos280/harbor-near.webp": {
+"q": 70,
+"sha": "ff46e6a125719095c8e3e677bd1c6b82aa2d976c"
+},
+"pharos280/harbor.webp": {
+"q": 78,
+"sha": "6bf6c5a4db405e6ff18fab7438632530c111a33b"
+},
+"pharos280/library-far.webp": {
+"q": 78,
+"sha": "9d6cc42acae0e78d693fc44cda3c1130ad359221"
+},
+"pharos280/library-near.webp": {
+"q": 70,
+"sha": "abdb79bcc9fe190e3e298b325dcc83faa01952b0"
+},
+"pharos280/library.webp": {
+"q": 78,
+"sha": "a4235f6875716ce5b472423e93226792aeafb473"
+},
+"pharos280/show-copy.webp": {
+"q": 78,
+"sha": "6bd1c25a68d2e8e4a1b582cd813ad4784535f76f"
+},
+"pharos280/show-far.webp": {
+"q": 78,
+"sha": "8238215f1f3ecc510700838eb6648eff5ad00375"
+},
+"pharos280/show-meal.webp": {
+"q": 78,
+"sha": "95c51fc82b0794c049b3f17c18b99fd330aa2a44"
+},
+"pharos280/show-papyrus.webp": {
+"q": 78,
+"sha": "3de09dd7af40ae5fdbed48cd447ce7993cf130b7"
+},
+"pharos280/show-pharos.webp": {
+"q": 78,
+"sha": "d432be5dfb58eb64803b659e11d336112bb699eb"
 },
 "rome/inside.webp": {
 "q": 78,

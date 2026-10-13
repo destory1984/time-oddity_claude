@@ -30,7 +30,9 @@ describe('the first leaf', () => {
     expect([SQUARES[0].lat, SQUARES[0].lon]).toEqual([35.18, 129.08]);
     expect(SQUARES[0].no).toBe(0);
     expect(squareTitle(SQUARES[0])).toBe('이웃집 마당');
-    expect(squareTitle(SQUARES[1])).toBe('대피라미드');
+    // (Göbekli Tepe, the oldest of the places, is no. 0.5: it was built after the pyramid was no. 1.)
+    expect(squareTitle(SQUARES[1])).toBe('괴베클리 테페');
+    expect(squareTitle(SQUARES[2])).toBe('대피라미드');
   });
   it('has a line for Sora when she looks up at the moon', () => {
     expect(SQUARES[0].soraSky).toBe('저 달에 지금 사람이 있는 거야?');

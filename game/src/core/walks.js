@@ -4069,6 +4069,565 @@ export const WALKS = {
     ],
     reply: '열네 해를 기다린 집이란다. 뱃고동 소리 들었니?',
   },
+  // Göbekli Tepe about 9500 BC, a summer evening. Drawn as the wall paintings of Çatalhöyük,
+  // a village of that land some two thousand years later: red ochre and black on rough
+  // milk-white plaster (the user's choice of five tries: the second). The pictures are in
+  // gobekli9500; the try is the third scene ('ring': a hut, grinding stones, a fire, flints,
+  // a pillar lying by logs and a rope, and the round wall with the pillars in it, seen from
+  // before the wall, with the sun going down). The storyboard has "the huts below the hill
+  // -> the place where stone is split and the way the pillar is hauled -> within the round
+  // wall"; the third is named "before the round wall" here, for so the picture shows it.
+  // Pale: the sky of the pictures is milk-white plaster.
+  // Looked up on 2026.10.14 (docs/신기한-사실.md) and found so: built between 9600 and 8200 BC
+  // by people who hunted and gathered, before pottery ("만 천오백 해쯤 전"); more than a hundred
+  // T-shaped pillars, 1.5 to 5 m tall, standing round within round walls, the two in the
+  // middle the tallest (more than 5 m in one ring: "어른 키의 세 배"); arms and hands on the
+  // middle pillars, which are taken to stand for people; birds, snakes, foxes, boars and
+  // wild cattle the beasts most often carved; people are now held to have lived there; what
+  // the great rings were for is not agreed.
+  // From memory: grinding stones for the seeds of wild grasses, in great number; cisterns
+  // cut into the rock for rain, and no spring on the hill; no iron, no wheel, no pots, no
+  // fields, no herds; wild pistachios and almonds; vessels cut of stone; the pillars cut
+  // out of the rock of the hill itself with tools of stone; flint blades struck off with
+  // antler; baskets of plant stalks; the crane and the scorpion among the beasts; that the
+  // pillars are joined by walls of piled stones; that stone was carved with stone.
+  // Not known, and a guess here: that the pillars were moved on logs with ropes and levers
+  // (the try has logs and a rope); that porridge was made of the ground seeds; the dress
+  // (nothing of it is left: hides, and the slip of the dress says it is a guess).
+  // Made up: the errand of the basket of porridge, the keeper of the way who lets no one
+  // cross while the pillar is hauled, the child who says to go round by the place where
+  // stone is split, the carver and his new fox, every other person. Nobody has a name.
+  // Kept out: what the place was for (temple, calendar, stars), "the oldest temple".
+  gobekli: {
+    first: '아주 먼 옛날, 큰 돌기둥을 세우던 날이란다. 죽을 전해 주렴.',
+    // Who lived here, for a player who has not heard of them. The first sentence was looked
+    // up; the second is from memory.
+    intro: { title: '돌기둥을 세운 사람들', text: '만 천오백 해쯤 전, 사냥하고 열매를 모으며 살던 사람들이란다. 밭도 흙 그릇도 쇠도 없었지.' },
+    dir: 'gobekli9500', look: 'paper', pale: true,
+    drawn: '그 땅의 옛 마을 벽 그림처럼, 흰 회벽에 붉은 흙으로 그렸단다.',
+    scenes: [
+      {
+        id: 'camp', name: '터키 괴베클리 테페 언덕 아래 움막 터', short: '움막 터', zoom: 1.124, ground: 0.725, scale: 0.658, air: 'market', floor: 'dirt',
+        sora: '집을 가죽으로 덮었어!',
+        people: [
+          { id: 'nutkid', pass: '하나 줍고, 또 하나 줍고.', name: '열매 줍는 아이', x: 0.18, w: 96, h: 241, lines: ['저 나무에서 떨어진 열매야.', '껍질을 까면 고소한 알이 나와.'] },
+          { id: 'cook', pass: '죽이 걸쭉하게 잘 됐네.', show: 'porridge', name: '죽 쑤는 아주머니', x: 0.29, w: 115, h: 311, lines: ['들풀 씨앗을 갈아서 쑨 죽이란다.', '피스타치오도 넣었어. 먹어 보련?'],
+            try: { id: 'eat-porridge', verb: 'eat', name: '들풀 씨앗 죽과 피스타치오', face: 'yum', sora: '고소해! 알이 오독오독 씹혀.' } },
+          { id: 'seeder', pass: '오늘은 이삭을 많이 모았지.', show: 'quern', pose: 'see-aha', sora: '돌로 갈아서 가루를 내!', memo: '밭이 없던 때라 들에 절로 자란 풀의 씨앗을 모았단다. 넓적한 돌에 갈아 가루를 냈지.', name: '씨앗 모으는 아주머니', x: 0.4, w: 114, h: 301, lines: ['우리는 밭을 일구지 않는단다.', '들에 절로 자란 풀에서 씨앗을 모으지.'] },
+          { id: 'grinder', pass: '누가 좀 전해 주면 좋으련만.', name: '갈돌 가는 할머니', x: 0.51, w: 107, h: 299, lines: ['씨앗을 돌에 대고 문질러 간단다.', '한참을 갈아야 죽 한 그릇이 되지.'] },
+          { id: 'tanner', pass: '한 땀, 또 한 땀.', name: '가죽옷 짓는 아주머니', x: 0.62, w: 115, h: 302, lines: ['뼈로 만든 바늘로 가죽을 꿰맨단다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-gobekli', verb: 'wear', name: '괴베클리 테페의 옷', outfit: 'gobekli', sora: '가죽이 보들보들해!', memo: '그때 옷은 하나도 남지 않았단다. 짐승 가죽으로 지어 입었으리라 짐작할 뿐이지.' } },
+          { id: 'weaver', pass: '촘촘히 엮어야 안 새지.', name: '바구니 엮는 할아버지', x: 0.73, w: 116, h: 312, lines: ['흙으로 빚은 그릇이 아직 없단다.', '그래서 풀 줄기로 바구니를 엮지.'] },
+          { id: 'hunter', pass: '오늘은 멀리까지 다녀왔지.', name: '사냥 다녀온 아저씨', x: 0.85, w: 130, h: 320, lines: ['우리는 기르는 짐승이 없단다.', '들에서 사냥하고 열매를 모아 살지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'quarry', name: '터키 괴베클리 테페 돌 떼는 자리와 돌 끄는 길', short: '돌 끄는 길', zoom: 1.137, ground: 0.715, scale: 0.665, air: 'hush', floor: 'dirt',
+        sora: '큰 돌기둥이 누워 있어!',
+        people: [
+          { id: 'quarrier', pass: '쿵, 쿵. 조금만 더.', name: '돌 떠내는 아저씨', x: 0.18, w: 115, h: 272, lines: ['이 언덕의 바위에서 기둥을 떠낸단다.', '쇠가 없으니 돌로 돌을 두드리지.'] },
+          { id: 'knapper', pass: '딱, 딱. 살살 쳐야지.', show: 'flint', pose: 'see-aha', sora: '돌에서 칼날이 나와!', memo: '쇠가 없던 때라 부싯돌을 떼어 칼날로 썼단다. 톡 치면 얇고 날카로운 조각이 떨어지지.', name: '돌날 떼는 아주머니', x: 0.29, w: 115, h: 251, lines: ['부싯돌을 톡 치면 얇게 떨어진단다.', '그 조각이 우리의 칼이지.'] },
+          { id: 'flintkid', pass: '나도 한 장 뗐다!', name: '부싯돌 떼는 아이', x: 0.4, w: 96, h: 190, lines: ['돌날 떼는 걸 배우는 중이야.', '아직은 자꾸 부서져.'] },
+          { id: 'puller', pass: '영차, 영차!', name: '밧줄 끄는 일꾼', x: 0.51, w: 105, h: 272, lines: ['바퀴가 없어서 밧줄로 끈단다.', '여럿이 한꺼번에 당겨야 움직이지.'] },
+          { id: 'waterer', pass: '물 마시고 하세요!', name: '물 나르는 아가씨', x: 0.62, w: 78, h: 240, lines: ['언덕 위에는 샘이 없단다.', '바위에 판 웅덩이에 빗물을 모으지.'] },
+          { id: 'lever', pass: '밑을 받쳐라, 받쳐!', name: '지렛대 든 아저씨', x: 0.73, w: 100, h: 320, lines: ['긴 장대로 기둥을 조금씩 들썩인단다.', '그 밑에 통나무를 밀어 넣지.'] },
+          { id: 'wayguard', pass: '기둥이 지나간다, 비켜라.', name: '길 지키는 이', x: 0.85, w: 111, h: 273, lines: ['기둥을 끌 때는 길이 위험하단다.', '그래서 내가 여기서 지키지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'ring', name: '터키 괴베클리 테페 둥근 돌담 앞', short: '둥근 돌담 앞', zoom: 1.156, ground: 0.700, scale: 0.677, air: 'hush', floor: 'dirt',
+        sora: '돌기둥이 둥글게 서 있어!',
+        people: [
+          { id: 'waller', pass: '이 돌은 여기가 맞겠군.', name: '돌담 쌓는 아저씨', x: 0.18, w: 138, h: 320, lines: ['기둥과 기둥 사이를 돌담으로 잇는단다.', '둥글게 빙 둘러서 쌓지.'] },
+          { id: 'elder', pass: '볼 때마다 사람 같구먼.', show: 'arms', pose: 'see-aha', sora: '기둥에 팔이랑 손이 있어!', memo: '가운데 큰 기둥에는 팔과 손이 새겨져 있단다. 그래서 사람을 나타낸 것으로 보지.', name: '기둥 살피는 할아버지', x: 0.29, w: 174, h: 308, lines: ['가운데 큰 기둥의 옆을 잘 보렴.', '긴 팔과 손가락이 새겨져 있단다.'] },
+          { id: 'tallkid', pass: '우아, 목 아파.', name: '키 재는 아이', x: 0.4, w: 114, h: 256, lines: ['가운데 기둥이 얼마나 큰지 재 봤어.', '어른 키의 세 배나 돼!'] },
+          { id: 'rubber', pass: '쓱쓱, 반반하게.', name: '돌 가는 아주머니', x: 0.51, w: 130, h: 302, lines: ['거친 돌로 기둥의 면을 문지른단다.', '반반해야 짐승을 새기기 좋지.'] },
+          { id: 'carver', pass: '배가 고픈데, 죽은 언제 오려나.', show: 'fox', pose: 'see-wow', sora: '여우가 뛰어나올 것 같아!', memo: '기둥에는 여우와 뱀과 새가 많이 새겨져 있단다. 왜 새겼는지는 아직 아무도 모르지.', name: '돌 새기는 이', x: 0.62, w: 147, h: 316, lines: ['나는 돌기둥에 짐승을 새긴단다.', '뾰족한 돌로 조금씩 쪼아 내지.'] },
+          { id: 'firewife', pass: '해 지기 전에 불을 피워야지.', name: '불 피우는 아주머니', x: 0.73, w: 133, h: 278, lines: ['해가 지면 언덕은 금세 어두워진단다.', '그래서 미리 불을 피워 두지.'] },
+          { id: 'counter', pass: '여우, 뱀, 멧돼지, 두루미…', name: '짐승 세는 아이', x: 0.85, w: 115, h: 228, lines: ['기둥에 있는 짐승을 세는 중이야.', '전갈도 있어. 찾아볼래?'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The basket of porridge" (core/tale.js; the storyboard of docs/신기한-사실.md): the old
+    // woman who grinds seeds by the huts has a basket of porridge for the carver of the
+    // pillars; the keeper of the way lets no one cross while the great pillar is hauled;
+    // the child who strikes flints says to go round by the place where stone is split; she
+    // hands it to the carver, choosing what to say; and before the round wall she sees the
+    // two great pillars in the middle and the fox he has just carved.
+    tale: {
+      thing: true,
+      ask: '돌기둥에는 무엇이 새겨져 있을까?',
+      gate: { scene: 'quarry', open: 3, sora: '길 지키는 이가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'grinder', goal: '움막 터의 갈돌 가는 할머니에게 가 보렴.', holds: '죽 바구니: 할머니가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '들풀 씨앗으로 쑨 죽이란다. 돌 새기는 이가 종일 굶었지.', '언덕 위 둥근 돌담으로 전해 주렴.'],
+          offer: { ask: '죽 바구니를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'wayguard', goal: '돌 끄는 길을 지나 둥근 돌담으로 가 보렴.', holds: '죽 바구니: 소라가 들고 있음',
+          lines: ['멈춰라. 큰 돌기둥을 끄는 중이다.', '다 지나갈 때까지는 길을 못 건넌다.'],
+          sora: '죽이 식을 텐데… 어? 누가 불러!',
+        },
+        {
+          who: 'flintkid', call: '얘, 어디 가는데?', goal: '부싯돌 떼는 아이가 부른다. 가 보렴.', holds: '죽 바구니: 소라가 들고 있음',
+          lines: ['돌담에 간다고? 그럼 이리 와.', '돌 떼는 자리를 돌아가면 길을 안 건너도 돼.', '아저씨, 이 애는 돌아서 갈게요!'],
+          after: [{ who: 'wayguard', line: '돌아서 간다면 가도 좋다.' }],
+          sora: '돌 떼는 자리를 돌아가면 된대! 가자!',
+        },
+        {
+          who: 'carver', goal: '둥근 돌담의 돌 새기는 이에게 죽을 전하렴.', holds: '죽 바구니: 소라가 들고 있음',
+          lines: ['오, 죽이 왔구나. 배가 몹시 고팠단다.'],
+          choice: {
+            ask: '죽 바구니를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"할머니가 보냈어요"', sora: '움막 터의 할머니가 보내셨어요.', says: '아직 따뜻하구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"뭘 새기세요?"', sora: '기둥에 무엇을 새기세요?', says: '여우란다. 방금 꼬리까지 다 새겼지.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'carver', show: true, goal: '가운데 큰 기둥 둘과 막 새긴 여우를 보렴.',
+          lines: ['저기 가운데 큰 기둥 둘이 보이느냐.', '그 기둥에 내가 막 새긴 여우가 있단다.'],
+          sora: '기둥이 엄청 커! 여우도 있어!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'grinder', when: ['S1', 'S2', 'S3', 'S4'], lines: ['돌 새기는 이는 둥근 돌담에 있단다.', '돌 끄는 길을 지나 언덕 위로 가렴.'] },
+        { who: 'grinder', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '내일도 씨앗을 갈아야겠구나.'] },
+      ],
+      done: '죽을 전하고, 큰 기둥 둘과 막 새긴 여우를 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '죽 바구니를 받는다.', at: [] },
+      { id: 'gave', text: '돌 새기는 이에게 죽을 전한다.', at: [] },
+      { id: 'saw', text: '큰 기둥 둘과 막 새긴 여우를 본다.', at: [] },
+    ],
+    reply: '왜 세웠는지는 아직 아무도 모른단다. 죽은 따뜻하더냐.',
+  },
+  // Olympia on a summer morning of 776 BC: the first Olympic festival on record, with one
+  // footrace only. Drawn as the painting on Greek pots of that very century, the Geometric
+  // (the user's choice of five tries: the first). The pictures are in olympia776; the try
+  // itself is the third scene (the running ground: tent, table, tripod, starting line and
+  // bank), and the tents in the olive grove and the ground before the altar were ordered
+  // after it. The sky is the pale clay of the pot: `pale`.
+  // Looked up on 2026.10.14 and found so: the first festival on record is of 776 BC and had
+  // one contest, a footrace of about 192 m ("이백 미터쯤"; handed down as six hundred
+  // "걸음", which is the word of docs/신기한-사실.md: the old measure is six hundred feet);
+  // the winner was Koroibos of Elis, nearby, whose trade is said of here as "제사 음식을
+  // 맡은 사람".
+  // Not settled, so only "나뭇가지 관": whether the first crown was of olive.
+  // From memory: that the altar of Zeus was a heap of ash that grew year by year; that
+  // there was neither a stone temple nor a stone stadium then; that fighting was put off
+  // for the festival (said as hearsay: "멈춘다고 들었지"); that bronze tripod cauldrons were
+  // given to the god here in this century and many were dug up; barley bread, figs, goat
+  // cheese, olive oil for the skin and for lamps; the lyre and songs of heroes; the double
+  // pipe; wool dress pinned at the shoulders; skins for carrying water; a river near by;
+  // that Elis is a day or two off on foot.
+  // Made up: the errand of the water skin, the baker at the tents, the keeper of the altar
+  // who lets no one by, the workman with the stones who shows the way along the bank, the
+  // elder who judges and that it is he who crowns, the measuring of the ground with a
+  // knotted line, every other person.
+  // Kept out: the offering of oxen and any killing of beasts, the contests of later years,
+  // stone temples, that those who ran wore nothing (they wear a cloth about the hips here),
+  // and who was not let in to watch.
+  olympia: {
+    first: '기록에 남은 첫 올림피아 달리기 날이란다. 물 주머니를 전해 주렴.',
+    // Who they were, for a player who has not heard of them. Both sentences are from memory.
+    intro: { title: '옛 그리스 사람들', text: '옛 그리스 사람들은 도시마다 따로 나라를 이루고 살았단다. 올림피아에는 제우스 신께 제사하러 모였지.' },
+    dir: 'olympia776', look: 'paper', pale: true,
+    drawn: '바로 그 무렵 그리스 항아리의 그림처럼, 세모와 줄무늬로 그렸단다.',
+    scenes: [
+      {
+        id: 'camp', name: '그리스 올림피아 올리브 숲의 천막 터', short: '천막 터', zoom: 1.115, ground: 0.732, scale: 0.652, air: 'market', floor: 'dirt',
+        sora: '나무 사이에 천막이 가득해!',
+        people: [
+          { id: 'shepherd', pass: '치즈랑 무화과 있어요!', show: 'bread', name: '양치기', x: 0.18, w: 120, h: 313, lines: ['염소젖으로 만든 치즈란다.', '보리빵이랑 무화과도 있지. 먹어 보련?'],
+            try: { id: 'eat-barley', verb: 'eat', name: '보리빵과 무화과와 치즈', face: 'yum', sora: '무화과가 꿀처럼 달아!' } },
+          { id: 'traveller', pass: '휴, 드디어 다 왔구나.', name: '먼 길 온 나그네', x: 0.29, w: 161, h: 316, lines: ['바다 건너 먼 도시에서 왔단다.', '잔치 동안은 싸움을 멈춘다고 들었지.'] },
+          { id: 'waterboy', pass: '물 지나가요, 물!', name: '물 긷는 아이', x: 0.4, w: 91, h: 235, lines: ['강에서 물을 길어 오는 중이야.', '여름이라 다들 목이 말라.'] },
+          { id: 'baker', pass: '어머, 이걸 놓고 갔네.', name: '빵 굽는 아주머니', x: 0.51, w: 133, h: 320, lines: ['보리 가루로 납작한 빵을 굽는단다.', '먼 길 온 사람들이 다 배고프지.'] },
+          { id: 'oilman', pass: '갓 짠 올리브 기름이오.', name: '올리브 기름 장수', x: 0.62, w: 145, h: 312, lines: ['올리브 열매를 짜서 낸 기름이란다.', '몸에도 바르고 등잔에도 넣지.'] },
+          { id: 'weaver', pass: '시원한 옷 보고 가렴.', name: '옷 짓는 아주머니', x: 0.73, w: 125, h: 316, lines: ['양털로 짠 옷이란다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-olympia', verb: 'wear', name: '올림피아의 옷', outfit: 'olympia', sora: '어깨를 핀으로 여몄어!', memo: '긴 천을 어깨에서 핀으로 여미고 허리띠를 맸단다. 단에는 줄무늬를 넣었지.' } },
+          { id: 'singer', pass: '옛날 옛적 한 영웅이…', name: '노래하는 이', x: 0.85, w: 129, h: 316, lines: ['옛 영웅들의 이야기를 노래한단다.', '줄을 뜯으며 밤늦도록 부르지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'altar', name: '그리스 올림피아 제우스의 제단 앞', short: '제단 앞', zoom: 1.120, ground: 0.728, scale: 0.656, air: 'hush', floor: 'dirt',
+        sora: '재가 언덕처럼 쌓였어!',
+        people: [
+          { id: 'tripodman', pass: '조심조심, 귀한 솥이야.', show: 'tripod', pose: 'see-wow', sora: '솥에 다리가 셋이야!', memo: '사람들은 청동 세발솥을 신께 바쳤단다. 올림피아 땅에서 많이 나왔지.', name: '세발솥 가져온 이', x: 0.18, w: 134, h: 313, lines: ['청동으로 만든 세발솥이란다.', '제우스 신께 바치려고 가져왔지.'] },
+          { id: 'woodman', pass: '영차, 장작 나간다.', name: '장작 나르는 일꾼', x: 0.29, w: 136, h: 301, lines: ['제단에 불을 피울 장작이란다.', '연기가 하늘로 곧게 오르지.'] },
+          { id: 'stoneman', pass: '이 돌은 출발선에 놓을 거야.', name: '돌 나르는 일꾼', x: 0.4, w: 150, h: 302, lines: ['달리기 터에 놓을 돌이란다.', '한 줄로 놓으면 출발선이 되지.'] },
+          { id: 'ashman', pass: '올해도 한 뼘 높아지겠군.', show: 'altar', pose: 'see-aha', sora: '재를 쌓아서 만들었대!', memo: '제우스의 제단은 재를 쌓아 만들었다고 전한단다. 그때는 돌 신전이 없었지.', name: '제단 돌보는 할아버지', x: 0.51, w: 145, h: 319, lines: ['이 제단은 돌로 쌓은 게 아니란다.', '불을 피우고 남은 재를 쌓았지.'] },
+          { id: 'piper', pass: '삘릴리, 삘릴리.', name: '피리 부는 이', x: 0.62, w: 137, h: 305, lines: ['피리 두 개를 한꺼번에 분단다.', '제사 때는 내 피리 소리가 나지.'] },
+          { id: 'branchgirl', pass: '잎이 은빛으로 반짝여.', name: '나뭇가지 든 아이', x: 0.73, w: 105, h: 217, lines: ['올리브 나뭇가지야.', '제단 앞에 놓으려고 가져왔어.'] },
+          { id: 'keeper', pass: '아무도 지나가면 안 된다.', name: '제단 지키는 이', x: 0.85, w: 173, h: 320, lines: ['나는 제우스 신의 제단을 지킨단다.', '제사 채비를 할 때는 길을 막지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'track', name: '그리스 올림피아 달리기 터', short: '달리기 터', zoom: 1.120, ground: 0.728, scale: 0.656, air: 'hush', floor: 'dirt',
+        sora: '저기가 출발선인가 봐!',
+        people: [
+          { id: 'stretcher', pass: '하나, 둘, 하나, 둘.', name: '몸 푸는 선수', x: 0.18, w: 121, h: 320, lines: ['달리기 전에 몸을 푼단다.', '다리가 굳으면 빨리 못 뛰지.'] },
+          { id: 'cupboy', pass: '물 드세요, 시원한 물!', name: '물 나눠 주는 아이', x: 0.29, w: 126, h: 207, lines: ['더운 날이라 물을 나눠 줘.', '달리는 아저씨들이 먼저야.'] },
+          { id: 'pacer', pass: '오백아흔아홉, 육백!', show: 'track', pose: 'see-wow', sora: '저 끝까지 한 번에 달려!', memo: '첫 제전의 경기는 달리기 하나뿐이었단다. 길은 이백 미터쯤이었지.', name: '길 재는 어른', x: 0.4, w: 174, h: 282, lines: ['달리기 길을 걸음으로 잰단다.', '저 끝까지 육백 걸음이라고들 하지.'] },
+          { id: 'judge', pass: '누가 먼저 닿는지 잘 봐야지.', name: '심판 어른', x: 0.51, w: 130, h: 293, lines: ['누가 먼저 닿는지 내가 본단다.', '이긴 이에게 나뭇가지 관을 씌우지.'] },
+          { id: 'koroibos', pass: '아이고, 목이 타는구나.', show: 'crown', pose: 'see-wow', sora: '코로이보스 아저씨가 이겼어!', memo: '기록에 남은 첫 올림피아에서 이긴 사람은 엘리스의 코로이보스란다. 나뭇가지 관을 받았지.', name: '코로이보스', x: 0.62, w: 148, h: 282, lines: ['나는 엘리스에서 온 코로이보스란다.', '고향에서는 제사 음식을 맡아 일하지.'] },
+          { id: 'rival', pass: '오늘은 내가 이길 거야.', name: '다른 도시 선수', x: 0.73, w: 125, h: 284, lines: ['오늘 경기는 달리기 하나뿐이란다.', '딱 한 번 달리면 끝이지.'] },
+          { id: 'fan', pass: '빨리 시작했으면!', name: '구경 온 아이', x: 0.85, w: 103, h: 192, lines: ['풀 둑에 앉으면 다 보여.', '아빠랑 이틀을 걸어왔어.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The water skin left behind" (core/tale.js; the storyboard of docs/신기한-사실.md): the
+    // baker at the tents has the water skin that Koroibos of Elis left with her; the keeper
+    // of the altar lets no one by, for the offering is being made ready; the workman who
+    // carries stones for the starting line shows her the way round along the grassy bank;
+    // she hands it to Koroibos at the starting line, choosing what to say; and she sees the
+    // one race run and Koroibos given a crown of branches.
+    tale: {
+      thing: true,
+      ask: '첫 올림피아에서는 무슨 경기를 했을까?',
+      gate: { scene: 'altar', open: 3, sora: '제단 지키는 이가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'baker', goal: '천막 터의 빵 굽는 아주머니에게 가 보렴.', holds: '물 주머니: 빵 굽는 아주머니가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '엘리스에서 온 코로이보스가 물 주머니를 놓고 갔단다.', '달리기 터의 출발선으로 전해 주렴.'],
+          offer: { ask: '물 주머니를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'keeper', goal: '제단 앞을 지나 달리기 터로 가 보렴.', holds: '물 주머니: 소라가 들고 있음',
+          lines: ['멈춰라. 지금은 제사 채비를 하는 중이다.', '이 길로는 아무도 못 지나간다.'],
+          sora: '곧 달리기를 할 텐데… 어? 누가 불러!',
+        },
+        {
+          who: 'stoneman', call: '얘, 어디 가는 길이니?', goal: '돌 나르는 일꾼이 부른다. 가 보렴.', holds: '물 주머니: 소라가 들고 있음',
+          lines: ['출발선에 간다고? 그럼 이리 오렴.', '풀 둑을 따라 돌아가면 달리기 터란다.', '여보시오, 이 아이는 둑길로 보내겠소!'],
+          after: [{ who: 'keeper', line: '둑길이라면 가도 좋다.' }],
+          sora: '풀 둑을 따라가면 된대! 가자!',
+        },
+        {
+          who: 'koroibos', goal: '출발선의 코로이보스에게 물 주머니를 전하렴.', holds: '물 주머니: 소라가 들고 있음',
+          lines: ['오, 내 물 주머니로구나. 한참 찾았단다.'],
+          choice: {
+            ask: '물 주머니를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"빵 굽는 아주머니가 보냈어요"', sora: '천막의 빵 굽는 아주머니가 보내셨어요.', says: '이제 살았구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"꼭 이기세요"', sora: '물 드시고 꼭 이기세요!', says: '하하, 힘이 솟는구나. 힘껏 달려 보마.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'koroibos', show: true, goal: '달리기가 시작된다. 둑에서 지켜보렴.',
+          lines: ['이제 달릴 차례란다. 저 끝까지 딱 한 번이지.', '풀 둑에서 잘 보렴. 다녀오마!'],
+          sora: '일등이야! 나뭇가지 관을 받았어!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'baker', when: ['S1', 'S2', 'S3', 'S4'], lines: ['코로이보스는 출발선에 있을 거란다.', '제단을 지나면 달리기 터가 나오지.'] },
+        { who: 'baker', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '그 사람이 이겼다고? 빵을 더 구워야겠네.'] },
+      ],
+      done: '물 주머니를 전하고, 코로이보스가 나뭇가지 관을 받는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '물 주머니를 받는다.', at: [] },
+      { id: 'gave', text: '코로이보스에게 물 주머니를 전한다.', at: [] },
+      { id: 'saw', text: '첫 올림피아 달리기를 본다.', at: [] },
+    ],
+    reply: '경기라고는 달리기 하나뿐이었단다. 너도 숨이 차지 않더냐.',
+  },
+  // Persepolis about 518 BC, a spring morning: Darius has begun to build the palace on its
+  // terrace. Drawn as a knotted carpet like the one from the Pazyryk tomb (the user's choice
+  // of five tries: the fifth). The pictures are in persepolis518; the try itself is the
+  // third scene (before the great stair), and the envoys' camp and the stone yard were
+  // ordered after it. The woven sky is a deep blue: no `pale`.
+  // Looked up on 2026.10.14 and found so: Darius I began the palace about 518 BC (some say
+  // 515) and the kings after him built on; the great hall was begun by Darius and finished
+  // under Xerxes; on the side walls of its stairs the envoys of twenty-three lands are
+  // carved, each in the dress of his land and bearing gifts (not there yet in 518: the
+  // carver only draws the lines, and only grandmother's slip says what was carved later);
+  // the clay tablets from the palace are accounts of grain given out to workers, and paid
+  // and bound workers were mixed (the screen says only that grain was had for work done);
+  // the hall had 72 columns, 20 → 25 m high by different sources ("어른 키의 열 배도 넘는다").
+  // From memory: the capital of two bulls back to back with the beam between them; that
+  // envoys came with gifts at the new year in spring; the king's road and its houses where
+  // riders changed horses; craftsmen from over the western sea (Ionia) and from Egypt
+  // (Egyptians at the wood); columns built of drum-shaped blocks; that a carving was first
+  // drawn on the stone in red lines; the low wide steps; the parasol held over the king;
+  // gold armlets and camels among the gifts; flat bread and pomegranates; the dress; that
+  // writing was pressed into wet clay with a reed.
+  // Made up: the errand of the gold armlet, the envoy (his land is not named), the foreman
+  // who lets no one by while a column is raised, the scribe who shows the way past the
+  // grain, the doorkeeper of the stair, every other person; and that a column of the hall
+  // was being raised and the stair wall drawn in the very first years.
+  // Kept out: the fire of later years and war; nobody says there were no slaves; wine.
+  // Darius is not spoken to: he is a far-off spot at the right end of the third scene.
+  persepolis: {
+    first: '다리우스 임금이 새 궁을 짓기 시작한 무렵이란다. 금 팔찌를 전해 주렴.',
+    intro: { title: '페르시아 사람들', text: '아주 넓은 땅의 여러 나라를 다스린 사람들이란다. 임금의 길로 먼 곳까지 소식을 날랐지.' },
+    dir: 'persepolis518', look: 'paper',
+    drawn: '옛 양탄자처럼, 붉고 푸른 실로 짠 듯이 그렸단다.',
+    scenes: [
+      {
+        id: 'camp', name: '페르시아 페르세폴리스 사신들의 천막 터', short: '사신들의 천막 터', zoom: 1.107, ground: 0.738, scale: 0.648, air: 'market', floor: 'dirt',
+        sora: '천막이 줄무늬야! 짐도 많아.',
+        people: [
+          { id: 'camelboy', pass: '휴, 짐이 끝이 없네.', name: '낙타 모는 아이', x: 0.18, w: 119, h: 303, lines: ['이 짐은 다 낙타가 지고 왔어.', '먼 길에는 낙타가 으뜸이야.'] },
+          { id: 'baker', pass: '갓 구운 빵이 나왔단다.', show: 'bread', name: '빵 굽는 아주머니', x: 0.29, w: 127, h: 303, lines: ['화덕 벽에 붙여 구운 납작 빵이란다.', '석류도 잘 익었지. 먹어 보련?'],
+            try: { id: 'eat-pomegranate', verb: 'eat', name: '석류와 납작 빵', face: 'yum', sora: '석류알이 톡톡 터져! 새콤해.' } },
+          { id: 'envoy', pass: '누가 좀 전해 주면 좋으련만.', name: '먼 나라 사신', x: 0.4, w: 114, h: 320, lines: ['나는 먼 나라에서 온 사신이란다.', '임금님께 올릴 선물을 싣고 왔지.'] },
+          { id: 'courier', pass: '다음 소식은 어디로 가나.', name: '임금의 길 파발꾼', x: 0.51, w: 111, h: 319, lines: ['임금의 길에는 쉬어 가는 집이 있단다.', '거기서 말을 바꿔 타고 소식을 나르지.'] },
+          { id: 'robemaker', pass: '주름을 곱게 잡아야지.', name: '옷 짓는 아주머니', x: 0.62, w: 130, h: 306, lines: ['페르시아 사람은 주름진 긴 옷을 입는단다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-persia', verb: 'wear', name: '페르시아의 옷', outfit: 'persia', sora: '소매가 날개처럼 넓어!', memo: '주름을 넉넉히 잡은 긴 옷에 띠를 맸단다. 소매가 넓게 늘어졌지.' } },
+          { id: 'ionian', pass: '오늘은 어느 돌을 깎나.', name: '바다 건너온 석수', x: 0.73, w: 138, h: 315, lines: ['나는 서쪽 바다 건너에서 왔단다.', '돌 깎는 솜씨가 있어 여기서 일하지.'] },
+          { id: 'giftkeeper', pass: '하나라도 없어지면 큰일이지.', name: '선물 지키는 아저씨', x: 0.85, w: 125, h: 310, lines: ['나라마다 제 땅의 귀한 것을 가져온단다.', '봄의 새해에 임금님께 올린다고들 하지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'yard', name: '페르시아 페르세폴리스 돌 깎는 마당', short: '돌 깎는 마당', zoom: 1.112, ground: 0.734, scale: 0.651, air: 'chisels',
+        sora: '온통 돌 쪼는 소리야!',
+        people: [
+          { id: 'mason', pass: '뿔은 살살 쪼아야 해.', show: 'capital', pose: 'see-wow', sora: '황소 둘이 등을 맞댔어!', memo: '기둥 꼭대기에 황소 두 마리를 얹었단다. 그 등 사이에 지붕의 들보를 걸쳤지.', name: '기둥머리 깎는 석수', x: 0.18, w: 125, h: 269, lines: ['기둥 꼭대기에 얹을 황소란다.', '두 마리가 등을 맞대고 지붕을 받치지.'] },
+          { id: 'watergirl', pass: '물이요, 시원한 물!', name: '물 나르는 아이', x: 0.29, w: 101, h: 242, lines: ['돌 깎는 아저씨들은 목이 금방 말라.', '그래서 하루에도 몇 번씩 물을 날라.'] },
+          { id: 'measurer', pass: '한 되, 두 되, 석 되.', show: 'tablet', pose: 'see-aha', sora: '진흙에 꾹꾹 눌러 적었어!', memo: '궁에서 나온 진흙 판은 일꾼에게 나눠 준 곡식을 적은 장부란다.', name: '곡식 되는 아저씨', x: 0.4, w: 147, h: 267, lines: ['여기서는 일한 만큼 곡식을 받는단다.', '누가 얼마 받았는지 진흙 판에 적어 두지.'] },
+          { id: 'scribe', pass: '어디 보자, 오늘 몫이…', name: '장부 적는 서기', x: 0.51, w: 134, h: 269, lines: ['나는 젖은 진흙에 글을 눌러 쓴단다.', '마르면 단단해져서 오래 남지.'] },
+          { id: 'carpenter', pass: '비계가 튼튼해야 하지.', name: '이집트에서 온 목수', x: 0.62, w: 157, h: 320, lines: ['나는 이집트에서 온 목수란다.', '나무를 엮어 높은 비계를 짜지.'] },
+          { id: 'polisher', pass: '쓱쓱, 틈이 없게.', name: '돌 다듬는 일꾼', x: 0.73, w: 103, h: 262, lines: ['기둥은 북 같은 돌 토막을 쌓아 세운단다.', '이은 틈이 안 보이게 매끈히 갈지.'] },
+          { id: 'foreman', pass: '밧줄 당겨라, 천천히!', name: '돌 마당의 우두머리', x: 0.85, w: 135, h: 305, lines: ['나는 이 돌 마당을 맡은 사람이란다.', '기둥 하나 세우는 데 여럿이 매달리지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'stairs', name: '페르시아 페르세폴리스 큰 계단 앞', short: '큰 계단 앞', zoom: 1.111, ground: 0.735, scale: 0.650, air: 'hush',
+        sora: '기둥 위에 황소가 있어!',
+        people: [
+          { id: 'counter', pass: '그릇 넷, 항아리 셋…', name: '선물 세는 관리', x: 0.18, w: 86, h: 231, lines: ['사신들의 선물을 하나하나 센단다.', '금 그릇, 고운 천, 큰 항아리가 왔지.'] },
+          { id: 'ropeman', pass: '영차, 밧줄이 무겁네.', name: '밧줄 감는 일꾼', x: 0.29, w: 82, h: 228, lines: ['돌을 끌어 올리는 굵은 밧줄이란다.', '여럿이 한꺼번에 당겨야 움직이지.'] },
+          { id: 'gazer', pass: '우아, 끝이 안 보여.', show: 'column', pose: 'see-wow', sora: '고개가 뒤로 넘어가!', memo: '큰 방의 기둥은 어른 키의 열 배도 넘었단다. 그런 기둥을 일흔두 개 세웠지.', name: '기둥 올려다보는 아이', x: 0.4, w: 77, h: 174, lines: ['저 기둥 좀 봐. 하늘에 닿겠어!', '꼭대기에 황소가 앉아 있어.'] },
+          { id: 'sweeper', pass: '돌가루가 또 쌓였구먼.', name: '계단 쓰는 할아버지', x: 0.51, w: 93, h: 199, lines: ['이 계단은 낮고 넓게 놓았단다.', '긴 옷을 입고도 오르기 쉽지.'] },
+          { id: 'carver', pass: '금이 곧아야 하는데.', show: 'lines', pose: 'see-aha', sora: '사신들이 줄을 섰어!', memo: '뒷날 계단 벽에 스물세 나라의 사신이 새겨졌단다. 저마다 제 나라 옷을 입었지.', name: '돌 새기는 이', x: 0.62, w: 82, h: 222, lines: ['돌에 새기기 전에 금부터 긋는단다.', '금이 비뚤면 새김도 비뚤어지지.'] },
+          { id: 'doorkeeper', pass: '올릴 것은 내게 맡기시오.', name: '계단의 문지기', x: 0.73, w: 108, h: 261, lines: ['나는 이 계단을 지키는 사람이란다.', '임금님께 올릴 것은 내가 받아 두지.'] },
+          { id: 'parasol', pass: '바람에 날리면 안 되는데.', name: '햇빛 가리개 든 시종', x: 0.85, w: 109, h: 320, lines: ['임금님 머리 위에 받치는 가리개란다.', '임금님은 저 위 돌단을 둘러보고 계시지.'] },
+        ],
+        spots: [
+          { id: 'darius', from: 0.9, to: 0.99, sora: '저 위에 임금님이 계신대!', memo: '이 궁을 짓게 한 임금이 다리우스란다. 뒤의 임금들이 이어서 지었지.' },
+        ],
+      },
+    ],
+    // "The gold armlet for the king" (core/tale.js; the storyboard of docs/신기한-사실.md): an
+    // envoy from a far land at the camp has a gold armlet for the king and must unload his
+    // camels; the foreman of the stone yard lets no one by, for a great column is being
+    // raised; the scribe of the accounts shows her the way past the place where grain is
+    // given out; she hands it to the doorkeeper of the stair, choosing what to say; and she
+    // sees the carver draw on the side wall of the stair the row of envoys bearing gifts.
+    tale: {
+      thing: true,
+      ask: '계단 벽에는 무엇을 새길까?',
+      gate: { scene: 'yard', open: 3, sora: '우두머리가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'envoy', goal: '천막 터의 먼 나라 사신에게 가 보렴.', holds: '금 팔찌: 사신이 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '임금님께 올릴 금 팔찌란다. 나는 낙타 짐을 풀어야 하지.', '큰 계단의 문지기에게 전해 주렴.'],
+          offer: { ask: '금 팔찌를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'foreman', goal: '돌 깎는 마당을 지나 큰 계단으로 가 보렴.', holds: '금 팔찌: 소라가 들고 있음',
+          lines: ['멈춰라. 지금은 못 지나간단다.', '큰 기둥을 세우는 중이야. 밧줄 밑은 위험하지.'],
+          sora: '문지기한테 가야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'scribe', call: '얘, 어디로 가는 길이니?', goal: '장부 적는 서기가 부른다. 가 보렴.', holds: '금 팔찌: 소라가 들고 있음',
+          lines: ['계단의 문지기에게 간다고? 그럼 이리 오렴.', '곡식 나눠 주는 곳을 지나면 계단이 나온단다.', '우두머리, 이 아이는 곡식 자루 쪽으로 보내겠소!'],
+          after: [{ who: 'foreman', line: '그쪽 길이라면 괜찮다. 조심해서 가렴.' }],
+          sora: '곡식 자루 사이로 가면 된대! 가자!',
+        },
+        {
+          who: 'doorkeeper', goal: '큰 계단의 문지기에게 금 팔찌를 전하렴.', holds: '금 팔찌: 소라가 들고 있음',
+          lines: ['거기 서거라. 손에 든 것이 무엇이냐?'],
+          choice: {
+            ask: '금 팔찌를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"사신이 보냈어요"', sora: '먼 나라 사신 아저씨가 임금님께 올린대요.', says: '잘 받았다. 임금님께 꼭 올리마.' },
+              { id: 'E2', label: '"벽에 뭘 그려요?"', sora: '저기 계단 벽에는 뭘 그리는 거예요?', says: '가서 보렴. 돌 새기는 이가 일러 줄 게다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'carver', show: true, goal: '돌 새기는 이가 긋는 금을 보렴.',
+          lines: ['이 벽에 선물 든 사신들을 새길 거란다.', '먼저 붉은 금으로 줄을 긋지. 너도 보렴.'],
+          sora: '사신들이 줄을 섰어! 팔찌 든 사람도 있어!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'envoy', when: ['S1', 'S2', 'S3', 'S4'], lines: ['큰 계단은 돌 마당을 지나면 있단다.', '문지기는 계단 아래에 서 있지.'] },
+        { who: 'envoy', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '이제 마음 놓고 짐을 풀겠구나.'] },
+      ],
+      done: '금 팔찌를 전하고, 계단 벽에 긋는 사신들의 줄을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '금 팔찌를 받는다.', at: [] },
+      { id: 'gave', text: '문지기에게 금 팔찌를 전한다.', at: [] },
+      { id: 'saw', text: '계단 벽에 긋는 금을 본다.', at: [] },
+    ],
+    reply: '그 금을 따라 새긴 사신들이 지금도 계단 벽에 서 있단다.',
+  },
+  // Alexandria about 280 BC, by day: the lighthouse on the island of Pharos is finished.
+  // Drawn as a painting on an Egyptian papyrus roll (the user's choice of five tries: the
+  // second). The pictures are in pharos280; the try itself is the first scene (the quay of
+  // the great harbour), and the street before the library and the causeway were ordered
+  // after it. The sky of the pictures is flat red ochre, not pale paper: no `pale`.
+  // The day is not on record. It is day in all three scenes, and nobody says there is a fire
+  // or a mirror on the top: that is said to be of Roman times. By day the tower is a mark
+  // seen from far out at sea.
+  // Looked up on 2026.10.14 and found so: begun under Ptolemy I and finished under Ptolemy
+  // II, about 280 BC; twelve years in the building; three tiers, the lowest square, the
+  // middle eight-sided, the top round; at least 100 metres high ("백 미터도 넘게");
+  // Sostratus of Cnidus is said to have built it ("지었다고들 하지"); the great library and
+  // the house of scholars were at Alexandria.
+  // From memory: that the books of ships entering the harbour were copied for the library
+  // (told as "전한단다"); that books were rolls of papyrus, made of strips of the reed laid
+  // crosswise, pressed and dried; reed pens and ink of soot; that a roll is read sideways;
+  // that the island was joined to the land by a long causeway with a harbour on each side;
+  // that the coast of Egypt is low and flat, so the tower helped ships find the harbour;
+  // that Egypt sent wheat abroad by ship; dates, flat bread and grilled fish; the dress;
+  // that Greeks founded the city on the coast of Egypt and lived there beside Egyptians;
+  // that the lighthouse stood for more than a thousand years (grandmother's reply).
+  // Made up: the errand of the roll, the captain, the doorkeeper, the papyrus-seller who
+  // knows where the keeper of books has gone, the keeper of books and that he went out to
+  // see the tower, every other person, and that the tower was finished on this very day.
+  // Kept out: the burning of the library; Euclid and Eratosthenes (their years were not
+  // looked up); the king.
+  pharos: {
+    first: '파로스 섬의 등대를 다 지은 날이란다. 두루마리를 전해 주렴.',
+    intro: { title: '알렉산드리아 사람들', text: '알렉산드리아는 그리스 사람들이 이집트 바닷가에 세운 도시란다. 그리스 사람과 이집트 사람이 섞여 살았지.' },
+    dir: 'pharos280', look: 'paper',
+    drawn: '옛 이집트의 파피루스 두루마리 그림처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'harbor', name: '이집트 알렉산드리아 큰 항구 부두', short: '큰 항구 부두', zoom: 1.045, ground: 0.786, scale: 0.611, air: 'market', floor: 'dirt',
+        sora: '바다 건너에 높은 탑이 있어!',
+        people: [
+          { id: 'tally', pass: '자루가 서른, 항아리가 열둘.', name: '짐 적는 서기', x: 0.18, w: 112, h: 312, lines: ['배에 실린 짐을 하나하나 적는단다.', '선반의 두루마리가 다 그런 장부지.'] },
+          { id: 'fishwife', pass: '갓 구운 생선이오!', show: 'meal', name: '생선 굽는 아주머니', x: 0.29, w: 139, h: 300, lines: ['오늘 아침에 잡은 생선이란다.', '납작 빵에 얹어 먹어 보련?'],
+            try: { id: 'eat-fish', verb: 'eat', name: '구운 생선과 납작 빵', face: 'yum', sora: '고소해! 대추야자는 달아.' } },
+          { id: 'sailmender', pass: '한 땀, 또 한 땀.', name: '돛 깁는 뱃사람', x: 0.4, w: 108, h: 317, lines: ['우리 배는 돛에 바람을 받아 간단다.', '찢어진 데는 이렇게 기워야 하지.'] },
+          { id: 'captain', pass: '누가 좀 전해 주면 좋으련만.', name: '선장', x: 0.51, w: 107, h: 320, lines: ['먼 바다를 건너 막 닿았단다.', '저 높은 탑을 보고 항구를 찾았지.'] },
+          { id: 'porter', pass: '영차, 자루 나간다!', name: '짐꾼', x: 0.62, w: 148, h: 310, lines: ['큰 강가의 밭에서 거둔 밀이란다.', '배에 실어 먼 나라로 보내지.'] },
+          { id: 'clothier', pass: '시원한 아마포 옷 보고 가요.', name: '옷 파는 아주머니', x: 0.73, w: 119, h: 311, lines: ['더운 곳이라 얇은 옷을 입는단다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-alexandria', verb: 'wear', name: '알렉산드리아의 옷', outfit: 'alexandria', sora: '얇아서 바람이 솔솔 들어와!', memo: '긴 천을 어깨에서 핀으로 여미고 허리띠를 맸단다. 그 위에 겉천을 둘렀지.' } },
+          { id: 'oldsailor', pass: '오늘은 바다가 잔잔하구먼.', show: 'far', pose: 'see-wow', sora: '탑만 우뚝 솟았어!', memo: '이집트의 바닷가는 낮고 평평해서 항구를 찾기 어려웠단다. 높은 등대가 낮에도 멀리서 보였지.', name: '바다 보는 늙은 뱃사람', x: 0.85, w: 149, h: 312, lines: ['이 바닷가는 낮고 평평하단다.', '이제는 저 탑을 보고 항구를 찾지.'] },
+        ],
+        spots: [
+          // The lighthouse far over the water in the try. (From and to are to be set to the picture.)
+          { id: 'tower', from: 0.8, to: 0.95, sora: '저 탑이 등대야?', memo: '그래, 파로스 섬 끝에 세운 등대란다. 열두 해 만에 다 지었지.' },
+        ],
+      },
+      {
+        id: 'library', name: '이집트 알렉산드리아 도서관 앞 길', short: '도서관 앞 길', zoom: 1.088, ground: 0.753, scale: 0.637, air: 'hush', floor: 'dirt',
+        sora: '두루마리가 잔뜩 있어!',
+        people: [
+          { id: 'papermaker', pass: '꾹꾹 눌러서 말려야지.', show: 'papyrus', pose: 'see-aha', sora: '풀 줄기를 겹쳐서 만들어!', memo: '종이가 없던 때라 파피루스에 글을 썼단다. 물가에 자라는 풀 줄기를 저며서 만들었지.', name: '파피루스 만드는 아저씨', x: 0.18, w: 116, h: 292, lines: ['물가의 풀 줄기를 얇게 저민단다.', '가로세로로 겹쳐 눌러 말리면 한 장이지.'] },
+          { id: 'inkboy', pass: '쓱쓱, 먹이 다 됐다.', name: '먹 가는 아이', x: 0.29, w: 81, h: 235, lines: ['그을음을 개어서 먹을 만들어.', '갈대 펜에 찍어서 글을 써.'] },
+          { id: 'seller', pass: '새 두루마리 들어왔어요.', name: '파피루스 파는 아주머니', x: 0.4, w: 133, h: 287, lines: ['글을 쓸 파피루스를 판단다.', '도서관 사람들이 날마다 사 가지.'] },
+          { id: 'scholar', pass: '이 줄을 다시 읽어 보자.', name: '먼 도시에서 온 학자', x: 0.51, w: 128, h: 302, lines: ['이 도시에는 학자들의 집이 있단다.', '여러 곳에서 공부하러 모여들지.'] },
+          { id: 'copyist', pass: '한 줄도 빠뜨리면 안 되지.', show: 'copy', pose: 'see-aha', sora: '똑같이 한 벌 더 쓰네!', memo: '항구에 들어온 배의 책을 도서관에서 베껴 두었다고 전한단다. 그렇게 책을 모았지.', name: '베껴 쓰는 서기', x: 0.62, w: 106, h: 276, lines: ['배에 실려 온 책을 베껴 쓴단다.', '똑같은 것을 한 벌 더 만들지.'] },
+          { id: 'rollgirl', pass: '떨어뜨리면 안 돼, 안 돼.', name: '두루마리 나르는 아이', x: 0.73, w: 90, h: 224, lines: ['책은 이렇게 돌돌 말아 둬.', '읽을 때는 옆으로 펴면서 읽어.'] },
+          { id: 'doorkeeper', pass: '쉿, 안에서 글을 쓰는 중이다.', name: '도서관 문지기', x: 0.85, w: 131, h: 320, lines: ['여기는 임금님의 큰 도서관이란다.', '세상의 책을 모으는 곳이지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'causeway', name: '이집트 알렉산드리아 등대 둑길', short: '등대 둑길', zoom: 1.045, ground: 0.786, scale: 0.611, air: 'hush', floor: 'dirt',
+        sora: '길 양쪽이 다 바다야!',
+        people: [
+          { id: 'angler', pass: '쉿, 고기 달아난다.', name: '낚시하는 할아버지', x: 0.18, w: 164, h: 320, lines: ['이 둑길은 섬까지 이어진단다.', '길 양쪽이 다 항구라 배가 많지.'] },
+          { id: 'mason', pass: '허허, 다 지었구먼.', name: '돌 다듬던 석공', x: 0.29, w: 124, h: 270, lines: ['열두 해 동안 돌을 쌓아 올렸단다.', '소스트라토스 어른이 지었다고들 하지.'] },
+          { id: 'counter', pass: '하나, 둘, 셋!', name: '층을 세는 아이', x: 0.4, w: 88, h: 210, lines: ['아래는 네모, 가운데는 여덟 모야.', '맨 위는 둥글어. 모두 세 층이야!'] },
+          { id: 'waterwife', pass: '시원한 물이오, 물!', name: '물 파는 아주머니', x: 0.51, w: 125, h: 278, lines: ['둑길이 길어서 목이 마르단다.', '섬까지는 한참을 걸어야 하지.'] },
+          { id: 'keeper', pass: '참으로 높이도 쌓았구나.', show: 'pharos', pose: 'see-wow', sora: '세 층이야! 정말 높다!', memo: '등대는 세 층이었단다. 아래는 네모, 가운데는 여덟 모, 위는 둥글었지. 높이는 백 미터도 넘었단다.', name: '책 맡는 이', x: 0.62, w: 122, h: 273, lines: ['나는 도서관의 책을 맡은 사람이란다.', '다 지은 등대를 보러 나왔지.'] },
+          { id: 'visitor', pass: '허어, 목이 다 아프오.', name: '먼 나라 손님', x: 0.73, w: 107, h: 279, lines: ['바다 건너에서 이 탑을 보러 왔다오.', '이렇게 높은 것은 처음 보오.'] },
+          { id: 'towerhand', pass: '밧줄도 이제 다 걷었네.', name: '등대 일꾼', x: 0.85, w: 117, h: 266, lines: ['꼭대기까지 오르려면 한참 걸린단다.', '위에 서면 먼바다의 배가 다 보이지.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The roll from the ship" (core/tale.js; the storyboard of docs/신기한-사실.md): the
+    // captain of a ship just come to the quay has a roll for the library and cannot leave
+    // his ship; the doorkeeper of the library lets no one in, for they are copying; the
+    // papyrus-seller says the keeper of books is out on the causeway to the lighthouse; she
+    // hands the roll to him, choosing what to say; and at the end of the causeway she looks
+    // up at the lighthouse in its three tiers. No fire: it is day.
+    tale: {
+      thing: true,
+      ask: '다 지은 등대는 어떤 모습일까?',
+      gate: { scene: 'library', open: 3, sora: '문지기가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'captain', goal: '큰 항구 부두의 선장에게 가 보렴.', holds: '두루마리: 선장이 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '배에 싣고 온 두루마리란다. 나는 배를 못 비우지.', '도서관의 책 맡는 이에게 전해 주렴.'],
+          offer: { ask: '두루마리를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'doorkeeper', goal: '길 끝의 도서관 문으로 가 보렴.', holds: '두루마리: 소라가 들고 있음',
+          lines: ['멈춰라. 지금은 못 들어간단다.', '안에서 책을 베끼는 중이라 아무도 못 들어가.'],
+          sora: '두루마리를 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'seller', call: '얘, 누구를 찾니?', goal: '파피루스 파는 아주머니가 부른다. 가 보렴.', holds: '두루마리: 소라가 들고 있음',
+          lines: ['책 맡는 이를 찾는다고? 안에는 안 계신단다.', '다 지은 등대를 보러 둑길에 나가셨지.', '문지기 양반, 이 아이는 둑길로 보낼게요!'],
+          after: [{ who: 'doorkeeper', line: '둑길이라면 저 옆길로 가렴.' }],
+          sora: '둑길에 계신대! 가자!',
+        },
+        {
+          who: 'keeper', goal: '둑길의 책 맡는 이에게 두루마리를 전하렴.', holds: '두루마리: 소라가 들고 있음',
+          lines: ['오, 배에서 온 두루마리로구나.'],
+          choice: {
+            ask: '두루마리를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"선장님이 보냈어요"', sora: '부두의 선장님이 보내셨어요.', says: '먼 길을 온 책이구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"이걸로 뭘 해요?"', sora: '이 두루마리로 뭘 하세요?', says: '한 벌 베껴서 도서관에 둔단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'keeper', show: true, goal: '둑길 끝의 등대를 올려다보렴.',
+          lines: ['마침 잘 왔다. 저 등대를 올려다보렴.', '아래는 네모, 가운데는 여덟 모, 위는 둥글단다.'],
+          sora: '끝이 안 보여! 정말 높다!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'captain', when: ['S1', 'S2', 'S3', 'S4'], lines: ['도서관은 이 길을 따라가면 나온단다.', '기둥이 줄지어 선 큰 집이지.'] },
+        { who: 'captain', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '등대도 보고 왔니? 참 높지.'] },
+      ],
+      done: '두루마리를 전하고, 세 층으로 솟은 등대를 올려다보았다.',
+    },
+    errands: [
+      { id: 'took', text: '두루마리를 받는다.', at: [] },
+      { id: 'gave', text: '책 맡는 이에게 두루마리를 전한다.', at: [] },
+      { id: 'saw', text: '세 층 등대를 올려다본다.', at: [] },
+    ],
+    reply: '그 등대는 천 년도 넘게 서 있었단다. 목은 아프지 않더냐.',
+  },
 };
 
 // The far and the fore of every other scene are told from the pictures that are there (the

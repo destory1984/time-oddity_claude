@@ -174,7 +174,7 @@ describe('eating, wearing and using what people have', () => {
   });
   it('has a wardrobe: an outfit to put on in most of the places, each by its own name', () => {
     const all = outfitsOf(WALKS);
-    expect(all.map((o) => o.outfit).sort()).toEqual(['abbasid', 'armor', 'aztec', 'babylon', 'byz', 'chiton', 'egypt', 'fedora', 'gat', 'henge', 'huipil', 'ikat', 'inca', 'ivy', 'mali', 'mughal', 'nara', 'padua', 'qin', 'rococo', 'sampot', 'sangmo', 'silla', 'song', 'sydney73', 'tapa', 'toga', 'tophat', 'wrap']);
+    expect(all.map((o) => o.outfit).sort()).toEqual(['abbasid', 'alexandria', 'armor', 'aztec', 'babylon', 'byz', 'chiton', 'egypt', 'fedora', 'gat', 'gobekli', 'henge', 'huipil', 'ikat', 'inca', 'ivy', 'mali', 'mughal', 'nara', 'olympia', 'padua', 'persia', 'qin', 'rococo', 'sampot', 'sangmo', 'silla', 'song', 'sydney73', 'tapa', 'toga', 'tophat', 'wrap']);
     expect(new Set(all.map((o) => o.name)).size).toBe(all.length);
     // Every place has something to eat or to use as well, so that none is only looked at.
     for (const [id, place] of Object.entries(WALKS)) expect(triesOf(place).length, id).toBeGreaterThanOrEqual(2);

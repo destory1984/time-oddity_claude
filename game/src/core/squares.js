@@ -58,7 +58,7 @@ export const SQUARES = [
     date: { year: -280, month: 9, day: 23 }, calendar: 'julian', hourLocal: 21,
     facingAz: 350, nightOnLook: false,
     // All of this square's lines are placeholders, and its facts are from memory.
-    memo: '바다 끝에 높은 등대를 세움.', sora: '탑 꼭대기에서 연기가 나. 등대래!',
+    memo: '바다 끝에 높은 등대를 세움.', sora: '바다 건너에 높은 탑이 있어. 등대래!',
     memoToday: '남은 것: 없음. 그 자리에 성채.', soraToday: '등대는 없고 성이 있네.',
     noteMemo: '기원전 280년경. 섬 끝에 높은 등대를 세웠다고 책에서 읽음. 날을 몰라 달은 못 적음.',
     card: '기원전 280년 무렵, 알렉산드리아 앞 파로스 섬에 높은 등대가 세워졌습니다. 등대는 천오백 년 넘게 배들에게 길을 알려 주다가 지진으로 무너졌습니다. 지금 그 자리에는 등대의 돌로 쌓았다는 성채가 서 있습니다.',
@@ -685,6 +685,53 @@ export const SQUARES = [
     card: '1350년쯤, 아프리카 남쪽의 그레이트 짐바브웨에는 이 땅에 살던 쇼나 사람들의 조상이 높고 둥근 돌담을 세웠습니다. 화강암을 납작하게 쪼개어 아무것도 바르지 않고 쌓았습니다. 담 안에는 속이 꽉 찬 원뿔 탑이 있는데, 무엇에 썼는지는 아무도 모릅니다.',
     reply: '이 땅 사람들이 제 손으로 쌓은 담이란다. 탑이 무엇인지는 지금도 아무도 모르지.',
     quiz: { question: '돌담은 돌 사이에 무엇을 바르고 쌓았나?', answer: '아무것도 안 발랐다', proof: '아무것도 바르지 않고 쌓았습니다', wrong: ['진흙을 발랐다', '흰 회를 발랐다'] },
+  },
+  {
+    // Göbekli Tepe about 9500 BC: hunters and gatherers set up great T-shaped pillars in
+    // round walls on a hill by what is now Şanlıurfa. The day is not on record: a summer
+    // evening is taken. Years here are historical (no year 0), so 9500 BC is -9500, as
+    // 'khufu' writes 2560 BC. The place is walked about (core/walks.js).
+    // The date is NOT computed: the Julian calendar runs so far ahead of the seasons this
+    // long ago that midsummer falls about the start of September (reckoned by hand from the
+    // drift of a day in some 130 years, which gives 'khufu' its equinox of 11 April rightly).
+    // The picture looks at the sun going down behind the plain: at midsummer there it sets
+    // near azimuth 300 (by hand too, with the earth's tilt of that time, about 24.2 degrees),
+    // a little after 7 by the sun's own clock. Work all three out with astronomy-engine.
+    // From memory: that the pillars lay under earth until they were dug out from 1995 on,
+    // and that a roof now stands over them.
+    no: 0.5, id: 'gobekli', name: '괴베클리 테페', dateLabel: 'BC 9500년쯤', place: '괴베클리 테페, 터키',
+    lat: 37.223, lon: 38.922,
+    date: { year: -9500, month: 9, day: 1 }, calendar: 'julian', hourLocal: 19,
+    facingAz: 300, nightOnLook: false,
+    memo: '큰 돌기둥을 둥글게 세우는 중.', sora: '기둥에 여우가 있어!',
+    memoToday: '남은 것: 돌기둥. 지붕을 씌워 둠.', soraToday: '흙에 묻혀 있었대. 아직 서 있어.',
+    noteMemo: '기원전 9500년쯤. 사냥하던 사람들이 큰 돌기둥을 세웠다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '기원전 9500년 무렵, 지금의 터키 남동쪽 언덕 괴베클리 테페에서 사냥하고 열매를 모으며 살던 사람들이 T자 모양의 큰 돌기둥을 세웠습니다. 돌기둥은 둥근 돌담 안에 둘러서 있고, 여우와 뱀과 새가 새겨져 있습니다. 무엇에 쓴 곳인지는 학자들의 생각이 아직 갈립니다.',
+    reply: '밭도 쇠도 없던 사람들이 세운 기둥이란다. 왜 세웠는지는 아직 모르지.',
+    quiz: { question: '돌기둥에는 무엇이 새겨져 있나?', answer: '여우와 뱀과 새', proof: '여우와 뱀과 새가 새겨져 있습니다', wrong: ['임금의 얼굴', '글자'] },
+  },
+  {
+    // Olympia in 776 BC: the first Olympic festival on record, one footrace won by Koroibos
+    // of Elis. The day is not on record: a morning of high summer is taken (1 August in the
+    // Julian count). Years here are historical (no year 0), so 776 BC is -776, as 'thales'
+    // writes 585 BC. The place is walked about (core/walks.js).
+    // facingAz 90: the picture has the sun of the morning in it, right of the middle, so it
+    // is taken to look east along the running ground (made up: nothing says which way).
+    // Looked up (docs/신기한-사실.md) and found so: 776 BC, one contest (a footrace of about
+    // 192 m), Koroibos of Elis.
+    // From memory: that the running ground now to be seen, with its starting line of
+    // stone, is of later centuries; that the flame of today's Olympics is lit at Olympia;
+    // that the festival was held every four years.
+    no: 5, id: 'olympia', name: '첫 올림피아 달리기', dateLabel: 'BC 776년 여름', place: '올림피아, 그리스',
+    lat: 37.638, lon: 21.630,
+    date: { year: -776, month: 8, day: 1 }, calendar: 'julian', hourLocal: 9,
+    facingAz: 90, nightOnLook: false,
+    memo: '첫 올림피아 제전. 경기는 달리기 하나.', sora: '다들 출발선에 모였어!',
+    memoToday: '남은 것: 달리기 터와 출발선의 돌.', soraToday: '풀 둑 사이에 흙길만 길게 있어.',
+    noteMemo: '기원전 776년 여름. 기록에 남은 첫 올림피아 제전을 책에서 읽음. 날을 몰라 달은 못 적음.',
+    card: '기원전 776년 여름, 그리스의 올림피아에서 기록에 남은 첫 올림피아 제전이 열렸습니다. 경기는 달리기 하나뿐이었습니다. 이백 미터쯤 되는 길을 한 번 달렸고, 가까운 엘리스에서 온 코로이보스가 이겼습니다.',
+    reply: '요즘 올림픽의 불도 이 올림피아에서 붙인단다. 긴 달리기로구나.',
+    quiz: { question: '첫 올림피아 제전의 경기는 몇 가지였나?', answer: '하나', proof: '경기는 달리기 하나뿐이었습니다', wrong: ['셋', '다섯'] },
   },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
