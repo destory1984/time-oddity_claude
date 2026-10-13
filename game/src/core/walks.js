@@ -3514,6 +3514,16 @@ export const WALKS = {
     intro: { title: '돌을 세운 사람들', text: '사천오백 해쯤 전 영국의 들판에 큰 돌을 세운 사람들이란다. 글자가 없어서 이름도 말도 남지 않았지.' },
     dir: 'stonehenge2500', look: 'paper', pale: true,
     drawn: '아주 옛날 바위에 새긴 그림처럼, 쪼아 내고 붉은 흙을 문질러 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13; not yet looked up.)
+    now: {
+      photo: 'photo-now.webp', name: '스톤헨지의 지금 모습', when: '영국 솔즈베리 평원 · 오늘날',
+      text: [
+        '쓰러진 돌도 많지만 큰 돌들은 지금도 서 있습니다.',
+        '한여름 해 뜨는 아침이면 수천 명이 해돋이를 보러 모입니다.',
+        '돌을 지키려고 여느 날에는 줄 밖에서 봅니다.',
+      ],
+      credit: '사진: Diego Delso, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'village', name: '스톤헨지 곁 강가의 마을', short: '강가의 마을', zoom: 1.127, ground: 0.723, scale: 0.659, air: 'market', floor: 'dirt',
@@ -3648,6 +3658,16 @@ export const WALKS = {
     first: '갈릴레오가 목성 곁의 별을 처음 본 밤이란다. 유리알을 전해 주렴.',
     dir: 'padua1610', look: 'paper',
     drawn: '베네치아 화가들의 유화처럼, 깊은 푸른 밤으로 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13; not yet looked up.)
+    now: {
+      photo: 'photo-now.webp', name: '갈릴레오의 망원경', when: '이탈리아 피렌체 · 갈릴레오 박물관',
+      text: [
+        '갈릴레오가 만든 망원경 두 개가 지금도 남아 있습니다.',
+        '파도바가 아니라 피렌체의 박물관에 있습니다.',
+        '그가 찾은 달 넷은 지금 이오, 유로파, 가니메데, 칼리스토라고 부릅니다.',
+      ],
+      credit: '사진: Zde, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'market', name: '파도바 저녁 장터', short: '저녁 장터', zoom: 1.127, ground: 0.723, scale: 0.659, air: 'market', floor: 'dirt',
@@ -3783,17 +3803,27 @@ export const WALKS = {
   // Kept out: that Pilatre de Rozier died in a balloon two years later; the king (no line
   // says he was there). Nothing says the balloon was of paper.
   montgolfier: {
-    first: '오늘은 사람이 처음 풍선을 타고 나는 날이란다. 해면 바구니를 전해 주렴.',
+    first: '오늘은 사람이 처음 열기구를 타고 나는 날이란다. 해면 바구니를 전해 주렴.',
     dir: 'balloon1783', look: 'paper', pale: true,
     drawn: '그때 프랑스의 유화처럼, 부드러운 붓으로 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13; not yet looked up.)
+    now: {
+      photo: 'photo-now.webp', name: '라 뮈에트 성 자리의 지금 모습', when: '프랑스 파리 · 라늘라그 공원',
+      text: [
+        '그 성은 헐려 없어졌고, 뜰이 있던 자리에는 공원이 있습니다.',
+        '열기구는 지금도 더운 공기로 뜹니다. 짚불 대신 가스 불을 씁니다.',
+        '해마다 세계 곳곳에서 열기구 잔치가 열립니다.',
+      ],
+      credit: '사진: Polymagou, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
-        id: 'yard', name: '파리 풍선 공방 마당', short: '공방 마당', zoom: 1.153, ground: 0.703, scale: 0.675, air: 'masons', floor: 'dirt',
-        sora: '여기서 그 큰 풍선을 지었대!',
+        id: 'yard', name: '파리 열기구 공방 마당', short: '공방 마당', zoom: 1.153, ground: 0.703, scale: 0.675, air: 'masons', floor: 'dirt',
+        sora: '여기서 그 큰 열기구를 지었대!',
         people: [
           { id: 'gilder', pass: '금빛은 살살 칠해야지.', name: '금빛 무늬 그리는 화공', x: 0.18, w: 104, h: 318, lines: ['푸른 천에 금빛 해를 그렸단다.', '멀리서도 잘 보이라고 그랬지.'] },
-          { id: 'seamstress', pass: '한 땀, 또 한 땀.', name: '풍선 꿰맨 재봉사', x: 0.29, w: 129, h: 303, lines: ['큰 천을 이어 풍선을 꿰맸단다.', '집보다 큰 주머니가 되었지.'] },
-          { id: 'printer', pass: '쿵, 무늬가 잘 찍혔군.', name: '벽지 찍는 일꾼', x: 0.4, w: 115, h: 320, lines: ['여기는 벽지를 찍는 공방이란다.', '큰 풍선도 이 마당에서 지었지.'] },
+          { id: 'seamstress', pass: '한 땀, 또 한 땀.', name: '열기구 꿰맨 재봉사', x: 0.29, w: 129, h: 303, lines: ['큰 천을 이어 열기구를 꿰맸단다.', '집보다 큰 주머니가 되었지.'] },
+          { id: 'printer', pass: '쿵, 무늬가 잘 찍혔군.', name: '벽지 찍는 일꾼', x: 0.4, w: 115, h: 320, lines: ['여기는 벽지를 찍는 공방이란다.', '큰 열기구도 이 마당에서 지었지.'] },
           { id: 'shepherd', pass: '우리 양은 하늘을 날았지!', show: 'animals', pose: 'see-wow', sora: '양이 하늘을 날았대!', memo: '사람보다 먼저 양과 오리와 수탉이 탔단다. 셋 다 무사히 내려왔지.', name: '양 돌보는 아이', x: 0.51, w: 104, h: 266, lines: ['두 달 전엔 양이 먼저 탔어.', '오리랑 수탉도 같이 탔대.'] },
           { id: 'wicker', pass: '꼬고, 엮고, 또 엮고.', name: '버들 난간 엮는 할아버지', x: 0.62, w: 120, h: 304, lines: ['버들가지로 둥근 난간을 엮었단다.', '두 사람이 양쪽에 마주 서서 타지.'] },
           { id: 'ropemaker', pass: '오늘은 줄이 쉬는 날이군.', name: '밧줄 사리는 일꾼', x: 0.73, w: 93, h: 317, lines: ['지난번엔 줄에 매어 띄웠단다.', '오늘은 줄을 풀고 날아가지.'] },
@@ -3804,30 +3834,30 @@ export const WALKS = {
       },
       {
         id: 'road', name: '파리 라 뮈에트 성으로 가는 길', short: '성으로 가는 길', zoom: 1.136, ground: 0.716, scale: 0.665, air: 'street', floor: 'dirt',
-        sora: '다들 풍선 보러 가나 봐!',
+        sora: '다들 열기구 보러 가나 봐!',
         people: [
           { id: 'chestnut', pass: '따끈한 군밤이오!', show: 'chestnuts', name: '밤 굽는 아주머니', x: 0.18, w: 153, h: 278, lines: ['갓 구운 밤과 돌돌 만 과자란다.', '기다릴 땐 이게 최고지. 먹어 보련?'],
             try: { id: 'eat-chestnut1783', verb: 'eat', name: '구운 밤과 과자', face: 'yum', sora: '앗 뜨거! 달콤하고 고소해.' } },
           { id: 'fanlady', pass: '언제 뜨려나, 언제 뜨려나.', name: '부채 든 아가씨', x: 0.29, w: 106, h: 277, lines: ['파리 사람이 다 나왔나 봐요.', '저도 아침부터 기다렸답니다.'] },
-          { id: 'strawman', pass: '짚이 모자라면 안 되지.', name: '짚 나르는 일꾼', x: 0.4, w: 178, h: 298, lines: ['풍선 불에 넣을 짚이란다.', '짚을 넣으면 불이 확 살아나지.'] },
-          { id: 'scholar', pass: '더운 공기는 위로, 위로.', show: 'strawfire', pose: 'see-aha', sora: '불을 때서 뜨는 거구나!', memo: '풍선 밑에서 짚을 태워 더운 공기를 채웠단다. 더운 공기는 위로 올라가지.', name: '불 살피는 학자', x: 0.51, w: 123, h: 293, lines: ['불을 때면 공기가 더워진단다.', '더운 공기가 차면 주머니가 뜨지.'] },
-          { id: 'tiptoe', pass: '안 보여, 안 보여!', name: '까치발 선 아이', x: 0.62, w: 93, h: 207, lines: ['저기 풍선 꼭대기가 보여!', '나도 크면 하늘을 날 거야.'] },
-          { id: 'printseller', pass: '풍선 그림 사세요!', name: '풍선 그림 파는 아저씨', x: 0.73, w: 134, h: 296, lines: ['풍선을 그린 그림이란다.', '벽에 걸어 두고 오래오래 보지.'] },
-          { id: 'guard', pass: '표를 보여 주시오.', name: '성의 문지기', x: 0.85, w: 121, h: 320, lines: ['풍선은 이 문 안의 뜰에서 뜬단다.', '사람이 너무 몰려서 내가 지키지.'] },
+          { id: 'strawman', pass: '짚이 모자라면 안 되지.', name: '짚 나르는 일꾼', x: 0.4, w: 178, h: 298, lines: ['열기구 불에 넣을 짚이란다.', '짚을 넣으면 불이 확 살아나지.'] },
+          { id: 'scholar', pass: '더운 공기는 위로, 위로.', show: 'strawfire', pose: 'see-aha', sora: '불을 때서 뜨는 거구나!', memo: '열기구 밑에서 짚을 태워 더운 공기를 채웠단다. 더운 공기는 위로 올라가지.', name: '불 살피는 학자', x: 0.51, w: 123, h: 293, lines: ['불을 때면 공기가 더워진단다.', '더운 공기가 차면 주머니가 뜨지.'] },
+          { id: 'tiptoe', pass: '안 보여, 안 보여!', name: '까치발 선 아이', x: 0.62, w: 93, h: 207, lines: ['저기 열기구 꼭대기가 보여!', '나도 크면 하늘을 날 거야.'] },
+          { id: 'printseller', pass: '열기구 그림 사세요!', name: '열기구 그림 파는 아저씨', x: 0.73, w: 134, h: 296, lines: ['열기구를 그린 그림이란다.', '벽에 걸어 두고 오래오래 보지.'] },
+          { id: 'guard', pass: '표를 보여 주시오.', name: '성의 문지기', x: 0.85, w: 121, h: 320, lines: ['열기구는 이 문 안의 뜰에서 뜬단다.', '사람이 너무 몰려서 내가 지키지.'] },
         ],
         spots: [],
       },
       {
         id: 'garden', name: '파리 라 뮈에트 성의 뜰', short: '성의 뜰', zoom: 1.095, ground: 0.747, scale: 0.641, air: 'court', floor: 'dirt',
-        sora: '풍선이 집보다 커!',
+        sora: '열기구가 집보다 커!',
         people: [
           { id: 'franklin', pass: '허허, 대단한 날이로구나.', name: '프랭클린 할아버지', x: 0.18, w: 87, h: 207, lines: ['나는 바다 건너 미국에서 왔단다.', '이 구경을 놓칠 수는 없지.'] },
           { id: 'scribe', pass: '낮 두 시쯤, 맑음.', name: '받아 적는 이', x: 0.29, w: 73, h: 210, lines: ['오늘 본 것을 다 적어 둔단다.', '뒷날 사람들도 알아야 하니까.'] },
-          { id: 'etienne', pass: '바람이 잔잔해야 할 텐데.', name: '몽골피에 씨', x: 0.4, w: 89, h: 220, lines: ['우리 형제가 생각해 낸 풍선이란다.', '불을 때면 뜨는 것을 알아냈지.'] },
-          { id: 'ropeman', pass: '아직이야, 꽉 잡아!', name: '줄 잡은 일꾼', x: 0.51, w: 80, h: 320, lines: ['이 줄을 놓으면 풍선이 뜬단다.', '오늘은 줄 없이 멀리 가지.'] },
+          { id: 'etienne', pass: '바람이 잔잔해야 할 텐데.', name: '몽골피에 씨', x: 0.4, w: 89, h: 220, lines: ['우리 형제가 생각해 낸 열기구란다.', '불을 때면 뜨는 것을 알아냈지.'] },
+          { id: 'ropeman', pass: '아직이야, 꽉 잡아!', name: '줄 잡은 일꾼', x: 0.51, w: 80, h: 320, lines: ['이 줄을 놓으면 열기구가 뜬단다.', '오늘은 줄 없이 멀리 가지.'] },
           { id: 'marquis', pass: '짚도 해면도 넉넉해야지.', show: 'sponge', pose: 'see-aha', sora: '젖은 걸로 꾹 누르는 거야!', memo: '날다가 불똥이 천에 붙었단다. 젖은 해면으로 꾹 눌러 껐지.', name: '다를랑드 후작', x: 0.62, w: 85, h: 277, lines: ['나도 같이 탄단다. 불에 짚을 넣지.', '불똥이 튀면 젖은 해면으로 끈단다.'] },
-          { id: 'pilatre', pass: '해면이 와야 할 텐데.', show: 'ascent', pose: 'see-wow', sora: '줄도 없이 날아가!', memo: '사람이 탄 풍선이 줄 없이 처음 날았단다. 스물다섯 분쯤 날아 파리 건너편에 내렸지.', name: '필라트르 드 로지에', x: 0.73, w: 79, h: 204, lines: ['오늘 내가 이 풍선을 탄단다.', '하늘에서 파리를 내려다볼 거야.'] },
-          { id: 'cheerer', pass: '만세! 풍선 만세!', name: '모자 흔드는 아저씨', x: 0.85, w: 84, h: 246, lines: ['사람이 하늘을 난다니!', '오늘을 오래오래 이야기할 거야.'] },
+          { id: 'pilatre', pass: '해면이 와야 할 텐데.', show: 'ascent', pose: 'see-wow', sora: '줄도 없이 날아가!', memo: '사람이 탄 열기구가 줄 없이 처음 날았단다. 스물다섯 분쯤 날아 파리 건너편에 내렸지.', name: '필라트르 드 로지에', x: 0.73, w: 79, h: 204, lines: ['오늘 내가 이 열기구를 탄단다.', '하늘에서 파리를 내려다볼 거야.'] },
+          { id: 'cheerer', pass: '만세! 열기구 만세!', name: '모자 흔드는 아저씨', x: 0.85, w: 84, h: 246, lines: ['사람이 하늘을 난다니!', '오늘을 오래오래 이야기할 거야.'] },
         ],
         spots: [],
       },
@@ -3840,19 +3870,19 @@ export const WALKS = {
     // the roofs of Paris with no rope.
     tale: {
       thing: true,
-      ask: '풍선은 줄 없이도 날 수 있을까?',
+      ask: '열기구는 줄 없이도 날 수 있을까?',
       gate: { scene: 'road', open: 3, sora: '문지기가 막고 있어. 못 가.' },
       steps: [
         {
           who: 'seamstress', goal: '공방 마당의 재봉사에게 가 보렴.', holds: '해면 바구니: 재봉사가 들고 있음',
-          lines: ['얘야, 부탁 하나 들어주련?', '물에 적신 해면이란다. 불똥이 튀면 이걸로 끄지.', '풍선에 탈 필라트르 씨께 전해 주렴.'],
+          lines: ['얘야, 부탁 하나 들어주련?', '물에 적신 해면이란다. 불똥이 튀면 이걸로 끄지.', '열기구에 탈 필라트르 씨께 전해 주렴.'],
           offer: { ask: '해면 바구니를 전해 줄까?', label: '내가 전해 줄게요' },
           errand: 'took',
         },
         {
           who: 'guard', goal: '길 끝의 성문으로 가 보렴.', holds: '해면 바구니: 소라가 들고 있음',
           lines: ['멈춰라. 표를 보여 다오.', '표 없는 사람은 못 들어간다.'],
-          sora: '풍선이 뜨기 전에 전해야 하는데… 어? 누가 불러!',
+          sora: '열기구가 뜨기 전에 전해야 하는데… 어? 누가 불러!',
         },
         {
           who: 'strawman', call: '얘, 어디 가는데?', goal: '짚 나르는 일꾼이 부른다. 가 보렴.', holds: '해면 바구니: 소라가 들고 있음',
@@ -3866,14 +3896,14 @@ export const WALKS = {
           choice: {
             ask: '해면 바구니를 건네며 뭐라고 할까?',
             options: [
-              { id: 'E1', label: '"재봉사 아주머니가 보냈어요"', sora: '풍선 꿰맨 아주머니가 보내셨어요.', says: '끝까지 마음을 써 주는구나. 고맙다, 얘야.' },
+              { id: 'E1', label: '"재봉사 아주머니가 보냈어요"', sora: '열기구 꿰맨 아주머니가 보내셨어요.', says: '끝까지 마음을 써 주는구나. 고맙다, 얘야.' },
               { id: 'E2', label: '"안 무서워요?"', sora: '하늘에 올라가는 거 안 무서워요?', says: '조금 떨린단다. 그래도 꼭 가 보고 싶지.' },
             ],
           },
           errand: 'gave',
         },
         {
-          who: 'pilatre', show: true, goal: '풍선이 떠오르는 것을 보렴.',
+          who: 'pilatre', show: true, goal: '열기구가 떠오르는 것을 보렴.',
           lines: ['때맞춰 왔구나. 이제 줄을 푼단다.', '잘 보렴. 지붕 위로 날아갈 거야.'],
           sora: '떴다! 지붕 위로 날아가!',
           errand: 'saw',
@@ -3883,12 +3913,12 @@ export const WALKS = {
         { who: 'seamstress', when: ['S1', 'S2', 'S3', 'S4'], lines: ['필라트르 씨는 성의 뜰에 계신단다.', '길을 따라가 성문을 지나렴.'] },
         { who: 'seamstress', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '이제 마음 놓고 구경하겠구나.'] },
       ],
-      done: '해면 바구니를 전하고, 풍선이 줄 없이 날아가는 것을 보았다.',
+      done: '해면 바구니를 전하고, 열기구가 줄 없이 날아가는 것을 보았다.',
     },
     errands: [
       { id: 'took', text: '해면 바구니를 받는다.', at: [] },
       { id: 'gave', text: '필라트르 씨에게 해면 바구니를 전한다.', at: [] },
-      { id: 'saw', text: '풍선이 떠오르는 것을 본다.', at: [] },
+      { id: 'saw', text: '열기구가 떠오르는 것을 본다.', at: [] },
     ],
     reply: '두 사람 다 무사히 내렸단다. 하늘길이 열린 날이지.',
   },
@@ -3920,6 +3950,16 @@ export const WALKS = {
     first: '오페라하우스가 문을 여는 날이란다. 악보를 전해 주렴.',
     dir: 'sydney1973', look: 'paper', pale: true,
     drawn: '집을 짓는 사람이 연필로 쓱쓱 그린 그림처럼 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13; not yet looked up.)
+    now: {
+      photo: 'photo-now.webp', name: '오페라하우스의 지금 모습', when: '오스트레일리아 시드니 · 오늘날',
+      text: [
+        '문을 연 지 쉰 해가 넘었습니다.',
+        '2007년에 유네스코 세계유산이 되었습니다.',
+        '해마다 천만 명 넘게 찾아옵니다.',
+      ],
+      credit: '사진: Dietmar Rabich, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'quay', name: '시드니 서큘러 키 부두', short: '부두', zoom: 1.093, ground: 0.749, scale: 0.640, air: 'market',

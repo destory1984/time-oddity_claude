@@ -130,7 +130,8 @@ function devStart() {
   if (!isLocalHost(location.hostname)) return null;
   try { const id = localStorage.getItem('timeoddity.devStart'); return id && WALKS[id] ? id : null; } catch { return null; }
 }
-const START = devStart() ?? 'khufu';
+// (2026.10.13, the user: "시작점을 마야로", and of the public game too: "ㅇㅇ".)
+const START = devStart() ?? 'chichen1000';
 const beenNowhere = () => LIVE.every((sq) => beenOf(progress, sq.id).length === 0);
 // The dial stands at Rome's century every time the game is opened, not only the first
 // (the user, again: "시작지점을 로마로 고쳐. 이건 지금").
