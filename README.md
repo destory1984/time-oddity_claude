@@ -179,7 +179,7 @@ npm run build
 | 샌프란시스코 | [Golden Gate Bridge as seen from Marshall’s Beach, March 2018.jpg](https://commons.wikimedia.org/wiki/File:Golden_Gate_Bridge_as_seen_from_Marshall%E2%80%99s_Beach,_March_2018.jpg) | Frank Schulenburg | CC BY-SA 4.0 |
 | 도쿄 | [Tokaido Shinkansen N700S & N700A in Tokyo Station.jpg](https://commons.wikimedia.org/wiki/File:Tokaido_Shinkansen_N700S_%26_N700A_in_Tokyo_Station.jpg) | 電車(新幹線)でゴー！ | CC BY-SA 4.0 |
 | 할머니의 마을 | [LRO Apollo11 landing site 369440main lroc apollo11 lrg.jpg](https://commons.wikimedia.org/wiki/File:LRO_Apollo11_landing_site_369440main_lroc_apollo11_lrg.jpg) | NASA, GSFC, 애리조나 주립대 | 공개 저작물 |
-| 서울 | [Seoul Jamsil Main Stadium.jpg](https://commons.wikimedia.org/wiki/File:Seoul_Jamsil_Main_Stadium.jpg) | Jeong seolah | CC0 |
+| 서울 | [Seoul Sports Complex.jpg](https://commons.wikimedia.org/wiki/File:Seoul_Sports_Complex.jpg) | Seoul Institute | CC BY 4.0 |
 | 테노치티틀란 | [Templo Mayor, México D.F., México, 2013-10-16, DD 111.JPG](https://commons.wikimedia.org/wiki/File:Templo_Mayor%2C_M%C3%A9xico_D.F.%2C_M%C3%A9xico%2C_2013-10-16%2C_DD_111.JPG) | Diego Delso | CC BY-SA 3.0 |
 | 기자 | [Great Pyramid of Giza.jpg](https://commons.wikimedia.org/wiki/File:Great_Pyramid_of_Giza.jpg) | kallerna | CC BY-SA 3.0 |
 | 나라 | [Nara Todai-ji Daibutsuden Interior Daibutsu 05.jpg](https://commons.wikimedia.org/wiki/File:Nara_Todai-ji_Daibutsuden_Interior_Daibutsu_05.jpg) | Zairon | CC BY 4.0 |

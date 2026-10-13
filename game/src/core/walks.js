@@ -1462,8 +1462,9 @@ export const WALKS = {
       text: [
         '1984년에 문을 열었습니다. 올림픽 뒤에도 경기와 큰 공연이 열렸습니다.',
         '지붕의 휜 선은 조선 백자 항아리의 선을 본떴습니다.',
+        '사진 앞쪽은 야구장이고, 그 뒤의 둥근 것이 주경기장입니다.',
       ],
-      credit: '사진: Jeong seolah, 위키미디어 공용, CC0',
+      credit: '사진: Seoul Institute, 위키미디어 공용, CC BY 4.0',
     },
     scenes: [
       {
