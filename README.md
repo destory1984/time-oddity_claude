@@ -138,7 +138,7 @@ npm run build
 ## 빌려 쓴 것
 
 - "최후의 만찬" 사진: 위키미디어 공용의 `Última Cena - Da Vinci 5.jpg`. 1498년에 끝난 그림을 그대로 찍은 것이라 공개 저작물이다. 가로 1280px로 줄여 `game/public/walks/milan1497/photo-supper.webp` 에 넣었다.
-- 열세 곳의 지금 사진: 모두 위키미디어 공용에서 받았다. 가로 1280px 판(에펠탑은 800px)을 WebP로 바꿔 `game/public/walks/<곳>/photo-now.webp` 에 넣었다. 자르거나 고치지 않았다. 사진 파일은 저마다 아래 라이선스를 따른다.
+- 스물여섯 곳의 지금 사진(2026.10.13에 열세 곳을 더했다): 모두 위키미디어 공용에서 받았다. 가로 1280px 판(에펠탑은 800px)을 WebP로 바꿔 `game/public/walks/<곳>/photo-now.webp` 에 넣었다. 자르거나 고치지 않았다. 사진 파일은 저마다 아래 라이선스를 따른다.
 
 | 곳 | 파일 | 찍은 이 | 라이선스 |
 |---|---|---|---|
@@ -155,3 +155,16 @@ npm run build
 | 도쿄 | [Tokaido Shinkansen N700S & N700A in Tokyo Station.jpg](https://commons.wikimedia.org/wiki/File:Tokaido_Shinkansen_N700S_%26_N700A_in_Tokyo_Station.jpg) | 電車(新幹線)でゴー！ | CC BY-SA 4.0 |
 | 할머니의 마을 | [LRO Apollo11 landing site 369440main lroc apollo11 lrg.jpg](https://commons.wikimedia.org/wiki/File:LRO_Apollo11_landing_site_369440main_lroc_apollo11_lrg.jpg) | NASA, GSFC, 애리조나 주립대 | 공개 저작물 |
 | 서울 | [Seoul Jamsil Main Stadium.jpg](https://commons.wikimedia.org/wiki/File:Seoul_Jamsil_Main_Stadium.jpg) | Jeong seolah | CC0 |
+| 테노치티틀란 | [Templo Mayor, México D.F., México, 2013-10-16, DD 111.JPG](https://commons.wikimedia.org/wiki/File:Templo_Mayor%2C_M%C3%A9xico_D.F.%2C_M%C3%A9xico%2C_2013-10-16%2C_DD_111.JPG) | Diego Delso | CC BY-SA 3.0 |
+| 기자 | [Great Pyramid of Giza.jpg](https://commons.wikimedia.org/wiki/File:Great_Pyramid_of_Giza.jpg) | kallerna | CC BY-SA 3.0 |
+| 나라 | [Nara Todai-ji Daibutsuden Interior Daibutsu 05.jpg](https://commons.wikimedia.org/wiki/File:Nara_Todai-ji_Daibutsuden_Interior_Daibutsu_05.jpg) | Zairon | CC BY 4.0 |
+| 아테네 | [Attica 06-13 Athens 35 Parthenon.jpg](https://commons.wikimedia.org/wiki/File:Attica_06-13_Athens_35_Parthenon.jpg) | A.Savin | CC BY-SA 3.0 |
+| 앙코르 | [Angkor Wat with its reflection (cropped).jpg](https://commons.wikimedia.org/wiki/File:Angkor_Wat_with_its_reflection_%28cropped%29.jpg) | Satdeep Gill | CC BY-SA 4.0 |
+| 바빌론 | [Ishtar gate in Pergamon museum in Berlin..jpg](https://commons.wikimedia.org/wiki/File:Ishtar_gate_in_Pergamon_museum_in_Berlin..jpg) | Radomir Vrbovsky | CC BY-SA 4.0 |
+| 사마르칸트 | [Ulugh Beg Observatory inside.jpg](https://commons.wikimedia.org/wiki/File:Ulugh_Beg_Observatory_inside.jpg) | Benjamin Goetzinger | CC BY-SA 4.0 |
+| 치첸이트사 | [Chichen Itza 3.jpg](https://commons.wikimedia.org/wiki/File:Chichen_Itza_3.jpg) | Daniel Schwen | CC BY-SA 4.0 |
+| 서라벌 | [Cheomseongdae Observatory under blue sky in Gyeongju South Korea.jpg](https://commons.wikimedia.org/wiki/File:Cheomseongdae_Observatory_under_blue_sky_in_Gyeongju_South_Korea.jpg) | Basile Morin | CC BY-SA 4.0 |
+| 바그다드 | [المدرسة المستنصرية في بغداد (3) cropped edited.jpg](https://commons.wikimedia.org/wiki/File:%D8%A7%D9%84%D9%85%D8%AF%D8%B1%D8%B3%D8%A9_%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%86%D8%B5%D8%B1%D9%8A%D8%A9_%D9%81%D9%8A_%D8%A8%D8%BA%D8%AF%D8%A7%D8%AF_%283%29_cropped_edited.jpg) | Taisir Mahdi | CC BY-SA 4.0 |
+| 함양 | [Qin Terracotta Army, Pit 1 18.jpg](https://commons.wikimedia.org/wiki/File:Qin_Terracotta_Army%2C_Pit_1_18.jpg) | Gary Lee Todd | CC0 |
+| 마추픽추 | [Machu Picchu, Perú, 2015-07-30, DD 47.JPG](https://commons.wikimedia.org/wiki/File:Machu_Picchu%2C_Per%C3%BA%2C_2015-07-30%2C_DD_47.JPG) | Diego Delso | CC BY-SA 4.0 |
+| 그레이트 짐바브웨 | [Conical Tower - Great Enclosure III (33736918448).jpg](https://commons.wikimedia.org/wiki/File:Conical_Tower_-_Great_Enclosure_III_%2833736918448%29.jpg) | Andrew Moore | CC BY-SA 2.0 |

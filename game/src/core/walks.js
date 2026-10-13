@@ -1664,6 +1664,16 @@ export const WALKS = {
     first: '호수 위의 도시에 낯선 손님이 온 날이란다. 꽃목걸이를 전해 주렴.',
     dir: 'tenoch1519', look: 'paper', pale: true,
     drawn: '아스테카 사람들이 돌에 새기고 색을 칠하던 것처럼 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13.)
+    now: {
+      photo: 'photo-now.webp', name: '큰 신전의 지금 모습', when: '멕시코 멕시코시티 · 템플로 마요르',
+      text: [
+        '호수는 메워졌고 그 위에 멕시코시티가 섰습니다.',
+        '큰 신전은 땅에 묻혀 있다가 1978년 전기 공사를 하다 다시 찾았습니다.',
+        '지금은 도시 한가운데, 큰 성당 바로 옆에 터가 드러나 있습니다.',
+      ],
+      credit: '사진: Diego Delso, 위키미디어 공용, CC BY-SA 3.0',
+    },
     scenes: [
       {
         id: 'canal', name: '테노치티틀란 물길 어귀', short: '물길 어귀', zoom: 1.12, ground: 0.715, scale: 0.655, air: 'market', floor: 'dirt',
@@ -1789,6 +1799,16 @@ export const WALKS = {
     // 2026.10.12: "대피라미드만 개봉처럼 full로 다 해보자").
     deep: true,
     drawn: '그 무렵 이집트 무덤 벽에 새기고 칠하던 그림처럼 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13.)
+    now: {
+      photo: 'photo-now.webp', name: '대피라미드의 지금 모습', when: '이집트 기자 · 오늘날',
+      text: [
+        '사천오백 해가 지난 지금도 서 있습니다.',
+        '겉을 덮었던 매끈한 흰 돌은 거의 떨어져 나가 계단처럼 보입니다.',
+        '꼭대기가 닳아 처음보다 8미터쯤 낮습니다.',
+      ],
+      credit: '사진: kallerna, 위키미디어 공용, CC BY-SA 3.0',
+    },
     scenes: [
       {
         id: 'harbour', name: '이집트 기자 물길의 나루', short: '물길의 나루', zoom: 1.09, ground: 0.745, scale: 0.638, air: 'court', floor: 'dirt',
@@ -1935,6 +1955,16 @@ export const WALKS = {
     first: '오늘은 큰 부처님의 눈을 그려 넣는 날이란다. 비단 끈을 전해 주렴.',
     dir: 'nara752', look: 'paper', pale: true,
     drawn: '그 무렵 나라 사람들이 삼베에 먹으로 그리던 그림처럼 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13.)
+    now: {
+      photo: 'photo-now.webp', name: '큰 부처의 지금 모습', when: '일본 나라 · 도다이지',
+      text: [
+        '큰 부처는 지금도 그 자리에 앉아 있습니다.',
+        '불과 지진으로 여러 번 부서져, 머리와 손은 뒷날 다시 만든 것입니다.',
+        '부처를 모신 집도 두 번 불타 1709년에 다시 지었습니다.',
+      ],
+      credit: '사진: Zairon, 위키미디어 공용, CC BY 4.0',
+    },
     scenes: [
       {
         id: 'gate', name: '일본 나라 도다이지 문 앞', short: '절 문 앞', zoom: 1.13, ground: 0.715, scale: 0.661, air: 'street', floor: 'dirt',
@@ -2056,6 +2086,16 @@ export const WALKS = {
     first: '파르테논 신전을 막 다 지은 해란다. 기름병을 전해 주렴.',
     dir: 'athens432', look: 'paper', pale: true,
     drawn: '아테네 사람들이 항아리에 검은 그림을 그리던 것처럼 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13.)
+    now: {
+      photo: 'photo-now.webp', name: '파르테논의 지금 모습', when: '그리스 아테네 · 아크로폴리스',
+      text: [
+        '기둥들은 지금도 언덕 위에 서 있습니다.',
+        '1687년 전쟁 때 안에 쌓아 둔 화약이 터져 지붕과 벽이 무너졌습니다.',
+        '수십 년째 조금씩 고치고 있습니다.',
+      ],
+      credit: '사진: A.Savin, 위키미디어 공용, CC BY-SA 3.0',
+    },
     scenes: [
       {
         id: 'agora', name: '그리스 아테네 아고라', short: '아고라', zoom: 1.15, ground: 0.715, scale: 0.673, air: 'market', floor: 'dirt',
@@ -2178,6 +2218,16 @@ export const WALKS = {
     first: '큰 사원을 거의 다 지은 때란다. 쇠 정을 전해 주렴.',
     dir: 'angkor1150', look: 'paper', pale: true,
     drawn: '그 절의 벽에 얕게 새긴 돌 그림처럼 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13.)
+    now: {
+      photo: 'photo-now.webp', name: '앙코르와트의 지금 모습', when: '캄보디아 시엠레아프 · 오늘날',
+      text: [
+        '다섯 탑이 지금도 못에 비칩니다.',
+        '캄보디아의 나라 깃발에 이 절이 그려져 있습니다.',
+        '숲에 묻힌 둘레의 절들과 달리 스님들이 줄곧 돌보아 왔습니다.',
+      ],
+      credit: '사진: Satdeep Gill, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'moat', name: '크메르 앙코르 해자 앞', short: '해자 앞', zoom: 1.15, ground: 0.705, scale: 0.673, air: 'market', floor: 'dirt',
@@ -2307,6 +2357,16 @@ export const WALKS = {
     intro: { title: '바빌론 사람들', text: '지금의 이라크, 두 강 사이의 땅에 살던 사람들이란다. 진흙 판에 글을 새겼고, 예순씩 묶어 세는 셈을 썼지.' },
     dir: 'babylon575', look: 'paper',
     drawn: '그 문의 푸른 유약 벽돌 그림처럼 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13.)
+    now: {
+      photo: 'photo-now.webp', name: '이슈타르 문의 지금 모습', when: '독일 베를린 · 페르가몬 박물관',
+      text: [
+        '문은 지금 이라크가 아니라 독일 베를린의 박물관에 서 있습니다.',
+        '백여 년 전 땅에서 파낸 벽돌 조각을 가져가 다시 맞춘 것입니다.',
+        '바빌론 터에는 본떠 지은 작은 문이 있습니다.',
+      ],
+      credit: '사진: Radomir Vrbovsky, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'quay', name: '바빌론 유프라테스 강가 나루', short: '강가 나루', zoom: 1.13, ground: 0.72, scale: 0.661, air: 'market', floor: 'dirt',
@@ -2438,6 +2498,16 @@ export const WALKS = {
     intro: { title: '티무르의 나라', text: '사마르칸트는 동쪽과 서쪽을 잇는 비단길 한가운데의 도시란다. 티무르 임금의 나라가 여기를 서울로 삼았지.' },
     dir: 'samarkand1428', look: 'paper',
     drawn: '그 도시 건물의 푸른 타일 조각처럼 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13.)
+    now: {
+      photo: 'photo-now.webp', name: '눈금 길의 지금 모습', when: '우즈베키스탄 사마르칸트 · 울루그 베그 천문대 터',
+      text: [
+        '둥근 건물은 사라지고 땅속의 눈금 길만 남았습니다.',
+        '사백 해 넘게 잊혔다가 1908년에 다시 찾았습니다.',
+        '지금은 지붕을 씌워 위에서 내려다볼 수 있습니다.',
+      ],
+      credit: '사진: Benjamin Goetzinger, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'registan', name: '사마르칸트 레기스탄의 학교 앞', short: '학교 앞', zoom: 1.085, ground: 0.755, scale: 0.635, air: 'market',
@@ -2569,6 +2639,16 @@ export const WALKS = {
     intro: { title: '마야 사람들', text: '지금의 멕시코와 과테말라 숲속에 돌로 도시를 지은 사람들이란다. 별과 날을 세는 데 밝았고, 0을 쓸 줄 알았지.' },
     dir: 'chichen1000', look: 'paper', pale: true,
     drawn: '마야 신전의 벽에 그린 그림처럼 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13.)
+    now: {
+      photo: 'photo-now.webp', name: '큰 피라미드의 지금 모습', when: '멕시코 유카탄 · 치첸이트사',
+      text: [
+        '피라미드는 지금도 숲 한가운데 서 있습니다.',
+        '낮과 밤의 길이가 같은 날이면 수만 명이 빛의 뱀을 보러 옵니다.',
+        '돌이 닳지 않게 2006년부터는 계단에 오를 수 없습니다.',
+      ],
+      credit: '사진: Daniel Schwen, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'market', name: '마야 치첸이트사 광장 어귀의 시장', short: '시장', zoom: 1.13, ground: 0.72, scale: 0.661, air: 'market',
@@ -2696,6 +2776,16 @@ export const WALKS = {
     first: '별 보는 돌탑을 쌓은 서라벌이란다. 금 추를 전해 주렴.',
     dir: 'seorabeol640', look: 'paper',
     drawn: '신라 무덤에서 나온 흰 말 그림처럼 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13.)
+    now: {
+      photo: 'photo-now.webp', name: '첨성대의 지금 모습', when: '대한민국 경주 · 오늘날',
+      text: [
+        '천사백 해 가까이 그 자리에 서 있습니다.',
+        '쌓은 뒤로 허물어 다시 쌓은 적이 없다고 합니다.',
+        '2016년 경주 지진 때 조금 기울었지만 넘어지지 않았습니다.',
+      ],
+      credit: '사진: Basile Morin, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'market', name: '신라 서라벌 저잣거리', short: '저잣거리', zoom: 1.13, ground: 0.725, scale: 0.661, air: 'market', floor: 'dirt',
@@ -2830,6 +2920,16 @@ export const WALKS = {
     intro: { title: '바그다드 사람들', text: '바그다드는 지금의 이라크에 있던 큰 나라의 서울이란다. 먼 나라의 책을 모아 아랍 말로 옮기고, 셈과 별을 깊이 살폈지.' },
     dir: 'baghdad830', look: 'paper', pale: true,
     drawn: '그 도시의 옛 책 그림처럼 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13.)
+    now: {
+      photo: 'photo-now.webp', name: '바그다드 옛 학교의 지금 모습', when: '이라크 바그다드 · 무스탄시리야 학교',
+      text: [
+        '그때의 바그다드는 1258년 몽골 군대에 무너져 남은 것이 거의 없습니다.',
+        '이 학교는 같은 나라가 사백 해 뒤인 1233년에 티그리스 강가에 지은 것입니다.',
+        '알콰리즈미의 이름은 "알고리즘"이라는 말로 남았습니다.',
+      ],
+      credit: '사진: Taisir Mahdi, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'market', name: '바그다드 티그리스 강가의 책 시장', short: '책 시장', zoom: 1.093, ground: 0.749, scale: 0.640, air: 'market',
@@ -2966,6 +3066,16 @@ export const WALKS = {
     intro: { title: '진나라 사람들', text: '진나라는 중국을 처음으로 하나로 합친 나라란다. 글자와 저울과 잣대를 온 나라에 하나로 맞췄지.' },
     dir: 'xianyang210', look: 'paper',
     drawn: '그때의 검고 붉은 옻칠 그릇 그림처럼 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13.)
+    now: {
+      photo: 'photo-now.webp', name: '흙 병사들의 지금 모습', when: '중국 시안 · 병마용 1호 구덩이',
+      text: [
+        '1974년 농부들이 우물을 파다가 찾았습니다.',
+        '색은 거의 벗겨져 흙빛이 되었습니다.',
+        '아직 다 파내지 않았고, 시황제의 무덤은 열지 않았습니다.',
+      ],
+      credit: '사진: Gary Lee Todd, 위키미디어 공용, CC0',
+    },
     scenes: [
       {
         id: 'clay', name: '함양 동쪽 여산의 흙 병사 빚는 터', short: '빚는 터', zoom: 1.127, ground: 0.723, scale: 0.659, air: 'masons', floor: 'dirt',
@@ -3108,6 +3218,16 @@ export const WALKS = {
     intro: { title: '잉카 사람들', text: '남아메리카의 높은 안데스 산에 큰 나라를 세운 사람들이란다. 글자 없이 매듭 끈으로 수를 적고, 산길을 달려 소식을 전했지.' },
     dir: 'machupicchu1450', look: 'paper',
     drawn: '잉카의 금 꾸미개처럼, 금판을 두드려 낸 듯 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13.)
+    now: {
+      photo: 'photo-now.webp', name: '마추픽추의 지금 모습', when: '페루 쿠스코 · 오늘날',
+      text: [
+        '풀 지붕은 사라지고 돌벽만 남았습니다.',
+        '지진이 잦은 곳인데도 벽은 틈 없이 서 있습니다.',
+        '1911년 미국의 하이럼 빙엄이 바깥세상에 널리 알렸습니다.',
+      ],
+      credit: '사진: Diego Delso, 위키미디어 공용, CC BY-SA 4.0',
+    },
     scenes: [
       {
         id: 'terraces', name: '잉카 마추픽추 계단밭', short: '계단밭', zoom: 1.124, ground: 0.725, scale: 0.658, air: 'market', floor: 'dirt',
@@ -3243,6 +3363,16 @@ export const WALKS = {
     intro: { title: '쇼나 사람들의 조상', text: '아프리카 남쪽에 돌로 큰 도시를 지은 사람들이란다. 소를 기르고 금을 캐서, 바다 건너 먼 나라와 물건을 바꿨지.' },
     dir: 'zimbabwe1350', look: 'paper', pale: true,
     drawn: '그 땅의 흙집 벽에 그린 그림처럼 그렸단다.',
+    // (What is said of today: from memory, 2026.10.13.)
+    now: {
+      photo: 'photo-now.webp', name: '원뿔 탑의 지금 모습', when: '짐바브웨 마스빙고 · 그레이트 짐바브웨',
+      text: [
+        '담과 탑은 지금도 서 있습니다.',
+        '1980년 새 나라가 서면서 이곳의 이름을 따 짐바브웨라고 했습니다.',
+        '여기서 나온 돌 새는 나라 깃발에 그려져 있습니다.',
+      ],
+      credit: '사진: Andrew Moore, 위키미디어 공용, CC BY-SA 2.0',
+    },
     scenes: [
       {
         id: 'valley', name: '그레이트 짐바브웨 큰 울타리 앞', short: '울타리 앞', zoom: 1.105, ground: 0.740, scale: 0.646, air: 'market', floor: 'dirt',
