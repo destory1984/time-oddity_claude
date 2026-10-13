@@ -253,6 +253,7 @@ const journal = createJournal({
   wardrobe: () => OUTFITS.filter((o) => LIVE.some((sq) => triedOf(progress, sq.id).includes(o.id))).map((o) => ({ ...o, on: loadOutfit() === o.outfit })),
   onWear: (outfit) => putOn(outfit),
   drawn: (id) => WALKS[id]?.drawn ?? null,
+  intro: (id) => WALKS[id]?.intro ?? null,
 });
 // She puts on something from the wardrobe, or takes it off (null): at once if she is
 // walking about, and until she leaves the place. Chosen above the Earth, it is on her at
@@ -439,7 +440,7 @@ const REAL_TAG = '그날 정말 있던 일';
 function memoOk() {
   if (!walk) return;
   sound.wake(); sound.tick(true, false);
-  if (walkMemo) walkMemo = null;
+  if (walkMemo) walkMemo = walkMemo.next ?? null;
   else replyDue = false;
 }
 function tapScene(tap) {
@@ -863,7 +864,12 @@ function showWalk(sq) {
   // The first time she is set down in a place grandmother's slip says what day it is and what
   // is to be done there (a place's `first`). Whose pictures the place is drawn after (`drawn`)
   // is in the notebook only.
-  if (fresh && walk.place.first) walkMemo = { text: walk.place.first };
+  // Before it, where the people of the place are little known, who they were (a place's `intro`).
+  if (fresh) {
+    const first = walk.place.first ? { text: walk.place.first } : null;
+    const intro = walk.place.intro;
+    walkMemo = intro ? { text: intro.text, tag: intro.title, next: first } : first;
+  }
   walkArrive = 'land';
   sound.paper();
 }
@@ -1023,7 +1029,7 @@ function frameWalk(dt) {
   memoUp = memo !== null;
   hud.set({
     name: squareTitle(square), dateText: square.dateLabel, placeText: sceneOf(walk).name, subText: '',
-    dots: { day: false, sky: false, remains: false }, memo, memoOk: true, memoTag: walkMemo?.real ? REAL_TAG : null, memoShow: walkMemo?.show ? `./walks/${walk.place.dir}/show-${walkMemo.show}.webp` : null, memoPlain: false, memoSky: false,
+    dots: { day: false, sky: false, remains: false }, memo, memoOk: true, memoTag: walkMemo?.real ? REAL_TAG : walkMemo?.tag ?? null, memoShow: walkMemo?.show ? `./walks/${walk.place.dir}/show-${walkMemo.show}.webp` : null, memoPlain: false, memoSky: false,
     // No story card here: what it told, the people now tell (the user, 2026.10.8: "이야기 카드 빼").
     chips: false, bubble: null, sora: soraPose({ now: performance.now(), hushAt }),
     todayLabel: '오늘로', showToday: false, showLeave: true, hint: null, soraFade: 1, glowSky: 0, glowToday: 0,

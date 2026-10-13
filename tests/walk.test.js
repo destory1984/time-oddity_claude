@@ -518,3 +518,23 @@ describe('a place where all is done', () => {
     expect(canHop(walk, 1)).toBe(true);
   });
 });
+
+describe('what grandmother says on setting down', () => {
+  it('has a slip for every place: what day it is and what is to be done', () => {
+    for (const [id, place] of Object.entries(WALKS)) {
+      expect(typeof place.first, id).toBe('string');
+      expect(place.first.length, id).toBeLessThanOrEqual(45);
+      expect(place.first.endsWith('렴.'), id).toBe(true);
+    }
+  });
+  it('says who the people were where they are little known: a name and two short sentences', () => {
+    const told = Object.entries(WALKS).filter(([, place]) => place.intro);
+    expect(told.length).toBeGreaterThanOrEqual(15);
+    for (const [id, { intro }] of told) {
+      expect(intro.title.length, id).toBeLessThanOrEqual(12);
+      expect(intro.text.length, id).toBeLessThanOrEqual(75);
+      expect(/[지다]\.$/.test(intro.text), id).toBe(true);
+      expect(intro.text.split('. ').length, id).toBe(2);
+    }
+  });
+});

@@ -639,6 +639,9 @@ export const WALKS = {
   // glass, the lamps hung in rings, the windows round the foot of the first dome.
   // Made up: the errand of the gold pieces, the guard, the deacon and the side door.
   hagiaSophia: {
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '동로마 사람들', text: '동로마는 로마가 둘로 갈라진 뒤 동쪽에 남은 나라란다. 서울 콘스탄티노플은 천 년 넘게 큰 도시였지.' },
     first: '오늘은 큰 성당이 문을 여는 날이란다. 금빛 조각을 전해 주렴.',
     // She is set down before the church, which stands whole across the square in the middle
     // of the picture (the user, 2026.10.9: "광장 에서 성당 전체 모습이 잘 드러나지 않는다. (돔이 잘
@@ -777,6 +780,9 @@ export const WALKS = {
   // thousand people, eighty camels of gold) are of later telling and are not said.
   // Made up: the water-seller and his piece of gold, the guard, the interpreter, the king's words.
   musa1324: {
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '말리 사람들', text: '오늘 카이로에 온 임금은 서아프리카 말리의 임금이란다. 말리는 금이 많이 나는 넓은 나라였지.' },
     first: '금을 뿌리며 지나가는 임금이 온 여름이란다. 금 조각을 돌려주러 가렴.',
     dir: 'cairo1324', look: 'paper', pale: true,
     drawn: '그 무렵 아랍의 책에 그려 넣던 그림처럼 그렸단다.',
@@ -908,6 +914,9 @@ export const WALKS = {
   // coming up the canal, markets by night, the water clock, the armillary sphere, steamed buns.
   // Made up: the apprentice and his note, the gatekeeper, the fortune-teller, what they say.
   guest1054: {
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '송나라 사람들', text: '송나라는 천 년 전 중국에 있던 나라란다. 서울 개봉은 밤에도 시장이 열렸고, 책을 찍어 내고 나침반을 썼지.' },
     first: '낮에도 지지 않는 새 별이 뜬 날이란다. 별 보는 생도의 쪽지를 전해 주렴.',
     dir: 'kaifeng1054', look: 'paper', pale: true,
     // The eye is a camera here, and things stand nearer it than the street (ui/walk.js; the
@@ -1083,6 +1092,9 @@ export const WALKS = {
   // length of the ramp, how many kinds of stone, twenty thousand workers.
   // Made up: the errand of the red stone, the overseer, that the calligrapher takes her up.
   tajMahal: {
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '무굴 사람들', text: '무굴은 인도의 북쪽을 다스린 큰 나라란다. 임금 샤 자한이 먼저 떠난 왕비를 그리며 흰 돌 무덤을 지었지.' },
     first: '흰 돌 무덤을 한창 짓는 중이란다. 붉은 돌 한 알을 전해 주렴.',
     dir: 'agra1640', look: 'paper', pale: true,
     drawn: '무굴의 임금들이 아끼던 작고 꼼꼼한 그림처럼 그렸단다.',
@@ -1219,6 +1231,9 @@ export const WALKS = {
   // ship (told of the Dolphin in 1767, of a trade not for children, and called a myth).
   // Made up: the errand of the coconut, the chief taking her in, the astronomer letting her look.
   venus1769: {
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '타히티 사람들', text: '넓은 태평양의 섬에 사는 뱃사람들이란다. 별과 물결을 읽어, 지도 없이 먼 바다를 건넜지.' },
     first: '오늘은 금성이 해 앞을 지나가는 날이란다. 코코넛을 전해 주렴.',
     dir: 'tahiti1769', look: 'paper',
     drawn: '백 년쯤 뒤 이 섬에 와서 살던 화가 고갱의 그림처럼 그렸단다.',
@@ -1643,6 +1658,9 @@ export const WALKS = {
   // Made up: the grandmother and her garland, the overseer, the merchant, the steward.
   // Left out: sacrifice, and the war that followed.
   tenoch1519: {
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '아스테카 사람들', text: '지금의 멕시코, 호수 한가운데 섬에 큰 도시를 지은 사람들이란다. 호수에 흙을 쌓아 밭을 만들고 옥수수를 길렀지.' },
     first: '호수 위의 도시에 낯선 손님이 온 날이란다. 꽃목걸이를 전해 주렴.',
     dir: 'tenoch1519', look: 'paper', pale: true,
     drawn: '아스테카 사람들이 돌에 새기고 색을 칠하던 것처럼 그렸단다.',
@@ -1911,6 +1929,9 @@ export const WALKS = {
   // of paper scattered, tallies of wood, dress after the Tang.
   // Made up: the cord maker's errand, the gatekeeper, the drummer who takes her in.
   nara752: {
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '나라 시대의 일본', text: '나라는 천삼백 해 전 일본의 서울이란다. 당나라와 신라에서 배워 큰 절과 큰 부처를 지었지.' },
     first: '오늘은 큰 부처님의 눈을 그려 넣는 날이란다. 비단 끈을 전해 주렴.',
     dir: 'nara752', look: 'paper', pale: true,
     drawn: '그 무렵 나라 사람들이 삼베에 먹으로 그리던 그림처럼 그렸단다.',
@@ -2151,6 +2172,9 @@ export const WALKS = {
   // west, that elephants hauled stone here.
   // Made up: the wife's errand of the chisel, the elephant driver, the child with the boat.
   angkor1150: {
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '크메르 사람들', text: '지금의 캄보디아에 큰 나라를 세운 사람들이란다. 물길과 큰 못을 파서 벼를 기르고, 돌로 큰 절을 지었지.' },
     first: '큰 사원을 거의 다 지은 때란다. 쇠 정을 전해 주렴.',
     dir: 'angkor1150', look: 'paper', pale: true,
     drawn: '그 절의 벽에 얕게 새긴 돌 그림처럼 그렸단다.',
@@ -2277,6 +2301,10 @@ export const WALKS = {
   // workmen's path behind the wall, every other person.
   // Kept off the screen: the taking of Jerusalem and the captives.
   babylon575: {
+    first: '큰 문으로 잔치 행렬이 지나는 날이란다. 점토판을 전해 주렴.',
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '바빌론 사람들', text: '지금의 이라크, 두 강 사이의 땅에 살던 사람들이란다. 진흙 판에 글을 새겼고, 예순씩 묶어 세는 셈을 썼지.' },
     dir: 'babylon575', look: 'paper',
     drawn: '그 문의 푸른 유약 벽돌 그림처럼 그렸단다.',
     scenes: [
@@ -2404,6 +2432,10 @@ export const WALKS = {
   // Made up: the papermaker's errand of the bundle of paper, the gatekeeper, the mason and
   // the workers' stair, and everyone else who stands about.
   samarkand1428: {
+    first: '임금이 손수 별을 재는 도시란다. 종이 묶음을 전해 주렴.',
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '티무르의 나라', text: '사마르칸트는 동쪽과 서쪽을 잇는 비단길 한가운데의 도시란다. 티무르 임금의 나라가 여기를 서울로 삼았지.' },
     dir: 'samarkand1428', look: 'paper',
     drawn: '그 도시 건물의 푸른 타일 조각처럼 그렸단다.',
     scenes: [
@@ -2531,6 +2563,10 @@ export const WALKS = {
   // bars the way, the ball player who shows the way round.
   // Left out on purpose: human sacrifice, and what was thrown into the well.
   chichen1000: {
+    first: '낮과 밤의 길이가 같은 날이란다. 매듭 끈을 전해 주렴.',
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '마야 사람들', text: '지금의 멕시코와 과테말라 숲속에 돌로 도시를 지은 사람들이란다. 별과 날을 세는 데 밝았고, 0을 쓸 줄 알았지.' },
     dir: 'chichen1000', look: 'paper', pale: true,
     drawn: '마야 신전의 벽에 그린 그림처럼 그렸단다.',
     scenes: [
@@ -2657,6 +2693,7 @@ export const WALKS = {
   // Made up: the errand of the gold plumb weight, the queen's coming that evening, the
   // carpenter with the ladder, every other person.
   cheomseongdae: {
+    first: '별 보는 돌탑을 쌓은 서라벌이란다. 금 추를 전해 주렴.',
     dir: 'seorabeol640', look: 'paper',
     drawn: '신라 무덤에서 나온 흰 말 그림처럼 그렸단다.',
     scenes: [
@@ -2787,6 +2824,10 @@ export const WALKS = {
   // the water channel, that al-Khwarizmi reckoned the earth's girth from this paper at
   // Shammasiyya, and everyone else who stands about.
   baghdad830: {
+    first: '걸어서 땅을 잰 이들이 돌아온 날이란다. 종이를 전해 주렴.',
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '바그다드 사람들', text: '바그다드는 지금의 이라크에 있던 큰 나라의 서울이란다. 먼 나라의 책을 모아 아랍 말로 옮기고, 셈과 별을 깊이 살폈지.' },
     dir: 'baghdad830', look: 'paper', pale: true,
     drawn: '그 도시의 옛 책 그림처럼 그렸단다.',
     scenes: [
@@ -2919,6 +2960,10 @@ export const WALKS = {
   // shutting in of the tomb's builders, the burning of the books. Nothing is said in the
   // walk of what lies in the tomb.
   xianyang210: {
+    first: '흙으로 병사 팔천을 빚는 일터란다. 이름 도장을 전해 주렴.',
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '진나라 사람들', text: '진나라는 중국을 처음으로 하나로 합친 나라란다. 글자와 저울과 잣대를 온 나라에 하나로 맞췄지.' },
     dir: 'xianyang210', look: 'paper',
     drawn: '그때의 검고 붉은 옻칠 그릇 그림처럼 그렸단다.',
     scenes: [
@@ -3057,6 +3102,10 @@ export const WALKS = {
   // channel, every other person.
   // Kept out: human sacrifice; the name and the use of the stone called Intihuatana; chicha.
   machuPicchu: {
+    first: '한 해에 낮이 가장 짧은 날이란다. 매듭 끈을 전해 주렴.',
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '잉카 사람들', text: '남아메리카의 높은 안데스 산에 큰 나라를 세운 사람들이란다. 글자 없이 매듭 끈으로 수를 적고, 산길을 달려 소식을 전했지.' },
     dir: 'machupicchu1450', look: 'paper',
     drawn: '잉카의 금 꾸미개처럼, 금판을 두드려 낸 듯 그렸단다.',
     scenes: [
@@ -3188,6 +3237,10 @@ export const WALKS = {
   // the mason, the king's sister, the day the last stone is laid, that the wall was
   // building "since grandfather's grandfather", and everyone else who stands about.
   zimbabwe1350: {
+    first: '높은 돌담의 마지막 돌을 올리는 날이란다. 푸른 그릇을 전해 주렴.',
+    // Who lived here, for a player who has not heard of them: the first slip of all (the user,
+    // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). From memory.
+    intro: { title: '쇼나 사람들의 조상', text: '아프리카 남쪽에 돌로 큰 도시를 지은 사람들이란다. 소를 기르고 금을 캐서, 바다 건너 먼 나라와 물건을 바꿨지.' },
     dir: 'zimbabwe1350', look: 'paper', pale: true,
     drawn: '그 땅의 흙집 벽에 그린 그림처럼 그렸단다.',
     scenes: [
