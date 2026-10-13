@@ -81,7 +81,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'market', name: '로마 시장 거리', zoom: 1.25, ground: 0.765, scale: SHEET.market, air: 'market',
+        id: 'market', name: '이탈리아 로마 시장 거리', short: '시장 거리', zoom: 1.25, ground: 0.765, scale: SHEET.market, air: 'market',
         sora: '사람이 엄청 많아! 냄새도 나.',
         people: [
           { id: 'baker', pass: '빵이오! 갓 구운 빵!', name: '빵 장수', x: 0.163, w: 118, h: 304, lines: ['갓 구웠어요. 여덟 쪽으로 갈라 드셔요.', '경기장 덕에 오늘은 벌써 동났네.'] },
@@ -103,7 +103,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'plaza', name: '로마 콜로세움 앞 광장', short: '콜로세움 앞 광장', zoom: 1.6, ground: 0.79, scale: SHEET.plaza, air: 'court',
+        id: 'plaza', name: '이탈리아 로마 콜로세움 앞 광장', short: '콜로세움 앞 광장', zoom: 1.6, ground: 0.79, scale: SHEET.plaza, air: 'court',
         sora: '와, 진짜 새것이다. 하얘!',
         people: [
           { id: 'water', pass: '목마르지 않소? 보고 가쇼.', show: 'posca', pose: 'see-peer', name: '물 장수', x: 0.11, w: 85, h: 268, lines: ['식초 탄 물이오! 병정들이 마시는 거요.', '백 날을 한다니 백 날을 팔아야지.'],
@@ -121,7 +121,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'inside', name: '로마 콜로세움 안', short: '콜로세움 안', zoom: 1.3, ground: 0.775, scale: SHEET.inside, air: 'arena',
+        id: 'inside', name: '이탈리아 로마 콜로세움 안', short: '콜로세움 안', zoom: 1.3, ground: 0.775, scale: SHEET.inside, air: 'arena',
         sora: '우와… 끝까지 다 사람이야.',
         people: [
           { id: 'usher', pass: '표를 보여 주시오.', name: '자리 안내원', x: 0.17, w: 84, h: 263, lines: ['앞줄은 원로원 자리요. 저 위로.', '자리는 옷을 보고 정하오.'] },
@@ -179,7 +179,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'gate', name: '파리 만국박람회 입구', short: '박람회 입구', zoom: 1.03, ground: 0.785, scale: 0.602, air: 'street',
+        id: 'gate', name: '프랑스 파리 만국박람회 입구', short: '박람회 입구', zoom: 1.03, ground: 0.785, scale: 0.602, air: 'street',
         sora: '깃발이 잔뜩! 저 끝에 탑이야.',
         // The dome seen through the middle arch (the user, 2026.10.10, with a red ring about it: "누르면 설명
         // 추가"). Looked up (nga.gov, toureiffel.paris): the Dôme Central, the way into the Palais des
@@ -213,7 +213,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'tower', name: '파리 에펠탑 아래', short: '에펠탑 아래', zoom: 1.09, ground: 0.735, scale: 0.638, air: 'court', floor: 'dirt',
+        id: 'tower', name: '프랑스 파리 에펠탑 아래', short: '에펠탑 아래', zoom: 1.09, ground: 0.735, scale: 0.638, air: 'court', floor: 'dirt',
         sora: '우와, 다리 하나가 집채만 해.',
         // The stair up the right leg, one straight flight of it: people go up one after another.
         moving: [
@@ -240,7 +240,7 @@ export const WALKS = {
         ],
       },
       {
-        id: 'hall', name: '파리 만국박람회 기계관', short: '박람회 기계관', zoom: 1.16, ground: 0.69, scale: 0.678, air: 'works', floor: 'wood',
+        id: 'hall', name: '프랑스 파리 만국박람회 기계관', short: '박람회 기계관', zoom: 1.16, ground: 0.69, scale: 0.678, air: 'works', floor: 'wood',
         sora: '쿵쿵쿵! 바퀴가 진짜 돌아가.',
         // The two flywheels may be touched (the user, 2026.10.10: "저 바퀴 설명도 넣어줘"). Looked up: a flywheel
         // takes up the surplus of the stroke that drives and gives it back in the others, so the shaft turns evenly.
@@ -311,7 +311,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'market', name: '한양 저잣거리', zoom: 1.07, ground: 0.75, scale: 0.626, air: 'market', floor: 'dirt',
+        id: 'market', name: '조선 한양 저잣거리', short: '저잣거리', zoom: 1.07, ground: 0.75, scale: 0.626, air: 'market', floor: 'dirt',
         sora: '감이 주렁주렁! 시끌시끌해.',
         moving: [
           { kind: 'drift', id: 'by', src: 'crowd', from: 0, to: 1, foot: 0.728, tall: 0.17, wide: 0.3853, gap: 0.12, speed: 0.028, bob: 0.003 },
@@ -334,7 +334,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'gate', name: '한양 광화문 앞', short: '광화문 앞', zoom: 1.15, ground: 0.7, scale: 0.673, air: 'court', floor: 'dirt',
+        id: 'gate', name: '조선 한양 광화문 앞', short: '광화문 앞', zoom: 1.15, ground: 0.7, scale: 0.673, air: 'court', floor: 'dirt',
         sora: '문이 엄청 커! 지붕이 두 층이야.',
         moving: [
           { kind: 'drift', id: 'parade', src: 'parade', from: 0, to: 1, foot: 0.676, tall: 0.2, wide: 0.3169, gap: 0.55, speed: 0.032, bob: 0.003 },
@@ -350,7 +350,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'hall', name: '경복궁 집현전 뜰', short: '집현전 뜰', zoom: 1.09, ground: 0.74, scale: 0.638, air: 'palace',
+        id: 'hall', name: '조선 한양 경복궁 집현전 뜰', short: '집현전 뜰', zoom: 1.09, ground: 0.74, scale: 0.638, air: 'palace',
         sora: '책이 마당 가득이야. 조용해.',
         moving: [
           { kind: 'drift', id: 'books', src: 'scholars', from: 0, to: 1, foot: 0.716, tall: 0.17, wide: 0.2807, gap: 0.6, speed: 0.026, bob: 0.003 },
@@ -408,7 +408,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'plaza', name: '샌프란시스코 금문교 어귀', short: '금문교 어귀', zoom: 1.09, ground: 0.74, scale: 0.638, air: 'road',
+        id: 'plaza', name: '미국 샌프란시스코 금문교 어귀', short: '금문교 어귀', zoom: 1.09, ground: 0.74, scale: 0.638, air: 'road',
         sora: '다리가 빨개! 엄청 길다.',
         moving: [
           { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.736, tall: 0.16, wide: 0.386, gap: 0.05, speed: 0.03, bob: 0.003 },
@@ -434,7 +434,7 @@ export const WALKS = {
         ],
       },
       {
-        id: 'deck', name: '샌프란시스코 금문교 위', short: '금문교 위', zoom: 1.12, ground: 0.722, scale: 0.655, air: 'bridge',
+        id: 'deck', name: '미국 샌프란시스코 금문교 위', short: '금문교 위', zoom: 1.12, ground: 0.722, scale: 0.655, air: 'bridge',
         sora: '차가 없으니까 운동장 같아.',
         // The crowd goes over on foot. (Those who cross some odd way went by in a line of their own
         // until 2026.10.12: they now stand among the people, to be found.)
@@ -454,7 +454,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'mid', name: '샌프란시스코 금문교 한가운데', short: '금문교 한가운데', zoom: 1.17, ground: 0.692, scale: 0.684, air: 'bridge',
+        id: 'mid', name: '미국 샌프란시스코 금문교 한가운데', short: '금문교 한가운데', zoom: 1.17, ground: 0.692, scale: 0.684, air: 'bridge',
         sora: '바람이 세! 바다가 저 밑이야.',
         moving: [
           { kind: 'drift', id: 'east', src: 'crowd', from: 0, to: 1, foot: 0.678, tall: 0.15, wide: 0.362, gap: 0.3, speed: -0.025, bob: 0.003, flip: true },
@@ -524,7 +524,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'front', name: '도쿄역 앞', zoom: 1.3, ground: 0.765, scale: 0.66, air: 'street',
+        id: 'front', name: '일본 도쿄역 앞', short: '도쿄역 앞', zoom: 1.3, ground: 0.765, scale: 0.66, air: 'street',
         sora: '벽돌 역이다! 깃발이 많아.',
         moving: [
           { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.745, tall: 0.17, wide: 0.451, gap: 0.1, speed: 0.032, bob: 0.003 },
@@ -555,7 +555,7 @@ export const WALKS = {
         ],
       },
       {
-        id: 'platform', name: '도쿄역 승강장', zoom: 1.3, ground: 0.83, scale: 0.76, air: 'station',
+        id: 'platform', name: '일본 도쿄역 승강장', short: '도쿄역 승강장', zoom: 1.3, ground: 0.83, scale: 0.76, air: 'station',
         sora: '우와, 진짜 온다! 코가 둥글어.',
         // The train runs along the track from one end of the platform to the other, again and again.
         moving: [
@@ -584,7 +584,7 @@ export const WALKS = {
         ],
       },
       {
-        id: 'car', name: '달리는 신칸센 안', zoom: 1.3, ground: 0.72, scale: 0.66, air: 'train', floor: 'wood',
+        id: 'car', name: '일본 달리는 신칸센 안', short: '달리는 신칸센 안', zoom: 1.3, ground: 0.72, scale: 0.66, air: 'train', floor: 'wood',
         sora: '안 흔들려! 창밖이 휙휙 가.',
         // The land goes by behind the picture, seen through its six windows.
         moving: [
@@ -1248,7 +1248,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'beach', name: '타히티 마타바이 만 바닷가', short: '마타바이 만', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
+        id: 'beach', name: '남태평양 타히티 마타바이 만 바닷가', short: '마타바이 만', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
         sora: '모래가 따끈따끈해! 저 배는 뭐지?',
         people: [
           { id: 'fisher', pass: '오늘 바다는 잔잔하군.', show: 'paddle', name: '카누 타는 어부', x: 0.19, w: 118, h: 320, lines: ['저 큰 배는 두 달 가까이 저기 서 있어.', '우리 카누는 옆에 팔이 달려서 안 뒤집혀.'],
@@ -1265,7 +1265,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'gate', name: '타히티 포트 비너스 문 앞', short: '요새 문 앞', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'court', floor: 'dirt',
+        id: 'gate', name: '남태평양 타히티 포트 비너스 문 앞', short: '요새 문 앞', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'court', floor: 'dirt',
         sora: '말뚝 담이다! 요새인가 봐.',
         people: [
           { id: 'painter', pass: '저리 가, 파리들아!', show: 'flies', pose: 'see-gasp', sora: '파리가 그림을 먹었어!', memo: '파리 떼가 물감을 갉아 먹어서 화가가 애를 먹었단다.', name: '배의 화가', x: 0.14, w: 85, h: 276, lines: ['이 섬의 풀과 꽃을 다 그리는 중이야.', '칠하자마자 파리가 물감을 먹어 버려.'] },
@@ -1279,7 +1279,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'fort', name: '타히티 포트 비너스 관측 터', short: '관측 터', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        id: 'fort', name: '남태평양 타히티 포트 비너스 관측 터', short: '관측 터', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
         sora: '망원경이다! 다들 하늘만 봐.',
         people: [
           { id: 'caller', pass: '똑, 딱, 똑, 딱.', name: '시계 읽는 선원', x: 0.15, w: 96, h: 318, lines: ['시계가 몇 초인지 소리쳐 주는 일이야.', '한 번이라도 틀리면 큰일이지.'] },
@@ -1373,7 +1373,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'lane', name: '할머니의 마을 길', short: '마을 길', zoom: 1.3, ground: 0.698, scale: 0.66, air: 'night', floor: 'dirt',
+        id: 'lane', name: '대한민국 할머니의 마을 길', short: '마을 길', zoom: 1.3, ground: 0.698, scale: 0.66, air: 'night', floor: 'dirt',
         sora: '밤인데 다들 어디로 가?',
         // Children run along the lane and in at the open gate.
         moving: [
@@ -1391,7 +1391,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'yard', name: '마을 이웃집 마당', short: '이웃집 마당', zoom: 1.3, ground: 0.7, scale: 0.66, air: 'tv', floor: 'dirt',
+        id: 'yard', name: '대한민국 할머니의 마을 이웃집 마당', short: '이웃집 마당', zoom: 1.3, ground: 0.7, scale: 0.66, air: 'tv', floor: 'dirt',
         sora: '다들 텔레비전만 봐. 조용해.',
         moving: [
           { kind: 'drift', id: 'in', src: 'villagers', from: 0, to: 1, foot: 0.696, tall: 0.17, wide: 0.29, gap: 0.8, speed: 0.024, bob: 0.003 },
@@ -1411,7 +1411,7 @@ export const WALKS = {
         ],
       },
       {
-        id: 'bank', name: '마을 냇가 둑길', short: '냇가 둑길', zoom: 1.25, ground: 0.74, scale: 0.86, air: 'night', floor: 'dirt',
+        id: 'bank', name: '대한민국 할머니의 마을 냇가 둑길', short: '냇가 둑길', zoom: 1.25, ground: 0.74, scale: 0.86, air: 'night', floor: 'dirt',
         sora: '달이 떴어. 조용하다.',
         moving: [
           { kind: 'drift', id: 'stroll', src: 'villagers', from: 0, to: 1, foot: 0.736, tall: 0.17, wide: 0.29, gap: 1.4, speed: -0.02, bob: 0.003, flip: true },
@@ -1465,7 +1465,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'road', name: '서울 잠실 올림픽로', short: '올림픽로', zoom: 1.08, ground: 0.72, scale: 0.62, air: 'street',
+        id: 'road', name: '대한민국 서울 잠실 올림픽로', short: '올림픽로', zoom: 1.08, ground: 0.72, scale: 0.62, air: 'street',
         sora: '가게마다 호랑이 인형이야!',
         people: [
           { id: 'tourist', pass: '오우, 어디로 가지…', name: '외국인 관광객', x: 0.18, w: 148, h: 320, lines: ['160개국에서 참여했대요. 나도 왔죠!', '동쪽 서쪽이 다 모였어요.'] },
@@ -1481,7 +1481,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'gate', name: '서울 잠실 올림픽주경기장 앞', short: '주경기장 앞', zoom: 1.2, ground: 0.75, scale: 0.66, air: 'court',
+        id: 'gate', name: '대한민국 서울 잠실 올림픽주경기장 앞', short: '주경기장 앞', zoom: 1.2, ground: 0.75, scale: 0.66, air: 'court',
         sora: '우와, 지붕이 물결 같아.',
         people: [
           { id: 'hanbok', pass: '어서 오세요, 환영합니다.', name: '한복 입은 도우미', x: 0.15, w: 132, h: 288, lines: ['선수들은 가나다 차례로 들어왔어요.', '그리스가 맨 앞, 우리가 맨 끝이죠.'] },
@@ -1495,7 +1495,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'stand', name: '서울 잠실 올림픽주경기장 안', short: '주경기장 안', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush',
+        id: 'stand', name: '대한민국 서울 잠실 올림픽주경기장 안', short: '주경기장 안', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush',
         sora: '어? 왜 이렇게 조용해?',
         people: [
           { id: 'granny', pass: '아이고, 좋은 날이다.', name: '눈물 닦는 할머니', x: 0.14, w: 140, h: 300, lines: ['내 생전에 이런 걸 다 보는구나.', '온 세상 사람이 우리 집에 왔어.'] },
@@ -1556,7 +1556,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'court', name: '밀라노 코르테 베키아 뜰', short: '코르테 베키아', zoom: 1.09, ground: 0.74, scale: 0.638, air: 'court',
+        id: 'court', name: '이탈리아 밀라노 코르테 베키아 뜰', short: '코르테 베키아', zoom: 1.09, ground: 0.74, scale: 0.638, air: 'court',
         sora: '옛 궁전 뜰이래. 저 말 좀 봐!',
         people: [
           { id: 'salai', pass: '헤헤, 스승님 공책이다.', show: 'mirror', name: '화가의 제자', x: 0.18, w: 151, h: 302, lines: ['스승님은 글씨를 거꾸로 써.', '거울에 비춰야 읽혀. 볼래?'],
@@ -1575,7 +1575,7 @@ export const WALKS = {
         ],
       },
       {
-        id: 'dock', name: '밀라노 대성당 뒤 나루', short: '대성당 나루', zoom: 1.07, ground: 0.76, scale: 0.626, air: 'market',
+        id: 'dock', name: '이탈리아 밀라노 대성당 뒤 나루', short: '대성당 나루', zoom: 1.07, ground: 0.76, scale: 0.626, air: 'market',
         sora: '성당을 아직 짓는 중이네!',
         people: [
           { id: 'armourer', pass: '땅, 땅! 밀라노 갑옷이오!', name: '갑옷 장인', x: 0.17, w: 165, h: 310, lines: ['밀라노 갑옷은 먼 나라에서도 사 가오.', '한번 입어 보겠소? 꽤 무겁소.'],
@@ -1591,7 +1591,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'hall', name: '밀라노 그라치에 수도원 식당', short: '수도원 식당', zoom: 1.15, ground: 0.7, scale: 0.673, air: 'hush',
+        id: 'hall', name: '이탈리아 밀라노 그라치에 수도원 식당', short: '수도원 식당', zoom: 1.15, ground: 0.7, scale: 0.673, air: 'hush',
         // The painting on the wall may be touched: a photograph of it as it is today
         // (Wikimedia Commons, "Última Cena - Da Vinci 5.jpg", in the public domain) and what
         // is known of it. box: left, top, right, bottom, as shares of the scene's picture.
@@ -1676,7 +1676,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'canal', name: '테노치티틀란 물길 어귀', short: '물길 어귀', zoom: 1.12, ground: 0.715, scale: 0.655, air: 'market', floor: 'dirt',
+        id: 'canal', name: '아스테카 테노치티틀란 물길 어귀', short: '물길 어귀', zoom: 1.12, ground: 0.715, scale: 0.655, air: 'market', floor: 'dirt',
         sora: '집이 물 위에 떠 있어!',
         people: [
           { id: 'canoe', pass: '밭에 다녀오는 길이오.', show: 'chinampa', pose: 'see-wow', sora: '밭이 물 위에 떠 있어!', memo: '호수 바닥의 진흙을 퍼 올려 물 위에 만든 밭이란다. 치남파라고 했지.', name: '카누 젓는 아저씨', x: 0.19, w: 147, h: 320, lines: ['우리 밭은 물 위에 있단다.', '진흙을 퍼 올려 쌓으면 밭이 되지.'] },
@@ -1691,7 +1691,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'market', name: '테노치티틀란 큰 시장', short: '큰 시장', zoom: 1.16, ground: 0.69, scale: 0.678, air: 'market',
+        id: 'market', name: '아스테카 테노치티틀란 큰 시장', short: '큰 시장', zoom: 1.16, ground: 0.69, scale: 0.678, air: 'market',
         sora: '콩으로 물건을 사네?',
         people: [
           { id: 'choco', pass: '거품 낸 초콜릿 물이오!', show: 'chocolate', name: '초콜릿 물 파는 아주머니', x: 0.18, w: 114, h: 241, lines: ['높이서 부어야 거품이 인단다.', '한 모금 마셔 보련?'],
@@ -1706,7 +1706,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'causeway', name: '테노치티틀란 호수 위 둑길', short: '호수 위 둑길', zoom: 1.15, ground: 0.7, scale: 0.673, air: 'court',
+        id: 'causeway', name: '아스테카 테노치티틀란 호수 위 둑길', short: '호수 위 둑길', zoom: 1.15, ground: 0.7, scale: 0.673, air: 'court',
         sora: '길이 호수를 가로질러!',
         people: [
           { id: 'sweeper', pass: '쓱쓱, 깨끗이.', name: '길 쓰는 사람', x: 0.18, w: 126, h: 240, lines: ['임금님이 지나실 길을 쓴단다.', '먼지 하나 없어야 하지.'] },
@@ -2369,7 +2369,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'quay', name: '바빌론 유프라테스 강가 나루', short: '강가 나루', zoom: 1.13, ground: 0.72, scale: 0.661, air: 'market', floor: 'dirt',
+        id: 'quay', name: '바빌로니아 바빌론 유프라테스 강가 나루', short: '강가 나루', zoom: 1.13, ground: 0.72, scale: 0.661, air: 'market', floor: 'dirt',
         sora: '배가 바구니처럼 둥글어!',
         people: [
           { id: 'boatman', pass: '배 들어온다, 비켜라!', name: '둥근 배 사공', x: 0.19, w: 132, h: 320, lines: ['갈대로 엮은 둥근 배란다.', '보리를 싣고 강을 내려왔지.'] },
@@ -2385,7 +2385,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'way', name: '바빌론 행렬 길', short: '행렬 길', zoom: 1.15, ground: 0.705, scale: 0.673, air: 'masons',
+        id: 'way', name: '바빌로니아 바빌론 행렬 길', short: '행렬 길', zoom: 1.15, ground: 0.705, scale: 0.673, air: 'masons',
         sora: '벽에 사자가 줄지어 걸어!',
         people: [
           { id: 'porter', pass: '영차, 벽돌 나간다!', name: '벽돌 나르는 일꾼', x: 0.18, w: 121, h: 266, lines: ['유약을 발라 구운 벽돌이란다.', '깨질라, 살살 날라야 하지.'] },
@@ -2399,7 +2399,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'gate', name: '바빌론 이슈타르 문 앞', short: '문 앞', zoom: 1.15, ground: 0.705, scale: 0.673, air: 'court',
+        id: 'gate', name: '바빌로니아 바빌론 이슈타르 문 앞', short: '문 앞', zoom: 1.15, ground: 0.705, scale: 0.673, air: 'court',
         sora: '문이 온통 파래! 용도 있어.',
         people: [
           { id: 'guard', pass: '줄지어 들어가시오.', name: '문 앞의 병사', x: 0.18, w: 118, h: 320, lines: ['이 문은 이슈타르 여신의 문이란다.', '임금님이 새로 지으셨지.'] },
@@ -2510,7 +2510,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'registan', name: '사마르칸트 레기스탄의 학교 앞', short: '학교 앞', zoom: 1.085, ground: 0.755, scale: 0.635, air: 'market',
+        id: 'registan', name: '티무르 제국 사마르칸트 레기스탄의 학교 앞', short: '학교 앞', zoom: 1.085, ground: 0.755, scale: 0.635, air: 'market',
         sora: '문이 온통 파란 타일이야!',
         people: [
           { id: 'melon', pass: '꿀보다 단 멜론이오!', show: 'melon', name: '멜론 장수', x: 0.18, w: 149, h: 306, lines: ['사마르칸트 멜론은 꿀처럼 달단다.', '갓 구운 빵이랑 먹어 보련?'],
@@ -2526,7 +2526,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'hill', name: '사마르칸트 천문대 언덕길의 시장', short: '언덕길', zoom: 1.085, ground: 0.755, scale: 0.635, air: 'street',
+        id: 'hill', name: '티무르 제국 사마르칸트 천문대 언덕길의 시장', short: '언덕길', zoom: 1.085, ground: 0.755, scale: 0.635, air: 'street',
         sora: '언덕 위에 둥근 집이 있어!',
         people: [
           { id: 'apricot', pass: '살구요, 잘 익은 살구!', name: '살구 장수', x: 0.18, w: 110, h: 280, lines: ['언덕 오르기 전에 살구 하나 먹으렴.', '천문대 사람들도 사 간단다.'] },
@@ -2540,7 +2540,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'observatory', name: '사마르칸트 천문대 안 눈금 길 앞', short: '눈금 길 앞', zoom: 1.085, ground: 0.755, scale: 0.635, air: 'hush',
+        id: 'observatory', name: '티무르 제국 사마르칸트 천문대 안 눈금 길 앞', short: '눈금 길 앞', zoom: 1.085, ground: 0.755, scale: 0.635, air: 'hush',
         sora: '눈금 길이 땅속으로 내려가!',
         people: [
           { id: 'scribe', pass: '이 별은 여기, 저 별은 저기.', show: 'catalog', pose: 'see-wow', sora: '별마다 자리가 적혀 있어!', memo: '별 천 개쯤의 자리를 하나하나 재어 적었단다. 알리 쿠시지가 그 일을 마무리했지.', name: '별 적는 서기', x: 0.18, w: 109, h: 299, lines: ['잰 별의 자리를 책에 적는단다.', '별 천 개쯤을 다 적을 거야.'] },
@@ -2932,7 +2932,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'market', name: '바그다드 티그리스 강가의 책 시장', short: '책 시장', zoom: 1.093, ground: 0.749, scale: 0.640, air: 'market',
+        id: 'market', name: '아바스 왕조 바그다드 티그리스 강가의 책 시장', short: '책 시장', zoom: 1.093, ground: 0.749, scale: 0.640, air: 'market',
         sora: '책이랑 종이가 가득해!',
         people: [
           { id: 'boatman', pass: '배 들어온다, 비켜라!', name: '둥근 배 사공', x: 0.18, w: 122, h: 320, lines: ['갈대로 엮은 둥근 배란다.', '이 강으로 온갖 짐이 들어오지.'] },
@@ -2948,7 +2948,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'house', name: '바그다드의 책을 옮겨 적는 집 안뜰', short: '책 집 안뜰', zoom: 1.124, ground: 0.725, scale: 0.658, air: 'court',
+        id: 'house', name: '아바스 왕조 바그다드의 책을 옮겨 적는 집 안뜰', short: '책 집 안뜰', zoom: 1.124, ground: 0.725, scale: 0.658, air: 'court',
         sora: '다들 조용히 책을 적어!',
         people: [
           { id: 'copyist', pass: '한 자도 틀리면 안 돼.', show: 'algebra', pose: 'see-wow', sora: '책에 네모 그림이 있어!', memo: '알콰리즈미가 쓴 셈하는 책이란다. 모르는 수를 찾는 법을 차근차근 적었지.', name: '옮겨 적는 이', x: 0.18, w: 106, h: 278, lines: ['알콰리즈미의 셈하는 책이란다.', '임금님께 바친 책을 옮겨 적는 중이지.'] },
@@ -2962,7 +2962,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'field', name: '바그다드 샴마시야의 별 보는 터', short: '별 보는 터', zoom: 1.105, ground: 0.740, scale: 0.646, air: 'hush',
+        id: 'field', name: '아바스 왕조 바그다드 샴마시야의 별 보는 터', short: '별 보는 터', zoom: 1.105, ground: 0.740, scale: 0.646, air: 'hush',
         sora: '벌써 별이 떴어!',
         people: [
           { id: 'lampboy', pass: '등불 꺼지면 안 돼.', name: '등불 켜는 아이', x: 0.18, w: 101, h: 243, lines: ['해가 지면 내가 등불을 켜.', '별 보는 아저씨들은 밤에 일해.'] },
@@ -3078,7 +3078,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'clay', name: '함양 동쪽 여산의 흙 병사 빚는 터', short: '빚는 터', zoom: 1.127, ground: 0.723, scale: 0.659, air: 'masons', floor: 'dirt',
+        id: 'clay', name: '진나라 함양 동쪽 여산의 흙 병사 빚는 터', short: '빚는 터', zoom: 1.127, ground: 0.723, scale: 0.659, air: 'masons', floor: 'dirt',
         sora: '머리만 선반에 가득해!',
         people: [
           { id: 'treader', pass: '영차, 꾹꾹 밟아라!', name: '흙 이기는 일꾼', x: 0.18, w: 135, h: 320, lines: ['흙을 발로 밟아 이긴단다.', '잘 이겨야 구울 때 안 터지지.'] },
@@ -3093,7 +3093,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'paint', name: '함양 동쪽 여산의 흙 병사 칠하는 터', short: '칠하는 터', zoom: 1.131, ground: 0.720, scale: 0.662, air: 'court', floor: 'dirt',
+        id: 'paint', name: '진나라 함양 동쪽 여산의 흙 병사 칠하는 터', short: '칠하는 터', zoom: 1.131, ground: 0.720, scale: 0.662, air: 'court', floor: 'dirt',
         sora: '병사가 알록달록해!',
         people: [
           { id: 'grinder', pass: '곱게, 더 곱게 갈자.', name: '물감 가는 이', x: 0.18, w: 116, h: 285, lines: ['돌을 곱게 갈면 물감이 된단다.', '붉은 돌에서 붉은색이 나오지.'] },
@@ -3108,7 +3108,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'pit', name: '함양 동쪽 여산의 흙 병사 세우는 구덩이', short: '구덩이', zoom: 1.105, ground: 0.740, scale: 0.646, air: 'hush',
+        id: 'pit', name: '진나라 함양 동쪽 여산의 흙 병사 세우는 구덩이', short: '구덩이', zoom: 1.105, ground: 0.740, scale: 0.646, air: 'hush',
         sora: '흙 병사가 끝도 없이 서 있어!',
         people: [
           { id: 'liner', pass: '왼쪽으로 반 뼘만!', name: '줄 맞추는 일꾼', x: 0.18, w: 119, h: 254, lines: ['줄을 당겨 병사를 세운단다.', '한 줄이 실처럼 곧아야 하지.'] },
@@ -3375,7 +3375,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'valley', name: '그레이트 짐바브웨 큰 울타리 앞', short: '울타리 앞', zoom: 1.105, ground: 0.740, scale: 0.646, air: 'market', floor: 'dirt',
+        id: 'valley', name: '짐바브웨 그레이트 짐바브웨 큰 울타리 앞', short: '울타리 앞', zoom: 1.105, ground: 0.740, scale: 0.646, air: 'market', floor: 'dirt',
         sora: '돌담이 둥글게 휘었어!',
         people: [
           { id: 'porridge', pass: '죽이 보글보글 끓는다.', show: 'porridge', name: '수수죽 끓이는 아주머니', x: 0.18, w: 150, h: 320, lines: ['수수를 빻아 끓인 죽이란다.', '따끈할 때 먹어 보련?'],
@@ -3391,7 +3391,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'passage', name: '그레이트 짐바브웨 두 담 사이 좁은 길 어귀', short: '좁은 길 어귀', zoom: 1.143, ground: 0.710, scale: 0.669, air: 'masons', floor: 'dirt',
+        id: 'passage', name: '짐바브웨 그레이트 짐바브웨 두 담 사이 좁은 길 어귀', short: '좁은 길 어귀', zoom: 1.143, ground: 0.710, scale: 0.669, air: 'masons', floor: 'dirt',
         sora: '담 사이에 길이 있어!',
         people: [
           { id: 'splitter', pass: '쩍! 반듯하게 갈라졌다.', name: '돌 쪼개는 이', x: 0.18, w: 135, h: 293, lines: ['바위를 납작하게 쪼갠단다.', '납작해야 반듯하게 쌓이지.'] },
@@ -3405,7 +3405,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'tower', name: '그레이트 짐바브웨 원뿔 탑 앞', short: '탑 앞', zoom: 1.124, ground: 0.725, scale: 0.658, air: 'court', floor: 'dirt',
+        id: 'tower', name: '짐바브웨 그레이트 짐바브웨 원뿔 탑 앞', short: '탑 앞', zoom: 1.124, ground: 0.725, scale: 0.658, air: 'court', floor: 'dirt',
         sora: '탑에 문이 없어! 꽉 막혔네.',
         people: [
           { id: 'drummer', pass: '둥, 둥, 두둥!', name: '북 치는 사람', x: 0.18, w: 114, h: 295, lines: ['오늘 담을 다 쌓는단다.', '마지막 돌이 오르면 북을 치지.'] },
@@ -3526,7 +3526,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'village', name: '스톤헨지 곁 강가의 마을', short: '강가의 마을', zoom: 1.127, ground: 0.723, scale: 0.659, air: 'market', floor: 'dirt',
+        id: 'village', name: '영국 스톤헨지 곁 강가의 마을', short: '강가의 마을', zoom: 1.127, ground: 0.723, scale: 0.659, air: 'market', floor: 'dirt',
         sora: '집이 다 풀 지붕이야!',
         people: [
           { id: 'fisher', pass: '오늘은 두 마리나 잡았지.', name: '물고기 잡는 아저씨', x: 0.18, w: 145, h: 320, lines: ['강에 그물을 던져 잡았단다.', '배는 통나무 속을 파서 만들지.'] },
@@ -3542,7 +3542,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'road', name: '스톤헨지로 큰 돌을 끄는 길', short: '돌 끄는 길', zoom: 1.133, ground: 0.718, scale: 0.663, air: 'masons', floor: 'dirt',
+        id: 'road', name: '영국 스톤헨지로 큰 돌을 끄는 길', short: '돌 끄는 길', zoom: 1.133, ground: 0.718, scale: 0.663, air: 'masons', floor: 'dirt',
         sora: '돌이 집보다 커!',
         people: [
           { id: 'puller', pass: '영차, 영차!', name: '밧줄 끄는 일꾼', x: 0.18, w: 164, h: 289, lines: ['바퀴가 없어서 썰매에 싣고 끈단다.', '여럿이 밧줄로 당기지.'] },
@@ -3556,7 +3556,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'ring', name: '스톤헨지 돌 고리 앞', short: '돌 고리 앞', zoom: 1.098, ground: 0.745, scale: 0.643, air: 'hush', floor: 'dirt',
+        id: 'ring', name: '영국 스톤헨지 돌 고리 앞', short: '돌 고리 앞', zoom: 1.098, ground: 0.745, scale: 0.643, air: 'hush', floor: 'dirt',
         sora: '돌이 둥글게 서 있어!',
         people: [
           { id: 'digger', pass: '조금만 더 파면 되겠군.', show: 'antler', pose: 'see-aha', sora: '사슴뿔이 곡괭이래!', memo: '쇠가 없던 때라 사슴뿔로 땅을 팠단다. 뿔의 가지 하나를 뾰족한 날로 썼지.', name: '구덩이 파는 아저씨', x: 0.18, w: 149, h: 319, lines: ['돌을 세울 구덩이를 판단다.', '이 곡괭이는 사슴뿔로 만들었지.'] },
@@ -3670,7 +3670,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'market', name: '파도바 저녁 장터', short: '저녁 장터', zoom: 1.127, ground: 0.723, scale: 0.659, air: 'market', floor: 'dirt',
+        id: 'market', name: '이탈리아 파도바 저녁 장터', short: '저녁 장터', zoom: 1.127, ground: 0.723, scale: 0.659, air: 'market', floor: 'dirt',
         sora: '좌판마다 불을 켰어!',
         people: [
           { id: 'chestnut', pass: '군밤이오, 따끈한 군밤!', show: 'chestnut', name: '군밤 장수', x: 0.18, w: 118, h: 295, lines: ['갓 구운 밤과 빵이란다.', '추운 저녁엔 이게 최고지. 먹어 보련?'],
@@ -3686,7 +3686,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'lane', name: '파도바 갈릴레오의 집 앞 골목', short: '집 앞 골목', zoom: 1.140, ground: 0.713, scale: 0.667, air: 'street', floor: 'dirt',
+        id: 'lane', name: '이탈리아 파도바 갈릴레오의 집 앞 골목', short: '집 앞 골목', zoom: 1.140, ground: 0.713, scale: 0.667, air: 'street', floor: 'dirt',
         sora: '골목에 작업장이 있어!',
         people: [
           { id: 'grinder', pass: '쓱쓱, 조금만 더.', show: 'lens', pose: 'see-aha', sora: '뿌옇던 게 맑아졌어!', memo: '유리를 오목한 접시에 대고 고운 모래로 갈았단다. 갈릴레오는 유리알을 손수 갈았지.', name: '유리알 가는 일꾼', x: 0.18, w: 118, h: 301, lines: ['유리를 고운 모래로 문질러 간단다.', '며칠을 갈아야 한 알이 되지.'] },
@@ -3700,7 +3700,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'garden', name: '파도바 갈릴레오의 집 뒤뜰', short: '집 뒤뜰', zoom: 1.136, ground: 0.716, scale: 0.665, air: 'hush', floor: 'dirt',
+        id: 'garden', name: '이탈리아 파도바 갈릴레오의 집 뒤뜰', short: '집 뒤뜰', zoom: 1.136, ground: 0.716, scale: 0.665, air: 'hush', floor: 'dirt',
         sora: '망원경이 하늘을 보고 있어!',
         people: [
           { id: 'lampgirl', pass: '불이 꺼지면 안 돼.', name: '등잔 든 아이', x: 0.18, w: 102, h: 249, lines: ['종이에 적을 때 불을 비춰 드려.', '별을 볼 때는 멀리 서 있어야 해.'] },
@@ -3818,7 +3818,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'yard', name: '파리 열기구 공방 마당', short: '공방 마당', zoom: 1.153, ground: 0.703, scale: 0.675, air: 'masons', floor: 'dirt',
+        id: 'yard', name: '프랑스 파리 열기구 공방 마당', short: '공방 마당', zoom: 1.153, ground: 0.703, scale: 0.675, air: 'masons', floor: 'dirt',
         sora: '여기서 그 큰 열기구를 지었대!',
         people: [
           { id: 'gilder', pass: '금빛은 살살 칠해야지.', name: '금빛 무늬 그리는 화공', x: 0.18, w: 104, h: 318, lines: ['푸른 천에 금빛 해를 그렸단다.', '멀리서도 잘 보이라고 그랬지.'] },
@@ -3833,7 +3833,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'road', name: '파리 라 뮈에트 성으로 가는 길', short: '성으로 가는 길', zoom: 1.136, ground: 0.716, scale: 0.665, air: 'street', floor: 'dirt',
+        id: 'road', name: '프랑스 파리 라 뮈에트 성으로 가는 길', short: '성으로 가는 길', zoom: 1.136, ground: 0.716, scale: 0.665, air: 'street', floor: 'dirt',
         sora: '다들 열기구 보러 가나 봐!',
         people: [
           { id: 'chestnut', pass: '따끈한 군밤이오!', show: 'chestnuts', name: '밤 굽는 아주머니', x: 0.18, w: 153, h: 278, lines: ['갓 구운 밤과 돌돌 만 과자란다.', '기다릴 땐 이게 최고지. 먹어 보련?'],
@@ -3848,7 +3848,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'garden', name: '파리 라 뮈에트 성의 뜰', short: '성의 뜰', zoom: 1.095, ground: 0.747, scale: 0.641, air: 'court', floor: 'dirt',
+        id: 'garden', name: '프랑스 파리 라 뮈에트 성의 뜰', short: '성의 뜰', zoom: 1.095, ground: 0.747, scale: 0.641, air: 'court', floor: 'dirt',
         sora: '열기구가 집보다 커!',
         people: [
           { id: 'franklin', pass: '허허, 대단한 날이로구나.', name: '프랭클린 할아버지', x: 0.18, w: 87, h: 207, lines: ['나는 바다 건너 미국에서 왔단다.', '이 구경을 놓칠 수는 없지.'] },
@@ -3962,7 +3962,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'quay', name: '시드니 서큘러 키 부두', short: '부두', zoom: 1.093, ground: 0.749, scale: 0.640, air: 'market',
+        id: 'quay', name: '오스트레일리아 시드니 서큘러 키 부두', short: '부두', zoom: 1.093, ground: 0.749, scale: 0.640, air: 'market',
         sora: '배가 엄청 많아! 깃발도 달았어.',
         people: [
           { id: 'ferryman', pass: '오늘은 배가 꽉 찼구먼.', show: 'building', pose: 'see-wow', sora: '지붕이 뼈만 있어!', memo: '짓는 데 열네 해가 걸렸단다. 조개 지붕을 하나씩 세워 올렸지.', name: '연락선 선원', x: 0.18, w: 110, h: 281, lines: ['열네 해 동안 배에서 저 집을 봤단다.', '지붕이 하나씩 솟는 걸 다 봤지.'] },
@@ -3978,7 +3978,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'steps', name: '시드니 오페라하우스 큰 계단 밑', short: '큰 계단 밑', zoom: 1.095, ground: 0.747, scale: 0.641, air: 'street',
+        id: 'steps', name: '오스트레일리아 시드니 오페라하우스 큰 계단 밑', short: '큰 계단 밑', zoom: 1.095, ground: 0.747, scale: 0.641, air: 'street',
         sora: '지붕이 조개껍데기 같아!',
         people: [
           { id: 'parasol', pass: '아이고, 곱기도 하지.', name: '양산 든 할머니', x: 0.18, w: 102, h: 290, lines: ['처음 삽을 뜰 때 나는 젊었단다.', '다 짓는 걸 보다니, 오래 살았지.'] },
@@ -3992,7 +3992,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'forecourt', name: '시드니 오페라하우스 조개 지붕 아래 마당', short: '지붕 아래 마당', zoom: 1.115, ground: 0.732, scale: 0.652, air: 'court',
+        id: 'forecourt', name: '오스트레일리아 시드니 오페라하우스 조개 지붕 아래 마당', short: '지붕 아래 마당', zoom: 1.115, ground: 0.732, scale: 0.652, air: 'court',
         sora: '우와, 밑에서 보니까 엄청 커!',
         people: [
           { id: 'flower', pass: '꽃이 시들면 안 되는데.', name: '꽃 든 아이', x: 0.18, w: 66, h: 198, lines: ['저 단 앞에 놓을 꽃이야.', '여왕님이 저 위에서 문을 여신대.'] },

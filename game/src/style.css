@@ -167,6 +167,9 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 /* It hangs under the row of buttons at the top as one of them: the same right edge (12px),
    the same 8px between, the same 44px high (the user, twice: "버튼 규칙에 맞춰서"). */
 .on-walk #leaveBtn{top:64px;right:12px;bottom:auto;height:var(--tap);min-height:var(--tap);padding:0 16px;font-size:15px;font-weight:600}
+/* A scene's name begins with its country ("오스트레일리아 시드니 오페라하우스 조개 지붕 아래 마당"): it folds at a space before it reaches the leave button. */
+.on-walk #date{max-width:calc(100% - 126px)}
+.on-walk #placeText{word-break:keep-all}
 #flyHelp,#flyPad,#viewPad{display:none}
 .on-site #flyPad{display:flex;flex-direction:column;gap:8px;right:16px;bottom:206px}
 .on-site.standing #flyPad{display:none}
