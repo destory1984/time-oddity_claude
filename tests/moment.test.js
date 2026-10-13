@@ -44,3 +44,11 @@ describe('momentJd', () => {
     expect(dateFromJd(at('lunar1504', { year: 1508 }) - 0.5, 'julian')).toMatchObject({ month: 2, day: 29 });
   });
 });
+
+describe('a pin on the Earth', () => {
+  it('is named with its year, BC before the year 1', async () => {
+    const { pinTitle } = await import('../game/src/core/squares.js');
+    expect(pinTitle(SQUARES.find((s) => s.id === 'khufu'))).toBe('대피라미드 BC 2560');
+    expect(pinTitle(SQUARES.find((s) => s.id === 'colosseum'))).toBe('콜로세움 AD 80');
+  });
+});

@@ -12,6 +12,7 @@
 // grandmother writes back when a postcard of the square reaches her: the heart of it, in
 // her way of speaking, 60 characters at most.
 import { t } from './i18n.js';
+import { formatYear } from './when.js';
 
 export const SQUARES = [
   {
@@ -746,7 +747,9 @@ export const squareTitle = (square) => square.name;
 
 // Its name on the Earth, where the pins of many times lie side by side: the year after it
 // (the user, 2026.10.9: "도시 이름 뒤에 연도 표기").
-export const pinTitle = (square) => `${t(square.name)} AD ${square.date.year}`;
+// (A year before 1 is written "BC 2560", not "AD -2560" as it was until 2026.10.14: found when
+// Göbekli Tepe's pin read "AD -9500".)
+export const pinTitle = (square) => `${t(square.name)} ${formatYear(square.date.year)}`;
 
 // What grandmother wrote of that day's sky: the last sentence of her memo ("그날 달은 보름.",
 // or that she could not note it for want of the day). It is shown while Sora looks up,
