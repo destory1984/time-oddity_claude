@@ -179,7 +179,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'gate', name: '프랑스 파리 만국박람회 입구', short: '박람회 입구', zoom: 1.03, ground: 0.785, scale: 0.602, air: 'street',
+        id: 'gate', name: '프랑스 파리 만국박람회 입구', short: '박람회 입구', zoom: 1.03, ground: 0.785, scale: 0.602, air: 'road',
         sora: '깃발이 잔뜩! 저 끝에 탑이야.',
         // The dome seen through the middle arch (the user, 2026.10.10, with a red ring about it: "누르면 설명
         // 추가"). Looked up (nga.gov, toureiffel.paris): the Dôme Central, the way into the Palais des
@@ -524,7 +524,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'front', name: '일본 도쿄역 앞', short: '도쿄역 앞', zoom: 1.3, ground: 0.765, scale: 0.66, air: 'street',
+        id: 'front', name: '일본 도쿄역 앞', short: '도쿄역 앞', zoom: 1.3, ground: 0.765, scale: 0.66, air: 'road',
         sora: '벽돌 역이다! 깃발이 많아.',
         moving: [
           { kind: 'drift', id: 'in', src: 'crowd', from: 0, to: 1, foot: 0.745, tall: 0.17, wide: 0.451, gap: 0.1, speed: 0.032, bob: 0.003 },
@@ -1467,7 +1467,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'road', name: '대한민국 서울 잠실 올림픽로', short: '올림픽로', zoom: 1.08, ground: 0.72, scale: 0.62, air: 'street',
+        id: 'road', name: '대한민국 서울 잠실 올림픽로', short: '올림픽로', zoom: 1.08, ground: 0.72, scale: 0.62, air: 'road',
         sora: '가게마다 호랑이 인형이야!',
         people: [
           { id: 'tourist', pass: '오우, 어디로 가지…', name: '외국인 관광객', x: 0.18, w: 148, h: 320, lines: ['160개국에서 참여했대요. 나도 왔죠!', '동쪽 서쪽이 다 모였어요.'] },
@@ -3080,7 +3080,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'clay', name: '진나라 함양 동쪽 여산의 흙 병사 빚는 터', short: '빚는 터', zoom: 1.127, ground: 0.723, scale: 0.659, air: 'masons', floor: 'dirt',
+        id: 'clay', name: '진나라 함양 동쪽 여산의 흙 병사 빚는 터', short: '빚는 터', zoom: 1.127, ground: 0.723, scale: 0.659, air: 'court', floor: 'dirt',
         sora: '머리만 선반에 가득해!',
         people: [
           { id: 'treader', pass: '영차, 꾹꾹 밟아라!', name: '흙 이기는 일꾼', x: 0.18, w: 135, h: 320, lines: ['흙을 발로 밟아 이긴단다.', '잘 이겨야 구울 때 안 터지지.'] },
@@ -3820,7 +3820,7 @@ export const WALKS = {
     },
     scenes: [
       {
-        id: 'yard', name: '프랑스 파리 열기구 공방 마당', short: '공방 마당', zoom: 1.153, ground: 0.703, scale: 0.675, air: 'masons', floor: 'dirt',
+        id: 'yard', name: '프랑스 파리 열기구 공방 마당', short: '공방 마당', zoom: 1.153, ground: 0.703, scale: 0.675, air: 'court', floor: 'dirt',
         sora: '여기서 그 큰 열기구를 지었대!',
         people: [
           { id: 'gilder', pass: '금빛은 살살 칠해야지.', name: '금빛 무늬 그리는 화공', x: 0.18, w: 104, h: 318, lines: ['푸른 천에 금빛 해를 그렸단다.', '멀리서도 잘 보이라고 그랬지.'] },
@@ -3980,7 +3980,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'steps', name: '오스트레일리아 시드니 오페라하우스 큰 계단 밑', short: '큰 계단 밑', zoom: 1.095, ground: 0.747, scale: 0.641, air: 'street',
+        id: 'steps', name: '오스트레일리아 시드니 오페라하우스 큰 계단 밑', short: '큰 계단 밑', zoom: 1.095, ground: 0.747, scale: 0.641, air: 'road',
         sora: '지붕이 조개껍데기 같아!',
         people: [
           { id: 'parasol', pass: '아이고, 곱기도 하지.', name: '양산 든 할머니', x: 0.18, w: 102, h: 290, lines: ['처음 삽을 뜰 때 나는 젊었단다.', '다 짓는 걸 보다니, 오래 살았지.'] },

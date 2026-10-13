@@ -134,7 +134,10 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     // comes to have birds in its tale or its picture, they are given to that scene alone.
     market: [],
     court: [[9000, 18000, farBell]],
-    street: [[7000, 15000, bikeBell], [12000, 22000, farBell]],
+    // A street of a time before bicycles has only the far bell; one with bicycles is a `road`
+    // (found on 2026.10.13: a bicycle's bell rang in Padua's lane of 1610 and on the road to
+    // La Muette in 1783).
+    street: [[12000, 22000, farBell]],
     arena: [[5000, 9000, drum], [9000, 16000, horn]],
     works: [[640, 640, chuff]],
     masons: [[500, 2000, chisel], [7000, 14000, stoneSaw]],
