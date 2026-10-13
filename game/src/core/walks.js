@@ -4104,6 +4104,16 @@ export const WALKS = {
     // up; the second is from memory.
     intro: { title: '돌기둥을 세운 사람들', text: '만 천오백 해쯤 전, 사냥하고 열매를 모으며 살던 사람들이란다. 밭도 흙 그릇도 쇠도 없었지.' },
     dir: 'gobekli9500', look: 'paper', pale: true,
+    // (What is said of today: from memory, 2026.10.14, but for what docs/신기한-사실.md has as found.)
+    now: {
+      photo: 'photo-now.webp', name: '괴베클리 테페의 지금 모습', when: '터키 샨르우르파 · 2010년에 흙을 걷어 내는 모습',
+      text: [
+        '1990년대부터 흙을 걷어 내며 찾아냈습니다.',
+        '돌기둥이 백 개 넘게 나왔습니다.',
+        '2018년에 유네스코 세계유산이 되었습니다.',
+      ],
+      credit: '사진: Volker Höhfeld, 위키미디어 공용, CC BY-SA 4.0',
+    },
     drawn: '그 땅의 옛 마을 벽 그림처럼, 흰 회벽에 붉은 흙으로 그렸단다.',
     scenes: [
       {
@@ -4242,6 +4252,16 @@ export const WALKS = {
     // Who they were, for a player who has not heard of them. Both sentences are from memory.
     intro: { title: '옛 그리스 사람들', text: '옛 그리스 사람들은 도시마다 따로 나라를 이루고 살았단다. 올림피아에는 제우스 신께 제사하러 모였지.' },
     dir: 'olympia776', look: 'paper', pale: true,
+    // (What is said of today: from memory, 2026.10.14, but for what docs/신기한-사실.md has as found.)
+    now: {
+      photo: 'photo-now.webp', name: '올림피아 달리기 터의 지금 모습', when: '그리스 올림피아 · 오늘날',
+      text: [
+        '출발선의 돌이 지금도 남아 있습니다.',
+        '달리기 길은 이백 미터에 조금 못 미칩니다.',
+        '요즘 올림픽의 불도 이 올림피아에서 붙입니다.',
+      ],
+      credit: '사진: Carole Raddato, 위키미디어 공용, CC BY-SA 2.0',
+    },
     drawn: '바로 그 무렵 그리스 항아리의 그림처럼, 세모와 줄무늬로 그렸단다.',
     scenes: [
       {
@@ -4379,6 +4399,16 @@ export const WALKS = {
     first: '다리우스 임금이 새 궁을 짓기 시작한 무렵이란다. 금 팔찌를 전해 주렴.',
     intro: { title: '페르시아 사람들', text: '아주 넓은 땅의 여러 나라를 다스린 사람들이란다. 임금의 길로 먼 곳까지 소식을 날랐지.' },
     dir: 'persepolis518', look: 'paper',
+    // (What is said of today: from memory, 2026.10.14, but for what docs/신기한-사실.md has as found.)
+    now: {
+      photo: 'photo-now.webp', name: '페르세폴리스 큰 계단의 지금 모습', when: '이란 페르세폴리스 · 오늘날',
+      text: [
+        '계단 옆벽에 스물세 나라의 사신이 새겨져 있습니다.',
+        '저마다 제 나라의 옷을 입고 선물을 들었습니다.',
+        '1979년에 유네스코 세계유산이 되었습니다.',
+      ],
+      credit: '사진: A.Davey, 위키미디어 공용, CC BY 2.0',
+    },
     drawn: '옛 양탄자처럼, 붉고 푸른 실로 짠 듯이 그렸단다.',
     scenes: [
       {
@@ -4518,6 +4548,16 @@ export const WALKS = {
     first: '파로스 섬의 등대를 다 지은 날이란다. 두루마리를 전해 주렴.',
     intro: { title: '알렉산드리아 사람들', text: '알렉산드리아는 그리스 사람들이 이집트 바닷가에 세운 도시란다. 그리스 사람과 이집트 사람이 섞여 살았지.' },
     dir: 'pharos280', look: 'paper',
+    // (What is said of today: from memory, 2026.10.14, but for what docs/신기한-사실.md has as found.)
+    now: {
+      photo: 'photo-now.webp', name: '등대 자리에 선 성채', when: '이집트 알렉산드리아 · 카이트베이 성채',
+      text: [
+        '등대는 남아 있지 않습니다. 지진으로 무너졌습니다.',
+        '그 자리에 1477년쯤 이 성채를 쌓았습니다.',
+        '등대의 돌을 가져다 썼다고 전합니다.',
+      ],
+      credit: '사진: Argenberg, 위키미디어 공용, CC BY 2.0',
+    },
     drawn: '옛 이집트의 파피루스 두루마리 그림처럼 그렸단다.',
     scenes: [
       {

@@ -68,7 +68,7 @@
 - 그림은 곳마다 그 땅과 그 때의 그림을 본뜬다. 로마는 폼페이의 벽화, 개봉은 송나라의 수묵화, 한양은 세종 때 찍은 책의 목판 삽화, 바빌론은 이슈타르 문의 유약 벽돌, 서라벌은 말다래의 천마 그림, 마추픽추는 금판 두드린 무늬, 진나라는 옻칠 그릇의 그림, 스톤헨지는 바위 새김 그림, 시드니는 건축가의 스케치를 따랐다. 소라만 어디서나 도트 그림이다.
 - 배경은 세 겹이다. 먼 풍경, 거리, 눈앞의 것이 걸을 때 서로 다른 빠르기로 지나간다.
 - 마야, 잉카, 바빌론처럼 낯선 문명의 열여섯 곳에서는 처음 내려설 때 그 사람들이 누구인지 두 문장으로 먼저 알려 준다.
-- 서른넷 가운데 서른 곳에 그곳의 지금 사진이 있다. 2026.10.14에 지은 네 곳(괴베클리 테페, 올림피아, 페르세폴리스, 알렉산드리아)에는 아직 없다.
+- 서른네 곳 모두에 그곳의 지금 사진이 있다. 알렉산드리아의 등대는 남아 있지 않아, 그 자리에 선 카이트베이 성채의 사진을 넣었다.
 - 게임은 기원전 9500년쯤의 괴베클리 테페에서 시작한다(갈 곳 가운데 가장 오래된 곳). 처음 열면 여는 이야기 다섯 쪽이 먼저 나온다.
 
 ## 하는 법
@@ -202,3 +202,7 @@ npm run build
 | 파도바 | [Galilei telescopes, Museo Galileo, Florence, Inv. 242, 2428, 224088.jpg](https://commons.wikimedia.org/wiki/File:Galilei_telescopes%2C_Museo_Galileo%2C_Florence%2C_Inv._242%2C_2428%2C_224088.jpg) | Zde | CC BY-SA 4.0 |
 | 파리 1783 | [Jardin du Ranelagh, Paris 16e 32.jpg](https://commons.wikimedia.org/wiki/File:Jardin_du_Ranelagh%2C_Paris_16e_32.jpg) | Polymagou | CC BY-SA 4.0 |
 | 시드니 | [Sydney Opera House - Dec 2008.jpg](https://commons.wikimedia.org/wiki/File:Sydney_Opera_House_-_Dec_2008.jpg) | Diliff | CC BY-SA 3.0 |
+| 괴베클리 테페 | [Göbekli Tepe 29.05.2010 Ausgrabung 521.jpg](https://commons.wikimedia.org/wiki/File:G%C3%B6bekli_Tepe_29.05.2010_Ausgrabung_521.jpg) | Volker Höhfeld | CC BY-SA 4.0 |
+| 올림피아 | [The ancient stadium, ca. 775 BC - ca. 350 BC, it could accommodate up to 40,000 spectators, Olympia (16148198000).jpg](https://commons.wikimedia.org/wiki/File:The_ancient_stadium%2C_ca._775_BC_-_ca._350_BC%2C_it_could_accommodate_up_to_40%2C000_spectators%2C_Olympia_%2816148198000%29.jpg) | Carole Raddato | CC BY-SA 2.0 |
+| 페르세폴리스 | [The Apadana Staircase with the Procession of the Vassals (4686171639).jpg](https://commons.wikimedia.org/wiki/File:The_Apadana_Staircase_with_the_Procession_of_the_Vassals_%284686171639%29.jpg) | A.Davey | CC BY 2.0 |
+| 알렉산드리아 | [Citadel of Qaitbay, Alexandria, Egypt.jpg](https://commons.wikimedia.org/wiki/File:Citadel_of_Qaitbay%2C_Alexandria%2C_Egypt.jpg) | Argenberg | CC BY 2.0 |
