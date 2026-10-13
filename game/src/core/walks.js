@@ -1361,7 +1361,9 @@ export const WALKS = {
   // two were still on the Moon at nine (they left at 02:54 on the 22nd, Korean time).
   yard1969: {
     first: '오늘 밤 사람이 처음 달에 내린단다. 심부름 셋을 해 보렴.',
-    dir: 'yard', look: 'paper', talk: 'face', night: true,
+    // She is set down in the neighbour's yard, among those watching the television (the user,
+    // 2026.10.13: "스타트 장소를 이웃집 마당으로 옮겨"); the lane is to her left.
+    dir: 'yard', look: 'paper', talk: 'face', night: true, begin: 'yard',
     now: {
       photo: 'photo-now.webp', name: '그날 그 달의 지금 모습', when: '달 고요의 바다 · 달 궤도선이 위에서 찍음',
       text: [

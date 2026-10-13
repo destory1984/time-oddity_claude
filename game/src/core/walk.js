@@ -33,7 +33,8 @@ const ARRIVE = 0.012;             // near enough to where she was sent
 
 // From earlier visits, by id: tried: what she has tried here. been: the scenes she has been
 // in. done: the errands done. met: the people she has spoken to.
-// (A place's `start` is where she is set down in its first scene, when not near its left end.)
+// (A place's `start` is where she is set down in its first scene, when not near its left end;
+// its `begin` is the scene she is set down in, when not the first: `beginOf`.)
 export function createWalk(place, { scene = 0, x = place.start ?? 0.08, tried = [], been = [], done = [], met = [], tale = null } = {}) {
   return {
     place, scene, x, facing: 1, moving: false, goal: null,
@@ -58,6 +59,8 @@ export function createWalk(place, { scene = 0, x = place.start ?? 0.08, tried = 
 }
 
 export const sceneOf = (walk) => walk.place.scenes[walk.scene];
+// Which of a place's scenes she is set down in.
+export const beginOf = (place) => Math.max(0, place.scenes.findIndex((scene) => scene.id === place.begin));
 // Those who are in the scene now: in a tale someone may stand in one scene first and in
 // another later (a person's `when`), and is in one place only.
 export const peopleOf = (walk) => (walk.tale ? sceneOf(walk).people.filter((p) => present(walk.tale, p)) : sceneOf(walk).people);

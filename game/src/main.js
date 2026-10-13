@@ -20,7 +20,7 @@ import { project } from './core/project.js';
 import { createVisit, stepVisit, visitAt } from './core/visit.js';
 import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
-import { REACH, offerLabel as offerText, barred, canHop, hop, allDone, createWalk, nearby, sceneOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf, touch } from './core/walk.js';
+import { REACH, offerLabel as offerText, barred, canHop, hop, allDone, createWalk, nearby, sceneOf, beginOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf, touch } from './core/walk.js';
 import { HINT_MS, hintOf, isSought, leftIn, soughtIn } from './core/seek.js';
 import { advance, calledOf, carrying, cluesOf, endingOf, gain, goalOf, hintOf as clueHint, holdsOf, isTold, present, riddleOf, stepOf as taleStep, thankerOf } from './core/tale.js';
 import { createWalkView } from './ui/walk.js';
@@ -130,8 +130,10 @@ function devStart() {
   if (!isLocalHost(location.hostname)) return null;
   try { const id = localStorage.getItem('timeoddity.devStart'); return id && WALKS[id] ? id : null; } catch { return null; }
 }
-// (2026.10.13, the user: "시작점을 마야로", and of the public game too: "ㅇㅇ".)
-const START = devStart() ?? 'chichen1000';
+// (2026.10.13, the user: "시작점을 마야로", and of the public game too: "ㅇㅇ". And that evening:
+// "스타트 장소를 이웃집 마당으로 옮겨": the village of 1969 again, in its second scene: the
+// place's `begin`.)
+const START = devStart() ?? 'yard1969';
 const beenNowhere = () => LIVE.every((sq) => beenOf(progress, sq.id).length === 0);
 // The dial stands at Rome's century every time the game is opened, not only the first
 // (the user, again: "시작지점을 로마로 고쳐. 이건 지금").
@@ -846,7 +848,7 @@ function showWalk(sq) {
   square = sq;
   visit = null; site = null;
   const fresh = beenOf(progress, sq.id).length === 0;
-  walk = createWalk(WALKS[sq.id], { tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id), done: errandsOf(progress, sq.id), met: metOf(progress, sq.id), tale: taleOf(progress, sq.id) });
+  walk = createWalk(WALKS[sq.id], { scene: beginOf(WALKS[sq.id]), tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id), done: errandsOf(progress, sq.id), met: metOf(progress, sq.id), tale: taleOf(progress, sq.id) });
   closePanel();
   walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyDue = false; walkMemo = null; memoHere = null; memoUp = false; walkNoteAt = 0; walkNowAt = 0;
   // What she chose from the wardrobe above the Earth is on her as she comes down.
@@ -1290,7 +1292,7 @@ function showEraPlaces(stop) {
   // side has its pin on the Earth's rim (render/globe.js).
   const first = fresh && stop.ids.includes(START);
   const head = document.createElement('span');
-  head.textContent = first ? '로마부터 가 보자. 빛나는 곳을 누른다' : t`이 세기에 갈 곳 ${stop.ids.length}`;
+  head.textContent = first ? '여기부터 가 보자. 빛나는 곳을 누른다' : t`이 세기에 갈 곳 ${stop.ids.length}`;
   head.classList.toggle('begin', first);
   list.append(head);
 }
