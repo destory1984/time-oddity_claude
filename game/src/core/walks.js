@@ -3479,6 +3479,553 @@ export const WALKS = {
     ],
     reply: '이 땅 사람들이 제 손으로 쌓은 담이란다. 탑이 무엇인지는 지금도 아무도 모르지.',
   },
+  // Stonehenge about 2500 BC, the morning of the longest day (midsummer). Drawn as the rock
+  // carvings of Bronze Age Scandinavia and Britain, pecked into grey rock and rubbed with red
+  // ochre (the user's choice of five tries: the first). The pictures are in stonehenge2500;
+  // the try is the third scene ('ring': huts and a fire, a stone on logs, antler picks, and
+  // the ring with the sun coming up between two stones). The storyboard has "the village by
+  // the river -> the way the great stone is hauled along -> before the ring of stones".
+  // Looked up on 2026.10.13 and found so: the great stones were set up about 4,500 years ago
+  // and fifty of the fifty-two came from West Woods, 25 km to the north ("하룻길" here: a
+  // day's walk, which is this file's own way of saying 25 km); the small bluestones came
+  // from the Preseli hills of Wales, more than 200 km away; the stones stand to the
+  // midsummer sunrise and the midwinter sunset; those who set them up lived in a village
+  // about 3 km off and nine in ten of the beasts' bones found there are of pigs (the feasts
+  // were at midwinter: no feast is made of this day).
+  // From memory: no iron, so hammers of stone and picks of red deer antler; no wheels, so
+  // sledges and ropes, with logs laid under the sledge; the lintels held by a hole and a
+  // knob; no writing, so neither names nor words are left; what it was for is not known;
+  // that the bluestones were brought long before the great stones were set up (so the old
+  // man tells of it as his forebears' doing); thatched houses with a hearth in the middle;
+  // pots with grooved lines; flint knives; needles of bone; dugout boats and the fish of the
+  // river; ropes twisted of the inner bark of trees; wild berries in June; stones raised
+  // with levers and ropes into a pit; stones dressed by pounding with round hammerstones;
+  // chalk under the grass, carried off in baskets; that a great stone weighs as much as
+  // some elephants ("코끼리 몇 마리만큼": the sarsens are of about 25 tons).
+  // Made up: the errand of the new rope and that the last stone is raised with it, the
+  // keeper of the way who lets no one cross until the stone has gone by, the child who lays
+  // the logs and says to follow the sledge, the chief of those who raise the stones, every
+  // other person, and the dress (nothing of it is left).
+  // Kept out: what the stones were for; druids; graves and bones; the midwinter feast.
+  stonehenge: {
+    first: '한 해에 낮이 가장 긴 날이란다. 밧줄을 전해 주렴.',
+    // Who lived here, for a player who has not heard of them. The first sentence was looked
+    // up; the second is from memory.
+    intro: { title: '돌을 세운 사람들', text: '사천오백 해쯤 전 영국의 들판에 큰 돌을 세운 사람들이란다. 글자가 없어서 이름도 말도 남지 않았지.' },
+    dir: 'stonehenge2500', look: 'paper', pale: true,
+    drawn: '아주 옛날 바위에 새긴 그림처럼, 쪼아 내고 붉은 흙을 문질러 그렸단다.',
+    scenes: [
+      {
+        id: 'village', name: '스톤헨지 곁 강가의 마을', short: '강가의 마을', zoom: 1.127, ground: 0.723, scale: 0.659, air: 'market', floor: 'dirt',
+        sora: '집이 다 풀 지붕이야!',
+        people: [
+          { id: 'fisher', pass: '오늘은 두 마리나 잡았지.', name: '물고기 잡는 아저씨', x: 0.18, w: 145, h: 320, lines: ['강에 그물을 던져 잡았단다.', '배는 통나무 속을 파서 만들지.'] },
+          { id: 'cook', pass: '노릇노릇 다 익었다!', show: 'roast', name: '고기 굽는 아주머니', x: 0.29, w: 125, h: 308, lines: ['우리 마을은 돼지를 많이 기른단다.', '불에 구운 고기와 산딸기야. 먹어 보련?'],
+            try: { id: 'eat-roast', verb: 'eat', name: '구운 돼지고기와 산딸기', face: 'yum', sora: '고소해! 딸기는 새콤해.' } },
+          { id: 'potter', pass: '줄무늬를 한 줄 더 넣자.', name: '그릇 빚는 아주머니', x: 0.4, w: 105, h: 310, lines: ['흙을 빚어 불에 구운 그릇이란다.', '손톱으로 줄무늬를 넣었지.'] },
+          { id: 'roper', pass: '꼬고 또 꼬고.', name: '밧줄 꼬는 할머니', x: 0.51, w: 119, h: 302, lines: ['나무 속껍질을 꼬아 밧줄을 만든단다.', '굵게 꼬아야 큰 돌도 끌지.'] },
+          { id: 'sewer', pass: '한 땀, 또 한 땀.', name: '옷 짓는 아주머니', x: 0.62, w: 130, h: 305, lines: ['뼈로 만든 바늘로 옷을 짓는단다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-henge', verb: 'wear', name: '돌 세운 사람들의 옷', outfit: 'henge', sora: '털가죽이 폭신폭신해!', memo: '그때 옷은 하나도 남지 않았단다. 거친 천과 털가죽을 입었으리라 짐작할 뿐이지.' } },
+          { id: 'knapper', pass: '딱, 딱. 살살 쳐야지.', name: '돌칼 만드는 아저씨', x: 0.73, w: 112, h: 318, lines: ['쇠가 없어서 돌로 칼을 만든단다.', '돌을 톡 치면 얇게 떨어지지.'] },
+          { id: 'thatcher', pass: '비 오기 전에 이어야지.', name: '지붕 잇는 아저씨', x: 0.85, w: 176, h: 320, lines: ['돌 세우는 사람들은 다 여기 산단다.', '돌 고리는 저 언덕 너머에 있지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'road', name: '스톤헨지로 큰 돌을 끄는 길', short: '돌 끄는 길', zoom: 1.133, ground: 0.718, scale: 0.663, air: 'masons', floor: 'dirt',
+        sora: '돌이 집보다 커!',
+        people: [
+          { id: 'puller', pass: '영차, 영차!', name: '밧줄 끄는 일꾼', x: 0.18, w: 164, h: 289, lines: ['바퀴가 없어서 썰매에 싣고 끈단다.', '여럿이 밧줄로 당기지.'] },
+          { id: 'caller', pass: '하나, 둘, 당겨라!', name: '소리 매기는 아주머니', x: 0.29, w: 136, h: 309, lines: ['내가 소리치면 다 같이 당긴단다.', '이 돌은 북쪽으로 하룻길인 숲에서 왔지.'] },
+          { id: 'logkid', pass: '통나무 하나 더!', name: '통나무 놓는 아이', x: 0.4, w: 125, h: 207, lines: ['썰매 밑에 통나무를 깔아.', '그러면 돌이 미끄러지듯 가.'] },
+          { id: 'teller', pass: '옛날 옛적에 말이다.', show: 'far', pose: 'see-wow', sora: '그 먼 데서 끌고 왔대!', memo: '작은 푸른 돌은 이백 킬로미터도 넘게 떨어진 웨일스의 산에서 왔단다. 바퀴도 없이 말이지.', name: '옛이야기 하는 할아버지', x: 0.51, w: 180, h: 280, lines: ['작은 푸른 돌은 더 먼 데서 왔단다.', '옛 어른들이 산을 넘고 물을 건너 끌고 왔지.'] },
+          { id: 'waterer', pass: '물 마시고 하세요!', name: '물 나르는 아가씨', x: 0.62, w: 91, h: 267, lines: ['돌 끄는 사람들은 목이 마르단다.', '그래서 강에서 물을 길어 오지.'] },
+          { id: 'lever', pass: '뒤에서 받쳐야지.', name: '지렛대 든 아저씨', x: 0.73, w: 161, h: 320, lines: ['긴 장대로 돌을 조금씩 들썩인단다.', '돌 하나가 코끼리 몇 마리만큼 무겁지.'] },
+          { id: 'roadguard', pass: '돌이 지나간다, 비켜라.', name: '길 지키는 이', x: 0.85, w: 126, h: 293, lines: ['돌이 지나갈 때는 길이 위험하단다.', '그래서 내가 여기서 지키지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'ring', name: '스톤헨지 돌 고리 앞', short: '돌 고리 앞', zoom: 1.098, ground: 0.745, scale: 0.643, air: 'hush', floor: 'dirt',
+        sora: '돌이 둥글게 서 있어!',
+        people: [
+          { id: 'digger', pass: '조금만 더 파면 되겠군.', show: 'antler', pose: 'see-aha', sora: '사슴뿔이 곡괭이래!', memo: '쇠가 없던 때라 사슴뿔로 땅을 팠단다. 뿔의 가지 하나를 뾰족한 날로 썼지.', name: '구덩이 파는 아저씨', x: 0.18, w: 149, h: 319, lines: ['돌을 세울 구덩이를 판단다.', '이 곡괭이는 사슴뿔로 만들었지.'] },
+          { id: 'carrier', pass: '흰 흙이 또 한 바구니.', name: '흙 나르는 아주머니', x: 0.29, w: 123, h: 311, lines: ['풀밭 아래는 온통 흰 흙이란다.', '파낸 흙은 바구니로 나르지.'] },
+          { id: 'joiner', pass: '턱이 홈에 꼭 맞아야지.', show: 'joint', pose: 'see-wow', sora: '돌을 끼워 맞췄어!', memo: '기둥 위에는 턱을, 가로 돌에는 홈을 파서 끼웠단다. 나무를 짜 맞추듯이 말이지.', name: '홈 파는 장인', x: 0.4, w: 130, h: 316, lines: ['가로 돌은 그냥 얹은 게 아니란다.', '홈과 턱을 파서 끼워 맞췄지.'] },
+          { id: 'chief', pass: '밧줄이 와야 할 텐데.', show: 'sunrise', pose: 'see-wow', sora: '해가 돌 사이로 떠!', memo: '돌은 한여름 해가 뜨는 쪽에 맞춰 서 있단다. 왜 세웠는지는 지금도 아무도 모르지.', name: '돌 세우는 우두머리', x: 0.51, w: 192, h: 320, lines: ['나는 돌 세울 자리를 정한단다.', '해 뜨는 쪽을 보고 자리를 잡지.'] },
+          { id: 'firekeeper', pass: '불씨를 꺼뜨리면 안 되지.', name: '불 지키는 할머니', x: 0.62, w: 137, h: 284, lines: ['밤새 불을 지켰단다.', '새벽 들판은 여름에도 춥거든.'] },
+          { id: 'sunkid', pass: '해야, 얼른 떠라!', name: '해 기다리는 아이', x: 0.73, w: 114, h: 220, lines: ['오늘은 낮이 가장 긴 날이야.', '해 뜨는 걸 보려고 일찍 일어났어.'] },
+          { id: 'dresser', pass: '쿵, 쿵. 팔이 얼얼하군.', name: '돌 다듬는 아저씨', x: 0.85, w: 138, h: 319, lines: ['둥근 돌망치로 돌을 두드린단다.', '두드리고 또 두드려 반듯하게 하지.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The new rope" (core/tale.js; the storyboard of docs/신기한-사실.md): the old woman who
+    // twists ropes in the village has a new thick rope for the chief of those who raise the
+    // stones; the keeper of the way lets no one cross until the great stone has gone by; the
+    // child who lays the logs says to follow behind the sledge; she hands it to the chief,
+    // choosing what to say; and the sun comes up between the stones and its light goes into
+    // the middle of the ring.
+    tale: {
+      thing: true,
+      ask: '해는 어느 돌 사이로 뜰까?',
+      gate: { scene: 'road', open: 3, sora: '길 지키는 이가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'roper', goal: '강가 마을의 밧줄 꼬는 할머니에게 가 보렴.', holds: '밧줄: 할머니가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '밤새 꼰 새 밧줄이란다. 내 다리로는 언덕을 못 넘지.', '돌 고리의 우두머리께 전해 주렴.'],
+          offer: { ask: '밧줄을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'roadguard', goal: '돌 끄는 길의 끝으로 가 보렴.', holds: '밧줄: 소라가 들고 있음',
+          lines: ['멈춰라. 지금은 길을 못 건넌다.', '큰 돌이 다 지나갈 때까지 기다려라.'],
+          sora: '해 뜨기 전에 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'logkid', call: '야, 어디 가는데?', goal: '통나무 놓는 아이가 부른다. 가 보렴.', holds: '밧줄: 소라가 들고 있음',
+          lines: ['돌 고리에 간다고? 그럼 나를 따라와.', '썰매 뒤를 따라가면 안 다쳐.', '아주머니, 얘는 썰매 뒤로 데려갈게요!'],
+          after: [{ who: 'roadguard', line: '밧줄 심부름이라면 썰매 뒤로 가거라.' }],
+          sora: '썰매 뒤를 따라가면 된대! 가자!',
+        },
+        {
+          who: 'chief', goal: '돌 고리 앞의 우두머리에게 밧줄을 전하렴.', holds: '밧줄: 소라가 들고 있음',
+          lines: ['오, 기다리던 밧줄이로구나.'],
+          choice: {
+            ask: '밧줄을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"할머니가 밤새 꼬셨어요"', sora: '마을 할머니가 밤새 꼬셨어요.', says: '튼튼하게도 꼬셨구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"이 밧줄로 뭘 해요?"', sora: '이 밧줄로 뭘 해요?', says: '저 큰 돌을 당겨서 세운단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'chief', show: true, goal: '해가 돌 사이로 뜨는 것을 보렴.',
+          lines: ['때맞춰 왔구나. 저 돌 사이를 보렴.', '한여름 아침엔 해가 저리로 뜬단다.'],
+          sora: '빛이 한가운데로 쏙 들어와!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'roper', when: ['S1', 'S2', 'S3', 'S4'], lines: ['우두머리는 돌 고리 앞에 있단다.', '돌 끄는 길을 따라 언덕을 넘어가렴.'] },
+        { who: 'roper', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '이제 그 돌도 곧 서겠구나.'] },
+      ],
+      done: '밧줄을 전하고, 해가 돌 사이로 뜨는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '새 밧줄을 받는다.', at: [] },
+      { id: 'gave', text: '우두머리에게 밧줄을 전한다.', at: [] },
+      { id: 'saw', text: '해가 돌 사이로 뜨는 것을 본다.', at: [] },
+    ],
+    reply: '글자도 쇠도 없이 세운 돌이란다. 팔이 아프진 않더냐.',
+  },
+  // Padua on the evening and night of 7 January 1610: the night Galileo saw three small
+  // stars in a row by Jupiter. Drawn as the oil painting of the Venetian school at the end
+  // of the 16th century (the user's choice of five tries: the fifth). The pictures are in
+  // padua1610; the try itself is the third scene (the yard behind the house, with the
+  // telescope), and the market and the lane were ordered after it. It is night in all three:
+  // no `pale`.
+  // Looked up on 2026.10.13 and found so: on the night of 7 January 1610, at Padua, Galileo
+  // saw three small stars in a row by Jupiter, and the next night they stood otherwise; the
+  // telescope was a new one that made things about twenty times larger (one study says
+  // thirty); some days later he knew them for moons going round Jupiter and found a fourth;
+  // the book came out on 13 March 1610.
+  // From memory: that he ground his lenses himself, in a hollow dish with fine sand; that
+  // the glass came from the glassmakers of Venice; that the telescope has a large lens at
+  // the far end and a small one at the eye; that he taught mathematics at the university of
+  // Padua and had students lodging in his house and workmen making instruments there; that
+  // he had drawn the moon with its mountains and hollows before this night; that the
+  // telescope began with the makers of spectacles; the clock tower of Padua whose face
+  // shows the moon; roast chestnuts and bread in winter; printed books; the dress; that
+  // Jupiter is bright enough to be the first star seen at dusk.
+  // Made up: the errand of the glass, the glassmaker at the market, the lodging student who
+  // lets no one in, the tube-maker who shows the way through the workshop, every other
+  // person, and that anyone but Galileo looked through the telescope that night.
+  // Kept out: the trial of later years. Nobody on the screen says "moon" of the three stars
+  // (that night nobody knew): only grandmother's slips say what they were found to be.
+  galileo: {
+    first: '갈릴레오가 목성 곁의 별을 처음 본 밤이란다. 유리알을 전해 주렴.',
+    dir: 'padua1610', look: 'paper',
+    drawn: '베네치아 화가들의 유화처럼, 깊은 푸른 밤으로 그렸단다.',
+    scenes: [
+      {
+        id: 'market', name: '파도바 저녁 장터', short: '저녁 장터', zoom: 1.127, ground: 0.723, scale: 0.659, air: 'market', floor: 'dirt',
+        sora: '좌판마다 불을 켰어!',
+        people: [
+          { id: 'chestnut', pass: '군밤이오, 따끈한 군밤!', show: 'chestnut', name: '군밤 장수', x: 0.18, w: 118, h: 295, lines: ['갓 구운 밤과 빵이란다.', '추운 저녁엔 이게 최고지. 먹어 보련?'],
+            try: { id: 'eat-chestnut', verb: 'eat', name: '구운 밤과 빵', face: 'yum', sora: '따끈따끈해! 달고 고소해.' } },
+          { id: 'clockman', pass: '벌써 저녁 종 칠 때구먼.', name: '시계탑 보는 할아버지', x: 0.29, w: 112, h: 314, lines: ['저기 큰 시계가 보이느냐.', '달이 얼마나 찼는지도 알려 준단다.'] },
+          { id: 'spectacles', pass: '글씨가 또렷이 보입니다!', name: '안경 장수', x: 0.4, w: 98, h: 309, lines: ['유리를 갈아서 안경알을 만든단다.', '망원경도 이런 유리알로 만들지.'] },
+          { id: 'glassmaker', pass: '누가 좀 전해 주면 좋으련만.', name: '유리 장인', x: 0.51, w: 110, h: 299, lines: ['나는 맑은 유리를 만든단다.', '티 하나 없어야 멀리까지 보이지.'] },
+          { id: 'scholar', pass: '내일도 수업이 있지.', name: '대학생', x: 0.62, w: 107, h: 320, lines: ['파도바에는 큰 대학이 있단다.', '갈릴레오 선생님은 수학을 가르치시지.'] },
+          { id: 'draper', pass: '따뜻한 모직 옷 보고 가렴.', name: '옷감 장수', x: 0.73, w: 118, h: 294, lines: ['겨울엔 두꺼운 모직 옷을 입는단다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-padua', verb: 'wear', name: '파도바의 옷', outfit: 'padua', sora: '망토가 폭신해! 안 추워.', memo: '긴 치마에 앞치마를 두르고 흰 깃을 달았단다. 겨울에는 짧은 망토를 걸쳤지.' } },
+          { id: 'bookseller', pass: '새로 찍은 책이 왔소.', name: '책 파는 아저씨', x: 0.85, w: 117, h: 293, lines: ['이 책은 손으로 쓴 게 아니란다.', '틀로 찍어서 여러 권을 만들지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'lane', name: '파도바 갈릴레오의 집 앞 골목', short: '집 앞 골목', zoom: 1.140, ground: 0.713, scale: 0.667, air: 'street', floor: 'dirt',
+        sora: '골목에 작업장이 있어!',
+        people: [
+          { id: 'grinder', pass: '쓱쓱, 조금만 더.', show: 'lens', pose: 'see-aha', sora: '뿌옇던 게 맑아졌어!', memo: '유리를 오목한 접시에 대고 고운 모래로 갈았단다. 갈릴레오는 유리알을 손수 갈았지.', name: '유리알 가는 일꾼', x: 0.18, w: 118, h: 301, lines: ['유리를 고운 모래로 문질러 간단다.', '며칠을 갈아야 한 알이 되지.'] },
+          { id: 'cook', pass: '저녁 빵을 더 구워야겠네.', name: '밥 짓는 아주머니', x: 0.29, w: 142, h: 281, lines: ['선생님 댁에는 학생들이 함께 산단다.', '그래서 날마다 빵을 잔뜩 굽지.'] },
+          { id: 'tubemaker', pass: '땅, 땅, 곧게 펴야지.', name: '통 만드는 일꾼', x: 0.4, w: 146, h: 320, lines: ['망원경의 긴 통을 만든단다.', '양 끝에 유리알을 하나씩 끼우지.'] },
+          { id: 'neighbour', pass: '오늘 밤도 하늘이 맑구먼.', name: '이웃 할아버지', x: 0.51, w: 128, h: 280, lines: ['선생님은 밤마다 뒤뜰에 나오신단다.', '추운 줄도 모르고 하늘만 보시지.'] },
+          { id: 'polisher', pass: '호, 호, 깨끗이 닦자.', show: 'telescope', pose: 'see-wow', sora: '통이 내 키보다 길어!', memo: '갈릴레오의 새 망원경은 스무 배쯤 크게 보였단다. 긴 통의 양 끝에 유리알을 끼웠지.', name: '망원경 닦는 제자', x: 0.62, w: 122, h: 289, lines: ['선생님이 새로 만드신 망원경이란다.', '먼 것이 스무 배쯤 크게 보이지.'] },
+          { id: 'courier', pass: '편지요, 편지!', name: '편지 심부름꾼', x: 0.73, w: 105, h: 259, lines: ['베네치아에서 온 편지야.', '선생님께는 편지가 날마다 와.'] },
+          { id: 'boarder', pass: '오늘 밤은 조용히 해야 해.', name: '하숙 학생', x: 0.85, w: 121, h: 310, lines: ['나는 선생님 댁에 사는 학생이란다.', '밤에는 내가 문을 지키지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'garden', name: '파도바 갈릴레오의 집 뒤뜰', short: '집 뒤뜰', zoom: 1.136, ground: 0.716, scale: 0.665, air: 'hush', floor: 'dirt',
+        sora: '망원경이 하늘을 보고 있어!',
+        people: [
+          { id: 'lampgirl', pass: '불이 꺼지면 안 돼.', name: '등잔 든 아이', x: 0.18, w: 102, h: 249, lines: ['종이에 적을 때 불을 비춰 드려.', '별을 볼 때는 멀리 서 있어야 해.'] },
+          { id: 'moonpupil', pass: '달에도 산이 있다니.', show: 'moon', pose: 'see-aha', sora: '달이 울퉁불퉁해!', memo: '갈릴레오는 망원경으로 달을 보고 그림을 그렸단다. 달에도 산과 골짜기가 있다고 했지.', name: '달 그림 든 학생', x: 0.29, w: 107, h: 304, lines: ['선생님이 달을 보고 그리신 그림이란다.', '달은 매끈한 구슬이 아니었지.'] },
+          { id: 'scribe', pass: '날짜부터 적어 두자.', name: '받아 적는 제자', x: 0.4, w: 104, h: 304, lines: ['선생님이 보신 것을 받아 적는단다.', '내일 밤 것과 견주어 보려고.'] },
+          { id: 'coldpupil', pass: '호오, 손 시려.', name: '손이 언 학생', x: 0.51, w: 89, h: 283, lines: ['정월 밤이라 손이 꽁꽁 얼었어.', '그래도 별은 겨울에 더 맑게 보여.'] },
+          { id: 'galileo', pass: '유리알이 올 때가 됐는데.', show: 'stars', pose: 'see-wow', sora: '작은 별 셋이 한 줄이야!', memo: '갈릴레오는 이날 밤 목성 곁의 작은 별 셋을 처음 봤단다. 며칠 뒤에야 그게 목성을 도는 달인 줄 알았지.', name: '갈릴레오', x: 0.62, w: 128, h: 320, lines: ['나는 망원경으로 하늘을 본단다.', '눈으로는 안 보이던 것이 보이지.'] },
+          { id: 'vinedresser', pass: '봄이 오면 싹이 트겠지.', name: '포도 덩굴 손보는 아저씨', x: 0.73, w: 101, h: 295, lines: ['겨울이라 포도 잎이 다 졌단다.', '덕분에 뜰에서 하늘이 잘 보이지.'] },
+          { id: 'blanket', pass: '밤바람이 차기도 하지.', name: '담요 든 아주머니', x: 0.85, w: 111, h: 279, lines: ['선생님께 담요를 가져왔단다.', '밤새 서 계시면 감기 드시지.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The glass for the telescope" (core/tale.js; the storyboard of docs/신기한-사실.md): the
+    // glassmaker at the evening market has a new glass for Galileo and cannot leave his
+    // stall; the student who lodges in the house keeps the door, for the teacher is making
+    // ready to watch the stars; the tube-maker shows her the way through the workshop to the
+    // yard behind; she hands it to Galileo, choosing what to say; and she looks through the
+    // telescope and sees three small stars in a row by Jupiter. He calls them stars.
+    tale: {
+      thing: true,
+      ask: '목성 곁에는 무엇이 있을까?',
+      gate: { scene: 'lane', open: 3, sora: '학생이 문을 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'glassmaker', goal: '저녁 장터의 유리 장인에게 가 보렴.', holds: '유리알: 유리 장인이 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '갈릴레오 선생님이 기다리시는 유리알이란다. 나는 가게를 못 비우지.', '선생님 댁 뒤뜰로 전해 주렴.'],
+          offer: { ask: '유리알을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'boarder', goal: '골목 끝의 선생님 댁 문으로 가 보렴.', holds: '유리알: 소라가 들고 있음',
+          lines: ['잠깐. 지금은 못 들어간단다.', '선생님이 별 볼 채비를 하셔. 아무도 못 들어가.'],
+          sora: '선생님이 기다리신댔는데… 어? 누가 불러!',
+        },
+        {
+          who: 'tubemaker', call: '얘, 뭘 들고 가니?', goal: '통 만드는 일꾼이 부른다. 가 보렴.', holds: '유리알: 소라가 들고 있음',
+          lines: ['선생님께 가는 유리알이라고? 그럼 이리 오렴.', '작업장을 지나면 바로 뒤뜰이란다.', '이보게, 이 아이는 작업장으로 들여보내네!'],
+          after: [{ who: 'boarder', line: '유리알 심부름이면 그리로 가렴.' }],
+          sora: '작업장을 지나가면 된대! 가자!',
+        },
+        {
+          who: 'galileo', goal: '뒤뜰의 갈릴레오에게 유리알을 전하렴.', holds: '유리알: 소라가 들고 있음',
+          lines: ['오, 기다리던 유리알이로구나.'],
+          choice: {
+            ask: '유리알을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"유리 장인이 보냈어요"', sora: '장터의 유리 장인 아저씨가 보내셨어요.', says: '티 하나 없이 맑구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"이걸로 뭘 봐요?"', sora: '이 유리알로 뭘 보세요?', says: '멀리 있는 것을 가까이 당겨 본단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'galileo', show: true, goal: '망원경으로 목성 곁을 보렴.',
+          lines: ['마침 잘 왔다. 저 밝은 별이 목성이란다.', '그 곁에 작은 별 셋이 한 줄로 섰구나. 너도 보렴.'],
+          sora: '정말 한 줄이야! 왜 저렇게 서 있지?',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'glassmaker', when: ['S1', 'S2', 'S3', 'S4'], lines: ['선생님 댁은 골목 끝에 있단다.', '뒤뜰에 긴 망원경이 서 있지.'] },
+        { who: 'glassmaker', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '그 유리알로 무엇을 보실까.'] },
+      ],
+      done: '유리알을 전하고, 목성 곁의 작은 별 셋을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '유리알을 받는다.', at: [] },
+      { id: 'gave', text: '갈릴레오에게 유리알을 전한다.', at: [] },
+      { id: 'saw', text: '목성 곁의 별 셋을 본다.', at: [] },
+    ],
+    reply: '그 별 셋은 목성을 도는 달이었단다. 손은 시리지 않더냐.',
+  },
+  // Paris, 21 November 1783, about two in the afternoon: the first day people flew in a
+  // balloon that no rope held. Drawn as a French rococo oil painting after Fragonard (the
+  // user's choice of five tries: the second). The pictures are in balloon1783; the try is
+  // the third scene (the garden of the chateau de la Muette with the balloon over its fire),
+  // and the yard of the workshop and the road to the chateau were ordered anew. The gate of
+  // the chateau stands at the right end of the second scene, where the one who bars the way
+  // has to stand. The game has another Paris (1889, 'eiffel', in the folder paris): no id of
+  // a person, of a thing to see, to eat or to wear here is one of that place's.
+  // Looked up on 2026.10.13 and found so: on 21 November 1783, about two in the afternoon,
+  // Pilatre de Rozier and the marquis d'Arlandes rose from the garden of la Muette in the
+  // balloon of the Montgolfier brothers, the first flight of people without a rope; about
+  // 25 minutes and about 9 km (26 minutes and 12 km are also given: "스물다섯 분쯤", and
+  // no distance on screen); straw fed to the fire under the balloon filled it with hot air;
+  // sparks caught the cloth and were pressed out with wet sponges; Benjamin Franklin, from
+  // America, looked on.
+  // From memory: the sheep, the duck and the cock that went up first two months before and
+  // came down unhurt; the balloon blue with gold suns; that the Montgolfiers were paper
+  // makers; that the balloon was made in the yard of a wallpaper workshop; the round wicker
+  // gallery where the two stood on opposite sides; that it had gone up on ropes in the weeks
+  // before; that what was seen was written down that day; prints of balloons sold in the
+  // street; roasted chestnuts and thin rolled wafers; the dress of 1783; that the one of the
+  // brothers who was there was Etienne (he is only "몽골피에 씨" here); that Franklin stood
+  // in the garden itself (the source says only that he looked on).
+  // Made up: the errand of the basket of wet sponges, the seamstress, the keeper of the
+  // gate who wants a ticket, the straw carrier who takes her in behind his cart, what
+  // Pilatre de Rozier answers, every other person.
+  // Kept out: that Pilatre de Rozier died in a balloon two years later; the king (no line
+  // says he was there). Nothing says the balloon was of paper.
+  montgolfier: {
+    first: '오늘은 사람이 처음 풍선을 타고 나는 날이란다. 해면 바구니를 전해 주렴.',
+    dir: 'balloon1783', look: 'paper', pale: true,
+    drawn: '그때 프랑스의 유화처럼, 부드러운 붓으로 그렸단다.',
+    scenes: [
+      {
+        id: 'yard', name: '파리 풍선 공방 마당', short: '공방 마당', zoom: 1.153, ground: 0.703, scale: 0.675, air: 'masons', floor: 'dirt',
+        sora: '여기서 그 큰 풍선을 지었대!',
+        people: [
+          { id: 'gilder', pass: '금빛은 살살 칠해야지.', name: '금빛 무늬 그리는 화공', x: 0.18, w: 104, h: 318, lines: ['푸른 천에 금빛 해를 그렸단다.', '멀리서도 잘 보이라고 그랬지.'] },
+          { id: 'seamstress', pass: '한 땀, 또 한 땀.', name: '풍선 꿰맨 재봉사', x: 0.29, w: 129, h: 303, lines: ['큰 천을 이어 풍선을 꿰맸단다.', '집보다 큰 주머니가 되었지.'] },
+          { id: 'printer', pass: '쿵, 무늬가 잘 찍혔군.', name: '벽지 찍는 일꾼', x: 0.4, w: 115, h: 320, lines: ['여기는 벽지를 찍는 공방이란다.', '큰 풍선도 이 마당에서 지었지.'] },
+          { id: 'shepherd', pass: '우리 양은 하늘을 날았지!', show: 'animals', pose: 'see-wow', sora: '양이 하늘을 날았대!', memo: '사람보다 먼저 양과 오리와 수탉이 탔단다. 셋 다 무사히 내려왔지.', name: '양 돌보는 아이', x: 0.51, w: 104, h: 266, lines: ['두 달 전엔 양이 먼저 탔어.', '오리랑 수탉도 같이 탔대.'] },
+          { id: 'wicker', pass: '꼬고, 엮고, 또 엮고.', name: '버들 난간 엮는 할아버지', x: 0.62, w: 120, h: 304, lines: ['버들가지로 둥근 난간을 엮었단다.', '두 사람이 양쪽에 마주 서서 타지.'] },
+          { id: 'ropemaker', pass: '오늘은 줄이 쉬는 날이군.', name: '밧줄 사리는 일꾼', x: 0.73, w: 93, h: 317, lines: ['지난번엔 줄에 매어 띄웠단다.', '오늘은 줄을 풀고 날아가지.'] },
+          { id: 'dressmaker', pass: '고운 옷 보고 가렴.', name: '옷 짓는 아주머니', x: 0.85, w: 125, h: 307, lines: ['남은 틈에 아이 옷도 지었단다.', '나들이옷이야. 입어 보련?'],
+            try: { id: 'wear-rococo', verb: 'wear', name: '1783년 파리의 옷', outfit: 'rococo', sora: '치마가 사락사락해!', memo: '긴 치마 옷에 흰 수건을 어깨에 둘렀단다. 소매 끝에는 레이스를 달았지.' } },
+        ],
+        spots: [],
+      },
+      {
+        id: 'road', name: '파리 라 뮈에트 성으로 가는 길', short: '성으로 가는 길', zoom: 1.136, ground: 0.716, scale: 0.665, air: 'street', floor: 'dirt',
+        sora: '다들 풍선 보러 가나 봐!',
+        people: [
+          { id: 'chestnut', pass: '따끈한 군밤이오!', show: 'chestnuts', name: '밤 굽는 아주머니', x: 0.18, w: 153, h: 278, lines: ['갓 구운 밤과 돌돌 만 과자란다.', '기다릴 땐 이게 최고지. 먹어 보련?'],
+            try: { id: 'eat-chestnut1783', verb: 'eat', name: '구운 밤과 과자', face: 'yum', sora: '앗 뜨거! 달콤하고 고소해.' } },
+          { id: 'fanlady', pass: '언제 뜨려나, 언제 뜨려나.', name: '부채 든 아가씨', x: 0.29, w: 106, h: 277, lines: ['파리 사람이 다 나왔나 봐요.', '저도 아침부터 기다렸답니다.'] },
+          { id: 'strawman', pass: '짚이 모자라면 안 되지.', name: '짚 나르는 일꾼', x: 0.4, w: 178, h: 298, lines: ['풍선 불에 넣을 짚이란다.', '짚을 넣으면 불이 확 살아나지.'] },
+          { id: 'scholar', pass: '더운 공기는 위로, 위로.', show: 'strawfire', pose: 'see-aha', sora: '불을 때서 뜨는 거구나!', memo: '풍선 밑에서 짚을 태워 더운 공기를 채웠단다. 더운 공기는 위로 올라가지.', name: '불 살피는 학자', x: 0.51, w: 123, h: 293, lines: ['불을 때면 공기가 더워진단다.', '더운 공기가 차면 주머니가 뜨지.'] },
+          { id: 'tiptoe', pass: '안 보여, 안 보여!', name: '까치발 선 아이', x: 0.62, w: 93, h: 207, lines: ['저기 풍선 꼭대기가 보여!', '나도 크면 하늘을 날 거야.'] },
+          { id: 'printseller', pass: '풍선 그림 사세요!', name: '풍선 그림 파는 아저씨', x: 0.73, w: 134, h: 296, lines: ['풍선을 그린 그림이란다.', '벽에 걸어 두고 오래오래 보지.'] },
+          { id: 'guard', pass: '표를 보여 주시오.', name: '성의 문지기', x: 0.85, w: 121, h: 320, lines: ['풍선은 이 문 안의 뜰에서 뜬단다.', '사람이 너무 몰려서 내가 지키지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'garden', name: '파리 라 뮈에트 성의 뜰', short: '성의 뜰', zoom: 1.095, ground: 0.747, scale: 0.641, air: 'court', floor: 'dirt',
+        sora: '풍선이 집보다 커!',
+        people: [
+          { id: 'franklin', pass: '허허, 대단한 날이로구나.', name: '프랭클린 할아버지', x: 0.18, w: 87, h: 207, lines: ['나는 바다 건너 미국에서 왔단다.', '이 구경을 놓칠 수는 없지.'] },
+          { id: 'scribe', pass: '낮 두 시쯤, 맑음.', name: '받아 적는 이', x: 0.29, w: 73, h: 210, lines: ['오늘 본 것을 다 적어 둔단다.', '뒷날 사람들도 알아야 하니까.'] },
+          { id: 'etienne', pass: '바람이 잔잔해야 할 텐데.', name: '몽골피에 씨', x: 0.4, w: 89, h: 220, lines: ['우리 형제가 생각해 낸 풍선이란다.', '불을 때면 뜨는 것을 알아냈지.'] },
+          { id: 'ropeman', pass: '아직이야, 꽉 잡아!', name: '줄 잡은 일꾼', x: 0.51, w: 80, h: 320, lines: ['이 줄을 놓으면 풍선이 뜬단다.', '오늘은 줄 없이 멀리 가지.'] },
+          { id: 'marquis', pass: '짚도 해면도 넉넉해야지.', show: 'sponge', pose: 'see-aha', sora: '젖은 걸로 꾹 누르는 거야!', memo: '날다가 불똥이 천에 붙었단다. 젖은 해면으로 꾹 눌러 껐지.', name: '다를랑드 후작', x: 0.62, w: 85, h: 277, lines: ['나도 같이 탄단다. 불에 짚을 넣지.', '불똥이 튀면 젖은 해면으로 끈단다.'] },
+          { id: 'pilatre', pass: '해면이 와야 할 텐데.', show: 'ascent', pose: 'see-wow', sora: '줄도 없이 날아가!', memo: '사람이 탄 풍선이 줄 없이 처음 날았단다. 스물다섯 분쯤 날아 파리 건너편에 내렸지.', name: '필라트르 드 로지에', x: 0.73, w: 79, h: 204, lines: ['오늘 내가 이 풍선을 탄단다.', '하늘에서 파리를 내려다볼 거야.'] },
+          { id: 'cheerer', pass: '만세! 풍선 만세!', name: '모자 흔드는 아저씨', x: 0.85, w: 84, h: 246, lines: ['사람이 하늘을 난다니!', '오늘을 오래오래 이야기할 거야.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The basket of wet sponges" (core/tale.js; the storyboard of docs/신기한-사실.md): the
+    // seamstress who sewed the balloon has a basket of wet sponges, to press out sparks, for
+    // the one who is to go up in it; the keeper of the gate of the chateau lets no one in
+    // without a ticket; the straw carrier takes her in behind his cart of straw; she hands
+    // it to Pilatre de Rozier, choosing what to say; and the balloon rises and goes off over
+    // the roofs of Paris with no rope.
+    tale: {
+      thing: true,
+      ask: '풍선은 줄 없이도 날 수 있을까?',
+      gate: { scene: 'road', open: 3, sora: '문지기가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'seamstress', goal: '공방 마당의 재봉사에게 가 보렴.', holds: '해면 바구니: 재봉사가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '물에 적신 해면이란다. 불똥이 튀면 이걸로 끄지.', '풍선에 탈 필라트르 씨께 전해 주렴.'],
+          offer: { ask: '해면 바구니를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'guard', goal: '길 끝의 성문으로 가 보렴.', holds: '해면 바구니: 소라가 들고 있음',
+          lines: ['멈춰라. 표를 보여 다오.', '표 없는 사람은 못 들어간다.'],
+          sora: '풍선이 뜨기 전에 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'strawman', call: '얘, 어디 가는데?', goal: '짚 나르는 일꾼이 부른다. 가 보렴.', holds: '해면 바구니: 소라가 들고 있음',
+          lines: ['필라트르 씨께 간다고? 그럼 나를 따라오렴.', '짚 수레는 표 없이도 들어간단다.', '문지기님, 이 아이는 짚 수레와 같이 갑니다!'],
+          after: [{ who: 'guard', line: '해면 심부름이라면 수레를 따라가거라.' }],
+          sora: '짚 수레를 따라가면 된대! 가자!',
+        },
+        {
+          who: 'pilatre', goal: '성의 뜰의 필라트르 씨에게 해면 바구니를 전하렴.', holds: '해면 바구니: 소라가 들고 있음',
+          lines: ['오, 기다리던 해면이로구나.'],
+          choice: {
+            ask: '해면 바구니를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"재봉사 아주머니가 보냈어요"', sora: '풍선 꿰맨 아주머니가 보내셨어요.', says: '끝까지 마음을 써 주는구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"안 무서워요?"', sora: '하늘에 올라가는 거 안 무서워요?', says: '조금 떨린단다. 그래도 꼭 가 보고 싶지.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'pilatre', show: true, goal: '풍선이 떠오르는 것을 보렴.',
+          lines: ['때맞춰 왔구나. 이제 줄을 푼단다.', '잘 보렴. 지붕 위로 날아갈 거야.'],
+          sora: '떴다! 지붕 위로 날아가!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'seamstress', when: ['S1', 'S2', 'S3', 'S4'], lines: ['필라트르 씨는 성의 뜰에 계신단다.', '길을 따라가 성문을 지나렴.'] },
+        { who: 'seamstress', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '이제 마음 놓고 구경하겠구나.'] },
+      ],
+      done: '해면 바구니를 전하고, 풍선이 줄 없이 날아가는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '해면 바구니를 받는다.', at: [] },
+      { id: 'gave', text: '필라트르 씨에게 해면 바구니를 전한다.', at: [] },
+      { id: 'saw', text: '풍선이 떠오르는 것을 본다.', at: [] },
+    ],
+    reply: '두 사람 다 무사히 내렸단다. 하늘길이 열린 날이지.',
+  },
+  // Sydney on 20 October 1973, in the afternoon: the day the Opera House was opened. Drawn
+  // as an architect's presentation sketch of the 1960s, pencil and charcoal on yellowed
+  // paper with thin washes (the user's choice of five tries: the fourth). The pictures are
+  // in sydney1973; the try itself is the second scene (the foot of the great stair), and
+  // the wharf and the court under the shells were ordered.
+  // Looked up on 2026.10.13 and found so: opened on 20 October 1973 by Queen Elizabeth II;
+  // begun in 1959 (1958 in some), so fourteen years; every shell of the roof is a piece cut
+  // from one sphere (found in 1961 to 1962), so the pieces could be cast in the same moulds;
+  // 1,056,006 tiles on the roof ("백만 장도 넘게"), made in Sweden, washed by the rain; in
+  // November 1960 a singer sang to the workmen on the unfinished site, the first to sing
+  // there ("열세 해 전": he is not named).
+  // From memory: fireworks, balloons and the hooters of the boats at the opening; that the
+  // ceremony was out of doors in the afternoon and that the queen spoke from a stand;
+  // Beethoven's Ninth ("합창") that evening; the green and yellow ferries of Circular Quay;
+  // that the harbour was full of boats; the Harbour Bridge; the meat pie with tomato sauce;
+  // that the tiles are of two kinds, glossy white and matt cream; the concrete ribs of the
+  // shells and the cranes; the wooden model of the sphere; the dress of 1973.
+  // Made up: the errand of the conductor's score, the chorister, the policeman who lets no
+  // one up the stair till the queen has passed, the workman who shows the way round by the
+  // water, the conductor (not the one who conducted that day), every other person.
+  // Kept out: the quarrel between the architect and the state and what the house cost; the
+  // architect and that he was not there; the names of the queen, the architect and the
+  // singer. The queen is spoken of and never met. Nobody says "first" of that night's music:
+  // there had been performances in the house before the day it was opened.
+  sydneyOpera: {
+    first: '오페라하우스가 문을 여는 날이란다. 악보를 전해 주렴.',
+    dir: 'sydney1973', look: 'paper', pale: true,
+    drawn: '집을 짓는 사람이 연필로 쓱쓱 그린 그림처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'quay', name: '시드니 서큘러 키 부두', short: '부두', zoom: 1.093, ground: 0.749, scale: 0.640, air: 'market',
+        sora: '배가 엄청 많아! 깃발도 달았어.',
+        people: [
+          { id: 'ferryman', pass: '오늘은 배가 꽉 찼구먼.', show: 'building', pose: 'see-wow', sora: '지붕이 뼈만 있어!', memo: '짓는 데 열네 해가 걸렸단다. 조개 지붕을 하나씩 세워 올렸지.', name: '연락선 선원', x: 0.18, w: 110, h: 281, lines: ['열네 해 동안 배에서 저 집을 봤단다.', '지붕이 하나씩 솟는 걸 다 봤지.'] },
+          { id: 'pieman', pass: '파이요, 따끈한 파이!', show: 'pie', name: '파이 장수', x: 0.29, w: 99, h: 276, lines: ['갓 구운 고기 파이란다.', '빨간 소스를 뿌려야 제맛이지. 먹어 보련?'],
+            try: { id: 'eat-pie', verb: 'eat', name: '고기 파이', face: 'yum', sora: '앗 뜨거! 근데 고소해.' } },
+          { id: 'pinwheel', pass: '후우, 돌아라 돌아라!', name: '바람개비 든 아이', x: 0.4, w: 77, h: 234, lines: ['바닷바람에 혼자서도 돌아.', '오늘은 학교도 안 가는 날이야!'] },
+          { id: 'chorister', pass: '아이고, 또 떨어지겠네.', name: '합창단 아저씨', x: 0.51, w: 86, h: 290, lines: ['나는 합창단에서 노래한단다.', '오늘 밤 저 집에서 노래하지.'] },
+          { id: 'snapper', pass: '찰칵! 한 장 더.', name: '사진 찍는 아저씨', x: 0.62, w: 98, h: 276, lines: ['필름 한 통을 벌써 다 썼어.', '저 지붕은 어디서 찍어도 멋지거든.'] },
+          { id: 'dresser', pass: '나들이옷 보고 가요!', name: '옷 수레 아주머니', x: 0.73, w: 103, h: 269, lines: ['요즘은 깃이 큰 옷을 입는단다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-sydney73', verb: 'wear', name: '1973년의 나들이옷', outfit: 'sydney73', sora: '꽃무늬가 엄청 커! 마음에 들어.', memo: '그 무렵엔 깃이 크고 무늬가 큰 옷을 입었단다. 나도 그런 옷이 있었지.' } },
+          { id: 'docker', pass: '저 배는 어디다 대나.', name: '부두 일꾼', x: 0.85, w: 109, h: 320, lines: ['오늘은 항구에 배가 가득하단다.', '다들 저 집을 보러 나왔지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'steps', name: '시드니 오페라하우스 큰 계단 밑', short: '큰 계단 밑', zoom: 1.095, ground: 0.747, scale: 0.641, air: 'street',
+        sora: '지붕이 조개껍데기 같아!',
+        people: [
+          { id: 'parasol', pass: '아이고, 곱기도 하지.', name: '양산 든 할머니', x: 0.18, w: 102, h: 290, lines: ['처음 삽을 뜰 때 나는 젊었단다.', '다 짓는 걸 보다니, 오래 살았지.'] },
+          { id: 'icecream', pass: '아이스크림 있어요!', name: '아이스크림 장수', x: 0.29, w: 86, h: 275, lines: ['오늘은 줄이 끝이 없어요.', '시월이면 여기는 따뜻한 봄이에요.'] },
+          { id: 'balloon', pass: '풍선아, 꼭 잡고 있을게.', name: '풍선 든 아이', x: 0.4, w: 69, h: 260, lines: ['이따가 다 같이 날린대.', '내 건 빨간색이야!'] },
+          { id: 'engineer', pass: '공 하나면 다 되지.', show: 'sphere', pose: 'see-aha', sora: '공에서 잘라 낸 거래!', memo: '조개 지붕은 모두 공 하나에서 잘라 낸 꼴이란다. 그래서 같은 틀로 찍어 맞출 수 있었지.', name: '나무 공 든 기술자', x: 0.51, w: 98, h: 281, lines: ['저 지붕은 다 공 하나의 조각이란다.', '굽은 꼴이 같으니 같은 틀로 찍었지.'] },
+          { id: 'roofer', pass: '내가 붙인 게 저기 있지.', name: '타일 붙인 일꾼', x: 0.62, w: 108, h: 292, lines: ['저 지붕의 타일을 내가 붙였단다.', '흰 것도 있고 누르스름한 것도 있지.'] },
+          { id: 'drummer', pass: '둥둥, 두구두구 둥!', name: '북 치는 악대 아저씨', x: 0.73, w: 98, h: 286, lines: ['여왕님이 오시면 북을 친단다.', '손에 땀이 다 나는구나.'] },
+          { id: 'police', pass: '자, 뒤로 한 걸음씩!', name: '경찰 아저씨', x: 0.85, w: 97, h: 320, lines: ['오늘은 사람이 아주 많이 왔단다.', '밀지 말고 천천히 다니렴.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'forecourt', name: '시드니 오페라하우스 조개 지붕 아래 마당', short: '지붕 아래 마당', zoom: 1.115, ground: 0.732, scale: 0.652, air: 'court',
+        sora: '우와, 밑에서 보니까 엄청 커!',
+        people: [
+          { id: 'flower', pass: '꽃이 시들면 안 되는데.', name: '꽃 든 아이', x: 0.18, w: 66, h: 198, lines: ['저 단 앞에 놓을 꽃이야.', '여왕님이 저 위에서 문을 여신대.'] },
+          { id: 'binoc', pass: '어머, 하나하나 다 보여.', show: 'tiles', pose: 'see-wow', sora: '지붕이 다 타일이야!', memo: '지붕에 타일을 백만 장도 넘게 붙였단다. 비가 오면 저절로 씻기지.', name: '쌍안경 든 아주머니', x: 0.29, w: 89, h: 243, lines: ['지붕이 온통 작은 타일이란다.', '먼 나라 스웨덴에서 구워 왔대.'] },
+          { id: 'violin', pass: '끼잉, 줄을 맞춰야지.', name: '바이올린 켜는 아가씨', x: 0.4, w: 94, h: 225, lines: ['오늘 밤 저 안에서 연주해.', '소리가 아주 곱게 울리는 집이야.'] },
+          { id: 'oldhand', pass: '그 노래가 아직 귀에 선해.', name: '옛 일꾼 할아버지', x: 0.51, w: 79, h: 236, lines: ['열세 해 전, 짓다 만 여기서 한 가수가 노래했단다.', '우리 일꾼들이 일손을 놓고 들었지.'] },
+          { id: 'choirgirl', pass: '아, 아, 아아아.', name: '합창단 언니', x: 0.62, w: 81, h: 231, lines: ['목을 풀고 있어. 아아아.', '지휘자 선생님이 악보를 찾으셔.'] },
+          { id: 'conductor', pass: '내 악보가 어디 갔지?', show: 'opening', pose: 'see-wow', sora: '배들이 다 같이 뿌우 해!', memo: '1973년 10월 20일에 여왕이 문을 열었단다. 짓기 시작하고 열네 해 만이었지.', name: '지휘자', x: 0.73, w: 80, h: 233, lines: ['나는 노래와 악기를 이끈단다.', '이 막대 하나로 다 같이 맞추지.'] },
+          { id: 'balloons', pass: '아직이야, 아직.', name: '풍선 줄 잡은 아저씨', x: 0.85, w: 102, h: 320, lines: ['신호가 오면 풍선을 날린단다.', '하늘이 알록달록해질 거야.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The conductor's score" (core/tale.js; the storyboard of docs/신기한-사실.md): a
+    // chorister on the wharf, his arms full of music, has dropped the conductor's score and
+    // cannot hurry; the policeman at the foot of the great stair lets no one up till the
+    // queen has passed; the workman who laid the tiles shows her the way round by the water;
+    // she hands it to the conductor, choosing what to say; and the house is opened, the
+    // boats in the harbour sound their hooters and the balloons and fireworks go up.
+    tale: {
+      thing: true,
+      ask: '문을 여는 날엔 무슨 일이 벌어질까?',
+      gate: { scene: 'steps', open: 3, sora: '경찰 아저씨가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'chorister', goal: '부두의 합창단 아저씨에게 가 보렴.', holds: '악보: 합창단 아저씨가 떨어뜨림',
+          lines: ['얘야, 발밑의 그 악보 좀 주워 주련?', '지휘자 선생님의 악보란다. 나는 짐이 많아 빨리 못 가.', '조개 지붕 아래 마당의 지휘자 선생님께 전해 주렴.'],
+          offer: { ask: '악보를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'police', goal: '오페라하우스의 큰 계단으로 가 보렴.', holds: '악보: 소라가 들고 있음',
+          lines: ['잠깐, 계단으로는 못 올라간단다.', '여왕님이 지나가실 때까지 기다려야 해.'],
+          sora: '그 전에 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'roofer', call: '얘, 어디 가는데?', goal: '타일 붙인 일꾼이 부른다. 가 보렴.', holds: '악보: 소라가 들고 있음',
+          lines: ['지휘자 선생님께 간다고? 그럼 옆길로 가렴.', '바닷가 난간을 따라 돌면 마당이 나온단다.', '경관님, 이 아이는 바닷가 옆길로 보냅니다!'],
+          after: [{ who: 'police', line: '악보 심부름이라면 그 길로 가렴.' }],
+          sora: '바닷가 옆길로 가면 된대! 가자!',
+        },
+        {
+          who: 'conductor', goal: '조개 지붕 아래 마당의 지휘자에게 악보를 전하렴.', holds: '악보: 소라가 들고 있음',
+          lines: ['오, 내 악보! 한참 찾았단다.'],
+          choice: {
+            ask: '악보를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"합창단 아저씨가 보냈어요"', sora: '합창단 아저씨가 보내셨어요.', says: '짐이 많았을 텐데. 고맙다, 얘야.' },
+              { id: 'E2', label: '"오늘 무슨 노래 해요?"', sora: '오늘 무슨 노래를 해요?', says: '오늘 밤, 베토벤의 합창이란다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'conductor', show: true, goal: '오페라하우스가 문을 여는 것을 보렴.',
+          lines: ['때맞춰 왔구나. 저 높은 단을 보렴.', '여왕님이 이 집을 연다고 말씀하신단다.'],
+          sora: '뱃고동이 뿌우! 풍선도 날아가!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'chorister', when: ['S1', 'S2', 'S3', 'S4'], lines: ['지휘자 선생님은 지붕 아래 마당에 계신단다.', '큰 계단을 지나 조개 지붕 밑으로 가렴.'] },
+        { who: 'chorister', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '이제 마음 놓고 노래하겠구나.'] },
+      ],
+      done: '악보를 전하고, 오페라하우스가 문을 여는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '악보를 받는다.', at: [] },
+      { id: 'gave', text: '지휘자에게 악보를 전한다.', at: [] },
+      { id: 'saw', text: '오페라하우스가 문을 여는 것을 본다.', at: [] },
+    ],
+    reply: '열네 해를 기다린 집이란다. 뱃고동 소리 들었니?',
+  },
 };
 
 // The far and the fore of every other scene are told from the pictures that are there (the

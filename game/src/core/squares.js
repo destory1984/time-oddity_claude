@@ -159,13 +159,15 @@ export const SQUARES = [
   {
     no: 2, id: 'stonehenge', name: '스톤헨지', dateLabel: 'BC 2500년경', place: '솔즈베리, 영국',
     lat: 51.179, lon: -1.826,
-    date: { year: -2500, month: 7, day: 12 }, calendar: 'julian', hourLocal: 12,
-    facingAz: 170, nightOnLook: true,
+    // (Midsummer morning: the sun rises at azimuth 48.5 at 3.40 by the sun's own clock, worked out
+    // with astronomy-engine; the walk there ends with it coming up between the stones.)
+    date: { year: -2500, month: 7, day: 12 }, calendar: 'julian', hourLocal: 4,
+    facingAz: 51, nightOnLook: true,
     memo: '큰 돌을 끌어다 둥글게 세움.', sora: '돌 위에 돌을 어떻게 올렸지?',
     memoToday: '남은 것: 돌의 절반쯤.', soraToday: '많이 쓰러졌네. 그래도 서 있어.',
     noteMemo: '기원전 2500년경. 큰 돌을 끌어다 둥글게 세웠다고 책에서 읽음. 날을 몰라 달은 못 적음.',
-    card: '기원전 2500년 무렵, 영국 솔즈베리 평원에 큰 돌을 둥글게 세운 스톤헨지가 지어졌습니다. 큰 돌은 30km쯤 떨어진 곳에서, 작은 푸른 돌은 240km쯤 떨어진 웨일스에서 끌어왔습니다. 돌들은 한여름 해가 뜨는 쪽과 한겨울 해가 지는 쪽에 맞추어 놓였습니다.',
-    reply: '글자도 없던 때에 해 뜨는 쪽을 돌로 적어 둔 거란다.',
+    card: '기원전 2500년 무렵, 영국 솔즈베리 평원에 큰 돌을 둥글게 세운 스톤헨지가 지어졌습니다. 큰 돌은 25km쯤 떨어진 곳에서, 작은 푸른 돌은 240km쯤 떨어진 웨일스에서 끌어왔습니다. 돌들은 한여름 해가 뜨는 쪽과 한겨울 해가 지는 쪽에 맞추어 놓였습니다.',
+    reply: '글자도 쇠도 없던 때에 해 뜨는 쪽에 맞춰 세운 돌이란다.',
     quiz: { question: '작은 푸른 돌은 어디에서 끌어왔나?', answer: '웨일스', proof: '웨일스', wrong: ['프랑스', '아일랜드'] },
   },
   {
@@ -282,7 +284,7 @@ export const SQUARES = [
     soraSky: '별이 다 처음 보는 거야. 남쪽 하늘!',
     memoToday: '남은 것: 오페라하우스. 그대로.', soraToday: '건물이 훨씬 많아졌네.',
     noteMemo: '1973.10.20. 열네 해 걸려 지은 조개 지붕 극장이 문을 열었다고 읽음. 그날 달은 그믐에 가까움.',
-    card: '1973년 10월 20일, 시드니 항의 곶 끝에서 오페라하우스가 문을 열었습니다. 덴마크의 건축가 예른 웃손이 설계했고, 조개껍데기 같은 지붕을 짓는 법을 찾느라 열네 해가 걸렸습니다. 이 건물은 2007년에 유네스코 세계유산이 되었습니다.',
+    card: '1973년 10월 20일, 시드니 항의 곶 끝에서 오페라하우스가 문을 열었습니다. 덴마크의 건축가 예른 웃손이 설계했고, 조개껍데기 같은 지붕을 짓는 법을 찾는 데만 여러 해가 걸려, 다 짓는 데 열네 해가 걸렸습니다. 이 건물은 2007년에 유네스코 세계유산이 되었습니다.',
     reply: '거기는 별자리가 거꾸로란다. 올려다봤니?',
     quiz: { question: '오페라하우스의 지붕은 무엇을 닮았나?', answer: '조개껍데기', proof: '조개껍데기 같은 지붕', wrong: ['왕관', '물고기'] },
   },
