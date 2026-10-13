@@ -387,8 +387,10 @@ export const SQUARES = [
     // Seen from above the terraces looking north-north-west, with the peak behind the city.
     no: 35, id: 'machuPicchu', name: '마추픽추', dateLabel: 'AD 1450년경', place: '마추픽추, 페루',
     lat: -13.163, lon: -72.545,
-    date: { year: 1450, month: 6, day: 21 }, calendar: 'julian', hourLocal: 12,
-    facingAz: 340, nightOnLook: true,
+    // (The June solstice of 1450 fell on 12 June of the Julian calendar; the sun rose at azimuth 66
+    // and stood at 61, 16 degrees up, an hour and a quarter later: worked out with astronomy-engine.)
+    date: { year: 1450, month: 6, day: 12 }, calendar: 'julian', hourLocal: 7,
+    facingAz: 63, nightOnLook: true,
     memo: '산꼭대기에 돌의 도시를 세움.', sora: '구름보다 높은 데 집이 있어!',
     memoToday: '남은 것: 돌벽. 지붕은 없음.', soraToday: '지붕이 다 없어졌네. 라마다!',
     noteMemo: '1450년경. 잉카 사람들이 높은 산등성이에 돌의 도시를 세웠다고 읽음. 날을 몰라 달은 못 적음.',
@@ -617,6 +619,70 @@ export const SQUARES = [
     card: '1000년쯤, 마야의 도시 치첸이트사에는 큰 계단 피라미드가 서 있었습니다. 낮과 밤의 길이가 같아지는 봄날(춘분) 무렵 오후에는 북쪽 계단 난간에 세모꼴 빛 일곱이 줄지어 내려와 뱀처럼 보입니다. 둥근 탑 달팽이 집의 창은 금성이 지는 자리를 향해 있습니다.',
     reply: '그 빛의 뱀은 지금도 봄과 가을에 보인단다. 이십 분쯤 머물다 사라지지.',
     quiz: { question: '계단에 내려온 빛은 무엇처럼 보이나?', answer: '뱀', proof: '뱀처럼 보입니다', wrong: ['새', '거북'] },
+  },
+  {
+    // Baghdad about 830, under the caliph al-Ma'mun: the sky-watchers are back from the
+    // plain where they measured the earth by walking. The day is not on record: a spring
+    // evening just after sunset is taken (made up), when the stars are measured at
+    // Shammasiyya. The number 23 was free between Nara (22) and Chichen Itza (24).
+    // From memory: the place of the Shammasiyya quarter (the north-east of the city, on the
+    // east bank: the latitude and longitude are only near), that the picture looks south,
+    // and that nothing of the city of that day is left standing.
+    // The place is walked about (core/walks.js).
+    no: 23, id: 'baghdad830', name: '걸어서 잰 땅', dateLabel: 'AD 830년쯤', place: '바그다드, 아바스 왕조',
+    lat: 33.36, lon: 44.39,
+    date: { year: 830, month: 5, day: 1 }, calendar: 'julian', hourLocal: 19,
+    facingAz: 180, nightOnLook: true,
+    memo: '벌판을 걸어서 땅의 크기를 잼.', sora: '걸어서 땅을 쟀대!',
+    memoToday: '남은 것: 셈하는 책의 이름.', soraToday: '옛 도시는 보이지 않네.',
+    noteMemo: '830년쯤. 바그다드의 별 보는 이들이 벌판을 걸어 땅의 크기를 쟀다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '830년쯤, 바그다드의 임금 알마문은 별 보는 이들을 넓은 벌판에 보내 땅의 크기를 재게 했습니다. 한낮 해의 높이가 한 눈금 바뀔 때까지, 백 킬로미터가 조금 넘는 길을 벌판을 걸어서 쟀습니다. 이 무렵 알콰리즈미는 셈하는 책을 써서 임금에게 바쳤습니다.',
+    reply: '걸어서 땅의 크기를 알아냈단다. 알콰리즈미의 셈하는 책은 지금도 이름이 남아 있지.',
+    quiz: { question: '별 보는 이들은 땅의 크기를 어떻게 쟀나?', answer: '벌판을 걸어서', proof: '벌판을 걸어서 쟀습니다', wrong: ['배를 타고 돌아서', '높은 탑에 올라서'] },
+  },
+  {
+    // Qin about 210 BC, at the foot of Mount Li east of Xianyang: the clay soldiers of the
+    // First Emperor are made and stood in their pits. The day is not on record: an autumn
+    // afternoon of the year he died is taken. Years here are historical (no year 0), so
+    // 210 BC is -210, as 'babylon575' writes 575 BC. The place is walked about
+    // (core/walks.js). The pits lie east of the tomb mound (from memory, some 1.5 km), and
+    // the picture has the mound far off: it looks west, facingAz 270. The latitude and
+    // longitude are those of the pits (from memory). Number 12 is the notebook's
+    // ('terracotta' in docs/기획서-수첩-2권.md).
+    // Looked up and found so: some eight thousand soldiers; lacquer and then paint after
+    // firing; the maker's name on each; faces of eight to ten moulds finished by hand (so
+    // "같은 얼굴을 찾기 어렵습니다"); Sima Qian's rivers and seas of quicksilver, written a
+    // hundred years later of a tomb not yet opened (so "적혀 있습니다").
+    // From memory: that farmers digging a well found them in 1974.
+    no: 12, id: 'xianyang210', name: '흙으로 빚은 병사들', dateLabel: 'BC 210년쯤', place: '함양 동쪽 여산, 진나라',
+    lat: 34.3841, lon: 109.2785,
+    date: { year: -210, month: 9, day: 10 }, calendar: 'julian', hourLocal: 14,
+    facingAz: 270, nightOnLook: true,
+    memo: '흙 병사 팔천쯤. 이름을 찍음.', sora: '흙 병사가 끝도 없이 서 있어!',
+    memoToday: '남은 것: 구덩이 속 흙 병사들.', soraToday: '색이 벗겨져서 다 흙빛이네.',
+    noteMemo: '기원전 210년쯤. 흙 병사 팔천쯤을 빚어 만든 이의 이름을 찍었다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '기원전 210년쯤, 진나라 사람들은 시황제의 무덤 곁에 세울 흙 병사 팔천쯤을 빚었습니다. 얼굴은 틀로 찍은 뒤 손으로 고쳐서 같은 얼굴을 찾기 어렵고, 병사마다 만든 이의 이름을 찍었습니다. 구운 뒤 옻을 바르고 색을 칠했지만 지금은 거의 벗겨졌습니다.',
+    reply: '이천 해도 더 지나 우물을 파다가 찾았단다. 색은 벗겨졌어도 얼굴은 그대로지.',
+    quiz: { question: '흙 병사에는 누구의 이름을 찍었나?', answer: '만든 이의 이름', proof: '만든 이의 이름을 찍었습니다', wrong: ['임금의 이름', '병사의 이름'] },
+  },
+  {
+    // Great Zimbabwe about 1350: the people of this land lay the last stone of the band on
+    // the high wall of the Great Enclosure. The day is not on record (docs/신기한-사실.md:
+    // "담을 다 쌓은 날로 한다"): a day of the dry season toward evening is taken, 1 July
+    // (made up). The place is walked about (core/walks.js).
+    // From memory: the latitude and longitude; that the conical tower stands in the
+    // south-east of the enclosure, so the picture looks south-east (facingAz 135).
+    // The number 30 is free between Timbuktu (29) and the Forbidden City (32): made up.
+    no: 30, id: 'zimbabwe1350', name: '돌만 쌓은 높은 담', dateLabel: 'AD 1350년쯤', place: '그레이트 짐바브웨, 짐바브웨',
+    lat: -20.2675, lon: 30.9338,
+    date: { year: 1350, month: 7, day: 1 }, calendar: 'julian', hourLocal: 17,
+    facingAz: 135, nightOnLook: true,
+    memo: '돌만 쌓아 올린 높고 둥근 담.', sora: '담이 엄청 높고 둥글어!',
+    memoToday: '남은 것: 돌담과 탑은 그대로.', soraToday: '집은 없고 돌담만 남았네.',
+    noteMemo: '1350년쯤. 이 땅 사람들이 돌만 쌓아 높은 담을 세웠다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '1350년쯤, 아프리카 남쪽의 그레이트 짐바브웨에는 이 땅에 살던 쇼나 사람들의 조상이 높고 둥근 돌담을 세웠습니다. 화강암을 납작하게 쪼개어 아무것도 바르지 않고 쌓았습니다. 담 안에는 속이 꽉 찬 원뿔 탑이 있는데, 무엇에 썼는지는 아무도 모릅니다.',
+    reply: '이 땅 사람들이 제 손으로 쌓은 담이란다. 탑이 무엇인지는 지금도 아무도 모르지.',
+    quiz: { question: '돌담은 돌 사이에 무엇을 바르고 쌓았나?', answer: '아무것도 안 발랐다', proof: '아무것도 바르지 않고 쌓았습니다', wrong: ['진흙을 발랐다', '흰 회를 발랐다'] },
   },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
