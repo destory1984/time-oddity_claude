@@ -132,8 +132,9 @@ function devStart() {
 }
 // (2026.10.13, the user: "시작점을 마야로", and of the public game too: "ㅇㅇ". And that evening:
 // "스타트 장소를 이웃집 마당으로 옮겨": the village of 1969 again, in its second scene: the
-// place's `begin`.)
-const START = devStart() ?? 'yard1969';
+// place's `begin`. And on 2026.10.14, once Göbekli Tepe was there, the oldest of all: "시작점을
+// 테페로".)
+const START = devStart() ?? 'gobekli';
 const beenNowhere = () => LIVE.every((sq) => beenOf(progress, sq.id).length === 0);
 // The dial stands at Rome's century every time the game is opened, not only the first
 // (the user, again: "시작지점을 로마로 고쳐. 이건 지금").
