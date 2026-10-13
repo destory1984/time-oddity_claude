@@ -16,7 +16,7 @@ export function createHud(el, { onMemoOk = () => {} } = {}) {
   const shown = {};
 
   // Her eight frames are fetched at the start so that none flickers in late.
-  for (const sheet of ['idle', 'see-hush', 'left', 'right', 'up', 'down', 'land-descend']) for (let i = 1; i <= 4; i += 1) { const img = new Image(); img.src = `./sora/${sheet}-${i}.png`; }
+  for (const sheet of ['idle', 'see-hush', 'left', 'right', 'up', 'down', 'land-descend']) for (let i = 1; i <= 4; i += 1) { const img = new Image(); img.src = `./sora/${sheet}-${i}.webp`; }
 
   const changed = (key, value) => { if (shown[key] === value) return false; shown[key] = value; return true; };
   const text = (key, value) => { if (changed(key, value)) parts[key].textContent = t(value); };
@@ -79,7 +79,7 @@ export function createHud(el, { onMemoOk = () => {} } = {}) {
     if (changed('showToday', state.showToday)) parts.todayBtn.hidden = !state.showToday;
     if (changed('showLeave', state.showLeave)) parts.leaveBtn.hidden = !state.showLeave;
     if (changed('soraFade', Math.round(state.soraFade * 20))) sora.style.opacity = String(1 - state.soraFade);
-    if (state.sora && changed('soraPose', `${state.sora.sheet}-${state.sora.frame}`)) sora.src = `./sora/${state.sora.sheet}-${state.sora.frame}.png`;
+    if (state.sora && changed('soraPose', `${state.sora.sheet}-${state.sora.frame}`)) sora.src = `./sora/${state.sora.sheet}-${state.sora.frame}.webp`;
     if (changed('glowSky', state.glowSky) && state.glowSky > 0) glow(glowSky);
     if (changed('glowToday', state.glowToday) && state.glowToday > 0) glow(parts.todayBtn);
   }

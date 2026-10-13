@@ -97,7 +97,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
   let camera = 0;
 
   // Her frames are fetched at the start so that none flickers in late.
-  for (const sheet of ['walk', 'idle']) for (let i = 1; i <= 4; i += 1) { const img = new Image(); img.src = `./sora/${sheet}-${i}.png`; }
+  for (const sheet of ['walk', 'idle']) for (let i = 1; i <= 4; i += 1) { const img = new Image(); img.src = `./sora/${sheet}-${i}.webp`; }
   // Her other pictures (a face on tasting something, the frames of an outfit) are asked
   // for when first wanted and used only once they have come: until then she is as usual.
   const art = new Map();      // name → whether it has come
@@ -106,7 +106,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       art.set(name, false);
       const img = new Image();
       img.onload = () => art.set(name, true);
-      img.src = `./sora/${name}.png`;
+      img.src = `./sora/${name}.webp`;
     }
     return art.get(name);
   }
@@ -228,7 +228,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     carried.flight = null;
     for (const person of scene.people) {
       const img = document.createElement('img');
-      img.src = `./walks/${place.dir}/${person.id}.png`;
+      img.src = `./walks/${place.dir}/${person.id}.webp`;
       img.alt = person.name; img.draggable = false;
       img.className = 'person';
       // One drawn looking away from what they speak of is turned to face it.
@@ -278,7 +278,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     foreEl.replaceChildren();
     fores = (scene.fore ?? []).map((fore) => {
       const img = document.createElement('img');
-      img.src = `./walks/${place.dir}/${fore.src}.${fore.webp ? 'webp' : 'png'}`;
+      img.src = `./walks/${place.dir}/${fore.src}.webp`;
       img.alt = ''; img.draggable = false;
       foreEl.append(img);
       return { fore, img };
@@ -299,7 +299,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     let node = moving.get(piece.id);
     if (node) return node;
     const img = document.createElement('img');
-    img.src = `./walks/${place.dir}/${piece.src}.png`;
+    img.src = `./walks/${place.dir}/${piece.src}.webp`;
     img.alt = ''; img.draggable = false; img.className = 'piece';
     // One that may be touched as it goes by (a piece's `touch`: one of the scene's `taps`).
     const tap = piece.touch ? (scene.taps ?? []).find((one) => one.id === piece.touch) : null;
@@ -451,7 +451,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     const mood = !walking && pose && walk.wearing && pose.startsWith('taste-') ? `badge-${pose.slice(6)}` : null;
     const tripping = walking && stride && has(stride);
     const worn = walk.wearing && has(`${walk.wearing}-${walking ? 'walk' : 'idle'}-${frame}`) ? `${walk.wearing}-` : '';
-    const src = tasting ? `./sora/${posed}.png` : tripping ? `./sora/${stride}.png` : `./sora/${worn}${walking ? 'walk' : 'idle'}-${frame}.png`;
+    const src = tasting ? `./sora/${posed}.webp` : tripping ? `./sora/${stride}.webp` : `./sora/${worn}${walking ? 'walk' : 'idle'}-${frame}.webp`;
     if (sora.dataset.src !== src) { sora.dataset.src = src; sora.src = src; }
     const soraTall = SORA_TALL * unit;
     // Her standing picture has empty rows above her crown and below her shoes.
@@ -475,7 +475,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     sora.style.transform = walking && walk.facing < 0 ? 'scaleX(-1)' : '';
     if (mood && has(mood)) {
       const side = 84 * unit;
-      if (badge.dataset.src !== mood) { badge.dataset.src = mood; badge.src = `./sora/${mood}.png`; }
+      if (badge.dataset.src !== mood) { badge.dataset.src = mood; badge.src = `./sora/${mood}.webp`; }
       badge.style.height = `${side}px`;
       badge.style.left = `${x + soraTall * 0.26}px`;
       badge.style.top = `${FOOT * h + front - soraTall * 0.92}px`;
@@ -542,7 +542,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     else if (passing) bubble(say, walk.passing.line, passing.left + passing.wide / 2, passing.top - passing.over);
     else say.classList.remove('on');
     if (panel) {
-      const src = `./walks/${place.dir}/face-${walk.heard.id}.png`;
+      const src = `./walks/${place.dir}/face-${walk.heard.id}.webp`;
       if (face.dataset.src !== src) { face.dataset.src = src; face.src = src; }
       $('walkTalkName').textContent = heard.person.name;
       $('walkTalkLine').textContent = walk.heard.line;

@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, rmSync } from 'node:fs';
 import { defineConfig } from 'vitest/config';
 import { WALKS } from './game/src/core/walks.js';
 
@@ -30,6 +30,19 @@ export default defineConfig({
         if (scene.far && existsSync(whole)) { rmSync(whole); n += 1; }
       }
       console.log(`left out ${n} uncut scene pictures`);
+      // The people, the things and Sora are asked for as WebP (tools/webp.py writes one beside
+      // each PNG); the PNG is the original and is left out too (the user, 2026.10.13: the
+      // originals stay in the repository for now).
+      let png = 0;
+      for (const top of ['walks', 'sora']) {
+        const dir = new URL(`./play/${top}/`, import.meta.url);
+        for (const name of readdirSync(dir, { recursive: true })) {
+          const file = String(name);
+          if (!file.endsWith('.png')) continue;
+          if (existsSync(new URL(`${file.slice(0, -4)}.webp`.replaceAll(String.fromCharCode(92), '/'), dir))) { rmSync(new URL(file.replaceAll(String.fromCharCode(92), '/'), dir)); png += 1; }
+        }
+      }
+      console.log(`left out ${png} PNG originals`);
     },
   }],
   test: { root: '.', include: ['tests/**/*.test.js'] },

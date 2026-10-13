@@ -256,10 +256,10 @@ describe('the places that are walked about', () => {
       for (const scene of place.scenes) {
         expect(here(`${place.dir}/${scene.id}.webp`), scene.id).toBe(true);
         for (const person of scene.people) {
-          expect(here(`${place.dir}/${person.id}.png`), person.id).toBe(true);
-          if (place.talk === 'face' && person.lines) expect(here(`${place.dir}/face-${person.id}.png`), `face of ${person.id}`).toBe(true);
+          expect(here(`${place.dir}/${person.id}.webp`), person.id).toBe(true);
+          if (place.talk === 'face' && person.lines) expect(here(`${place.dir}/face-${person.id}.webp`), `face of ${person.id}`).toBe(true);
         }
-        for (const piece of piecesAt(scene, 0)) expect(here(`${place.dir}/${piece.src}.png`), piece.src).toBe(true);
+        for (const piece of piecesAt(scene, 0)) expect(here(`${place.dir}/${piece.src}.webp`), piece.src).toBe(true);
         // What may be looked at closely has its photograph, a box inside the picture and whose it is.
         for (const look of scene.looks ?? []) {
           expect(here(`${place.dir}/${look.photo}`), look.id).toBe(true);
@@ -376,7 +376,7 @@ describe('what is heard in passing and what is shown', () => {
         for (const person of showing) {
           expect(existsSync(`game/public/walks/${walked.dir}/show-${person.show}.webp`), `${walked.dir}/show-${person.show}`).toBe(true);
           if (person.sora) expect(person.sora.length).toBeLessThanOrEqual(25);
-          if (person.pose) expect(existsSync(`game/public/sora/${person.pose}.png`), person.pose).toBe(true);
+          if (person.pose) expect(existsSync(`game/public/sora/${person.pose}.webp`), person.pose).toBe(true);
         }
       }
     }
@@ -482,7 +482,7 @@ describe('a place that is deep', () => {
         if (!place.deep && !scene.fore) continue;
         expect(scene.fore.length, scene.id).toBeGreaterThanOrEqual(4);
         for (const fore of scene.fore) {
-          expect(existsSync(`game/public/walks/${place.dir}/${fore.src}.${fore.webp ? 'webp' : 'png'}`), fore.src).toBe(true);
+          expect(existsSync(`game/public/walks/${place.dir}/${fore.src}.webp`), fore.src).toBe(true);
           expect(['top', 'foot']).toContain(fore.at);
           expect(fore.x).toBeGreaterThanOrEqual(0);
           expect(fore.x).toBeLessThanOrEqual(1);

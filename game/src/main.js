@@ -1001,7 +1001,7 @@ function frameWalk(dt) {
   skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });
   // (While grandmother's slip is up nobody calls out to her in passing.)
   if (memoUp) walk.passing = null;
-  walkView.carry(walk.place.tale?.thing ? `./walks/${walk.place.dir}/thing.png` : null, Boolean(walk.tale) && carrying(walk.place.tale, walk.tale));
+  walkView.carry(walk.place.tale?.thing ? `./walks/${walk.place.dir}/thing.webp` : null, Boolean(walk.tale) && carrying(walk.place.tale, walk.tale));
   walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.poses.find(([, until]) => walkT <= until)?.[0] ?? null, stride, walkHeld?.show ?? null);
   if (walkArrive) { sound[walkArrive](); walkArrive = null; walkView.arrive(); }
 
