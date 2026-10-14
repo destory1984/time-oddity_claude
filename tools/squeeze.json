@@ -339,6 +339,62 @@
 "q": 78,
 "sha": "1b19b8563632e111f83b8f858db43bc35b173ec5"
 },
+"borobudur825/gallery-far.webp": {
+"q": 78,
+"sha": "ec1e410303349220f5a8a4d53ce2bb13300d9008"
+},
+"borobudur825/gallery-near.webp": {
+"q": 70,
+"sha": "21c25e52d8f7cad8687dd71ef7acb90347c2a4a5"
+},
+"borobudur825/gallery.webp": {
+"q": 78,
+"sha": "ba6c72dbe73542d4dfe68491c51f4843df917f70"
+},
+"borobudur825/show-joint.webp": {
+"q": 78,
+"sha": "97d6bef6b71cf1cfdee60c1bb9b915de332c416b"
+},
+"borobudur825/show-meal.webp": {
+"q": 78,
+"sha": "6ac72a9c6249cdd2850309915a610af3774ccee7"
+},
+"borobudur825/show-panels.webp": {
+"q": 78,
+"sha": "46ae7e5f92c9974f8215672c45710fb4cb3b7489"
+},
+"borobudur825/show-ship.webp": {
+"q": 78,
+"sha": "ba1a37e1d80bed1f041a97bfc953eb1b062c7381"
+},
+"borobudur825/show-stupas.webp": {
+"q": 78,
+"sha": "917f8a39a6df3d893c143de75e9af431bdbdac51"
+},
+"borobudur825/village-far.webp": {
+"q": 78,
+"sha": "83857495331b86973927b347a8d6d81821fa9922"
+},
+"borobudur825/village-near.webp": {
+"q": 70,
+"sha": "21007352cb8516733fce84ddf525d667976070ba"
+},
+"borobudur825/village.webp": {
+"q": 78,
+"sha": "9c8ba8f7d1c715e0ace4bc43a43f3a9643dfcd77"
+},
+"borobudur825/yard-far.webp": {
+"q": 78,
+"sha": "aae13e4b3afebd34987f68ca3a6edc4b6dada20d"
+},
+"borobudur825/yard-near.webp": {
+"q": 70,
+"sha": "42653533270c0a34997c57cdbd6ee2f79f190c79"
+},
+"borobudur825/yard.webp": {
+"q": 78,
+"sha": "72168656c5bddedb5c2e759ff6000292f4274b25"
+},
 "byz537/narthex.webp": {
 "q": 78,
 "sha": "1e44519647f332e9a761f63da6726ac8d76580d2"
@@ -646,6 +702,62 @@
 "hanyang/show-tteok.webp": {
 "q": 78,
 "sha": "a6de19f006f4f43d538e9bfdcd39d73ea35c5810"
+},
+"jikji1377/foundry-far.webp": {
+"q": 78,
+"sha": "e6dda7fc5e088dd3976ec6f591520e2034818c2e"
+},
+"jikji1377/foundry-near.webp": {
+"q": 70,
+"sha": "3ce063cec8caa78b2992bb7f04d07bf0f862a9a5"
+},
+"jikji1377/foundry.webp": {
+"q": 78,
+"sha": "9367eeddf1078b34fdea8a82cb8b2d2def77b6ff"
+},
+"jikji1377/print-far.webp": {
+"q": 78,
+"sha": "43d8c17a1be4c26c805919c4a7552379cc28f8cb"
+},
+"jikji1377/print-near.webp": {
+"q": 70,
+"sha": "19097c96082f796663e42370659bc0ffcbff7cc8"
+},
+"jikji1377/print.webp": {
+"q": 78,
+"sha": "6f5dfa88b9b838a7f1412e18b6049cc8262f2b0e"
+},
+"jikji1377/show-meal.webp": {
+"q": 78,
+"sha": "0ed57d3ce331e57328a1b71cd8d6bca432fdb5c3"
+},
+"jikji1377/show-paper.webp": {
+"q": 78,
+"sha": "b58458e8b3e93454fbf3230e1e1a2b0ca965f6b1"
+},
+"jikji1377/show-print.webp": {
+"q": 78,
+"sha": "c73899e3d92b889a225b965b97cf6b8b3e7ce315"
+},
+"jikji1377/show-type.webp": {
+"q": 78,
+"sha": "b64a5f1146b3b6f21449fa3a1cc77b05dd6711cb"
+},
+"jikji1377/show-wax.webp": {
+"q": 78,
+"sha": "d5dc3a01dcf86d86811928f8ab5869c05bc6a7a2"
+},
+"jikji1377/stream-far.webp": {
+"q": 78,
+"sha": "9c1c352b5c36ab6972c4db6194390ed72ddbed84"
+},
+"jikji1377/stream-near.webp": {
+"q": 70,
+"sha": "fcffc76ae76196d67127568a99d989d95a88da59"
+},
+"jikji1377/stream.webp": {
+"q": 78,
+"sha": "9acea28d7f91b46a0da7a6bac3cba204b1081683"
 },
 "kaifeng1054/bridge-far.webp": {
 "q": 78,
@@ -1614,6 +1726,118 @@
 "tenoch1519/show-temple.webp": {
 "q": 78,
 "sha": "99d09540a6319c53c6b7c10d6c917707dfd3c466"
+},
+"teotihuacan200/market-far.webp": {
+"q": 78,
+"sha": "6123121614610fe7ec3959892538706562378975"
+},
+"teotihuacan200/market-near.webp": {
+"q": 70,
+"sha": "1ff2350777d0bf133169c12e4b8f5733a9338345"
+},
+"teotihuacan200/market.webp": {
+"q": 78,
+"sha": "ad1477fdb54c7ea20712c3a7012936af111ded07"
+},
+"teotihuacan200/painters-far.webp": {
+"q": 78,
+"sha": "d1777b1a10f1f52a8de191f5c806b38937576caf"
+},
+"teotihuacan200/painters-near.webp": {
+"q": 70,
+"sha": "a8c614635b75a51b6d167caae7f1adf755ffb5d0"
+},
+"teotihuacan200/painters.webp": {
+"q": 78,
+"sha": "a3a015cdcbf76e6358073285e65a597d3d8afdbc"
+},
+"teotihuacan200/pyramid-far.webp": {
+"q": 78,
+"sha": "d237494c4ec4485b6c070df97e779c612490928f"
+},
+"teotihuacan200/pyramid-near.webp": {
+"q": 70,
+"sha": "1e9d7717d7c8404400d2088cc3e29b0924bf4ea3"
+},
+"teotihuacan200/pyramid.webp": {
+"q": 78,
+"sha": "174c7b87dc675f14a972540976f94e1421767095"
+},
+"teotihuacan200/show-load.webp": {
+"q": 78,
+"sha": "158d5e36c10a87e5780272479aacc34c20850ad7"
+},
+"teotihuacan200/show-meal.webp": {
+"q": 78,
+"sha": "60fe03d780eb0cc57083862c71db09e97e46aae6"
+},
+"teotihuacan200/show-mural.webp": {
+"q": 78,
+"sha": "4da211a6cf88da513f41ea90f3bb1f4441dad3db"
+},
+"teotihuacan200/show-obsidian.webp": {
+"q": 78,
+"sha": "3b4cfc595bd7db5dcdee0301e5831994c606dee6"
+},
+"teotihuacan200/show-pyramid.webp": {
+"q": 78,
+"sha": "f3772337267f1ade8e1c540e247f3361152ed489"
+},
+"timbuktu1327/market-far.webp": {
+"q": 78,
+"sha": "97ab7f1f42e15bd1147e2c6b3e32b53817d1e52e"
+},
+"timbuktu1327/market-near.webp": {
+"q": 70,
+"sha": "78cac41c163e83b4d05a015196807a8e56d0ecb2"
+},
+"timbuktu1327/market.webp": {
+"q": 78,
+"sha": "237c7411c6679aea9c6314e8d0f28691a72e4225"
+},
+"timbuktu1327/show-board.webp": {
+"q": 78,
+"sha": "72c94a62d2e224df5bdbadedba557d5cfa01823d"
+},
+"timbuktu1327/show-mud.webp": {
+"q": 78,
+"sha": "f9802b523f1b71f833e4234ce5d0b636206dbb37"
+},
+"timbuktu1327/show-porridge.webp": {
+"q": 78,
+"sha": "17b2f2fa8986dfd95de53058e1548c8853989add"
+},
+"timbuktu1327/show-salt.webp": {
+"q": 78,
+"sha": "6c82320c9c3d954fe8ab02234f3160f3879b41e0"
+},
+"timbuktu1327/show-wall.webp": {
+"q": 78,
+"sha": "69710bc0683b29977b1cde4857b1cdd93105500e"
+},
+"timbuktu1327/wall-far.webp": {
+"q": 78,
+"sha": "d2cd4076cdb65aaa97458e7fc82c321e60d08a60"
+},
+"timbuktu1327/wall-near.webp": {
+"q": 70,
+"sha": "4da91d993cd82e0ccf14f9c15b13738625a55f7c"
+},
+"timbuktu1327/wall.webp": {
+"q": 78,
+"sha": "b28ac7b948f9d3a8698ae060b2d4cea32d1b1725"
+},
+"timbuktu1327/yard-far.webp": {
+"q": 78,
+"sha": "b68b0be635e465c7a63962743ba27dbdb15665e9"
+},
+"timbuktu1327/yard-near.webp": {
+"q": 70,
+"sha": "4a0d277530e55763c50679c7363980789bd00b65"
+},
+"timbuktu1327/yard.webp": {
+"q": 78,
+"sha": "548cf3642900afc0caf8b4d2fceeb6c7fed48318"
 },
 "tokyo/car.webp": {
 "q": 78,
