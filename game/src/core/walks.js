@@ -5309,6 +5309,16 @@ export const WALKS = {
   sagrada: {
     first: '성당의 종탑 하나가 다 올라간 날이란다. 점심을 전해 주렴.',
     dir: 'sagrada1925', look: 'paper', pale: true,
+    // (What is said of today: looked up on 2026.10.14, in docs/신기한-사실.md; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '사그라다 파밀리아의 지금 모습', when: '스페인 바르셀로나 · 2026년',
+      text: [
+        '1925년에 다 올린 바르나바 종탑이 지금도 서 있습니다.',
+        '2026년 6월 10일, 가장 높은 예수의 탑을 축복했습니다.',
+        '영광의 문 같은 남은 곳은 2030년대까지 짓습니다.',
+      ],
+      credit: '사진: ほっきー, 위키미디어 공용, 공개 저작물',
+    },
     drawn: '그 무렵 젊은 미로의 풍경화처럼, 하나하나 또렷하게 그렸단다.',
     scenes: [
       {
