@@ -223,3 +223,7 @@ npm run build
 | 자금성 | [Hall of Supreme Harmony (20220218132012).jpg](https://commons.wikimedia.org/wiki/File:Hall_of_Supreme_Harmony_(20220218132012).jpg) | N509FZ | CC BY-SA 4.0 |
 | 피렌체 대성당 | [Cattedrale di Santa Maria del Fiore – Il Duomo di Firenze.jpg](https://commons.wikimedia.org/wiki/File:Cattedrale_di_Santa_Maria_del_Fiore_%E2%80%93_Il_Duomo_di_Firenze.jpg) | Gary Campbell-Hall | CC BY 2.0 |
 | 세인트앤스 만 | [St Ann's Bay 20230605 134841.jpg](https://commons.wikimedia.org/wiki/File:St_Ann%27s_Bay_20230605_134841.jpg) | CaptJayRuffins | CC BY-SA 4.0 |
+| 스컨 다리 | [Skerne Railway Bridge South Side May 2021.jpg](https://commons.wikimedia.org/wiki/File:Skerne_Railway_Bridge_South_Side_May_2021.jpg) | Verbarson | CC BY-SA 4.0 |
+| 하이드파크 | [Hyde Park, Serpentine, Royal Albert Hall & Memorial 2025-03-31.jpg](https://commons.wikimedia.org/wiki/File:Hyde_Park,_Serpentine,_Royal_Albert_Hall_%26_Memorial_2025-03-31.jpg) | kitmasterbloke | CC BY 2.0 |
+| 멘로파크 실험실 | [Menlo Park Laboratory of Thomas Edison site of the Invention of the light bulb.JPG](https://commons.wikimedia.org/wiki/File:Menlo_Park_Laboratory_of_Thomas_Edison_site_of_the_Invention_of_the_light_bulb.JPG) | Swampyank | CC BY 3.0 |
+| 자유의 여신상 | [View of Liberty Island from the ferry, NYC, 20231003 1607 2000.jpg](https://commons.wikimedia.org/wiki/File:View_of_Liberty_Island_from_the_ferry,_NYC,_20231003_1607_2000.jpg) | Jakub Hałun | CC BY 4.0 |

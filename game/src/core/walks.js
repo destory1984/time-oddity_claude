@@ -6037,6 +6037,639 @@ export const WALKS = {
     ],
     reply: '그 배들은 바다 건너 아주 먼 나라까지 갔다가 돌아왔단다.',
   },
+  // The Crystal Palace in Hyde Park, London, on 1 May 1851: Queen Victoria opens the Great
+  // Exhibition; a little rain in the morning, then the sun. Drawn as a very careful oil
+  // painting of the young English painters of the 1850s (the user's choice of five tries:
+  // the fourth). The pictures are in london1851; the try itself is the third scene (the
+  // gravel walk before the palace), and the road before the park gate and the shore of the
+  // Serpentine were ordered after it. The try's big fountain outside is to be taken out by
+  // hand (flower beds there). Pale: the sky of the pictures is a light blue with white clouds.
+  // Looked up on 2026.10.14 and found so: the queen opened the exhibition that day; her
+  // journal says a little rain fell as they set out and the sun came out as they neared the
+  // building; only season ticket holders went in that day, and the park was full; the choir
+  // sang Handel's "Hallelujah" and the great organ was played; cast iron, wood and sheet glass,
+  // put up in less than a year; Paxton, once the gardener of Chatsworth, took the design from
+  // his glass house for the giant water lily; the middle was raised as a round arched roof to
+  // take in the big elms of the park; the glass fountain stood inside, in the middle; weekday
+  // tickets came down to one shilling on 26 May ("이달 말부터"); Bath buns, lemonade and other
+  // drinks were sold inside, and beer, wine and spirits were not (Wikipedia, "Bath bun";
+  // Tallis, 1851).
+  // Looked for and NOT found: that buns and lemonade were sold in the park outside (the
+  // baker's buns are her own; only "inside they sell them too" is said).
+  // From memory: the dress of 1851; the blue coat and tall hat of the London police; crossing
+  // sweepers and flower girls; flags along the roof; that things were still being carried in
+  // on the day; that the queen came by carriage from her palace.
+  // Made up: the errand of the lunch bundle, the baker, the guidebook seller, the policeman
+  // who keeps the queen's road, the flower girl who shows the way along the lake, every other
+  // person.
+  // Kept out: the queen, Prince Albert, Paxton and Wellington except far off (spots, no face);
+  // the guns, the sparrows and the sparrowhawks, the stranger in Chinese dress, the
+  // Koh-i-Noor, the fire of 1936; the number of people; "dome"; one-shilling day on this day.
+  crystalPalace: {
+    first: '유리 집에서 박람회를 여는 날이란다. 점심 빵을 전해 주렴.',
+    dir: 'london1851', look: 'paper', pale: true,
+    // (What is said of today: looked up on 2026.10.14; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '하이드파크의 지금 모습', when: '영국 런던 · 2025년',
+      text: [
+        '사진의 긴 호수 남쪽 풀밭에 수정궁이 서 있었습니다.',
+        '건물은 헐려 런던 남쪽 시드넘 언덕에 다시 지어져 1854년에 문을 열었습니다.',
+        '1936년 11월 30일 저녁에 불이 나 모두 타 버렸습니다.',
+      ],
+      credit: '사진: kitmasterbloke, 위키미디어 공용, CC BY 2.0',
+    },
+    drawn: '그 무렵 영국의 젊은 화가들처럼, 잎 하나까지 꼼꼼히 칠했단다.',
+    scenes: [
+      {
+        id: 'gate', name: '영국 런던 하이드파크 문 앞 길', short: '공원 문 앞 길', zoom: 1.095, ground: 0.747, scale: 0.641, air: 'market', floor: 'dirt',
+        sora: '비가 그치고 해가 났어!',
+        people: [
+          { id: 'baker', pass: '누가 좀 전해 주면 좋으련만.', name: '빵집 아주머니', x: 0.18, w: 118, h: 282, lines: ['오늘은 빵이 날개 돋친 듯 팔린단다.', '새벽부터 번을 구웠지.'] },
+          { id: 'gentleman', pass: '우산을 괜히 들고 나왔구나.', name: '우산 접는 신사', x: 0.29, w: 102, h: 320, lines: ['아침엔 비가 조금 왔단다.', '여왕님이 오실 때 마침 해가 났지.'] },
+          { id: 'glazier', pass: '유리는 살살 다뤄야 하지.', show: 'pane', pose: 'see-aha', sora: '유리판으로 집을 지었대!', memo: '수정궁은 무쇠 기둥과 나무 틀에 판유리를 끼워 지었단다. 한 해도 안 걸렸지.', name: '유리 끼우는 일꾼', x: 0.4, w: 119, h: 298, lines: ['나는 저 유리 집에 유리를 끼웠단다.', '한 해도 안 걸려서 다 지었지.'] },
+          { id: 'bunman', pass: '번 사세요, 갓 구운 번이에요!', show: 'buns', name: '빵집 아저씨', x: 0.51, w: 116, h: 292, lines: ['위에 설탕을 뿌린 달콤한 번이란다.', '유리 집 안에서도 번과 레모네이드를 판대.'],
+            try: { id: 'eat-buns', verb: 'eat', name: '설탕 뿌린 번', face: 'yum', sora: '설탕이 바삭바삭하고 빵은 폭신해!' } },
+          { id: 'season', pass: '표를 잃어버리면 안 되지.', name: '시즌 표를 든 부인', x: 0.62, w: 124, h: 299, lines: ['오늘은 시즌 표가 있는 사람만 들어가요.', '나는 이 표를 오래전에 샀답니다.'] },
+          { id: 'dressmaker', pass: '오늘 같은 날엔 새 옷이지.', name: '옷 가게 아주머니', x: 0.73, w: 119, h: 292, lines: ['박람회 구경 갈 나들이옷을 짓는단다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-victoria', verb: 'wear', name: '1851년 런던의 나들이옷', outfit: 'victoria', sora: '치마가 동그랗게 퍼져!', memo: '그 무렵 런던 여자아이들은 넓게 퍼진 치마 밑에 흰 속바지를 입었단다.' } },
+          { id: 'sweeper', pass: '비 온 뒤라 길이 질척하네.', name: '길 쓰는 아이', x: 0.85, w: 88, h: 295, lines: ['나는 사람들이 건널 길을 쓸어요.', '오늘은 손님이 아주 많아요.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'lake', name: '영국 런던 하이드파크 서펜타인 호숫가', short: '서펜타인 호숫가', zoom: 1.071, ground: 0.766, scale: 0.627, air: 'hush', floor: 'dirt',
+        sora: '호수에 구름이 비쳐!',
+        people: [
+          { id: 'painter', pass: '물빛이 참 맑게 나왔구나.', name: '호숫가의 화가', x: 0.18, w: 103, h: 292, lines: ['나는 오늘 공원을 그림에 담는단다.', '유리 집은 빛 때문에 그리기 어렵지.'] },
+          { id: 'gardener', pass: '꽃모종을 마저 심어야지.', show: 'lily', pose: 'see-wow', sora: '잎이 쟁반처럼 커!', memo: '수정궁을 생각해 낸 팩스턴은 정원사였단다. 큰 수련을 기르던 유리 온실이 바탕이 되었지.', name: '공원 정원사', x: 0.29, w: 106, h: 286, lines: ['저 유리 집은 정원사가 생각해 냈단다.', '큰 수련을 기르던 온실이 바탕이었지.'] },
+          { id: 'oldman', pass: '살다 보니 이런 날도 오는구나.', name: '멀리서 온 할아버지', x: 0.4, w: 112, h: 307, lines: ['나는 멀리서 박람회를 보러 왔단다.', '오늘은 못 들어가도 지붕만 봐도 좋구나.'] },
+          { id: 'mother', pass: '손을 꼭 잡고 있으렴.', name: '아이 손 잡은 엄마', x: 0.51, w: 159, h: 285, lines: ['여왕님 마차를 보려고 일찍 나왔어요.', '공원이 사람으로 꽉 찼네요.'] },
+          { id: 'flowergirl', pass: '제비꽃 사세요, 향긋해요!', name: '꽃 파는 아이', x: 0.62, w: 123, h: 235, lines: ['나는 공원에서 제비꽃을 팔아요.', '호숫가 길은 내가 제일 잘 알아요.'] },
+          { id: 'reporter', pass: '이건 꼭 적어 두어야겠군.', name: '신문 기자', x: 0.73, w: 90, h: 302, lines: ['오늘 일을 신문에 쓸 거란다.', '유리 집 안에 큰 오르간이 있다더구나.'] },
+          { id: 'policeman', pass: '이 길은 건너면 안 됩니다.', name: '마찻길 지키는 경관', x: 0.85, w: 105, h: 320, lines: ['나는 이 마찻길을 지키는 경관이란다.', '오늘은 여왕님의 마차가 지나가시지.'] },
+        ],
+        spots: [
+          // The carriage road at the right of the picture ordered for this scene, beyond the
+          // ropes. (From and to are to be set to the picture.) The queen is not drawn and
+          // cannot be spoken to: far off, no face.
+          { id: 'queen', from: 0.8, to: 0.97, sora: '멀리 마차 행렬이 지나가!', memo: '빅토리아 여왕의 마차란다. 오늘 박람회를 열러 가지.' },
+        ],
+      },
+      {
+        id: 'palace', name: '영국 런던 하이드파크 수정궁 앞', short: '수정궁 앞', zoom: 1.024, ground: 0.802, scale: 0.599, air: 'hush', floor: 'dirt',
+        sora: '집이 통째로 유리야!',
+        people: [
+          { id: 'guideseller', pass: '배가 고파도 수레를 못 비우네.', show: 'roof', pose: 'see-wow', sora: '지붕 안에 나무가 있어!', memo: '공원의 큰 느릅나무를 베지 않으려고 가운데를 둥근 아치 지붕으로 높여 건물 안에 품었단다.', name: '안내 책 파는 아저씨', x: 0.18, w: 103, h: 308, lines: ['박람회 안내 책이 여기 있단다.', '안에 무엇이 있는지 다 적혀 있지.'] },
+          { id: 'lensman', pass: '렌즈에 먼지가 앉으면 안 되지.', name: '망원경 지키는 이', x: 0.29, w: 104, h: 319, lines: ['이 망원경은 먼 별을 보는 것이란다.', '여러 나라의 물건이 여기 모였지.'] },
+          { id: 'engineer', pass: '조금 늦었지만 다 왔구나.', show: 'engine', pose: 'see-wow', sora: '작은 기차 같은 기계야!', memo: '박람회에는 영국과 여러 나라에서 온 기계와 물건이 아주 많이 모였단다.', name: '증기 기관 모형 장인', x: 0.4, w: 97, h: 297, lines: ['증기의 힘으로 바퀴를 돌리는 기계란다.', '내가 만든 것을 안에 내놓을 거지.'] },
+          { id: 'clothman', pass: '천이 구겨지지 않게 들어야지.', name: '천 나르는 일꾼', x: 0.51, w: 108, h: 293, lines: ['먼 나라에서 배로 실어 온 천이란다.', '무늬가 참 곱지? 안에 걸 거란다.'] },
+          { id: 'gardengirl', pass: '꽃이 목마르지 않게 해야지.', name: '꽃밭 가꾸는 아이', x: 0.62, w: 123, h: 246, lines: ['유리 집 앞 꽃밭에 물을 줘요.', '유리 집 한가운데엔 유리 분수가 있대요.'] },
+          { id: 'usher', pass: '표를 보여 주시면 됩니다.', name: '문 앞 안내원', x: 0.73, w: 100, h: 320, lines: ['오늘은 시즌 표가 있어야 들어간단다.', '안에서 곧 큰 노래가 울릴 거야.'] },
+          { id: 'grandma', pass: '유리가 해에 반짝이는구나.', name: '구경 온 할머니', x: 0.85, w: 128, h: 286, lines: ['이달 말부터는 1실링이면 들어간대.', '그때는 손주들을 데리고 오련다.'] },
+        ],
+        spots: [
+          // The flags on the roof of the arched middle in the try (the big flag at about 0.72).
+          // (From and to are to be set to the picture.)
+          { id: 'flags', from: 0.66, to: 0.78, sora: '지붕 위에 깃발이 펄럭여!', memo: '박람회를 여는 날, 유리 집 지붕 위에 깃발을 줄지어 걸었단다.' },
+        ],
+      },
+    ],
+    // "The lunch bundle" (core/tale.js; the storyboard of docs/신기한-사실.md): the baker at
+    // the park gate has a lunch bundle for the guidebook seller, who cannot leave his cart for
+    // the crowd; the policeman lets no one cross the road kept for the queen's carriage; the
+    // flower girl says to go round by the path along the Serpentine; she hands the bundle to
+    // the guidebook seller, choosing what to say; and she looks up at the arched glass roof in
+    // the sun, the elms inside it, and hears the "Hallelujah" from within.
+    tale: {
+      thing: true,
+      ask: '유리 지붕 안에는 무엇이 있을까?',
+      gate: { scene: 'lake', open: 3, sora: '경관 아저씨가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'baker', goal: '공원 문 앞 길의 빵집 아주머니에게 가 보렴.', holds: '빵 보따리: 빵집 아주머니가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '수정궁 앞에서 안내 책 파는 아저씨의 점심이란다.', '사람이 많아 수레를 못 비운대. 전해 주렴.'],
+          offer: { ask: '빵 보따리를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'policeman', goal: '호숫가 끝의 경관에게 가 보렴.', holds: '빵 보따리: 소라가 들고 있음',
+          lines: ['멈추렴. 이 마찻길은 건널 수 없단다.', '곧 여왕님의 마차가 지나가실 길이야.'],
+          sora: '빵을 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'flowergirl', call: '얘, 어디 가려고?', goal: '꽃 파는 아이가 부른다. 가 보렴.', holds: '빵 보따리: 소라가 들고 있음',
+          lines: ['수정궁에 간다고? 마찻길로는 못 가.', '호숫가 길을 따라 돌아가면 나와.', '아저씨, 이 애는 호숫가 길로 갈게요!'],
+          after: [{ who: 'policeman', line: '호숫가 길이라면 가도 좋단다.' }],
+          sora: '호숫가 길로 돌아가래! 가자!',
+        },
+        {
+          who: 'guideseller', goal: '수정궁 앞의 안내 책 파는 아저씨에게 빵 보따리를 전하렴.', holds: '빵 보따리: 소라가 들고 있음',
+          lines: ['오, 내 점심 보따리로구나.'],
+          choice: {
+            ask: '빵 보따리를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"빵집 아주머니가 보냈어요"', sora: '빵집 아주머니가 보내셨어요.', says: '아직 따끈하구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"안에는 뭐가 있어요?"', sora: '유리 집 안에는 뭐가 있어요?', says: '여러 나라의 물건과 큰 나무가 있단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'guideseller', show: true, goal: '해가 비친 유리 지붕을 올려다보렴.',
+          lines: ['마침 잘 왔다. 저 둥근 지붕을 보렴.', '들어 보렴. 안에서 할렐루야 노래가 들리지.'],
+          sora: '유리 지붕 안에 큰 나무가 있어!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'baker', when: ['S1', 'S2', 'S3', 'S4'], lines: ['안내 책 파는 아저씨는 수정궁 앞에 있단다.', '호숫가를 지나면 나오지.'] },
+        { who: 'baker', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '이제 아저씨도 배를 채우겠구나.'] },
+      ],
+      done: '빵 보따리를 전하고, 유리 지붕 안의 큰 나무를 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '빵 보따리를 받는다.', at: [] },
+      { id: 'gave', text: '안내 책 파는 아저씨에게 빵 보따리를 전한다.', at: [] },
+      { id: 'saw', text: '유리 지붕 안의 큰 나무를 본다.', at: [] },
+    ],
+    reply: '그 유리 집은 지금 없단다. 그래도 네가 보았으니 됐지.',
+  },
+  // Menlo Park on the evening of 31 December 1879: the night the railroad runs extra trains
+  // and anyone may come to see Edison's long-burning lamp. Drawn as an oil painting of a night
+  // scene, after the nocturnes of the 1870s (the user's choice of five tries: the second). The
+  // pictures are in menlo1879; the try is the third scene ('road': the snowy road lit by the
+  // lamps, with the station, the boarding house, the brick machine shop and the white
+  // laboratory), and the front of the station and the workroom upstairs in the laboratory
+  // were ordered after it. The try draws many stars: they are to be mostly taken off by hand
+  // (a cloudy night). The pictures are dark: no `pale`. Whether the place wants `night` (the
+  // people dimmed, the computed sky over the roofs) is to be seen once the pictures are in:
+  // the computed sky would show stars the clouds hid.
+  // The storyboard (docs/신기한-사실.md) is station, workroom, road, and its errand goes in at
+  // the laboratory door and up the stairs to the glassblower. The walk goes left to right,
+  // and the one who bars the way and the one who shows another way stand in the second scene,
+  // the one who is given the thing in the third. So the errand is turned round: the
+  // glassblower is not upstairs (he has gone out to see to the street lamps), the worker who
+  // keeps the front stairs of the workroom (crowded with sightseers) bars the way down, and
+  // the stoker of the machine shop, come up from below, sends her down the back stairs by the
+  // machine shop. She gives him the bread out on the lit road and looks at the lamps there.
+  // Looked up on 2026.10.14 (docs/신기한-사실.md) and found so: extra trains, a special train
+  // of the Pennsylvania Railroad, people coming in spite of the weather; lamps on wooden poles
+  // along the road from the station to the laboratory; lamps in some neighbouring houses and
+  // before the boarding house; all fed from the generator in the machine shop; storm clouds
+  // hid the stars and the steps were sprinkled with snow; the filament of cardboard cut to a
+  // horseshoe and baked to carbon, the pear-shaped glass emptied of air; the vacuum pump and
+  // the baking of filaments shown; a lamp burning under water; "it does not flicker like gas";
+  // the boarding house of the laboratory's single men; the New York Herald's page on the light
+  // ten days before (21 December); an out-of-tune organ upstairs (one source).
+  // Looked up while writing and found so: the laboratory a white two-storey building, the
+  // machine shop of brick (edison.rutgers.edu, thehenryford.org); hot chocolate a common
+  // American drink of the time (thehenryford.org, Smithsonian).
+  // From memory: the dress; the look of the mercury pump and of the generator; a cocoa cart at
+  // the station; sledges.
+  // Made up: the errand of the basket of bread, the landlady, the glassblower out by the
+  // street lamps, the worker who keeps the front stairs, the stoker who shows the back stairs,
+  // every other person.
+  // Kept out: Edison but as a far-off spot in a window; any number of lamps, people or hours;
+  // the lamps taken by visitors (only "만지지 말고 눈으로만 보렴"); the gas companies, share
+  // prices; "the first bulb in the world"; the moon; smoking and drink.
+  menlo: {
+    first: '누구나 전깃불을 보러 오는 밤이란다. 빵 바구니를 전해 주렴.',
+    dir: 'menlo1879', look: 'paper',
+    // (What is said of today: looked up on 2026.10.14; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '다시 지은 실험실의 지금 모습', when: '미국 미시간 디어본 · 2010년',
+      text: [
+        '미시간의 그린필드 마을에 실험실을 다시 지어 두었습니다.',
+        '다시 지은 실험실 둘레에는 뉴저지에서 옮겨 온 흙을 깔았습니다.',
+        '실험실이 있던 뉴저지 자리에는 1938년에 기념탑을 세웠습니다.',
+      ],
+      credit: '사진: Swampyank, 위키미디어 공용, CC BY 3.0',
+    },
+    drawn: '그 무렵 밤 풍경을 그린 유화처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'depot', name: '미국 멘로파크 기차 정거장 앞', short: '정거장 앞', zoom: 1.162, ground: 0.696, scale: 0.680, air: 'market', floor: 'dirt',
+        sora: '기차에서 사람들이 잔뜩 내려!',
+        people: [
+          { id: 'conductor', pass: '다음 기차도 곧 들어옵니다.', name: '기차 차장', x: 0.18, w: 153, h: 315, lines: ['오늘은 기차를 더 놓아 손님이 많단다.', '모두 전깃불을 보러 온 사람들이지.'] },
+          { id: 'newsboy', pass: '전깃불 이야기가 실린 신문이에요.', name: '신문 파는 아이', x: 0.29, w: 116, h: 268, lines: ['열흘 전 신문에 전깃불 이야기가 났어요.', '신문 한 면이 다 그 이야기였어요.'] },
+          { id: 'cocoa', pass: '추운 밤에는 따뜻한 것이 제일이지.', show: 'cocoa', name: '코코아 파는 아주머니', x: 0.4, w: 131, h: 305, lines: ['추운 밤엔 따뜻한 코코아가 최고란다.', '한 잔 마셔 보련? 손이 녹을 거야.'],
+            try: { id: 'eat-cocoa', verb: 'eat', name: '따뜻한 코코아', face: 'yum', sora: '코코아가 달콤하고 따뜻해!' } },
+          { id: 'landlady', pass: '누가 좀 전해 주면 좋으련만.', name: '하숙집 아주머니', x: 0.51, w: 123, h: 305, lines: ['나는 연구소 일꾼들의 하숙집을 한단다.', '오늘은 다들 바빠서 밥 먹을 틈도 없구나.'] },
+          { id: 'coatlady', pass: '딸아이 외투를 하나 더 가져왔지.', name: '구경 온 아주머니', x: 0.62, w: 120, h: 311, lines: ['밤바람이 차서 외투를 더 챙겨 왔단다.', '아이 것이 하나 남는구나. 입어 보련?'],
+            try: { id: 'wear-gilded', verb: 'wear', name: '1879년 미국의 겨울옷', outfit: 'gilded', sora: '외투에 놋쇠 단추가 두 줄이야!', memo: '그 무렵 미국 아이들은 겨울에 모직 외투를 입고 털 토시를 꼈단다.' } },
+          { id: 'shovel', pass: '계단에 눈이 또 쌓였구나.', name: '눈 치우는 아저씨', x: 0.73, w: 123, h: 301, lines: ['정거장 계단에 눈이 살짝 덮였단다.', '손님이 미끄러지지 않게 치우는 중이지.'] },
+          { id: 'gentleman', pass: '저 불빛 좀 보게나.', name: '구경 온 신사', x: 0.85, w: 140, h: 320, lines: ['나는 뉴욕에서 기차를 타고 왔다오.', '전깃불을 내 눈으로 꼭 보고 싶었지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'workroom', name: '미국 멘로파크 연구소 이층 작업방', short: '연구소 이층 작업방', zoom: 1.234, ground: 0.640, scale: 0.722, air: 'hush', floor: 'wood',
+        sora: '유리병이 벽에 가득해!',
+        people: [
+          { id: 'shelf', pass: '병은 늘 제자리에 두어야지.', name: '유리병 지키는 일꾼', x: 0.18, w: 120, h: 308, lines: ['병마다 실험에 쓰는 것이 들었단다.', '만지지 말고 눈으로만 보렴.'] },
+          { id: 'pumper', pass: '공기가 조금도 남으면 안 되지.', show: 'pump', pose: 'see-aha', sora: '유리알 속 공기를 빼낸대!', memo: '전구 속 공기를 다 빼내야 실이 타 버리지 않고 오래 빛난단다.', name: '진공 펌프 돌보는 일꾼', x: 0.29, w: 94, h: 304, lines: ['이 펌프로 유리알 속 공기를 빼낸단다.', '공기가 없어야 실이 오래 빛나지.'] },
+          { id: 'carbon', pass: '이번 실은 잘 구워졌구나.', show: 'bulb', pose: 'see-wow', sora: '유리알 속에 말굽 꼴 실이 있어!', memo: '두꺼운 종이를 말굽 꼴로 잘라 숯이 되게 구웠단다. 그 실이 빛을 내지.', name: '실 굽는 일꾼', x: 0.4, w: 121, h: 320, lines: ['두꺼운 종이를 말굽 꼴로 잘라 굽는단다.', '구우면 까만 숯 실이 되지.'] },
+          { id: 'water', pass: '물속에서도 아직 켜져 있구나.', name: '물동이 보이는 일꾼', x: 0.51, w: 93, h: 300, lines: ['전구를 물속에 넣어도 꺼지지 않는단다.', '유리알이 꼭 막혀 있어서 그렇지.'] },
+          { id: 'organist', pass: '오르간 소리가 조금 어긋났네.', name: '오르간 치는 일꾼', x: 0.62, w: 106, h: 310, lines: ['일이 끝나면 다 같이 오르간을 친단다.', '소리가 조금 어긋나도 즐겁지.'] },
+          { id: 'stoker', pass: '기계실 보일러에 불을 더 넣어야지.', name: '기계실 불 때는 일꾼', x: 0.73, w: 117, h: 308, lines: ['나는 기계실에서 보일러에 불을 땐단다.', '기계실 소식을 전하러 잠깐 올라왔지.'] },
+          { id: 'keeper', pass: '오늘은 앞 계단이 꽉 찼구나.', name: '앞 계단 지키는 일꾼', x: 0.85, w: 106, h: 305, lines: ['앞 계단은 구경꾼으로 가득하단다.', '나는 여기서 기계를 지키는 중이야.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'road', name: '미국 멘로파크 전깃불 켜진 눈길', short: '전깃불 눈길', zoom: 1.093, ground: 0.749, scale: 0.640, air: 'hush', floor: 'dirt',
+        sora: '밤인데 길이 환해!',
+        people: [
+          { id: 'sledgirl', pass: '밤인데도 썰매 길이 잘 보여.', name: '썰매 끄는 아이', x: 0.18, w: 136, h: 250, lines: ['전깃불 덕분에 밤길이 환해.', '그래서 밤에도 썰매를 끌 수 있어.'] },
+          { id: 'glassblower', pass: '저 기둥의 전구도 잘 켜졌구나.', show: 'lamps', pose: 'see-wow', sora: '기둥마다 전구가 켜졌어!', memo: '정거장에서 연구소까지 나무 기둥마다 전구를 달아 길을 밝혔단다.', name: '유리 부는 일꾼', x: 0.29, w: 105, h: 315, lines: ['전구의 유리알은 내가 불어 만든단다.', '길가 전구가 잘 켜졌나 보러 나왔지.'] },
+          { id: 'boarder', pass: '하숙집 창이 오늘따라 환하네.', name: '하숙하는 일꾼', x: 0.4, w: 92, h: 307, lines: ['나는 저 하숙집에서 지낸단다.', '하숙집 앞에도 전깃불을 세웠지.'] },
+          { id: 'machinist', pass: '바퀴 소리가 오늘도 고르구나.', show: 'dynamo', pose: 'see-wow', sora: '창 안에서 큰 바퀴가 돌아!', memo: '기계실의 발전기가 전기를 만들어 마을의 전구를 모두 밝혔단다.', name: '기계실 일꾼', x: 0.51, w: 123, h: 311, lines: ['기계실의 발전기가 전기를 만든단다.', '전구는 모두 이 기계에 이어져 있지.'] },
+          { id: 'reporter', pass: '이 불빛을 어떻게 적으면 좋을까.', name: '공책 든 신문 기자', x: 0.62, w: 104, h: 313, lines: ['전깃불이 가스불처럼 깜박이지 않는군요.', '오늘 본 것을 신문에 쓰겠어요.'] },
+          { id: 'lookerlady', pass: '창마다 불이 어쩌면 이리 환할까.', name: '구경 온 아주머니', x: 0.73, w: 135, h: 320, lines: ['불꽃도 없는데 창마다 환하구나.', '유리알 속 실이 빛난다지 뭐니.'] },
+          { id: 'farmer', pass: '오늘 밤은 낮처럼 환하구먼.', name: '이웃 농부 할아버지', x: 0.85, w: 140, h: 308, lines: ['우리 집에도 전깃불을 달아 주었단다.', '등잔 없이도 밤이 환하구나.'] },
+        ],
+        spots: [
+          // The laboratory in the try (its lit windows). Edison is not drawn and cannot be
+          // spoken to. (From and to are to be checked against the picture.)
+          { id: 'edison', from: 0.74, to: 0.98, sora: '연구소 창 안에 누가 설명하고 있어!', memo: '연구소를 이끄는 에디슨이란다. 오늘은 손님이 많아 말을 걸 수 없지.' },
+        ],
+      },
+    ],
+    // "The basket of bread" (core/tale.js; the storyboard of docs/신기한-사실.md, turned
+    // round as said above): the landlady at the station says the laboratory's workers have
+    // missed their supper and gives a basket of bread for the glassblower; upstairs, the worker
+    // who keeps the front stairs says he has gone out and lets no one down that way; the
+    // stoker sends her down the back stairs by the machine shop; she gives the bread to the
+    // glassblower out on the road, choosing what to say; and they look at the lamps on the
+    // poles and the lit windows.
+    tale: {
+      thing: true,
+      ask: '전깃불 켜진 밤길은 어떤 모습일까?',
+      gate: { scene: 'workroom', open: 3, sora: '일꾼이 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'landlady', goal: '정거장 앞의 하숙집 아주머니에게 가 보렴.', holds: '빵 바구니: 아주머니가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '연구소 일꾼들이 바빠서 저녁을 걸렀단다.', '이 빵을 유리 부는 아저씨께 전해 주렴.'],
+          offer: { ask: '빵 바구니를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'keeper', goal: '연구소 이층 작업방에서 유리 부는 아저씨를 찾아보렴.', holds: '빵 바구니: 소라가 들고 있음',
+          lines: ['유리 부는 사람은 방금 밖으로 나갔단다.', '그런데 앞 계단은 구경꾼으로 꽉 찼어.', '나는 기계를 지켜야 하니 이리로는 못 간다.'],
+          sora: '아저씨는 밖에 계신대… 어? 누가 불러!',
+        },
+        {
+          who: 'stoker', call: '얘, 밖으로 나가려고?', goal: '기계실 불 때는 일꾼이 부른다. 가 보렴.', holds: '빵 바구니: 소라가 들고 있음',
+          lines: ['그럼 뒷계단으로 내려가렴.', '기계실 옆 뒷문으로 나가면 바로 길이야.', '아저씨, 이 애는 뒷계단으로 보낼게요!'],
+          after: [{ who: 'keeper', line: '뒷계단으로 간다면 가도 좋다.' }],
+          sora: '뒷계단으로 내려가면 된대! 가자!',
+        },
+        {
+          who: 'glassblower', goal: '눈길의 유리 부는 아저씨에게 빵 바구니를 전하렴.', holds: '빵 바구니: 소라가 들고 있음',
+          lines: ['오, 빵이로구나! 배가 고프던 참이란다.'],
+          choice: {
+            ask: '빵 바구니를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"하숙집 아주머니가 보냈어요"', sora: '하숙집 아주머니가 보내셨어요.', says: '저녁을 거른 걸 아셨구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"전구는 아저씨가 만들어요?"', sora: '전구는 아저씨가 만들어요?', says: '유리알은 내가 입으로 불어 만든단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'glassblower', show: true, goal: '기둥마다 켜진 전구와 환한 창들을 바라보렴.',
+          lines: ['저 길을 보렴. 기둥마다 전구가 켜졌지.', '가스불처럼 깜박이지 않는다고들 한단다.'],
+          sora: '밤길이 이렇게 환할 수 있구나!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'landlady', when: ['S1', 'S2', 'S3', 'S4'], lines: ['유리 부는 아저씨는 연구소 이층에 있을 거야.', '불 켜진 길을 따라 연구소로 가렴.'] },
+        { who: 'landlady', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '이제 그 사람도 든든하게 일하겠구나.'] },
+      ],
+      done: '빵 바구니를 전하고, 전깃불 켜진 눈길을 바라보았다.',
+    },
+    errands: [
+      { id: 'took', text: '빵 바구니를 받는다.', at: [] },
+      { id: 'gave', text: '유리 부는 아저씨에게 빵을 전한다.', at: [] },
+      { id: 'saw', text: '전깃불 켜진 눈길을 바라본다.', at: [] },
+    ],
+    reply: '그날 밤 켜진 전깃불은 그 뒤로 온 세상으로 퍼져 나갔단다.',
+  },
+  // New York on 28 October 1886, a drizzling, foggy holiday: the day the Statue of Liberty
+  // was dedicated on Bedloe's Island. Drawn as an oil painting of the sea of the 1880s (the
+  // user's choice of five tries: the third). The pictures are in newyork1886; the try itself
+  // is the third scene (the foggy pier at the south end of Manhattan, the statue over the
+  // water), and the parade street and the newspaper cart by the Battery were ordered after
+  // it. Pale: the sky of the pictures is light grey fog.
+  // Looked up on 2026.10.14 and found so: the dedication on Bedloe's Island; drizzle and
+  // thick fog, lifting about three in the afternoon ("안개가 걷히고 있어"); the morning parade
+  // to the Battery and the ticker tape thrown from the windows of the Stock Exchange; the city
+  // made the day a holiday and Brooklyn closed its schools (one source); the whistles of the
+  // boats drowned some of the speeches; the face covered with a great French flag; women who
+  // wanted the vote spoke from a hired boat near the island (only as a far spot); the new
+  // statue shone reddish brown; it came in crates by ship the year before ("작년에 상자에
+  // 담겨 배로 왔단다") and was put up after the pedestal was done; a newspaper gathered the
+  // money for the pedestal from very many people, children giving coins among them ("아이들도
+  // 동전을 보탰단다"); the old star-shaped fort on the island; newsboys sold the papers in the
+  // streets in those years.
+  // Looked for and NOT found: roasted chestnut carts in the New York of the 1880s (no
+  // chestnuts); that a paper printed a picture of the statue that day (the newsboy only says
+  // the papers are full of the statue).
+  // From memory: that the parade went by Broadway; sandwiches of ham and cheese; the dress of
+  // 1886 and the long blue coat of the police; gas lamps; that Edward Moran painted that day.
+  // Made up: the errand of the lunch bundle, the baker, the policeman who keeps the street,
+  // the newsboy who says to go by the alley behind the warehouses, the captain of the small
+  // steamer, every other person.
+  // Kept out: Cleveland and Bartholdi except as far spots (Bartholdi only "inside", not where
+  // inside), Lesseps; the statue green; crates of copper pieces on the pier that day; guns in
+  // the parade; fireworks (put off); the number of people; cannon.
+  liberty: {
+    first: '자유의 여신상을 여는 날이란다. 점심 꾸러미를 전해 주렴.',
+    dir: 'newyork1886', look: 'paper', pale: true,
+    // (What is said of today: looked up on 2026.10.14; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '자유의 여신상의 지금 모습', when: '미국 뉴욕 · 2023년',
+      text: [
+        '땅에서 횃불 끝까지 높이가 93미터입니다.',
+        '구리 겉면이 바람과 비에 녹슬어 스무 해쯤 사이에 초록색이 되었습니다.',
+        '1984년에 세계유산이 되었고, 2019년에는 450만 명이 보러 왔습니다.',
+      ],
+      credit: '사진: Jakub Hałun, 위키미디어 공용, CC BY 4.0',
+    },
+    drawn: '그날 바다를 그린 유화처럼, 붓으로 칠했단다.',
+    scenes: [
+      {
+        id: 'parade', name: '미국 뉴욕 브로드웨이 행진 길', short: '행진 길', zoom: 1.137, ground: 0.715, scale: 0.665, air: 'hush', floor: 'dirt',
+        sora: '하얀 종이 띠가 길에 가득해!',
+        people: [
+          { id: 'baker', pass: '선장님 배가 곧 떠날 텐데.', name: '빵집 아저씨', x: 0.18, w: 126, h: 311, lines: ['아침에 행진이 이 길로 지나갔단다.', '오늘은 온 도시가 쉬는 날이지.'] },
+          { id: 'tapeboy', pass: '종이 띠를 이만큼이나 주웠어.', name: '종이 띠 줍는 아이', x: 0.29, w: 99, h: 254, lines: ['위에서 종이 띠가 비처럼 내려왔어요.', '나는 제일 긴 띠를 찾는 중이에요.'] },
+          { id: 'clerk', pass: '창마다 종이 띠를 던졌지.', show: 'tape', pose: 'see-wow', sora: '종이 띠를 창밖으로 던졌대!', memo: '행진이 지날 때 증권 거래소 창에서 시세 종이 띠를 던졌단다.', name: '증권 거래소 사환', x: 0.4, w: 116, h: 296, lines: ['이 띠에는 물건값이 찍혀 나온단다.', '오늘은 기뻐서 창밖으로 던졌지.'] },
+          { id: 'drummer', pass: '북채를 잘 챙겨 둬야지.', name: '악대 북 치는 이', x: 0.51, w: 127, h: 318, lines: ['아침 내내 북을 치며 걸었단다.', '이제 배터리 쪽으로 가는 길이지.'] },
+          { id: 'flagseller', pass: '깃발 사세요, 두 나라 깃발이요!', show: 'flags', pose: 'see-aha', sora: '깃발이 두 가지야!', memo: '여신상은 프랑스 사람들이 보낸 선물이라 두 나라 깃발을 걸었단다.', name: '깃발 파는 아주머니', x: 0.62, w: 154, h: 312, lines: ['미국 깃발과 프랑스 깃발이란다.', '여신상은 프랑스가 보낸 선물이거든.'] },
+          { id: 'coatseller', pass: '오늘은 날이 쌀쌀하구나.', name: '외투 가게 아주머니', x: 0.73, w: 129, h: 320, lines: ['비가 와서 날이 쌀쌀하단다.', '아이 외투도 있어. 입어 보련?'],
+            try: { id: 'wear-ny1886', verb: 'wear', name: '1886년 뉴욕의 외투', outfit: 'ny1886', sora: '외투가 따뜻하고 단추가 반짝여!', memo: '그 무렵 뉴욕 아이들은 망토 깃 달린 외투를 입었단다.' } },
+          { id: 'coingrandpa', pass: '이 동전 하나도 보탬이 되었지.', name: '동전 이야기 할아버지', x: 0.85, w: 107, h: 305, lines: ['받침대는 우리가 돈을 모아 지었단다.', '아이들도 동전을 보탰지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'newsstand', name: '미국 뉴욕 배터리 신문 수레 앞', short: '신문 수레 앞', zoom: 1.159, ground: 0.698, scale: 0.678, air: 'market', floor: 'dirt',
+        sora: '신문이 산더미처럼 쌓였어!',
+        people: [
+          { id: 'sandwiches', pass: '샌드위치가 아직 따끈해요!', show: 'sandwich', name: '샌드위치 파는 아주머니', x: 0.18, w: 127, h: 278, lines: ['햄과 치즈를 넣은 샌드위치란다.', '구경하다 배고프면 먹어야지. 먹어 보련?'],
+            try: { id: 'eat-sandwich', verb: 'eat', name: '햄 샌드위치', face: 'yum', sora: '빵이 폭신하고 햄이 짭짤해!' } },
+          { id: 'paperman', pass: '신문이 금방 다 팔리겠구나.', name: '신문 수레 주인', x: 0.29, w: 116, h: 282, lines: ['오늘 신문은 온통 여신상 이야기란다.', '받침대 돈도 신문사가 모았지.'] },
+          { id: 'sailor', pass: '깃발 줄이 엉키지 않게 해야지.', name: '깃발 다는 선원', x: 0.4, w: 112, h: 288, lines: ['난간을 깃발과 색 띠로 꾸민단다.', '배들도 오늘은 깃발을 잔뜩 달았지.'] },
+          { id: 'lampman', pass: '저녁이 오기 전에 닦아 둬야지.', name: '가스등 닦는 이', x: 0.51, w: 113, h: 281, lines: ['나는 가스등의 유리를 닦는단다.', '안개 낀 날은 유리가 금방 흐려지지.'] },
+          { id: 'newsboy', pass: '신문 사세요! 여신상 소식이요!', name: '신문팔이 아이', x: 0.62, w: 109, h: 270, lines: ['나는 날마다 이 길에서 신문을 팔아요.', '오늘은 신문이 아주 잘 팔려요.'] },
+          { id: 'schoolgirl', pass: '오늘은 학교에 안 가는 날이야.', name: '학교 쉬는 날 나온 여자아이', x: 0.73, w: 93, h: 237, lines: ['오늘은 학교가 쉬는 날이에요.', '여신상을 보러 부두에 가는 길이에요.'] },
+          { id: 'police', pass: '길을 건너면 안 됩니다.', name: '길 지키는 경찰', x: 0.85, w: 112, h: 320, lines: ['나는 이 길을 지키는 경찰이란다.', '행진하는 사람들이 아직 지나가는 중이지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'pier', name: '미국 뉴욕 배터리 안개 낀 부두', short: '안개 낀 부두', zoom: 1.124, ground: 0.725, scale: 0.658, air: 'hush', floor: 'wood',
+        sora: '바다 건너에 큰 사람이 서 있어!',
+        people: [
+          { id: 'roper', pass: '밧줄을 단단히 감아 둬야지.', name: '밧줄 감는 선원', x: 0.18, w: 122, h: 311, lines: ['배를 부두에 단단히 매어 둔단다.', '오늘은 배가 아주 많이 나왔지.'] },
+          { id: 'umbrella', pass: '비가 그쳐서 다행이구나.', name: '우산 든 할머니', x: 0.29, w: 125, h: 302, lines: ['이틀 내내 이슬비가 내렸단다.', '그래도 여신상은 보고 싶어서 나왔지.'] },
+          { id: 'stoker', pass: '불을 세게 지펴야 김이 나지.', show: 'steam', pose: 'see-wow', sora: '굴뚝에서 하얀 김이 솟아!', memo: '그날 항구의 증기선들이 고동을 크게 울려 연설이 묻히기도 했단다.', name: '증기선 화부', x: 0.4, w: 103, h: 302, lines: ['나는 배에 석탄을 넣는 사람이란다.', '불을 지피면 굴뚝에서 김이 나지.'] },
+          { id: 'bugler', pass: '나팔을 불 때가 곧 오겠지.', name: '나팔 부는 악대원', x: 0.51, w: 104, h: 295, lines: ['식이 끝나면 다 같이 나팔을 분단다.', '배의 고동 소리에 질 수는 없지.'] },
+          { id: 'captain', pass: '배가 곧 떠날 텐데 점심이 없구나.', show: 'unveil', name: '작은 증기선 선장', x: 0.62, w: 125, h: 310, lines: ['나는 이 작은 증기선의 선장이란다.', '곧 섬 쪽으로 가는 배들 틈에 끼지.'] },
+          { id: 'cabinboy', pass: '망원경으로 섬을 봐야지.', name: '선장을 돕는 소년', x: 0.73, w: 91, h: 259, lines: ['안개 때문에 섬이 잘 안 보여요.', '저 여신상은 구릿빛이라 반짝여요.'] },
+          { id: 'harbormaster', pass: '오늘은 항구가 몹시 붐비는구나.', name: '항구 관리', x: 0.85, w: 121, h: 320, lines: ['여신상은 작년에 상자에 담겨 배로 왔단다.', '받침대를 다 짓고 올봄에 세웠지.'] },
+        ],
+        spots: [
+          // The steamer with flags at the left of the try, far off. (From and to are to be set
+          // to the picture.) The president is not drawn as a person and cannot be spoken to.
+          { id: 'president', from: 0.29, to: 0.41, sora: '깃발 단 큰 배가 섬으로 가!', memo: '대통령이 탄 배란다. 섬에서 열리는 식에 가는 길이지.' },
+          // The statue on its star-shaped fort in the try. Bartholdi is inside it: not where.
+          { id: 'statue', from: 0.67, to: 0.77, sora: '얼굴을 깃발로 가렸어!', memo: '얼굴을 프랑스 깃발로 가렸단다. 만든 사람이 여신상 안에서 기다렸지.' },
+          // The sailing ships at the right of the try, far off: the boat of the women who
+          // wanted the vote.
+          { id: 'voteboat', from: 0.88, to: 0.98, sora: '저 배에서 누가 외치고 있어!', memo: '섬에는 여자를 거의 들이지 않았단다. 여자들은 배를 빌려 투표하게 해 달라고 외쳤지.' },
+        ],
+      },
+    ],
+    // "The captain's lunch" (core/tale.js; the storyboard of docs/신기한-사실.md): the baker
+    // has the lunch bundle for the captain of a small steamer that will soon join the boats
+    // going to the island; the policeman lets no one cross the street while the marchers go
+    // by; the newsboy says to go by the narrow alley behind the warehouses; she hands the
+    // bundle to the captain, choosing what to say; and the fog lifts, the French flag slides
+    // from the copper face, and the boats sound their whistles.
+    tale: {
+      thing: true,
+      ask: '안개 너머에는 무엇이 서 있을까?',
+      gate: { scene: 'newsstand', open: 3, sora: '경찰 아저씨가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'baker', goal: '행진 길의 빵집 아저씨에게 가 보렴.', holds: '점심 꾸러미: 빵집 아저씨가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '부두의 선장님이 주문한 점심이란다. 나는 가게를 못 비우지.', '안개 낀 부두의 선장님에게 전해 주렴.'],
+          offer: { ask: '점심 꾸러미를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'police', goal: '길 끝의 경찰에게 가 보렴.', holds: '점심 꾸러미: 소라가 들고 있음',
+          lines: ['멈춰라. 지금은 길을 건널 수 없단다.', '행진하는 사람들이 아직 지나가는 중이야.'],
+          sora: '부두에 가야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'newsboy', call: '얘, 부두에 가려고?', goal: '신문팔이 아이가 부른다. 가 보렴.', holds: '점심 꾸러미: 소라가 들고 있음',
+          lines: ['큰길로는 못 가. 행진이 끝나야 해.', '창고 뒤 좁은 골목으로 가면 부두가 나와.', '아저씨, 얘는 골목으로 갈게요!'],
+          after: [{ who: 'police', line: '골목이라면 가도 좋다.' }],
+          sora: '창고 뒤 골목으로 가래! 가자!',
+        },
+        {
+          who: 'captain', goal: '안개 낀 부두의 선장에게 점심 꾸러미를 전하렴.', holds: '점심 꾸러미: 소라가 들고 있음',
+          lines: ['오, 기다리던 점심이로구나.'],
+          choice: {
+            ask: '점심 꾸러미를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"빵집 아저씨가 보냈어요"', sora: '빵집 아저씨가 보내셨어요.', says: '배 떠나기 전에 왔구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"섬에 가세요?"', sora: '선장님은 섬 쪽으로 가세요?', says: '그렇단다. 배들과 함께 섬을 돌지.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'captain', show: true, goal: '안개 너머 섬 위의 여신상을 보렴.',
+          lines: ['마침 잘 왔다. 안개가 걷히고 있어.', '저기 봐라. 얼굴의 깃발이 내려간다.'],
+          sora: '구릿빛 얼굴이 나왔어! 배들이 고동을 울려!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'baker', when: ['S1', 'S2', 'S3', 'S4'], lines: ['선장님은 안개 낀 부두에 있단다.', '신문 수레 앞을 지나면 나오지.'] },
+        { who: 'baker', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '선장님이 배불리 드시겠구나.'] },
+      ],
+      done: '점심 꾸러미를 전하고, 깃발이 걷힌 여신상을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '점심 꾸러미를 받는다.', at: [] },
+      { id: 'gave', text: '선장에게 점심 꾸러미를 전한다.', at: [] },
+      { id: 'saw', text: '깃발이 걷힌 여신상을 본다.', at: [] },
+    ],
+    reply: '그 여신상은 지금도 그 섬에 서 있단다. 안개에 젖지는 않았니.',
+  },
+  // Darlington on 27 September 1825, about noon: the day the Stockton and Darlington Railway
+  // is opened and the first train drawn by a steam engine comes into the town. Drawn as an
+  // English landscape in oils of the 1820s, after Constable (the user's choice of five tries:
+  // the second). The pictures are in darlington1825; the try is the third scene ('water': the
+  // side of the line where the engine takes on water), and the farmyard by the line and the
+  // bank by the stone bridge over the Skerne were ordered after it. The sky of the pictures is
+  // a light blue with white clouds: `pale`.
+  // Looked up on 2026.10.14 (docs/신기한-사실.md) and found so: opened that day in very fine
+  // weather; the train came into Darlington about noon before more than ten thousand people;
+  // it stood more than half an hour while the engine took on water; six coal waggons were
+  // taken off at Darlington and the coal given to the poor; Mr Meynell's band rode in two
+  // waggons from Darlington to Stockton; four waggons carried flags, one a great white flag
+  // with the Latin words "Periculum privatum utilitas publica" (said as "내가 짊어진 위험이
+  // 모두에게 쓸모가 된다"); a man on horseback with a flag rode before the train; the train
+  // was the engine, coal waggons, a waggon of flour sacks, the covered coach of the committee
+  // ("Experiment") and open waggons full of people, some sitting on the coal; gentlemen on
+  // horses could not keep up; the engine's two upright cylinders half sunk in the boiler and
+  // its four wheels joined by rods (said as "본단다": thought to be the first so made); the
+  // Skerne Bridge, of stone, made in 1825, carried the first train over the river.
+  // Looked up while writing and found only in part: bread and cheese as the common meal of
+  // English labourers about 1800 (sources speak of the south): the food to try. To be looked
+  // at again. Clogs were not found for 1825: not said.
+  // From memory: the dress of England about 1825 (tail coats and tall hats, smocks, high-
+  // waisted gowns, bonnets, girls' frocks with pantalettes); waggons on the old waggonways
+  // drawn by horses (the grandfather's line); the look of the Skerne Bridge (one great arch
+  // with a small arch on each side).
+  // Made up: the errand of the drumstick, the farm wife, the drummer, the man in the crowd who
+  // cannot let her by, the coal carter who says to go round by the river bank, every other
+  // person.
+  // Kept out: Stephenson but as a far-off spot on the engine, and who drove it; the name
+  // "Locomotion" in people's mouths; the hurt workman, the guns at Stockton, the workmen's
+  // ale; numbers of people and of speed; wires, a big station, platforms.
+  darlington: {
+    first: '첫 철도가 열리는 날이란다. 북 치는 아저씨에게 북채를 전해 주렴.',
+    dir: 'darlington1825', look: 'paper', pale: true,
+    // (What is said of today: looked up on 2026.10.14; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '스컨 다리의 지금 모습', when: '영국 달링턴 · 2021년',
+      text: [
+        '1825년에 놓은 이 돌다리 위로 지금도 기차가 다닙니다.',
+        '줄곧 쓰여 온 철도 다리 가운데 세계에서 가장 오래되었습니다.',
+        '2025년 9월 27일, 200주년에 복제 기관차가 이 다리를 다시 건넜습니다.',
+      ],
+      credit: '사진: Verbarson, 위키미디어 공용, CC BY-SA 4.0',
+    },
+    drawn: '그 무렵 영국의 풍경 유화처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'farm', name: '영국 달링턴 철길 가 농가 마당', short: '농가 마당', zoom: 1.134, ground: 0.717, scale: 0.664, air: 'hush', floor: 'dirt',
+        sora: '저 멀리 철길이 보여!',
+        people: [
+          { id: 'farmer', pass: '오늘은 밭일을 일찍 끝내야지.', name: '갈퀴 든 농부', x: 0.18, w: 135, h: 305, lines: ['오늘 저 철길로 기관차가 지나간단다.', '마을 사람들이 다 구경하러 나갔지.'] },
+          { id: 'milkmaid', pass: '우유를 얼른 날라 두어야지.', name: '우유 나르는 아가씨', x: 0.29, w: 106, h: 286, lines: ['아침에 짠 우유를 나르는 중이야.', '일을 마치면 나도 구경하러 갈 거야.'] },
+          { id: 'granny', pass: '빵을 넉넉히 구워 두길 잘했구나.', show: 'bread', name: '빵과 치즈 차린 할머니', x: 0.4, w: 115, h: 279, lines: ['구경꾼들 먹으라고 빵을 구웠단다.', '치즈와 함께 먹어 보련?'],
+            try: { id: 'eat-bread', verb: 'eat', name: '빵과 치즈', face: 'yum', sora: '치즈가 고소하고 빵은 폭신해!' } },
+          { id: 'farmwife', pass: '누가 좀 전해 주면 좋으련만.', name: '농가 아주머니', x: 0.51, w: 113, h: 288, lines: ['악대 사람들이 아까 우리 마당에서 쉬었단다.', '오늘은 손님이 많아 정신이 없구나.'] },
+          { id: 'seamstress', pass: '나들이옷을 한 벌 더 지어야겠어.', name: '옷 짓는 아주머니', x: 0.62, w: 124, h: 286, lines: ['구경 가는 날이라 고운 옷을 짓는단다.', '아이 옷도 있어. 입어 보련?'],
+            try: { id: 'wear-regency', verb: 'wear', name: '1825년 영국의 옷', outfit: 'regency', sora: '허리띠가 가슴 바로 아래에 있어!', memo: '그 무렵 영국 여자아이들은 허리선이 가슴 바로 아래에 있는 옷을 입었단다.' } },
+          { id: 'boy', pass: '기관차를 꼭 가까이서 볼 거야.', name: '구경 가는 아이', x: 0.73, w: 96, h: 281, lines: ['기관차는 말 없이도 수레를 끈대.', '나는 깃발을 들고 마중 갈 거야.'] },
+          { id: 'grandpa', pass: '살다 보니 이런 날을 다 보는구나.', name: '지팡이 짚은 할아버지', x: 0.85, w: 115, h: 320, lines: ['예전에는 말이 철길 수레를 끌었단다.', '이제는 쇠로 만든 기관차가 끈다는구나.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'bridge', name: '영국 달링턴 스컨 강 돌다리 가', short: '스컨 강 돌다리', zoom: 1.198, ground: 0.668, scale: 0.701, air: 'hush', floor: 'dirt',
+        sora: '사람들이 강가에 가득해!',
+        people: [
+          { id: 'painter', pass: '이 다리를 그림에 꼭 담아야지.', name: '그림 그리는 아저씨', x: 0.18, w: 104, h: 308, lines: ['오늘 같은 날은 그림으로 남겨야지.', '열차가 다리를 건너는 모습을 그릴 거란다.'] },
+          { id: 'mason', pass: '돌 하나하나를 내 손으로 다듬었지.', show: 'bridge', pose: 'see-wow', sora: '다리가 돌로 둥글게 놓였어!', memo: '이 돌다리는 올해 새로 지었단다. 첫 열차가 이 다리로 강을 건넜지.', name: '다리 놓은 석수', x: 0.29, w: 130, h: 285, lines: ['올해 우리가 이 돌다리를 놓았단다.', '오늘 첫 열차가 이 위로 강을 건넜지.'] },
+          { id: 'carter', pass: '석탄을 얼른 마을에 날라야 해요.', name: '석탄 수레 일꾼', x: 0.4, w: 144, h: 271, lines: ['열차에서 떼어 낸 석탄을 나르는 중이야.', '가난한 집에 나눠 줄 석탄이란다.'] },
+          { id: 'waver', pass: '이렇게 많은 사람은 처음 보는구나.', name: '손수건 흔드는 아주머니', x: 0.51, w: 122, h: 300, lines: ['오늘은 날씨가 참 좋구나.', '열차가 지나갈 때 손수건을 흔들었단다.'] },
+          { id: 'flaggirl', pass: '깃발을 더 높이 들어야지.', name: '작은 깃발 든 아이', x: 0.62, w: 84, h: 220, lines: ['열차가 지나갈 때 깃발을 흔들었어.', '수레마다 사람이 빼곡히 탔더라.'] },
+          { id: 'gentleman', pass: '말을 타고도 따라잡지 못했다네.', name: '모자 흔드는 신사', x: 0.73, w: 147, h: 320, lines: ['나는 말을 타고 열차를 따라 달렸다네.', '그런데 열차가 더 빨라서 놓쳤지 뭔가.'] },
+          { id: 'crowdman', pass: '여기서 한 걸음도 못 움직이겠군.', name: '구경꾼 틈의 아저씨', x: 0.85, w: 130, h: 294, lines: ['사람이 너무 많아 꼼짝도 못 한단다.', '모두 기관차를 보러 나왔거든.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'water', name: '영국 달링턴 기관차가 물을 넣는 철길 가', short: '물 넣는 철길 가', zoom: 1.168, ground: 0.691, scale: 0.684, air: 'hush', floor: 'dirt',
+        sora: '기관차가 멈춰서 물을 마셔!',
+        people: [
+          { id: 'flagman', pass: '깃발이 바람에 찢어지면 안 되지.', show: 'banner', pose: 'see-aha', sora: '깃발에 글자가 적혀 있어!', memo: '큰 흰 깃발에 옛 라틴 말이 적혔단다. 내가 짊어진 위험이 모두에게 쓸모가 된다는 뜻이지.', name: '깃발 지키는 아저씨', x: 0.18, w: 115, h: 320, lines: ['수레 넷에 깃발을 달았단다.', '이 흰 깃발에는 철도가 열린 날을 적었지.'] },
+          { id: 'trumpeter', pass: '나팔을 한 번 더 닦아 두어야지.', name: '나팔 부는 악대 사람', x: 0.29, w: 134, h: 291, lines: ['우리 악대는 야름에서 왔단다.', '여기서부터 수레에 타고 연주하지.'] },
+          { id: 'coalboy', pass: '석탄 위에 앉아 오길 잘했어.', name: '석탄 위에 앉아 온 소년', x: 0.4, w: 131, h: 218, lines: ['자리가 없어서 석탄 위에 앉아 왔어.', '말 탄 사람들도 우리를 못 따라왔어.'] },
+          { id: 'waterman', pass: '물통이 하나만 더 있으면 되겠어.', name: '물 붓는 일꾼', x: 0.51, w: 111, h: 271, lines: ['기관차는 물을 끓여 김으로 달린단다.', '그래서 여기서 물을 넣고 있지.'] },
+          { id: 'drummer', pass: '북채가 하나 어디 갔을까.', show: 'train', name: '북 치는 악대 사람', x: 0.62, w: 102, h: 288, lines: ['나는 악대에서 큰북을 친단다.', '기관차가 떠나면 수레 위에서 칠 거야.'] },
+          { id: 'smith', pass: '바퀴가 다 같이 잘 도는구나.', show: 'engine', pose: 'see-wow', sora: '바퀴 넷이 막대로 이어졌어!', memo: '실린더 둘이 보일러 위로 솟았단다. 바퀴 넷을 막대로 이어 함께 돌게 한 첫 기관차로 본단다.', name: '기관차 보는 대장장이', x: 0.73, w: 129, h: 258, lines: ['저 막대가 바퀴 넷을 한꺼번에 돌린단다.', '쇠를 다루는 나도 처음 보는 기계야.'] },
+          { id: 'clerk', pass: '손님들이 모두 자리에 앉았나 볼까.', name: '객차 지키는 신사', x: 0.85, w: 121, h: 281, lines: ['저 지붕 달린 객차는 이름이 익스페리먼트란다.', '철도 회사 사람들이 타고 왔지.'] },
+        ],
+        spots: [
+          // The engine in the try (x 0.71 to 0.85 of the picture). Stephenson is not drawn and
+          // cannot be spoken to; who drove the engine is not said.
+          { id: 'stephenson', from: 0.71, to: 0.85, sora: '기관차 옆에 누가 서 있어!', memo: '이 철길을 놓은 조지 스티븐슨이란다. 오늘은 바빠서 말을 걸 수 없지.' },
+        ],
+      },
+    ],
+    // "The drumstick" (core/tale.js; the storyboard of docs/신기한-사실.md): the farm wife by
+    // the line has a drumstick the band's drummer left in her yard, and cannot leave her
+    // guests; by the stone bridge the crowd is so thick that no one can get by; the coal
+    // carter, taking coal to the poor, says to go round by the river bank; she gives the
+    // drumstick to the drummer while the engine takes on water, choosing what to say; and she
+    // watches the engine leave with its flagged waggons, a rider with a flag going before.
+    tale: {
+      thing: true,
+      ask: '기관차는 수레들을 어떻게 끌고 갈까?',
+      gate: { scene: 'bridge', open: 3, sora: '사람들이 꽉 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'farmwife', goal: '농가 마당의 아주머니에게 가 보렴.', holds: '북채: 아주머니가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '북 치는 아저씨가 북채를 두고 갔단다.', '기관차가 물을 넣는 동안 전해 주렴.'],
+          offer: { ask: '북채를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'crowdman', goal: '스컨 강 돌다리 가를 지나 철길 쪽으로 가 보렴.', holds: '북채: 소라가 들고 있음',
+          lines: ['얘야, 여기는 사람이 너무 많단다.', '지나갈 틈이 한 뼘도 없구나.'],
+          sora: '북채를 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'carter', call: '얘, 어디 가니?', goal: '석탄 수레 일꾼이 부른다. 가 보렴.', holds: '북채: 소라가 들고 있음',
+          lines: ['기관차 쪽에 간다고? 그럼 이리 와.', '강둑 길로 돌아가면 사람이 적단다.', '아저씨, 이 애는 강둑 길로 보낼게요!'],
+          after: [{ who: 'crowdman', line: '강둑 길이라면 금방 가겠구나.' }],
+          sora: '강둑 길로 돌아가면 된대! 가자!',
+        },
+        {
+          who: 'drummer', goal: '철길 가의 북 치는 아저씨에게 북채를 전하렴.', holds: '북채: 소라가 들고 있음',
+          lines: ['오, 내 북채로구나! 찾고 있던 참이란다.'],
+          choice: {
+            ask: '북채를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"농가 아주머니가 보냈어요"', sora: '농가 아주머니가 보내셨어요.', says: '마당에 두고 왔구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"북은 언제 쳐요?"', sora: '북은 언제 쳐요?', says: '기관차가 떠나면 수레 위에서 친단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'drummer', show: true, goal: '떠나는 기관차를 보렴.',
+          lines: ['마침 잘 왔다. 기관차가 이제 떠난단다.', '깃발 단 수레들을 끌고 흰 김을 뿜는구나.'],
+          sora: '말 탄 아저씨가 깃발을 들고 앞서 가!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'farmwife', when: ['S1', 'S2', 'S3', 'S4'], lines: ['북 치는 아저씨는 기관차 옆에 계신단다.', '스컨 강 돌다리 쪽으로 가렴.'] },
+        { who: 'farmwife', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '이제 북소리도 들리겠구나.'] },
+      ],
+      done: '북채를 전하고, 기관차가 수레들을 끌고 떠나는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '북채를 받는다.', at: [] },
+      { id: 'gave', text: '북 치는 아저씨에게 북채를 전한다.', at: [] },
+      { id: 'saw', text: '기관차가 떠나는 것을 본다.', at: [] },
+    ],
+    reply: '그날 처음 달린 철길은 그 뒤로 온 세상에 놓였단다.',
+  },
 };
 
 // The far and the fore of every other scene are told from the pictures that are there (the

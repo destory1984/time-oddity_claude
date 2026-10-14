@@ -271,7 +271,7 @@ export const SQUARES = [
     memo: '바다 건너온 큰 조각상을 세움.', sora: '초록색이 아니야! 구릿빛이야.',
     memoToday: '남은 것: 여신상. 초록이 됨.', soraToday: '초록색 됐다. 녹이 슨 거래.',
     noteMemo: '1886.10.28. 프랑스가 보낸 구리 조각상을 뉴욕 항에 세웠다고 읽음. 그날 달은 초승.',
-    card: '1886년 10월 28일, 뉴욕 항의 작은 섬에서 자유의 여신상을 세운 것을 기념하는 식이 열렸습니다. 프랑스 사람들이 선물로 보낸 이 구리 조각상은 조각조각 나뉘어 배로 바다를 건너왔습니다. 붉은 갈색이던 구리는 서른 해쯤 지나며 녹이 슬어 지금의 청록색이 되었습니다.',
+    card: '1886년 10월 28일, 뉴욕 항의 작은 섬에서 자유의 여신상을 세운 것을 기념하는 식이 열렸습니다. 프랑스 사람들이 선물로 보낸 이 구리 조각상은 조각조각 나뉘어 배로 바다를 건너왔습니다. 붉은 갈색이던 구리는 스무 해쯤 지나며 녹이 슬어 지금의 청록색이 되었습니다.',
     reply: '녹도 옷이 되는구나. 나이 드는 것도 나쁘지 않단다.',
     quiz: { question: '여신상은 왜 청록색이 되었나?', answer: '구리에 녹이 슬어서', proof: '녹이 슬어', wrong: ['페인트를 칠해서', '이끼가 껴서'] },
   },
@@ -832,6 +832,61 @@ export const SQUARES = [
     card: '1405년, 명나라 난징의 강가 조선소에서 정화가 이끄는 큰 배들이 첫 바닷길을 떠날 채비를 했습니다. 배가 삼백 척 넘게, 사람이 이만 명 넘게 떠났고, 배에는 비단과 청화 백자를 실었습니다. 배를 짓던 못 셋이 지금도 남아 2005년에 공원이 되었습니다.',
     reply: '정화의 배들은 그 뒤로도 여러 번 먼 바다로 나갔단다.',
     quiz: { question: '정화의 배에는 어떤 그릇을 실었나?', answer: '청화 백자', proof: '청화 백자', wrong: ['유리 그릇', '쇠 솥'] },
+  },
+  {
+    // Menlo Park, New Jersey, 31 December 1879 (Gregorian): the railroad runs extra trains and
+    // anyone may come to see Edison's electric light. Seven in the evening; the hour is a
+    // guess (the evening is on record, the hour not). Seen from the snowy road, looking across
+    // it at the station, the boarding house, the machine shop and the laboratory: the way is a
+    // guess (east), as the try is not drawn after a plan of the place.
+    // The sky: storm clouds hid the stars that night (history.com); the moon (about the
+    // eighteenth day, rising late in the night) is not spoken of. So the sky memo speaks of
+    // the stars behind the clouds.
+    // Looked up on 2026.10.14 (docs/신기한-사실.md) and found so: extra trains on 31 December,
+    // a special train of the Pennsylvania Railroad; lamps on wooden poles lit the road from the
+    // station to the laboratory; the filament was carbonized cardboard cut to a horseshoe in a
+    // pear-shaped glass emptied of air; the Edison Memorial Tower (1938), its top shaped like a
+    // great bulb, stands where the laboratory was (the old buildings are gone; Henry Ford built
+    // the laboratory again at Greenfield Village).
+    // Kept out: "the first bulb in the world" (others made bulbs before: "오래 켜지는 전구");
+    // any number of lamps, people or hours.
+    // The place is walked about (core/walks.js).
+    no: 73.5, id: 'menlo', name: '전깃불 마을', dateLabel: 'AD 1879.12.31', place: '멘로파크, 미국',
+    lat: 40.557, lon: -74.336,
+    date: { year: 1879, month: 12, day: 31 }, calendar: 'gregorian', hourLocal: 19,
+    facingAz: 90, nightOnLook: false,
+    memo: '누구나 와서 전깃불을 보는 밤.', sora: '길가 기둥마다 전구가 켜졌어!',
+    memoToday: '남은 것: 전구 모양 기념탑.', soraToday: '탑 꼭대기가 큰 전구 모양이야!',
+    noteMemo: '1879.12.31. 멘로파크에서 누구나 전깃불을 보러 왔다고 읽음. 그날 밤 별은 구름에 가렸음.',
+    card: '1879년 12월 31일 밤, 미국 멘로파크의 에디슨 연구소는 오래 켜지는 전구를 누구나 와서 보게 했습니다. 철도 회사가 특별 기차를 놓았고, 정거장에서 연구소까지 나무 기둥마다 전구를 달아 길을 밝혔습니다. 지금 연구소 자리에는 꼭대기가 큰 전구 모양인 기념탑이 서 있습니다.',
+    reply: '그날 밤의 전깃불은 그 뒤로 온 세상의 밤으로 퍼져 나갔단다.',
+    quiz: { question: '정거장에서 연구소까지 무엇으로 길을 밝혔나?', answer: '나무 기둥의 전구', proof: '나무 기둥마다 전구를 달아', wrong: ['가스등', '횃불'] },
+  },
+  {
+    // Darlington, 27 September 1825: the Stockton and Darlington Railway is opened, and the
+    // first train drawn by a steam engine comes into Darlington about noon (the newspaper of
+    // the time: "about 12 o'clock"). Seen from beside the line where the engine took on water,
+    // looking north across the line (it runs west to east there); the try is lit from the
+    // front, as by a noon sun behind the looker. The sky is shown at 9 pm (nightOnLook).
+    // The moon: computed with astronomy-engine for that day: 184 degrees past new, 99.7% lit,
+    // so full; at 9 pm it stands 30 degrees up in the east-south-east (azimuth 121). The sun
+    // at noon stands 34 degrees up in the south (azimuth 183).
+    // Looked up on 2026.10.14 (docs/신기한-사실.md) and found so: opened that day; the train
+    // came into Darlington about noon and 10,000 to 12,000 people were gathered ("만 명 넘게");
+    // one of the first public railways where a steam engine drew trains carrying many people
+    // (said with care: "가운데 하나"); the Skerne Bridge carried the first train over the river
+    // and still carries trains.
+    // The place is walked about (core/walks.js).
+    no: 60, id: 'darlington', name: '첫 철도', dateLabel: 'AD 1825.9.27', place: '달링턴, 영국',
+    lat: 54.52, lon: -1.55,
+    date: { year: 1825, month: 9, day: 27 }, calendar: 'gregorian', hourLocal: 12,
+    facingAz: 0, nightOnLook: true,
+    memo: '첫 철도가 열리는 날.', sora: '기관차가 하얀 김을 뿜어!',
+    memoToday: '남은 것: 스컨 돌다리. 기차가 다님.', soraToday: '그 돌다리로 지금도 기차가 가!',
+    noteMemo: '1825년 9월 27일. 달링턴에 기관차가 끄는 첫 열차가 왔다고 읽음. 그날 달은 보름.',
+    card: '1825년 9월 27일, 영국의 스톡턴 달링턴 철도가 열려 증기 기관차가 사람과 석탄을 실은 수레들을 끌고 달렸습니다. 여러 사람이 타는 열차를 기관차가 끈 첫 공공 철도 가운데 하나로, 낮 12시쯤 열차가 달링턴에 닿자 만 명 넘게 모인 사람들이 환호했습니다. 그날 열차가 건넌 스컨 강의 돌다리로는 지금도 기차가 다닙니다.',
+    reply: '그날 열차가 건넌 돌다리로 지금도 기차가 지나간단다.',
+    quiz: { question: '첫 열차의 수레들은 무엇이 끌었나?', answer: '증기 기관차', proof: '증기 기관차', wrong: ['말', '소'] },
   },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);

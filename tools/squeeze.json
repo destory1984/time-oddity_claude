@@ -583,6 +583,66 @@
 "q": 78,
 "sha": "00ed72432e5e6b0aacc4557bdf064087d49b9c83"
 },
+"darlington1825/bridge-far.webp": {
+"q": 78,
+"sha": "7eccc4ca682792724c341b717434e1e74211b88d"
+},
+"darlington1825/bridge-near.webp": {
+"q": 70,
+"sha": "1f9063fc8b6d0af290db0e1028b29ec0850a124b"
+},
+"darlington1825/bridge.webp": {
+"q": 78,
+"sha": "be23db0e89ba24b4504df71c2f56b56b485d0140"
+},
+"darlington1825/farm-far.webp": {
+"q": 78,
+"sha": "18f46eecdccdfda68459109e545b8d9a090d6c64"
+},
+"darlington1825/farm-near.webp": {
+"q": 70,
+"sha": "0f8db74763eea3be52b8655e07eaa8bc45db4675"
+},
+"darlington1825/farm.webp": {
+"q": 78,
+"sha": "204b86c0a8c11ff69a67451d7cf6355bc7a87570"
+},
+"darlington1825/photo-now.webp": {
+"q": 78,
+"sha": "7250ff93e6e0fb0b60825706b39ba3c46c5b5144"
+},
+"darlington1825/show-banner.webp": {
+"q": 78,
+"sha": "8cea192600ba5c37e1f3a2fb6ad26a075ec6a4c1"
+},
+"darlington1825/show-bread.webp": {
+"q": 78,
+"sha": "9dfbb442792f7b382b31987764b6043527c17151"
+},
+"darlington1825/show-bridge.webp": {
+"q": 78,
+"sha": "334334916ec13a0bca607edeb32a1f73c6675d78"
+},
+"darlington1825/show-engine.webp": {
+"q": 78,
+"sha": "8835678623fd152aeac2ecd7196a524c3674f615"
+},
+"darlington1825/show-train.webp": {
+"q": 78,
+"sha": "bb8986dfdb57a09582c569c70827716fd5f88b59"
+},
+"darlington1825/water-far.webp": {
+"q": 78,
+"sha": "0a27cda77b3777483b48d7be2d7d7c922901a395"
+},
+"darlington1825/water-near.webp": {
+"q": 70,
+"sha": "dd5e562ef5a494aa9134ba814082be0816a138c4"
+},
+"darlington1825/water.webp": {
+"q": 78,
+"sha": "8478f6227eda43325cc505c25488be2bfd777e93"
+},
 "florence1436/bakery-far.webp": {
 "q": 78,
 "sha": "ede1e51ce903ac572a8d9549df224dccd555cd84"
@@ -987,6 +1047,66 @@
 "q": 78,
 "sha": "538404ef97c4bff3b3fb28eb5b579654f6d9bc5c"
 },
+"london1851/gate-far.webp": {
+"q": 78,
+"sha": "b4b2a1864716b8174f3a16f1ff4f08afeea657cd"
+},
+"london1851/gate-near.webp": {
+"q": 70,
+"sha": "96c61307ae85fb4dd375b31f3369aa1b062310e3"
+},
+"london1851/gate.webp": {
+"q": 78,
+"sha": "0f421860fa4914c7cb55fca03e99b7070a2819f1"
+},
+"london1851/lake-far.webp": {
+"q": 78,
+"sha": "c35836a81c1756edf4c35972d39df06adf7a6f29"
+},
+"london1851/lake-near.webp": {
+"q": 70,
+"sha": "9082fe9e79c7643d3c01eb18891b9c0347ae33ca"
+},
+"london1851/lake.webp": {
+"q": 78,
+"sha": "a17b277d37a175def4cb90cefef939bbfdc0d020"
+},
+"london1851/palace-far.webp": {
+"q": 78,
+"sha": "fb06992a7f19571c9edf1d034bc9a1e15dc49f9c"
+},
+"london1851/palace-near.webp": {
+"q": 70,
+"sha": "3a6cfecfefa6becafd43ae8cd3e34ed798266f0a"
+},
+"london1851/palace.webp": {
+"q": 78,
+"sha": "987195e86f2a70a6910c440f700d4788fc348668"
+},
+"london1851/photo-now.webp": {
+"q": 78,
+"sha": "ba95037ed29984d90efb49396d6910d6cdc88060"
+},
+"london1851/show-buns.webp": {
+"q": 78,
+"sha": "393e5f424becdae96b3c5a338d8f9b81308ffcf0"
+},
+"london1851/show-engine.webp": {
+"q": 78,
+"sha": "85c8a2d190a89773ba3c4162d10f78286d381ee5"
+},
+"london1851/show-lily.webp": {
+"q": 78,
+"sha": "65ae02005208a7d3433962b6599c959dea2f4c81"
+},
+"london1851/show-pane.webp": {
+"q": 78,
+"sha": "8f35e2806d1383b4137d734af2e12f0f3fd75007"
+},
+"london1851/show-roof.webp": {
+"q": 78,
+"sha": "b6f597f21fc383cb4d78408e34e71cdbb631aad9"
+},
 "machupicchu1450/gate-far.webp": {
 "q": 78,
 "sha": "1bfc62143a5a8dd5e0189adb698f84905a34b434"
@@ -1046,6 +1166,58 @@
 "machupicchu1450/terraces.webp": {
 "q": 78,
 "sha": "e0bb9a8a30512988b4b7e07efc8a6bdbecebd5b1"
+},
+"menlo1879/depot-far.webp": {
+"q": 78,
+"sha": "a100ecd11530ab3193e7a4c17e9991f2680a2210"
+},
+"menlo1879/depot-near.webp": {
+"q": 70,
+"sha": "626a4f7ad2b7135d1ea797cb00eedde091b8514b"
+},
+"menlo1879/depot.webp": {
+"q": 78,
+"sha": "d068339d7b541c74309f8db1a1bbfb5a87bc78f6"
+},
+"menlo1879/photo-now.webp": {
+"q": 78,
+"sha": "2f5498d16c2e65561759d4fba9a15655bf59dad1"
+},
+"menlo1879/road-far.webp": {
+"q": 78,
+"sha": "a22c2e0e903bb5416e8be08475acfff147690f46"
+},
+"menlo1879/road-near.webp": {
+"q": 70,
+"sha": "132f403bdcf37508be95370c64920c7278e7394e"
+},
+"menlo1879/road.webp": {
+"q": 78,
+"sha": "8dc6c6b6fddb1f1df07fc2f401a167da5ec5c905"
+},
+"menlo1879/show-bulb.webp": {
+"q": 78,
+"sha": "d0da9e1468544708ace25592bfcf31eab668d1be"
+},
+"menlo1879/show-cocoa.webp": {
+"q": 78,
+"sha": "b7833a011b5961670c55bbab3664c59d4e821f45"
+},
+"menlo1879/show-dynamo.webp": {
+"q": 78,
+"sha": "9da936874620c5a487eabb3fa748b0aba062292f"
+},
+"menlo1879/show-lamps.webp": {
+"q": 78,
+"sha": "30e61ff44cd7dc4f89dec1cd0214c71a5667bc3b"
+},
+"menlo1879/show-pump.webp": {
+"q": 78,
+"sha": "37aa245031b671be4201652f71017c1923c2324e"
+},
+"menlo1879/workroom.webp": {
+"q": 78,
+"sha": "b31dab716ff9abd13806ae67a1f77385d50e8026"
 },
 "milan1497/court-far.webp": {
 "q": 78,
@@ -1198,6 +1370,66 @@
 "nara752/show-rice.webp": {
 "q": 78,
 "sha": "ae81033fb00f455a136c9adb8203d55a5ab2f387"
+},
+"newyork1886/newsstand-far.webp": {
+"q": 78,
+"sha": "0258b60152de299ca8051842e52e269d731a73ac"
+},
+"newyork1886/newsstand-near.webp": {
+"q": 70,
+"sha": "2d54af3bd911dec820487fe9ba54aac93d37f520"
+},
+"newyork1886/newsstand.webp": {
+"q": 78,
+"sha": "b67a21ca4ce493c12107d234c89f13a41d6bee07"
+},
+"newyork1886/parade-far.webp": {
+"q": 78,
+"sha": "70dcb07b4c6a935b8bb8bbedc9fe60d05099f22a"
+},
+"newyork1886/parade-near.webp": {
+"q": 70,
+"sha": "a901226fdf22df4a7630495997c13a85b86d21f1"
+},
+"newyork1886/parade.webp": {
+"q": 78,
+"sha": "d8b03cd327e29983ddea6d2baa6cb6dfb64345be"
+},
+"newyork1886/photo-now.webp": {
+"q": 78,
+"sha": "91e5763995ae2223f7cfe0ee345d20c0b2c47c59"
+},
+"newyork1886/pier-far.webp": {
+"q": 78,
+"sha": "bc80e86b39f5fc590b2eb232d73ef45024262863"
+},
+"newyork1886/pier-near.webp": {
+"q": 70,
+"sha": "a55cd78450f3938155a8314929b6ec103345190d"
+},
+"newyork1886/pier.webp": {
+"q": 78,
+"sha": "a38679e0bdff56b3105d31f950073beaaa3b403e"
+},
+"newyork1886/show-flags.webp": {
+"q": 78,
+"sha": "cb791c7a987e925b27a33bdc7dcb9cae8d9f6a76"
+},
+"newyork1886/show-sandwich.webp": {
+"q": 78,
+"sha": "3ef69a1048be30c070c6f03f8da9e5f56ce93704"
+},
+"newyork1886/show-steam.webp": {
+"q": 78,
+"sha": "1070f01bd3882083ac6f50b12066a20c21694e95"
+},
+"newyork1886/show-tape.webp": {
+"q": 78,
+"sha": "34829e3428aa51d8b97d76c2587fc9c5c1d332bc"
+},
+"newyork1886/show-unveil.webp": {
+"q": 78,
+"sha": "e64acaa95da2f3242bf9081491896e28ba3254c1"
 },
 "olympia776/altar-far.webp": {
 "q": 78,
