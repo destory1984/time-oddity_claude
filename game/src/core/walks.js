@@ -6672,6 +6672,748 @@ export const WALKS = {
     ],
     reply: '그날 처음 달린 철길은 그 뒤로 온 세상에 놓였단다.',
   },
+  // Kill Devil Hills, by Kitty Hawk, North Carolina, on 17 December 1903, the morning the
+  // Wright brothers flew: cold, a strong north wind, an overcast sky, ice on the puddles. Drawn
+  // as a seaside watercolour after Winslow Homer (the user's choice of five tries: the second).
+  // The pictures are in kittyhawk1903; the try is the third scene (the brothers' camp), to be
+  // put right by hand (grey sky, elevator and rudder, pusher propellers, a single rail, ice);
+  // the life-saving station and the iced sand path were ordered after it. Pale: the sky of the
+  // pictures is a light grey.
+  // Looked up on 2026.10.15 (docs/신기한-사실.md) and found so: four flights that day, the
+  // first at about 10:35; cold, a strong north wind, ice on the puddles by the camp; the sky
+  // overcast (one source); the brothers warmed their hands inside; men of the Kill Devil Hills
+  // life-saving station watched; the brothers put up a signal when they wanted help and the
+  // station's lookout saw it; the surfmen walked the beach watching for wrecks and, off duty,
+  // carried the brothers' mail; the station was about a mile from the camp; the rail was a
+  // single line of wood laid on the flat sand; the machine had a double elevator in front, a
+  // double rudder behind, two propellers behind turned by chains like a bicycle's; the engine
+  // was made by the mechanic of the brothers' bicycle shop; Orville set up the camera and asked
+  // a surfman to press the bulb when the machine rose; the brothers had flown gliders there in
+  // the years before.
+  // Looked up while writing (airandspaceforces.com, "Dawn at Kill Devil Hill"): the people of
+  // Kitty Hawk ate fish when they caught it; the brothers had a good stove in camp. Surfmen
+  // cooked their own meals at Outer Banks stations (found for Chicamacomico, not for Kill Devil
+  // Hills). Coffee and fish soup at the station were looked for and NOT found: the cook only
+  // fries fish. To be looked at again.
+  // From memory: the dress of 1903 and the dark blue coat and cap of the life-saving service;
+  // the look of the station (a lookout on the roof, a white surfboat); nets, shells, live oaks.
+  // Made up: the errand of the mittens, the lookout who sends them, the fisherman whose cart is
+  // stuck, the shell girl who says to go round behind the dune, the surfman at the wing tip,
+  // every other person.
+  // Kept out: the brothers but far off (spots, no face); the real names of the watchers;
+  // numbers of seconds and of distance; the machine overturned afterwards and the hurt surfman;
+  // "the first in the world"; a blue sky and the sun; wheels; the telegram.
+  kittyHawk: {
+    first: '바닷가에서 형제가 비행기를 띄우는 날이란다. 털장갑을 전해 주렴.',
+    dir: 'kittyhawk1903', look: 'paper', pale: true,
+    drawn: '그 무렵 미국 화가의 바닷가 수채화처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'station', name: '미국 킬데빌힐스 인명 구조대 앞', short: '인명 구조대 앞', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '바닷바람이 정말 차가워!',
+        people: [
+          { id: 'keeper', pass: '오늘은 바다가 조용해야 할 텐데.', name: '구조대장', x: 0.18, w: 100, h: 300, lines: ['우리는 바닷가를 걸으며 난파선을 살핀단다.', '배가 위험하면 구조선을 띄우지.'] },
+          { id: 'cook', pass: '생선이 타지 않게 봐야지.', show: 'fish', name: '밥 당번 구조대원', x: 0.29, w: 100, h: 300, lines: ['오늘은 내가 밥 당번이란다.', '바다에서 잡은 생선을 구웠지. 먹어 보련?'],
+            try: { id: 'eat-fish', verb: 'eat', name: '구운 생선', face: 'yum', sora: '생선이 따끈하고 고소해!' } },
+          { id: 'mender', pass: '찢어진 그물코를 다 기워야지.', name: '그물 깁는 아주머니', x: 0.4, w: 100, h: 300, lines: ['우리 마을 사람들은 고기를 잡아 산단다.', '바람이 세면 그물이 자주 찢어지지.'] },
+          { id: 'lookout', pass: '누가 좀 전해 주면 좋으련만.', name: '망보는 구조대원', x: 0.51, w: 100, h: 300, lines: ['나는 지붕 위 망대에서 바다를 본단다.', '아까 형제의 캠프에 신호가 올랐지.'] },
+          { id: 'mailman', pass: '편지가 바람에 날리면 안 되지.', name: '우편물 나르는 구조대원', x: 0.62, w: 100, h: 300, lines: ['쉬는 날엔 형제의 편지를 날라 준단다.', '형제는 오하이오에서 왔지.'] },
+          { id: 'knitter', pass: '털실이 조금 모자라겠구나.', name: '털옷 짓는 아주머니', x: 0.73, w: 100, h: 300, lines: ['바닷바람이 차서 두꺼운 옷을 짓는단다.', '아이 옷도 있어. 입어 보련?'],
+            try: { id: 'wear-banks1903', verb: 'wear', name: '1903년 바닷가 마을의 겨울옷', outfit: 'banks1903', sora: '털실 두건이 정말 따뜻해!', memo: '그 무렵 바닷가 마을 아이들은 겨울에 두꺼운 모직 옷을 입었단다.' } },
+          { id: 'boatboy', pass: '구조선은 늘 깨끗해야 해요.', name: '구조선 닦는 아이', x: 0.85, w: 100, h: 300, lines: ['나는 구조선을 닦는 걸 도와요.', '크면 나도 구조대원이 될 거예요.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'path', name: '미국 킬데빌힐스 얼음 낀 모래길', short: '얼음 낀 모래길', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '웅덩이에 얼음이 얼었어!',
+        people: [
+          { id: 'woodman', pass: '마른 가지가 많아서 다행이구나.', name: '땔나무 줍는 할아버지', x: 0.18, w: 100, h: 300, lines: ['오늘 같은 날은 불을 넉넉히 때야지.', '이렇게 추운 겨울은 오랜만이구나.'] },
+          { id: 'waterwoman', pass: '물통이 얼기 전에 가야지.', name: '물 긷는 아주머니', x: 0.29, w: 100, h: 300, lines: ['아침에 보니 물통 위가 얼었더구나.', '북풍이 아주 세게 부는 날이야.'] },
+          { id: 'shellgirl', pass: '예쁜 조개를 또 찾았어.', show: 'ice', pose: 'see-aha', sora: '웅덩이가 꽁꽁 얼었어!', memo: '그날은 몹시 추워서 캠프 둘레의 웅덩이에 얼음이 얼었단다.', name: '조개 줍는 아이', x: 0.4, w: 100, h: 300, lines: ['나는 바닷가에서 조개를 주워요.', '이 길은 모래 언덕까지 다 알아요.'] },
+          { id: 'granny', pass: '저 언덕도 참 오래 봤구나.', name: '언덕 바라보는 할머니', x: 0.51, w: 100, h: 300, lines: ['저 형제는 몇 해째 이 언덕에 온단다.', '전에는 큰 연 같은 것을 날렸지.'] },
+          { id: 'boatman', pass: '오늘은 배를 띄우기 어렵겠군.', name: '배 손보는 아저씨', x: 0.62, w: 100, h: 300, lines: ['바람이 세서 오늘은 고기잡이를 쉰단다.', '대신 노를 손보는 중이지.'] },
+          { id: 'woodboy', pass: '장작을 떨어뜨리면 안 돼.', name: '장작 나르는 아이', x: 0.73, w: 100, h: 300, lines: ['집에 땔 장작을 나르는 중이에요.', '손이 시려서 얼른 가야 해요.'] },
+          { id: 'fisherman', pass: '수레가 꼼짝도 안 하는구나.', name: '수레 멈춘 어부', x: 0.85, w: 100, h: 300, lines: ['내 수레 바퀴가 모래에 빠졌단다.', '그물을 실어서 무겁기도 하구나.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'camp', name: '미국 킬데빌힐스 형제의 캠프', short: '형제의 캠프', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '날개가 위아래로 두 겹이야!',
+        people: [
+          { id: 'warmer', pass: '손가락이 말을 안 듣는구나.', name: '손 녹이는 구조대원', x: 0.18, w: 100, h: 300, lines: ['레일을 깔다가 손이 꽁꽁 얼었단다.', '형제도 헛간 난로에서 손을 녹였지.'] },
+          { id: 'neighbor', pass: '이런 기계는 처음 보는구나.', show: 'chain', pose: 'see-aha', sora: '자전거 사슬이 달렸어!', memo: '형제는 자전거 가게를 했단다. 엔진이 사슬로 뒤의 프로펠러 둘을 돌리지.', name: '이웃 마을 아저씨', x: 0.29, w: 100, h: 300, lines: ['형제는 고향에서 자전거 가게를 한대.', '그래서 자전거 사슬을 달았다는구나.'] },
+          { id: 'cameraman', pass: '고무공을 꼭 눌러야 할 텐데.', show: 'camera', pose: 'see-wow', sora: '사진기가 레일을 보고 있어!', memo: '형제가 사진기를 세워 두고, 뜨는 순간 누르라고 구조대원에게 맡겼단다.', name: '사진기 곁의 구조대원', x: 0.4, w: 100, h: 300, lines: ['비행기가 뜨면 이 공을 누르래.', '사진기는 처음 만져 봐서 떨린단다.'] },
+          { id: 'youngman', pass: '모자가 날아갈 것 같아요.', name: '옆 마을에서 온 젊은이', x: 0.51, w: 100, h: 300, lines: ['바람이 세서 모자를 꼭 눌러야 해요.', '오늘 정말 날 수 있을까요?'] },
+          { id: 'woodgirl', pass: '난로가 꺼지면 안 돼요.', name: '장작 나르는 소녀', x: 0.62, w: 100, h: 300, lines: ['형제의 난로에 넣을 장작이에요.', '헛간 안은 그래도 따뜻해요.'] },
+          { id: 'signalman', pass: '신호를 보고 바로 달려왔지.', name: '신호 보고 온 구조대원', x: 0.73, w: 100, h: 300, lines: ['저 깃대에 신호가 올라서 왔단다.', '도움이 필요하면 형제가 신호를 올리지.'] },
+          { id: 'wingman', pass: '손이 시려서 날개를 못 잡겠어.', show: 'flight', name: '날개 끝 잡은 구조대원', x: 0.85, w: 100, h: 300, lines: ['나는 날개 끝을 잡아 줄 거란다.', '그런데 장갑을 두고 와서 손이 시리구나.'] },
+        ],
+        spots: [
+          // The aeroplane on the rail in the try (x 0.49 to 0.93 of the picture). The brothers
+          // are not drawn and cannot be spoken to: far off, no face.
+          { id: 'brothers', from: 0.5, to: 0.9, sora: '비행기 곁에 형제가 있어!', memo: '오빌과 윌버 라이트 형제란다. 오늘은 바빠서 말을 걸 수 없지.' },
+          // The flag pole at the right of the try (x about 0.91).
+          { id: 'flag', from: 0.9, to: 0.98, sora: '깃대에 깃발이 날려!', memo: '형제는 도움이 필요하면 신호를 올렸단다. 구조대가 그걸 보고 왔지.' },
+        ],
+      },
+    ],
+    // "The mittens" (core/tale.js; the storyboard of docs/신기한-사실.md): the lookout at the
+    // life-saving station has the mittens a fellow surfman left when he ran to the camp at the
+    // signal; on the sand path a fisherman's cart is stuck in the sand across the narrow way;
+    // the shell girl says not to step on the iced puddles and to go round behind the dune; she
+    // gives the mittens to the surfman holding the wing tip, choosing what to say; and she
+    // watches the machine slide along the rail into the north wind and rise from the sand.
+    tale: {
+      thing: true,
+      ask: '저 비행기는 정말 날 수 있을까?',
+      gate: { scene: 'path', open: 3, sora: '어부 아저씨가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'lookout', goal: '인명 구조대 앞의 망보는 아저씨에게 가 보렴.', holds: '털장갑: 망보는 아저씨가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '동료가 신호를 보고 캠프로 뛰어가다 장갑을 두고 갔단다.', '손이 얼면 날개를 못 잡을 거야. 전해 주렴.'],
+          offer: { ask: '털장갑을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'fisherman', goal: '모래길 끝의 어부 아저씨에게 가 보렴.', holds: '털장갑: 소라가 들고 있음',
+          lines: ['멈추렴. 내 수레가 모래에 빠졌단다.', '길이 좁아서 지나갈 틈이 없구나.'],
+          sora: '장갑을 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'shellgirl', call: '얘, 어디 가?', goal: '조개 줍는 아이가 부른다. 가 보렴.', holds: '털장갑: 소라가 들고 있음',
+          lines: ['캠프에 간다고? 얼음 낀 웅덩이는 밟지 마.', '모래 언덕 뒤로 돌아가면 캠프가 나와.', '아저씨, 이 애는 언덕 뒤로 보낼게요!'],
+          after: [{ who: 'fisherman', line: '언덕 뒤라면 금방 가겠구나.' }],
+          sora: '언덕 뒤로 돌아가래! 가자!',
+        },
+        {
+          who: 'wingman', goal: '캠프의 날개 끝 잡은 아저씨에게 털장갑을 전하렴.', holds: '털장갑: 소라가 들고 있음',
+          lines: ['오, 내 털장갑이로구나! 손이 꽁꽁 얼었단다.'],
+          choice: {
+            ask: '털장갑을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"망보는 아저씨가 보냈어요"', sora: '망보는 아저씨가 보내셨어요.', says: '고맙다. 이제 날개를 꼭 잡을 수 있겠구나.' },
+              { id: 'E2', label: '"정말 날 수 있어요?"', sora: '저 비행기가 정말 날 수 있어요?', says: '바람이 세니 오늘은 뜰 것 같구나.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'wingman', show: true, goal: '레일 위의 비행기를 보렴.',
+          lines: ['마침 잘 왔다. 엔진이 돌기 시작했단다.', '북풍을 안고 레일을 미끄러져 떠오르는구나.'],
+          sora: '비행기가 떴다가 모래 위에 내려앉았어!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'lookout', when: ['S1', 'S2', 'S3', 'S4'], lines: ['장갑 주인은 형제의 캠프에 있단다.', '모래길을 따라가면 나오지.'] },
+        { who: 'lookout', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '오늘 일은 오래오래 이야기하겠구나.'] },
+      ],
+      done: '털장갑을 전하고, 비행기가 모래에서 떠오르는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '털장갑을 받는다.', at: [] },
+      { id: 'gave', text: '날개 끝 잡은 아저씨에게 털장갑을 전한다.', at: [] },
+      { id: 'saw', text: '비행기가 떠오르는 것을 본다.', at: [] },
+    ],
+    reply: '그 짧은 비행에서 사람이 하늘을 나는 길이 열렸단다.',
+  },
+  // Gatun on 15 August 1914, in the morning: the day the steamship Ancon makes the first
+  // official passage through the Panama Canal and is lifted up the three steps of the Gatun
+  // Locks. Drawn as an oil painting of the canal works of 1913, after Jonas Lie (the user's
+  // choice of five tries: the fourth). The pictures are in panama1914; the try is the third
+  // scene ('lock': beside the wall of the Gatun Locks), and the workers' village and the
+  // railway below the lock wall were ordered after it. The sky of the pictures is a light grey
+  // under low cloud: `pale`.
+  // Looked up on 2026.10.15 (docs/신기한-사실.md) and found so: the first official passage that
+  // day; the ship reached Gatun in the morning; she was dressed with flags from bow to stern and
+  // flew the flags of many nations; all other traffic was stopped while she passed (so the wall
+  // is shut to all); the President of Panama and canal officials were aboard; the war in Europe
+  // kept back the great celebration (said as "먼 데서 큰 싸움이 나 축하를 크게 못 한단다");
+  // the gates of two leaves meeting in a V, hollow so that they float; the electric engines on
+  // the walls called mules, holding the ship with cables, on a track with a toothed rail; most
+  // workers from the West Indies (Barbados, Jamaica); West Indian women kept eating places and
+  // did washing; Gorgas's men oiled pools and screened houses against mosquitoes; the Culebra
+  // Cut dug with steam shovels, the earth carried by trains.
+  // Looked up while writing and not found: rice and peas and fried bread sold by West Indian
+  // women: not said (the food to try is fruit).
+  // From memory: the dress of the Canal Zone about 1914; the police in khaki; houses on posts
+  // with screened verandas and tin roofs (as the try shows); bananas, pineapples and mangoes
+  // sold in the villages; the girls' white frocks; a tin dinner pail; the hoop and stick.
+  // Made up: the errand of the dinner pail, the cook from Barbados, her son who handles the
+  // lines, the policeman who cannot let her by, the banana child who knows of the iron ladder,
+  // every other person.
+  // Kept out: Goethals; Porras and the guests but as a faceless far-off spot on the deck; the
+  // dead of the works, landslides, blasting, the sick; the gold roll and the silver roll; drink;
+  // numbers of days, hours, people and fares; the name Gaillard Cut; container ships, the new
+  // locks, the engines of today; the steam shovel's bucket.
+  panama: {
+    first: '운하에 첫 배가 지나가는 날이란다. 밧줄 다루는 청년에게 도시락을 전해 주렴.',
+    dir: 'panama1914', look: 'paper', pale: true,
+    drawn: '그 무렵 운하 공사를 그린 유화처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'village', name: '파나마 가툰 일꾼 마을', short: '일꾼 마을', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
+        sora: '집이 기둥 위에 올라가 있어!',
+        people: [
+          { id: 'laundress', pass: '해가 나기 전에 빨래를 다 해야지.', name: '빨래하는 아주머니', x: 0.18, w: 100, h: 300, lines: ['일꾼들의 흰 셔츠를 빨아 주는 중이란다.', '오늘은 다들 깨끗한 옷을 입고 싶어 하지.'] },
+          { id: 'fruitseller', pass: '바나나가 아주 잘 익었구나.', show: 'fruit', name: '과일 파는 아주머니', x: 0.29, w: 100, h: 300, lines: ['오늘 아침에 딴 과일을 가져왔단다.', '파인애플 한 조각 먹어 보련?'],
+            try: { id: 'eat-fruit', verb: 'eat', name: '바나나와 파인애플', face: 'yum', sora: '파인애플이 달고 새콤해!' } },
+          { id: 'oilman', pass: '이 웅덩이에도 기름을 뿌려야겠어.', show: 'veranda', pose: 'see-aha', sora: '베란다에 그물을 쳤어!', memo: '모기가 못 들어오게 집마다 그물을 쳤단다. 모기가 알을 낳지 못하게 웅덩이에는 기름을 뿌렸지.', name: '모기 잡는 일꾼', x: 0.4, w: 100, h: 300, lines: ['나는 모기를 막는 일을 한단다.', '고인 물에 기름을 뿌리면 모기가 줄지.'] },
+          { id: 'cook', pass: '누가 좀 전해 주면 좋으련만.', name: '밥집 아주머니', x: 0.51, w: 100, h: 300, lines: ['나는 바베이도스에서 와서 밥집을 한단다.', '오늘은 아침부터 손님이 많구나.'] },
+          { id: 'seamstress', pass: '나들이옷을 한 벌 더 지어야겠어.', name: '옷 짓는 아주머니', x: 0.62, w: 100, h: 300, lines: ['배 구경 가는 날이라 고운 옷을 짓는단다.', '아이 옷도 있어. 입어 보련?'],
+            try: { id: 'wear-zone1914', verb: 'wear', name: '1914년 운하 마을의 옷', outfit: 'zone1914', sora: '하얀 옷에 주홍 띠를 둘렀어!', memo: '그 무렵 운하 마을의 여자아이들은 시원한 흰 무명 옷을 즐겨 입었단다.' } },
+          { id: 'hoopboy', pass: '굴렁쇠를 갑문까지 굴려 가야지.', name: '굴렁쇠 굴리는 아이', x: 0.73, w: 100, h: 300, lines: ['오늘 큰 배가 물 계단을 올라간대.', '나도 물가에 나가서 볼 거야.'] },
+          { id: 'grandpa', pass: '살다 보니 이런 날을 다 보는구나.', name: '자메이카에서 온 할아버지', x: 0.85, w: 100, h: 300, lines: ['젊을 때 자메이카에서 배를 타고 왔단다.', '이 운하를 짓는 걸 오래도록 보았지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'rail', name: '파나마 가툰 갑문 아래 철길', short: '갑문 아래 철길', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '벽이 하늘만큼 높아!',
+        people: [
+          { id: 'trackman', pass: '레일이 하나도 어긋나면 안 되지.', name: '철길 고치는 일꾼', x: 0.18, w: 100, h: 300, lines: ['공사 때는 흙 실은 기차가 쉬지 않고 다녔단다.', '쿨레브라에서는 증기 삽차로 산을 깎았지.'] },
+          { id: 'engineer', pass: '문이 꼭 맞물려야 물이 새지 않지.', show: 'gate', pose: 'see-wow', sora: '문 두 짝이 V 자로 맞물려!', memo: '갑문 문은 속이 비어서 물에 뜬단다. 두 짝이 V 자로 맞물려 물을 막지.', name: '도면 든 기술자', x: 0.29, w: 100, h: 300, lines: ['저 무쇠 문은 두 짝이 가운데에서 맞물린단다.', '문이 닫히면 방에 물을 채우지.'] },
+          { id: 'bananakid', pass: '배가 오기 전에 물가로 가야지.', name: '바나나 바구니 인 아이', x: 0.4, w: 100, h: 300, lines: ['나는 바나나를 팔러 왔어.', '이따가 물가에서 배를 볼 거야.'] },
+          { id: 'waterman', pass: '물통이 하나만 더 있으면 되겠어.', name: '물통 나르는 일꾼', x: 0.51, w: 100, h: 300, lines: ['벽 위의 일꾼들에게 물을 나른단다.', '오늘은 아침부터 무척 덥구나.'] },
+          { id: 'photographer', pass: '오늘 같은 날은 꼭 찍어 두어야지.', name: '사진 찍는 아저씨', x: 0.62, w: 100, h: 300, lines: ['첫 배가 지나가는 모습을 찍을 거란다.', '구름이 걷히면 좋으련만.'] },
+          { id: 'rester', pass: '물 한 잔 마시고 다시 일해야지.', name: '쉬는 일꾼', x: 0.73, w: 100, h: 300, lines: ['먼 데서 큰 싸움이 나서 축하 잔치를 못 한단다.', '그래도 일꾼들은 모두 기뻐하고 있지.'] },
+          { id: 'police', pass: '오늘은 아무도 올려 보낼 수 없지.', name: '운하 지대 경관', x: 0.85, w: 100, h: 300, lines: ['첫 배가 지나가는 동안은 다른 배도 멈췄단다.', '오늘은 갑문을 꼭 지켜야 하지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'lock', name: '파나마 가툰 갑문 벽 옆', short: '갑문 벽 옆', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '배에 깃발이 줄줄이 달렸어!',
+        people: [
+          { id: 'waver', pass: '배가 오면 모자를 흔들어야지.', name: '손 흔드는 일꾼', x: 0.18, w: 100, h: 300, lines: ['일꾼들이 모두 물가에 나왔단다.', '우리가 지은 운하로 배가 지나가는구나.'] },
+          { id: 'gauger', pass: '물이 차오르는 걸 잘 보아야지.', name: '물 높이 보는 일꾼', x: 0.29, w: 100, h: 300, lines: ['방에 물이 차오르면 배가 위로 뜬단다.', '그렇게 세 계단을 올라 호수로 가지.'] },
+          { id: 'painter', pass: '이 큰 벽을 그림에 다 담아야지.', name: '그림 그리는 화가', x: 0.4, w: 100, h: 300, lines: ['나는 운하를 그리러 멀리서 왔단다.', '이렇게 큰 벽은 처음 그려 본단다.'] },
+          { id: 'son', pass: '밧줄이 엉키지 않게 잘 감아야지.', show: 'ship', name: '밧줄 다루는 아들', x: 0.51, w: 100, h: 300, lines: ['나는 배와 기관차를 밧줄로 잇는 일을 해.', '새벽에 일찍 나오느라 아침을 못 먹었어.'] },
+          { id: 'driver', pass: '밧줄을 너무 세게 당기면 안 되지.', show: 'mule', pose: 'see-wow', sora: '기관차가 벽 위 철길에 섰어!', memo: '이 전기 기관차는 노새라고 불렸단다. 배를 끌지 않고 밧줄로 가운데에 잡아 주지.', name: '기관차 모는 기관사', x: 0.62, w: 100, h: 300, lines: ['이 기관차는 노새라고 부른단다.', '철길 가운데의 톱니 레일을 물고 가지.'] },
+          { id: 'clerk', pass: '오늘 지나가는 배를 꼭 적어 두어야지.', name: '배 이름 적는 서기', x: 0.73, w: 100, h: 300, lines: ['첫 배의 이름은 안콘 호란다.', '이 장부에 배 이름을 하나하나 적지.'] },
+          { id: 'granny', pass: '저 배가 우리 운하를 처음 지나는구나.', name: '구경 온 할머니', x: 0.85, w: 100, h: 300, lines: ['배가 깃발로 곱게 꾸몄구나.', '이런 날을 보려고 일찍 나왔단다.'] },
+        ],
+        spots: [
+          // The deck of the ship in the try (x 0.82 to 0.98 of the picture). The President of
+          // Panama and the guests are not drawn and cannot be spoken to. Goethals is not named.
+          { id: 'guests', from: 0.82, to: 0.98, sora: '배 위에 손님들이 서 있어!', memo: '파나마의 포라스 대통령과 운하 사람들이 첫 배에 탔단다. 오늘은 말을 걸 수 없지.' },
+        ],
+      },
+    ],
+    // "The dinner pail" (core/tale.js; the storyboard of docs/신기한-사실.md): the cook from
+    // Barbados in the workers' village has the dinner pail of her son, who went out to the lock
+    // wall at dawn without breakfast; at the stairs to the wall the Canal Zone policeman lets no
+    // one up while the first ship passes; the banana child says to follow the railway below the
+    // wall to the iron ladder by the workers' resting place; she gives the pail to the son by the
+    // engine, choosing what to say; and she watches the ship dressed with flags rise in the lock
+    // and go on to the next step, held by the engines on the walls.
+    tale: {
+      thing: true,
+      ask: '배는 어떻게 높은 호수까지 올라갈까?',
+      gate: { scene: 'rail', open: 3, sora: '경관 아저씨가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'cook', goal: '일꾼 마을의 밥집 아주머니에게 가 보렴.', holds: '도시락 통: 아주머니가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '우리 아들이 새벽에 아침도 못 먹고 나갔단다.', '갑문 벽 위의 아들에게 도시락을 전해 주렴.'],
+          offer: { ask: '도시락 통을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'police', goal: '갑문 아래 철길을 지나 벽 위로 가 보렴.', holds: '도시락 통: 소라가 들고 있음',
+          lines: ['얘야, 지금은 벽 위로 올라갈 수 없단다.', '첫 배가 다 지나갈 때까지 기다리렴.'],
+          sora: '도시락을 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'bananakid', call: '얘, 어디 가니?', goal: '바나나 바구니 인 아이가 부른다. 가 보렴.', holds: '도시락 통: 소라가 들고 있음',
+          lines: ['벽 위에 간다고? 그럼 철길을 따라가.', '일꾼들이 쉬는 자리 옆에 쇠 사다리가 있어.', '아저씨, 이 애는 일꾼 사다리로 갈 거예요!'],
+          after: [{ who: 'police', line: '일꾼 사다리라면 괜찮겠구나. 조심하렴.' }],
+          sora: '쇠 사다리로 올라가면 된대! 가자!',
+        },
+        {
+          who: 'son', goal: '갑문 벽 옆의 밧줄 다루는 청년에게 도시락을 전하렴.', holds: '도시락 통: 소라가 들고 있음',
+          lines: ['어, 우리 어머니의 도시락 통이구나!'],
+          choice: {
+            ask: '도시락 통을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"어머니가 보내셨어요"', sora: '밥집 아주머니가 보내셨어요.', says: '어머니가 걱정하셨구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"배는 언제 와요?"', sora: '배는 언제 와요?', says: '마침 지금 갑문에 들어오고 있단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'son', show: true, goal: '갑문을 올라가는 배를 보렴.',
+          lines: ['저기 봐라, 깃발 단 배가 방에 들어왔다.', '물이 차오르면 배가 한 계단 올라간단다.'],
+          sora: '무쇠 문이 열리고 배가 다음 방으로 가!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'cook', when: ['S1', 'S2', 'S3', 'S4'], lines: ['우리 아들은 갑문 벽 위에 있단다.', '갑문 아래 철길 쪽으로 가렴.'] },
+        { who: 'cook', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '이제 아들도 든든하겠구나.'] },
+      ],
+      done: '도시락을 전하고, 깃발 단 배가 갑문을 올라가는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '도시락 통을 받는다.', at: [] },
+      { id: 'gave', text: '밧줄 다루는 청년에게 도시락 통을 전한다.', at: [] },
+      { id: 'saw', text: '배가 갑문을 올라가는 것을 본다.', at: [] },
+    ],
+    reply: '그날 처음 열린 갑문으로 지금도 배들이 산을 넘는단다.',
+  },
+  // Roca Sundy on the island of Principe, on 29 May 1919: a great shower in the morning, then
+  // the total eclipse through driving cloud. Drawn as the oil paintings of the Portuguese
+  // modernists of the 1910s, split into bright pieces of colour (the user's choice of five
+  // tries: the fifth). The pictures are in principe1919; the try itself is the third scene
+  // (the telescope yard), and the kitchen yard and the cocoa drying yard were ordered after
+  // it. The try is mended by hand (fix5/principe-fix.txt): few stars, thin clouds, no ring
+  // round the sun, a mirror on a low stand, no wheels under the tube. Pale: the top left of
+  // the pictures is bright.
+  // Looked up on 2026.10.15 and found so: Eddington and Cottingham chose Roca Sundy, the
+  // estate of Mr Carneiro; the island was damp and they feared for the mirror; a flat mirror
+  // turned by clockwork threw the sunlight into a long iron tube that lay level; it was the
+  // dry season, and a great shower passed that morning, out of season; guests of the island
+  // (the judge, doctors) came that morning; the clouds thinned in the last of totality and a
+  // red prominence was taken; Eddington was too busy changing plates to look; the sky was
+  // clear a little after and clouded over again; men kept monkeys from the cocoa, and the
+  // golden pods were likened to lanterns; the islands grew a great deal of the cocoa of the
+  // world, worked by labourers brought from far lands; the fresh pulp of the cocoa pod is
+  // sweet and sour and sucked from the bitter beans.
+  // Looked for and NOT found: that the big house stood in 1919 (said to be built in 1921);
+  // that the drying boards were pushed under a roof in rain; what the workers ate in 1919.
+  // From memory: the dress of 1919; glass plates in wooden boxes; the white summer dress.
+  // Made up: the errand of the mirror cloth, the washerwoman, the monkey-scaring boy, the
+  // worker of the drying boards, the young helper of the tent, every other person.
+  // Kept out: Eddington, Cottingham, the guests and the manager except far off (spots, no
+  // face); that the light "bent" on the day (the plates were measured days later: only the
+  // reply); the length of totality, the number of plates, the telegram; many stars.
+  eddington: {
+    first: '해가 달에 다 가려지는 날이란다. 망원경 덮개 천을 전해 주렴.',
+    dir: 'principe1919', look: 'paper', pale: true,
+    drawn: '그 무렵 포르투갈의 새 화가들처럼, 색 조각으로 쪼개어 그렸단다.',
+    scenes: [
+      {
+        id: 'kitchen', name: '상투메 프린시페 프린시페 섬 순디 농장 부엌 마당', short: '부엌 마당', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '소나기가 막 그쳤어!',
+        people: [
+          { id: 'washer', pass: '누가 좀 전해 주면 좋으련만.', name: '빨래하는 아주머니', x: 0.18, w: 100, h: 300, lines: ['이 섬은 축축해서 거울이 흐려지기 쉽대.', '그래서 천을 불에 쬐어 말렸단다.'] },
+          { id: 'cook', pass: '손님 점심을 서둘러 지어야지.', name: '부엌 아주머니', x: 0.29, w: 100, h: 300, lines: ['섬의 손님들이 해를 보러 오셨단다.', '오시자마자 소나기가 쏟아졌지.'] },
+          { id: 'podcutter', pass: '잘 익은 열매만 골라야지.', show: 'pulp', name: '카카오 열매 쪼개는 아주머니', x: 0.4, w: 100, h: 300, lines: ['카카오 속살은 새콤달콤하단다.', '씨는 쓰니까 속살만 빨아 먹으렴.'],
+            try: { id: 'eat-pulp', verb: 'eat', name: '카카오 열매 속살', face: 'yum', sora: '하얀 속살이 새콤달콤해!' } },
+          { id: 'woodman', pass: '불이 꺼지지 않게 장작을 대야지.', name: '장작 나르는 아저씨', x: 0.51, w: 100, h: 300, lines: ['비에 젖은 장작을 불 곁에 말린단다.', '오후에는 해가 가려진다더구나.'] },
+          { id: 'seamstress', pass: '오늘 같은 날엔 흰 옷이 좋지.', name: '옷 짓는 아주머니', x: 0.62, w: 100, h: 300, lines: ['더운 섬이라 얇은 무명옷을 짓는단다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-principe1919', verb: 'wear', name: '1919년 프린시페의 흰 여름옷', outfit: 'principe1919', sora: '옷이 가볍고 시원해!', memo: '그 무렵 더운 섬에서는 얇고 하얀 무명옷을 즐겨 입었단다.' } },
+          { id: 'watergirl', pass: '물동이를 엎지르면 안 되지.', name: '물 긷는 아이', x: 0.73, w: 100, h: 300, lines: ['천막 손님들은 먼 영국에서 왔대요.', '해를 찍는 긴 통을 가져왔대요.'] },
+          { id: 'basketman', pass: '비가 그치니 바람이 시원하구나.', name: '바구니 짜는 할아버지', x: 0.85, w: 100, h: 300, lines: ['나는 카카오 콩 담을 바구니를 짠단다.', '이 섬 카카오는 배에 실려 멀리 가지.'] },
+        ],
+        spots: [
+          // The shaded veranda of the low storehouse in the picture ordered for this scene
+          // ((5) of its order). (From and to are to be set to the picture.) The manager is not
+          // drawn and cannot be spoken to: far off, no face, no name.
+          { id: 'manager', from: 0.64, to: 0.8, sora: '베란다에 누가 서 있어!', memo: '이 농장을 돌보는 관리인이란다. 손님들의 일을 여러모로 거들었지.' },
+        ],
+      },
+      {
+        id: 'drying', name: '상투메 프린시페 프린시페 섬 순디 농장 카카오 말리는 마당', short: '카카오 말리는 마당', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '나무에 열매가 주렁주렁해!',
+        people: [
+          { id: 'raker', pass: '해가 나면 콩이 잘 마르겠지.', name: '갈퀴 든 일꾼', x: 0.18, w: 100, h: 300, lines: ['카카오 콩은 햇볕에 며칠 말린단다.', '비가 와서 오늘은 늦어졌지.'] },
+          { id: 'monkeyboy', pass: '원숭이야, 우리 밭에 오지 마!', show: 'pods', pose: 'see-wow', sora: '열매가 등불처럼 달렸어!', memo: '천막의 손님은 카카오 열매가 숲에 단 등불 같다고 적었단다.', name: '원숭이 쫓는 아이', x: 0.29, w: 100, h: 300, lines: ['나는 원숭이가 밭에 못 오게 지켜요.', '원숭이는 카카오 열매를 좋아하거든요.'] },
+          { id: 'sorter', pass: '쭉정이는 골라내야지.', name: '콩 고르는 아주머니', x: 0.4, w: 100, h: 300, lines: ['나는 먼 땅에서 이 섬에 일하러 왔단다.', '좋은 콩만 골라 자루에 담는단다.'] },
+          { id: 'sackman', pass: '자루가 꽤 묵직하구나.', name: '자루 나르는 일꾼', x: 0.51, w: 100, h: 300, lines: ['마른 콩은 자루에 담아 항구로 간단다.', '배에 실려 먼 나라로 가지.'] },
+          { id: 'basketgirl', pass: '엄마한테 바구니를 갖다드려야지.', name: '바구니 이는 아이', x: 0.62, w: 100, h: 300, lines: ['오늘 손님들이 해를 사진에 찍는대요.', '해를 맨눈으로 보면 안 된대요.'] },
+          { id: 'granny', pass: '이 철에 웬 소나기일까.', name: '나무 그늘의 할머니', x: 0.73, w: 100, h: 300, lines: ['지금은 비가 거의 안 오는 마른 철이란다.', '오늘 아침 소나기는 참 별일이구나.'] },
+          { id: 'boardman', pass: '이 길은 지금 지나갈 수 없단다.', name: '판 맡은 일꾼', x: 0.85, w: 100, h: 300, lines: ['나는 이 마당의 콩 말리는 판을 맡았지.', '비가 그쳤으니 콩을 서둘러 널어야 해.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'scope', name: '상투메 프린시페 프린시페 섬 순디 농장 망원경 마당', short: '망원경 마당', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '해가 조금씩 가려지고 있어!',
+        people: [
+          { id: 'helper', pass: '구름이 비켜 주면 좋으련만.', show: 'corona', pose: 'see-wow', sora: '검은 해 둘레가 하얗게 빛나!', memo: '해가 다 가려지면 둘레의 흰 빛 무리와 붉은 불꽃이 보인단다.', name: '망원경 조수', x: 0.18, w: 100, h: 300, lines: ['나는 천막 손님들의 일을 거든단다.', '해 곁의 별을 사진에 담는대.'] },
+          { id: 'mirrorman', pass: '거울에 물기가 앉으면 안 되지.', show: 'mirror', pose: 'see-aha', sora: '거울이 해를 따라 돌아!', memo: '시계 장치가 거울을 천천히 돌려 햇빛을 긴 통 안으로 비추었단다.', name: '거울 지키는 이', x: 0.29, w: 100, h: 300, lines: ['이 거울이 햇빛을 통 안으로 보낸단다.', '시계 장치가 거울을 천천히 돌리지.'] },
+          { id: 'plateman', pass: '깨지지 않게 살살 날라야지.', show: 'plates', pose: 'see-aha', sora: '유리판에 사진을 찍는대!', memo: '그 무렵에는 얇은 유리판에 사진을 찍었단다.', name: '판 상자 나르는 젊은이', x: 0.4, w: 100, h: 300, lines: ['이 상자에는 사진 찍을 유리판이 들었어.', '천막 안에서 판을 쉬지 않고 갈아 끼운대.'] },
+          { id: 'carpenter', pass: '기둥이 잘 버텨 주었구나.', name: '천막 기둥 세운 목수', x: 0.51, w: 100, h: 300, lines: ['나는 천막 기둥을 단단히 박았단다.', '아침 소나기에도 천막은 끄떡없었지.'] },
+          { id: 'maid', pass: '손님들께 물을 내어 드려야지.', name: '손님 시중드는 아주머니', x: 0.62, w: 100, h: 300, lines: ['섬의 손님들이 해를 보러 오셨단다.', '판사님과 의사 선생님들도 오셨지.'] },
+          { id: 'rakeboy', pass: '하늘이 점점 어두워지네.', name: '갈퀴 든 아이', x: 0.73, w: 100, h: 300, lines: ['해가 다 가려지면 어두워진대요.', '그래도 금방 다시 밝아진대요.'] },
+          { id: 'grandpa', pass: '먼 데서 해를 보러 왔구나.', name: '지팡이 짚은 할아버지', x: 0.85, w: 100, h: 300, lines: ['손님들은 먼 영국에서 배로 왔단다.', '여러 곳을 둘러보고 이 마당을 골랐지.'] },
+        ],
+        spots: [
+          // The tent at the right of the try, under which the tube lies (about 0.66 to 0.86).
+          // (From and to are to be set to the picture.) Eddington and Cottingham are not drawn
+          // and cannot be spoken to: far off, no face.
+          { id: 'astronomers', from: 0.67, to: 0.85, sora: '천막 아래서 바쁘게 일해!', memo: '영국에서 온 에딩턴과 코팅엄이란다. 판을 갈아 끼우느라 해를 볼 틈도 없었지.' },
+          // The veranda of the white house in the middle of the try (about 0.37 to 0.71). The
+          // guests of the island are not drawn: far off, no face, no names.
+          { id: 'guests', from: 0.4, to: 0.6, sora: '베란다에 손님들이 모였어!', memo: '섬의 판사와 의사들이 해가 가려지는 것을 보러 왔단다.' },
+        ],
+      },
+    ],
+    // "The mirror cloth" (core/tale.js; the storyboard of docs/신기한-사실.md): the washerwoman
+    // has dried by the fire the cloth that covered the mirror in the shower, for the young
+    // helper of the tent; the worker of the drying boards lets no one through while the beans
+    // are spread again; the monkey-scaring boy says to go round by the path at the edge of the
+    // cocoa field; she hands the cloth to the helper, choosing what to say; and through a gap
+    // in the driving cloud she sees the black sun, its white glow and a red flame, while under
+    // the tent there is only the sound of plates being changed.
+    tale: {
+      thing: true,
+      ask: '구름이 해를 비켜 줄까?',
+      gate: { scene: 'drying', open: 3, sora: '일꾼 아저씨가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'washer', goal: '부엌 마당의 빨래하는 아주머니에게 가 보렴.', holds: '덮개 천: 빨래하는 아주머니가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '소나기 때 망원경 거울을 덮었던 천이란다.', '불에 쬐어 말렸어. 천막의 조수에게 전해 주렴.'],
+          offer: { ask: '덮개 천을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'boardman', goal: '카카오 말리는 마당 끝의 일꾼에게 가 보렴.', holds: '덮개 천: 소라가 들고 있음',
+          lines: ['멈추렴. 콩을 다시 너느라 길이 꽉 막혔단다.', '판과 바구니 사이로는 지나갈 수 없어.'],
+          sora: '천을 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'monkeyboy', call: '얘, 어디 가려고?', goal: '원숭이 쫓는 아이가 부른다. 가 보렴.', holds: '덮개 천: 소라가 들고 있음',
+          lines: ['천막에 간다고? 이 마당으로는 못 가.', '카카오 밭 가장자리 길로 돌아가면 나와.', '아저씨, 이 애는 밭 길로 갈게요!'],
+          after: [{ who: 'boardman', line: '밭 가장자리 길이라면 가도 좋단다.' }],
+          sora: '밭 가장자리 길로 돌아가래! 가자!',
+        },
+        {
+          who: 'helper', goal: '망원경 마당의 조수에게 덮개 천을 전하렴.', holds: '덮개 천: 소라가 들고 있음',
+          lines: ['오, 거울 덮개로구나.'],
+          choice: {
+            ask: '덮개 천을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"빨래하는 아주머니가 보냈어요"', sora: '빨래하는 아주머니가 보내셨어요.', says: '보송보송하구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"해는 언제 다 가려져요?"', sora: '해는 언제 다 가려져요?', says: '곧이란다. 구름만 비켜 주면 좋겠구나.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'helper', show: true, goal: '구름 틈으로 가려진 해를 올려다보렴.',
+          lines: ['쉿, 이제 해가 다 가려졌단다.', '천막 안은 판 가는 소리만 바쁘구나.'],
+          sora: '검은 해에 붉은 불꽃이 보여!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'washer', when: ['S1', 'S2', 'S3', 'S4'], lines: ['천막은 망원경 마당에 있단다.', '카카오 말리는 마당을 지나면 나오지.'] },
+        { who: 'washer', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '해가 다시 나오고 하늘이 잠깐 맑았지?'] },
+      ],
+      done: '덮개 천을 전하고, 구름 틈으로 검은 해와 붉은 불꽃을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '덮개 천을 받는다.', at: [] },
+      { id: 'gave', text: '망원경 조수에게 덮개 천을 전한다.', at: [] },
+      { id: 'saw', text: '구름 틈으로 가려진 해를 본다.', at: [] },
+    ],
+    reply: '며칠 뒤 사진을 재 보니 별빛이 휘었더란다. 네가 그 하늘을 보았구나.',
+  },
+  // Tyuratam (now Baikonur), Kazakhstan, on the night of 4 October 1957: the rocket that put
+  // the first artificial satellite round the earth goes up from the pad of Site 1. Drawn as a
+  // Soviet lithograph poster of the 1950s (the user's choice of five tries: the first). The
+  // pictures are in baikonur1957; the try itself is the third scene (the steppe where the
+  // launch site is seen: its hut and tea table read as the guard post), and the soldiers'
+  // canteen in the village and the steppe by the railway were ordered after it. The try is
+  // mended by hand (assets/codex/fix5/baikonur-fix.txt): one rocket only, light grey, no
+  // satellite outside, an almost full moon and no Milky Way, steam and no fire. The pictures
+  // are dark: no `pale`. Whether the place wants `night` is to be seen once the pictures are in.
+  // Looked up on 2026.10.15 and found so: the launch at 22:28 Moscow time (19:28 UT) on
+  // 4 October 1957 from Site 1 of the Tyuratam range; the name "Baikonur" came only about 1961
+  // (no one says it); the soldiers' village was called "Zarya" unofficially; the first
+  // builders came in January 1955, lived in tents, and in spring dug dugouts on the bank of
+  // the Syr Darya; the builders called the great pit of the pad "the stadium"; the rocket was
+  // taken to the pad by rail on the morning of 3 October; the satellite rode under the nose
+  // fairing, not to be seen (russianspaceweb, "sputnik_lv", "sputnik_preflight"); the R-7
+  // hung in the trusses that bore it, standing on no pad (Wikipedia, "R-7 Semyorka"); an
+  // almost full moon in the south-west; the satellite burned up in the air on 4 January 1958;
+  // soldiers ate kasha with tea and sugar and much bread, part of it rye (CIA reading room
+  // interviews; HRW 2003). Baikonur town and the pad stand about 34 km apart (by coordinates;
+  // no number on screen).
+  // Looked for and NOT found: the weather that night; whether the soldiers knew what went up
+  // (they do not, here); the colour of the 1957 rocket (light grey, as the user mends it);
+  // that the arms fell back like petals in 1957 (not said).
+  // From memory: the dress of 1957; the lamp towers round the pad; the tea urn and the glass
+  // in a metal holder; that wives and children lived in the village; the Kazakh herder; that
+  // Korolev watched from the bunker by the pad.
+  // Made up: the errand of the tea and bread, the woman of the canteen, the guard of the
+  // crossing, the track worker who shows the shepherds' path, the guard of the post, every
+  // other person.
+  // Kept out: Korolev and the high men except far off (a spot, no face); "바이코누르",
+  // "인공위성", "스푸트니크" in the mouths of the people (Sora and grandmother only); what went
+  // up; the missile, arms, secrets, the cold war; every number; anyone near the pad at the
+  // launch; drink and smoking.
+  sputnik: {
+    first: '사람이 만든 첫 별이 하늘로 오르는 밤이란다. 차와 빵을 전해 주렴.',
+    dir: 'baikonur1957', look: 'paper',
+    drawn: '그 무렵 소련의 포스터처럼, 평평한 색으로 굵게 그렸단다.',
+    scenes: [
+      {
+        id: 'canteen', name: '카자흐스탄 튜라탐 자랴 마을 군인 식당', short: '군인 식당', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'wood',
+        sora: '식당에 빵 냄새가 가득해!',
+        people: [
+          { id: 'cook', pass: '누가 좀 전해 주면 좋으련만.', name: '식당 아주머니', x: 0.18, w: 100, h: 300, lines: ['오늘 밤은 다들 늦게까지 일한단다.', '무슨 일인지는 아무도 말해 주지 않는구나.'] },
+          { id: 'baker', pass: '오늘 빵은 잘 부풀었구나.', show: 'bread', name: '빵 굽는 병사', x: 0.29, w: 100, h: 300, lines: ['나는 날마다 검은 빵을 굽는단다.', '따뜻한 차와 같이 먹으면 아주 맛있지.'],
+            try: { id: 'eat-bread', verb: 'eat', name: '검은 빵과 차', face: 'yum', sora: '빵이 쫄깃하고 차가 따뜻해!' } },
+          { id: 'sergeant', pass: '그때보다 지금이 훨씬 낫구나.', show: 'dugout', pose: 'see-aha', sora: '강가 흙집에서 살았대!', memo: '처음 온 군인들은 천막에서 살다가, 봄에 시르다리야 강가에 땅을 파고 흙집을 지었단다.', name: '나이 든 상사', x: 0.4, w: 100, h: 300, lines: ['우리가 처음 왔을 땐 천막뿐이었단다.', '봄이 되자 강가에 땅을 파고 살았지.'] },
+          { id: 'porridge', pass: '죽이 눋지 않게 저어야지.', name: '죽 젓는 취사병', x: 0.51, w: 100, h: 300, lines: ['아침마다 큰 솥에 카샤를 끓인단다.', '카샤는 곡식을 푹 끓인 죽이야.'] },
+          { id: 'tailor', pass: '밤바람이 차니 단추를 단단히 달아야지.', name: '옷 고치는 아주머니', x: 0.62, w: 100, h: 300, lines: ['나는 군인들의 외투 단추를 달아 준단다.', '아이 외투가 하나 있구나. 입어 보련?'],
+            try: { id: 'wear-steppe1957', verb: 'wear', name: '1957년 초원 마을의 가을 외투', outfit: 'steppe1957', sora: '외투가 두툼하고 포근해!', memo: '그 무렵 소련 아이들은 가을이면 두꺼운 모직 외투를 입었단다.' } },
+          { id: 'letter', pass: '어머니께 무엇부터 쓸까.', name: '편지 쓰는 병사', x: 0.73, w: 100, h: 300, lines: ['고향의 어머니께 편지를 쓰는 중이란다.', '이곳 초원은 바람이 세다고 썼지.'] },
+          { id: 'stoker', pass: '밤이 깊으니 난로를 더 지펴야지.', name: '난로 지피는 병사', x: 0.85, w: 100, h: 300, lines: ['초원의 가을밤은 꽤 쌀쌀하단다.', '난로를 지펴 식당을 데우는 중이야.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'rail', name: '카자흐스탄 튜라탐 철길 가 초원', short: '철길 가 초원', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '달빛에 철길이 반짝여!',
+        people: [
+          { id: 'herder', pass: '양들은 벌써 잠들었겠지.', name: '카자흐 양치기 할아버지', x: 0.18, w: 100, h: 300, lines: ['나는 이 초원에서 양을 치며 살았단다.', '저 철길 역의 이름이 튜라탐이지.'] },
+          { id: 'signal', pass: '등불이 꺼지지 않게 해야지.', name: '신호등 든 병사', x: 0.29, w: 100, h: 300, lines: ['나는 밤에 신호등으로 기차를 맞는단다.', '오늘 밤에는 기차가 오지 않는구나.'] },
+          { id: 'driver', pass: '바퀴에 기름을 더 쳐야겠구나.', show: 'cart', pose: 'see-aha', sora: '아주 긴 수레가 비어 있어!', memo: '로켓은 눕혀서 철길 수레에 싣고 발사대로 옮겼단다. 하루 전 아침의 일이었지.', name: '기관사', x: 0.4, w: 100, h: 300, lines: ['어제 아침에 긴 수레로 긴 짐을 옮겼단다.', '무엇인지는 나도 덮개만 보았지.'] },
+          { id: 'trackman', pass: '나사 하나도 헐거우면 안 되지.', name: '철길 고치는 일꾼', x: 0.51, w: 100, h: 300, lines: ['나는 밤마다 철길 나사를 조인단다.', '저쪽 큰 구덩이를 우리는 경기장이라 불러.'] },
+          { id: 'lineman', pass: '전깃줄이 바람에 흔들리는구나.', name: '전깃줄 고치는 병사', x: 0.62, w: 100, h: 300, lines: ['초원 끝까지 전깃줄을 이어 놓았단다.', '저 먼 등불도 이 줄로 켜지.'] },
+          { id: 'mail', pass: '편지 자루가 오늘은 가볍구나.', name: '우편 나르는 병사', x: 0.73, w: 100, h: 300, lines: ['나는 역에서 편지 자루를 나른단다.', '고향 편지를 받으면 다들 웃지.'] },
+          { id: 'crossguard', pass: '통행증을 보여 주십시오.', name: '건널목 경계병', x: 0.85, w: 100, h: 300, lines: ['나는 이 건널목을 지키는 경계병이란다.', '오늘 밤은 통행증이 꼭 있어야 해.'] },
+        ],
+        spots: [
+          // The small lights on the far horizon at the right of the picture ordered for this
+          // scene (the launch site, far from the village). (From and to are to be set to the
+          // picture.)
+          { id: 'farlights', from: 0.86, to: 0.98, sora: '먼 지평선에 불빛이 모여 있어!', memo: '저 멀리 모인 불빛이 발사대란다. 마을에서 한참 떨어져 있지.' },
+        ],
+      },
+      {
+        id: 'pad', name: '카자흐스탄 튜라탐 발사장이 보이는 초원 초소', short: '초원 초소', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '멀리 로켓이 등불에 빛나!',
+        people: [
+          { id: 'postguard', pass: '오늘 밤은 유난히 길구나.', show: 'rocket', pose: 'see-wow', sora: '쇠 팔이 로켓을 안고 있어!', memo: '로켓은 바닥에 서지 않고 쇠 팔들에 매달려 있었단다. 꼭대기 덮개 속에 인공위성이 들었지.', name: '초소 경계병', x: 0.18, w: 100, h: 300, lines: ['나는 이 초소에서 밤새 초원을 지킨단다.', '오늘은 저 등불이 밤새 꺼지지 않는구나.'] },
+          { id: 'teaman', pass: '물만 끓이니 심심하구나.', name: '차 끓이는 병사', x: 0.29, w: 100, h: 300, lines: ['초소에 찻잎이 다 떨어졌단다.', '그래서 물만 끓이고 있지.'] },
+          { id: 'lampman', pass: '불이 하나도 꺼지면 안 되지.', show: 'lamps', pose: 'see-wow', sora: '등불 탑이 로켓을 비춰!', memo: '발사대 둘레의 높은 등불 탑들이 밤새 로켓을 비추었단다.', name: '등불 탑 전기병', x: 0.4, w: 100, h: 300, lines: ['저 멀리 높은 등불 탑에 불을 켰단다.', '밤인데도 낮처럼 환하게 비추지.'] },
+          { id: 'moonman', pass: '오늘은 달이 참 밝구나.', name: '달 보는 병사', x: 0.51, w: 100, h: 300, lines: ['저기 달이 거의 동그랗게 찼구나.', '달빛에 초원이 은빛으로 보이지.'] },
+          { id: 'phone', pass: '전화가 또 울리는구나.', name: '전화 받는 병사', x: 0.62, w: 100, h: 300, lines: ['오늘 밤은 전화가 자주 울린단다.', '다들 기다리라는 말뿐이야.'] },
+          { id: 'truck', pass: '바퀴에 모래가 잔뜩 꼈네.', name: '트럭 모는 운전병', x: 0.73, w: 100, h: 300, lines: ['나는 초원 길로 짐을 나르는 운전병이란다.', '오늘 밤은 모두 멀리 물러나 있으래.'] },
+          { id: 'recruit', pass: '초원은 끝이 보이지 않는구나.', name: '새로 온 신병', x: 0.85, w: 100, h: 300, lines: ['나는 이번 가을에 이곳에 왔단다.', '밤하늘이 이렇게 넓은 줄 몰랐어.'] },
+        ],
+        spots: [
+          // The moon put in at the upper left of the try by the mend (where the red streaks
+          // were). (From and to are to be set to the mended picture.)
+          { id: 'moon', from: 0.04, to: 0.2, sora: '달이 거의 동그래!', memo: '그날 밤 거의 찬 달이 남서쪽 하늘에 떠 있었단다.' },
+          // The rocket in the try (about 0.75 to 0.85).
+          { id: 'fairing', from: 0.75, to: 0.85, sora: '로켓 꼭대기에 뭐가 있을까?', memo: '로켓 꼭대기의 뾰족한 덮개 속에 첫 인공위성이 들어 있었단다.' },
+          // The low block at the right edge of the try (about 0.93 to 0.99). Korolev is not
+          // drawn and cannot be spoken to: far off, no face.
+          { id: 'bunker', from: 0.93, to: 0.99, sora: '저 낮은 집에 누가 있을까?', memo: '발사대 곁 지휘소란다. 로켓을 만든 코롤료프와 기술자들이 지켜보았지.' },
+        ],
+      },
+    ],
+    // "The tea and bread" (core/tale.js; the storyboard of docs/신기한-사실.md): the woman of
+    // the soldiers' canteen has tea and bread for the guard of the post on the steppe, who
+    // works late tonight; the guard of the railway crossing lets no one by without a pass; the
+    // track worker says to go by the shepherds' path through the dry bushes; she hands the tea
+    // and bread to the guard of the post, choosing what to say; and far off in the lights a
+    // fire springs up, a low rumble comes long after, and the rocket climbs lighting the
+    // steppe and becomes a small light. The guard does not know what went up; only Sora does.
+    tale: {
+      thing: true,
+      ask: '오늘 밤 초원에서 무엇이 오를까?',
+      gate: { scene: 'rail', open: 3, sora: '경계병 아저씨가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'cook', goal: '군인 식당의 식당 아주머니에게 가 보렴.', holds: '차와 빵: 식당 아주머니가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '초원 초소의 경계병이 밤늦게까지 일한단다.', '따뜻한 차와 빵을 전해 주렴.'],
+          offer: { ask: '차와 빵을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'crossguard', goal: '철길 건널목의 경계병에게 가 보렴.', holds: '차와 빵: 소라가 들고 있음',
+          lines: ['멈추렴. 통행증이 없으면 지나갈 수 없단다.', '오늘 밤은 아무도 건널목을 건널 수 없어.'],
+          sora: '차가 식기 전에 가야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'trackman', call: '얘, 초소에 가려고?', goal: '철길 고치는 일꾼이 부른다. 가 보렴.', holds: '차와 빵: 소라가 들고 있음',
+          lines: ['건널목 말고 양치기 길로 가렴.', '마른 풀 덤불 사이로 가면 초소가 나와.', '이 애는 양치기 길로 간다네!'],
+          after: [{ who: 'crossguard', line: '양치기 길이라면 가도 좋단다.' }],
+          sora: '양치기 길로 돌아가래! 가자!',
+        },
+        {
+          who: 'postguard', goal: '초원 초소의 경계병에게 차와 빵을 전하렴.', holds: '차와 빵: 소라가 들고 있음',
+          lines: ['오, 식당에서 온 차와 빵이로구나.'],
+          choice: {
+            ask: '차와 빵을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"식당 아주머니가 보냈어요"', sora: '식당 아주머니가 보내셨어요.', says: '아직 따뜻하구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"오늘 밤 무슨 일이 있어요?"', sora: '오늘 밤 무슨 일이 있어요?', says: '나도 모른단다. 다들 저 등불만 보고 있지.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'postguard', show: true, goal: '멀리 등불 속의 로켓을 보렴.',
+          lines: ['저기 등불 속을 보렴. 불길이 일었다!', '불빛이 먼저 오고 소리는 한참 뒤에 오는구나.', '무엇이 올라가는지 나도 모른단다.'],
+          sora: '저건 첫 인공위성을 실은 로켓이야!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'cook', when: ['S1', 'S2', 'S3', 'S4'], lines: ['초소는 철길 건너 초원에 있단다.', '달빛을 따라가면 보일 거야.'] },
+        { who: 'cook', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '하늘의 그 불빛은 무엇이었을까?'] },
+      ],
+      done: '차와 빵을 전하고, 로켓이 밤하늘로 오르는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '차와 빵을 받는다.', at: [] },
+      { id: 'gave', text: '초소 경계병에게 차와 빵을 전한다.', at: [] },
+      { id: 'saw', text: '로켓이 밤하늘로 오르는 것을 본다.', at: [] },
+    ],
+    reply: '그 밤의 쇠공은 이듬해 하늘에서 타 버렸단다. 그래도 네가 보았으니 됐지.',
+  },
+  // Dubai on 4 January 2010, at night: the tallest building in the world is opened, and its
+  // name is changed from Burj Dubai to Burj Khalifa. Drawn as Islamic zellij, small glazed
+  // tiles laid flat (the user's choice of five tries: the first). The pictures are in
+  // dubai2010; the try is the third scene ('lake': the promenade by the lake under the
+  // tower), and a lane of the Souk Al Bahar and the front of the new metro station were
+  // ordered after it. It is night: not `pale`.
+  // Looked up on 2026.10.15 (docs/신기한-사실.md) and found so: opened that night; the name
+  // changed at the ceremony, a surprise; the height kept secret and shown on a great screen;
+  // the tower lit first, lights beating like a heart, searchlights drawing the tower, the
+  // fountain and fireworks drawing the desert flower the tower was made after, fireworks from
+  // the tower's terraces at the end; people watched from the promenade by the lake, with a
+  // great screen; the Burj Dubai metro station opened that day, and there was no walkway from
+  // it to the mall until 2012 (people went by bus); the deck at the top opened the next day;
+  // the fountain dances to music; the Souk Al Bahar of arched lanes and wooden lattices was
+  // open; the tower narrows in steps to a spire; no moon during the ceremony.
+  // Looked up while writing and found so: Arabic coffee is poured from a dallah and served to
+  // guests with dates, and a guest shakes the cup when done (UNESCO; Gulf News).
+  // Not found, so not said as of that night: the hour (eight is a guess), the weather, what
+  // was sold by the lake.
+  // From memory: the dress of the Emirates (kandura, ghutra and agal, abaya and shayla, the
+  // girl's embroidered dress); the shell-like golden roof of the raised metro stations; that
+  // the land about was desert sand not long before (the grandmother's line).
+  // Made up: the errand of the bundle, the date seller and his nephew the lighting worker, the
+  // guard, the station guide who sends her round by the bus stop, every other person.
+  // Kept out: Sheikh Mohammed and the great guests but as a far-off stage; why the name was
+  // changed; the workers' pay; the height in words; going up the tower; the moon; boats.
+  burjKhalifa: {
+    first: '세상에서 가장 높은 탑을 여는 밤이란다. 조명 일꾼에게 꾸러미를 전해 주렴.',
+    dir: 'dubai2010', look: 'paper',
+    drawn: '이슬람 건물의 별 무늬 조각 타일처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'souk', name: '아랍에미리트 두바이 수크 알 바하르 골목', short: '수크 알 바하르 골목', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'market', floor: 'dirt',
+        sora: '장터에 등불이 가득 켜졌어!',
+        people: [
+          { id: 'lamps', pass: '등불을 하나씩 다 켜 두어야지.', name: '등불 가게 아저씨', x: 0.18, w: 100, h: 300, lines: ['오늘 밤은 장터 등불을 모두 켰단다.', '호수 건너 탑에서 큰 잔치가 열리거든.'] },
+          { id: 'coffeeman', pass: '손님께 드릴 커피가 다 끓었구나.', show: 'dallah', pose: 'see-aha', sora: '주둥이가 새 부리처럼 길어!', memo: '이 주전자를 달라라고 한단다. 손님에게 커피를 따르고 대추야자를 곁들이지.', name: '커피 따르는 아저씨', x: 0.29, w: 100, h: 300, lines: ['손님이 오면 이 주전자로 커피를 따른단다.', '다 마신 손님은 잔을 살살 흔들어 알리지.'] },
+          { id: 'datesaunt', pass: '대추야자를 접시에 곱게 담아야지.', show: 'dates', name: '대추야자 접시 든 아주머니', x: 0.4, w: 100, h: 300, lines: ['손님을 맞을 때는 대추야자를 내놓는단다.', '하나 먹어 보련? 아주 달단다.'],
+            try: { id: 'eat-dates2010', verb: 'eat', name: '대추야자 한 접시', face: 'yum', sora: '대추야자가 쫀득하고 달콤해!' } },
+          { id: 'grandpa', pass: '누가 좀 전해 주면 좋으련만.', name: '대추야자 가게 할아버지', x: 0.51, w: 100, h: 300, lines: ['나는 이 장터에서 대추야자를 판단다.', '내 조카는 오늘 밤 호숫가에서 일하지.'] },
+          { id: 'tailor', pass: '소매 끝의 수를 마저 놓아야지.', name: '옷 가게 아주머니', x: 0.62, w: 100, h: 300, lines: ['아이들 나들이옷을 짓는 가게란다.', '수놓은 옷이 있어. 입어 보련?'],
+            try: { id: 'wear-dubai2010', verb: 'wear', name: '아랍에미리트의 나들이옷', outfit: 'dubai2010', sora: '소매 끝에 금빛 수가 놓였어!', memo: '이 땅 여자아이들은 잔치 날에 수놓은 긴 옷을 입고 그 아래에 바지를 입는단다.' } },
+          { id: 'boy', pass: '불꽃을 맨 앞에서 볼 거야.', name: '구경 가는 아이', x: 0.73, w: 100, h: 300, lines: ['오늘 밤 탑에서 불꽃을 쏜대.', '아빠랑 호숫가에 가서 볼 거야.'] },
+          { id: 'traveler', pass: '오늘 밤 사진을 많이 찍어야지.', name: '사진기 든 여행객', x: 0.85, w: 100, h: 300, lines: ['나는 먼 나라에서 구경하러 왔어요.', '탑을 여는 날에 맞춰서 왔지요.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'station', name: '아랍에미리트 두바이 부르즈 두바이 역 앞', short: '부르즈 두바이 역 앞', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '오늘 처음 문을 연 역이래!',
+        people: [
+          { id: 'rider', pass: '기차가 정말 조용하게 달리는구나.', show: 'metro', pose: 'see-wow', sora: '기차가 높은 다리 위로 다녀!', memo: '이 역은 탑을 여는 날에 맞춰 오늘 문을 열었단다. 기차는 높은 다리 위로 달리지.', name: '첫 기차 타 본 아저씨', x: 0.18, w: 100, h: 300, lines: ['방금 기차를 타고 여기까지 왔단다.', '기차가 길 위의 높은 다리로 달리더구나.'] },
+          { id: 'builder', pass: '오늘은 일 대신 구경하는 날이야.', name: '탑을 지은 일꾼', x: 0.29, w: 100, h: 300, lines: ['나는 먼 나라에서 와서 저 탑을 지었어.', '오늘은 친구들과 불꽃을 보러 왔지.'] },
+          { id: 'guide', pass: '오늘은 첫날이라 나도 바쁘구나.', name: '역 안내원', x: 0.4, w: 100, h: 300, lines: ['이 역은 오늘 처음 문을 열었단다.', '탑을 여는 날에 맞춰서 열었지.'] },
+          { id: 'flagkid', pass: '깃발을 더 높이 흔들어야지.', name: '국기 든 아이', x: 0.51, w: 100, h: 300, lines: ['우리 나라 깃발을 들고 왔어.', '탑 위로 불꽃이 터지면 흔들 거야.'] },
+          { id: 'busaunt', pass: '버스가 얼른 오면 좋겠구나.', name: '버스 기다리는 아주머니', x: 0.62, w: 100, h: 300, lines: ['역에서 몰까지는 버스를 타고 간단다.', '오늘은 사람이 많아서 줄이 길구나.'] },
+          { id: 'grandma', pass: '이렇게 높은 탑은 처음 보는구나.', name: '손주 손 잡은 할머니', x: 0.73, w: 100, h: 300, lines: ['내가 어릴 적엔 여기가 다 모래밭이었단다.', '이제는 하늘에 닿을 듯한 탑이 섰구나.'] },
+          { id: 'guard', pass: '이쪽은 손님들 자리입니다.', name: '다리 앞 경비원', x: 0.85, w: 100, h: 300, lines: ['이쪽 길은 초대받은 손님들 자리란다.', '오늘 밤은 표가 있어야 지나간단다.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'lake', name: '아랍에미리트 두바이 부르즈 할리파 호숫가 산책길', short: '호숫가 산책길', zoom: 1.06, ground: 0.8, scale: 0.62, air: 'hush', floor: 'dirt',
+        sora: '탑 꼭대기가 하늘을 찔러!',
+        people: [
+          { id: 'mom', pass: '아기가 불꽃 소리에 놀라지 않을까.', name: '아기 안은 엄마', x: 0.18, w: 100, h: 300, lines: ['아기에게 오늘 밤을 보여 주고 싶었단다.', '나중에 크면 이야기해 줄 거야.'] },
+          { id: 'teacher', pass: '아이들에게 꽃 이야기를 해 줘야지.', name: '사막 꽃 이야기하는 선생님', x: 0.29, w: 100, h: 300, lines: ['저 탑은 사막에 피는 꽃을 보고 지었단다.', '오늘 밤 분수도 그 꽃 모양으로 핀대.'] },
+          { id: 'oldman', pass: '아무리 올려다봐도 끝이 까마득하구나.', show: 'tower', pose: 'see-wow', sora: '탑이 계단처럼 가늘어져!', memo: '탑은 위로 갈수록 계단처럼 가늘어지다가 바늘 끝이 된단다. 오늘이 탑을 여는 날이지.', name: '탑을 올려다보는 할아버지', x: 0.4, w: 100, h: 300, lines: ['꼭대기가 구름에 닿을 것만 같구나.', '꼭대기 전망대는 내일부터 연다는구나.'] },
+          { id: 'reporter', pass: '이 밤을 사진에 꼭 담아야지.', name: '사진 찍는 기자', x: 0.51, w: 100, h: 300, lines: ['온 세상 신문에 오늘 밤 사진이 실릴 거야.', '탑 꼭대기까지 한 장에 담기가 어렵구나.'] },
+          { id: 'lightman', pass: '자리를 비울 수가 없어 배가 고프네.', show: 'night', name: '조명 일꾼', x: 0.62, w: 100, h: 300, lines: ['나는 큰 화면 뒤에서 조명을 맡았단다.', '식이 끝날 때까지 자리를 지켜야 해.'] },
+          { id: 'clapper', pass: '분수가 언제 춤을 출까?', name: '손뼉 치는 아이', x: 0.73, w: 100, h: 300, lines: ['분수가 노래에 맞춰 춤을 춘대.', '맨 앞에서 보려고 일찍 왔어.'] },
+          { id: 'dad', pass: '우리 아이가 잘 보이면 좋겠구나.', name: '아이 목말 태운 아빠', x: 0.85, w: 100, h: 300, lines: ['사람이 많아서 아이를 목말 태웠단다.', '저기 큰 화면에 탑이 비치는구나.'] },
+        ],
+        spots: [
+          // The foot of the tower in the try (x 0.80 to 0.95 of the picture), where the stage of
+          // the ceremony was. Sheikh Mohammed and the great guests are not drawn and cannot be
+          // spoken to.
+          { id: 'stage', from: 0.8, to: 0.95, sora: '탑 아래 먼 무대가 환해!', memo: '두바이를 다스리는 셰이크 무함마드와 손님들이 계신 무대란다. 멀어서 말을 걸 수 없지.' },
+        ],
+      },
+    ],
+    // "The bundle" (core/tale.js; the storyboard of docs/신기한-사실.md): the date seller in
+    // the souk has a bundle of dates and bread for his nephew, who works the lights behind the
+    // great screen and cannot leave until the ceremony is over; at the new metro station a
+    // guard says the way is for invited guests; the station guide, new to the station herself,
+    // says there is no walkway to the mall yet and to go round by the bus stop to the lake;
+    // she gives the bundle to the lighting worker, choosing what to say; and she watches the
+    // tower lit, the fountain flower, the fireworks, and the new name on the great screen.
+    tale: {
+      thing: true,
+      ask: '탑을 여는 밤에는 무슨 일이 생길까?',
+      gate: { scene: 'station', open: 3, sora: '경비원 아저씨가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'grandpa', goal: '대추야자 가게 할아버지에게 가 보렴.', holds: '꾸러미: 할아버지가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '조카가 호숫가 큰 화면 뒤에서 일한단다.', '저녁 꾸러미를 좀 갖다주렴.'],
+          offer: { ask: '꾸러미를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'guard', goal: '부르즈 두바이 역 앞을 지나 호숫가로 가 보렴.', holds: '꾸러미: 소라가 들고 있음',
+          lines: ['얘야, 이쪽은 초대받은 손님들 자리란다.', '오늘 밤은 지나갈 수 없구나.'],
+          sora: '꾸러미를 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'guide', call: '얘, 어디 가니?', goal: '역 안내원이 부른다. 가 보렴.', holds: '꾸러미: 소라가 들고 있음',
+          lines: ['호숫가에 간다고? 몰로 가는 다리 길은 아직 없단다.', '버스 정류장 옆 길로 돌아서 가렴.', '오늘 처음 연 역이라 나도 길이 서툴구나.'],
+          after: [{ who: 'guard', line: '그 길이면 산책길로 바로 이어진단다.' }],
+          sora: '정류장 옆 길로 돌아가면 된대! 가자!',
+        },
+        {
+          who: 'lightman', goal: '호숫가의 조명 일꾼에게 꾸러미를 전하렴.', holds: '꾸러미: 소라가 들고 있음',
+          lines: ['오, 삼촌이 보낸 저녁이로구나! 배고프던 참이란다.'],
+          choice: {
+            ask: '꾸러미를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"할아버지가 보내셨어요"', sora: '대추야자 가게 할아버지가 보내셨어요.', says: '삼촌이 챙겨 주셨구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"불꽃은 언제 터져요?"', sora: '불꽃은 언제 터져요?', says: '이제 곧 탑의 여러 층에서 터진단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'lightman', show: true, goal: '탑을 여는 식을 보렴.',
+          lines: ['마침 잘 왔다. 이제 탑에 불이 들어온단다.', '불빛이 뛰고, 분수가 꽃처럼 피는구나.'],
+          sora: '큰 화면에 새 이름이 떴어! 부르즈 할리파래!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'grandpa', when: ['S1', 'S2', 'S3', 'S4'], lines: ['조카는 호숫가 큰 화면 뒤에 있단다.', '역 쪽으로 돌아서 가렴.'] },
+        { who: 'grandpa', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '조카도 이제 든든하게 일하겠구나.'] },
+      ],
+      done: '꾸러미를 전하고, 탑을 여는 밤의 불꽃과 분수를 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '꾸러미를 받는다.', at: [] },
+      { id: 'gave', text: '조명 일꾼에게 꾸러미를 전한다.', at: [] },
+      { id: 'saw', text: '탑을 여는 식을 본다.', at: [] },
+    ],
+    reply: '그날 밤 바뀐 이름을 지금은 온 세상이 부른단다.',
+  },
 };
 
 // The far and the fore of every other scene are told from the pictures that are there (the

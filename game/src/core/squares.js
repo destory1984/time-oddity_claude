@@ -888,6 +888,65 @@ export const SQUARES = [
     reply: '그날 열차가 건넌 돌다리로 지금도 기차가 지나간단다.',
     quiz: { question: '첫 열차의 수레들은 무엇이 끌었나?', answer: '증기 기관차', proof: '증기 기관차', wrong: ['말', '소'] },
   },
+  {
+    // Gatun, Panama, 15 August 1914: the steamship Ancon makes the first official passage
+    // through the Panama Canal, and the canal is opened to ships. She left Cristobal about seven
+    // and reached the Gatun Locks in the morning (a telegram says about eight, a paper says she
+    // went in at nine): hourLocal 9, Canal Zone time (UTC-5). Seen from beside the lock wall,
+    // looking across the locks (they run north and south) to the east, into the morning light
+    // (the try is lit from behind the locks, the wet way shining toward the looker). The sky is
+    // shown at 9 pm (nightOnLook).
+    // The sun and the moon: computed with astronomy-engine for 9 am that day at 9.27 N, 79.92 W:
+    // the sun 40 degrees up at azimuth 79 (east); the moon 287 degrees past new, 35% lit, so
+    // between the last quarter and the old crescent (59 degrees up in the north-west in the
+    // morning, below the horizon at 9 pm).
+    // Looked up on 2026.10.15 (docs/신기한-사실.md) and found so: the Ancon made the first
+    // official passage that day and the canal was opened to ships; the Gatun Locks lift ships in
+    // three steps to Gatun Lake; electric engines on the walls hold the ship with cables; more
+    // than three in four of the workers came from the West Indies, and were paid and housed apart
+    // from the Americans (the gold roll and the silver roll); very many died in the works (said
+    // once, plainly, without a number). The locks at 9 deg 16 min N, 79 deg 55 min W (Library of
+    // Congress, from GeoNames). That the Gatun Locks still pass ships is common knowledge.
+    // The place is walked about (core/walks.js).
+    no: 85, id: 'panama', name: '파나마 운하', dateLabel: 'AD 1914.8.15', place: '가툰, 파나마',
+    lat: 9.27, lon: -79.92,
+    date: { year: 1914, month: 8, day: 15 }, calendar: 'gregorian', hourLocal: 9,
+    facingAz: 90, nightOnLook: true,
+    memo: '운하에 첫 배가 지나는 날.', sora: '배가 물 계단을 올라가!',
+    memoToday: '남은 것: 가툰 갑문. 지금도 씀.', soraToday: '지금도 배가 그 문으로 지나가!',
+    noteMemo: '1914년 8월 15일. 안콘 호가 운하를 처음 지났다고 읽음. 그날 달은 반달에서 그믐 사이.',
+    card: '1914년 8월 15일, 증기선 안콘 호가 대서양에서 태평양까지 파나마 운하를 처음으로 공식으로 건너 운하가 열렸습니다. 배는 가툰 갑문에서 물을 채운 방을 계단처럼 올라 높은 곳의 큰 호수로 갔고, 벽 위의 전기 기관차가 밧줄로 배를 잡아 주었습니다. 운하는 서인도 제도에서 온 일꾼들이 가장 많이 지었는데, 그들은 미국 일꾼과 따로 살며 적은 삯을 받았고 공사 동안 아주 많은 사람이 목숨을 잃었습니다.',
+    reply: '그날 처음 열린 갑문으로 지금도 배들이 산을 넘는단다.',
+    quiz: { question: '벽 위에서 밧줄로 배를 잡아 준 것은?', answer: '전기 기관차', proof: '전기 기관차', wrong: ['증기 삽차', '큰 돛배'] },
+  },
+  {
+    // Dubai, 4 January 2010: the tallest building in the world is opened at night, and at the
+    // ceremony its name is changed from Burj Dubai to Burj Khalifa, after Sheikh Khalifa, the
+    // President of the Emirates. Eight in the evening; the hour is a guess (the evening is on
+    // record, the hour not). Seen from the lakeside south of the tower, by the Souk Al Bahar,
+    // looking north-north-west across the lake at it (the try has the souk on the left and
+    // the tower on the right).
+    // The sky: the sun set at 17:42 and the moon (waning, a few days past full) rose at 21:51
+    // (astronomy-engine, docs/신기한-사실.md): at eight there is no moon. So the sky memo says
+    // the moon rose late.
+    // Looked up on 2026.10.15 (docs/신기한-사실.md) and found so: opened on the night of
+    // 4 January 2010, the day Sheikh Mohammed came to rule Dubai in 2006; the new name was told
+    // at the ceremony and came as a surprise; fountains and fireworks drew the desert flower
+    // Hymenocallis, from which the tower's design came; many workers from far countries built
+    // it; the fountain dances every evening.
+    // Kept out: why the name was changed; the workers' pay; the height as a quiz.
+    // The place is walked about (core/walks.js).
+    no: 117, id: 'burjKhalifa', name: '부르즈 할리파', dateLabel: 'AD 2010.1.4', place: '두바이, 아랍에미리트',
+    lat: 25.1972, lon: 55.2744,
+    date: { year: 2010, month: 1, day: 4 }, calendar: 'gregorian', hourLocal: 20,
+    facingAz: 340, nightOnLook: false,
+    memo: '세상에서 가장 높은 탑을 여는 밤.', sora: '탑에서 불꽃이 펑펑 터져!',
+    memoToday: '남은 것: 탑과 호수, 분수. 그대로.', soraToday: '분수가 지금도 밤마다 춤을 춰!',
+    noteMemo: '2010.1.4. 두바이의 가장 높은 탑이 문을 열며 이름을 바꿨다고 읽음. 그날 밤 달은 늦게 떴음.',
+    card: '2010년 1월 4일 밤, 아랍에미리트 두바이에서 세상에서 가장 높은 건물이 불꽃과 분수 속에 문을 열었습니다. 이름은 부르즈 두바이였는데, 그날 식에서 아랍에미리트 대통령 셰이크 할리파를 기려 부르즈 할리파로 바꾼다고 알려 모두 놀랐습니다. 탑은 사막에 피는 꽃의 모양에서 따왔고, 먼 나라에서 온 많은 일꾼이 지었습니다.',
+    reply: '그날 밤 불꽃 속에 문을 연 탑은 지금도 두바이 하늘에 우뚝 서 있단다.',
+    quiz: { question: '그날 식에서 바꾼 탑의 새 이름은?', answer: '부르즈 할리파', proof: '부르즈 할리파로 바꾼다고', wrong: ['부르즈 알 아랍', '부르즈 아부다비'] },
+  },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
 
