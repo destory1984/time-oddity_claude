@@ -20,7 +20,7 @@ const LINES = {
     tokyo: '첫 신칸센이 달리던 날로',
     kittyhawk: '첫 비행을 곁에서 보고',
     dubai: '가장 높은 탑의 불꽃까지',
-    end: { title: '할머니의 수첩 2권', note: '지난 날을 걸어 보는 시간 여행 게임', find: '구글 플레이 등록 준비 중', store: 'Time Oddity - 시간 한량' },
+    end: { title: '할머니의 수첩', note: '지난날을 걸어보는<br>시간 여행 게임', find: '구글 플레이 등록 준비 중', store: 'Time Oddity - 할머니의 수첩' },
   },
 };
 

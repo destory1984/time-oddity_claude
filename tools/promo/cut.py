@@ -106,7 +106,9 @@ def main(lang):
     at = 0.0
     for i, (name, start, length) in enumerate(CUT):
         folder = os.path.join(ROOT, lang, name)
-        if os.path.exists(os.path.join(folder, 'audio.webm')):
+        # (No effects: what each shot recorded is mostly her footsteps, and the user, 2026.10.15:
+        # "발소리 없애자". The film has the music alone. EFFECTS=1 puts them back.)
+        if os.environ.get('EFFECTS') and os.path.exists(os.path.join(folder, 'audio.webm')):
             first = json.load(open(os.path.join(folder, 'times.json')))[0]
             began = json.load(open(os.path.join(folder, 'audio.json')))['start']
             inputs += ['-i', os.path.join(folder, 'audio.webm')]
