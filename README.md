@@ -11,17 +11,13 @@
 - 휴대폰으로 열면 화면에 딱 맞는다. 앱을 깔거나 가입할 필요가 없고 광고도 없다. 어디까지 했는지는 그 휴대폰에만 저장된다.
 - 지금 판은 v0.2.73이다(2026.10.15). 갈 곳은 쉰둘이고, 한 곳을 다 보는 데 5분쯤 걸린다.
 
-| 로마 제국 - 로마 AD 80 | 동로마 제국 - 콘스탄티노플 AD 537 | 송나라 - 개봉 AD 1054 | 이집트 맘루크 왕조 - 카이로 AD 1324 |
+| 로마 제국 - 로마 AD 80 | 송나라 - 개봉 AD 1054 | 이집트 맘루크 왕조 - 카이로 AD 1324 | 잉카 - 마추픽추 AD 1450 |
 |---|---|---|---|
-| <img src="docs/shots/rome-80.jpg" width="190" alt="로마 시장 거리의 생선 소스 가게 앞"> | <img src="docs/shots/constantinople-537.jpg" width="190" alt="콘스탄티노플 하기아 소피아의 돔 아래"> | <img src="docs/shots/kaifeng-1054.jpg" width="190" alt="개봉 무지개 다리 어귀, 별 보는 생도"> | <img src="docs/shots/cairo-1324.jpg" width="190" alt="카이로 성 밖 만사 무사의 천막"> |
+| <img src="docs/shots/rome-80.jpg" width="190" alt="로마 시장 거리의 생선 소스 가게 앞"> | <img src="docs/shots/kaifeng-1054.jpg" width="190" alt="개봉 무지개 다리 어귀, 별 보는 생도"> | <img src="docs/shots/cairo-1324.jpg" width="190" alt="카이로 성 밖 만사 무사의 천막"> | <img src="docs/shots/machupicchu-1450.jpg" width="190" alt="마추픽추 계단밭, 발 쟁기를 든 농부"> |
 
-| 무굴 제국 - 아그라 AD 1640 | 타히티 - 마타바이 만 AD 1769 | 일본 - 도쿄 AD 1964 |
-|---|---|---|
-| <img src="docs/shots/agra-1640.jpg" width="190" alt="아그라 타지마할의 꽃을 박는 장인"> | <img src="docs/shots/tahiti-1769.jpg" width="190" alt="타히티 마타바이 만 바닷가, 코코넛 파는 아주머니"> | <img src="docs/shots/tokyo-1964.jpg" width="190" alt="도쿄역 승강장, 첫 신칸센 앞"> |
-
-| 잉카 - 마추픽추 AD 1450 | 베네치아 공화국 - 파도바 AD 1610 | 프랑스 - 파리 AD 1783 | 오스트레일리아 - 시드니 AD 1973 |
+| 무굴 제국 - 아그라 AD 1640 | 타히티 - 마타바이 만 AD 1769 | 일본 - 도쿄 AD 1964 | 오스트레일리아 - 시드니 AD 1973 |
 |---|---|---|---|
-| <img src="docs/shots/machupicchu-1450.jpg" width="190" alt="마추픽추 계단밭, 발 쟁기를 든 농부"> | <img src="docs/shots/padua-1610.jpg" width="190" alt="파도바의 저녁 장터, 군밤 장수"> | <img src="docs/shots/paris-1783.jpg" width="190" alt="라 뮈에트 성의 뜰, 떠오르려는 풍선"> | <img src="docs/shots/sydney-1973.jpg" width="190" alt="시드니 오페라하우스 큰 계단 밑"> |
+| <img src="docs/shots/agra-1640.jpg" width="190" alt="아그라 타지마할의 꽃을 박는 장인"> | <img src="docs/shots/tahiti-1769.jpg" width="190" alt="타히티 마타바이 만 바닷가, 코코넛 파는 아주머니"> | <img src="docs/shots/tokyo-1964.jpg" width="190" alt="도쿄역 승강장, 첫 신칸센 앞"> | <img src="docs/shots/sydney-1973.jpg" width="190" alt="시드니 오페라하우스 큰 계단 밑"> |
 
 ## 지금 있는 것
 
