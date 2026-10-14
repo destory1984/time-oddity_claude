@@ -339,6 +339,62 @@
 "q": 78,
 "sha": "1b19b8563632e111f83b8f858db43bc35b173ec5"
 },
+"beijing1420/bricks-far.webp": {
+"q": 78,
+"sha": "8f6c961ff8d397f86c39896c849dbd2964e8afdf"
+},
+"beijing1420/bricks-near.webp": {
+"q": 70,
+"sha": "0b7f51639a93fe1f1b76a4b5aa1f595c39cd34d5"
+},
+"beijing1420/bricks.webp": {
+"q": 78,
+"sha": "b312103818872d7b9b8a7b5119ec2ded9a4f0c7f"
+},
+"beijing1420/hall-far.webp": {
+"q": 78,
+"sha": "ba72c4da6c1ce5f8b294a10927bcd67effb741c1"
+},
+"beijing1420/hall-near.webp": {
+"q": 70,
+"sha": "ce4b2fac26244a608586fc4a0df5bea9faf7ba9c"
+},
+"beijing1420/hall.webp": {
+"q": 78,
+"sha": "8cf5351f82b26bf09181e6ec5d1751038ff95cb4"
+},
+"beijing1420/show-brick.webp": {
+"q": 78,
+"sha": "9383a69e69afdeb78526f0fd3231303369bc5f6d"
+},
+"beijing1420/show-buns.webp": {
+"q": 78,
+"sha": "a96708b55f4a7786c956fb4fada2fdd9cefc5c9d"
+},
+"beijing1420/show-nanmu.webp": {
+"q": 78,
+"sha": "1018626a0f65d2e88063c14540ccc64dfc1aca58"
+},
+"beijing1420/show-paint.webp": {
+"q": 78,
+"sha": "0287736ea6a662b2342152884fce61c7653d936e"
+},
+"beijing1420/show-roof.webp": {
+"q": 78,
+"sha": "c23931e79aaadbebb5a733c5d5fbdfbc87be25c0"
+},
+"beijing1420/timber-far.webp": {
+"q": 78,
+"sha": "4c3a6fe735ee20c3d71675f38e5ab50db242d585"
+},
+"beijing1420/timber-near.webp": {
+"q": 70,
+"sha": "090d8b484de7fd58782bfcc48ecc6884f83fe829"
+},
+"beijing1420/timber.webp": {
+"q": 78,
+"sha": "45110e4f32e69207f66b35e82486f5793efb3c59"
+},
 "borobudur825/gallery-far.webp": {
 "q": 78,
 "sha": "ec1e410303349220f5a8a4d53ce2bb13300d9008"
@@ -523,6 +579,62 @@
 "q": 78,
 "sha": "00ed72432e5e6b0aacc4557bdf064087d49b9c83"
 },
+"florence1436/bakery-far.webp": {
+"q": 78,
+"sha": "ede1e51ce903ac572a8d9549df224dccd555cd84"
+},
+"florence1436/bakery-near.webp": {
+"q": 70,
+"sha": "2ad603768e411b360167fadf591ca17d8fe07e0d"
+},
+"florence1436/bakery.webp": {
+"q": 78,
+"sha": "78bafa9a42186bcf11bf526a73ca9ccee233ba42"
+},
+"florence1436/door-far.webp": {
+"q": 78,
+"sha": "5c530f772909caed950efb7c773241933db9675f"
+},
+"florence1436/door-near.webp": {
+"q": 70,
+"sha": "64a267b6e71387f643ba6be3a530e5b40ab660b9"
+},
+"florence1436/door.webp": {
+"q": 78,
+"sha": "dd8a7ea82c6fe44fb947134e35ea5f64e3effe40"
+},
+"florence1436/show-bread.webp": {
+"q": 78,
+"sha": "febf7345efef142ffe7591163690fd3745af64c9"
+},
+"florence1436/show-dome.webp": {
+"q": 78,
+"sha": "137d468b31a04a44afd619c02215004dee8afeff"
+},
+"florence1436/show-herring.webp": {
+"q": 78,
+"sha": "e779a7ce30594a7be17fa7479244da6138b88ca3"
+},
+"florence1436/show-hoist.webp": {
+"q": 78,
+"sha": "074b05eb46804cb935f435a63e05e5689e05a951"
+},
+"florence1436/show-rose.webp": {
+"q": 78,
+"sha": "5b7999721889eb31c75a7a12dfb2b4ae95289912"
+},
+"florence1436/yard-far.webp": {
+"q": 78,
+"sha": "794599b315937952f9deda0278e43a508d190573"
+},
+"florence1436/yard-near.webp": {
+"q": 70,
+"sha": "fbb42e1f74d344aa53c0880fcc246cdded6280f7"
+},
+"florence1436/yard.webp": {
+"q": 78,
+"sha": "5d35c78a386995214135840192fe6685ac5c6f3b"
+},
 "giza2560/harbour-far.webp": {
 "q": 78,
 "sha": "56ce7af60b1394b260d7bf9f5d58c20f6e4d6c37"
@@ -706,6 +818,62 @@
 "hanyang/show-tteok.webp": {
 "q": 78,
 "sha": "a6de19f006f4f43d538e9bfdcd39d73ea35c5810"
+},
+"jamaica1504/beach-far.webp": {
+"q": 78,
+"sha": "3dc32b6b13b40a1a16d2a2f807e1c203ca4d3d24"
+},
+"jamaica1504/beach-near.webp": {
+"q": 70,
+"sha": "68949c7b27b208b7cd13378f0c4fe9d55ea60cb6"
+},
+"jamaica1504/beach.webp": {
+"q": 78,
+"sha": "4c2b1df19a2e9e4719346c7db32b32f0f51c7bb9"
+},
+"jamaica1504/sandbar-far.webp": {
+"q": 78,
+"sha": "b9c88eac950a13b5c37ab4789dc946bc022ebb75"
+},
+"jamaica1504/sandbar-near.webp": {
+"q": 70,
+"sha": "7c4da0893ff05cef15cee0799848d4fe2909805d"
+},
+"jamaica1504/sandbar.webp": {
+"q": 78,
+"sha": "dbb97c42c5cc7689029f8d9c6e3a8fefdd458363"
+},
+"jamaica1504/show-buren.webp": {
+"q": 78,
+"sha": "17cd5879a4d8416b46c3658c7d1246f914e4123a"
+},
+"jamaica1504/show-canoe.webp": {
+"q": 78,
+"sha": "3dba4fa9d218f2b18f5c8dd6317f1f616c06093b"
+},
+"jamaica1504/show-casabe.webp": {
+"q": 78,
+"sha": "5c85dc09354f9b853abef99b5e622efe66581b21"
+},
+"jamaica1504/show-hammock.webp": {
+"q": 78,
+"sha": "1cc20af9c0b5089497bdac88cc22b04429782382"
+},
+"jamaica1504/show-moon.webp": {
+"q": 78,
+"sha": "cc89dd3921f759db6a73a7459efef27fe57613d7"
+},
+"jamaica1504/village-far.webp": {
+"q": 78,
+"sha": "ba60b8b1a31bc27c0fb3de45c27bf20c4bb655a1"
+},
+"jamaica1504/village-near.webp": {
+"q": 70,
+"sha": "db0aeaeeba5a599fb5b1cb9e700ae62e259bb8b4"
+},
+"jamaica1504/village.webp": {
+"q": 78,
+"sha": "2676d3ba83d94c70fff6e1e46733caf0bb8de9bb"
 },
 "jikji1377/foundry-far.webp": {
 "q": 78,
@@ -902,6 +1070,62 @@
 "milan1497/photo-supper.webp": {
 "q": 78,
 "sha": "8c5e8df52c8f4f0779fb6e099590d9dbd9f7193f"
+},
+"nanjing1405/dock-far.webp": {
+"q": 78,
+"sha": "bdd08410bf33686dbcde90e0aae6f3a30d22f77c"
+},
+"nanjing1405/dock-near.webp": {
+"q": 70,
+"sha": "2a38aef96a355222eebe7ab1e8f229facfa56a36"
+},
+"nanjing1405/dock.webp": {
+"q": 78,
+"sha": "2ef58a49549618debd85d395438ceb27646cb0fe"
+},
+"nanjing1405/show-compass.webp": {
+"q": 78,
+"sha": "68ed8a04a843f5b9171749ab22499989490b4405"
+},
+"nanjing1405/show-meal.webp": {
+"q": 78,
+"sha": "e5c9d0bc8fd5a0fa00d2f998f466eff207409020"
+},
+"nanjing1405/show-porcelain.webp": {
+"q": 78,
+"sha": "6bfa6a0540b65c2860b7a48fe9c5bd534e9f7172"
+},
+"nanjing1405/show-rudder.webp": {
+"q": 78,
+"sha": "6ebe48ce0041cfa17d65ae7fb201985bebb026b1"
+},
+"nanjing1405/show-sail.webp": {
+"q": 78,
+"sha": "ae626f01a66850ac06a0fb0b78e619456e0b4869"
+},
+"nanjing1405/store-far.webp": {
+"q": 78,
+"sha": "9592da56999ab1e7c0352138e64cd0bf9270229e"
+},
+"nanjing1405/store-near.webp": {
+"q": 70,
+"sha": "0f1ce50d1e63876abac7f3c66465905334e5abf8"
+},
+"nanjing1405/store.webp": {
+"q": 78,
+"sha": "4f660e868170a85357e3c3ebc8e41027919504e2"
+},
+"nanjing1405/yard-far.webp": {
+"q": 78,
+"sha": "5d48684bfe02f582bdb1b07a964652cc64855429"
+},
+"nanjing1405/yard-near.webp": {
+"q": 70,
+"sha": "702ef0169475c1f72470b4344d47d0840f60dbc6"
+},
+"nanjing1405/yard.webp": {
+"q": 78,
+"sha": "96fae4742dae450b1b7b23a8f8ac8a829aa47b88"
 },
 "nara752/court-far.webp": {
 "q": 78,

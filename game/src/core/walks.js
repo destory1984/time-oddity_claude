@@ -5430,6 +5430,573 @@ export const WALKS = {
     ],
     reply: '가우디 어른이 다 지어진 걸 본 종탑은 그것 하나란다. 지금도 그대로 서 있지.',
   },
+  // Jamaica on the evening of 29 February 1504 (Julian): a day of the Taino by St Ann's Bay,
+  // where the two ships of Columbus have lain on the sand since June 1503, and the full moon
+  // rising over the sea in total eclipse. Drawn as the Taino drew on the walls of caves, in
+  // charcoal and red ochre (the user's choice of five tries: the first). The pictures are in
+  // jamaica1504; the try itself is the third scene (the sandbar where the ships are seen,
+  // after moonrise, the moon already red), and the village and the beach of the canoes were
+  // ordered after it, at sunset. The sky of the pictures is the yellow wall itself: `pale`
+  // (to be looked at again once the date is seen over it, as the scenes are evening).
+  // Looked up on 2026.10.14 and found so: the ships lay on the north shore from June 1503
+  // ("여덟 달째"); the islanders gave cassava, maize and fish for trinkets and grew tired of
+  // it ("요즘은 다들 지쳐서 덜 가져간단다": nothing more); islanders paddled canoes to
+  // Hispaniola with Diego Mendez ("지난여름 우리 사람들이 노를 저어 먼 섬으로 갔단다": no
+  // name); the total eclipse was seen here on the evening of 29 February; Columbus knew of it
+  // from an almanac ("달과 별이 언제 어디 있을지 적은 책": the chest in the try); the Taino
+  // lived in thatched houses called bohio and slept in cotton hammocks (hamaca, from Taino);
+  // cassava bread (casabe) was baked on a flat clay griddle after the root was grated and its
+  // juice pressed out; canoes were dug out of one tree trunk.
+  // From memory: the dress; shell beads; clay pots; the digging stick; spinning cotton; nets;
+  // conch shells; that the moon in a total eclipse turns dark red.
+  // Made up: the errand of the basket of bread, the grandmother who bakes, the grandson who
+  // mends nets on the sandbar, the man hauling up a canoe who bars the way, the child picking
+  // up shells who says to go round by the palm path, every other person.
+  // Kept out: fighting, guns, horses, dogs; any belief of the Taino about the moon (people
+  // only murmur and say the moon has turned red); the trick as the end (the tale ends with the
+  // basket handed over and the red moon watched together); that Columbus pretended to pray;
+  // Columbus except as a far figure on the ship (a spot), and the almanac only as a spot.
+  lunar1504: {
+    first: '보름달이 붉게 가려지는 저녁이란다. 빵 바구니를 전해 주렴.',
+    intro: { title: '타이노 사람들', text: '타이노 사람들은 카리브 바다의 섬들에 살았단다. 카사바로 빵을 굽고 통나무배로 바다를 다녔지.' },
+    dir: 'jamaica1504', look: 'paper', pale: true,
+    drawn: '타이노 사람들이 동굴 벽에 숯과 황토로 그린 그림처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'village', name: '자메이카 세인트앤스 만 타이노 마을', short: '타이노 마을', zoom: 1.176, ground: 0.685, scale: 0.688, air: 'hush', floor: 'dirt',
+        sora: '지붕이 둥근 풀집이야!',
+        people: [
+          { id: 'grandma', pass: '누가 바닷가에 좀 다녀오면 좋으련만.', name: '카사바 빵 굽는 할머니', x: 0.18, w: 122, h: 307, lines: ['저녁 빵을 막 구워 냈단다.', '손자가 바닷가에서 그물을 깁고 있지.'] },
+          { id: 'grater', pass: '카사바 뿌리를 곱게 갈아야지.', show: 'buren', pose: 'see-aha', sora: '뿌리가 빵이 됐어!', memo: '카사바 뿌리를 갈아 즙을 짜내고, 넓적한 흙 판에 얇게 구웠단다. 그 빵을 카사베라 했지.', name: '카사바 가는 아주머니', x: 0.29, w: 112, h: 309, lines: ['카사바 뿌리를 갈아서 즙을 짠단다.', '흙 판에 얇게 펴서 구우면 빵이 되지.'] },
+          { id: 'netbed', pass: '한 코씩 엮으면 침대가 되지.', show: 'hammock', pose: 'see-wow', sora: '그물에서 잠을 자!', memo: '타이노 사람들은 무명 그물 침대에서 잤단다. 아마카라 불렀지.', name: '그물 침대 짜는 할아버지', x: 0.4, w: 140, h: 316, lines: ['무명실로 그물 침대를 짠단다.', '우리는 아마카라고 부르지.'] },
+          { id: 'potter', pass: '이 사발은 잘 구워지겠구나.', name: '흙 그릇 빚는 아주머니', x: 0.51, w: 103, h: 303, lines: ['물 담을 흙 사발을 빚는단다.', '마르면 불에 구워서 단단하게 하지.'] },
+          { id: 'fishcook', pass: '물고기가 노릇하게 익었구나.', show: 'casabe', name: '물고기 굽는 아저씨', x: 0.62, w: 140, h: 320, lines: ['오늘 잡은 물고기를 굽는단다.', '카사바 빵과 같이 먹어 보련?'],
+            try: { id: 'eat-casabe', verb: 'eat', name: '카사바 빵과 구운 물고기', face: 'yum', sora: '빵이 바삭하고 물고기는 고소해!' } },
+          { id: 'spinner', pass: '실이 끊어지지 않게 살살.', name: '무명실 잣는 아주머니', x: 0.73, w: 103, h: 311, lines: ['무명실을 자아서 옷을 짓는단다.', '아이 옷도 있어. 입어 보련?'],
+            try: { id: 'wear-taino', verb: 'wear', name: '타이노의 옷', outfit: 'taino', sora: '조개 목걸이가 달랑거려!', memo: '타이노 사람들은 무명 두름치마를 입고 조개 구슬을 걸었단다.' } },
+          { id: 'farmer', pass: '내일은 저 밭을 일궈야지.', name: '밭에서 온 아저씨', x: 0.85, w: 148, h: 318, lines: ['밭에서 카사바 뿌리를 캐 왔단다.', '바다로 가는 길은 저 숲 너머에 있지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'beach', name: '자메이카 세인트앤스 만 통나무배 바닷가', short: '통나무배 바닷가', zoom: 1.180, ground: 0.682, scale: 0.690, air: 'hush', floor: 'dirt',
+        sora: '배가 모래 위에 누워 있어!',
+        people: [
+          { id: 'fisher', pass: '오늘은 물고기가 잘 잡혔구나.', name: '물고기 꿰미 든 어부', x: 0.18, w: 128, h: 275, lines: ['그물로 물고기를 넷이나 잡았단다.', '해가 지기 전에 돌아왔지.'] },
+          { id: 'paddler', pass: '노가 손에 착 붙어야 하지.', name: '노 깎는 아저씨', x: 0.29, w: 109, h: 276, lines: ['나무를 깎아서 노를 만든단다.', '지난여름 우리 사람들이 노를 저어 먼 섬으로 갔지.'] },
+          { id: 'canoeman', pass: '이 나무는 속이 단단하구나.', show: 'canoe', pose: 'see-wow', sora: '나무 한 그루가 배가 됐어!', memo: '통나무배는 큰 나무 한 그루를 통째로 파서 만들었단다. 불로 그을리며 속을 파냈지.', name: '통나무배 만드는 할아버지', x: 0.4, w: 159, h: 278, lines: ['큰 나무 한 그루를 통째로 판단다.', '불로 그을리고 돌도끼로 속을 파내지.'] },
+          { id: 'shellgirl', pass: '이 소라고둥은 정말 크다!', name: '소라고둥 줍는 아이', x: 0.51, w: 107, h: 188, lines: ['물가에서 소라고둥을 줍고 있어.', '저녁 바다는 물이 빠져서 많이 보여.'] },
+          { id: 'cornwife', pass: '오늘은 이만큼만 가져가야지.', name: '옥수수 바구니 인 아주머니', x: 0.62, w: 106, h: 320, lines: ['배에서 온 사람들에게 가져가던 옥수수란다.', '요즘은 다들 지쳐서 덜 가져간단다.'] },
+          { id: 'netman', pass: '그물을 잘 개어 두어야지.', name: '그물 개는 아저씨', x: 0.73, w: 105, h: 275, lines: ['말린 그물을 개어 둔단다.', '내일 아침에 또 바다로 나가지.'] },
+          { id: 'hauler', pass: '이 배를 조금만 더 끌어 올리자.', name: '통나무배 끄는 어른', x: 0.85, w: 125, h: 283, lines: ['배를 물 밖으로 끌어 올리는 중이란다.', '밤에 물이 들어도 떠내려가지 않게 하지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'sandbar', name: '자메이카 세인트앤스 만 배 얹힌 모래톱', short: '배 얹힌 모래톱', zoom: 1.141, ground: 0.712, scale: 0.668, air: 'hush', floor: 'dirt',
+        sora: '큰 배 두 척이 모래에 걸렸어!',
+        people: [
+          { id: 'elder', pass: '오늘 달은 빛이 이상하구나.', name: '바다를 보는 할아버지', x: 0.18, w: 103, h: 258, lines: ['저 배들은 여덟 달째 저기 있단다.', '바다를 건너온 사람들이 타고 왔지.'] },
+          { id: 'torch', pass: '모두들 저 달을 좀 보시오.', name: '횃불 든 아저씨', x: 0.29, w: 117, h: 320, lines: ['어두워져서 횃불을 밝혔단다.', '오늘은 달빛이 어두워서 더 필요하구나.'] },
+          { id: 'mother', pass: '아가야, 달이 붉어졌단다.', name: '아기 안은 어머니', x: 0.4, w: 97, h: 248, lines: ['아기를 재우러 나왔단다.', '바닷바람이 시원해서 아기가 잘 자지.'] },
+          { id: 'grandson', pass: '할머니가 저녁을 보내 주실 텐데.', show: 'moon', pose: 'see-wow', sora: '보름달이 빨갛게 됐어!', memo: '달이 땅의 그림자에 다 가려지면 붉게 보인단다. 그날 저녁 바닷가에서 그것이 보였지.', name: '그물 깁는 손자', x: 0.51, w: 102, h: 216, lines: ['찢어진 그물을 깁고 있어.', '내일 아침에 이 그물로 물고기를 잡을 거야.'] },
+          { id: 'pointer', pass: '달이 붉어졌어! 저기 좀 봐!', name: '달을 가리키는 아이', x: 0.62, w: 93, h: 202, lines: ['아까는 달이 하얗고 밝았어.', '그런데 지금은 붉게 어두워졌어.'] },
+          { id: 'fruitwife', pass: '사람들이 다들 하늘을 보네.', name: '과일 바구니 든 아주머니', x: 0.73, w: 93, h: 250, lines: ['숲에서 과일을 따 오는 길이란다.', '모두 달을 보느라 걸음을 멈추었구나.'] },
+          { id: 'watcher', pass: '배 위의 사람들도 달을 보는구나.', name: '배를 바라보는 어부', x: 0.85, w: 125, h: 263, lines: ['저 배는 벌레가 먹어서 바다에 못 뜬단다.', '그래서 배 위에 풀로 지붕을 얹었지.'] },
+        ],
+        spots: [
+          // The chest with the book and the hourglass in the try. (From and to are to be set
+          // to the picture.) Only what the book was; not what was done with it.
+          { id: 'almanac', from: 0.59, to: 0.69, sora: '궤짝 위에 책이 있어!', memo: '배에서 온 사람들의 책이란다. 달과 별이 언제 어디 있을지 적혀 있었지.' },
+          // Columbus, far off on the ships at the right of the try. Not drawn as a person to
+          // speak to.
+          { id: 'columbus', from: 0.72, to: 0.98, sora: '배 위에 누가 서 있어!', memo: '바다를 건너온 콜럼버스란다. 배가 망가져 여덟 달째 여기 묶여 있었지.' },
+        ],
+      },
+    ],
+    // "The basket of bread" (core/tale.js; the storyboard of docs/신기한-사실.md): the
+    // grandmother who bakes cassava bread in the village has a basket of the evening's bread
+    // for her grandson, who mends nets on the sandbar; a man hauling up a canoe bars the beach;
+    // the child picking up conch shells says to go round by the palm path; she hands the basket
+    // to the grandson, choosing what to say; and they watch the full moon over the sea turn red
+    // while the people about them murmur.
+    tale: {
+      thing: true,
+      ask: '오늘 저녁 보름달은 어떤 빛일까?',
+      gate: { scene: 'beach', open: 3, sora: '배를 끄는 어른이 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'grandma', goal: '마을의 카사바 빵 굽는 할머니에게 가 보렴.', holds: '빵 바구니: 할머니가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '저녁 빵을 구웠단다. 나는 불을 못 비우지.', '모래톱에서 그물 깁는 내 손자에게 전해 주렴.'],
+          offer: { ask: '빵 바구니를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'hauler', goal: '바닷가 끝의 배 끄는 어른에게 가 보렴.', holds: '빵 바구니: 소라가 들고 있음',
+          lines: ['멈춰라. 여기로는 못 지나간단다.', '배를 끌어 올리는 중이라 길을 막고 있지.'],
+          sora: '빵을 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'shellgirl', call: '얘, 어디 가려고?', goal: '소라고둥 줍는 아이가 부른다. 가 보렴.', holds: '빵 바구니: 소라가 들고 있음',
+          lines: ['모래톱에 간다고? 배가 길을 막았어.', '야자 숲길로 돌아가면 돼.', '아저씨, 얘는 숲길로 보낼게요!'],
+          after: [{ who: 'hauler', line: '숲길이라면 가도 좋다.' }],
+          sora: '야자 숲길로 돌아가래! 가자!',
+        },
+        {
+          who: 'grandson', goal: '모래톱의 손자에게 빵 바구니를 전하렴.', holds: '빵 바구니: 소라가 들고 있음',
+          lines: ['어, 우리 할머니 빵 바구니다!'],
+          choice: {
+            ask: '빵 바구니를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"할머니가 보내셨어"', sora: '할머니가 저녁 빵을 보내셨어.', says: '아직 따뜻하구나. 고마워.' },
+              { id: 'E2', label: '"같이 먹을래?"', sora: '우리 같이 먹을래?', says: '좋아. 여기 앉아서 같이 먹자.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'grandson', show: true, goal: '바다 위의 보름달을 보렴.',
+          lines: ['저기 좀 봐. 달이 이상해.', '하얗던 보름달이 붉어졌어.'],
+          sora: '사람들이 다 달을 보고 있어!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'grandma', when: ['S1', 'S2', 'S3', 'S4'], lines: ['손자는 배 얹힌 모래톱에 있단다.', '바닷가를 지나면 나오지.'] },
+        { who: 'grandma', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '오늘은 달이 붉다더구나. 너도 보았니?'] },
+      ],
+      done: '빵 바구니를 전하고, 바다 위의 보름달이 붉어지는 것을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '빵 바구니를 받는다.', at: [] },
+      { id: 'gave', text: '그물 깁는 손자에게 빵 바구니를 전한다.', at: [] },
+      { id: 'saw', text: '보름달이 붉어지는 것을 본다.', at: [] },
+    ],
+    reply: '붉던 달은 그날 밤에 다시 하얘졌단다. 빵은 따뜻했니.',
+  },
+  // The Forbidden City in Beijing, the winter of 1420, on a clear day: the emperor has given
+  // out that the new palace is finished. Drawn as a careful coloured court painting of the
+  // Ming on silk (the user's choice of five tries: the fourth). The pictures are in
+  // beijing1420; the try itself is the third scene (the front of the great hall), and the
+  // yard where the timber is piled and the yard where the gold bricks are rubbed were ordered
+  // after it. Pale: the sky of the pictures is tan silk left bare.
+  // Looked up on 2026.10.14 and found so: the emperor gave out in the eleventh lunar month
+  // of 1420 that the palace was finished, and Beijing became the capital on the New Year's
+  // day of 1421 ("이듬해 설날부터 여기가 서울이란다"); the nanmu of the columns came mostly
+  // from the south-west; the gold bricks of the great halls' floors were fired over months of
+  // the clay of Suzhou; the great roofs are of yellow glazed tiles; small beast figures on the
+  // ridges are in the Song building manual already and were settled in form under the Ming
+  // and Qing (so the beast tile is told, with no number and no order).
+  // Looked for and NOT found: that the name "紫禁城" was used in 1420. People say "새 궁",
+  // "황궁"; only the scene names and grandmother's words say "자금성". The ice roads on record
+  // are of 1557, so they are not told. The number of workers is not told.
+  // From memory: that the timber came by rivers and the canal for months; that nanmu is hard
+  // and does not rot; steamed buns, noodles and tea; the padded winter dress; that the blue
+  // colour is ground from stone; that the beast tiles are thought to guard the roof.
+  // Made up: the errand of the last beast tile, the tile maker, the man who keeps the yard of
+  // the gold bricks, the timber carrier who shows the way under the covered walk, the roof
+  // master, every other person; that gold bricks lie in a yard to be rubbed before they are
+  // laid; that the emperor is seen far off on the terrace that day.
+  // Kept out: the emperor except far off (a spot, no face); the fire of 1421, punishments,
+  // eunuchs; anything of the Qing; the number and order of the beast tiles.
+  forbiddenCity: {
+    first: '자금성을 다 지은 겨울이란다. 짐승 기와를 전해 주렴.',
+    dir: 'beijing1420', look: 'paper', pale: true,
+    drawn: '명나라 궁정 화가의 그림처럼, 비단에 곱게 칠했단다.',
+    scenes: [
+      {
+        id: 'timber', name: '명나라 베이징 자금성 나무 쌓은 마당', short: '나무 쌓은 마당', zoom: 1.117, ground: 0.730, scale: 0.654, air: 'hush', floor: 'dirt',
+        sora: '나무 기둥이 엄청 굵어!',
+        people: [
+          { id: 'tilemaker', pass: '누가 좀 전해 주면 좋으련만.', name: '기와 굽는 이', x: 0.18, w: 114, h: 316, lines: ['가마에서 구운 기와를 실어 왔단다.', '누런 유약을 발라 구우면 금빛이 나지.'] },
+          { id: 'carter', pass: '오늘은 바람이 몹시 차구나.', name: '나무 수레 끄는 일꾼', x: 0.29, w: 160, h: 320, lines: ['이 나무는 먼 서남쪽 산에서 왔단다.', '강과 물길로 여러 달을 실어 왔지.'] },
+          { id: 'nanmuwright', pass: '이렇게 곧은 나무는 드물지.', show: 'nanmu', pose: 'see-wow', sora: '나무 한 그루가 기둥 하나래!', memo: '큰 전각의 기둥은 먼 서남쪽 산의 녹나무로 세웠단다.', name: '녹나무 고르는 목수', x: 0.4, w: 147, h: 313, lines: ['녹나무는 단단하고 잘 썩지 않는단다.', '큰 전각을 받치는 기둥이 되지.'] },
+          { id: 'sawyer', pass: '톱날이 무뎌지기 전에 끝내야지.', name: '톱질하는 일꾼', x: 0.51, w: 127, h: 310, lines: ['둘이서 큰 톱을 당겨 나무를 켠단다.', '추운 날에도 톱질을 하면 땀이 나지.'] },
+          { id: 'cook', pass: '만두가 다 쪄졌어요!', show: 'buns', name: '일꾼 밥 짓는 아주머니', x: 0.62, w: 115, h: 304, lines: ['김이 나는 만두와 따끈한 국수란다.', '추운 날엔 국물이 최고지. 먹어 보련?'],
+            try: { id: 'eat-buns', verb: 'eat', name: '찐만두와 국수', face: 'yum', sora: '만두가 따끈따끈해! 국물도 뜨거워.' } },
+          { id: 'tailor', pass: '바느질하다 손이 곱았네.', name: '솜옷 깁는 아주머니', x: 0.73, w: 122, h: 314, lines: ['솜을 두둑이 넣어 겨울옷을 짓는단다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-mingwinter', verb: 'wear', name: '명나라의 겨울옷', outfit: 'mingwinter', sora: '솜옷이라 하나도 안 추워!', memo: '명나라 사람들은 겨울에 솜을 두둑이 넣은 옷을 입었단다.' } },
+          { id: 'stoker', pass: '불 곁에서 손을 녹이고 가거라.', name: '화롯불 지키는 할아버지', x: 0.85, w: 118, h: 320, lines: ['입김이 하얗게 나오지? 날이 차단다.', '일꾼들이 여기서 손을 녹이고 가지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'bricks', name: '명나라 베이징 자금성 금 벽돌 닦는 마당', short: '금 벽돌 닦는 마당', zoom: 1.162, ground: 0.696, scale: 0.680, air: 'hush', floor: 'dirt',
+        sora: '벽돌이 거울처럼 반들반들해!',
+        people: [
+          { id: 'waterboy', pass: '물이 얼기 전에 날라야 해.', name: '물 나르는 아이', x: 0.18, w: 80, h: 237, lines: ['벽돌 닦을 물을 길어 날라요.', '날이 추워서 물통에 살얼음이 껴요.'] },
+          { id: 'brickmaster', pass: '벽돌 한 장도 깨지면 안 되지.', show: 'brick', pose: 'see-aha', sora: '벽돌이 돌처럼 매끈해!', memo: '큰 전각 바닥의 금 벽돌은 쑤저우의 흙으로 몇 달에 걸쳐 구웠단다.', name: '금 벽돌 장인', x: 0.29, w: 116, h: 291, lines: ['이 벽돌은 쑤저우의 흙으로 구웠단다.', '몇 달에 걸쳐 천천히 구웠지.'] },
+          { id: 'clerk', pass: '벽돌 수를 장부에 잘 적어야지.', name: '벽돌 세는 관리', x: 0.4, w: 120, h: 320, lines: ['나는 벽돌이 몇 장 왔는지 적는단다.', '이 벽돌은 큰 전각 바닥에 깔 것이지.'] },
+          { id: 'rubber', pass: '반들반들해질 때까지 닦아야지.', name: '벽돌 닦는 아주머니', x: 0.51, w: 97, h: 293, lines: ['넓적한 돌로 벽돌 겉을 문지른단다.', '닦을수록 먹처럼 반들반들해지지.'] },
+          { id: 'carrier', pass: '회랑 밑은 바람이 덜 부는구나.', name: '나무 나르는 일꾼', x: 0.62, w: 139, h: 294, lines: ['나는 회랑 밑으로 나무를 나른단다.', '마당을 안 밟고 돌아가는 길이지.'] },
+          { id: 'bearer', pass: '벽돌 한 장이 꽤 무겁구나.', name: '벽돌 지는 일꾼', x: 0.73, w: 112, h: 283, lines: ['벽돌을 지게에 지고 전각으로 나른단다.', '한 장씩 조심조심 날라야 하지.'] },
+          { id: 'keeper', pass: '닦은 벽돌은 밟지 마시오.', name: '마당 지키는 이', x: 0.85, w: 124, h: 316, lines: ['나는 이 마당을 지키는 사람이란다.', '닦아 놓은 벽돌을 밟으면 안 되지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'hall', name: '명나라 베이징 자금성 큰 전각 앞', short: '큰 전각 앞', zoom: 1.116, ground: 0.731, scale: 0.653, air: 'palace', floor: 'dirt',
+        sora: '지붕이 금빛이야! 두 겹이야!',
+        people: [
+          { id: 'sweeper', pass: '마당을 깨끗이 쓸어 둬야 해.', name: '마당 쓰는 아이', x: 0.18, w: 105, h: 271, lines: ['큰 전각 앞을 깨끗이 쓸어요.', '설날에 큰 의식이 열린대요.'] },
+          { id: 'tilesorter', pass: '깨진 기와는 따로 골라 둬야지.', name: '기와 고르는 일꾼', x: 0.29, w: 120, h: 317, lines: ['지붕에 올릴 기와를 고른단다.', '누런 기와가 햇볕에 금빛으로 빛나지.'] },
+          { id: 'painter', pass: '이 칸에는 금빛 선을 그어야지.', show: 'paint', pose: 'see-aha', sora: '들보에 용을 그리고 있어!', memo: '들보와 처마 밑에 푸른빛, 풀빛, 붉은빛으로 고운 무늬를 칠했단다.', name: '단청 칠하는 화공', x: 0.4, w: 127, h: 312, lines: ['들보에 푸른빛과 풀빛을 칠한단다.', '가는 붓으로 금빛 선을 긋지.'] },
+          { id: 'mixer', pass: '물감을 곱게 개어 놓아야지.', name: '물감 개는 아이', x: 0.51, w: 98, h: 256, lines: ['선생님이 쓰실 물감을 개어요.', '푸른 물감은 돌을 갈아서 만들어요.'] },
+          { id: 'roofer', pass: '마지막 기와가 아직 안 왔구나.', show: 'roof', pose: 'see-wow', sora: '처마 끝에 짐승이 줄 섰어!', memo: '처마 끝 지붕 마루에 작은 짐승 기와를 줄지어 올렸단다. 지붕을 지켜 준다고 여겼지.', name: '지붕 올리는 장인', x: 0.62, w: 127, h: 307, lines: ['나는 큰 전각의 지붕을 올린단다.', '마지막 기와 하나를 기다리는 중이지.'] },
+          { id: 'official', pass: '설날 의식 준비를 서둘러야지.', name: '설날 의식 준비하는 관리', x: 0.73, w: 125, h: 320, lines: ['이듬해 설날부터 여기가 서울이란다.', '나라의 큰일을 이 궁에서 보게 되지.'] },
+          { id: 'mason', pass: '흰 돌이 눈처럼 하얗구나.', name: '돌난간 닦는 석수', x: 0.85, w: 125, h: 299, lines: ['흰 돌로 다리와 난간을 깎았단다.', '먼지 하나 없이 닦아 두어야지.'] },
+        ],
+        spots: [
+          // The terrace of the great hall in the try. (From and to are to be set to the
+          // picture.) The emperor is not drawn and cannot be spoken to: far off, no face.
+          { id: 'emperor', from: 0.66, to: 0.8, sora: '높은 단 위에 노란 옷이 보여!', memo: '황제란다. 새 궁을 다 지었다고 온 나라에 알렸지.' },
+        ],
+      },
+    ],
+    // "The last beast tile" (core/tale.js; the storyboard of docs/신기한-사실.md): the tile
+    // maker has the last small beast tile for the eaves and cannot leave his cart; the man
+    // who keeps the yard lets no one step on the gold bricks just rubbed; the timber carrier
+    // says to go round under the covered walk; she hands the tile to the roof master,
+    // choosing what to say; and she looks up at the yellow roof and the row of small beasts
+    // at the end of the eaves.
+    tale: {
+      thing: true,
+      ask: '처마 끝에는 무엇이 앉아 있을까?',
+      gate: { scene: 'bricks', open: 3, sora: '마당 지키는 이가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'tilemaker', goal: '나무 쌓은 마당의 기와 굽는 이에게 가 보렴.', holds: '짐승 기와: 기와 굽는 이가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '처마 끝에 올릴 마지막 짐승 기와란다. 나는 수레를 못 비우지.', '큰 전각 앞의 지붕 장인에게 전해 주렴.'],
+          offer: { ask: '짐승 기와를 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'keeper', goal: '마당 끝의 마당 지키는 이에게 가 보렴.', holds: '짐승 기와: 소라가 들고 있음',
+          lines: ['멈춰라. 여기로는 못 지나간단다.', '금 벽돌을 막 닦아 놓아서 밟으면 안 돼.'],
+          sora: '기와를 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'carrier', call: '얘, 어디 가려고?', goal: '나무 나르는 일꾼이 부른다. 가 보렴.', holds: '짐승 기와: 소라가 들고 있음',
+          lines: ['큰 전각에 간다고? 마당으로는 못 가.', '저 회랑 지붕 밑으로 돌아가면 돼.', '아저씨, 이 애는 회랑 밑으로 보낼게요!'],
+          after: [{ who: 'keeper', line: '회랑 밑이라면 가도 좋다.' }],
+          sora: '회랑 밑으로 돌아가래! 가자!',
+        },
+        {
+          who: 'roofer', goal: '큰 전각 앞의 지붕 장인에게 짐승 기와를 전하렴.', holds: '짐승 기와: 소라가 들고 있음',
+          lines: ['오, 마지막 짐승 기와로구나.'],
+          choice: {
+            ask: '짐승 기와를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"기와 굽는 분이 보냈어요"', sora: '기와 굽는 분이 보내셨어요.', says: '금빛이 곱게 났구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"이걸 어디에 올려요?"', sora: '이 기와는 어디에 올려요?', says: '저 처마 끝에 줄지어 올린단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'roofer', show: true, goal: '누런 지붕의 처마 끝을 올려다보렴.',
+          lines: ['마침 잘 왔다. 저 지붕을 올려다보렴.', '처마 끝에 작은 짐승들이 줄지어 앉았지.'],
+          sora: '지붕 끝에 짐승들이 앉았어!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'tilemaker', when: ['S1', 'S2', 'S3', 'S4'], lines: ['지붕 장인은 큰 전각 앞에 있단다.', '금 벽돌 마당을 지나면 나오지.'] },
+        { who: 'tilemaker', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '이제 지붕이 다 갖추어지겠구나.'] },
+      ],
+      done: '짐승 기와를 전하고, 처마 끝의 짐승 줄을 보았다.',
+    },
+    errands: [
+      { id: 'took', text: '짐승 기와를 받는다.', at: [] },
+      { id: 'gave', text: '지붕 장인에게 짐승 기와를 전한다.', at: [] },
+      { id: 'saw', text: '처마 끝의 짐승 줄을 본다.', at: [] },
+    ],
+    reply: '그 궁은 지금도 그 자리에 있단다. 손은 시리지 않았니.',
+  },
+  // Florence on 25 March 1436, in the morning: the day Pope Eugenius IV consecrates the
+  // cathedral, its great dome nearly finished. Drawn as the painted page of a Florentine
+  // illuminated manuscript (the user's choice of five tries: the third). The pictures are in
+  // florence1436; the try is the third scene ('door': the square before the cathedral door),
+  // and the small square by the bakery and the yard of the dome workers were ordered after
+  // it. The try draws the lantern on top of the dome: it is to be taken off by hand. The sky
+  // of the pictures is a deep blue: no `pale`.
+  // Looked up on 2026.10.14 (docs/신기한-사실.md) and found so: consecrated by Eugenius IV on
+  // 25 March 1436, the first day of the year in Florence ("피렌체의 새해 첫날"); Dufay's
+  // motet for the day sings of the golden rose the pope had given a week before (people call
+  // it "새 노래", "장미 노래": no words of it are given); the dome nearly finished ("거의 다
+  // 올렸다"); the herringbone bricks passing their weight to the ribs; two shells;
+  // Brunelleschi's machine to hoist the bricks; red dome, eight white ribs.
+  // Looked up while writing and found so: an elevated passageway was made from the cathedral
+  // to Santa Maria Novella for the coming of the pope (archive of the Opera del Duomo, paid
+  // 4 April 1436): the soldier keeps "교황님의 행렬이 지나갈 길". What it was made of was not
+  // found (the order draws planks on posts hung with cloth: made up).
+  // Looked for and not found, so not said: oxen at the hoist; the number of bricks; the
+  // workers' lunch up on the dome.
+  // From memory: Florence living by wool cloth; bread with olive oil; the dress (long gowns,
+  // sleeves laced on at the shoulder, choirboys in white over dark); banners hung from the
+  // windows on a feast day; the goldsmiths of Florence; that the side door of the cathedral
+  // opens on the yard; that the bell tower rings on the day (the `court` air: far bells).
+  // Made up: the errand of the bundle of music, the baker, the choirboy who left it, the
+  // soldier who keeps the road, the brick carrier who says to go between the brick piles,
+  // the choirmaster, the goldsmith's small copy of the rose, every other person.
+  // Kept out: the pope and Brunelleschi but as far-off spots; the lantern; any words of the
+  // song; oxen, the number of bricks, the lunch on the dome; Baroque buildings.
+  duomo: {
+    first: '피렌체 대성당을 봉헌하는 날이란다. 악보를 전해 주렴.',
+    dir: 'florence1436', look: 'paper',
+    drawn: '그 무렵 피렌체의 손으로 쓴 책에 든 그림처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'bakery', name: '이탈리아 피렌체 빵집 앞 작은 광장', short: '빵집 앞 광장', zoom: 1.060, ground: 0.774, scale: 0.621, air: 'market', floor: 'dirt',
+        sora: '창마다 고운 천이 걸렸어!',
+        people: [
+          { id: 'banner', pass: '오늘은 집집마다 고운 천을 거는 날이지.', name: '창에 천 거는 아저씨', x: 0.18, w: 132, h: 320, lines: ['큰 잔칫날이라 창마다 천을 건단다.', '오늘 교황님이 대성당에 오시거든.'] },
+          { id: 'flowergirl', pass: '꽃이 벌써 반이나 팔렸어.', name: '꽃 파는 아이', x: 0.29, w: 109, h: 259, lines: ['오늘은 피렌체의 새해 첫날이야.', '그래서 다들 꽃을 사 가.'] },
+          { id: 'oilman', pass: '갓 짠 기름이 아주 고소하다오.', show: 'bread', name: '올리브 기름 장수', x: 0.4, w: 135, h: 312, lines: ['올리브를 짜서 얻은 기름이란다.', '빵을 찍어 먹어 보련?'],
+            try: { id: 'eat-bread', verb: 'eat', name: '빵과 올리브 기름', face: 'yum', sora: '기름이 고소해! 빵은 쫄깃해.' } },
+          { id: 'baker', pass: '누가 좀 전해 주면 좋으련만.', name: '빵 굽는 아주머니', x: 0.51, w: 127, h: 311, lines: ['새벽부터 화덕에 빵을 구웠단다.', '오늘은 손님이 많아 정신이 없구나.'] },
+          { id: 'goldsmith', pass: '이 꽃잎은 조금 더 얇게 펴야겠군.', show: 'rose', pose: 'see-wow', sora: '장미가 금으로 되어 있어!', memo: '교황님이 한 주 전에 금 장미를 선물했단다. 오늘 부를 새 노래도 그 장미를 노래하지.', name: '금 세공사', x: 0.62, w: 110, h: 317, lines: ['교황님이 금 장미를 선물하셨단다.', '나도 본떠서 작은 것을 만들어 봤지.'] },
+          { id: 'tailor', pass: '잔칫날에는 고운 옷을 입어야지.', name: '옷 파는 아주머니', x: 0.73, w: 147, h: 309, lines: ['잔칫날이라 고운 옷이 잘 팔린단다.', '아이 것도 있어. 입어 보련?'],
+            try: { id: 'wear-florence', verb: 'wear', name: '피렌체의 옷', outfit: 'florence', sora: '소매를 어깨에 끈으로 묶었어!', memo: '피렌체 사람들은 소매를 따로 달아 어깨에서 끈으로 묶었단다.' } },
+          { id: 'grandpa', pass: '오늘은 대성당에 꼭 가 봐야지.', name: '대성당 가는 할아버지', x: 0.85, w: 139, h: 318, lines: ['내가 아이였을 때부터 짓던 성당이란다.', '오늘 드디어 봉헌을 하는구나.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'yard', name: '이탈리아 피렌체 돔 일꾼들의 마당', short: '돔 일꾼들의 마당', zoom: 1.058, ground: 0.776, scale: 0.619, air: 'hush', floor: 'dirt',
+        sora: '벽돌이 산처럼 쌓였어!',
+        people: [
+          { id: 'mixer', pass: '석회 반죽이 너무 되면 안 되지.', name: '석회 개는 일꾼', x: 0.18, w: 122, h: 281, lines: ['벽돌 사이에 바를 석회를 갠단다.', '물을 알맞게 부어야 잘 붙지.'] },
+          { id: 'carpenter', pass: '밧줄이 닳지 않았나 살펴봐야지.', show: 'hoist', pose: 'see-wow', sora: '짐이 저 높이까지 올라가!', memo: '브루넬레스키는 벽돌을 끌어 올리는 기계를 만들었단다. 밧줄을 감아 무거운 짐을 높이 올렸지.', name: '기계 지키는 목수', x: 0.29, w: 113, h: 320, lines: ['이 기계로 벽돌을 돔 위까지 올린단다.', '사람이 지고 오르면 하루가 다 가지.'] },
+          { id: 'carrier', pass: '벽돌 한 지게 더 나가요.', name: '벽돌 나르는 일꾼', x: 0.4, w: 106, h: 255, lines: ['나는 벽돌을 지고 기계까지 날라.', '이 마당 길은 내가 다 알아.'] },
+          { id: 'mason', pass: '한 장 눕히고, 한 장 세워야지.', show: 'herring', pose: 'see-aha', sora: '벽돌이 생선뼈처럼 엇갈렸어!', memo: '벽돌을 생선뼈 꼴로 엇갈려 쌓았단다. 그러면 굳기 전에도 무게가 옆의 갈비뼈로 넘어가지.', name: '벽돌 쌓는 석수', x: 0.51, w: 108, h: 277, lines: ['돔의 벽돌은 이렇게 엇갈려 쌓는단다.', '굳기 전에도 미끄러지지 않지.'] },
+          { id: 'roper', pass: '밧줄은 언제나 넉넉해야 하지.', name: '밧줄 감는 일꾼', x: 0.62, w: 106, h: 280, lines: ['기계에 쓸 굵은 밧줄을 감는단다.', '밧줄이 끊어지면 큰일이 나지.'] },
+          { id: 'foreman', pass: '이제 정말 조금만 남았구나.', name: '돔 일꾼 우두머리', x: 0.73, w: 112, h: 282, lines: ['돔은 껍데기가 두 겹으로 되어 있단다.', '안쪽과 바깥쪽을 함께 쌓아 올렸지.'] },
+          { id: 'guard', pass: '오늘은 이 길을 아무도 못 건넌다.', name: '행렬 길 지키는 병사', x: 0.85, w: 106, h: 300, lines: ['나는 오늘 행렬 길을 지킨단다.', '교황님이 저 높은 길로 지나가시지.'] },
+        ],
+        spots: [
+          // The workshop hut of the new scene. (From and to are to be set to the picture.)
+          // Brunelleschi is not drawn and cannot be spoken to.
+          { id: 'brunelleschi', from: 0.37, to: 0.53, sora: '오두막에서 누가 도면을 봐!', memo: '돔 짓는 일을 맡은 브루넬레스키란다. 오늘은 바빠서 말을 걸 수 없지.' },
+        ],
+      },
+      {
+        id: 'door', name: '이탈리아 피렌체 대성당 문 앞 광장', short: '대성당 문 앞', zoom: 1.065, ground: 0.770, scale: 0.624, air: 'court', floor: 'dirt',
+        sora: '돔이 엄청나게 커!',
+        people: [
+          { id: 'washer', pass: '행렬 오기 전에 빨래를 걷어야지.', name: '빨래 걷는 아주머니', x: 0.18, w: 98, h: 293, lines: ['오늘은 빨래를 일찍 걷어야 한단다.', '행렬이 오면 광장이 꽉 차거든.'] },
+          { id: 'woolman', pass: '오늘은 천이 잘 팔리겠구먼.', name: '양털 천 장수', x: 0.29, w: 93, h: 320, lines: ['피렌체는 양털 천을 짜서 판단다.', '이 천은 멀리 다른 나라까지 가지.'] },
+          { id: 'brickman', pass: '돔이 다 되면 이 벽돌도 치워야지.', name: '벽돌 지키는 일꾼', x: 0.4, w: 130, h: 318, lines: ['돔은 이제 거의 다 올렸단다.', '조금만 더 쌓으면 끝이 나지.'] },
+          { id: 'choirboy', pass: '높은 소리를 틀리지 않아야 할 텐데.', name: '성가대 아이', x: 0.51, w: 75, h: 227, lines: ['오늘 성가대에서 새 노래를 불러.', '높은 소리는 내가 맡았어.'] },
+          { id: 'choirmaster', pass: '악보가 어디로 갔을까.', show: 'dome', pose: 'see-wow', sora: '돔에 하얀 줄이 여덟 개야!', memo: '돔은 붉은 기와에 흰 갈비뼈가 여덟 줄이란다. 이날은 거의 다 올린 때였지.', name: '성가대 선생', x: 0.62, w: 127, h: 308, lines: ['오늘 처음 부르는 새 노래가 있단다.', '사람들은 장미 노래라고 부르지.'] },
+          { id: 'belltower', pass: '종소리가 저 탑에서 나요.', name: '종탑 보는 아이', x: 0.73, w: 89, h: 216, lines: ['저 네모난 탑이 종탑이야.', '오늘은 종이 아주 많이 울려.'] },
+          { id: 'granny', pass: '살아서 이날을 보는구나.', name: '세례당 앞 할머니', x: 0.85, w: 96, h: 289, lines: ['나는 저 세례당에서 세례를 받았단다.', '대성당이 다 되는 걸 보니 기쁘구나.'] },
+        ],
+        spots: [
+          // The cathedral in the try. (From and to are to be set to the picture.) The pope is
+          // not drawn and cannot be spoken to.
+          { id: 'pope', from: 0.64, to: 0.9, sora: '대성당 안에 교황님이 계신대!', memo: '교황 에우제니오 4세란다. 오늘 이 대성당을 봉헌하지.' },
+        ],
+      },
+    ],
+    // "The bundle of music" (core/tale.js; the storyboard of docs/신기한-사실.md): the baker
+    // in the small square has the music a choirboy left at her shop, a new song to be sung
+    // for the first time today, and cannot leave her oven; the soldier keeps the road of the
+    // pope's procession and lets no one cross; the brick carrier says to go between the brick
+    // piles of the yard to the side door; she hands the music to the choirmaster, choosing
+    // what to say; and she looks up at the nearly finished red dome with its white ribs.
+    tale: {
+      thing: true,
+      ask: '거의 다 올린 돔은 어떻게 생겼을까?',
+      gate: { scene: 'yard', open: 3, sora: '병사가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'baker', goal: '빵집 앞의 빵 굽는 아주머니에게 가 보렴.', holds: '악보 묶음: 아주머니가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '성가대 아이가 악보를 두고 갔단다.', '오늘 부를 노래야. 성가대 선생님께 전해 주렴.'],
+          offer: { ask: '악보 묶음을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'guard', goal: '돔 일꾼들의 마당을 지나 대성당 쪽으로 가 보렴.', holds: '악보 묶음: 소라가 들고 있음',
+          lines: ['멈춰라. 교황님의 행렬이 지나갈 길이다.', '오늘은 아무도 이 길을 건너지 못한다.'],
+          sora: '악보를 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'carrier', call: '얘, 어디 가는데?', goal: '벽돌 나르는 일꾼이 부른다. 가 보렴.', holds: '악보 묶음: 소라가 들고 있음',
+          lines: ['대성당에 간다고? 그럼 이리 와.', '벽돌 더미 사이로 가면 옆문이 나와.', '아저씨, 이 애는 마당 안쪽으로 보낼게요!'],
+          after: [{ who: 'guard', line: '마당 안쪽으로 간다면 가도 좋다.' }],
+          sora: '벽돌 더미 사이로 가면 된대! 가자!',
+        },
+        {
+          who: 'choirmaster', goal: '대성당 문 앞의 성가대 선생님에게 악보를 전하렴.', holds: '악보 묶음: 소라가 들고 있음',
+          lines: ['오, 악보로구나! 찾고 있던 참이란다.'],
+          choice: {
+            ask: '악보 묶음을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"빵집 아주머니가 보냈어요"', sora: '빵집 아주머니가 보내셨어요.', says: '아이가 두고 갔구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"무슨 노래예요?"', sora: '이건 무슨 노래예요?', says: '오늘 처음 부르는 장미 노래란다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'choirmaster', show: true, goal: '거의 다 올린 돔을 올려다보렴.',
+          lines: ['마침 잘 왔다. 저 돔을 올려다보렴.', '붉은 지붕에 흰 갈비뼈가 여덟 줄이란다.'],
+          sora: '돔이 하늘을 다 덮을 것 같아!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'baker', when: ['S1', 'S2', 'S3', 'S4'], lines: ['성가대 선생님은 대성당 문 앞에 계신단다.', '돔 일꾼들의 마당을 지나가렴.'] },
+        { who: 'baker', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '이제 그 아이도 마음 놓고 노래하겠구나.'] },
+      ],
+      done: '악보를 전하고, 거의 다 올린 돔을 올려다보았다.',
+    },
+    errands: [
+      { id: 'took', text: '악보 묶음을 받는다.', at: [] },
+      { id: 'gave', text: '성가대 선생님에게 악보를 전한다.', at: [] },
+      { id: 'saw', text: '거의 다 올린 돔을 올려다본다.', at: [] },
+    ],
+    reply: '그 돔은 지금도 피렌체 하늘에 그대로 서 있단다.',
+  },
+  // The shipyard by the river at Nanjing, the summer of 1405, in the morning: the great ships
+  // of Zheng He make ready for the first voyage. Drawn as an ink and light-colour painting of
+  // the Zhe school of early Ming on tan silk (the user's choice of five tries: the fifth). The
+  // pictures are in nanjing1405; the try is the third scene ('dock': the wharf where the great
+  // ship is moored), and the riverbank in front of the shipyard and the front of the
+  // storehouse were ordered after it. Pale: the sky of the pictures is tan silk left bare.
+  // Looked up on 2026.10.14 (docs/신기한-사실.md) and found so: the fleet was built in the
+  // shipyards by the river at Nanjing; more than three hundred ships and twenty thousand men;
+  // the length of the largest ship is disputed (never a number: "이렇게 큰 배").
+  // Looked up while writing and found so: the navigators used compasses, a needle floating in
+  // water in a round box (a "wet compass"), and the stars by night; silks and porcelain went
+  // with the fleet; the sails of Chinese ships were of bamboo woven like matting; the number
+  // of masts is disputed (never a number: "돛대가 여럿"); the fleet left in the autumn of 1405
+  // (the square's day is the edict: so "곧 떠날", "채비").
+  // From memory: red sails stiffened with bamboo battens; seams filled before launching
+  // ("틈을 메운다" only); ropes of hemp; steamed buns and tea; the dress of early Ming; that
+  // the ship is steered with one great rudder at the stern; that rice and water are loaded.
+  // Made up: the errand of the blue-and-white jar, the woman who wraps the dishes, the guard of
+  // the wharf road who stops all while the great rudder is hoisted, the rope maker who sends
+  // her over the plank bridge, the clerk of the cargo, every other person.
+  // The storyboard has the one who asks in the storehouse (the second scene): she is put
+  // there, before the guard; the first scene has no part in the tale.
+  // Kept out: numbers of length and masts; the giraffe; fighting; the queue of Qing; European
+  // ships. Zheng He is a far place on the high deck (a spot), not one to talk to.
+  zhenghe: {
+    first: '정화의 큰 배들이 바다로 떠날 채비를 한단다. 그릇을 전해 주렴.',
+    dir: 'nanjing1405', look: 'paper', pale: true,
+    drawn: '명나라 때의 강 그림처럼, 누런 비단에 먹과 엷은 색으로 그렸단다.',
+    scenes: [
+      {
+        id: 'yard', name: '명나라 난징 조선소 앞 강가', short: '조선소 앞 강가', zoom: 1.103, ground: 0.741, scale: 0.646, air: 'hush', floor: 'dirt',
+        sora: '강가에서 배를 짓고 있어!',
+        people: [
+          { id: 'sawyer', pass: '이 널빤지는 배 옆구리에 붙일 거야.', name: '나무 켜는 일꾼', x: 0.18, w: 106, h: 286, lines: ['통나무를 톱으로 켜서 널빤지를 만든단다.', '두 사람이 마주 잡고 당기지.'] },
+          { id: 'caulker', pass: '물이 새면 큰일이니 꼼꼼히 메워야지.', name: '배 틈 메우는 일꾼', x: 0.29, w: 102, h: 285, lines: ['널빤지 사이의 틈을 메운단다.', '틈이 없어야 바다에서도 물이 안 새지.'] },
+          { id: 'ruddersmith', pass: '이 키는 내가 깎은 것 가운데 가장 크다.', show: 'rudder', pose: 'see-wow', sora: '키가 어른보다 몇 배나 커!', memo: '배의 방향을 트는 키란다. 큰 배에는 이렇게 큰 키가 달렸지.', name: '키 만드는 목수', x: 0.4, w: 124, h: 276, lines: ['나는 배의 방향을 트는 키를 만든단다.', '배가 크니 키도 이렇게 커야 하지.'] },
+          { id: 'sailmaker', pass: '대나무 살을 한 줄 더 대야겠어.', name: '돛 엮는 아주머니', x: 0.51, w: 107, h: 269, lines: ['돛에 대나무 살을 대어 엮는단다.', '바람이 세도 돛이 찢어지지 않지.'] },
+          { id: 'tailor', pass: '여름에는 얇은 옷이 시원하지.', name: '옷 짓는 아주머니', x: 0.62, w: 106, h: 268, lines: ['뱃사람들이 입을 옷을 짓는단다.', '아이 옷도 있어. 입어 보련?'],
+            try: { id: 'wear-ming', verb: 'wear', name: '명나라의 옷', outfit: 'ming', sora: '치마에 주름이 잔뜩 잡혔어!', memo: '명나라 여자들은 오른쪽으로 여민 웃옷에 긴 치마를 입었단다.' } },
+          { id: 'watcher', pass: '저 배는 언제 다 지어질까?', name: '배 구경하는 아이', x: 0.73, w: 80, h: 192, lines: ['나는 날마다 배를 구경하러 와.', '다 지은 배는 부두에 매여 있어.'] },
+          { id: 'ferryman', pass: '오늘은 강물이 잔잔하구나.', name: '나룻배 사공 할아버지', x: 0.85, w: 118, h: 320, lines: ['이 강은 아주 넓고 길단다.', '강을 따라 내려가면 바다가 나오지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'store', name: '명나라 난징 조선소 짐 싣는 창고 앞', short: '짐 싣는 창고 앞', zoom: 1.125, ground: 0.724, scale: 0.659, air: 'market', floor: 'dirt',
+        sora: '창고에 짐이 가득 쌓였어!',
+        people: [
+          { id: 'wrapper', pass: '누가 이 그릇을 배까지 가져다주면 좋겠는데.', name: '그릇 싸는 아주머니', x: 0.18, w: 106, h: 305, lines: ['그릇이 깨지지 않게 볏짚으로 싼단다.', '바다는 멀고 배는 많이 흔들리지.'] },
+          { id: 'counter', pass: '한 장, 두 장, 금 간 것은 없구나.', show: 'porcelain', pose: 'see-aha', sora: '흰 그릇에 푸른 꽃이 피었어!', memo: '흰 바탕에 푸른 무늬를 그린 청화 백자란다. 비단과 함께 배에 실었지.', name: '그릇 세는 일꾼', x: 0.29, w: 117, h: 320, lines: ['배에 실을 청화 백자를 센단다.', '비단도 저렇게 잔뜩 싣는단다.'] },
+          { id: 'bunman', pass: '찐빵이 막 쪄졌어요, 따뜻할 때 드세요.', show: 'meal', name: '찐빵 파는 아저씨', x: 0.4, w: 143, h: 302, lines: ['일꾼들이 아침으로 찐빵을 먹는단다.', '하나 먹어 보련? 차도 있단다.'],
+            try: { id: 'eat-ming-bun', verb: 'eat', name: '찐빵과 차', face: 'yum', sora: '찐빵이 폭신하고 차는 따뜻해!' } },
+          { id: 'teagirl', pass: '찻잔을 떨어뜨리지 않게 천천히 가야지.', name: '차 따르는 아이', x: 0.51, w: 92, h: 227, lines: ['나는 아빠 일을 도와 차를 따라.', '일꾼 아저씨들이 차를 아주 좋아해.'] },
+          { id: 'roper', pass: '밧줄은 세 가닥을 꼬아야 튼튼해.', name: '밧줄 꼬는 일꾼', x: 0.62, w: 163, h: 315, lines: ['배에 쓸 굵은 밧줄을 꼰단다.', '돛을 올릴 때도 닻을 내릴 때도 쓰지.'] },
+          { id: 'porter', pass: '물통이 가득 차서 어깨가 무겁구나.', name: '물통 나르는 일꾼', x: 0.73, w: 220, h: 301, lines: ['배에 실을 물을 나른단다.', '바다에서는 마실 물이 귀하지.'] },
+          { id: 'guard', pass: '키가 다 올라갈 때까지 아무도 못 지나간다.', name: '부두 길 지키는 사람', x: 0.85, w: 121, h: 320, lines: ['나는 부두로 가는 길을 지킨단다.', '큰 짐을 올릴 때는 길을 막아야 하지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'dock', name: '명나라 난징 큰 배가 매인 부두', short: '큰 배가 매인 부두', zoom: 1.076, ground: 0.762, scale: 0.630, air: 'hush', floor: 'wood',
+        sora: '돛이 하늘까지 닿을 것 같아!',
+        people: [
+          { id: 'rigger', pass: '이 줄을 단단히 매어야 돛이 바로 서.', name: '돛줄 매는 선원', x: 0.18, w: 137, h: 265, lines: ['돛을 올리고 내리는 줄을 맨단다.', '줄이 아주 많아서 헷갈리면 안 되지.'] },
+          { id: 'navigator', pass: '바늘이 오늘도 같은 쪽을 가리키는구나.', show: 'compass', pose: 'see-aha', sora: '물 위에 뜬 바늘이 길을 알려 줘!', memo: '물에 띄운 바늘로 방향을 알았단다. 밤에는 별을 보고 뱃길을 찾았지.', name: '뱃길 보는 선원', x: 0.29, w: 122, h: 303, lines: ['나는 바다에서 뱃길을 찾는단다.', '흐린 날에는 이 바늘을 보고 간단다.'] },
+          { id: 'anchorman', pass: '닻줄이 닳은 데가 없는지 봐야지.', name: '닻 살피는 선원', x: 0.4, w: 131, h: 251, lines: ['배를 세울 때는 닻을 내린단다.', '닻이 무거워야 배가 떠내려가지 않지.'] },
+          { id: 'ricecarrier', pass: '쌀자루를 배에 싣는 것도 이제 거의 다 했어.', name: '쌀자루 나르는 일꾼', x: 0.51, w: 140, h: 283, lines: ['배에 쌀을 잔뜩 싣는단다.', '사람이 많으니 먹을 것도 많아야 하지.'] },
+          { id: 'clerk', pass: '그릇이 하나 모자라는데 어디 있을까.', show: 'sail', pose: 'see-wow', sora: '돛대가 여럿이고 돛이 다 빨개!', memo: '돛에 대나무 살을 대어 여러 칸으로 나눴단다. 큰 배에는 돛대가 여럿이었지.', name: '짐 맡는 서기', x: 0.62, w: 118, h: 292, lines: ['나는 배에 싣는 짐을 장부에 적는단다.', '무엇을 얼마나 실었는지 다 적어야 하지.'] },
+          { id: 'farewell', pass: '먼 바다까지 가도 꼭 무사히 돌아와요.', name: '배웅하는 아주머니', x: 0.73, w: 108, h: 259, lines: ['남편이 이 배를 타고 바다로 간단다.', '떠날 날이 머지않아 보따리를 쌌지.'] },
+          { id: 'flagman', pass: '깃발이 바람에 잘 날려야 할 텐데.', name: '깃발 다는 선원', x: 0.85, w: 122, h: 320, lines: ['돛대 끝에 붉은 깃발을 단단다.', '바람이 어느 쪽에서 부는지 알려 주지.'] },
+        ],
+        spots: [
+          // The high stern deck of the great ship in the try. (From and to are to be set to the
+          // picture.) Zheng He is not drawn and cannot be spoken to.
+          { id: 'zhenghe', from: 0.8, to: 0.97, sora: '배 위 높은 곳에 누가 서 계신대!', memo: '정화 장군이란다. 이 큰 배들을 이끄는 사람이지.' },
+        ],
+      },
+    ],
+    // "The blue-and-white jar" (core/tale.js; the storyboard of docs/신기한-사실.md): the woman
+    // who wraps the dishes in the storehouse has one jar wrapped in straw for the clerk of the
+    // cargo, whose ship will soon leave; the guard of the wharf road lets no one by while the
+    // great rudder is hoisted onto a ship; the rope maker says to go round by the plank bridge
+    // for loading; she hands the jar to the clerk, choosing what to say; and she looks up at
+    // the great ship with its many masts and red sails.
+    tale: {
+      thing: true,
+      ask: '이렇게 큰 배는 어떻게 생겼을까?',
+      gate: { scene: 'store', open: 3, sora: '아저씨가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'wrapper', goal: '창고 앞의 그릇 싸는 아주머니에게 가 보렴.', holds: '그릇: 아주머니가 들고 있음',
+          lines: ['얘야, 부탁 하나 들어주련?', '이 청화 백자 하나를 빠뜨리고 못 실었단다.', '부두의 짐 맡는 서기님께 전해 주렴.'],
+          offer: { ask: '볏짚에 싼 그릇을 전해 줄까?', label: '내가 전해 줄게요' },
+          errand: 'took',
+        },
+        {
+          who: 'guard', goal: '부두로 가는 길로 가 보렴.', holds: '그릇: 소라가 들고 있음',
+          lines: ['멈춰라. 지금 큰 키를 배에 달아 올리는 중이다.', '떨어지면 위험하니 이 길로는 못 지나간다.'],
+          sora: '그릇을 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'roper', call: '얘, 부두에 가려고?', goal: '밧줄 꼬는 일꾼이 부른다. 가 보렴.', holds: '그릇: 소라가 들고 있음',
+          lines: ['부두에 가려면 이쪽으로 오렴.', '짐 나르는 널빤지 다리로 돌아가면 된단다.', '아저씨, 이 아이는 다리로 돌아갈게요!'],
+          after: [{ who: 'guard', line: '널빤지 다리로 간다면 가도 좋다.' }],
+          sora: '널빤지 다리로 돌아가면 된대! 가자!',
+        },
+        {
+          who: 'clerk', goal: '부두의 짐 맡는 서기에게 그릇을 전하렴.', holds: '그릇: 소라가 들고 있음',
+          lines: ['오, 모자라던 그릇이 여기 있었구나.'],
+          choice: {
+            ask: '그릇을 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"아주머니가 보냈어요"', sora: '창고의 그릇 싸는 아주머니가 보내셨어요.', says: '하나도 안 깨졌구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"이 그릇은 어디 가요?"', sora: '이 그릇은 어디로 가요?', says: '바다 건너 먼 나라에 선물로 간단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'clerk', show: true, goal: '큰 배의 돛대와 돛을 올려다보렴.',
+          lines: ['마침 잘 왔다. 저 배를 올려다보렴.', '돛대가 여럿이고 돛은 대나무 살을 댔단다.'],
+          sora: '이렇게 큰 배는 처음 봐!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'wrapper', when: ['S1', 'S2', 'S3', 'S4'], lines: ['서기님은 큰 배 앞 부두에 계신단다.', '이 길 끝에서 부두로 나가면 된단다.'] },
+        { who: 'wrapper', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '그 그릇도 먼 바다를 건너가겠구나.'] },
+      ],
+      done: '그릇을 전하고, 돛대가 여럿인 큰 배를 올려다보았다.',
+    },
+    errands: [
+      { id: 'took', text: '볏짚에 싼 그릇을 받는다.', at: [] },
+      { id: 'gave', text: '짐 맡는 서기에게 그릇을 전한다.', at: [] },
+      { id: 'saw', text: '큰 배의 돛대와 붉은 돛을 본다.', at: [] },
+    ],
+    reply: '그 배들은 바다 건너 아주 먼 나라까지 갔다가 돌아왔단다.',
+  },
 };
 
 // The far and the fore of every other scene are told from the pictures that are there (the

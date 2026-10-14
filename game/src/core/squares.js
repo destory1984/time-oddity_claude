@@ -375,13 +375,17 @@ export const SQUARES = [
   },
   {
     // The great hall is seen looking north, as the palace hall of Hunminjeongeum is.
-    no: 32, id: 'forbiddenCity', name: '자금성', dateLabel: 'AD 1420년', place: '베이징, 명',
+    // The palace was proclaimed finished in the eleventh lunar month of 1420 (the day is not
+    // taken): its middle is taken, the winter solstice, 13 December of the Julian calendar.
+    // (Worked out with astronomy-engine: that month ran from the new moon of 5 December to
+    // 3 January, Julian, in Beijing; until 2026.10.14 the day was 1 October.)
+    no: 32, id: 'forbiddenCity', name: '자금성', dateLabel: 'AD 1420년 겨울', place: '베이징, 명',
     lat: 39.916, lon: 116.397,
-    date: { year: 1420, month: 10, day: 1 }, calendar: 'julian', hourLocal: 12,
+    date: { year: 1420, month: 12, day: 13 }, calendar: 'julian', hourLocal: 12,
     facingAz: 0, nightOnLook: true,
     memo: '황제의 큰 궁을 다 지음.', sora: '마당이 운동장보다 넓어!',
     memoToday: '남은 것: 자금성. 박물관이 됨.', soraToday: '줄 선 사람 대신 구경꾼이네.',
-    noteMemo: '1420년. 베이징에 황제의 궁 자금성을 열네 해 걸려 다 지었다고 읽음. 날을 몰라 달은 못 적음.',
+    noteMemo: '1420년 겨울. 베이징에 황제의 궁 자금성을 열네 해 걸려 다 지었다고 읽음. 날을 몰라 달은 못 적음.',
     card: '1420년, 명나라의 영락제가 베이징에 새 궁 자금성을 다 지었습니다. 열네 해가 걸렸고, 그 뒤 오백 년 동안 황제 스물네 명이 이곳에서 살았습니다. 1925년부터는 누구나 들어갈 수 있는 박물관이 되었습니다.',
     reply: '아무나 못 들어가던 데를 네가 들어갔구나.',
     quiz: { question: '자금성은 지금 무엇이 되었나?', answer: '박물관', proof: '박물관', wrong: ['대학교', '호텔'] },
@@ -779,6 +783,55 @@ export const SQUARES = [
     card: '1925년 11월, 바르셀로나의 사그라다 파밀리아 성당에서 탄생의 문 위 종탑 하나의 꼭지가 다 올라갔습니다. 꼭지는 주교의 모자와 지팡이를 본뜬 모양이고, 깨뜨린 색유리 조각을 붙여 반짝입니다. 가우디는 이 종탑 하나만 다 지어진 것을 보고 이듬해 세상을 떠났고, 2026년 백 해 되는 날 성당의 가장 높은 탑을 축복했습니다.',
     reply: '가우디 어른이 다 지어진 걸 본 종탑은 그것 하나란다.',
     quiz: { question: '종탑 꼭지에는 무엇을 붙였나?', answer: '색유리 조각', proof: '색유리 조각', wrong: ['금 조각', '조개껍데기'] },
+  },
+  {
+    // Florence, 25 March 1436 (Julian; the first day of the year by the reckoning of
+    // Florence): Pope Eugenius IV consecrates the cathedral, Santa Maria del Fiore. Ten in
+    // the morning; the hour is a guess (the day is on record, the hour not). Seen from the
+    // square by the baptistery, looking east at the cathedral and its dome.
+    // The moon: computed with astronomy-engine for that morning (3 April 1436 Gregorian):
+    // 83 degrees past new, 44% lit, so between a crescent and a half moon (it is below the
+    // horizon at ten). The sun stands 43 degrees up at azimuth 136 (south-east).
+    // Looked up on 2026.10.14 (docs/신기한-사실.md) and found so: consecrated on that day by
+    // Eugenius IV; the dome nearly finished (closed and blessed five months later); the bricks
+    // laid in a herringbone pattern; the lantern on top put on after 1446; the largest and
+    // highest building of Europe when finished. That the dome still stands is common knowledge.
+    // The place is walked about (core/walks.js).
+    no: 33.5, id: 'duomo', name: '피렌체 대성당', dateLabel: 'AD 1436.3.25', place: '피렌체, 이탈리아',
+    lat: 43.7731, lon: 11.2560,
+    date: { year: 1436, month: 3, day: 25 }, calendar: 'julian', hourLocal: 10,
+    facingAz: 90, nightOnLook: true,
+    memo: '새 대성당을 봉헌하는 날.', sora: '빨간 돔이 하늘만큼 커!',
+    memoToday: '남은 것: 대성당과 돔. 그대로 섬.', soraToday: '돔 꼭대기에 작은 탑이 생겼어!',
+    noteMemo: '1436년 3월 25일. 교황이 피렌체 대성당을 봉헌했다고 읽음. 그날 달은 초승에서 반달 사이.',
+    card: '1436년 3월 25일, 피렌체의 새해 첫날에 교황 에우제니오 4세가 피렌체 대성당을 봉헌했습니다. 브루넬레스키가 맡은 큰 돔은 벽돌을 생선뼈 꼴로 엇갈려 쌓아 올렸고, 다 지었을 때 유럽에서 가장 크고 높은 건물이었습니다. 돔 꼭대기의 작은 탑은 그 뒤에 따로 올렸습니다.',
+    reply: '그날 거의 다 올린 돔은 지금도 피렌체 하늘에 그대로 있단다.',
+    quiz: { question: '돔의 벽돌은 어떤 꼴로 쌓았나?', answer: '생선뼈 꼴', proof: '생선뼈 꼴', wrong: ['물결 꼴', '벌집 꼴'] },
+  },
+  {
+    // The shipyard by the river at Nanjing, Ming, 1405: the great ships of Zheng He make ready
+    // for the first voyage. 11 July 1405 of the Julian calendar is the day of the emperor's
+    // edict sending the fleet; the fleet gathered at Nanjing and left in the autumn (the day
+    // it left is not known), so the moon is not written. Nine in the morning. The wharf looks
+    // over the Yangtze to the north-west (the yard lay where the Qinhuai meets the Yangtze, on
+    // the west of the city); the try draws a low sun at the left, which a sun of 9 am in the
+    // east cannot be from there: the sky is shown at 9 pm (nightOnLook).
+    // Looked up on 2026.10.14 and found so: the treasure shipyard was set up in 1405 beside the
+    // older Longjiang yard; the first voyage had 317 ships and about 27,800 men (records
+    // differ: "삼백 척 넘게", "이만 명 넘게"); silks and porcelain went with the fleet; three of
+    // the yard's basins are left and became a park in 2005, six hundred years after.
+    // The length of the largest ship is disputed and is not written.
+    // The place is walked about (core/walks.js).
+    no: 31.5, id: 'zhenghe', name: '정화의 배', dateLabel: 'AD 1405년', place: '난징, 명',
+    lat: 32.08, lon: 118.73,
+    date: { year: 1405, month: 7, day: 11 }, calendar: 'julian', hourLocal: 9,
+    facingAz: 315, nightOnLook: true,
+    memo: '정화의 큰 배들이 떠날 채비 중.', sora: '배가 집보다 훨씬 커!',
+    memoToday: '남은 것: 배 짓던 못 셋. 공원.', soraToday: '배 짓던 못이 공원이 됐대!',
+    noteMemo: '1405년. 난징 강가에서 정화의 큰 배들이 첫 바닷길을 채비했다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '1405년, 명나라 난징의 강가 조선소에서 정화가 이끄는 큰 배들이 첫 바닷길을 떠날 채비를 했습니다. 배가 삼백 척 넘게, 사람이 이만 명 넘게 떠났고, 배에는 비단과 청화 백자를 실었습니다. 배를 짓던 못 셋이 지금도 남아 2005년에 공원이 되었습니다.',
+    reply: '정화의 배들은 그 뒤로도 여러 번 먼 바다로 나갔단다.',
+    quiz: { question: '정화의 배에는 어떤 그릇을 실었나?', answer: '청화 백자', proof: '청화 백자', wrong: ['유리 그릇', '쇠 솥'] },
   },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
