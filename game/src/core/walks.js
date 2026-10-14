@@ -4701,6 +4701,16 @@ export const WALKS = {
     first: '팀북투에 큰 진흙 모스크를 짓는 해란다. 소금 덩이를 전해 주렴.',
     intro: { title: '팀북투 사람들', text: '팀북투는 사막 끝, 큰 강 가까이에 있는 말리의 도시란다. 낙타와 배가 만나 소금과 금을 바꾸었지.' },
     dir: 'timbuktu1327', look: 'paper',
+    // (What is said of today: looked up on 2026.10.14, in docs/신기한-사실.md; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '징게레베르 모스크의 지금 모습', when: '말리 팀북투 · 오늘날',
+      text: [
+        '흙과 짚과 나무로 지은 모스크가 지금도 서 있습니다.',
+        '마을 사람들이 해마다 벽에 흙을 덧바릅니다.',
+        '1570년 무렵 크게 고쳐 지었습니다.',
+      ],
+      credit: '사진: Ousmane Garba Kounta, 위키미디어 공용, CC BY-SA 4.0',
+    },
     drawn: '서아프리카의 손으로 쓴 옛 책의 장식 그림처럼 그렸단다.',
     scenes: [
       {
@@ -4841,6 +4851,16 @@ export const WALKS = {
     first: '큰 피라미드에 마지막 칠을 하는 날이란다. 붉은 물감을 전해 주렴.',
     intro: { title: '테오티우아칸 사람들', text: '멕시코의 높은 들에 큰 도시를 지은 사람들이란다. 스스로를 뭐라 불렀는지는 아무도 모르지.' },
     dir: 'teotihuacan200', look: 'paper',
+    // (What is said of today: looked up on 2026.10.14, in docs/신기한-사실.md; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '태양의 피라미드의 지금 모습', when: '멕시코 테오티우아칸 · 오늘날',
+      text: [
+        '겉의 회와 붉은 칠은 다 벗겨지고 돌만 남았습니다.',
+        '지금 모습은 1900년대 초에 다시 쌓은 것입니다.',
+        '꼭대기에 무엇이 있었는지는 남아 있지 않습니다.',
+      ],
+      credit: '사진: Daniel Case, 위키미디어 공용, CC BY-SA 3.0',
+    },
     drawn: '옛 테오티우아칸의 집 벽에 그린 붉은 그림처럼 그렸단다.',
     scenes: [
       {
@@ -4984,6 +5004,16 @@ export const WALKS = {
   jikji: {
     first: '절에서 쇠 글자로 책을 찍는 날이란다. 종이를 전해 주렴.',
     dir: 'jikji1377', look: 'paper', pale: true,
+    // (What is said of today: looked up on 2026.10.14, in docs/신기한-사실.md; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '남은 책 직지', when: '프랑스 국립도서관 · 직지',
+      text: [
+        '직지는 아래 권 한 권만 남았습니다.',
+        '그 책은 프랑스 국립도서관에 있습니다.',
+        '흥덕사 터는 1985년에 파서 찾았습니다.',
+      ],
+      credit: '사진: 위키미디어 공용, 공개 저작물',
+    },
     drawn: '고려 때의 먹 그림처럼, 누런 비단에 먹으로 그렸단다.',
     scenes: [
       {
@@ -5123,6 +5153,16 @@ export const WALKS = {
     first: '큰 돌 절을 막 다 지은 무렵이란다. 연꽃 바구니를 전해 주렴.',
     intro: { title: '자바 사람들', text: '자바는 더운 바다에 있는 큰 섬이란다. 쌀농사를 짓고, 부처님을 모시는 큰 절을 돌로 쌓았지.' },
     dir: 'borobudur825', look: 'paper',
+    // (What is said of today: looked up on 2026.10.14, in docs/신기한-사실.md; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '보로부두르의 지금 모습', when: '인도네시아 자바 보로부두르 · 오늘날',
+      text: [
+        '돌판 그림과 종 모양 탑 일흔둘이 남아 있습니다.',
+        '부처상 가운데 머리를 잃은 것이 많습니다.',
+        '순례하는 이들은 지금도 해 도는 쪽으로 돕니다.',
+      ],
+      credit: '사진: Gunawan Kartapranata, 위키미디어 공용, 공개 저작물',
+    },
     drawn: '옛 불경의 야자잎에 그려 넣던 색 그림처럼 그렸단다.',
     scenes: [
       {

@@ -72,7 +72,7 @@
 - 그림은 곳마다 그 땅과 그 때의 그림을 본뜬다. 로마는 폼페이의 벽화, 개봉은 송나라의 수묵화, 한양은 세종 때 찍은 책의 목판 삽화, 바빌론은 이슈타르 문의 유약 벽돌, 서라벌은 말다래의 천마 그림, 마추픽추는 금판 두드린 무늬, 진나라는 옻칠 그릇의 그림, 스톤헨지는 바위 새김 그림, 시드니는 건축가의 스케치를 따랐다. 소라만 어디서나 도트 그림이다.
 - 배경은 세 겹이다. 먼 풍경, 거리, 눈앞의 것이 걸을 때 서로 다른 빠르기로 지나간다.
 - 마야, 잉카, 바빌론처럼 낯선 문명의 스물세 곳에서는 처음 내려설 때 그 사람들이 누구인지 두 문장으로 먼저 알려 준다.
-- 2026.10.14에 지은 테오티우아칸, 보로부두르, 팀북투, 청주 흥덕사를 뺀 서른네 곳에 그곳의 지금 사진이 있다. 알렉산드리아의 등대는 남아 있지 않아, 그 자리에 선 카이트베이 성채의 사진을 넣었다.
+- 서른여덟 곳 모두에 그곳의 지금 사진이 있다. 알렉산드리아의 등대는 남아 있지 않아, 그 자리에 선 카이트베이 성채의 사진을 넣었다. 청주 흥덕사는 절이 남아 있지 않아, 남은 책 직지의 사진을 넣었다.
 - 게임은 기원전 9500년쯤의 괴베클리 테페에서 시작한다(갈 곳 가운데 가장 오래된 곳). 처음 열면 여는 이야기 다섯 쪽이 먼저 나온다.
 
 ## 하는 법
@@ -212,3 +212,7 @@ npm run build
 | 올림피아 | [The ancient stadium, ca. 775 BC - ca. 350 BC, it could accommodate up to 40,000 spectators, Olympia (16148198000).jpg](https://commons.wikimedia.org/wiki/File:The_ancient_stadium%2C_ca._775_BC_-_ca._350_BC%2C_it_could_accommodate_up_to_40%2C000_spectators%2C_Olympia_%2816148198000%29.jpg) | Carole Raddato | CC BY-SA 2.0 |
 | 페르세폴리스 | [The Apadana Staircase with the Procession of the Vassals (4686171639).jpg](https://commons.wikimedia.org/wiki/File:The_Apadana_Staircase_with_the_Procession_of_the_Vassals_%284686171639%29.jpg) | A.Davey | CC BY 2.0 |
 | 알렉산드리아 | [Citadel of Qaitbay, Alexandria, Egypt.jpg](https://commons.wikimedia.org/wiki/File:Citadel_of_Qaitbay%2C_Alexandria%2C_Egypt.jpg) | Argenberg | CC BY 2.0 |
+| 테오티우아칸 | [Pyramid of the Sun, Teotihuacan, from path to parking lot.jpg](https://commons.wikimedia.org/wiki/File:Pyramid_of_the_Sun%2C_Teotihuacan%2C_from_path_to_parking_lot.jpg) | Daniel Case | CC BY-SA 3.0 |
+| 보로부두르 | [Borobudur-Nothwest-view.jpg](https://commons.wikimedia.org/wiki/File:Borobudur-Nothwest-view.jpg) | Gunawan Kartapranata | 공개 저작물 |
+| 팀북투 | [La plus grande Mosquée de la ville de Tombouctou.jpg](https://commons.wikimedia.org/wiki/File:La_plus_grande_Mosqu%C3%A9e_de_la_ville_de_Tombouctou.jpg) | Ousmane Garba Kounta | CC BY-SA 4.0 |
+| 청주 흥덕사(직지) | [Jikji pages.jpg](https://commons.wikimedia.org/wiki/File:Jikji_pages.jpg) | 찍은 이 모름 | 공개 저작물 |
