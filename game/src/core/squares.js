@@ -759,6 +759,27 @@ export const SQUARES = [
     reply: '그날의 쇠 글자는 하나도 안 남았단다. 책 한 권이 그날을 전하지.',
     quiz: { question: '직지는 무엇으로 만든 글자로 찍었나?', answer: '쇠', proof: '쇠로 만든 글자로', wrong: ['나무', '흙'] },
   },
+  {
+    // The Sagrada Familia in Barcelona, November 1925: the pinnacle of the bell tower of
+    // Saint Barnabas over the Nativity facade is finished. The day is not on record (the
+    // sources give 20 and 30 November): the 25th is taken. Noon. The Nativity facade faces
+    // north-east, so it is seen looking south-west.
+    // Looked up on 2026.10.14 and found so: the first stone of 1882; the pinnacle finished
+    // in November 1925, the only tower Gaudi saw finished; the pinnacles stand for the mitre,
+    // crosier and ring of a bishop and are covered with broken coloured glass; Gaudi died in
+    // June 1926, and on 10 June 2026, a hundred years after, the tower of Jesus (the highest)
+    // was blessed. The place is walked about (core/walks.js).
+    no: 88.5, id: 'sagrada', name: '사그라다 파밀리아', dateLabel: 'AD 1925년 11월', place: '바르셀로나, 스페인',
+    lat: 41.4036, lon: 2.1744,
+    date: { year: 1925, month: 11, day: 25 }, calendar: 'gregorian', hourLocal: 12,
+    facingAz: 225, nightOnLook: true,
+    memo: '성당의 첫 종탑이 다 올라감.', sora: '탑 꼭대기가 반짝반짝 빛나!',
+    memoToday: '남은 것: 그 종탑. 그대로 섬.', soraToday: '가운데에 엄청 높은 탑이 생겼어!',
+    noteMemo: '1925년 11월. 바르셀로나 성당의 첫 종탑 꼭지가 다 올라갔다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '1925년 11월, 바르셀로나의 사그라다 파밀리아 성당에서 탄생의 문 위 종탑 하나의 꼭지가 다 올라갔습니다. 꼭지는 주교의 모자와 지팡이를 본뜬 모양이고, 깨뜨린 색유리 조각을 붙여 반짝입니다. 가우디는 이 종탑 하나만 다 지어진 것을 보고 이듬해 세상을 떠났고, 2026년 백 해 되는 날 성당의 가장 높은 탑을 축복했습니다.',
+    reply: '가우디 어른이 다 지어진 걸 본 종탑은 그것 하나란다.',
+    quiz: { question: '종탑 꼭지에는 무엇을 붙였나?', answer: '색유리 조각', proof: '색유리 조각', wrong: ['금 조각', '조개껍데기'] },
+  },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
 

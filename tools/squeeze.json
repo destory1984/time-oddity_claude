@@ -351,6 +351,10 @@
 "q": 78,
 "sha": "ba6c72dbe73542d4dfe68491c51f4843df917f70"
 },
+"borobudur825/photo-now.webp": {
+"q": 78,
+"sha": "aaf074840e7d8862a86df0c1057a6bc175a17b7a"
+},
 "borobudur825/show-joint.webp": {
 "q": 78,
 "sha": "97d6bef6b71cf1cfdee60c1bb9b915de332c416b"
@@ -714,6 +718,10 @@
 "jikji1377/foundry.webp": {
 "q": 78,
 "sha": "9367eeddf1078b34fdea8a82cb8b2d2def77b6ff"
+},
+"jikji1377/photo-now.webp": {
+"q": 78,
+"sha": "2e237fe679704f4b20c9f13f9c1bbbb4ae9f5f5f"
 },
 "jikji1377/print-far.webp": {
 "q": 78,
@@ -1279,6 +1287,62 @@
 "q": 78,
 "sha": "12d4f5b6f3eb78caa98eeab56a63985157353079"
 },
+"sagrada1925/nativity-far.webp": {
+"q": 78,
+"sha": "1b1f7e313b8b6efa2cec395347ce47ea7c18be49"
+},
+"sagrada1925/nativity-near.webp": {
+"q": 70,
+"sha": "9075c8126018f10945708ac5cbe4e352d9ee0b9f"
+},
+"sagrada1925/nativity.webp": {
+"q": 78,
+"sha": "1a48a4a6798719486979ce124fe58678cef9f06c"
+},
+"sagrada1925/school-far.webp": {
+"q": 78,
+"sha": "b54ad640a4c2226f39093388bc31727d2e2698ef"
+},
+"sagrada1925/school-near.webp": {
+"q": 70,
+"sha": "a81f29ed79308a102b54b8efce4c536cf5906ace"
+},
+"sagrada1925/school.webp": {
+"q": 78,
+"sha": "2e03494f91ef4bbad9d217df162fe07271a8b3b7"
+},
+"sagrada1925/show-meal.webp": {
+"q": 78,
+"sha": "381caa6c7e4cd4913ad0fcfae0701d929ef71cce"
+},
+"sagrada1925/show-model.webp": {
+"q": 78,
+"sha": "934154db6345587e366afed294a78b067c483dd5"
+},
+"sagrada1925/show-roof.webp": {
+"q": 78,
+"sha": "ce596f86af829e0b50fce7a0a90a647ac441d1e1"
+},
+"sagrada1925/show-spire.webp": {
+"q": 78,
+"sha": "4ee3f89f4b131cab97f7b135a8609e0844123c4e"
+},
+"sagrada1925/show-trencadis.webp": {
+"q": 78,
+"sha": "81a4f412456764c448eec5b944eed8cca13f53ec"
+},
+"sagrada1925/workshop-far.webp": {
+"q": 78,
+"sha": "f6abfe4ef6682fa19cce14715f352921732493ca"
+},
+"sagrada1925/workshop-near.webp": {
+"q": 70,
+"sha": "9783e2e16f969bb2d0237a1f1309da6c04dcf3c5"
+},
+"sagrada1925/workshop.webp": {
+"q": 78,
+"sha": "44c0746b4b1872e80cb30aff54de46018d7ee904"
+},
 "samarkand1428/hill-far.webp": {
 "q": 78,
 "sha": "e2e58a4cc36d2da63dadb89971b29b348a0b5bb5"
@@ -1751,6 +1815,10 @@
 "q": 78,
 "sha": "a3a015cdcbf76e6358073285e65a597d3d8afdbc"
 },
+"teotihuacan200/photo-now.webp": {
+"q": 78,
+"sha": "3e7217f6255d5afcfa0f5811b6f397d5df16ef2b"
+},
 "teotihuacan200/pyramid-far.webp": {
 "q": 78,
 "sha": "d237494c4ec4485b6c070df97e779c612490928f"
@@ -1794,6 +1862,10 @@
 "timbuktu1327/market.webp": {
 "q": 78,
 "sha": "237c7411c6679aea9c6314e8d0f28691a72e4225"
+},
+"timbuktu1327/photo-now.webp": {
+"q": 78,
+"sha": "b316e96567c284ce4a597bf5994c54161fc6d37e"
 },
 "timbuktu1327/show-board.webp": {
 "q": 78,

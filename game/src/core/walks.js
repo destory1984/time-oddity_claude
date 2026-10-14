@@ -5276,6 +5276,150 @@ export const WALKS = {
     ],
     reply: '그 절은 천 년쯤 숲에 묻혀 있었단다. 꽃 냄새는 좋더냐.',
   },
+  // The Sagrada Familia in Barcelona, November 1925, by day: the pinnacle of the tower of
+  // Saint Barnabas is finished. Drawn as the careful landscapes of the young Miro (the
+  // user's choice of five tries: the fifth). The pictures are in sagrada1925; the try is the
+  // third scene ('nativity': the foot of the Nativity facade, with the school, the workshop
+  // and the crane behind at the left), and the school and the workshop were ordered after
+  // it as nearer views. Pale: the sky of the pictures is a bright blue of day.
+  // Looked up on 2026.10.14 (docs/신기한-사실.md) and found so: the first stone of 1882 ("마흔
+  // 해도 더 전"); the pinnacle of Saint Barnabas finished in November 1925, the other three
+  // being built; the pinnacles stand for the mitre, crosier and ring of a bishop, with
+  // broken Venetian glass, "Hosanna" under the pinnacle and "Sanctus" on the shaft; Gaudi
+  // lives in a room by the workshop from 1925 and builds from plaster models more than from
+  // drawings; the temple is built on gifts only (that Gaudi went asking is "전함": said as
+  // "모으러 다니셨대"); the school of 1909, its roof of thin bricks in waves, for the workers'
+  // children and the poor children of the quarter, meant to be pulled down one day.
+  // Looked up while writing and found so: the pinnacle is of pieces of concrete cast
+  // beforehand and covered with glass from Murano (upcommons.upc.edu): "틀에 부어 만든 조각";
+  // the school taught by the Montessori method from 1915 ("스스로 골라서 공부해") and had
+  // open-air classrooms under iron pergolas; the smock ("babi") over children's clothes is
+  // in writing from 1918; workers' lunch of bread, llonganissa and olives (a memoir of
+  // Tarragona, undated: to be looked at again).
+  // Looked for and not found, so not said: pa amb tomaquet in 1925; how the glass was laid
+  // on in 1925; "my client is not in a hurry".
+  // From memory: the dress; the wooden crane with a wheel; masons with iron chisels; the
+  // facade tells of the birth of Jesus; that Sanctus means "holy".
+  // Made up: the errand of the lunch bundle, the boy at school and his father who lays the
+  // glass, the master of the stone yard, the maker of plaster models who says to go through
+  // the workshop, every other person. Gaudi is a spot only (the old man with a white beard
+  // inside the workshop).
+  // Kept out: Gaudi's death and the year 2026 (the square's card has them), the civil war,
+  // the great middle towers, the Passion facade, iron cranes, tourists, trams, motor cars.
+  sagrada: {
+    first: '성당의 종탑 하나가 다 올라간 날이란다. 점심을 전해 주렴.',
+    dir: 'sagrada1925', look: 'paper', pale: true,
+    drawn: '그 무렵 젊은 미로의 풍경화처럼, 하나하나 또렷하게 그렸단다.',
+    scenes: [
+      {
+        id: 'school', name: '스페인 바르셀로나 일꾼 아이들의 학교 앞', short: '학교 앞', zoom: 1.131, ground: 0.720, scale: 0.662, air: 'hush', floor: 'dirt',
+        sora: '지붕이 물결처럼 출렁여!',
+        people: [
+          { id: 'teacher', pass: '오늘도 아이들이 다 왔구나.', name: '선생님', x: 0.18, w: 122, h: 320, lines: ['성당 일꾼의 아이들이 다니는 학교란다.', '동네 아이들도 함께 배우지.'] },
+          { id: 'pupil', pass: '아빠가 점심을 두고 가셨어.', name: '창가의 아이', x: 0.29, w: 72, h: 254, lines: ['우리 아빠는 성당에서 일하셔.', '나는 지금 수업 중이라 못 나가.'] },
+          { id: 'janitor', pass: '지붕이 오늘도 튼튼하구나.', show: 'roof', pose: 'see-aha', sora: '벽돌이 겹겹이 쌓였어!', memo: '얇은 벽돌을 여러 겹 겹쳐 물결치는 지붕을 얹었단다. 성당을 다 지으면 헐 셈으로 지었지.', name: '학교 문지기 할아버지', x: 0.4, w: 125, h: 312, lines: ['이 지붕은 얇은 벽돌을 겹쳐 쌓았단다.', '물결치게 지어서 아주 튼튼하지.'] },
+          { id: 'baker', pass: '빵이 아직 따끈하구나.', show: 'meal', name: '빵 파는 아주머니', x: 0.51, w: 132, h: 291, lines: ['일꾼들은 빵에 소시지와 올리브를 먹는단다.', '한 조각 맛보련?'],
+            try: { id: 'eat-bread', verb: 'eat', name: '빵과 소시지와 올리브', face: 'yum', sora: '올리브가 짭짤하고 빵이 고소해!' } },
+          { id: 'seamstress', pass: '흰 덧옷을 다 지었구나.', name: '옷 짓는 아주머니', x: 0.62, w: 109, h: 308, lines: ['학교 갈 때는 옷 위에 흰 덧옷을 입는단다.', '네 것도 있어. 입어 보련?'],
+            try: { id: 'wear-barcelona', verb: 'wear', name: '1920년대 바르셀로나의 옷', outfit: 'barcelona', sora: '흰 덧옷에 깃이 동그래!', memo: '그 무렵 아이들은 옷을 더럽히지 않게 덧옷을 입었단다.' } },
+          { id: 'girl', pass: '오늘은 숫자 공부를 골랐어.', name: '공책 든 여자아이', x: 0.73, w: 80, h: 230, lines: ['우리 학교는 하고 싶은 공부를 골라서 해.', '바깥 그늘에서도 공부해.'] },
+          { id: 'granny', pass: '저 탑이 언제 다 서려나.', name: '동네 할머니', x: 0.85, w: 125, h: 277, lines: ['저 성당은 사람들이 낸 돈으로만 짓는단다.', '나도 동전을 보탰지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'workshop', name: '스페인 바르셀로나 성당 작업실과 돌 마당', short: '작업실과 돌 마당', zoom: 1.143, ground: 0.710, scale: 0.669, air: 'chisels', floor: 'dirt',
+        sora: '창 안에 하얀 모형이 가득해!',
+        people: [
+          { id: 'plasterer', pass: '석고가 굳기 전에 부어야 해.', name: '석고 개는 일꾼', x: 0.18, w: 103, h: 302, lines: ['흰 석고 가루를 물에 개는 중이란다.', '금방 굳으니까 서둘러야 하지.'] },
+          { id: 'modeler', pass: '이 꽃잎은 조금 더 둥글게 해야지.', show: 'model', pose: 'see-wow', sora: '성당이 작게 들어 있어!', memo: '이 성당은 도면보다 석고 모형으로 지었단다. 모형을 보며 돌을 깎았지.', name: '석고 모형 만드는 사람', x: 0.29, w: 101, h: 300, lines: ['석고로 성당을 작게 먼저 만든단다.', '석수들은 이 모형을 보고 돌을 깎지.'] },
+          { id: 'draftsman', pass: '어른께 여쭤봐야겠어.', name: '도면 든 젊은 건축가', x: 0.4, w: 100, h: 309, lines: ['가우디 어른은 도면보다 모형을 보신단다.', '요즘은 공사장에서 지내시지.'] },
+          { id: 'mason', pass: '이 모서리를 반듯하게 다듬어야지.', name: '돌 다듬는 석수', x: 0.51, w: 106, h: 300, lines: ['쇠 정과 망치로 돌을 다듬는단다.', '모형과 똑같은 모양이 되게 깎지.'] },
+          { id: 'carter', pass: '이 돌은 저쪽 더미에 둬야지.', name: '돌 나르는 일꾼', x: 0.62, w: 92, h: 299, lines: ['다듬은 돌을 쌓아 두는 중이란다.', '큰 돌은 기중기로 들어 올리지.'] },
+          { id: 'winder', pass: '밧줄을 꽉 잡아야 해.', name: '기중기 돌리는 일꾼', x: 0.73, w: 97, h: 320, lines: ['나무 기중기로 큰 돌을 들어 올린단다.', '바퀴를 돌리면 밧줄이 감기지.'] },
+          { id: 'foreman', pass: '돌이 올라간다, 다들 물러서라.', name: '돌 마당 우두머리', x: 0.85, w: 92, h: 303, lines: ['나는 이 돌 마당을 맡은 사람이란다.', '돌이 떨어지면 크게 다치니 조심하렴.'] },
+        ],
+        spots: [
+          // Gaudi, inside the workshop: he cannot be spoken to. (From and to are to be set to
+          // the picture: the windows of the workshop.)
+          { id: 'gaudi', from: 0.08, to: 0.42, sora: '창 안에 흰 수염 할아버지가 계셔!', memo: '가우디 어른이란다. 이 성당을 맡아 짓고, 공사장에서 사신단다.' },
+        ],
+      },
+      {
+        id: 'nativity', name: '스페인 바르셀로나 사그라다 파밀리아 탄생의 문 발치', short: '탄생의 문 발치', zoom: 1.095, ground: 0.747, scale: 0.641, air: 'hush', floor: 'dirt',
+        sora: '탑 꼭대기가 반짝여!',
+        people: [
+          { id: 'breaker', pass: '이 유리는 예쁘게 깨졌구나.', show: 'trencadis', pose: 'see-aha', sora: '깨진 유리로 무늬를 만들어!', memo: '색유리를 깨뜨려 조각조각 붙였단다. 해가 비치면 꼭지가 반짝이지.', name: '유리 깨는 일꾼', x: 0.18, w: 114, h: 320, lines: ['색유리를 망치로 작게 깨뜨린단다.', '이 조각을 탑 꼭지에 붙이지.'] },
+          { id: 'sculptor', pass: '아기의 얼굴은 웃게 새겨야지.', name: '돌 조각하는 사람', x: 0.29, w: 110, h: 309, lines: ['이 문에는 예수님이 태어난 이야기를 새긴단다.', '사람과 짐승과 꽃이 가득하지.'] },
+          { id: 'rigger', pass: '비계를 한 칸 더 올려야 해.', name: '비계 일꾼', x: 0.4, w: 110, h: 318, lines: ['나무 비계를 타고 탑에 올라간단다.', '나머지 세 탑은 아직 짓는 중이지.'] },
+          { id: 'donor', pass: '오늘도 조금 보태야지.', name: '기부함 앞 아주머니', x: 0.51, w: 107, h: 304, lines: ['이 성당은 모두가 낸 돈으로 짓는단다.', '가우디 어른도 돈을 모으러 다니셨대.'] },
+          { id: 'tiler', pass: '점심때가 지났는데 배가 고프구나.', show: 'spire', pose: 'see-wow', sora: '꼭지가 주교님 모자 같아!', memo: '꼭지는 주교의 모자를 본떴단다. 꼭지 아래에 호산나, 몸통에 상투스라는 글자가 붙었지.', name: '타일 붙이는 아저씨', x: 0.62, w: 102, h: 310, lines: ['틀에 부어 만든 조각에 색유리를 붙인단다.', '그 조각을 탑 꼭대기로 올리지.'] },
+          { id: 'waterboy', pass: '아저씨들께 물을 드려야지.', name: '물 나르는 아이', x: 0.73, w: 83, h: 253, lines: ['일하는 아저씨들께 물을 날라 드려.', '저 꼭대기까지는 못 올라가.'] },
+          { id: 'oldman', pass: '살아서 이 탑을 보는구나.', name: '구경하는 할아버지', x: 0.85, w: 127, h: 305, lines: ['첫 돌을 놓은 지 마흔 해도 더 지났단다.', '오늘 드디어 탑 하나가 다 섰구나.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The lunch bundle" (core/tale.js; the storyboard of docs/신기한-사실.md): the boy at the
+    // school has the lunch his father left behind and cannot leave his lesson; the master of
+    // the stone yard lets no one cross while the crane lifts a great stone; the maker of
+    // plaster models says to go through the workshop, past the models hung from the ceiling;
+    // she hands the lunch to the father who lays the glass at the foot of the Nativity facade,
+    // choosing what to say; and she looks up at the pinnacle just finished and its letters.
+    tale: {
+      thing: true,
+      ask: '성당의 탑 꼭대기는 왜 반짝일까?',
+      gate: { scene: 'workshop', open: 3, sora: '우두머리가 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'pupil', goal: '학교 앞의 아이에게 가 보렴.', holds: '점심 꾸러미: 아이가 들고 있음',
+          lines: ['얘, 부탁 하나 들어줄래?', '아빠가 점심을 두고 가셨어. 나는 수업 중이야.', '탄생의 문 앞의 아빠께 전해 줘.'],
+          offer: { ask: '점심 꾸러미를 전해 줄까?', label: '내가 전해 줄게' },
+          errand: 'took',
+        },
+        {
+          who: 'foreman', goal: '돌 마당을 지나 탄생의 문 쪽으로 가 보렴.', holds: '점심 꾸러미: 소라가 들고 있음',
+          lines: ['멈춰라. 지금 큰 돌을 들어 올리는 중이다.', '돌 아래로는 아무도 못 지나간다.'],
+          sora: '점심을 전해야 하는데… 어? 누가 불러!',
+        },
+        {
+          who: 'modeler', call: '얘, 이쪽으로 오렴.', goal: '석고 모형 만드는 사람이 부른다. 가 보렴.', holds: '점심 꾸러미: 소라가 들고 있음',
+          lines: ['탄생의 문에 간다고? 그럼 이리 오렴.', '작업실 안을 지나가면 돌 마당을 안 건너도 된단다.', '천장에 매단 모형은 건드리지 말고 가렴.'],
+          after: [{ who: 'foreman', line: '작업실로 돌아간다면 가도 좋다.' }],
+          sora: '작업실 안으로 지나가면 된대! 가자!',
+        },
+        {
+          who: 'tiler', goal: '탄생의 문 앞의 타일 붙이는 아저씨에게 점심을 전하렴.', holds: '점심 꾸러미: 소라가 들고 있음',
+          lines: ['어, 그건 내 점심 꾸러미잖니?'],
+          choice: {
+            ask: '점심 꾸러미를 건네며 뭐라고 할까?',
+            options: [
+              { id: 'E1', label: '"아들이 보냈어요"', sora: '학교에 있는 아드님이 보냈어요.', says: '그 녀석이 챙겨 주었구나. 고맙다, 얘야.' },
+              { id: 'E2', label: '"무슨 일을 하세요?"', sora: '아저씨는 무슨 일을 하세요?', says: '탑 꼭지에 색유리 조각을 붙인단다.' },
+            ],
+          },
+          errand: 'gave',
+        },
+        {
+          who: 'tiler', show: true, goal: '다 올라간 종탑 꼭지를 올려다보렴.',
+          lines: ['마침 잘 왔다. 저 꼭대기를 올려다보렴.', '오늘 저 탑의 꼭지가 다 올라갔단다.'],
+          sora: '꼭대기에 글자도 붙어 있어!',
+          errand: 'saw',
+        },
+      ],
+      asides: [
+        { who: 'pupil', when: ['S1', 'S2', 'S3', 'S4'], lines: ['아빠는 탄생의 문 앞에서 일하셔.', '돌 마당을 지나면 금방이야.'] },
+        { who: 'pupil', when: ['S5'], lines: ['점심을 전해 줬구나! 고마워.', '이제 아빠가 배고프지 않으시겠다.'] },
+      ],
+      done: '점심을 전하고, 다 올라간 종탑 꼭지를 올려다보았다.',
+    },
+    errands: [
+      { id: 'took', text: '점심 꾸러미를 받는다.', at: [] },
+      { id: 'gave', text: '타일 붙이는 아저씨에게 점심을 전한다.', at: [] },
+      { id: 'saw', text: '다 올라간 종탑 꼭지를 본다.', at: [] },
+    ],
+    reply: '가우디 어른이 다 지어진 걸 본 종탑은 그것 하나란다. 지금도 그대로 서 있지.',
+  },
 };
 
 // The far and the fore of every other scene are told from the pictures that are there (the
