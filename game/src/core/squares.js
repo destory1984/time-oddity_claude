@@ -314,9 +314,9 @@ export const SQUARES = [
     // The pyramid's stair faces west; it is seen from the avenue, looking east.
     facingAz: 90, nightOnLook: true,
     memo: '해의 피라미드를 다 쌓음.', sora: '빨갛게 칠했어! 계단이 끝이 없네.',
-    memoToday: '남은 것: 피라미드. 칠은 벗겨짐.', soraToday: '돌색이 됐네. 꼭대기 집도 없어.',
+    memoToday: '남은 것: 피라미드. 칠은 벗겨짐.', soraToday: '돌색이 됐네. 칠이 다 벗겨졌어.',
     noteMemo: '200년경. 멕시코 고원의 큰 도시에 해의 피라미드를 다 쌓았다고 읽음. 날을 몰라 달은 못 적음.',
-    card: '서기 200년 무렵, 멕시코 고원의 큰 도시에 태양의 피라미드가 다 지어졌습니다. 겉에는 회반죽을 바르고 붉게 칠했으며, 꼭대기에는 신전이 있었습니다. 도시는 몇백 년 뒤 버려졌고, 훗날 이곳에 온 아스테카 사람들이 테오티우아칸이라는 이름을 붙였습니다.',
+    card: '서기 200년 무렵, 멕시코 고원의 큰 도시에 태양의 피라미드가 다 지어졌습니다. 겉에는 회반죽을 바르고 붉게 칠했고, 꼭대기에 무엇이 있었는지는 남지 않았습니다. 도시는 몇백 년 뒤 버려졌고, 훗날 이곳에 온 아스테카 사람들이 테오티우아칸이라는 이름을 붙였습니다.',
     reply: '지은 사람들의 이름은 아무도 모른단다. 돌만 알지.',
     quiz: { question: '테오티우아칸이라는 이름은 누가 붙였나?', answer: '아스테카 사람들', proof: '아스테카 사람들이', wrong: ['도시를 지은 사람들', '스페인 사람들'] },
   },
@@ -733,6 +733,31 @@ export const SQUARES = [
     card: '기원전 776년 여름, 그리스의 올림피아에서 기록에 남은 첫 올림피아 제전이 열렸습니다. 경기는 달리기 하나뿐이었습니다. 이백 미터쯤 되는 길을 한 번 달렸고, 가까운 엘리스에서 온 코로이보스가 이겼습니다.',
     reply: '요즘 올림픽의 불도 이 올림피아에서 붙인단다. 긴 달리기로구나.',
     quiz: { question: '첫 올림피아 제전의 경기는 몇 가지였나?', answer: '하나', proof: '경기는 달리기 하나뿐이었습니다', wrong: ['셋', '다섯'] },
+  },
+  {
+    // Heungdeok temple outside Cheongju, the summer of 1377: the book Jikji is printed with
+    // type of metal. The book's last page says "the seventh month" of 1377; that this is a
+    // month of the lunar calendar is from memory, and the day is not on record: 15 August of
+    // the Julian calendar is taken (computed with astronomy-engine: the new moons of that
+    // summer fall on 5 August and 3 September of the Julian calendar and the sun comes to
+    // 150 degrees between them, so that month is the seventh and the 15th its 11th day). Noon. The
+    // hall is taken to face south and is seen looking north (a guess: nothing of it stands).
+    // Looked up on 2026.10.14 and found so: the book was put together by Baegun; his pupils
+    // Seokchan and Daljam had it printed and the nun Myodeok gave the money; it is the oldest
+    // book printed with metal type that is left (NOT "the first metal type in the world");
+    // of the two volumes only the second is left and is in the national library of France;
+    // the site of the temple was dug and found in 1985; none of the type is left.
+    // The place is walked about (core/walks.js).
+    no: 31, id: 'jikji', name: '직지', dateLabel: 'AD 1377년 여름', place: '청주, 고려',
+    lat: 36.63, lon: 127.47,
+    date: { year: 1377, month: 8, day: 15 }, calendar: 'julian', hourLocal: 12,
+    facingAz: 0, nightOnLook: true,
+    memo: '쇠 글자로 책을 찍는 중.', sora: '글자가 하나하나 떨어져 있어!',
+    memoToday: '남은 것: 책 한 권. 프랑스에 있음.', soraToday: '절은 터만 남았대. 책은 멀리 있어.',
+    noteMemo: '1377년 여름. 청주 흥덕사에서 쇠 글자로 책 직지를 찍었다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '1377년 여름, 고려 청주의 흥덕사에서 쇠로 만든 글자로 책 "직지"를 찍었습니다. 백운 스님이 엮은 책을 제자 석찬과 달잠이 찍었고, 비구니 묘덕이 돈을 보탰습니다. 쇠 글자로 찍어 지금 남은 책 가운데 가장 오래되었고, 아래 권 한 권이 프랑스 국립도서관에 있습니다.',
+    reply: '그날의 쇠 글자는 하나도 안 남았단다. 책 한 권이 그날을 전하지.',
+    quiz: { question: '직지는 무엇으로 만든 글자로 찍었나?', answer: '쇠', proof: '쇠로 만든 글자로', wrong: ['나무', '흙'] },
   },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
