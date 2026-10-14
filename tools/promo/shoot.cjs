@@ -17,7 +17,7 @@ const ROOT = path.join(__dirname, '..', '..', 'assets', 'promo');
 async function shoot(browser, lang, name) {
   const ctx = await browser.newContext({ viewport: { width: 405, height: 720 }, deviceScaleFactor: 1 });
   const p = await ctx.newPage();
-  await p.addInitScript(([l, music]) => {
+  await p.addInitScript(([l, music, hide]) => {
     try {
       localStorage.setItem('timeoddity.lang.v1', l);
       localStorage.setItem('timeoddity.opened.v1', '1');
@@ -25,12 +25,29 @@ async function shoot(browser, lang, name) {
       localStorage.setItem('timeoddity.muted.v1', music ? '1' : '0');
     } catch {}
     // The test buttons along the top are not for the film, nor grandmother's slip of errands
-    // (the caption stands there).
+    // (the caption stands there), nor the picture held up at the top when she is shown something.
     document.addEventListener('DOMContentLoaded', () => {
       const s = document.createElement('style');
-      s.textContent = '#testBar,#errands{display:none!important}';
+      s.textContent = `${hide}{display:none!important}`;
       document.head.append(s);
     });
+    // The game's clock, held by the recorder while it records (window.__step): each frame of
+    // the film is the game moved on by exactly 1/30 s and drawn. Taken from the screencast
+    // instead, a headless page drawn at 1080 x 1920 keeps up with a few frames a second only,
+    // and the film judders: the same picture three times, then a jump (the user, 2026.10.15:
+    // "화면이 앞뒤로 너무 떨리는 일이 많고").
+    {
+      const real = performance.now.bind(performance);
+      const raf = window.requestAnimationFrame.bind(window);
+      let held = false, at = 0, queue = [];
+      performance.now = () => (held ? at : real());
+      window.requestAnimationFrame = (cb) => {
+        if (held) { queue.push(cb); return queue.length; }
+        return raf((t) => cb(held ? at : t));
+      };
+      window.__hold = () => { at = real(); held = true; };
+      window.__step = (ms) => { at += ms; const due = queue; queue = []; for (const cb of due) cb(at); };
+    }
     // What goes to the speakers goes to a recorder as well.
     const connect = AudioNode.prototype.connect;
     AudioNode.prototype.connect = function (to, ...rest) {
@@ -57,25 +74,31 @@ async function shoot(browser, lang, name) {
       };
       window.__rec.stop();
     });
-  }, [lang, name === 'music']);
+  }, [lang, name === 'music', SHOTS[name].hide ?? '#testBar,#errands,#walkShow']);
   const out = path.join(ROOT, lang, name);
   fs.rmSync(out, { recursive: true, force: true });
   fs.mkdirSync(out, { recursive: true });
-  const cdp = await ctx.newCDPSession(p);
   const times = [];
   let n = 0;
   let audioAt = null;
-  cdp.on('Page.screencastFrame', (f) => {
-    fs.writeFileSync(path.join(out, `${String(n++).padStart(5, '0')}.jpg`), Buffer.from(f.data, 'base64'));
-    times.push(f.metadata.timestamp);
-    cdp.send('Page.screencastFrameAck', { sessionId: f.sessionId }).catch(() => {});
-  });
+  let t0 = 0;
+  const FRAME = 1000 / 30;
   const rec = {
     start: async () => {
       audioAt = await p.evaluate(() => window.__tapStart());
-      await cdp.send('Page.startScreencast', { format: 'jpeg', quality: 92, maxWidth: 1080, maxHeight: 1920, everyNthFrame: 1 });
+      await p.evaluate(() => window.__hold());
+      t0 = Date.now() / 1000;
     },
-    stop: () => cdp.send('Page.stopScreencast'),
+    // Moves the game on by ms, a frame at a time, taking each.
+    wait: async (ms) => {
+      for (let k = 0; k < Math.round(ms / FRAME); k++) {
+        await p.evaluate((f) => window.__step(f), FRAME);
+        await p.screenshot({ path: path.join(out, `${String(n).padStart(5, '0')}.jpg`), type: 'jpeg', quality: 92 });
+        times.push(t0 + n / 30);
+        n++;
+      }
+    },
+    stop: async () => {},
   };
   const log = await SHOTS[name](p, rec, URL);
   await rec.stop().catch(() => {});

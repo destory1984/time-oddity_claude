@@ -14,15 +14,22 @@ FPS = 30
 SIZE = (1080, 1920)
 BLEND = 8  # frames over which one shot gives way to the next
 
-# shot, from (s into its recording), length (s). The caption of the same name goes over it.
+# shot, from (s into its recording), length (s), caption (assets/promo/<lang>/captions/<n>.png).
+# One recording may give several stretches, each with its own caption.
+# The story (tools/promo/shots.cjs): the question, the dial, the errand, the way shut, the way
+# shown, the gloves given, the flight, the stamp, and three other days.
 CUT = [
-    ('gobekli', 0.8, 3.6),
-    ('rome', 0.8, 3.4),
-    ('kaifeng', 1.5, 4.2),
-    ('machu', 0.8, 3.4),
-    ('tokyo', 0.8, 3.4),
-    ('kittyhawk', 0.8, 3.6),
-    ('dubai', 0.8, 4.0),
+    ('hook', 0.3, 2.8, 'hook'),
+    ('land', 0.2, 3.6, 'land'),
+    ('land', 9.0, 4.2, 'ask'),
+    ('way', 0.3, 2.6, 'block'),
+    ('way', 3.6, 3.4, 'help'),
+    ('camp', 0.3, 3.4, 'give'),
+    ('camp', 4.2, 3.4, 'flight'),
+    ('camp', 7.8, 3.0, 'stamp'),
+    ('kaifeng', 0.6, 1.6, 'kaifeng'),
+    ('hanyang', 0.6, 1.6, 'hanyang'),
+    ('dubai', 0.6, 1.8, 'dubai'),
 ]
 END_S = 3.2
 
@@ -49,12 +56,12 @@ def fingertip(im, touch, now):
     im.alpha_composite(layer)
 
 
-def shot_frames(lang, name, start, length):
+def shot_frames(lang, name, start, length, cap):
     folder = os.path.join(ROOT, lang, name)
     times = json.load(open(os.path.join(folder, 'times.json')))
     t0 = times[0]
     rel = [t - t0 for t in times]
-    caption = Image.open(os.path.join(ROOT, lang, 'captions', f'{name}.png')).convert('RGBA')
+    caption = Image.open(os.path.join(ROOT, lang, 'captions', f'{cap}.png')).convert('RGBA')
     touch_file = os.path.join(folder, 'touch.json')
     touch = json.load(open(touch_file)) if os.path.exists(touch_file) else None
     out, j = [], 0
@@ -77,7 +84,7 @@ def shot_frames(lang, name, start, length):
 
 
 def main(lang):
-    shots = [shot_frames(lang, name, start, length) for name, start, length in CUT]
+    shots = [shot_frames(lang, name, start, length, cap) for name, start, length, cap in CUT]
     # The end card on a darkened, blurred last look at Dubai.
     back = shots[-1][-1].filter(ImageFilter.GaussianBlur(28)).point(lambda v: int(v * 0.35)).convert('RGBA')
     card = Image.open(os.path.join(ROOT, lang, 'captions', 'end.png')).convert('RGBA')
@@ -104,7 +111,7 @@ def main(lang):
     total = len(frames) / FPS
     inputs, chains, mix = [], [], []
     at = 0.0
-    for i, (name, start, length) in enumerate(CUT):
+    for i, (name, start, length, cap) in enumerate(CUT):
         folder = os.path.join(ROOT, lang, name)
         # (No effects: what each shot recorded is mostly her footsteps, and the user, 2026.10.15:
         # "발소리 없애자". The film has the music alone. EFFECTS=1 puts them back.)
