@@ -7046,9 +7046,10 @@ export const WALKS = {
           // (From and to are to be set to the picture.) Eddington and Cottingham are not drawn
           // and cannot be spoken to: far off, no face.
           { id: 'astronomers', from: 0.67, to: 0.85, sora: '천막 아래서 바쁘게 일해!', memo: '영국에서 온 에딩턴과 코팅엄이란다. 판을 갈아 끼우느라 해를 볼 틈도 없었지.' },
-          // The veranda of the white house in the middle of the try (about 0.37 to 0.71). The
-          // guests of the island are not drawn: far off, no face, no names.
-          { id: 'guests', from: 0.4, to: 0.6, sora: '베란다에 손님들이 모였어!', memo: '섬의 판사와 의사들이 해가 가려지는 것을 보러 왔단다.' },
+          // The big white house of the try was taken out (said to be built in 1921: the user,
+          // 2026.10.15, "없애"); the guests of the island stand at the edge of the yard. They
+          // are not drawn: far off, no face, no names.
+          { id: 'guests', from: 0.4, to: 0.6, sora: '마당 가에 손님들이 모였어!', memo: '섬의 판사와 의사들이 해가 가려지는 것을 보러 왔단다.' },
         ],
       },
     ],
