@@ -481,7 +481,8 @@ describe('a place that is deep', () => {
       for (const scene of place.scenes) {
         // (Since 2026.10.13 other places have them too, where the pictures are there: core/layers.js.)
         if (!place.deep && !scene.fore) continue;
-        expect(scene.fore.length, scene.id).toBeGreaterThanOrEqual(4);
+        // (Three where nothing is hung from above: a roof cut loose floated in the sky, 2026.10.15.)
+        expect(scene.fore.length, scene.id).toBeGreaterThanOrEqual(3);
         for (const fore of scene.fore) {
           expect(existsSync(`game/public/walks/${place.dir}/${fore.src}.webp`), fore.src).toBe(true);
           expect(['top', 'foot']).toContain(fore.at);

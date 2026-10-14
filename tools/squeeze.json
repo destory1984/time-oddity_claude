@@ -279,6 +279,54 @@
 "q": 78,
 "sha": "011c9354efdd06326fc8bd59c00f918b2d5cf595"
 },
+"baikonur1957/canteen.webp": {
+"q": 78,
+"sha": "d63735858917b6f424f671452141691b9405e09e"
+},
+"baikonur1957/pad-far.webp": {
+"q": 78,
+"sha": "6b6e263728f1a30701385692a9da6728599f6a45"
+},
+"baikonur1957/pad-near.webp": {
+"q": 70,
+"sha": "1b2f8dc12edc79c6f3493d96d1891881c49f9e9e"
+},
+"baikonur1957/pad.webp": {
+"q": 78,
+"sha": "c4fff948dd082995c0e0c75d2f28cddae9388a97"
+},
+"baikonur1957/rail-far.webp": {
+"q": 78,
+"sha": "ce0337f88925db7a4e8be53f2385c8f130df5cf4"
+},
+"baikonur1957/rail-near.webp": {
+"q": 70,
+"sha": "da0803248bd480099a84b748f0b45ed6efe2e598"
+},
+"baikonur1957/rail.webp": {
+"q": 78,
+"sha": "0fff63013252ead5f5c7b85a03123839edf0e236"
+},
+"baikonur1957/show-bread.webp": {
+"q": 78,
+"sha": "f04de49d79ef059d822ee573c15efd6679871af1"
+},
+"baikonur1957/show-cart.webp": {
+"q": 78,
+"sha": "cff090ec61e693edec370cb37c87b2f05ebf98d0"
+},
+"baikonur1957/show-dugout.webp": {
+"q": 78,
+"sha": "ebe327b580ce45d385fa83191497272a45645977"
+},
+"baikonur1957/show-lamps.webp": {
+"q": 78,
+"sha": "2e441adeb5a52a026f799231119d714062377994"
+},
+"baikonur1957/show-rocket.webp": {
+"q": 78,
+"sha": "07d96609544e8cceeba2dc83f094b54bbea70df0"
+},
 "balloon1783/garden-far.webp": {
 "q": 78,
 "sha": "515f284556a1f9f15037e7f3f6784fc91bb2498e"
@@ -642,6 +690,62 @@
 "darlington1825/water.webp": {
 "q": 78,
 "sha": "8478f6227eda43325cc505c25488be2bfd777e93"
+},
+"dubai2010/lake-far.webp": {
+"q": 78,
+"sha": "3831cb9d87ebc03a2f5eb226c816bf0b8401a3ba"
+},
+"dubai2010/lake-near.webp": {
+"q": 70,
+"sha": "9e048b88f2ea5d99a12aa770322eb0a89b6ad4d4"
+},
+"dubai2010/lake.webp": {
+"q": 78,
+"sha": "bd6d8ff809c1e136c395a258cc153a39c9355487"
+},
+"dubai2010/show-dallah.webp": {
+"q": 78,
+"sha": "71e418549d154cd486ac6da04891f15396e0dd29"
+},
+"dubai2010/show-dates.webp": {
+"q": 78,
+"sha": "f2e77484db0187cc1565205e0796e99d1ab3246a"
+},
+"dubai2010/show-metro.webp": {
+"q": 78,
+"sha": "0ae1813c8df7bede2c96fb3582478adf57aa3e06"
+},
+"dubai2010/show-night.webp": {
+"q": 78,
+"sha": "1c429c6a6def0818b39ce6fad60155bc66fe5c9a"
+},
+"dubai2010/show-tower.webp": {
+"q": 78,
+"sha": "1867b601c17476aaa261bf1d98f602bd9ad1a214"
+},
+"dubai2010/souk-far.webp": {
+"q": 78,
+"sha": "7b6a5d2b4ff57c721195925d317e9d8bacd2f35d"
+},
+"dubai2010/souk-near.webp": {
+"q": 70,
+"sha": "7f976c73065b4a563eb06d19948ce42c6526601e"
+},
+"dubai2010/souk.webp": {
+"q": 78,
+"sha": "54554babee0417d51482ca4d9578e41c2911a537"
+},
+"dubai2010/station-far.webp": {
+"q": 78,
+"sha": "9be34c00c2a0ebca1fe713c962dfc8a936e65f13"
+},
+"dubai2010/station-near.webp": {
+"q": 70,
+"sha": "f237caac429795d99ffd6f2cdc2e37458839a255"
+},
+"dubai2010/station.webp": {
+"q": 78,
+"sha": "9046927d03b7f4355d7c23ae23be7732236b9c9f"
 },
 "florence1436/bakery-far.webp": {
 "q": 78,
@@ -1046,6 +1150,62 @@
 "kaifeng1054/yard.webp": {
 "q": 78,
 "sha": "538404ef97c4bff3b3fb28eb5b579654f6d9bc5c"
+},
+"kittyhawk1903/camp-far.webp": {
+"q": 78,
+"sha": "1bad0f9d1517736fed82ebeab18b8db27ae3463a"
+},
+"kittyhawk1903/camp-near.webp": {
+"q": 70,
+"sha": "57de16505379c36b8fafb756af6177dbe2606012"
+},
+"kittyhawk1903/camp.webp": {
+"q": 78,
+"sha": "63ee4698f61bc661ad2a787482a73afd6cc0d64c"
+},
+"kittyhawk1903/path-far.webp": {
+"q": 78,
+"sha": "c1551d8ec021b160d690873ce9fb53b00ac9d87d"
+},
+"kittyhawk1903/path-near.webp": {
+"q": 70,
+"sha": "dc408cb0a779950d6e683357c177b1df8596264f"
+},
+"kittyhawk1903/path.webp": {
+"q": 78,
+"sha": "58e063cda38e5badee0171cd4bc623ddb4762ae5"
+},
+"kittyhawk1903/show-camera.webp": {
+"q": 78,
+"sha": "21e210463e12fa595c08ae361d54960040721d49"
+},
+"kittyhawk1903/show-chain.webp": {
+"q": 78,
+"sha": "58f892eca193a3d5c6b9bd63ba4b7e9fe936716f"
+},
+"kittyhawk1903/show-fish.webp": {
+"q": 78,
+"sha": "fe5bf8faf6065e564e33c17804d5eb95ae16060b"
+},
+"kittyhawk1903/show-flight.webp": {
+"q": 78,
+"sha": "6aba4df646cf37659224e8baab6d2648af6ec502"
+},
+"kittyhawk1903/show-ice.webp": {
+"q": 78,
+"sha": "d3bea03ea41331b27d8ee06a9d1a9ff8c2f36a10"
+},
+"kittyhawk1903/station-far.webp": {
+"q": 78,
+"sha": "fb1762bba788822cb31ecb124167a63fb3e07ad1"
+},
+"kittyhawk1903/station-near.webp": {
+"q": 70,
+"sha": "24cfbadf78bdccc758f03766355188b17f15c406"
+},
+"kittyhawk1903/station.webp": {
+"q": 78,
+"sha": "51c6ee679d7085d2c3a58fa2a29b1bd2f91b5a8c"
 },
 "london1851/gate-far.webp": {
 "q": 78,
@@ -1551,6 +1711,62 @@
 "q": 78,
 "sha": "fb5142e3e8922f19759832ec17449bb2ba2e2cd6"
 },
+"panama1914/lock-far.webp": {
+"q": 78,
+"sha": "a60469bd048bdcda4b83523c76b186d44bb9e8a5"
+},
+"panama1914/lock-near.webp": {
+"q": 70,
+"sha": "63b995adad27db2cd573241f945a53b7f302548f"
+},
+"panama1914/lock.webp": {
+"q": 78,
+"sha": "0542ad42d788160d822f15ad9332d6877951853f"
+},
+"panama1914/rail-far.webp": {
+"q": 78,
+"sha": "4798d172044d48b6cf8b9b44d56b303daf3aaad9"
+},
+"panama1914/rail-near.webp": {
+"q": 70,
+"sha": "52c27fba506967df70772c881d7ac7b367028442"
+},
+"panama1914/rail.webp": {
+"q": 78,
+"sha": "25499bdd308efcc8b80ae4cf9920c3ec8e0026da"
+},
+"panama1914/show-fruit.webp": {
+"q": 78,
+"sha": "f963c26d53eab8622454af49db7430199e9765fc"
+},
+"panama1914/show-gate.webp": {
+"q": 78,
+"sha": "cb51171d44d10247e45686a5d435ecf6cb8110d3"
+},
+"panama1914/show-mule.webp": {
+"q": 78,
+"sha": "1adbfc8f15f36abafd3544f4f4c2185bd496308e"
+},
+"panama1914/show-ship.webp": {
+"q": 78,
+"sha": "63e478a0bc91f5a5def77867ee60b125e7824b66"
+},
+"panama1914/show-veranda.webp": {
+"q": 78,
+"sha": "f89b2fb83e412f91a16fbb670a45fe55890b7484"
+},
+"panama1914/village-far.webp": {
+"q": 78,
+"sha": "03ffd47e07fe37a5969735576d5430a59d026d94"
+},
+"panama1914/village-near.webp": {
+"q": 70,
+"sha": "bdf35ef59b612259031ffd890531f49353d1cb1b"
+},
+"panama1914/village.webp": {
+"q": 78,
+"sha": "0d07d6a3e7c59407d8651896de6f5f2f9ceb9f97"
+},
 "paris/gate-far.webp": {
 "q": 78,
 "sha": "b397e4cdf6f927d8527d9bae06a4a5fbdf4386da"
@@ -1734,6 +1950,62 @@
 "pharos280/show-pharos.webp": {
 "q": 78,
 "sha": "d432be5dfb58eb64803b659e11d336112bb699eb"
+},
+"principe1919/drying-far.webp": {
+"q": 78,
+"sha": "20b2266ae40fa823cc8ce0ffd38a4f52000c38e5"
+},
+"principe1919/drying-near.webp": {
+"q": 70,
+"sha": "4d6979b86cbc6e17803fb3337b8fedb63e048389"
+},
+"principe1919/drying.webp": {
+"q": 78,
+"sha": "9f9d5c2142cec77934da9149fd31de80f4382f07"
+},
+"principe1919/kitchen-far.webp": {
+"q": 78,
+"sha": "f129456434dd1d2239672fca0096803e275d386c"
+},
+"principe1919/kitchen-near.webp": {
+"q": 70,
+"sha": "622537665f4f1aa399137940d1f136ae346b76b6"
+},
+"principe1919/kitchen.webp": {
+"q": 78,
+"sha": "7eb079466cfdafdb5c9ed5f41e7d742c42a7745a"
+},
+"principe1919/scope-far.webp": {
+"q": 78,
+"sha": "2afa24fa25b8519a65bf107d625c8d9a066ebda2"
+},
+"principe1919/scope-near.webp": {
+"q": 70,
+"sha": "3d01ec5b997d60ba496bbb4f81ace53e06a9dc2f"
+},
+"principe1919/scope.webp": {
+"q": 78,
+"sha": "408df624aac9a7261cbe3385c8eb453528042c0c"
+},
+"principe1919/show-corona.webp": {
+"q": 78,
+"sha": "cb4c1c15997fb35769a37aafb29a153d060f0d68"
+},
+"principe1919/show-mirror.webp": {
+"q": 78,
+"sha": "3fe3e2815f71458e22f477e11975eeda99d36964"
+},
+"principe1919/show-plates.webp": {
+"q": 78,
+"sha": "e996ec1ef4ac16432cc91c0670ec3d47783eb34e"
+},
+"principe1919/show-pods.webp": {
+"q": 78,
+"sha": "56caf8522993826e192db9a0f479031af0bdb417"
+},
+"principe1919/show-pulp.webp": {
+"q": 78,
+"sha": "406a63ac8ec66360a5f3077333003d01f85e3481"
 },
 "rome/inside.webp": {
 "q": 78,

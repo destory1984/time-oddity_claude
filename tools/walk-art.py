@@ -102,11 +102,17 @@ def people(src, out_dir, names, how=Image.NEAREST, out=None):
         print(f'{src}: {len(figures)} figures found, {len(names)} names given')
         return 1
     middle = {i: np.mean(groups[i], axis=0) for i in range(len(groups))}
-    # A speck beside a figure (a tear, a sparkle) goes with the figure nearest it.
+    # A speck beside a figure (a tear, a sparkle, a hand cut off by the seam) goes with the
+    # figure whose edge is nearest it, not whose middle: a pointing hand went to the man
+    # beside the one it belonged to (the user, 2026.10.15, of the Forbidden City: "팔이 잘림").
     owner = {i: i for i in figures}
+    cells = {i: np.array(g) for i, g in enumerate(groups)}
+    def gap(i, f):
+        a, b = cells[i], cells[f]
+        return min(np.hypot(*(b - p).T).min() for p in a)
     for i in range(len(groups)):
         if i not in owner:
-            owner[i] = min(figures, key=lambda f: np.hypot(*(middle[i] - middle[f])))
+            owner[i] = min(figures, key=lambda f: gap(i, f))
     figures.sort(key=lambda f: middle[f][1])
     full = np.kron(label, np.ones((CELL, CELL), np.int32))
     boxes = []

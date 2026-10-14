@@ -24,13 +24,16 @@ for (const dir of readdirSync(root).sort()) {
     if (files.has(`${scene}-near.webp`) && files.has(`${scene}-far.webp`)) entry.far = { aspect: aspectOf(`${root}${dir}/${scene}-far.webp`) };
     const tops = [1, 2].map((i) => `fore-${scene}-t${i}`).filter((n) => files.has(`${n}.webp`));
     const feet = [1, 2].map((i) => `fore-${scene}-f${i}`).filter((n) => files.has(`${n}.webp`));
-    if (tops.length && feet.length) {
+    // (A scene may have no piece hung from above: a roof or an eave cut loose floats in the
+    // sky, and they were taken out: the user, 2026.10.15, "지붕이 공중에 떠있다". Then only
+    // what stands on its foot is put in front.)
+    if (feet.length) {
       const t = (i) => tops[i % tops.length], f = (i) => feet[i % feet.length];
       entry.fore = [
         { src: t(0), webp: true, x: 0.1, at: 'top', tall: 0.38 }, { src: f(0), webp: true, x: 0.27, at: 'foot', tall: 0.21 },
         { src: t(1), webp: true, x: 0.45, at: 'top', tall: 0.36 }, { src: f(1), webp: true, x: 0.62, at: 'foot', tall: 0.18 },
         { src: t(0), webp: true, x: 0.8, at: 'top', tall: 0.34 }, { src: f(0), webp: true, x: 0.95, at: 'foot', tall: 0.19 },
-      ];
+      ].filter((piece) => piece.at === 'foot' || tops.length);
     }
     if (entry.far || entry.fore) out[`${dir}/${scene}`] = entry;
   }
