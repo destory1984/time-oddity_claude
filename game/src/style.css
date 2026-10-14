@@ -219,6 +219,11 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 /* (Over a dark tree or a tower's leg the dark date wants a brighter halo: San Francisco, Paris.) */
 #stage.pale #date{color:#1d2238;text-shadow:0 0 2px rgba(255,255,255,.95),0 0 5px rgba(255,255,255,.9),0 1px 10px rgba(255,255,255,.85)}
 #stage.pale #name{color:#8a6a1c}
+/* Walking, over a busy picture the halo is not enough for the small name of the scene under the
+   date (Sydney, Paris 1783, Stonehenge, Olympia, Cheongju): the date sits on a little sheet of
+   paper of its own. Its text stays where it was (18px from the edge). */
+#stage.pale.on-walk #date{left:8px;padding:3px 10px 6px;border-radius:12px;background:rgba(255,250,238,.82);box-shadow:0 2px 10px rgba(40,28,0,.2);text-shadow:none}
+#stage.pale.on-walk #date span{font-weight:600}
 #date b{display:block;font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
 #date span{display:block}
 #subText{color:var(--gold);min-height:1.4em}

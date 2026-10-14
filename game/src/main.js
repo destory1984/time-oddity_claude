@@ -404,6 +404,7 @@ let keyWay = 0;             // the same, by the keys
 let walkWant = null;        // the person she was sent to speak to
 let walkSora = null;        // { text, until }: what she says, while it shows
 let replyDue = false;       // grandmother's answer is to be shown, until it is put away
+let walkSpot = null;        // the spot just touched, until she gets to it
 let memoHere = null;        // what she wrote of the one being heard or the spot stood at, as last seen: it goes on her slip once
 let walkArrive = null;      // she is to be set down in a shaft of light on the next frame: 'land' from above the Earth, 'hop' from the scene beside
 let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
@@ -447,7 +448,7 @@ const walkView = createWalkView({
   // What is seen from a spot is touched: she walks to the spot and stands there, which is
   // what does the errand (the user, 2026.10.10, having touched the king in his hall: "임금님
   // 눌렀는데, 임무 한거 아님?"). Until then only walking into the spot did it.
-  onSpot: (spot) => { if (!walk || panelOpen()) return; sound.wake(); walkWay = 0; walkWant = null; sendTo(walk, (spot.from + spot.to) / 2); },
+  onSpot: (spot) => { if (!walk || panelOpen()) return; sound.wake(); walkWay = 0; walkWant = null; walkSpot = spot; sendTo(walk, (spot.from + spot.to) / 2); },
 });
 // A place in the picture touched: she says the next of what she has to say of it.
 // Over what she wrote of one who is found: that it happened (the user, 2026.10.12, of the man on
@@ -956,6 +957,17 @@ function frameWalk(dt) {
   if (out.arrived && walkWant) { talk(walkWant); walkWant = null; }
   if (out.spot?.sora) walkSora = { text: out.spot.sora, until: walkT + SORA_FOR_MS, from: walkT };
   if (out.spot?.pose) walkFace = { poses: [[out.spot.pose, walkT + SORA_FOR_MS]] };
+  // A spot touched again says its word again and puts what she wrote back on the slip (it said
+  // them only the first time she stood there; the user, 2026.10.14: "산은 한 번 누르면, 그 다음부터는
+  // 안 눌러지네").
+  if (walkSpot && out.arrived) {
+    if (!out.spot && spotAt(walk)?.id === walkSpot.id) {
+      if (walkSpot.sora) walkSora = { text: walkSpot.sora, until: walkT + SORA_FOR_MS, from: walkT };
+      if (walkSpot.pose) walkFace = { poses: [[walkSpot.pose, walkT + SORA_FOR_MS]] };
+      memoHere = null;
+    }
+    walkSpot = null;
+  }
   if (out.errands.length > 0) errandsDone();
   // Nothing found for a while: what is nearest of what is left twinkles, and she says which
   // way it lies when it is out of sight.
