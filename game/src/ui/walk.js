@@ -189,6 +189,8 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     scene = place.scenes[index];
     picture.src = `./walks/${place.dir}/${scene.id}${scene.far ? '-near' : ''}.webp`;
     farEl.hidden = !scene.far;
+    // A place with `haze` has air between: its far picture a little milky and soft.
+    farEl.classList.toggle('haze', Boolean(place.haze));
     if (scene.far) farEl.src = `./walks/${place.dir}/${scene.far.src ?? `${scene.id}-far`}.webp`; else farEl.removeAttribute('src');
     peopleEl.replaceChildren();
     nodes = new Map();

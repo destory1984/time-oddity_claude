@@ -92,6 +92,7 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 /* What stands nearest the eye: over the scene, a little out of focus, and never in the way of a touch. */
 #walkFar{left:0;max-width:none;object-fit:cover;object-position:right bottom;pointer-events:none;will-change:transform;-webkit-user-drag:none}
 #walkFar[hidden]{display:none}
+#walkFar.haze{filter:blur(1px) contrast(.8) brightness(1.08) saturate(.85)}
 #walkFore{position:absolute;inset:0;pointer-events:none}
 #walkFore img{position:absolute;left:0;width:auto;max-width:none;filter:blur(1.6px);opacity:.94;will-change:transform;-webkit-user-drag:none}
 @keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}

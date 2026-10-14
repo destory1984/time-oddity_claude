@@ -5309,6 +5309,8 @@ export const WALKS = {
   sagrada: {
     first: '성당의 종탑 하나가 다 올라간 날이란다. 점심을 전해 주렴.',
     dir: 'sagrada1925', look: 'paper', pale: true,
+    // The far picture a little milky, as air between (the user, 2026.10.15: "후경을 살짝 뿌옇게").
+    haze: true,
     // (What is said of today: looked up on 2026.10.14, in docs/신기한-사실.md; the picture chosen by the user.)
     now: {
       photo: 'photo-now.webp', name: '사그라다 파밀리아의 지금 모습', when: '스페인 바르셀로나 · 2026년',
