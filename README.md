@@ -219,3 +219,7 @@ npm run build
 | 팀북투 | [La plus grande Mosquée de la ville de Tombouctou.jpg](https://commons.wikimedia.org/wiki/File:La_plus_grande_Mosqu%C3%A9e_de_la_ville_de_Tombouctou.jpg) | Ousmane Garba Kounta | CC BY-SA 4.0 |
 | 청주 흥덕사(직지) | [Jikji pages.jpg](https://commons.wikimedia.org/wiki/File:Jikji_pages.jpg) | 찍은 이 모름 | 공개 저작물 |
 | 사그라다 파밀리아 | [View of Sagrada Familia 2026.jpg](https://commons.wikimedia.org/wiki/File:View_of_Sagrada_Familia_2026.jpg) | ほっきー | 공개 저작물 |
+| 난징 보선창 터 | [Nanjing Treasure Boat - P1070978.JPG](https://commons.wikimedia.org/wiki/File:Nanjing_Treasure_Boat_-_P1070978.JPG) | Vmenkov | CC BY-SA 3.0 |
+| 자금성 | [Hall of Supreme Harmony (20220218132012).jpg](https://commons.wikimedia.org/wiki/File:Hall_of_Supreme_Harmony_(20220218132012).jpg) | N509FZ | CC BY-SA 4.0 |
+| 피렌체 대성당 | [Cattedrale di Santa Maria del Fiore – Il Duomo di Firenze.jpg](https://commons.wikimedia.org/wiki/File:Cattedrale_di_Santa_Maria_del_Fiore_%E2%80%93_Il_Duomo_di_Firenze.jpg) | Gary Campbell-Hall | CC BY 2.0 |
+| 세인트앤스 만 | [St Ann's Bay 20230605 134841.jpg](https://commons.wikimedia.org/wiki/File:St_Ann%27s_Bay_20230605_134841.jpg) | CaptJayRuffins | CC BY-SA 4.0 |

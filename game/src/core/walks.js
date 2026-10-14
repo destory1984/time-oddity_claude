@@ -5460,6 +5460,16 @@ export const WALKS = {
     first: '보름달이 붉게 가려지는 저녁이란다. 빵 바구니를 전해 주렴.',
     intro: { title: '타이노 사람들', text: '타이노 사람들은 카리브 바다의 섬들에 살았단다. 카사바로 빵을 굽고 통나무배로 바다를 다녔지.' },
     dir: 'jamaica1504', look: 'paper', pale: true,
+    // (What is said of today: looked up on 2026.10.14; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '세인트앤스 만의 지금 모습', when: '자메이카 세인트앤스 만 · 2023년',
+      text: [
+        '1503년 6월부터 이듬해 6월까지 배 두 척이 이 만에 얹혀 있었습니다.',
+        '타이노 마을 마이마의 터는 지금 세빌 유산 공원 안에 있습니다.',
+        '그때 바닷가에 얹힌 배 두 척은 아직 아무도 찾지 못했습니다.',
+      ],
+      credit: '사진: CaptJayRuffins, 위키미디어 공용, CC BY-SA 4.0',
+    },
     drawn: '타이노 사람들이 동굴 벽에 숯과 황토로 그린 그림처럼 그렸단다.',
     scenes: [
       {
@@ -5602,6 +5612,16 @@ export const WALKS = {
   forbiddenCity: {
     first: '자금성을 다 지은 겨울이란다. 짐승 기와를 전해 주렴.',
     dir: 'beijing1420', look: 'paper', pale: true,
+    // (What is said of today: looked up on 2026.10.14; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '자금성의 지금 모습', when: '중국 베이징 · 2022년',
+      text: [
+        '1925년부터 궁 전체가 고궁박물원이 되었습니다.',
+        '지금도 건물 980채가 남아 있습니다.',
+        '해마다 1,400만 명쯤이 보러 옵니다.',
+      ],
+      credit: '사진: N509FZ, 위키미디어 공용, CC BY-SA 4.0',
+    },
     drawn: '명나라 궁정 화가의 그림처럼, 비단에 곱게 칠했단다.',
     scenes: [
       {
@@ -5744,6 +5764,16 @@ export const WALKS = {
   duomo: {
     first: '피렌체 대성당을 봉헌하는 날이란다. 악보를 전해 주렴.',
     dir: 'florence1436', look: 'paper',
+    // (What is said of today: looked up on 2026.10.14; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '피렌체 대성당의 지금 모습', when: '이탈리아 피렌체 · 2015년',
+      text: [
+        '1436년에 봉헌한 대성당이 590년째 그 자리에 서 있습니다.',
+        '앞면은 1887년에 흰색, 초록색, 붉은색 대리석으로 새로 꾸몄습니다.',
+        '돌과 벽돌로 쌓은 둥근 지붕 가운데 지금도 가장 큽니다.',
+      ],
+      credit: '사진: Gary Campbell-Hall, 위키미디어 공용, CC BY 2.0',
+    },
     drawn: '그 무렵 피렌체의 손으로 쓴 책에 든 그림처럼 그렸단다.',
     scenes: [
       {
@@ -5886,6 +5916,16 @@ export const WALKS = {
   zhenghe: {
     first: '정화의 큰 배들이 바다로 떠날 채비를 한단다. 그릇을 전해 주렴.',
     dir: 'nanjing1405', look: 'paper', pale: true,
+    // (What is said of today: looked up on 2026.10.14; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '난징 보선창 터의 지금 모습', when: '중국 난징 · 2011년',
+      text: [
+        '배를 짓던 물길 일곱 가운데 셋이 남아 공원이 되었습니다.',
+        '2003년과 2004년에 땅을 파서 물건 1,500점쯤을 찾았습니다.',
+        '사진의 배는 공원에 새로 지어 놓은 보물선입니다.',
+      ],
+      credit: '사진: Vmenkov, 위키미디어 공용, CC BY-SA 3.0',
+    },
     drawn: '명나라 때의 강 그림처럼, 누런 비단에 먹과 엷은 색으로 그렸단다.',
     scenes: [
       {
