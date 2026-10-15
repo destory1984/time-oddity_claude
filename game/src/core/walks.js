@@ -6627,13 +6627,14 @@ export const WALKS = {
       gate: { scene: 'bridge', open: 1, sora: '철길 위에 사람들이 있어. 못 가.' },
       steps: [
         {
-          goal: '돌다리 가의 철길 위 사람들에게 비켜 달라고 하렴.',
+          goal: '돌다리 가의 철길 위 사람들에게 비켜 달라고 하렴.', tally: '비켜 준 사람',
           round: [
             { who: 'waver', lines: ['어머, 내가 철길 위에 서 있었구나.', '고맙다. 둑 위로 물러서마.'] },
             { who: 'flaggirl', lines: ['기관차가 온다고? 얼른 비킬게!', '둑 위에서 깃발을 흔들 거야.'] },
             { who: 'crowdman', lines: ['기관차가 곧 온다고? 이런, 비켜야지.', '여러분, 철길에서 물러섭시다!'] },
           ],
           after: [{ who: 'gentleman', line: '철길이 비었구나! 기관차가 다리를 건너온다.' }],
+          cheer: '철길을 다 비웠다!',
           sora: '기관차가 물 넣는 곳으로 갔대! 가 보자!',
           errand: 'clear',
         },
@@ -6641,10 +6642,11 @@ export const WALKS = {
           who: 'waterman', goal: '물 넣는 철길 가의 물 붓는 일꾼을 도우렴.',
           lines: ['기관차는 물을 끓인 김으로 달린단다.', '물을 다 넣어야 다시 떠나지. 도와주련?'],
           play: {
-            kind: 'aim', ask: '하얀 점이 금빛 칸에 올 때 물을 부으렴.', label: '물 붓기', hits: 3, zone: [0.4, 0.6], speed: 0.8,
+            kind: 'aim', tally: '부은 물통', ask: '하얀 점이 금빛 칸에 올 때 물을 부으렴.', label: '물 붓기', hits: 3, zone: [0.4, 0.6], speed: 0.8,
             good: ['콸콸! 잘 들어갔어!', '한 통 더!'], miss: ['앗, 물을 흘렸어!', '조금 더 기다렸다가!'],
           },
           after: [{ who: 'smith', line: '김이 다시 오르는구나. 곧 떠나겠어.' }],
+          cheer: '물을 가득 넣었다!',
           sora: '물을 다 넣었어! 북 치는 아저씨에게 가 보자!',
           errand: 'water',
         },
@@ -6652,9 +6654,10 @@ export const WALKS = {
           who: 'drummer', goal: '북 치는 아저씨와 함께 북을 쳐서 기관차를 떠나보내렴.',
           lines: ['물을 다 넣었으니 이제 떠난단다.', '떠날 때 큰북을 쳐서 알리자. 같이 치련?'],
           play: {
-            kind: 'aim', ask: '하얀 점이 금빛 칸에 올 때 북을 치렴.', label: '둥!', hits: 3, zone: [0.43, 0.57], speed: 1.1,
+            kind: 'aim', tally: '친 북', ask: '하얀 점이 금빛 칸에 올 때 북을 치렴.', label: '둥!', hits: 3, zone: [0.43, 0.57], speed: 1.1,
             good: ['둥!', '둥! 한 번 더!'], miss: ['앗, 박자가 어긋났어!', '조금 일렀어!'], show: 'train',
           },
+          cheer: '기관차가 떠난다!',
           sora: '말 탄 아저씨가 깃발을 들고 앞서 가!',
           errand: 'drum',
         },

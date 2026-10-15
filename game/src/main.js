@@ -528,6 +528,9 @@ function showErrands() {
     if (!allDone(walk)) row(goalOf(told, walk.tale));
     // (While a riddle is asked: how many clues to it she has.)
     if (riddleOf(told, walk.tale)) row(t`모은 단서 · ${cluesOf(told, walk.tale).length}개`, 'has');
+    // (A round: how many of it have been gone to.)
+    const now = taleStep(told, walk.tale);
+    if (now?.round) row(t`${t(now.tally)} · ${now.round.length - roundLeft(told, walk.tale).length}/${now.round.length}`, 'has');
     // (Not when all is done: the test button that finishes every square leaves the tale at its
     // first step, and the slip then said the giver still held the thing: the user, 2026.10.13.)
     if (!allDone(walk) && holdsOf(told, walk.tale)) row(holdsOf(told, walk.tale), 'has');
@@ -622,12 +625,16 @@ function taleMark(id) {
 // what she makes of it, which names where to go next. With the last step the slip is
 // stamped and grandmother answers.
 const AFTER_MS = 3200;
-function stepDone(step, chosen = null, held = null) {
+function stepDone(step, chosen = null, held = null, cheered = false) {
   const told = walk.place.tale;
   const was = walk;
   if (!saveTale(advance(told, walk.tale, chosen))) return false;
   closePanel();
   if (step.errand) taleMark(step.errand);
+  // A piece of the work of the day done is cheered as the whole is: done quietly, it went by
+  // unnoticed (the user, 2026.10.16, in Darlington: "미션을 클리어할 때에 효과를 좀 더 넣어줘.
+  // 눈치 못 채고 그냥 넘어가버렸네"). The last is cheered by errandsDone.
+  if (told.work && !cheered && !isTold(told, walk.tale)) stepCheer(step);
   // The thing is seen to change hands: to her on being taken up, from her on being handed over.
   if (told.thing && (step.offer || step.choice)) { walkView.hand(step.offer ? step.who : 'sora', step.offer ? 'sora' : step.who); sound.hand(); }
   const over = isTold(told, walk.tale);
@@ -678,8 +685,11 @@ function roundSpoke(step, person) {
   const all = step.round.length;
   const left = roundLeft(told, walk.tale).length;
   if (one.sora) walkSora = { text: one.sora, from: walkT + 600, until: walkT + 600 + SORA_FOR_MS };
-  if (left > 0) { sound.stamp(); walkView.found(`${all - left}/${all}`); return; }
-  walkView.found(`${all}/${all}`);
+  // (Said with what is counted: "1/3" alone said nothing. The user, 2026.10.16: "화면에 그냥
+  // 1/3이라고 나오는데..")
+  const tally = t`${t(step.tally)} · ${all - left}/${all}`;
+  if (left > 0) { sound.stamp(); walkView.found(tally); return; }
+  walkView.found(tally);
   stepDone(step);
 }
 // A mark sweeps to and fro across a bar; she presses as it is within the gold of it. Put off
@@ -708,7 +718,7 @@ function openPlay(step) {
   bar.append(zone, mark);
   const count = document.createElement('p');
   count.className = 'playCount';
-  count.textContent = `0 / ${spec.hits}`;
+  count.textContent = t`${t(spec.tally)} · ${0}/${spec.hits}`;
   const button = document.createElement('button');
   button.type = 'button'; button.className = 'glass'; button.textContent = spec.label;
   // (Pressed by a finger or the mouse; the keys press it by keydown below, so it is never
@@ -731,7 +741,7 @@ function pressPlay() {
   if (!good) { play.misses = (play.misses ?? 0) + 1; sound.tick(false, false); walkSora = { text: spec.miss[(play.misses - 1) % spec.miss.length], from: walkT, until: walkT + 1600 }; return; }
   play.hits += 1;
   sound.stamp();
-  $('walkChoice').querySelector('.playCount').textContent = `${play.hits} / ${spec.hits}`;
+  $('walkChoice').querySelector('.playCount').textContent = t`${t(spec.tally)} · ${play.hits}/${spec.hits}`;
   if (play.hits < spec.hits) { walkSora = { text: spec.good[(play.hits - 1) % spec.good.length], from: walkT, until: walkT + 1600 }; return; }
   play = null;
   if (!spec.show) { stepDone(step, 'played'); return; }
@@ -739,11 +749,17 @@ function pressPlay() {
   // (grandmother's answer, at the end) comes up over it.
   closePanel();
   walkHeld = { show: spec.show, until: walkT + SHOW_PLAYED_MS };
+  stepCheer(step);
   const was = walk;
   playedNow = step;
-  setTimeout(() => { playedNow = null; if (walk === was) stepDone(step, 'played'); }, SHOW_PLAYED_MS - 1500);
+  setTimeout(() => { playedNow = null; if (walk === was) stepDone(step, 'played', null, true); }, SHOW_PLAYED_MS - 1000);
 }
 const SHOW_PLAYED_MS = 5000;
+function stepCheer(step) {
+  walkView.cheer(step.cheer ?? '해냈다!');
+  sound.bell();
+  if (!walk.wearing) walkFace = { poses: [['see-wow', walkT + 2600]] };
+}
 // ---- A riddle in the way (a step's `riddle`, core/tale.js) ----
 // A clue is hers: kept, said beside her head with how many that makes.
 let clueIdleMs = 0;         // how long no clue has been found while a riddle is asked
@@ -829,7 +845,7 @@ function errandsDone() {
   // The slip is stamped, gold flies up round her and she is glad (the user, 2026.10.8, of the
   // slip that only said so: "다 했으면, 뭔가 효과를..").
   $('errands').classList.add('alldone');
-  walkView.cheer(walk.place.seek ? '모두 다 찾았다!' : undefined);
+  walkView.cheer(walk.place.seek ? '모두 다 찾았다!' : walk.place.tale?.work ? '그날의 일을 다 도왔다!' : undefined);
   walkFace = { poses: [['see-wow', walkT + 3200]] };
   // A story ends with her choice, and grandmother answers that; elsewhere she answers at once.
   if (walk.place.story?.choice && !chosenOf()) { setTimeout(() => { if (walk && allDone(walk) && !chosenOf()) showChoice(true); }, said ? 900 + SORA_FOR_MS - 2500 : 1500); return; }

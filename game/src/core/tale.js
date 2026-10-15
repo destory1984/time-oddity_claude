@@ -32,9 +32,9 @@
 // A tale of the work of the day (`work: true`; the user, 2026.10.15, of tales that were all
 // one shape: "이야기 패턴이 너무 단순한데", and of the way chosen: the work of that day itself,
 // done with her own hands) has no thing carried and nobody to thank. Its steps may be:
-// a `round`, [{ who, lines, sora? }]: several people to go to in any order, each heard out
+// a `round`, [{ who, lines, sora? }], with `tally`, the name of what is counted: several people to go to in any order, each heard out
 // once (those standing on the line are asked to step back); it is done when all have been.
-// A `play`, { kind: 'aim', ask, label, hits, zone: [from, to], speed, good, miss, show? }:
+// A `play`, { kind: 'aim', tally, ask, label, hits, zone: [from, to], speed, good, miss, show? }:
 // once `who` has said their lines a box asks her to press as a mark sweeping across a bar
 // is within its zone (`hits` times; `speed` sweeps a second), with `good` and `miss` said
 // in turn; `show` is the picture held up when it is done. It is done by advance(.., 'played').
