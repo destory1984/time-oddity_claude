@@ -530,7 +530,7 @@ function showErrands() {
     if (riddleOf(told, walk.tale)) row(t`모은 단서 · ${cluesOf(told, walk.tale).length}개`, 'has');
     // (A round: how many of it have been gone to.)
     const now = taleStep(told, walk.tale);
-    if (now?.round) row(t`${t(now.tally)} · ${now.round.length - roundLeft(told, walk.tale).length}/${now.round.length}`, 'has');
+    if (now?.round) row(tallyOf(now.tally, now.round.length - roundLeft(told, walk.tale).length, now.round.length), 'has');
     // (Not when all is done: the test button that finishes every square leaves the tale at its
     // first step, and the slip then said the giver still held the thing: the user, 2026.10.13.)
     if (!allDone(walk) && holdsOf(told, walk.tale)) row(holdsOf(told, walk.tale), 'has');
@@ -687,9 +687,10 @@ function roundSpoke(step, person) {
   if (one.sora) walkSora = { text: one.sora, from: walkT + 600, until: walkT + 600 + SORA_FOR_MS };
   // (Said with what is counted: "1/3" alone said nothing. The user, 2026.10.16: "화면에 그냥
   // 1/3이라고 나오는데..")
-  const tally = t`${t(step.tally)} · ${all - left}/${all}`;
-  if (left > 0) { sound.stamp(); walkView.found(tally); return; }
-  walkView.found(tally);
+  const tally = tallyOf(step.tally, all - left, all);
+  // (In her words over her head, which wrap: the short word beside it is one line only.)
+  if (!one.sora) walkSora = { text: tally, from: walkT + 600, until: walkT + 600 + SORA_FOR_MS };
+  if (left > 0) { sound.stamp(); return; }
   stepDone(step);
 }
 // A mark sweeps to and fro across a bar; she presses as it is within the gold of it. Put off
@@ -718,7 +719,7 @@ function openPlay(step) {
   bar.append(zone, mark);
   const count = document.createElement('p');
   count.className = 'playCount';
-  count.textContent = t`${t(spec.tally)} · ${0}/${spec.hits}`;
+  count.textContent = tallyOf(spec.tally, 0, spec.hits);
   const button = document.createElement('button');
   button.type = 'button'; button.className = 'glass'; button.textContent = spec.label;
   // (Pressed by a finger or the mouse; the keys press it by keydown below, so it is never
@@ -741,7 +742,7 @@ function pressPlay() {
   if (!good) { play.misses = (play.misses ?? 0) + 1; sound.tick(false, false); walkSora = { text: spec.miss[(play.misses - 1) % spec.miss.length], from: walkT, until: walkT + 1600 }; return; }
   play.hits += 1;
   sound.stamp();
-  $('walkChoice').querySelector('.playCount').textContent = t`${t(spec.tally)} · ${play.hits}/${spec.hits}`;
+  $('walkChoice').querySelector('.playCount').textContent = tallyOf(spec.tally, play.hits, spec.hits);
   if (play.hits < spec.hits) { walkSora = { text: spec.good[(play.hits - 1) % spec.good.length], from: walkT, until: walkT + 1600 }; return; }
   play = null;
   if (!spec.show) { stepDone(step, 'played'); return; }
@@ -755,6 +756,10 @@ function pressPlay() {
   setTimeout(() => { playedNow = null; if (walk === was) stepDone(step, 'played', null, true); }, SHOW_PLAYED_MS - 1000);
 }
 const SHOW_PLAYED_MS = 5000;
+// How far a round or a play has come, in a whole sentence: "철길 위 3명 가운데 1명이 비켜
+// 주었다." (a step's `tally`, with {n} for how many and {all} for all of them). Cut short to
+// "비켜 준 사람 · 1/3" it was not understood (the user, 2026.10.16: "너무 축약하지 마").
+const tallyOf = (tally, n, all) => t(tally).replace('{n}', n).replace('{all}', all);
 function stepCheer(step) {
   walkView.cheer(step.cheer ?? '해냈다!');
   sound.bell();

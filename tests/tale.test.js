@@ -321,7 +321,7 @@ describe('the work of the day', () => {
         const lines = [...(step.lines ?? []), ...(step.round ?? []).flatMap((r) => r.lines), ...(step.after ?? []).map((a) => a.line)];
         for (const line of lines) expect(textOf(line).length, textOf(line)).toBeLessThanOrEqual(40);
         if (step.sora) expect(step.sora.length, step.sora).toBeLessThanOrEqual(40);
-        if (step.round) expect(step.tally.length, id).toBeLessThanOrEqual(10);
+        if (step.round) expect(step.tally, id).toMatch(/\{n\}.*다\.$|\{all\}.*\{n\}.*다\.$/);
         if (step.cheer) expect(step.cheer.length, step.cheer).toBeLessThanOrEqual(14);
         if (step.play) {
           const { play } = step;
@@ -332,7 +332,7 @@ describe('the work of the day', () => {
           expect(play.zone[1]).toBeLessThan(1);
           expect(play.zone[1] - play.zone[0]).toBeGreaterThanOrEqual(0.1);
           expect(play.good.length * play.miss.length).toBeGreaterThan(0);
-          expect(play.tally.length).toBeLessThanOrEqual(10);
+          expect(play.tally).toMatch(/\{all\}.*\{n\}.*다\.$/);
         }
       }
       expect(tale.steps.map((s) => s.errand).filter(Boolean)).toEqual(place.errands.map((e) => e.id));
