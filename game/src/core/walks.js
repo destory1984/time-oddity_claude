@@ -6549,7 +6549,7 @@ export const WALKS = {
   // "Locomotion" in people's mouths; the hurt workman, the guns at Stockton, the workmen's
   // ale; numbers of people and of speed; wires, a big station, platforms.
   darlington: {
-    first: '첫 철도가 열리는 날이란다. 북 치는 아저씨에게 북채를 전해 주렴.',
+    first: '첫 철도가 열리는 날이란다. 기관차가 무사히 떠나도록 도와주렴.',
     dir: 'darlington1825', look: 'paper', pale: true,
     // (What is said of today: looked up on 2026.10.14; the picture chosen by the user.)
     now: {
@@ -6571,7 +6571,7 @@ export const WALKS = {
           { id: 'milkmaid', pass: '우유를 얼른 날라 두어야지.', name: '우유 나르는 아가씨', x: 0.29, w: 106, h: 286, lines: ['아침에 짠 우유를 나르는 중이야.', '일을 마치면 나도 구경하러 갈 거야.'] },
           { id: 'granny', pass: '빵을 넉넉히 구워 두길 잘했구나.', show: 'bread', name: '빵과 치즈 차린 할머니', x: 0.4, w: 115, h: 279, lines: ['구경꾼들 먹으라고 빵을 구웠단다.', '치즈와 함께 먹어 보련?'],
             try: { id: 'eat-bread', verb: 'eat', name: '빵과 치즈', face: 'yum', sora: '치즈가 고소하고 빵은 폭신해!' } },
-          { id: 'farmwife', pass: '누가 좀 전해 주면 좋으련만.', name: '농가 아주머니', x: 0.51, w: 113, h: 288, lines: ['악대 사람들이 아까 우리 마당에서 쉬었단다.', '오늘은 손님이 많아 정신이 없구나.'] },
+          { id: 'farmwife', pass: '오늘은 손님이 정말 많구나.', name: '농가 아주머니', x: 0.51, w: 113, h: 288, lines: ['악대 사람들이 아까 우리 마당에서 쉬었단다.', '오늘은 손님이 많아 정신이 없구나.'] },
           { id: 'seamstress', pass: '나들이옷을 한 벌 더 지어야겠어.', name: '옷 짓는 아주머니', x: 0.62, w: 124, h: 286, lines: ['구경 가는 날이라 고운 옷을 짓는단다.', '아이 옷도 있어. 입어 보련?'],
             try: { id: 'wear-regency', verb: 'wear', name: '1825년 영국의 옷', outfit: 'regency', sora: '허리띠가 가슴 바로 아래에 있어!', memo: '그 무렵 영국 여자아이들은 허리선이 가슴 바로 아래에 있는 옷을 입었단다.' } },
           { id: 'boy', pass: '기관차를 꼭 가까이서 볼 거야.', name: '구경 가는 아이', x: 0.73, w: 96, h: 281, lines: ['기관차는 말 없이도 수레를 끈대.', '나는 깃발을 들고 마중 갈 거야.'] },
@@ -6586,10 +6586,10 @@ export const WALKS = {
           { id: 'painter', pass: '이 다리를 그림에 꼭 담아야지.', name: '그림 그리는 아저씨', x: 0.18, w: 104, h: 308, lines: ['오늘 같은 날은 그림으로 남겨야지.', '열차가 다리를 건너는 모습을 그릴 거란다.'] },
           { id: 'mason', pass: '돌 하나하나를 내 손으로 다듬었지.', show: 'bridge', pose: 'see-wow', sora: '다리가 돌로 둥글게 놓였어!', memo: '이 돌다리는 올해 새로 지었단다. 첫 열차가 이 다리로 강을 건넜지.', name: '다리 놓은 석수', x: 0.29, w: 130, h: 285, lines: ['올해 우리가 이 돌다리를 놓았단다.', '오늘 첫 열차가 이 위로 강을 건넜지.'] },
           { id: 'carter', pass: '석탄을 얼른 마을에 날라야 해요.', name: '석탄 수레 일꾼', x: 0.4, w: 144, h: 271, lines: ['열차에서 떼어 낸 석탄을 나르는 중이야.', '가난한 집에 나눠 줄 석탄이란다.'] },
-          { id: 'waver', pass: '이렇게 많은 사람은 처음 보는구나.', name: '손수건 흔드는 아주머니', x: 0.51, w: 122, h: 300, lines: ['오늘은 날씨가 참 좋구나.', '열차가 지나갈 때 손수건을 흔들었단다.'] },
-          { id: 'flaggirl', pass: '깃발을 더 높이 들어야지.', name: '작은 깃발 든 아이', x: 0.62, w: 84, h: 220, lines: ['열차가 지나갈 때 깃발을 흔들었어.', '수레마다 사람이 빼곡히 탔더라.'] },
+          { id: 'waver', when: ['S0'], pass: '이렇게 많은 사람은 처음 보는구나.', name: '손수건 흔드는 아주머니', x: 0.51, w: 122, h: 300, lines: ['오늘은 날씨가 참 좋구나.', '열차가 지나갈 때 손수건을 흔들었단다.'] },
+          { id: 'flaggirl', when: ['S0'], pass: '깃발을 더 높이 들어야지.', name: '작은 깃발 든 아이', x: 0.62, w: 84, h: 220, lines: ['열차가 지나갈 때 깃발을 흔들었어.', '수레마다 사람이 빼곡히 탔더라.'] },
           { id: 'gentleman', pass: '말을 타고도 따라잡지 못했다네.', name: '모자 흔드는 신사', x: 0.73, w: 147, h: 320, lines: ['나는 말을 타고 열차를 따라 달렸다네.', '그런데 열차가 더 빨라서 놓쳤지 뭔가.'] },
-          { id: 'crowdman', pass: '여기서 한 걸음도 못 움직이겠군.', name: '구경꾼 틈의 아저씨', x: 0.85, w: 130, h: 294, lines: ['사람이 너무 많아 꼼짝도 못 한단다.', '모두 기관차를 보러 나왔거든.'] },
+          { id: 'crowdman', when: ['S0'], pass: '여기서 한 걸음도 못 움직이겠군.', name: '구경꾼 틈의 아저씨', x: 0.85, w: 130, h: 294, lines: ['사람이 너무 많아 꼼짝도 못 한단다.', '모두 기관차를 보러 나왔거든.'] },
         ],
         spots: [],
       },
@@ -6601,7 +6601,7 @@ export const WALKS = {
           { id: 'trumpeter', pass: '나팔을 한 번 더 닦아 두어야지.', name: '나팔 부는 악대 사람', x: 0.29, w: 134, h: 291, lines: ['우리 악대는 야름에서 왔단다.', '여기서부터 수레에 타고 연주하지.'] },
           { id: 'coalboy', pass: '석탄 위에 앉아 오길 잘했어.', name: '석탄 위에 앉아 온 소년', x: 0.4, w: 131, h: 218, lines: ['자리가 없어서 석탄 위에 앉아 왔어.', '말 탄 사람들도 우리를 못 따라왔어.'] },
           { id: 'waterman', pass: '물통이 하나만 더 있으면 되겠어.', name: '물 붓는 일꾼', x: 0.51, w: 111, h: 271, lines: ['기관차는 물을 끓여 김으로 달린단다.', '그래서 여기서 물을 넣고 있지.'] },
-          { id: 'drummer', pass: '북채가 하나 어디 갔을까.', show: 'train', name: '북 치는 악대 사람', x: 0.62, w: 102, h: 288, lines: ['나는 악대에서 큰북을 친단다.', '기관차가 떠나면 수레 위에서 칠 거야.'] },
+          { id: 'drummer', pass: '기관차가 떠날 때 북을 크게 쳐야지.', show: 'train', name: '북 치는 악대 사람', x: 0.62, w: 102, h: 288, lines: ['나는 악대에서 큰북을 친단다.', '기관차가 떠나면 수레 위에서 칠 거야.'] },
           { id: 'smith', pass: '바퀴가 다 같이 잘 도는구나.', show: 'engine', pose: 'see-wow', sora: '바퀴 넷이 막대로 이어졌어!', memo: '실린더 둘이 보일러 위로 솟았단다. 바퀴 넷을 막대로 이어 함께 돌게 한 첫 기관차로 본단다.', name: '기관차 보는 대장장이', x: 0.73, w: 129, h: 258, lines: ['저 막대가 바퀴 넷을 한꺼번에 돌린단다.', '쇠를 다루는 나도 처음 보는 기계야.'] },
           { id: 'clerk', pass: '손님들이 모두 자리에 앉았나 볼까.', name: '객차 지키는 신사', x: 0.85, w: 121, h: 281, lines: ['저 지붕 달린 객차는 이름이 익스페리먼트란다.', '철도 회사 사람들이 타고 왔지.'] },
         ],
@@ -6612,63 +6612,65 @@ export const WALKS = {
         ],
       },
     ],
-    // "The drumstick" (core/tale.js; the storyboard of docs/신기한-사실.md): the farm wife by
-    // the line has a drumstick the band's drummer left in her yard, and cannot leave her
-    // guests; by the stone bridge the crowd is so thick that no one can get by; the coal
-    // carter, taking coal to the poor, says to go round by the river bank; she gives the
-    // drumstick to the drummer while the engine takes on water, choosing what to say; and she
-    // watches the engine leave with its flagged waggons, a rider with a flag going before.
+    // "The work of the day" (core/tale.js `work`; the user, 2026.10.15: "이야기 패턴이 너무
+    // 단순한데", then the way chosen, the work of that day itself, and "달링턴부터 해보자"): the
+    // engine is coming over the Skerne bridge and people stand on the line; she asks three of
+    // them to step back. It stops by Darlington to take on water (it did, for over half an
+    // hour: docs/신기한-사실.md), and she pours it in. The band plays from the waggons as it
+    // leaves (it did, from Darlington to Stockton); she beats the drum with them, and the
+    // engine draws its flagged waggons away, a rider with a flag going before.
+    // Made up: the three on the line and what they say, her pouring the water, the drum beaten
+    // three times as a sign to go.
     tale: {
-      thing: true,
+      work: true,
       ask: '기관차는 수레들을 어떻게 끌고 갈까?',
-      gate: { scene: 'bridge', open: 3, sora: '사람들이 꽉 막고 있어. 못 가.' },
+      gate: { scene: 'bridge', open: 1, sora: '철길 위에 사람들이 있어. 못 가.' },
       steps: [
         {
-          who: 'farmwife', goal: '농가 마당의 아주머니에게 가 보렴.', holds: '북채: 아주머니가 들고 있음',
-          lines: ['얘야, 부탁 하나 들어주련?', '북 치는 아저씨가 북채를 두고 갔단다.', '기관차가 물을 넣는 동안 전해 주렴.'],
-          offer: { ask: '북채를 전해 줄까?', label: '내가 전해 줄게요' },
-          errand: 'took',
+          goal: '돌다리 가의 철길 위 사람들에게 비켜 달라고 하렴.',
+          round: [
+            { who: 'waver', lines: ['어머, 내가 철길 위에 서 있었구나.', '고맙다. 둑 위로 물러서마.'] },
+            { who: 'flaggirl', lines: ['기관차가 온다고? 얼른 비킬게!', '둑 위에서 깃발을 흔들 거야.'] },
+            { who: 'crowdman', lines: ['기관차가 곧 온다고? 이런, 비켜야지.', '여러분, 철길에서 물러섭시다!'] },
+          ],
+          after: [{ who: 'gentleman', line: '철길이 비었구나! 기관차가 다리를 건너온다.' }],
+          sora: '기관차가 물 넣는 곳으로 갔대! 가 보자!',
+          errand: 'clear',
         },
         {
-          who: 'crowdman', goal: '스컨 강 돌다리 가를 지나 철길 쪽으로 가 보렴.', holds: '북채: 소라가 들고 있음',
-          lines: ['얘야, 여기는 사람이 너무 많단다.', '지나갈 틈이 한 뼘도 없구나.'],
-          sora: '북채를 전해야 하는데… 어? 누가 불러!',
-        },
-        {
-          who: 'carter', call: '얘, 어디 가니?', goal: '석탄 수레 일꾼이 부른다. 가 보렴.', holds: '북채: 소라가 들고 있음',
-          lines: ['기관차 쪽에 간다고? 그럼 이리 와.', '강둑 길로 돌아가면 사람이 적단다.', '아저씨, 이 애는 강둑 길로 보낼게요!'],
-          after: [{ who: 'crowdman', line: '강둑 길이라면 금방 가겠구나.' }],
-          sora: '강둑 길로 돌아가면 된대! 가자!',
-        },
-        {
-          who: 'drummer', goal: '철길 가의 북 치는 아저씨에게 북채를 전하렴.', holds: '북채: 소라가 들고 있음',
-          lines: ['오, 내 북채로구나! 찾고 있던 참이란다.'],
-          choice: {
-            ask: '북채를 건네며 뭐라고 할까?',
-            options: [
-              { id: 'E1', label: '"농가 아주머니가 보냈어요"', sora: '농가 아주머니가 보내셨어요.', says: '마당에 두고 왔구나. 고맙다, 얘야.' },
-              { id: 'E2', label: '"북은 언제 쳐요?"', sora: '북은 언제 쳐요?', says: '기관차가 떠나면 수레 위에서 친단다.' },
-            ],
+          who: 'waterman', goal: '물 넣는 철길 가의 물 붓는 일꾼을 도우렴.',
+          lines: ['기관차는 물을 끓인 김으로 달린단다.', '물을 다 넣어야 다시 떠나지. 도와주련?'],
+          play: {
+            kind: 'aim', ask: '하얀 점이 금빛 칸에 올 때 물을 부으렴.', label: '물 붓기', hits: 3, zone: [0.4, 0.6], speed: 0.8,
+            good: ['콸콸! 잘 들어갔어!', '한 통 더!'], miss: ['앗, 물을 흘렸어!', '조금 더 기다렸다가!'],
           },
-          errand: 'gave',
+          after: [{ who: 'smith', line: '김이 다시 오르는구나. 곧 떠나겠어.' }],
+          sora: '물을 다 넣었어! 북 치는 아저씨에게 가 보자!',
+          errand: 'water',
         },
         {
-          who: 'drummer', show: true, goal: '떠나는 기관차를 보렴.',
-          lines: ['마침 잘 왔다. 기관차가 이제 떠난단다.', '깃발 단 수레들을 끌고 흰 김을 뿜는구나.'],
+          who: 'drummer', goal: '북 치는 아저씨와 함께 북을 쳐서 기관차를 떠나보내렴.',
+          lines: ['물을 다 넣었으니 이제 떠난단다.', '떠날 때 큰북을 쳐서 알리자. 같이 치련?'],
+          play: {
+            kind: 'aim', ask: '하얀 점이 금빛 칸에 올 때 북을 치렴.', label: '둥!', hits: 3, zone: [0.43, 0.57], speed: 1.1,
+            good: ['둥!', '둥! 한 번 더!'], miss: ['앗, 박자가 어긋났어!', '조금 일렀어!'], show: 'train',
+          },
           sora: '말 탄 아저씨가 깃발을 들고 앞서 가!',
-          errand: 'saw',
+          errand: 'drum',
         },
       ],
       asides: [
-        { who: 'farmwife', when: ['S1', 'S2', 'S3', 'S4'], lines: ['북 치는 아저씨는 기관차 옆에 계신단다.', '스컨 강 돌다리 쪽으로 가렴.'] },
-        { who: 'farmwife', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '이제 북소리도 들리겠구나.'] },
+        { who: 'boy', when: ['S0'], lines: ['기관차가 곧 스컨 강 돌다리를 건너온대.', '그런데 철길 위에 구경꾼들이 서 있대!'] },
+        { who: 'gentleman', when: ['S0'], lines: ['기관차가 곧 이 다리를 건너온단다.', '철길 위 사람들이 비켜야 할 텐데.'] },
+        { who: 'carter', when: ['S0'], lines: ['기관차가 오면 석탄 수레를 떼어 낸단다.', '가난한 집에 나눠 줄 석탄이지.'] },
+        { who: 'boy', when: ['S3'], lines: ['기관차가 떠나는 소리 들었어?', '북소리가 여기까지 들렸어!'] },
       ],
-      done: '북채를 전하고, 기관차가 수레들을 끌고 떠나는 것을 보았다.',
+      done: '철길을 비우고, 물을 넣고, 북을 쳐서 기관차를 떠나보냈다.',
     },
     errands: [
-      { id: 'took', text: '북채를 받는다.', at: [] },
-      { id: 'gave', text: '북 치는 아저씨에게 북채를 전한다.', at: [] },
-      { id: 'saw', text: '기관차가 떠나는 것을 본다.', at: [] },
+      { id: 'clear', text: '철길 위 구경꾼들을 비키게 한다.', at: [] },
+      { id: 'water', text: '기관차에 물을 넣는다.', at: [] },
+      { id: 'drum', text: '북을 쳐서 기관차를 떠나보낸다.', at: [] },
     ],
     reply: '그날 처음 달린 철길은 그 뒤로 온 세상에 놓였단다.',
   },

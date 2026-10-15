@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { WALKS } from '../game/src/core/walks.js';
 import { TOKYO_TALE } from './fixtures/tokyo-tale.js';
-import { advance, calledOf, callOf, emptyTale, endingOf, goalOf, holdsOf, isTold, partOf, present, sanitizeTale, stepOf, textOf, carrying, thankerOf, cluesOf, gain, hintOf, riddleOf, sourceOf } from '../game/src/core/tale.js';
+import { advance, calledOf, callOf, emptyTale, endingOf, goalOf, holdsOf, isTold, partOf, present, sanitizeTale, stepOf, textOf, carrying, thankerOf, cluesOf, gain, hintOf, riddleOf, sourceOf, roundGot, roundLeft, whoOf } from '../game/src/core/tale.js';
 import { barred, canHop, createWalk, linesOf, peopleOf, speak, stepWalk, talkedOut } from '../game/src/core/walk.js';
 import { emptyProgress, markTale, sanitizeProgress, taleOf } from '../game/src/core/progress.js';
 
@@ -15,7 +15,10 @@ const person = (id) => place.scenes.flatMap((scene) => scene.people).find((p) =>
 // One step on in any tale: a riddle is answered with the clue that answers it, found first.
 const onward = (told, t) => {
   const right = riddleOf(told, t)?.clues.find((clue) => clue.right);
-  return right ? advance(told, gain(told, t, right.from), right.id) : advance(told, t, 'E1');
+  if (right) return advance(told, gain(told, t, right.from), right.id);
+  const step = stepOf(told, t);
+  if (step?.round) return advance(told, step.round.reduce((got, r) => roundGot(told, got, r.who), t));
+  return advance(told, t, step?.play ? 'played' : 'E1');
 };
 const sceneWith = (id) => place.scenes.findIndex((scene) => scene.people.some((p) => p.id === id));
 
@@ -127,8 +130,8 @@ describe('a tale of a thing carried', () => {
       expect(gate.sora.length, gate.sora).toBeLessThanOrEqual(25);
       // Every step before it opens can be done without going past it; the first after it cannot.
       const sceneOfWho = (who) => walked.scenes.findIndex((s) => s.people.some((p) => p.id === who));
-      for (let n = 0; n < gate.open; n += 1) expect(sceneOfWho(steps[n].who), `${id} step ${n}`).toBeLessThanOrEqual(scene);
-      expect(sceneOfWho(steps[gate.open].who), id).toBeGreaterThan(scene);
+      for (let n = 0; n < gate.open; n += 1) expect(sceneOfWho(whoOf(steps[n])), `${id} step ${n}`).toBeLessThanOrEqual(scene);
+      expect(sceneOfWho(whoOf(steps[gate.open])), id).toBeGreaterThan(scene);
       let t = emptyTale();
       for (let n = 0; n <= steps.length; n += 1) {
         const walk = createWalk(walked, { tale: t, scene, x: 0.975, been: walked.scenes.map((s) => s.id) });
@@ -176,7 +179,7 @@ describe('a tale of a thing carried', () => {
 // The user, 2026.10.9, in Kaifeng: "쪽지를 주는 액션은 없었는데, 쪽지는 받았네".
 describe('what is carried', () => {
   it('is in her hands from the taking of it until it is handed over, in every tale', () => {
-    const tales = Object.values(WALKS).filter((place) => place.tale);
+    const tales = Object.values(WALKS).filter((place) => place.tale && !place.tale.work);
     expect(tales.length).toBeGreaterThanOrEqual(6);
     for (const { tale } of tales) {
       expect(tale.thing).toBe(true);
@@ -191,7 +194,7 @@ describe('what is carried', () => {
 // The user, 2026.10.10: "다른 도시에서도 미션 끝내면, 감사하다는 인사 하던가".
 describe('the one who asked', () => {
   it('has thanks to give in every tale once the thing is handed over, and not before', () => {
-    for (const { tale } of Object.values(WALKS).filter((place) => place.tale)) {
+    for (const { tale } of Object.values(WALKS).filter((place) => place.tale && !place.tale.work)) {
       const end = { state: `S${tale.steps.length}` };
       expect(thankerOf(tale, { state: 'S1' })).toBe(null);
       expect(thankerOf(tale, end)).toBe(tale.steps[0].who);
@@ -274,5 +277,71 @@ describe('a riddle in the way', () => {
     expect(taleOf(kept, 'guest1054')).toEqual(t);
     expect(sanitizeTale({ v: 2, state: 'S1', endingId: null }).clues).toEqual([]);
     expect(sanitizeTale({ v: 2, state: 'S1', endingId: null, clues: ['ok', 7, 'x'.repeat(20)] }).clues).toEqual(['ok']);
+  });
+});
+
+// The user, 2026.10.15: "이야기 패턴이 너무 단순한데", then the work of the day itself, done with
+// her own hands, tried first in Darlington.
+describe('the work of the day', () => {
+  const works = Object.entries(WALKS).filter(([, place]) => place.tale?.work);
+  it('is tried in Darlington', () => {
+    expect(works.map(([id]) => id)).toContain('darlington');
+  });
+  it('is done a round at a time, each of it heard out once, in any order', () => {
+    const { tale } = WALKS.darlington;
+    const step = tale.steps[0];
+    let t = emptyTale();
+    expect(calledOf(tale, t)).toEqual(step.round.map((r) => r.who));
+    const [first, ...rest] = [...step.round].reverse();
+    expect(partOf(tale, t, first.who)).toEqual({ role: 'step', lines: first.lines, show: false });
+    t = roundGot(tale, t, first.who);
+    expect(partOf(tale, t, first.who)).toBe(null);
+    expect(roundLeft(tale, t).map((r) => r.who)).toEqual(rest.map((r) => r.who).reverse());
+    expect(advance(tale, t)).toBe(t);
+    for (const r of rest) t = roundGot(tale, t, r.who);
+    expect(advance(tale, t).state).toBe('S1');
+    expect(advance(tale, t).got).toEqual([]);
+  });
+  it('is played to the end before it goes on', () => {
+    const { tale } = WALKS.darlington;
+    const t = onward(tale, emptyTale());
+    expect(stepOf(tale, t).play).toBeTruthy();
+    expect(advance(tale, t, 'E1')).toBe(t);
+    expect(advance(tale, t, 'played').state).toBe('S2');
+  });
+  it('is written within the limits, names people who are there, and thanks nobody', () => {
+    for (const [id, place] of works) {
+      const { tale } = place;
+      const ids = place.scenes.flatMap((scene) => scene.people.map((p) => p.id));
+      expect(tale.thing, id).toBeFalsy();
+      expect(tale.ask.length).toBeLessThanOrEqual(25);
+      for (const step of tale.steps) {
+        const who = step.round ? step.round.map((r) => r.who) : [step.who];
+        for (const one of who) expect(ids, id).toContain(one);
+        const lines = [...(step.lines ?? []), ...(step.round ?? []).flatMap((r) => r.lines), ...(step.after ?? []).map((a) => a.line)];
+        for (const line of lines) expect(textOf(line).length, textOf(line)).toBeLessThanOrEqual(40);
+        if (step.sora) expect(step.sora.length, step.sora).toBeLessThanOrEqual(40);
+        if (step.play) {
+          const { play } = step;
+          expect(play.kind).toBe('aim');
+          expect(play.ask.length, play.ask).toBeLessThanOrEqual(30);
+          expect(play.hits).toBeGreaterThanOrEqual(1);
+          expect(play.zone[0]).toBeGreaterThan(0);
+          expect(play.zone[1]).toBeLessThan(1);
+          expect(play.zone[1] - play.zone[0]).toBeGreaterThanOrEqual(0.1);
+          expect(play.good.length * play.miss.length).toBeGreaterThan(0);
+        }
+      }
+      expect(tale.steps.map((s) => s.errand).filter(Boolean)).toEqual(place.errands.map((e) => e.id));
+      let t = emptyTale();
+      for (const _ of tale.steps) t = onward(tale, t);
+      expect(isTold(tale, t)).toBe(true);
+      expect(thankerOf(tale, t)).toBe(null);
+      expect(carrying(tale, t)).toBe(false);
+    }
+  });
+  it('keeps who has been gone to of a round, and reads back an old record without it', () => {
+    expect(sanitizeTale({ v: 2, state: 'S0', endingId: null, got: ['waver', 3] }).got).toEqual(['waver']);
+    expect(sanitizeTale({ v: 2, state: 'S0', endingId: null }).got).toEqual([]);
   });
 });

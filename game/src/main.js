@@ -22,7 +22,7 @@ import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
 import { REACH, offerLabel as offerText, barred, canHop, hop, allDone, createWalk, nearby, sceneOf, beginOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf, touch } from './core/walk.js';
 import { HINT_MS, hintOf, isSought, leftIn, soughtIn } from './core/seek.js';
-import { advance, calledOf, carrying, cluesOf, endingOf, gain, goalOf, hintOf as clueHint, holdsOf, isTold, present, riddleOf, stepOf as taleStep, thankerOf } from './core/tale.js';
+import { advance, calledOf, carrying, cluesOf, endingOf, gain, goalOf, hintOf as clueHint, holdsOf, isTold, present, riddleOf, roundGot, roundLeft, stepOf as taleStep, thankerOf } from './core/tale.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -596,6 +596,7 @@ function openPanel(spec) {
   box.querySelector('button')?.focus({ preventScroll: true });
 }
 function closePanel() {
+  play = null;
   if (!panel) return;
   panel = null;
   $('walkChoice').hidden = true;
@@ -649,6 +650,7 @@ function stepDone(step, chosen = null, held = null) {
 // She has heard the last line of the step she is on from the one it names.
 function taleSpoke(person) {
   const step = taleStep(walk.place.tale, walk.tale);
+  if (step?.round) { roundSpoke(step, person); return; }
   if (!step || step.who !== person.id) return;
   if (step.offer) {
     // (One thing to press: the tale goes one way and there is nothing to put off. The user,
@@ -664,8 +666,84 @@ function taleSpoke(person) {
   } else if (step.choice) {
     openPanel({ ask: step.choice.ask, back: closePanel, options: step.choice.options.map((option) => ({ label: option.label, pick: () => stepDone(step, option.id) })) });
   } else if (step.riddle) askRiddle(step);
+  else if (step.play && step !== playedNow) openPlay(step);
   else stepDone(step);
 }
+// ---- The work of the day (a tale's `work`, core/tale.js) ----
+// One of a round has been heard out: counted, and with the last of them the step is done.
+function roundSpoke(step, person) {
+  const told = walk.place.tale;
+  const one = roundLeft(told, walk.tale).find((r) => r.who === person.id);
+  if (!one || !saveTale(roundGot(told, walk.tale, person.id))) return;
+  const all = step.round.length;
+  const left = roundLeft(told, walk.tale).length;
+  if (one.sora) walkSora = { text: one.sora, from: walkT + 600, until: walkT + 600 + SORA_FOR_MS };
+  if (left > 0) { sound.stamp(); walkView.found(`${all - left}/${all}`); return; }
+  walkView.found(`${all}/${all}`);
+  stepDone(step);
+}
+// A mark sweeps to and fro across a bar; she presses as it is within the gold of it. Put off
+// by walking away, and asked again from the first when its person is spoken to again.
+let play = null;            // { step, hits, at: when it began, wait: no press until then }
+let playedNow = null;       // the step just played, while what came of it is held up
+const PLAY_WAIT_MS = 450;   // after a press, good or not, the next waits this long
+function playMark() {
+  const { speed } = play.step.play;
+  const phase = (((walkT - play.at) / 1000) * speed) % 2;
+  return phase <= 1 ? phase : 2 - phase;
+}
+function openPlay(step) {
+  const spec = step.play;
+  const leave = () => { closePanel(); play = null; walk.heard = null; walk.part = null; };
+  openPanel({ ask: spec.ask, back: leave, free: true, options: [] });
+  play = { step, hits: 0, at: walkT, wait: walkT + PLAY_WAIT_MS };
+  const box = $('walkChoice');
+  const bar = document.createElement('div');
+  bar.className = 'playBar';
+  const zone = document.createElement('i');
+  zone.className = 'zone';
+  zone.style.left = `${spec.zone[0] * 100}%`; zone.style.width = `${(spec.zone[1] - spec.zone[0]) * 100}%`;
+  const mark = document.createElement('b');
+  mark.className = 'mark';
+  bar.append(zone, mark);
+  const count = document.createElement('p');
+  count.className = 'playCount';
+  count.textContent = `0 / ${spec.hits}`;
+  const button = document.createElement('button');
+  button.type = 'button'; button.className = 'glass'; button.textContent = spec.label;
+  // (Pressed by a finger or the mouse; the keys press it by keydown below, so it is never
+  // given the focus, which would press it twice.)
+  button.addEventListener('pointerdown', (e) => e.preventDefault());
+  button.addEventListener('click', () => pressPlay());
+  box.append(bar, count, button);
+  document.activeElement?.blur?.();
+}
+function pressPlay() {
+  if (!play || walkT < play.wait) return;
+  const { step } = play;
+  const spec = step.play;
+  const x = playMark();
+  play.wait = walkT + PLAY_WAIT_MS;
+  sound.wake();
+  const good = x >= spec.zone[0] && x <= spec.zone[1];
+  const bar = $('walkChoice').querySelector('.playBar');
+  bar?.classList.remove('good', 'miss'); void bar?.offsetWidth; bar?.classList.add(good ? 'good' : 'miss');
+  if (!good) { play.misses = (play.misses ?? 0) + 1; sound.tick(false, false); walkSora = { text: spec.miss[(play.misses - 1) % spec.miss.length], from: walkT, until: walkT + 1600 }; return; }
+  play.hits += 1;
+  sound.stamp();
+  $('walkChoice').querySelector('.playCount').textContent = `${play.hits} / ${spec.hits}`;
+  if (play.hits < spec.hits) { walkSora = { text: spec.good[(play.hits - 1) % spec.good.length], from: walkT, until: walkT + 1600 }; return; }
+  play = null;
+  if (!spec.show) { stepDone(step, 'played'); return; }
+  // What came of it is held up first, a while, before the step is done and anything else
+  // (grandmother's answer, at the end) comes up over it.
+  closePanel();
+  walkHeld = { show: spec.show, until: walkT + SHOW_PLAYED_MS };
+  const was = walk;
+  playedNow = step;
+  setTimeout(() => { playedNow = null; if (walk === was) stepDone(step, 'played'); }, SHOW_PLAYED_MS - 1500);
+}
+const SHOW_PLAYED_MS = 5000;
 // ---- A riddle in the way (a step's `riddle`, core/tale.js) ----
 // A clue is hers: kept, said beside her head with how many that makes.
 let clueIdleMs = 0;         // how long no clue has been found while a riddle is asked
@@ -919,6 +997,7 @@ window.addEventListener('keydown', (e) => {
   if (mode !== 'walk' || e.ctrlKey || e.altKey || e.metaKey) return;
   // While something is asked of her the keys are the box's: Esc goes back, the rest is left to its buttons.
   if (memoUp) { if (['Enter', 'Space', 'Escape'].includes(e.code) && !e.repeat) { e.preventDefault(); memoOk(); } return; }
+  if (play && ['Space', 'Enter'].includes(e.code)) { e.preventDefault(); if (!e.repeat) pressPlay(); return; }
   if (panelOpen()) { if (e.code === 'Escape') { e.preventDefault(); panel.back?.(); } return; }
   if (e.code === 'ArrowLeft' || e.code === 'KeyA') { keyWay = -1; walkWant = null; e.preventDefault(); }
   else if (e.code === 'ArrowRight' || e.code === 'KeyD') { keyWay = 1; walkWant = null; e.preventDefault(); }
@@ -933,6 +1012,7 @@ window.addEventListener('blur', () => { keyWay = 0; walkWay = 0; });
 
 function frameWalk(dt) {
   walkT += dt;
+  if (play) { const mark = $('walkChoice').querySelector('.playBar .mark'); if (mark) mark.style.left = `${playMark() * 100}%`; }
   // Who the tale calls for, and who is not in this scene just now, for the picture (ui/walk.js).
   if (walk.tale) {
     // (The mark is not over the head of one she is hearing out, or answering.)

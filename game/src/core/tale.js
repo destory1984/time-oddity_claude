@@ -29,12 +29,21 @@
 // (`label`; she says `sora`, they answer `says`), and the step is done by the one that is
 // `right`. What a wrong one is answered with says what is wanting. `none` is what she says
 // with no clue to hold out, `more` the button that puts it off.
+// A tale of the work of the day (`work: true`; the user, 2026.10.15, of tales that were all
+// one shape: "이야기 패턴이 너무 단순한데", and of the way chosen: the work of that day itself,
+// done with her own hands) has no thing carried and nobody to thank. Its steps may be:
+// a `round`, [{ who, lines, sora? }]: several people to go to in any order, each heard out
+// once (those standing on the line are asked to step back); it is done when all have been.
+// A `play`, { kind: 'aim', ask, label, hits, zone: [from, to], speed, good, miss, show? }:
+// once `who` has said their lines a box asks her to press as a mark sweeping across a bar
+// is within its zone (`hits` times; `speed` sweeps a second), with `good` and `miss` said
+// in turn; `show` is the picture held up when it is done. It is done by advance(.., 'played').
 // The state is 'S0' for the first step, 'S1' for the second, and one past the last when
 // the tale is told. A record is never changed in place.
 export const STATES = ['S0', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9'];
 const SHAPE = 2;      // records of the first shape (a way, a change, attempts) begin again
 
-export const emptyTale = () => ({ v: SHAPE, state: 'S0', endingId: null, clues: [] });
+export const emptyTale = () => ({ v: SHAPE, state: 'S0', endingId: null, clues: [], got: [] });
 
 const at = (t) => STATES.indexOf(t?.state ?? 'S0');
 // The step she is on, or null once the tale is told.
@@ -50,7 +59,18 @@ export function advance(tale, t, chosen = null) {
   if (!step) return t;
   if (step.choice && !step.choice.options.some((o) => o.id === chosen)) return t;
   if (step.riddle && !cluesOf(tale, t).some((clue) => clue.right && clue.id === chosen)) return t;
-  return { ...t, state: STATES[at(t) + 1], endingId: step.choice ? chosen : t.endingId };
+  if (step.round && roundLeft(tale, t).length > 0) return t;
+  if (step.play && chosen !== 'played') return t;
+  return { ...t, state: STATES[at(t) + 1], endingId: step.choice ? chosen : t.endingId, got: [] };
+}
+
+// Who a step sends her to: its one person, or the first of a round.
+export const whoOf = (step) => step.who ?? step.round?.[0]?.who ?? null;
+// Those of the round she is on still to be gone to, in the order they are written.
+export const roundLeft = (tale, t) => (stepOf(tale, t)?.round ?? []).filter((r) => !(t.got ?? []).includes(r.who));
+// One of the round has been heard out.
+export function roundGot(tale, t, who) {
+  return roundLeft(tale, t).some((r) => r.who === who) ? { ...t, got: [...(t.got ?? []), who] } : t;
 }
 
 // The riddle she is asked just now, or null.
@@ -91,6 +111,8 @@ export function hintOf(tale, t, scene, x) {
 export function partOf(tale, t, personId) {
   const step = stepOf(tale, t);
   if (step?.who === personId) return { role: 'step', lines: step.lines, show: Boolean(step.show) };
+  const round = roundLeft(tale, t).find((r) => r.who === personId);
+  if (round) return { role: 'step', lines: round.lines, show: false };
   const aside = (tale.asides ?? []).find((a) => a.who === personId && a.when.includes(t.state));
   return aside ? { role: 'aside', lines: aside.lines, show: Boolean(aside.show) } : null;
 }
@@ -98,12 +120,12 @@ export const textOf = (line) => (typeof line === 'string' ? line : line.text);
 export const speakerOf = (line, personId) => (typeof line === 'string' ? personId : line.by ?? personId);
 
 // Who is to be spoken to now: marked over their head until it is done.
-export const calledOf = (tale, t) => { const step = stepOf(tale, t); return step ? [step.who] : []; };
+export const calledOf = (tale, t) => { const step = stepOf(tale, t); return !step ? [] : step.round ? roundLeft(tale, t).map((r) => r.who) : [step.who]; };
 // Who asked her (the first step's) and has something to say now that the tale is told, or
 // null: they wait where they were with their thanks (the user, 2026.10.10, thanked in Agra:
 // "다른 도시에서도 미션 끝내면, 감사하다는 인사 하던가").
 export function thankerOf(tale, t) {
-  if (!isTold(tale, t)) return null;
+  if (!isTold(tale, t) || tale.work) return null;
   const who = tale.steps[0].who;
   return (tale.asides ?? []).some((a) => a.who === who && a.when.includes(t.state)) ? who : null;
 }
@@ -136,6 +158,6 @@ export const present = (t, person) => !person.when || person.when.includes(t?.st
 export function sanitizeTale(raw) {
   if (!raw || typeof raw !== 'object' || raw.v !== SHAPE || !STATES.includes(raw.state)) return null;
   const endingId = typeof raw.endingId === 'string' && raw.endingId.length <= 8 ? raw.endingId : null;
-  const clues = Array.isArray(raw.clues) ? raw.clues.filter((id) => typeof id === 'string' && id.length <= 8) : [];
-  return { v: SHAPE, state: raw.state, endingId, clues };
+  const ids = (list) => (Array.isArray(list) ? list.filter((id) => typeof id === 'string' && id.length <= 12) : []);
+  return { v: SHAPE, state: raw.state, endingId, clues: ids(raw.clues), got: ids(raw.got) };
 }

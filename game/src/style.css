@@ -149,6 +149,15 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkChoice button small{display:block;margin-top:2px;font-size:12px;font-weight:500;color:var(--white);opacity:.85;white-space:normal;line-height:1.35}
 #walkChoice button.quiet{border-color:rgba(251,248,249,.45);color:var(--white);font-weight:600}
 #walkChoice p{margin:0;color:var(--white);font:500 calc(14px * var(--text,1))/1.5 "Pretendard Variable",Pretendard,sans-serif;text-align:center;white-space:pre-line}
+/* The work of the day: a mark sweeps across a bar and is to be caught in its gold (main.js openPlay). */
+#walkChoice .playBar{position:relative;width:100%;height:30px;border:2px solid rgba(251,248,249,.5);border-radius:15px;background:#0d0b1a;overflow:hidden}
+#walkChoice .playBar .zone{position:absolute;top:0;bottom:0;background:linear-gradient(#ffd66e,#e0a93a);opacity:.85}
+#walkChoice .playBar .mark{position:absolute;top:2px;bottom:2px;width:14px;margin-left:-7px;border-radius:7px;background:var(--white);box-shadow:0 0 8px #fff}
+#walkChoice .playBar.good{animation:playGood .45s}
+#walkChoice .playBar.miss{animation:playMiss .45s}
+@keyframes playGood{0%{border-color:#ffd66e;box-shadow:0 0 18px #ffd66e}100%{box-shadow:none}}
+@keyframes playMiss{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#walkChoice p.playCount{color:var(--gold);font-weight:700;font-size:15px}
 #errands li.has{font:600 12px/1.4 "Pretendard Variable",Pretendard,sans-serif;opacity:.75}
 #errands li.did{font:500 12px/1.4 "Pretendard Variable",Pretendard,sans-serif;opacity:.8}
 #walkDo #tryButton{font-weight:700;background:var(--gold);color:#1b1730}
