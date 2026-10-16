@@ -693,53 +693,124 @@ function roundSpoke(step, person) {
   if (left > 0) { sound.stamp(); return; }
   stepDone(step);
 }
-// A mark sweeps to and fro across a bar; she presses as it is within the gold of it. Put off
-// by walking away, and asked again from the first when its person is spoken to again.
-let play = null;            // { step, hits, at: when it began, wait: no press until then }
+// The play of a step (core/tale.js `play`), by its kind (the user, 2026.10.16: one kind only
+// was soon dull, "미니 게임을 바꾸면 안 됨?"):
+// - aim: a mark sweeps to and fro across a bar; she presses as it is within the gold of it.
+// - fill: she holds it down and the bar fills; she lets go as it is within the gold. Held too
+//   long, it runs over.
+// - mash: each press fills the bar a little and it sinks back of itself; filled to the end
+//   it is one done.
+// - beat: four lights come on in turn to a tick, the last of gold; she presses on the gold.
+// Put off by walking away, and asked again from the first when its person is spoken to again.
+let play = null;            // { step, kind, hits, at: when it began, wait: no press until then, level, held }
 let playedNow = null;       // the step just played, while what came of it is held up
 const PLAY_WAIT_MS = 450;   // after a press, good or not, the next waits this long
+const MASH_PUSH = 0.13;     // how much one press of a mash fills
 function playMark() {
   const { speed } = play.step.play;
   const phase = (((walkT - play.at) / 1000) * speed) % 2;
   return phase <= 1 ? phase : 2 - phase;
 }
+// Which of the four lights of a beat is on (3, the last, is the gold one), and how far into it.
+const playBeat = () => (((walkT - play.at) / 1000) * play.step.play.speed) % 4;
 function openPlay(step) {
   const spec = step.play;
+  const kind = spec.kind ?? 'aim';
   const leave = () => { closePanel(); play = null; walk.heard = null; walk.part = null; };
   openPanel({ ask: spec.ask, back: leave, free: true, options: [] });
-  play = { step, hits: 0, at: walkT, wait: walkT + PLAY_WAIT_MS };
+  play = { step, kind, hits: 0, at: walkT, wait: walkT + PLAY_WAIT_MS, level: 0, held: false, beat: -1 };
   const box = $('walkChoice');
   const bar = document.createElement('div');
-  bar.className = 'playBar';
-  const zone = document.createElement('i');
-  zone.className = 'zone';
-  zone.style.left = `${spec.zone[0] * 100}%`; zone.style.width = `${(spec.zone[1] - spec.zone[0]) * 100}%`;
-  const mark = document.createElement('b');
-  mark.className = 'mark';
-  bar.append(zone, mark);
+  bar.className = `playBar ${kind}`;
+  if (kind === 'beat') {
+    for (let n = 0; n < 4; n += 1) { const light = document.createElement('i'); light.className = n === 3 ? 'light gold' : 'light'; bar.append(light); }
+  } else {
+    if (kind !== 'mash') {
+      const zone = document.createElement('i');
+      zone.className = 'zone';
+      zone.style.left = `${spec.zone[0] * 100}%`; zone.style.width = `${(spec.zone[1] - spec.zone[0]) * 100}%`;
+      bar.append(zone);
+    }
+    if (kind !== 'aim') { const fill = document.createElement('s'); fill.className = 'fill'; bar.append(fill); }
+    if (kind === 'aim') { const mark = document.createElement('b'); mark.className = 'mark'; bar.append(mark); }
+  }
   const count = document.createElement('p');
   count.className = 'playCount';
   count.textContent = tallyOf(spec.tally, 0, spec.hits);
   const button = document.createElement('button');
   button.type = 'button'; button.className = 'glass'; button.textContent = spec.label;
-  // (Pressed by a finger or the mouse; the keys press it by keydown below, so it is never
-  // given the focus, which would press it twice.)
-  button.addEventListener('pointerdown', (e) => e.preventDefault());
-  button.addEventListener('click', () => pressPlay());
+  // (Pressed by a finger or the mouse as it goes down, which a quick mash needs; the keys
+  // press it by keydown below, so it is never given the focus, which would press it twice.)
+  button.addEventListener('pointerdown', (e) => { e.preventDefault(); pressPlay(); });
+  for (const up of ['pointerup', 'pointercancel', 'pointerleave']) button.addEventListener(up, () => letGoPlay());
   box.append(bar, count, button);
   document.activeElement?.blur?.();
 }
-function pressPlay() {
-  if (!play || walkT < play.wait) return;
-  const { step } = play;
-  const spec = step.play;
-  const x = playMark();
-  play.wait = walkT + PLAY_WAIT_MS;
-  sound.wake();
-  const good = x >= spec.zone[0] && x <= spec.zone[1];
+function playFeel(good) {
   const bar = $('walkChoice').querySelector('.playBar');
   bar?.classList.remove('good', 'miss'); void bar?.offsetWidth; bar?.classList.add(good ? 'good' : 'miss');
-  if (!good) { play.misses = (play.misses ?? 0) + 1; sound.tick(false, false); walkSora = { text: spec.miss[(play.misses - 1) % spec.miss.length], from: walkT, until: walkT + 1600 }; return; }
+}
+function playMissed() {
+  const spec = play.step.play;
+  play.wait = walkT + PLAY_WAIT_MS;
+  play.misses = (play.misses ?? 0) + 1;
+  playFeel(false);
+  sound.tick(false, false);
+  walkSora = { text: spec.miss[(play.misses - 1) % spec.miss.length], from: walkT, until: walkT + 1600 };
+}
+function pressPlay() {
+  if (!play || walkT < play.wait) return;
+  sound.wake();
+  const { kind } = play;
+  const spec = play.step.play;
+  if (kind === 'fill') { if (!play.held) { play.held = true; play.heldAt = walkT; play.level = 0; play.left = 0; } return; }
+  if (kind === 'mash') {
+    play.level = Math.min(1, play.level + MASH_PUSH);
+    sound.tick(false, false);
+    if (play.level >= 1) { play.level = 0; play.wait = walkT + PLAY_WAIT_MS; playHit(); }
+    return;
+  }
+  const good = kind === 'beat' ? playBeat() >= 2.85 || playBeat() < 0.15 : playMark() >= spec.zone[0] && playMark() <= spec.zone[1];
+  if (!good) { playMissed(); return; }
+  play.wait = walkT + PLAY_WAIT_MS;
+  playHit();
+}
+// Letting go of a fill: it is good if the bar stands within the gold.
+function letGoPlay() {
+  if (!play || play.kind !== 'fill' || !play.held) return;
+  play.held = false;
+  const [from, to] = play.step.play.zone;
+  const good = play.level >= from && play.level <= to;
+  play.left = walkT;
+  if (!good) { playMissed(); return; }
+  play.wait = walkT + PLAY_WAIT_MS;
+  playHit();
+}
+// Each frame: the mark, the filling and sinking bar, the lights of a beat.
+function playFrame(dt) {
+  const spec = play.step.play;
+  const bar = $('walkChoice').querySelector('.playBar');
+  if (!bar) return;
+  if (play.kind === 'aim') { const mark = bar.querySelector('.mark'); if (mark) mark.style.left = `${playMark() * 100}%`; return; }
+  if (play.kind === 'beat') {
+    const now = Math.floor(playBeat());
+    if (now !== play.beat) { play.beat = now; if (now < 3) sound.tick(false, false); }
+    bar.querySelectorAll('.light').forEach((light, n) => light.classList.toggle('on', n === now));
+    return;
+  }
+  if (play.kind === 'fill') {
+    if (play.held) {
+      play.level = ((walkT - play.heldAt) / 1000) * spec.speed;
+      if (play.level > 1) { play.held = false; play.level = 1; play.left = walkT; playMissed(); }
+    } else if (play.left && walkT - play.left > 500) { play.level = 0; play.left = 0; }
+  }
+  if (play.kind === 'mash') play.level = Math.max(0, play.level - (spec.speed * dt) / 1000);
+  bar.querySelector('.fill').style.width = `${play.level * 100}%`;
+}
+function playHit() {
+  const { step } = play;
+  const spec = step.play;
+  playFeel(true);
   play.hits += 1;
   sound.stamp();
   $('walkChoice').querySelector('.playCount').textContent = tallyOf(spec.tally, play.hits, spec.hits);
@@ -1031,6 +1102,7 @@ window.addEventListener('keydown', (e) => {
   else if (e.code === 'Enter' && !e.repeat && !e.target.closest?.('button')) { if (offerOf(walk, withWhom(walk))) tryNear(); else talk(); e.preventDefault(); }
 });
 window.addEventListener('keyup', (e) => {
+  if (play && ['Space', 'Enter'].includes(e.code)) { letGoPlay(); return; }
   if ((e.code === 'ArrowLeft' || e.code === 'KeyA') && keyWay < 0) keyWay = 0;
   if ((e.code === 'ArrowRight' || e.code === 'KeyD') && keyWay > 0) keyWay = 0;
 });
@@ -1038,7 +1110,7 @@ window.addEventListener('blur', () => { keyWay = 0; walkWay = 0; });
 
 function frameWalk(dt) {
   walkT += dt;
-  if (play) { const mark = $('walkChoice').querySelector('.playBar .mark'); if (mark) mark.style.left = `${playMark() * 100}%`; }
+  if (play) playFrame(dt);
   // Who the tale calls for, and who is not in this scene just now, for the picture (ui/walk.js).
   if (walk.tale) {
     // (The mark is not over the head of one she is hearing out, or answering.)

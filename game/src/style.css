@@ -153,6 +153,14 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkChoice .playBar{position:relative;width:100%;height:30px;border:2px solid rgba(251,248,249,.5);border-radius:15px;background:#0d0b1a;overflow:hidden}
 #walkChoice .playBar .zone{position:absolute;top:0;bottom:0;background:linear-gradient(#ffd66e,#e0a93a);opacity:.85}
 #walkChoice .playBar .mark{position:absolute;top:2px;bottom:2px;width:14px;margin-left:-7px;border-radius:7px;background:var(--white);box-shadow:0 0 8px #fff}
+#walkChoice .playBar .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(#9fd3ff,#4a90d9);opacity:.9;text-decoration:none}
+#walkChoice .playBar.fill .zone{z-index:1;background:none;border-left:3px solid #ffd66e;border-right:3px solid #ffd66e;opacity:1}
+#walkChoice .playBar.mash .fill{background:linear-gradient(#ffe08a,#e0a93a)}
+#walkChoice .playBar.beat{display:flex;gap:8px;align-items:center;justify-content:center;border:none;background:none;height:40px}
+#walkChoice .playBar .light{width:34px;height:34px;border-radius:50%;border:2px solid rgba(251,248,249,.5);background:#0d0b1a;transition:background .08s}
+#walkChoice .playBar .light.gold{border-color:#ffd66e}
+#walkChoice .playBar .light.on{background:var(--white);box-shadow:0 0 10px #fff}
+#walkChoice .playBar .light.gold.on{background:#ffd66e;box-shadow:0 0 14px #ffd66e}
 #walkChoice .playBar.good{animation:playGood .45s}
 #walkChoice .playBar.miss{animation:playMiss .45s}
 @keyframes playGood{0%{border-color:#ffd66e;box-shadow:0 0 18px #ffd66e}100%{box-shadow:none}}

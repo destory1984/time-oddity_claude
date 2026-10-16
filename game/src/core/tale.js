@@ -34,10 +34,14 @@
 // done with her own hands) has no thing carried and nobody to thank. Its steps may be:
 // a `round`, [{ who, lines, sora? }], with `tally`, how far it has come as a sentence ({n} of {all}): several people to go to in any order, each heard out
 // once (those standing on the line are asked to step back); it is done when all have been.
-// A `play`, { kind: 'aim', tally, ask, label, hits, zone: [from, to], speed, good, miss, show? }:
-// once `who` has said their lines a box asks her to press as a mark sweeping across a bar
-// is within its zone (`hits` times; `speed` sweeps a second), with `good` and `miss` said
-// in turn; `show` is the picture held up when it is done. It is done by advance(.., 'played').
+// A `play`, { kind, tally, ask, label, hits, zone: [from, to], speed, good, miss, show? }:
+// once `who` has said their lines a box asks her to do it `hits` times, with `good` and
+// `miss` said in turn (main.js). The kind: 'aim', press as a mark sweeping across a bar is
+// within the zone (`speed` sweeps a second); 'fill', hold down as the bar fills (`speed`
+// of it a second) and let go within the zone; 'mash', press fast, each press filling an
+// eighth or so of a bar that sinks back by `speed` a second; 'beat', press as the last of
+// four lights is on (`speed` lights a second). `show` is the picture held up when it is
+// done. It is done by advance(.., 'played').
 // The state is 'S0' for the first step, 'S1' for the second, and one past the last when
 // the tale is told. A record is never changed in place.
 export const STATES = ['S0', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9'];

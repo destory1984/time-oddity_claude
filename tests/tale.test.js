@@ -302,6 +302,18 @@ describe('the work of the day', () => {
     expect(advance(tale, t).state).toBe('S1');
     expect(advance(tale, t).got).toEqual([]);
   });
+  // The user, 2026.10.16: "미니 게임을 바꾸면 안 됨?": the plays are of more than one kind,
+  // and no place has the same kind twice.
+  it('plays more than one kind, and none twice in one place', () => {
+    const kinds = new Set();
+    for (const [id, walked] of Object.entries(WALKS)) {
+      if (!walked.tale?.work) continue;
+      const here = walked.tale.steps.filter((s) => s.play).map((s) => s.play.kind);
+      expect(new Set(here).size, id).toBe(here.length);
+      here.forEach((k) => kinds.add(k));
+    }
+    expect([...kinds].sort()).toEqual(['aim', 'beat', 'fill', 'mash']);
+  });
   it('is played to the end before it goes on', () => {
     const { tale } = WALKS.darlington;
     const t = onward(tale, emptyTale());
@@ -325,7 +337,7 @@ describe('the work of the day', () => {
         if (step.cheer) expect(step.cheer.length, step.cheer).toBeLessThanOrEqual(14);
         if (step.play) {
           const { play } = step;
-          expect(play.kind).toBe('aim');
+          expect(['aim', 'fill', 'mash', 'beat']).toContain(play.kind);
           expect(play.ask.length, play.ask).toBeLessThanOrEqual(30);
           expect(play.hits).toBeGreaterThanOrEqual(1);
           expect(play.zone[0]).toBeGreaterThan(0);
