@@ -6068,7 +6068,7 @@ export const WALKS = {
   // the guns, the sparrows and the sparrowhawks, the stranger in Chinese dress, the
   // Koh-i-Noor, the fire of 1936; the number of people; "dome"; one-shilling day on this day.
   crystalPalace: {
-    first: '유리 집에서 박람회를 여는 날이란다. 점심 빵을 전해 주렴.',
+    first: '유리 집에서 박람회를 여는 날이란다. 박람회가 잘 열리도록 도와주렴.',
     dir: 'london1851', look: 'paper', pale: true,
     // (What is said of today: looked up on 2026.10.14; the picture chosen by the user.)
     now: {
@@ -6086,7 +6086,7 @@ export const WALKS = {
         id: 'gate', name: '영국 런던 하이드파크 문 앞 길', short: '공원 문 앞 길', zoom: 1.095, ground: 0.747, scale: 0.641, air: 'market', floor: 'dirt',
         sora: '비가 그치고 해가 났어!',
         people: [
-          { id: 'baker', pass: '누가 좀 전해 주면 좋으련만.', name: '빵집 아주머니', x: 0.18, w: 118, h: 282, lines: ['오늘은 빵이 날개 돋친 듯 팔린단다.', '새벽부터 번을 구웠지.'] },
+          { id: 'baker', pass: '번이 다 팔리면 집에 가야지.', name: '빵집 아주머니', x: 0.18, w: 118, h: 282, lines: ['오늘은 빵이 날개 돋친 듯 팔린단다.', '새벽부터 번을 구웠지.'] },
           { id: 'gentleman', pass: '우산을 괜히 들고 나왔구나.', name: '우산 접는 신사', x: 0.29, w: 102, h: 320, lines: ['아침엔 비가 조금 왔단다.', '여왕님이 오실 때 마침 해가 났지.'] },
           { id: 'glazier', pass: '유리는 살살 다뤄야 하지.', show: 'pane', pose: 'see-aha', sora: '유리판으로 집을 지었대!', memo: '수정궁은 무쇠 기둥과 나무 틀에 판유리를 끼워 지었단다. 한 해도 안 걸렸지.', name: '유리 끼우는 일꾼', x: 0.4, w: 119, h: 298, lines: ['나는 저 유리 집에 유리를 끼웠단다.', '한 해도 안 걸려서 다 지었지.'] },
           { id: 'bunman', pass: '번 사세요, 갓 구운 번이에요!', show: 'buns', name: '빵집 아저씨', x: 0.51, w: 116, h: 292, lines: ['위에 설탕을 뿌린 달콤한 번이란다.', '유리 집 안에서도 번과 레모네이드를 판대.'],
@@ -6136,63 +6136,67 @@ export const WALKS = {
         ],
       },
     ],
-    // "The lunch bundle" (core/tale.js; the storyboard of docs/신기한-사실.md): the baker at
-    // the park gate has a lunch bundle for the guidebook seller, who cannot leave his cart for
-    // the crowd; the policeman lets no one cross the road kept for the queen's carriage; the
-    // flower girl says to go round by the path along the Serpentine; she hands the bundle to
-    // the guidebook seller, choosing what to say; and she looks up at the arched glass roof in
-    // the sun, the elms inside it, and hears the "Hallelujah" from within.
+    // "The work of the day" (core/tale.js `work`, as at Darlington; the user, 2026.10.16: "런던도
+    // 달링턴 스타일로 고쳐"): the rain has left the road by the gate muddy and she sweeps the
+    // crossing with the crossing sweeper (crossing sweepers were a London trade of the time:
+    // Mayhew, 1851); by the lake she sells the flower girl's violets to three people in the
+    // crowd; before the palace she pulls the flags up with the usher as the queen comes, and
+    // looks up at the arched glass roof and hears the "Hallelujah" from within.
+    // Looked up: flags of many nations flew from the top of the palace through the exhibition.
+    // Made up: sweeping with the boy, the violets sold to those three, the usher and the flags
+    // pulled up at that hour.
     tale: {
-      thing: true,
+      work: true,
       ask: '유리 지붕 안에는 무엇이 있을까?',
-      gate: { scene: 'lake', open: 3, sora: '경관 아저씨가 막고 있어. 못 가.' },
+      gate: { scene: 'gate', open: 1, sora: '길이 진흙투성이야. 건널목부터 쓸자.' },
       steps: [
         {
-          who: 'baker', goal: '공원 문 앞 길의 빵집 아주머니에게 가 보렴.', holds: '빵 보따리: 빵집 아주머니가 들고 있음',
-          lines: ['얘야, 부탁 하나 들어주련?', '수정궁 앞에서 안내 책 파는 아저씨의 점심이란다.', '사람이 많아 수레를 못 비운대. 전해 주렴.'],
-          offer: { ask: '빵 보따리를 전해 줄까?', label: '내가 전해 줄게요' },
-          errand: 'took',
-        },
-        {
-          who: 'policeman', goal: '호숫가 끝의 경관에게 가 보렴.', holds: '빵 보따리: 소라가 들고 있음',
-          lines: ['멈추렴. 이 마찻길은 건널 수 없단다.', '곧 여왕님의 마차가 지나가실 길이야.'],
-          sora: '빵을 전해야 하는데… 어? 누가 불러!',
-        },
-        {
-          who: 'flowergirl', call: '얘, 어디 가려고?', goal: '꽃 파는 아이가 부른다. 가 보렴.', holds: '빵 보따리: 소라가 들고 있음',
-          lines: ['수정궁에 간다고? 마찻길로는 못 가.', '호숫가 길을 따라 돌아가면 나와.', '아저씨, 이 애는 호숫가 길로 갈게요!'],
-          after: [{ who: 'policeman', line: '호숫가 길이라면 가도 좋단다.' }],
-          sora: '호숫가 길로 돌아가래! 가자!',
-        },
-        {
-          who: 'guideseller', goal: '수정궁 앞의 안내 책 파는 아저씨에게 빵 보따리를 전하렴.', holds: '빵 보따리: 소라가 들고 있음',
-          lines: ['오, 내 점심 보따리로구나.'],
-          choice: {
-            ask: '빵 보따리를 건네며 뭐라고 할까?',
-            options: [
-              { id: 'E1', label: '"빵집 아주머니가 보냈어요"', sora: '빵집 아주머니가 보내셨어요.', says: '아직 따끈하구나. 고맙다, 얘야.' },
-              { id: 'E2', label: '"안에는 뭐가 있어요?"', sora: '유리 집 안에는 뭐가 있어요?', says: '여러 나라의 물건과 큰 나무가 있단다.' },
-            ],
+          who: 'sweeper', goal: '공원 문 앞 길의 길 쓰는 아이를 도와 건널목을 쓸렴.',
+          lines: ['비가 와서 건널목이 진흙투성이예요.', '손님들 치맛자락이 젖지 않게 같이 쓸어요.'],
+          play: {
+            kind: 'aim', tally: '건널목 {all}군데 가운데 {n}군데를 쓸었다.', ask: '하얀 점이 금빛 칸에 올 때 비질을 하렴.', label: '쓱쓱', hits: 3, zone: [0.4, 0.6], speed: 0.7,
+            good: ['쓱쓱! 깨끗해졌어!', '한 군데 더!'], miss: ['앗, 진흙이 튀었어!', '조금 더 기다렸다가!'],
           },
-          errand: 'gave',
+          after: [{ who: 'season', line: '길이 깨끗하구나. 치마가 젖지 않겠어.' }],
+          cheer: '건널목이 깨끗해졌다!',
+          sora: '이제 호숫가로 가 보자!',
+          errand: 'swept',
         },
         {
-          who: 'guideseller', show: true, goal: '해가 비친 유리 지붕을 올려다보렴.',
-          lines: ['마침 잘 왔다. 저 둥근 지붕을 보렴.', '들어 보렴. 안에서 할렐루야 노래가 들리지.'],
-          sora: '유리 지붕 안에 큰 나무가 있어!',
-          errand: 'saw',
+          goal: '호숫가의 꽃 파는 아이를 도와 제비꽃을 사람들에게 팔렴.', tally: '제비꽃 {all}다발 가운데 {n}다발을 팔았다.',
+          round: [
+            { who: 'mother', lines: ['어머, 향긋한 제비꽃이구나.', '한 다발 주렴. 아이 모자에 꽂아 줘야지.'] },
+            { who: 'oldman', lines: ['제비꽃이라, 고향 들판이 생각나는구나.', '한 다발 사서 가져가련다.'] },
+            { who: 'reporter', lines: ['오늘 같은 날엔 꽃 한 송이쯤 꽂아야지.', '한 다발 주렴. 단추 구멍에 꽂으마.'] },
+          ],
+          after: [{ who: 'flowergirl', line: '다 팔았어요! 고마워요. 이제 수정궁에 가 봐요.' }],
+          cheer: '제비꽃을 다 팔았다!',
+          sora: '수정궁 앞으로 가 보자!',
+          errand: 'violets',
+        },
+        {
+          who: 'usher', goal: '수정궁 앞의 문 앞 안내원과 함께 깃발을 올리렴.',
+          lines: ['여왕님이 곧 박람회를 여신단다.', '지붕에 깃발을 올려야 해. 줄을 같이 당기련?'],
+          play: {
+            kind: 'aim', tally: '깃발 {all}개 가운데 {n}개를 올렸다.', ask: '하얀 점이 금빛 칸에 올 때 줄을 당기렴.', label: '영차!', hits: 3, zone: [0.42, 0.58], speed: 0.7,
+            good: ['영차! 깃발이 올라가!', '하나 더!'], miss: ['앗, 줄이 미끄러졌어!', '조금 일렀어!'], show: 'roof',
+          },
+          cheer: '박람회가 열린다!',
+          sora: '안에서 할렐루야 노래가 들려!',
+          errand: 'flags',
         },
       ],
       asides: [
-        { who: 'baker', when: ['S1', 'S2', 'S3', 'S4'], lines: ['안내 책 파는 아저씨는 수정궁 앞에 있단다.', '호숫가를 지나면 나오지.'] },
-        { who: 'baker', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '이제 아저씨도 배를 채우겠구나.'] },
+        { who: 'baker', when: ['S0'], lines: ['비가 그치니 손님이 몰려오는구나.', '길 쓰는 아이 혼자 바쁘겠어.'] },
+        { who: 'flowergirl', when: ['S1'], lines: ['제비꽃이 아직 이렇게 많이 남았어요.', '저 사람들에게 한 다발씩 팔아 줄래요?'] },
+        { who: 'flowergirl', when: ['S3'], lines: ['깃발이 올라가는 것 봤어요?', '여기서도 노랫소리가 들려요!'] },
       ],
-      done: '빵 보따리를 전하고, 유리 지붕 안의 큰 나무를 보았다.',
+      done: '건널목을 쓸고, 제비꽃을 팔고, 깃발을 올려 박람회를 열었다.',
     },
     errands: [
-      { id: 'took', text: '빵 보따리를 받는다.', at: [] },
-      { id: 'gave', text: '안내 책 파는 아저씨에게 빵 보따리를 전한다.', at: [] },
-      { id: 'saw', text: '유리 지붕 안의 큰 나무를 본다.', at: [] },
+      { id: 'swept', text: '건널목을 쓴다.', at: [] },
+      { id: 'violets', text: '제비꽃을 팔아 준다.', at: [] },
+      { id: 'flags', text: '깃발을 올려 박람회를 연다.', at: [] },
     ],
     reply: '그 유리 집은 지금 없단다. 그래도 네가 보았으니 됐지.',
   },
@@ -6654,7 +6658,7 @@ export const WALKS = {
           who: 'drummer', goal: '북 치는 아저씨와 함께 북을 쳐서 기관차를 떠나보내렴.',
           lines: ['물을 다 넣었으니 이제 떠난단다.', '떠날 때 큰북을 쳐서 알리자. 같이 치련?'],
           play: {
-            kind: 'aim', tally: '북을 {all}번 가운데 {n}번 쳤다.', ask: '하얀 점이 금빛 칸에 올 때 북을 치렴.', label: '둥!', hits: 3, zone: [0.43, 0.57], speed: 1.1,
+            kind: 'aim', tally: '북을 {all}번 가운데 {n}번 쳤다.', ask: '하얀 점이 금빛 칸에 올 때 북을 치렴.', label: '둥!', hits: 3, zone: [0.42, 0.58], speed: 0.7,
             good: ['둥!', '둥! 한 번 더!'], miss: ['앗, 박자가 어긋났어!', '조금 일렀어!'], show: 'train',
           },
           cheer: '기관차가 떠난다!',
