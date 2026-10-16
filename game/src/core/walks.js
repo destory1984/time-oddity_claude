@@ -7410,13 +7410,13 @@ export const WALKS = {
     dir: 'dubai2010', look: 'paper',
     // (What is said of today: looked up on 2026.10.16; the picture chosen by the user.)
     now: {
-      photo: 'photo-now.webp', name: '부르즈 할리파의 지금 모습', when: '아랍에미리트 두바이 · 2016년',
+      photo: 'photo-now.webp', name: '부르즈 할리파의 지금 모습', when: '아랍에미리트 두바이 · 2015년',
       text: [
         '높이 828미터로, 지금도 세계에서 가장 높은 건물입니다.',
         '124층, 452미터 높이에 사람들이 오르는 전망대가 있습니다.',
         '탑 앞 호수의 분수는 저녁마다 30분에 한 번씩 물을 뿜습니다.',
       ],
-      credit: '사진: Robert Bock, 위키미디어 공용, 공개 저작물',
+      credit: '사진: Tim Reckmann, 위키미디어 공용, CC BY 2.0 (잘라 씀)',
     },
     drawn: '이슬람 건물의 별 무늬 조각 타일처럼 그렸단다.',
     scenes: [

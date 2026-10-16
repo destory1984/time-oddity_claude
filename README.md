@@ -241,4 +241,4 @@ npm run build
 | 가툰 갑문 | [PA-Gatun-schl-03.jpg](https://commons.wikimedia.org/wiki/File:PA-Gatun-schl-03.jpg) | Balou46 | CC BY-SA 4.0 |
 | 순디 농장 | [Principe 1399.jpg](https://commons.wikimedia.org/wiki/File:Principe_1399.jpg) | César J. Pollo | CC BY-SA 4.0 |
 | 가가린 발사대 | [Soyuz TMA-10M spacecraft at the Baikonur Cosmodrome launch pad (4).jpg](https://commons.wikimedia.org/wiki/File:Soyuz_TMA-10M_spacecraft_at_the_Baikonur_Cosmodrome_launch_pad_(4).jpg) | Carla Cioffi | 공개 저작물 |
-| 부르즈 할리파 | [Long exposure photo of Burj Khalifa in Dubai at night by Robert Bock, 2016 (Unsplash).jpg](https://commons.wikimedia.org/wiki/File:Long_exposure_photo_of_Burj_Khalifa_in_Dubai_at_night_by_Robert_Bock,_2016_(Unsplash).jpg) | Robert Bock | 공개 저작물 |
+| 부르즈 할리파 | [Dubai Skyline mit Burj Khalifa (18241030269).jpg](https://commons.wikimedia.org/wiki/File:Dubai_Skyline_mit_Burj_Khalifa_(18241030269).jpg) | Tim Reckmann | CC BY 2.0 (탑 둘레를 잘라 씀) |
