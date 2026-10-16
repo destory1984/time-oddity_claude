@@ -4995,14 +4995,13 @@ export const WALKS = {
   // branch and are sawn off and filed; that a letter is cut mirrored; that the back of the
   // sheet is rubbed with a pad; that a sheet is folded in two and sewn; that the same letter
   // is needed many times over for one page; barley rice, greens and cucumber; the dress.
-  // Made up: the errand of the bundle of paper, the papermaker, the master of the pouring
-  // who lets no one cross the yard, the young monk who says to go round behind the pagoda,
-  // that Seokchan himself pulls the sheet, that Myodeok is in the hall that day, that the
-  // sheets are hung on a line (the try shows it), every other person.
+  // Made up: the papermaker, the master of the pouring, the young monk, that Seokchan
+  // himself pulls the sheet, that Myodeok is in the hall that day, that the
+  // sheets are hung on a line (the try shows it), every other person (the work of the day: see the comment before the tale).
   // Kept out: "the first in the world"; France (the square's card has it); Baegun; Hangul,
   // the horsehair hat, the white coat; any words of the book; meat and wine.
   jikji: {
-    first: '절에서 쇠 글자로 책을 찍는 날이란다. 종이를 전해 주렴.',
+    first: '절에서 쇠 글자로 책을 찍는 날이란다. 책이 잘 찍히도록 도와주렴.',
     dir: 'jikji1377', look: 'paper', pale: true,
     // (What is said of today: looked up on 2026.10.14, in docs/신기한-사실.md; the picture chosen by the user.)
     now: {
@@ -5024,7 +5023,7 @@ export const WALKS = {
           { id: 'beater', pass: '닥을 쿵쿵 두드렸더니 팔이 아파.', name: '닥 두드리는 아이', x: 0.29, w: 116, h: 304, lines: ['삶은 껍질을 방망이로 두드려.', '솜처럼 풀어질 때까지 쳐야 해.'] },
           { id: 'cook', pass: '새참 왔어요, 쉬었다 해요.', show: 'meal', name: '새참 내온 아주머니', x: 0.4, w: 109, h: 287, lines: ['보리밥에 나물을 무쳐 왔단다.', '오이도 있어. 먹어 보련?'],
             try: { id: 'eat-barley', verb: 'eat', name: '보리밥과 나물과 오이', face: 'yum', sora: '오이가 아삭아삭해! 밥은 구수해.' } },
-          { id: 'papermaker', pass: '누가 좀 전해 주면 좋으련만.', name: '종이 뜨는 아저씨', x: 0.51, w: 121, h: 319, lines: ['대나무 발로 물에서 종이를 떠낸단다.', '발을 흔들어야 고르게 떠지지.'] },
+          { id: 'papermaker', pass: '종이를 넉넉히 떠 두어야지.', name: '종이 뜨는 아저씨', x: 0.51, w: 121, h: 319, lines: ['대나무 발로 물에서 종이를 떠낸단다.', '발을 흔들어야 고르게 떠지지.'] },
           { id: 'dryer', pass: '볕이 좋아 금세 마르겠구먼.', show: 'paper', pose: 'see-aha', sora: '나무껍질이 종이가 됐어!', memo: '닥나무 껍질을 삶고 두드려 물에 풀었단다. 발로 얇게 떠서 말리면 종이가 되지.', name: '종이 말리는 할머니', x: 0.62, w: 122, h: 276, lines: ['떠낸 종이는 판에 붙여 말린단다.', '다 마르면 빳빳하고 질기지.'] },
           { id: 'tailor', pass: '모시옷이 시원하지.', name: '옷 짓는 아주머니', x: 0.73, w: 129, h: 291, lines: ['여름에는 모시와 삼베로 옷을 짓는단다.', '아이 것도 있어. 입어 보련?'],
             try: { id: 'wear-goryeo', verb: 'wear', name: '고려의 옷', outfit: 'goryeo', sora: '저고리가 길어서 엉덩이를 덮어!', memo: '고려 사람들은 긴 저고리를 입고 허리에 띠를 맸단다.' } },
@@ -5054,7 +5053,7 @@ export const WALKS = {
           { id: 'setter', pass: '줄이 비뚤면 안 되지.', name: '판 짜는 스님', x: 0.29, w: 138, h: 317, lines: ['고른 글자를 판에 줄 맞춰 세운단다.', '석찬 스님과 달잠 스님이 맡은 일이지.'] },
           { id: 'inkboy', pass: '쓱쓱, 먹을 다 갈았다.', name: '먹 가는 아이', x: 0.4, w: 95, h: 241, lines: ['글자에 바를 먹을 갈아.', '볼에도 묻었어? 헤헤.'] },
           { id: 'hanger', pass: '먹이 마를 때까지 널어야지.', name: '종이 너는 아이', x: 0.51, w: 129, h: 263, lines: ['갓 찍은 종이는 먹이 젖어 있어.', '그래서 줄에 널어 말려.'] },
-          { id: 'seokchan', pass: '종이가 올 때가 되었는데.', show: 'print', pose: 'see-wow', sora: '한 장이 한꺼번에 찍혀!', memo: '글자를 판에 세워 먹을 바르고 종이를 덮어 문질렀단다. 글자를 다시 짜면 다른 장도 찍었지.', name: '석찬 스님', x: 0.62, w: 137, h: 320, lines: ['스승님이 엮으신 책을 찍는단다.', '여러 사람이 읽도록 여러 벌을 찍지.'] },
+          { id: 'seokchan', pass: '먹이 마르기 전에 찍어야지.', show: 'print', pose: 'see-wow', sora: '한 장이 한꺼번에 찍혀!', memo: '글자를 판에 세워 먹을 바르고 종이를 덮어 문질렀단다. 글자를 다시 짜면 다른 장도 찍었지.', name: '석찬 스님', x: 0.62, w: 137, h: 320, lines: ['스승님이 엮으신 책을 찍는단다.', '여러 사람이 읽도록 여러 벌을 찍지.'] },
           { id: 'bellkid', pass: '땡그랑, 풍경이 또 울린다.', name: '풍경 소리 듣는 아이', x: 0.73, w: 117, h: 237, lines: ['처마 끝에 작은 종이 달렸어.', '바람이 불면 땡그랑 울려.'] },
           { id: 'binder', pass: '한 장, 두 장. 차례가 맞나.', name: '책 매는 스님', x: 0.85, w: 129, h: 307, lines: ['찍은 종이를 반으로 접어 실로 맨단다.', '이 책은 위아래 두 권이지.'] },
         ],
@@ -5065,63 +5064,83 @@ export const WALKS = {
         ],
       },
     ],
-    // "The bundle of paper" (core/tale.js; the storyboard of docs/신기한-사실.md): the
-    // papermaker by the stream has a bundle of paper just dried for the monk who prints the
-    // book; the master of the pouring lets no one cross the yard while the metal is poured;
-    // the young monk who cuts letters in wax says to go round behind the stone pagoda; she
-    // hands the paper to Seokchan, choosing what to say; and she sees him ink the forme of
-    // metal letters, lay a sheet on it and rub, and one page come off printed.
+    // "The work of the day" (core/tale.js `work`, as at Darlington and London): the book is
+    // printed from the paper made by the stream and the letters cast in the yard. By the
+    // stream the paper for it is still short, and she dips sheets out of the vat with the
+    // papermaker's bamboo screen; in the yard more of the letters that come many times over
+    // in a page are to be cast, and she treads the bellows with the worker until the fire is
+    // hot enough for the master to pour (the yard is shut while he pours); beside the hall the
+    // forme is set and inked, and she lays the paper on it and rubs the back with Seokchan,
+    // and a page comes off printed, three times over.
+    // Looked up (docs/신기한-사실.md, and the place's comment above): printed with cast metal
+    // type at Heungdeok temple in the seventh month of 1377; Seokchan and Daljam had it printed
+    // (said only as "석찬 스님과 달잠 스님이 맡은 일"); two volumes.
+    // From memory (as in the place's comment above, not looked up again): paper of the paper
+    // mulberry dipped out with a bamboo screen and dried on boards; that the same letter is
+    // needed many times over for one page; that the forme is inked and the back of the sheet
+    // rubbed with a pad; that a furnace was blown with bellows. That the bellows were trodden
+    // is the picture's (the "풀무 밟는 일꾼"), not a record.
+    // Made up: the paper still short that day and her dipping it, the letters cast that day
+    // for the page and her treading the bellows (in time to the four lights: the game's
+    // shorthand), the master shutting the yard while he pours, Seokchan himself rubbing the
+    // sheet with her, three sheets of the one page, every word they say.
     tale: {
-      thing: true,
+      work: true,
       ask: '쇠 글자로 책을 어떻게 찍을까?',
-      gate: { scene: 'foundry', open: 3, sora: '대장이 막고 있어. 못 가.' },
+      gate: { scene: 'foundry', open: 2, sora: '대장이 마당을 막고 있어. 못 가.' },
       steps: [
         {
-          who: 'papermaker', goal: '냇가의 종이 뜨는 아저씨에게 가 보렴.', holds: '종이 묶음: 아저씨가 들고 있음',
-          lines: ['얘야, 부탁 하나 들어주련?', '막 말린 종이란다. 나는 통을 못 비우지.', '절의 책 찍는 스님께 전해 주렴.'],
-          offer: { ask: '종이 묶음을 전해 줄까?', label: '내가 전해 줄게요' },
-          errand: 'took',
-        },
-        {
-          who: 'founder', goal: '쇳물 붓는 마당을 지나 법당 쪽으로 가 보렴.', holds: '종이 묶음: 소라가 들고 있음',
-          lines: ['멈춰라. 지금 쇳물을 붓는 중이다.', '튀면 덴단다. 마당으로는 못 지나간다.'],
-          sora: '종이를 전해야 하는데… 어? 누가 불러!',
-        },
-        {
-          who: 'novice', call: '얘, 어디 가는데?', goal: '글자 새기는 어린 스님이 부른다. 가 보렴.', holds: '종이 묶음: 소라가 들고 있음',
-          lines: ['책 찍는 데 간다고? 그럼 이리 와.', '돌탑 뒤로 돌아가면 마당을 안 건너도 돼.', '대장 아저씨, 이 애는 돌아서 갈게요!'],
-          after: [{ who: 'founder', line: '돌탑 뒤로 간다면 가도 좋다.' }],
-          sora: '돌탑 뒤로 돌아가면 된대! 가자!',
-        },
-        {
-          who: 'seokchan', goal: '법당 옆의 석찬 스님에게 종이를 전하렴.', holds: '종이 묶음: 소라가 들고 있음',
-          lines: ['오, 종이가 왔구나. 기다리던 참이란다.'],
-          choice: {
-            ask: '종이 묶음을 건네며 뭐라고 할까?',
-            options: [
-              { id: 'E1', label: '"아저씨가 보냈어요"', sora: '냇가의 종이 뜨는 아저씨가 보내셨어요.', says: '빳빳하게 잘 말랐구나. 고맙다, 얘야.' },
-              { id: 'E2', label: '"이걸로 뭘 해요?"', sora: '이 종이로 뭘 하세요?', says: '쇠 글자에 대고 책을 찍는단다.' },
-            ],
+          who: 'papermaker', goal: '종이 뜨는 냇가의 아저씨와 함께 대나무 발로 종이를 뜨렴.',
+          lines: ['절에서 책 찍을 종이가 아직 모자란단다.', '발을 담갔다가 고르게 떠내자. 같이 하련?'],
+          play: {
+            kind: 'fill', tally: '종이 {all}장 가운데 {n}장을 떴다.', ask: '꾹 눌러 종이를 뜨다가 금빛 칸에서 떼렴.', label: '찰랑', hits: 3, zone: [0.65, 0.85], speed: 0.5,
+            good: ['찰랑! 고르게 떠졌어!', '한 장 더!'], miss: ['앗, 너무 두껍게 떠졌어!', '앗, 너무 얇아!'],
           },
-          errand: 'gave',
+          after: [{ who: 'dryer', line: '떠낸 종이는 내가 말려서 절로 올려 보내마.' }],
+          cheer: '종이를 다 떴다!',
+          sora: '이제 쇳물 붓는 마당으로 올라가 보자!',
+          errand: 'paper',
         },
         {
-          who: 'seokchan', show: true, goal: '쇠 글자로 한 장을 찍는 것을 보렴.',
-          lines: ['마침 잘 왔다. 한 장 찍는 것을 보렴.', '글자에 먹을 바르고 종이를 덮어 문지른단다.'],
+          who: 'bellows', goal: '쇳물 붓는 마당의 풀무 밟는 일꾼과 함께 풀무를 밟으렴.',
+          lines: ['모자란 글자를 더 부어야 한단다.', '불을 키우게 풀무를 같이 밟으련?'],
+          play: {
+            kind: 'beat', tally: '풀무를 {all}번 가운데 {n}번 박자 맞춰 밟았다.', ask: '금빛 불이 켜질 때 풀무를 밟으렴.', label: '후욱!', hits: 3, zone: [0.42, 0.58], speed: 1.5,
+            good: ['후욱! 불이 활활 타!', '한 번 더!'], miss: ['앗, 박자가 어긋났어!', '조금 일렀어!'],
+          },
+          after: [{ who: 'founder', line: '쇳물을 다 부었다. 이제 지나가도 좋다.' }],
+          cheer: '쇳물을 다 부었다!',
+          sora: '마당이 열렸어! 책 찍는 자리로 가 보자!',
+          errand: 'bellows',
+        },
+        {
+          who: 'seokchan', goal: '법당 옆 책 찍는 자리의 석찬 스님과 함께 한 장을 찍으렴.',
+          lines: ['판에 글자를 다 세우고 먹을 발랐단다.', '종이를 덮고 뒤를 문지르자. 같이 하련?'],
+          play: {
+            kind: 'mash', tally: '종이 {all}장 가운데 {n}장에 글자를 찍었다.', ask: '빨리 여러 번 눌러 종이 뒤를 문지르렴.', label: '쓱쓱', hits: 3, zone: [0.41, 0.59], speed: 0.35,
+            good: ['쓱쓱! 글자가 찍혀 나와!', '한 장 더!'], miss: ['앗, 글자가 흐릿해!', '조금 더 문질러야 해!'], show: 'print',
+          },
+          after: [{ who: 'hanger', line: '갓 찍은 종이는 줄에 널어 말리자.' }],
+          cheer: '한 장이 다 찍혔다!',
           sora: '글자가 줄 맞춰 다 찍혔어!',
-          errand: 'saw',
+          errand: 'print',
         },
       ],
       asides: [
-        { who: 'papermaker', when: ['S1', 'S2', 'S3', 'S4'], lines: ['책 찍는 스님은 법당 옆에 계신단다.', '돌계단 길을 올라 마당을 지나가렴.'] },
-        { who: 'papermaker', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '내 종이가 책이 된다니 기쁘구나.'] },
+        { who: 'peeler', when: ['S0'], lines: ['절에서 책을 찍느라 종이가 많이 든단다.', '종이 뜨는 아저씨 혼자 바쁘겠구나.'] },
+        { who: 'founder', when: ['S0', 'S1'], lines: ['풀무 불이 세져야 쇳물을 붓는단다.', '다 부을 때까지 마당은 못 지나간다.'] },
+        { who: 'novice', when: ['S1'], lines: ['풀무 밟는 아저씨가 숨이 차 보여.', '같이 밟아 드리면 불이 금방 세질 거야.'] },
+        { who: 'setter', when: ['S2'], lines: ['글자를 판에 줄 맞춰 다 세웠단다.', '석찬 스님께 가 보렴. 곧 찍으신단다.'] },
+        { who: 'inkboy', when: ['S2'], lines: ['먹을 넉넉히 갈아 두었어.', '스님이 판에 먹을 바르실 거야.'] },
+        { who: 'binder', when: ['S3'], lines: ['네가 찍은 종이도 마르면 접어 매마.', '그렇게 한 장씩 모여 책이 되지.'] },
+        { who: 'papermaker', when: ['S3'], lines: ['내가 뜬 종이가 책이 되었다니 기쁘구나.', '네가 도와주어 종이가 넉넉했단다.'] },
       ],
-      done: '종이를 전하고, 쇠 글자로 한 장을 찍는 것을 보았다.',
+      done: '종이를 뜨고, 풀무를 밟고, 쇠 글자로 한 장을 찍었다.',
     },
     errands: [
-      { id: 'took', text: '종이 묶음을 받는다.', at: [] },
-      { id: 'gave', text: '석찬 스님에게 종이를 전한다.', at: [] },
-      { id: 'saw', text: '쇠 글자로 한 장을 찍는 것을 본다.', at: [] },
+      { id: 'paper', text: '냇가에서 대나무 발로 종이를 뜬다.', at: [] },
+      { id: 'bellows', text: '풀무를 밟아 쇠 글자를 붓게 돕는다.', at: [] },
+      { id: 'print', text: '쇠 글자로 한 장을 찍는다.', at: [] },
     ],
     reply: '그 책에는 거꾸로 박힌 글자도 있단다. 손으로 하나하나 세웠으니까.',
   },
