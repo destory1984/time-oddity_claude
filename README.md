@@ -237,3 +237,8 @@ npm run build
 | 하이드파크 | [Hyde Park, Serpentine, Royal Albert Hall & Memorial 2025-03-31.jpg](https://commons.wikimedia.org/wiki/File:Hyde_Park,_Serpentine,_Royal_Albert_Hall_%26_Memorial_2025-03-31.jpg) | kitmasterbloke | CC BY 2.0 |
 | 멘로파크 실험실 | [Menlo Park Laboratory of Thomas Edison site of the Invention of the light bulb.JPG](https://commons.wikimedia.org/wiki/File:Menlo_Park_Laboratory_of_Thomas_Edison_site_of_the_Invention_of_the_light_bulb.JPG) | Swampyank | CC BY 3.0 |
 | 자유의 여신상 | [View of Liberty Island from the ferry, NYC, 20231003 1607 2000.jpg](https://commons.wikimedia.org/wiki/File:View_of_Liberty_Island_from_the_ferry,_NYC,_20231003_1607_2000.jpg) | Jakub Hałun | CC BY 4.0 |
+| 라이트 형제 기념탑 | [Wright Brothers National Memorial landscape.jpg](https://commons.wikimedia.org/wiki/File:Wright_Brothers_National_Memorial_landscape.jpg) | Yuming Huang | CC BY-SA 4.0 |
+| 가툰 갑문 | [PA-Gatun-schl-03.jpg](https://commons.wikimedia.org/wiki/File:PA-Gatun-schl-03.jpg) | Balou46 | CC BY-SA 4.0 |
+| 순디 농장 | [Principe 1399.jpg](https://commons.wikimedia.org/wiki/File:Principe_1399.jpg) | César J. Pollo | CC BY-SA 4.0 |
+| 가가린 발사대 | [Soyuz TMA-10M spacecraft at the Baikonur Cosmodrome launch pad (4).jpg](https://commons.wikimedia.org/wiki/File:Soyuz_TMA-10M_spacecraft_at_the_Baikonur_Cosmodrome_launch_pad_(4).jpg) | Carla Cioffi | 공개 저작물 |
+| 부르즈 할리파 | [Long exposure photo of Burj Khalifa in Dubai at night by Robert Bock, 2016 (Unsplash).jpg](https://commons.wikimedia.org/wiki/File:Long_exposure_photo_of_Burj_Khalifa_in_Dubai_at_night_by_Robert_Bock,_2016_(Unsplash).jpg) | Robert Bock | 공개 저작물 |

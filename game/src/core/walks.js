@@ -6715,6 +6715,16 @@ export const WALKS = {
   kittyHawk: {
     first: '바닷가에서 형제가 비행기를 띄우는 날이란다. 털장갑을 전해 주렴.',
     dir: 'kittyhawk1903', look: 'paper', pale: true,
+    // (What is said of today: looked up on 2026.10.16; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '라이트 형제 기념탑의 지금 모습', when: '미국 노스캐롤라이나 킬데빌힐스 · 2017년',
+      text: [
+        '날리던 모래 언덕에 1929년 풀을 심어 지금은 풀 언덕이 되었습니다.',
+        '언덕 꼭대기에는 1932년에 세운 높이 18미터의 화강암 기념탑이 있습니다.',
+        '들판의 큰 돌은 떠오른 곳을, 번호 붙은 돌은 내려앉은 곳을 알립니다.',
+      ],
+      credit: '사진: Yuming Huang, 위키미디어 공용, CC BY-SA 4.0',
+    },
     drawn: '그 무렵 미국 화가의 바닷가 수채화처럼 그렸단다.',
     scenes: [
       {
@@ -6860,6 +6870,16 @@ export const WALKS = {
   panama: {
     first: '운하에 첫 배가 지나가는 날이란다. 밧줄 다루는 청년에게 도시락을 전해 주렴.',
     dir: 'panama1914', look: 'paper', pale: true,
+    // (What is said of today: looked up on 2026.10.16; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '가툰 갑문의 지금 모습', when: '파나마 콜론 가툰 · 2015년',
+      text: [
+        '가툰 갑문은 세 계단으로 배를 26미터 높이의 호수까지 들어 올립니다.',
+        '1914년에 연 이 갑문에서는 지금도 작은 기관차가 줄로 배를 끌어 줍니다.',
+        '2016년, 바로 옆에 더 큰 배를 위한 새 갑문이 문을 열었습니다.',
+      ],
+      credit: '사진: Balou46, 위키미디어 공용, CC BY-SA 4.0',
+    },
     drawn: '그 무렵 운하 공사를 그린 유화처럼 그렸단다.',
     scenes: [
       {
@@ -7001,6 +7021,16 @@ export const WALKS = {
   eddington: {
     first: '해가 달에 다 가려지는 날이란다. 망원경 덮개 천을 전해 주렴.',
     dir: 'principe1919', look: 'paper', pale: true,
+    // (What is said of today: looked up on 2026.10.16; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '순디 농장의 지금 모습', when: '상투메 프린시페 프린시페 섬 · 2014년',
+      text: [
+        '옛 카카오 농장 시절의 건물 여러 채가 지금도 남아 있습니다.',
+        '2019년 5월 29일, 100주년에 이곳에 작은 과학관이 문을 열었습니다.',
+        '일식을 찍은 자리에는 그날을 기리는 작은 기념비가 서 있습니다.',
+      ],
+      credit: '사진: César J. Pollo, 위키미디어 공용, CC BY-SA 4.0',
+    },
     drawn: '그 무렵 포르투갈의 새 화가들처럼, 색 조각으로 쪼개어 그렸단다.',
     scenes: [
       {
@@ -7160,6 +7190,16 @@ export const WALKS = {
   sputnik: {
     first: '사람이 만든 첫 별이 하늘로 오르는 밤이란다. 차와 빵을 전해 주렴.',
     dir: 'baikonur1957', look: 'paper',
+    // (What is said of today: looked up on 2026.10.16; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '가가린 발사대의 지금 모습', when: '카자흐스탄 바이코누르 · 2013년',
+      text: [
+        '1961년 4월 12일, 가가린의 첫 우주 비행도 이 발사대에서 떠났습니다.',
+        '2019년 9월 25일의 발사까지 로켓 520대가 이곳에서 날아올랐습니다.',
+        '2023년, 이 발사대를 우주 기지의 박물관으로 남기기로 했습니다.',
+      ],
+      credit: '사진: Carla Cioffi, 위키미디어 공용, 공개 저작물',
+    },
     drawn: '그 무렵 소련의 포스터처럼, 평평한 색으로 굵게 그렸단다.',
     scenes: [
       {
@@ -7311,6 +7351,16 @@ export const WALKS = {
   burjKhalifa: {
     first: '세상에서 가장 높은 탑을 여는 밤이란다. 조명 일꾼에게 꾸러미를 전해 주렴.',
     dir: 'dubai2010', look: 'paper',
+    // (What is said of today: looked up on 2026.10.16; the picture chosen by the user.)
+    now: {
+      photo: 'photo-now.webp', name: '부르즈 할리파의 지금 모습', when: '아랍에미리트 두바이 · 2016년',
+      text: [
+        '높이 828미터로, 지금도 세계에서 가장 높은 건물입니다.',
+        '124층, 452미터 높이에 사람들이 오르는 전망대가 있습니다.',
+        '탑 앞 호수의 분수는 저녁마다 30분에 한 번씩 물을 뿜습니다.',
+      ],
+      credit: '사진: Robert Bock, 위키미디어 공용, 공개 저작물',
+    },
     drawn: '이슬람 건물의 별 무늬 조각 타일처럼 그렸단다.',
     scenes: [
       {
