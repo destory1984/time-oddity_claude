@@ -74,6 +74,12 @@ function markIn(progress, id, key, what, had) {
   return { ...progress, squares: { ...progress.squares, [id]: { ...of(progress, id), [key]: [...had, ...fresh] } } };
 }
 export const markErrands = (progress, id, errands) => markIn(progress, id, 'errands', errands, errandsOf(progress, id));
+// Forgets the errands done in a place (its tale is told in another shape now).
+export function dropErrands(progress, id) {
+  if (!progress.squares[id]?.errands) return progress;
+  const { errands, ...rest } = progress.squares[id];
+  return { ...progress, squares: { ...progress.squares, [id]: rest } };
+}
 export const markMet = (progress, id, person) => markIn(progress, id, 'met', [person], metOf(progress, id));
 
 // Grandmother's notes that have been read (core/notes.js), by id.

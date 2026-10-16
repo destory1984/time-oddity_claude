@@ -13,7 +13,7 @@ import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, 
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
 import { HUSH_S, soraPose } from './core/sora.js';
 import { guideLine } from './core/guide.js';
-import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markBeen, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf, beenOf, errandsOf, metOf, markErrands, markMet, taleOf, markTale } from './core/progress.js';
+import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markBeen, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf, beenOf, errandsOf, metOf, markErrands, markMet, taleOf, markTale, dropErrands } from './core/progress.js';
 import { findsOf } from './core/find.js';
 import { createFindGame } from './ui/find.js';
 import { project } from './core/project.js';
@@ -22,7 +22,7 @@ import { SITES } from './core/sites.js';
 import { WALKS } from './core/walks.js';
 import { REACH, offerLabel as offerText, barred, canHop, hop, allDone, createWalk, nearby, sceneOf, beginOf, sendTo, speak, spotAt, stepWalk, triesOf, tryIt, withWhom, outfitsOf, offerOf, stepOf, peopleOf, touch } from './core/walk.js';
 import { HINT_MS, hintOf, isSought, leftIn, soughtIn } from './core/seek.js';
-import { advance, calledOf, carrying, cluesOf, endingOf, gain, goalOf, hintOf as clueHint, holdsOf, isTold, present, riddleOf, roundGot, roundLeft, stepOf as taleStep, thankerOf } from './core/tale.js';
+import { advance, emptyTale, calledOf, carrying, cluesOf, endingOf, gain, goalOf, hintOf as clueHint, holdsOf, isTold, present, riddleOf, roundGot, roundLeft, stepOf as taleStep, thankerOf } from './core/tale.js';
 import { createWalkView } from './ui/walk.js';
 import { centuryOf, centuryStart, centuryStops } from './core/century.js';
 import { createView, nearView, standAt, stepView, turnView } from './core/orbit.js';
@@ -962,6 +962,11 @@ function showWalk(sq) {
   square = sq;
   visit = null; site = null;
   const fresh = beenOf(progress, sq.id).length === 0;
+  // A tale told again in another shape (Darlington and London became the work of the day) has
+  // other errands: what was kept of the old one begins again.
+  const kept = errandsOf(progress, sq.id);
+  const stale = kept.some((id) => !(WALKS[sq.id].errands ?? []).some((e) => e.id === id));
+  if (stale) keep(markTale(dropErrands(progress, sq.id), sq.id, emptyTale()));
   walk = createWalk(WALKS[sq.id], { scene: beginOf(WALKS[sq.id]), tried: triedOf(progress, sq.id), been: beenOf(progress, sq.id), done: errandsOf(progress, sq.id), met: metOf(progress, sq.id), tale: taleOf(progress, sq.id) });
   closePanel();
   walkT = 0; walkWay = 0; keyWay = 0; walkWant = null; replyDue = false; walkMemo = null; memoHere = null; memoUp = false; walkNoteAt = 0; walkNowAt = 0;
