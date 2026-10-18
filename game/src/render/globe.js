@@ -2,6 +2,7 @@
 // the sphere; the pins are HTML buttons moved to where their place is each frame.
 import { zoomBy } from '../core/zoom.js';
 import { NEAR, SLOW, pinUnder, pointerTo } from '../core/flight.js';
+import { frameZoom } from '../ui/shell.js';
 import { Engine } from '@babylonjs/core/Engines/engine.js';
 import { Scene } from '@babylonjs/core/scene.js';
 import { FreeCamera } from '@babylonjs/core/Cameras/freeCamera.js';
@@ -94,6 +95,9 @@ export function createGlobe(canvas, pinsEl, { squares, onPick, done = () => fals
   function resize() {
     const box = canvas.getBoundingClientRect();
     w = box.width; h = box.height;
+    // Drawn at the phone's own resolution, as the place is, not one dot per CSS pixel, but no
+    // more than 1.6 dots: the Earth is one big texture and needs no more to look sharp.
+    engine.setHardwareScalingLevel(1 / (Math.min(1.6, Math.max(1, window.devicePixelRatio || 1)) * frameZoom()));
     engine.resize();
     frameCamera();
   }
