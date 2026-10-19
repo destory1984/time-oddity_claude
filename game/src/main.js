@@ -497,8 +497,9 @@ function openLook(look) {
   shut.type = 'button'; shut.className = 'lookShut'; shut.textContent = t`닫기`;
   foot.append(shut);
   $('lookText').replaceChildren(...lines, foot);
-  $('lookText').scrollTop = 0;
   $('lookSheet').showModal();
+  // (Only once it is shown: a closed dialog takes no scroll.)
+  $('lookText').scrollTop = 0;
   lookMore();
   if (!$('lookPhoto').complete) $('lookPhoto').addEventListener('load', lookMore, { once: true });
 }
