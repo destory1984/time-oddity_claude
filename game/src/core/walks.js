@@ -5059,7 +5059,7 @@ export const WALKS = {
           { id: 'hanger', pass: '먹이 마를 때까지 널어야지.', name: '종이 너는 아이', x: 0.51, w: 129, h: 263, lines: ['갓 찍은 종이는 먹이 젖어 있어.', '그래서 줄에 널어 말려.'] },
           { id: 'seokchan', pass: '먹이 마르기 전에 찍어야지.', show: 'print', pose: 'see-wow', sora: '한 장이 한꺼번에 찍혀!', memo: '글자를 판에 세워 먹을 바르고 종이를 덮어 문질렀단다. 글자를 다시 짜면 다른 장도 찍었지.', name: '석찬 스님', x: 0.62, w: 137, h: 320, lines: ['스승님이 엮으신 책을 찍는단다.', '여러 사람이 읽도록 여러 벌을 찍지.'] },
           { id: 'bellkid', pass: '땡그랑, 풍경이 또 울린다.', name: '풍경 소리 듣는 아이', x: 0.73, w: 117, h: 237, lines: ['처마 끝에 작은 종이 달렸어.', '바람이 불면 땡그랑 울려.'] },
-          { id: 'binder', pass: '한 장, 두 장. 차례가 맞나.', name: '책 매는 스님', x: 0.85, w: 129, h: 307, lines: ['찍은 종이를 반으로 접어 실로 맨단다.', '이 책은 위아래 두 권이지.'] },
+          { id: 'binder', pass: '한 장, 두 장. 차례가 맞나.', name: '책 매는 스님', x: 0.85, w: 129, h: 307, lines: ['찍은 종이를 접어 매면 "직지"라는 책이 된단다.', '"마음을 곧바로 가리킨다"는 뜻이지.'] },
         ],
         spots: [
           // The hall in the try. (From and to are to be set to the picture.) Myodeok is not
