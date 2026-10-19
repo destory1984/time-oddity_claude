@@ -5161,6 +5161,13 @@ export const WALKS = {
         '1985년, 청주의 한 공사장에서 "흥덕사"라는 글자가 새겨진 쇠북이 나왔습니다. 그래서 그동안 알 수 없던 흥덕사의 자리를 찾았습니다. 그 곁에는 지금 청주고인쇄박물관이 있습니다.',
       ],
       credit: '사진: 위키미디어 공용, 공개 저작물',
+      // The gong (the user, 2026.10.20: "이 사진 추가"): Wikimedia Commons, "Heundeoksa2.jpg"
+      // by Forcoolife (CC BY-SA 3.0), made smaller: the bronze gong of Heungdeoksa, its name cut on the side.
+      more: {
+        photo: 'photo-gong.webp', name: '"흥덕사" 글자가 새겨진 쇠북',
+        text: '1985년에 땅속에서 나온 청동 쇠북입니다. 옆면에 "흥덕사"라는 글자가 새겨져 있습니다. 절에서 때를 알리거나 사람을 모을 때 쳤습니다.',
+        credit: '사진: Forcoolife, 위키미디어 공용, CC BY-SA 3.0',
+      },
     },
     drawn: '고려 때의 먹 그림처럼, 누런 비단에 먹으로 그렸단다.',
     scenes: [
