@@ -5117,7 +5117,7 @@ export const WALKS = {
           who: 'seokchan', goal: '법당 옆 책 찍는 자리의 석찬 스님과 함께 한 장을 찍으렴.',
           lines: ['판에 글자를 다 세우고 먹을 발랐단다.', '종이를 덮고 뒤를 문지르자. 같이 하련?'],
           play: {
-            kind: 'mash', tally: '종이 {all}장 가운데 {n}장에 글자를 찍었다.', ask: '빨리 여러 번 눌러 종이 뒤를 문지르렴.', label: '쓱쓱', hits: 3, zone: [0.41, 0.59], speed: 0.35,
+            kind: 'mash', tally: '종이 {all}장 가운데 {n}장에 글자를 찍었다.', ask: '여러 번 눌러 종이 뒤를 문지르렴.', label: '쓱쓱', hits: 3, zone: [0.41, 0.59], speed: 0.12,
             good: ['쓱쓱! 글자가 찍혀 나와!', '한 장 더!'], miss: ['앗, 글자가 흐릿해!', '조금 더 문질러야 해!'], show: 'print',
           },
           after: [{ who: 'hanger', line: '갓 찍은 종이는 줄에 널어 말리자.' }],
@@ -6197,7 +6197,7 @@ export const WALKS = {
           who: 'usher', goal: '수정궁 앞의 문 앞 안내원과 함께 깃발을 올리렴.',
           lines: ['여왕님이 곧 박람회를 여신단다.', '지붕에 깃발을 올려야 해. 줄을 같이 당기련?'],
           play: {
-            kind: 'mash', tally: '깃발 {all}개 가운데 {n}개를 올렸다.', ask: '빨리 여러 번 눌러 깃발을 끝까지 올리렴.', label: '영차!', hits: 3, zone: [0.42, 0.58], speed: 0.35,
+            kind: 'mash', tally: '깃발 {all}개 가운데 {n}개를 올렸다.', ask: '여러 번 눌러 깃발을 끝까지 올리렴.', label: '영차!', hits: 3, zone: [0.42, 0.58], speed: 0.12,
             good: ['영차! 깃발이 올라가!', '하나 더!'], miss: ['앗, 줄이 미끄러졌어!', '조금 일렀어!'], show: 'roof',
           },
           cheer: '박람회가 열린다!',
@@ -6347,7 +6347,7 @@ export const WALKS = {
           who: 'pumper', goal: '연구소 이층 작업방의 진공 펌프 일꾼을 도우렴.',
           lines: ['구경꾼들에게 공기 빼는 것을 보여 주는 중이란다.', '박자를 맞춰 펌프를 움직여야 해. 도와주련?'],
           play: {
-            kind: 'mash', tally: '펌프를 {all}번 가운데 {n}번 맞춰 움직였다.', ask: '빨리 여러 번 눌러 펌프를 움직이렴.', label: '쉭!', hits: 3, zone: [0.41, 0.59], speed: 0.35,
+            kind: 'mash', tally: '펌프를 {all}번 가운데 {n}번 맞춰 움직였다.', ask: '여러 번 눌러 펌프를 움직이렴.', label: '쉭!', hits: 3, zone: [0.41, 0.59], speed: 0.12,
             good: ['쉭! 공기가 빠져나가!', '한 번 더!'], miss: ['앗, 박자가 어긋났어!', '조금 더 기다렸다가!'],
           },
           after: [{ who: 'carbon', line: '공기가 다 빠졌구나. 이제 실이 오래 빛나겠어.' }],
@@ -6516,7 +6516,7 @@ export const WALKS = {
           who: 'lampman', goal: '신문 수레 앞의 가스등 닦는 이를 도와 등 유리를 닦으렴.',
           lines: ['안개 때문에 등 유리가 뿌옇게 흐려졌단다.', '길이 환하게 보이도록 같이 닦으련?'],
           play: {
-            kind: 'mash', tally: '가스등 {all}개 가운데 {n}개를 닦았다.', ask: '빨리 여러 번 눌러 유리를 닦으렴.', label: '뽀득뽀득', hits: 3, zone: [0.41, 0.59], speed: 0.35,
+            kind: 'mash', tally: '가스등 {all}개 가운데 {n}개를 닦았다.', ask: '여러 번 눌러 유리를 닦으렴.', label: '뽀득뽀득', hits: 3, zone: [0.41, 0.59], speed: 0.12,
             good: ['뽀득! 유리가 맑아졌어!', '하나 더!'], miss: ['앗, 얼룩이 남았어!', '조금 더 기다렸다가!'],
           },
           after: [{ who: 'police', line: '행진이 다 지나갔다. 이제 건너도 좋다.' }],
@@ -6847,7 +6847,7 @@ export const WALKS = {
           who: 'fisherman', goal: '얼음 낀 모래길의 어부 아저씨와 함께 수레를 밀렴.',
           lines: ['내 수레 바퀴가 모래에 빠졌단다.', '길을 막아서 미안하구나. 같이 밀어 주련?'],
           play: {
-            kind: 'mash', tally: '수레를 {all}번 가운데 {n}번 힘껏 밀었다.', ask: '빨리 여러 번 눌러 수레를 밀렴.', label: '으쌰!', hits: 3, zone: [0.41, 0.59], speed: 0.35,
+            kind: 'mash', tally: '수레를 {all}번 가운데 {n}번 힘껏 밀었다.', ask: '여러 번 눌러 수레를 밀렴.', label: '으쌰!', hits: 3, zone: [0.41, 0.59], speed: 0.12,
             good: ['으쌰! 바퀴가 움직여!', '조금만 더!'], miss: ['앗, 발이 모래에 미끄러졌어!', '조금 일렀어!'],
           },
           after: [{ who: 'boatman', line: '수레가 빠져나왔구나. 이제 길이 트였어.' }],
@@ -7170,7 +7170,7 @@ export const WALKS = {
           who: 'woodman', goal: '부엌 마당의 장작 나르는 아저씨와 함께 불을 살리렴.',
           lines: ['소나기에 장작이 젖어 불이 약하구나.', '손님들 점심을 지어야 해. 부채질을 해 주련?'],
           play: {
-            kind: 'mash', tally: '부채질 {all}번 가운데 {n}번 불길이 일었다.', ask: '빨리 여러 번 눌러 부채질을 하렴.', label: '훨훨', hits: 3, zone: [0.4, 0.6], speed: 0.35,
+            kind: 'mash', tally: '부채질 {all}번 가운데 {n}번 불길이 일었다.', ask: '여러 번 눌러 부채질을 하렴.', label: '훨훨', hits: 3, zone: [0.4, 0.6], speed: 0.12,
             good: ['훨훨! 불길이 일어나!', '한 번 더!'], miss: ['앗, 연기만 났어!', '조금 더 기다렸다가!'],
           },
           after: [{ who: 'cook', line: '불이 살았구나. 이제 손님 점심을 짓겠다.' }],
@@ -7372,7 +7372,7 @@ export const WALKS = {
           who: 'truck', goal: '초원 초소의 트럭 모는 운전병과 함께 모래에 빠진 트럭을 밀렴.',
           lines: ['트럭을 초소 뒤로 물려야 하는데 큰일이구나.', '바퀴가 모래에 빠졌어. 같이 밀어 주련?'],
           play: {
-            kind: 'mash', tally: '트럭을 {all}번 가운데 {n}번 힘껏 밀었다.', ask: '빨리 여러 번 눌러 트럭을 밀렴.', label: '끙차!', hits: 3, zone: [0.42, 0.6], speed: 0.35,
+            kind: 'mash', tally: '트럭을 {all}번 가운데 {n}번 힘껏 밀었다.', ask: '여러 번 눌러 트럭을 밀렴.', label: '끙차!', hits: 3, zone: [0.42, 0.6], speed: 0.12,
             good: ['끙차! 바퀴가 굴렀어!', '한 번 더!'], miss: ['앗, 발이 모래에 빠졌어!', '조금 일렀어!'], show: 'rocket',
           },
           after: [{ who: 'postguard', line: '불빛이 먼저 오고 소리는 한참 뒤에 오는구나.' }],

@@ -705,7 +705,7 @@ function roundSpoke(step, person) {
 let play = null;            // { step, kind, hits, at: when it began, wait: no press until then, level, held }
 let playedNow = null;       // the step just played, while what came of it is held up
 const PLAY_WAIT_MS = 450;   // after a press, good or not, the next waits this long
-const MASH_PUSH = 0.13;     // how much one press of a mash fills
+const MASH_PUSH = 0.2;      // how much one press of a mash fills: five presses (the user, 2026.10.19: too quick a mash is tiring)
 function playMark() {
   const { speed } = play.step.play;
   const phase = (((walkT - play.at) / 1000) * speed) % 2;
