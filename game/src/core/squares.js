@@ -751,9 +751,12 @@ export const SQUARES = [
     // book printed with metal type that is left (NOT "the first metal type in the world");
     // of the two volumes only the second is left and is in the national library of France;
     // the site of the temple was dug and found in 1985; none of the type is left.
-    // Why it is in France (the user, 2026.10.19: "왜 프랑스에 있는지도 적어"), from memory:
-    // Victor Collin de Plancy, French minister in Seoul in the last years of Joseon, bought it
-    // and took it home; it went to the national library of France in the 1950s.
+    // Why it is in France (the user, 2026.10.19: "왜 프랑스에 있는지도 적어"), looked up the
+    // same day (weekly.khan.co.kr 2023.4.21, en.wikipedia "Henri Vever"): Victor Collin de
+    // Plancy (1853-1922), French minister in Seoul at the end of Joseon, bought it; he put his
+    // things to auction at Drouot in March 1911, where the jeweller Henri Vever bought it for
+    // 180 francs; Vever (d. 1942) left it by will and it came to the library in 1950; it was
+    // found there and shown in 1972 by Park Byeong-seon, who worked at the library.
     // The place is walked about (core/walks.js).
     no: 31, id: 'jikji', name: '직지', dateLabel: 'AD 1377년 여름', place: '청주, 고려',
     lat: 36.63, lon: 127.47,
@@ -762,7 +765,7 @@ export const SQUARES = [
     memo: '쇠 글자로 책을 찍는 중.', sora: '글자가 하나하나 떨어져 있어!',
     memoToday: '남은 것: 책 한 권. 프랑스에 있음.', soraToday: '프랑스 외교관이 사서 가져갔대.',
     noteMemo: '1377년 여름. 청주 흥덕사에서 쇠 글자로 책 직지를 찍었다고 읽음. 날을 몰라 달은 못 적음.',
-    card: '1377년 여름, 고려 청주의 흥덕사에서 쇠로 만든 글자로 책 "직지"를 찍었습니다. 백운 스님이 엮은 책을 제자 석찬과 달잠이 찍고 비구니 묘덕이 돈을 보탰으며, 쇠 글자로 찍어 지금 남은 책 가운데 가장 오래되었습니다. 조선 말 서울에 머문 프랑스 외교관이 남은 아래 권 한 권을 사서 가져가, 지금은 프랑스 국립도서관에 있습니다.',
+    card: '1377년 여름, 고려 청주의 흥덕사에서 쇠로 만든 글자로 책 "직지"를 찍었습니다. 백운 스님이 엮은 책을 제자 석찬과 달잠이 찍고 비구니 묘덕이 돈을 보탰으며, 쇠 글자로 찍어 지금 남은 책 가운데 가장 오래되었습니다. 조선 말 서울에 머문 프랑스 외교관이 남은 아래 권 한 권을 사서 가져갔고, 경매와 기증을 거쳐 지금은 프랑스 국립도서관에 있습니다.',
     reply: '그날의 쇠 글자는 하나도 안 남았단다. 책 한 권이 그날을 전하지.',
     quiz: { question: '직지는 무엇으로 만든 글자로 찍었나?', answer: '쇠', proof: '쇠로 만든 글자로', wrong: ['나무', '흙'] },
   },
