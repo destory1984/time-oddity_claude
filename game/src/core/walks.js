@@ -2860,6 +2860,14 @@ export const WALKS = {
         '나라의 문화유산 연구원들이 지금도 기울기를 꾸준히 재며 살핍니다. 밤에는 불을 밝혀 두어, 해가 진 뒤에도 첨성대를 볼 수 있습니다.',
       ],
       credit: '사진: Basile Morin, 위키미디어 공용, CC BY-SA 4.0',
+      // The tower by night (the user, 2026.10.20: "첨성대 밤 사진 추가"): Wikimedia Commons,
+      // "첨성대 야경.jpg" by Top6bin (CC BY-SA 4.0), made smaller. Other photographs there show
+      // the same tower lit blue and violet, so the colour of the light is said to change.
+      more: {
+        photo: 'photo-night.webp', name: '밤의 첨성대',
+        text: '밤에 비추는 불빛은 색이 바뀝니다. 첨성대가 노랗게도, 파랗게도, 보랏빛으로도 보입니다.',
+        credit: '사진: Top6bin, 위키미디어 공용, CC BY-SA 4.0',
+      },
     },
     scenes: [
       {
