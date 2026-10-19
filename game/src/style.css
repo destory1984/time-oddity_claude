@@ -429,6 +429,8 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 #journal small.drawn{display:block;margin:2px 0 6px;font-size:12px;opacity:.8}
 /* More lines below: the foot of the lines fades (the user, 2026.10.19: "스크롤로 해"). */
 #lookSheet ul.more{-webkit-mask-image:linear-gradient(#000 calc(100% - 32px),transparent);mask-image:linear-gradient(#000 calc(100% - 32px),transparent)}
+#lookSheet li.shut{list-style:none;margin:12px 0 4px -18px}
+#lookSheet .lookShut{box-sizing:border-box;display:block;width:100%;height:var(--tap);border:1.5px solid var(--ink);border-radius:12px;background:none;color:var(--ink);font:inherit;font-size:15px;font-weight:600}
 #lookFoot{display:flex;align-items:center;gap:8px;margin:10px 8px 0}
 #lookSheet #lookCredit{flex:1;margin:0;font-size:11px;opacity:.75}
 

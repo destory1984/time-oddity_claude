@@ -488,7 +488,15 @@ function openLook(look) {
   $('lookName').textContent = look.name;
   $('lookWhen').textContent = look.when;
   $('lookCredit').textContent = look.credit;
-  $('lookText').replaceChildren(...look.text.map((line) => { const li = document.createElement('li'); li.textContent = line; return li; }));
+  const lines = look.text.map((line) => { const li = document.createElement('li'); li.textContent = line; return li; });
+  // At the foot of the lines, once they are read, a button that closes it (the user,
+  // 2026.10.20: "스크롤 내용 가장 밑 부분에 닫기 버튼 추가").
+  const foot = document.createElement('li');
+  foot.className = 'shut';
+  const shut = document.createElement('button');
+  shut.type = 'button'; shut.className = 'lookShut'; shut.textContent = t`닫기`;
+  foot.append(shut);
+  $('lookText').replaceChildren(...lines, foot);
   $('lookText').scrollTop = 0;
   $('lookSheet').showModal();
   lookMore();
@@ -504,7 +512,7 @@ $('lookText').addEventListener('scroll', lookMore, { passive: true });
 // A touch beside it, or on its close button, goes back to the game (the user, 2026.10.9:
 // "클릭하면, 다시 게임 화면으로"); a touch on the lines is not, as they are read by scrolling.
 $('lookSheet').addEventListener('click', (e) => {
-  if (e.target.closest('#closeLook')) { $('lookSheet').close(); return; }
+  if (e.target.closest('#closeLook, .lookShut')) { $('lookSheet').close(); return; }
   if (e.target !== $('lookSheet')) return;
   const box = $('lookSheet').getBoundingClientRect();
   if (e.clientX < box.left || e.clientX > box.right || e.clientY < box.top || e.clientY > box.bottom) $('lookSheet').close();
