@@ -362,14 +362,18 @@ export const SQUARES = [
     quiz: { question: '금이 너무 많이 풀리자 어떻게 되었나?', answer: '금값이 떨어졌다', proof: '금값이 떨어졌습니다', wrong: ['금값이 올랐다', '금이 사라졌다'] },
   },
   {
-    no: 29, id: 'timbuktu', name: '진흙 모스크', dateLabel: 'AD 1327년', place: '팀북투, 말리',
+    // The year: 1325, when Mansa Musa came home from Mecca (the user, 2026.10.19: "팀북투는
+    // 1325년으로 고쳐", after the sources looked up for the photo of today give 1325 against
+    // the 1327 of others). The day is not on record: October is taken, after the rains, as he
+    // was still on his way home at the start of the year.
+    no: 29, id: 'timbuktu', name: '진흙 모스크', dateLabel: 'AD 1325년', place: '팀북투, 말리',
     lat: 16.7713, lon: -3.010,
-    date: { year: 1327, month: 1, day: 15 }, calendar: 'julian', hourLocal: 12,
+    date: { year: 1325, month: 10, day: 15 }, calendar: 'julian', hourLocal: 12,
     facingAz: 80, nightOnLook: true,
     memo: '진흙으로 큰 모스크를 지음.', sora: '흙으로 지었어! 막대가 삐죽삐죽.',
     memoToday: '남은 것: 모스크. 해마다 덧바름.', soraToday: '그대로야. 흙을 계속 바른대.',
-    noteMemo: '1327년. 사막 끝 도시 팀북투에 진흙으로 큰 모스크를 지었다고 읽음. 날을 몰라 달은 못 적음.',
-    card: '1327년, 사하라 사막 남쪽 끝의 도시 팀북투에 징게레베르 모스크가 지어졌습니다. 말리의 왕 만사 무사가 메카에 다녀온 뒤 짓게 한 것으로, 진흙과 나무로 지었습니다. 비에 씻긴 벽을 사람들이 해마다 진흙으로 덧발라 지금까지 서 있습니다.',
+    noteMemo: '1325년. 사막 끝 도시 팀북투에 진흙으로 큰 모스크를 지었다고 읽음. 날을 몰라 달은 못 적음.',
+    card: '1325년, 사하라 사막 남쪽 끝의 도시 팀북투에 징게레베르 모스크가 지어졌습니다. 말리의 왕 만사 무사가 메카에 다녀온 뒤 짓게 한 것으로, 진흙과 나무로 지었습니다. 비에 씻긴 벽을 사람들이 해마다 진흙으로 덧발라 지금까지 서 있습니다.',
     reply: '해마다 다 같이 바른다지. 그게 칠백 해란다.',
     quiz: { question: '진흙 모스크는 어떻게 지금까지 서 있나?', answer: '해마다 진흙으로 덧발라서', proof: '해마다 진흙으로 덧발라', wrong: ['돌로 다시 지어서', '비가 오지 않아서'] },
   },

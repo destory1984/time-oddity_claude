@@ -4767,7 +4767,8 @@ export const WALKS = {
     ],
     reply: '그 등대는 천 년도 넘게 서 있었단다. 목은 아프지 않더냐.',
   },
-  // Timbuktu in 1327, by day: the great mud mosque (Djinguereber) is being built.
+  // Timbuktu in 1325, by day: the great mud mosque (Djinguereber) is being built. (1327 until
+  // 2026.10.19, when the user had it 1325: see the square. The pictures keep the name timbuktu1327.)
   // Drawn as the painted page of a West African manuscript (the user's choice of five tries:
   // the second). The pictures are in timbuktu1327; the try itself is the first scene (the
   // market where the camels come in), and the yard where the mud is trodden and the foot of
