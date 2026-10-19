@@ -11,6 +11,7 @@
 import { piecesAt } from '../core/pieces.js';
 import { worth } from '../core/walk.js';
 import { t } from '../core/i18n.js';
+import { starDust, whenDrawn } from './stardust.js';
 
 // She walks a little nearer the eye than those who stand in the street, in every place (the
 // user, 2026.10.12, of Kaifeng: "소라는 약간만 아래로 (화면 느낌으로는 앞으로)", and then with two
@@ -472,7 +473,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     shade.style.height = `${shadeWide * 0.2}px`;
     shade.style.left = `${x - shadeWide / 2}px`;
     shade.style.top = `${FOOT * h + 8 * unit + front - shadeWide * 0.14}px`;
-    shade.style.visibility = sora.classList.contains('leaving') ? 'hidden' : '';
+    shade.style.visibility = sora.classList.contains('leaving') || sora.classList.contains('dusting') ? 'hidden' : '';
     // The walking frames face right; standing she faces the eye.
     sora.style.transform = walking && walk.facing < 0 ? 'scaleX(-1)' : '';
     if (mood && has(mood)) {
@@ -611,38 +612,22 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     setTimeout(() => word.remove(), 2400);
   }
 
-  // Leaving, a ring of gold rises from her feet and she is gone where it has passed
-  // (the user chose it of four, 2026.10.8: "4번으로 하자"); arriving, she is set down in
-  // a shaft of light. ms: how long it takes (leaving lasts as long as the notes of the
-  // jump climb).
-  const ARRIVE_MS = 620;
-  function passage(kind, ms = ARRIVE_MS) {
-    const left = parseFloat(sora.style.left);
-    const wide = parseFloat(sora.style.width);
-    const tall = parseFloat(sora.style.height);
-    const extra = document.createElement('i');
-    if (kind === 'leaving') {
-      const ringWide = wide * 1.15;
-      extra.className = 'ring';
-      extra.style.left = `${left + wide / 2 - ringWide / 2}px`;
-      extra.style.top = `${parseFloat(sora.style.top) + tall - 13}px`;
-      extra.style.width = `${ringWide}px`;
-      extra.style.height = '26px';
-      extra.style.setProperty('--rise', `${-tall}px`);
-    } else {
-      extra.className = 'beam arriving';
-      extra.style.left = sora.style.left;
-      extra.style.width = sora.style.width;
-    }
-    extra.style.animationDuration = `${ms}ms`;
-    sora.style.animationDuration = `${ms}ms`;
-    scroll.append(extra);
-    sora.classList.remove('leaving', 'arriving');
-    sora.getBoundingClientRect();
-    sora.classList.add(kind);
-    return new Promise((resolve) => {
-      setTimeout(() => { extra.remove(); if (kind === 'arriving') sora.classList.remove(kind); resolve(); }, ms);
-    });
+  // Going and coming as star dust (ui/stardust.js), from and to the Earth and between
+  // scenes (the user, 2026.10.20; a ring of gold and a shaft of light before).
+  function dust(going, ms) {
+    sora.classList.remove('leaving', 'arriving', 'dusting');
+    sora.classList.add(going ? 'leaving' : 'dusting', 'dust');
+    return starDust(sora, {
+      parent: scroll, going, ms,
+      left: parseFloat(sora.style.left), top: parseFloat(sora.style.top),
+      w: parseFloat(sora.style.width), h: parseFloat(sora.style.height),
+      flip: sora.style.transform.includes('scaleX(-1)'),
+    }).then(() => { sora.classList.remove('dusting', 'dust'); });
+  }
+  function gather(ms) {
+    sora.classList.remove('leaving');
+    sora.classList.add('dusting');
+    return whenDrawn(sora).then(() => dust(false, ms));
   }
 
   // Whoever handed her something to try gives a little start.
@@ -698,7 +683,8 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     // from one to another (a person's id, or 'sora').
     carry(src, held) { carried.src = src; carried.held = held; },
     hand(from, to) { carried.flight = { from, to, start: performance.now() }; },
-    teleport: (ms) => passage('leaving', ms),
-    arrive: () => { sora.classList.remove('leaving'); return passage('arriving'); },
+    // She goes as star dust in ms, and gathers out of it in ms.
+    teleport: (ms) => dust(true, ms),
+    arrive: (ms) => gather(ms),
   };
 }

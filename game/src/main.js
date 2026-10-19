@@ -39,6 +39,7 @@ import { ZOOM_MAX, ZOOM_MIN, ZOOM_STEP } from './core/zoom.js';
 import { flyPose } from './core/flight.js';
 import { isLocalHost, showsTestBar } from './core/host.js';
 import { WARP_CHORD_MS, createSound } from './ui/sound.js';
+import { starDust, whenDrawn } from './ui/stardust.js';
 import { createSettings } from './ui/settings.js';
 import { createMusic } from './ui/music.js';
 import { createJournal } from './ui/journal.js';
@@ -406,7 +407,7 @@ let walkSora = null;        // { text, until }: what she says, while it shows
 let replyDue = false;       // grandmother's answer is to be shown, until it is put away
 let walkSpot = null;        // the spot just touched, until she gets to it
 let memoHere = null;        // what she wrote of the one being heard or the spot stood at, as last seen: it goes on her slip once
-let walkArrive = null;      // she is to be set down in a shaft of light on the next frame: 'land' from above the Earth, 'hop' from the scene beside
+let walkArrive = null;      // she is to gather out of star dust on the next frame: 'land' from above the Earth, 'hop' from the scene beside
 let walkNoteAt = 0;         // a note of grandmother's that is due falls then (after her answer has been read)
 let seekIdleMs = 0;         // how long nothing has been found, where things are to be found (core/seek.js)
 let walkNowAt = 0;          // the photograph of the place as it is today comes up then (a place's `now`)
@@ -425,7 +426,9 @@ let walkFace = null;        // { poses: [[picture of hers, until], ...] }: how s
 let walkHemMs = 0;          // how long she has walked in what she put on since she last trod on its hem
 let walkHeld = null;        // { show, until }: what was shown her, kept up while she tries it
 let walkHopping = false;    // she is on her way to the scene beside this one in a ring of gold
-const HOP_MS = 420;
+const HOP_MS = 700;         // she breaks into star dust going to the scene beside (2026.10.20)
+const HOP_IN_MS = 900;      // and gathers out of it there
+const LAND_IN_MS = 1200;    // gathering, come down from above the Earth
 let walkMemo = null;        // { text }: what grandmother wrote, on her slip until its button is pressed (`until` is no longer read)
 let walkStepMs = 0;         // how long she has walked since her last footfall
 let walkSteps = 0;
@@ -1111,7 +1114,7 @@ function showWalk(sq) {
 for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
   $(id).addEventListener('pointerdown', (e) => {
     walkWant = null;
-    // She goes as she leaves a place, in a ring of gold, and is set down in the next (the
+    // She goes as she leaves a place, as star dust (a ring of gold before), and gathers in the next (the
     // user, 2026.10.8: "버튼을 눌러서, 다음/이전 장소로 이동할 떄에는 효과를 넣어줘. 금빛 고리 효과").
     if (walkHopping || memoUp) return;
     // What is asked of her is put off first: left up, its box was hidden on coming into the
@@ -1248,7 +1251,7 @@ function frameWalk(dt) {
   if (memoUp) walk.passing = null;
   walkView.carry(walk.place.tale?.thing ? `./walks/${walk.place.dir}/thing.webp` : null, Boolean(walk.tale) && carrying(walk.place.tale, walk.tale));
   walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.poses.find(([, until]) => walkT <= until)?.[0] ?? null, stride, walkHeld?.show ?? null);
-  if (walkArrive) { sound[walkArrive](); walkArrive = null; walkView.arrive(); }
+  if (walkArrive) { sound[walkArrive](); walkView.arrive(walkArrive === 'land' ? LAND_IN_MS : HOP_IN_MS); walkArrive = null; }
 
   const near = walk.moving ? null : withWhom(walk);
   // There is no button to speak: touching a person is speaking to them (the user,
@@ -1410,13 +1413,16 @@ async function land(sq) {
   landing = true;
   stage.classList.add('descending');
   sound.warp();
-  await wait(DESCEND_MS);
+  // She breaks into star dust over the Earth (the user, 2026.10.20: "지구본 -> 도시로
+  // 들어가는 것도 별빛 효과로 바꿔"; she shrank to a point before).
+  await soraDust(true, DESCEND_MS);
   $('fade').classList.add('on');
   await wait(FADE_MS);
   target = null;
   globe.setTarget(null);
   landing = false;
   stage.classList.remove('descending');
+  $('sora').classList.remove('dusting');
   arrive(sq);
   $('fade').classList.remove('on');
 }
@@ -1434,8 +1440,8 @@ async function leave() {
   mode = 'leaving';
   leavingMs = 0;
   if (!fromSite) await wait(LEAVE_MS);
-  // From among people a ring of gold takes her up.
-  if (fromWalk) { sound.warp(); await walkView.teleport(WARP_CHORD_MS - FADE_MS); }
+  // From among people she goes up as star dust (the user, 2026.10.20; a ring of gold before).
+  if (fromWalk) { sound.warp(); await walkView.teleport(WARP_CHORD_MS - FADE_MS, true); }
   $('fade').classList.add('on');
   await wait(FADE_MS);
   globe.setActive(true);
@@ -1451,9 +1457,18 @@ async function leave() {
   if (fromWalk) saveOutfit(null);
   loosen(square);
   mark(globeMarks());
-  // She comes back out over the Earth, growing from a point.
-  if (fromWalk) { stage.classList.add('returning'); setTimeout(() => stage.classList.remove('returning'), 600); }
+  // She comes back out over the Earth, gathering out of star dust.
   $('fade').classList.remove('on');
+  if (fromWalk) soraDust(false, HOP_IN_MS);
+}
+// Sora over the Earth as star dust (ui/stardust.js): going (true) or gathering (false).
+function soraDust(going, ms) {
+  const img = $('sora');
+  const box = img.getBoundingClientRect();
+  img.classList.add('dusting');
+  return whenDrawn(img)
+    .then(() => starDust(img, { parent: document.body, fixed: true, left: box.left, top: box.top, w: box.width, h: box.height, going, ms }))
+    .then(() => { if (!going) img.classList.remove('dusting'); });
 }
 
 hud.leaveBtn.addEventListener('click', leave);

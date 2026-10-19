@@ -253,17 +253,19 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
         [[2093, 3.5], [1568, 4.0], [1319, 4.5], [1047, 5.0]].forEach(([freq, when], i) => bell(freq, when, 0.045 - i * 0.007));
       });
     },
-    // She is set down in a shaft of light (style.css `beamDown`, 0.62 s: she touches the
+    // She was set down in a shaft of light (0.62 s: she touched the
     // ground 0.4 s in). Coming down from above the Earth the jump's own chord has just
     // sounded, so there is only her foot on the ground and one small chime (`land`). The
     // user, 2026.10.9: "소라가 워프해서 땅에 내려올 때 효과음 넣어".
+    // Since 2026.10.20 she gathers out of star dust for 1.2 s (ui/walk.js DUST_ARRIVE_MS):
+    // her foot is on the ground as the last specks come in.
     land() {
       play((at) => {
-        tone(at + 0.4, { seconds: 0.12, from: 170, to: 90, gain: 0.14 });
-        ping(at + 0.42, 1047, 0.6, 0.05);
+        tone(at + 1.1, { seconds: 0.12, from: 170, to: 90, gain: 0.14 });
+        ping(at + 1.12, 1047, 0.6, 0.05);
       });
     },
-    // Going to the scene beside this one in a ring of gold (0.42 s, main.js HOP_MS) is the
+    // Going to the scene beside this one as star dust (0.7 s, main.js HOP_MS; gathering 0.9 s) is the
     // jump of volume 1 made small: `lift` is its climb, eight music-box notes bunched toward
     // the end with the shimmer under them, and `hop` is its arrival, the wide bright chord
     // with her foot on the ground and three slow chimes stepping down. First these were a
@@ -272,17 +274,17 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     lift() {
       play((at) => {
         const scale = [523, 659, 784, 1047, 1319, 1568, 2093, 2637];
-        scale.forEach((freq, k) => warpBell(at + 0.4 * (1 - (1 - k / scale.length) ** 1.7), freq, 0.03 + 0.045 * (k / scale.length)));
-        tone(at + 0.05, { seconds: 0.4, from: 1568, to: 3136, gain: 0.018 * WARP_VOLUME, attack: 0.01 });
-        hiss(at + 0.2, { seconds: 0.3, from: 6000, to: 9000, gain: 0.035 * WARP_VOLUME, type: 'highpass' });
+        scale.forEach((freq, k) => warpBell(at + 0.65 * (1 - (1 - k / scale.length) ** 1.7), freq, 0.03 + 0.045 * (k / scale.length)));
+        tone(at + 0.05, { seconds: 0.65, from: 1568, to: 3136, gain: 0.018 * WARP_VOLUME, attack: 0.01 });
+        hiss(at + 0.35, { seconds: 0.4, from: 6000, to: 9000, gain: 0.035 * WARP_VOLUME, type: 'highpass' });
       });
     },
     hop() {
       play((at) => {
         [1047, 1319, 1568, 2093, 2637].forEach((freq, i) => warpBell(at + i * 0.03, freq, 0.085 - i * 0.008));
         tone(at, { seconds: 1.6, from: 523, gain: 0.05 * WARP_VOLUME, attack: 0.01 });
-        tone(at + 0.4, { seconds: 0.12, from: 170, to: 90, gain: 0.14 });
-        [[2093, 0.5], [1568, 0.75], [1047, 1.0]].forEach(([freq, when], i) => warpBell(at + when, freq, 0.045 - i * 0.007));
+        tone(at + 0.8, { seconds: 0.12, from: 170, to: 90, gain: 0.14 });
+        [[2093, 0.9], [1568, 1.15], [1047, 1.4]].forEach(([freq, when], i) => warpBell(at + when, freq, 0.045 - i * 0.007));
       });
     },
     // A thing changes hands: a small rising pluck, and a chime as it lands.
