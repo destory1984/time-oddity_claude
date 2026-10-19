@@ -5006,14 +5006,21 @@ export const WALKS = {
     // (What is said of today: looked up on 2026.10.14, in docs/신기한-사실.md; the picture chosen by the user.
     // How it came to France and Park Byeong-seon: looked up on 2026.10.19, see the square's comment.
     // The site: in 1985 a gong (금구) cut with "흥덕사" turned up from a building site in Uncheon-dong,
-    // Cheongju, and the dig found the temple (encykorea E0056711, hangyo.com 55152).)
+    // Cheongju, and the dig found the temple (encykorea E0056711, hangyo.com 55152).
+    // More of it (the user, 2026.10.19: "좀 더 자세한 설명"), looked up the same day: of two
+    // volumes the second is left, its first leaf lost, 38 leaves (koreascience JAKO201228439148688);
+    // 78 years before Gutenberg's Bible (hangyo.com 55152); a UNESCO Memory of the World in
+    // September 2001 (seoul.co.kr 2011.11.24); the Cheongju Early Printing Museum opened at the
+    // site in March 1992 (hangyo.com 55152).)
     now: {
       photo: 'photo-now.webp', name: '남은 책 직지', when: '프랑스 국립도서관 · 직지',
       text: [
-        '직지는 아래 권 한 권만 남았습니다.',
+        '온 이름은 "백운화상초록불조직지심체요절"입니다. 백운 스님이 부처와 큰스님들의 가르침에서 중요한 것을 가려 뽑아 엮었습니다.',
+        '쇠 글자로 찍은 책 가운데 지금 남은 가장 오래된 책입니다. 독일 구텐베르크의 성경보다 78년 앞섭니다.',
+        '본래 위아래 두 권이었는데 아래 권 한 권만 남았습니다. 그마저 첫 장이 없어 38장입니다.',
         '조선 말 프랑스 외교관이 사 갔고, 1950년에 프랑스 국립도서관에 들어갔습니다.',
-        '1972년, 그 도서관에서 일하던 박병선 박사가 직지를 찾아내 세상에 알렸습니다.',
-        '1985년, 청주의 한 공사장에서 "흥덕사"라는 글자가 새겨진 쇠북이 나왔습니다. 그래서 그동안 알 수 없던 흥덕사의 자리를 찾았습니다.',
+        '1972년, 그 도서관에서 일하던 박병선 박사가 직지를 찾아내 세상에 알렸습니다. 2001년에는 유네스코 세계기록유산이 되었습니다.',
+        '1985년, 청주의 한 공사장에서 "흥덕사"라는 글자가 새겨진 쇠북이 나왔습니다. 그래서 그동안 알 수 없던 흥덕사의 자리를 찾았습니다. 그 곁에는 지금 청주고인쇄박물관이 있습니다.',
       ],
       credit: '사진: 위키미디어 공용, 공개 저작물',
     },
