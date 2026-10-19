@@ -339,6 +339,20 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 #settings dd button{margin-top:8px;font-size:15px;font-weight:600}
 #settings a{color:#f6b951}
 #settings .muted{white-space:pre-line;color:#9fb0dc}
+/* As volume 1's settings (the user, 2026.10.20: "설정 화면을 우주 한량의 설정 화면과 같은
+   스타일로 바꿔. 풀 화면에"), on the whole screen: the names gold over what they do, one
+   column; the four languages one size; no lines between the rows (the notebook's dashed
+   `.row` had come in by its name); at the foot a button that closes it, lined in gold. The ✕
+   stays at the top left, and the page starts under its row. */
+#settings[open]{box-sizing:border-box;width:100vw;max-width:none;height:100dvh;max-height:none;margin:0;padding:58px 16px 12px;border:0;border-radius:0;background:#0d1a3a;box-shadow:none}
+#settings .row{border:0;padding:0;align-items:stretch}
+#settings dd.row button{flex:1 1 0;min-width:0;padding:6px 4px}
+#settings dt{color:var(--gold);margin-top:16px}
+#settings dl > dt:first-child{margin-top:4px}
+#settings dd{line-height:1.6}
+/* The text size keys in the row of the ✕, at the top right, 8 px from the edges. */
+#settings .textSize{position:fixed;top:8px;right:8px;margin:0}
+#settings .sheetShut{flex:none;width:100%;margin-top:10px;border-color:var(--gold);color:var(--gold)}
 #newsList{list-style:none;margin:0;padding:0}
 #newsList li{display:grid;grid-template-columns:3.2em 1fr;gap:8px;padding:5px 0;color:#c3cdea}
 #newsList time{color:var(--gold);font-variant-numeric:tabular-nums}
@@ -391,7 +405,7 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
    buttons at the top (the user, 2026.10.19: "닫기는 ✕로", "X 아이콘은 화면 왼쪽 상단"). The
    sheets stand clear of that row. */
 .sheetX{position:fixed;top:8px;left:8px;z-index:1;flex:none;width:42px;height:42px;padding:0;display:grid;place-items:center;box-sizing:border-box;border:1.5px solid var(--ink);border-radius:12px;background:#fff8e4;color:var(--ink);cursor:pointer}
-#journal[open],#cardSheet[open],#settings[open]{max-width:none;margin-top:58px;margin-bottom:8px;max-height:calc(100dvh - 66px)}
+#journal[open],#cardSheet[open]{max-width:none;margin-top:58px;margin-bottom:8px;max-height:calc(100dvh - 66px)}
 #settings .sheetX{padding:0;border:1px solid var(--glass-line);background:var(--glass-fill);color:#eef3ff}
 .sheetX{box-shadow:0 2px 10px #0006}
 

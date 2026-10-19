@@ -103,6 +103,8 @@ export function createSettings({ onOpen, onClose, today, sound, music, version, 
     dialog.showModal();
   });
   $('closeSettings').addEventListener('click', () => dialog.close());
+  // And the button at its foot (as volume 1's "비행 계속하기", the user, 2026.10.20).
+  $('settingsShut').addEventListener('click', () => dialog.close());
   // A press outside the sheet closes it, as the closing button does. Outside is told by
   // where the press fell, not by its target: the sheet's own margin is the dialog too.
   dialog.addEventListener('click', (e) => {
