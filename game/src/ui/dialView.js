@@ -348,9 +348,9 @@ export function createDialView(canvas) {
     // A tag at each end points to the nearest marked year off the screen; tapping that side
     // of the dial rolls there (see main.js).
     const endY = h - 84;
-    // (They are as large as the other buttons, 44 px high in 15 px letters: 2026.10.19.)
-    if (older) { const text = `‹  ${older.label}`; tag(text, 8 + tagWidth(text, 16, 15) / 2, endY, 16, 44, 15, 12); }
-    if (newer) { const text = `${newer.label}  ›`; tag(text, w - 8 - tagWidth(text, 16, 15) / 2, endY, 16, 44, 15, 12); }
+    // (They are as large as the other buttons, 42 px high in 15 px letters: 2026.10.19.)
+    if (older) { const text = `‹  ${older.label}`; tag(text, 8 + tagWidth(text, 16, 15) / 2, endY, 16, 42, 15, 12); }
+    if (newer) { const text = `${newer.label}  ›`; tag(text, w - 8 - tagWidth(text, 16, 15) / 2, endY, 16, 42, 15, 12); }
 
     // The needle: a gold arrowhead fixed over the rim, dipping 1 px as a tick passes.
     const dip = performance.now() - kickedAt < KICK_MS ? 1 : 0;
