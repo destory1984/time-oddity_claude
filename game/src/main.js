@@ -488,76 +488,27 @@ function openLook(look) {
   $('lookName').textContent = look.name;
   $('lookWhen').textContent = look.when;
   $('lookCredit').textContent = look.credit;
-  lookPages = [look.text];
-  showLookPage(0);
+  $('lookText').replaceChildren(...look.text.map((line) => { const li = document.createElement('li'); li.textContent = line; return li; }));
+  $('lookText').scrollTop = 0;
   $('lookSheet').showModal();
-  // What does not fit under the photograph goes on to a second page (the user, 2026.10.19:
-  // "설명글이 2페이지까지 가능하도록"): lines are taken off the end until the first page fits.
-  // Measured again once the photograph is in, as it takes its height only then.
-  const fit = () => {
-    const sheet = $('lookSheet');
-    if (!sheet.open || lookPage !== 0) return;
-    const over = () => sheet.scrollHeight > sheet.clientHeight + 1;
-    // On a small screen the photograph is made lower until both pages fit.
-    for (const tall of [44, 38, 32, 26, 20]) {
-      $('lookPhoto').style.maxHeight = `${tall}dvh`;
-      $('lookText').style.minHeight = '';
-      const first = [...look.text], rest = [];
-      lookPages = [first];
-      showLookPage(0);
-      while (first.length > 1 && over()) {
-        rest.unshift(first.pop());
-        lookPages = [first, rest];
-        showLookPage(0);
-      }
-      if (!rest.length) return;
-      // The lines keep the room of the first page, so that the buttons stay where they are.
-      $('lookText').style.minHeight = `${$('lookText').offsetHeight}px`;
-      showLookPage(1);
-      const fits = !over();
-      $('lookText').style.minHeight = `${$('lookText').offsetHeight}px`;
-      showLookPage(0);
-      if (fits) return;
-    }
-  };
-  fit();
-  if (!$('lookPhoto').complete) $('lookPhoto').addEventListener('load', fit, { once: true });
+  lookMore();
+  if (!$('lookPhoto').complete) $('lookPhoto').addEventListener('load', lookMore, { once: true });
 }
-let lookPages = [];         // the lines of each page of the sheet open
-let lookPage = 0;
-function showLookPage(n) {
-  lookPage = n;
-  const last = n === lookPages.length - 1;
-  $('lookText').replaceChildren(...lookPages[n].map((line) => { const li = document.createElement('li'); li.textContent = line; return li; }));
-  // Two pages are turned by buttons of their own (the user, 2026.10.19: "다음쪽/이전쪽 버튼으로").
-  // The photograph stays; only the lines under it turn, and "닫기" stands in the same row
-  // (the user, 2026.10.19).
-  for (const id of ['lookPrev', 'lookPageNo', 'lookNext']) $(id).hidden = lookPages.length < 2;
-  $('lookPrev').disabled = n === 0;
-  $('lookNext').disabled = last;
-  $('lookPageNo').textContent = `${n + 1} / ${lookPages.length}`;
-  $('lookSheet').scrollTop = 0;
+// The photograph stays and the lines under it scroll (the user, 2026.10.19: "스크롤로 해",
+// after pages turned by buttons); while there is more below, their foot fades.
+function lookMore() {
+  const text = $('lookText');
+  text.classList.toggle('more', text.scrollTop + text.clientHeight < text.scrollHeight - 2);
 }
-// A touch anywhere on it, or beside it, goes back to the game (the user, 2026.10.9: "클릭하면,
-// 다시 게임 화면으로"), but where it has two pages only beside it or on "닫기": a touch on the
-// page is then not to lose the second.
+$('lookText').addEventListener('scroll', lookMore, { passive: true });
+// A touch beside it, or on its close button, goes back to the game (the user, 2026.10.9:
+// "클릭하면, 다시 게임 화면으로"); a touch on the lines is not, as they are read by scrolling.
 $('lookSheet').addEventListener('click', (e) => {
-  if (lookPages.length > 1 && e.target !== $('lookSheet') && !e.target.closest('#closeLook')) return;
-  if (lookPages.length > 1 && e.target === $('lookSheet')) {
-    const box = $('lookSheet').getBoundingClientRect();
-    if (e.clientX >= box.left && e.clientX <= box.right && e.clientY >= box.top && e.clientY <= box.bottom) return;
-  }
-  $('lookSheet').close();
+  if (e.target.closest('#closeLook')) { $('lookSheet').close(); return; }
+  if (e.target !== $('lookSheet')) return;
+  const box = $('lookSheet').getBoundingClientRect();
+  if (e.clientX < box.left || e.clientX > box.right || e.clientY < box.top || e.clientY > box.bottom) $('lookSheet').close();
 });
-const turnLook = (way) => (e) => {
-  e.stopPropagation();
-  const n = lookPage + way;
-  if (n < 0 || n >= lookPages.length) return;
-  sound.tick(true, false);
-  showLookPage(n);
-};
-$('lookPrev').addEventListener('click', turnLook(-1));
-$('lookNext').addEventListener('click', turnLook(1));
 // When all is done the slip has a button under it that shows the photograph of the place
 // as it is today once more (the user, 2026.10.9: "도시 미션 클리어하고 나서 나오는 실제 사진을
 // 다시 볼 길이 없네").
