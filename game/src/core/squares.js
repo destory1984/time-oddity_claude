@@ -751,6 +751,9 @@ export const SQUARES = [
     // book printed with metal type that is left (NOT "the first metal type in the world");
     // of the two volumes only the second is left and is in the national library of France;
     // the site of the temple was dug and found in 1985; none of the type is left.
+    // What the name means (the user, 2026.10.19: "직지의 뜻은 뭐야? 추가해줘"): 直指, "pointing straight",
+    // from the Zen saying 直指人心 見性成佛, pointing straight at the mind; the whole title is
+    // 백운화상초록불조직지심체요절.
     // Why it is in France (the user, 2026.10.19: "왜 프랑스에 있는지도 적어"), looked up the
     // same day (weekly.khan.co.kr 2023.4.21, en.wikipedia "Henri Vever"): Victor Collin de
     // Plancy (1853-1922), French minister in Seoul at the end of Joseon, bought it; he put his
@@ -765,7 +768,7 @@ export const SQUARES = [
     memo: '쇠 글자로 책을 찍는 중.', sora: '글자가 하나하나 떨어져 있어!',
     memoToday: '남은 것: 책 한 권. 프랑스에 있음.', soraToday: '프랑스 외교관이 사서 가져갔대.',
     noteMemo: '1377년 여름. 청주 흥덕사에서 쇠 글자로 책 직지를 찍었다고 읽음. 날을 몰라 달은 못 적음.',
-    card: '1377년 여름, 고려 청주의 흥덕사에서 쇠로 만든 글자로 책 "직지"를 찍었습니다. 백운 스님이 엮은 책을 제자 석찬과 달잠이 찍었고, 비구니 묘덕이 돈을 보탰습니다. 쇠 글자로 찍어 지금 남은 책 가운데 가장 오래되었습니다. 남은 아래 권 한 권은 조선 말에 프랑스 외교관이 사 갔고, 지금은 프랑스 국립도서관에 있습니다.',
+    card: '1377년 여름, 고려 청주의 흥덕사에서 쇠로 만든 글자로 "마음을 곧바로 가리킨다"는 뜻의 책 "직지"를 찍었습니다. 백운 스님이 엮은 책을 제자 석찬과 달잠이 찍었고, 비구니 묘덕이 돈을 보탰습니다. 쇠 글자로 찍어 지금 남은 책 가운데 가장 오래되었습니다. 남은 아래 권 한 권은 조선 말에 프랑스 외교관이 사 갔고, 지금은 프랑스 국립도서관에 있습니다.',
     reply: '그날의 쇠 글자는 하나도 안 남았단다. 책 한 권이 그날을 전하지.',
     quiz: { question: '직지는 무엇으로 만든 글자로 찍었나?', answer: '쇠', proof: '쇠로 만든 글자로', wrong: ['나무', '흙'] },
   },
