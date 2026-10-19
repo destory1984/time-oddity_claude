@@ -127,7 +127,7 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #errands li.done{text-decoration:line-through;opacity:.45}
 /* All done: the photograph of the place as it is today may be seen again. */
 #errands li.now{margin:6px 0 0}
-#errands li.now button{min-height:44px;padding:0 12px;border:1.5px solid var(--ink);border-radius:12px;background:none;color:var(--ink);font:600 13px/1.2 "Pretendard Variable",Pretendard,sans-serif}
+#errands li.now button{box-sizing:border-box;height:44px;padding:0 16px;border:1.5px solid var(--ink);border-radius:12px;background:none;color:var(--ink);font:600 15px/1.2 "Pretendard Variable",Pretendard,sans-serif}
 #errands.folded li.now{display:none}
 #errands.alldone::after{content:"참 잘했어요";position:absolute;right:-18px;bottom:-16px;display:grid;place-items:center;width:62px;height:62px;border:3px double #c0392b;border-radius:50%;color:#c0392b;font:700 12px/1.1 "Pretendard Variable",Pretendard,sans-serif;text-align:center;transform:rotate(-14deg);background:rgba(255,246,230,.7);animation:stampDown .45s cubic-bezier(.2,1.6,.4,1) 1}
 @keyframes stampDown{0%{transform:rotate(-14deg) scale(2.6);opacity:0}100%{transform:rotate(-14deg) scale(1);opacity:1}}
@@ -322,36 +322,38 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 #settings[open]{display:flex;flex-direction:column;height:min(640px,90dvh)}
 #settings::backdrop{background:rgba(5,3,48,.55)}
 #settings>*{flex:none}
-.sheetHead{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+.sheetHead{display:flex;align-items:flex-start;gap:8px;margin-bottom:12px}
+.sheetHead > div:first-child{min-width:0}
+.sheetHead small{display:block;margin-top:2px}
 .sheetHead h1{margin:0;font-size:22px;font-weight:600}
 .sheetHead small{color:#9fb0dc;font-size:12px}
-.textSize{margin-left:auto;display:flex;gap:8px}
-#settings button{border:1px solid var(--glass-line);border-radius:12px;background:#182a5c99;color:#eef3ff;font:inherit;min-height:44px;padding:6px 14px}
+.textSize{margin-left:auto;margin-top:-10px;display:flex;gap:8px}
+#settings button{border:1px solid var(--glass-line);border-radius:12px;background:#182a5c99;color:#eef3ff;font:inherit;font-size:15px;font-weight:600;min-height:44px;padding:6px 14px}
 #settings button[aria-pressed="true"]{border-color:var(--gold);background:#f6b95133;color:#ffe9b8;font-weight:700}
 #settings .row{display:flex;flex-wrap:wrap;gap:8px}
 #settings .row.one{flex-wrap:nowrap}
 #settings .row.one button{flex:0 1 auto;padding:6px 10px;white-space:nowrap}
-#settings .row button{margin-top:8px}
+#settings .row button{margin-top:8px;padding:6px 10px}
 #settings button:disabled{opacity:.35}
 /* As in volume 1: the smaller "가−" in smaller letters, the larger "가+" in larger. (They were
    written with the sign set low and high, which read as "가_": the user, 2026.10.10.) */
 #settings .textSize button{width:44px;height:44px;padding:0;font-size:16px;font-weight:700}
 #settings .textSize button[data-way="-1"]{font-size:12px}
 #settingsTabs{display:flex;gap:8px;margin:0 0 12px}
-#settingsTabs button{flex:1;padding:6px 4px;font-size:13px}
+#settingsTabs button{flex:1;min-height:44px;padding:6px 4px;font-size:15px;font-weight:600}
 #settingsTabs button[aria-selected="true"]{border-color:var(--gold);color:var(--gold)}
 #settingsBody{flex:1 1 auto;min-height:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#9fb4ff66 #0000;padding-right:4px}
 #settings :where(p,dd){color:#c3cdea;margin:0 0 10px}
 #settings dl{margin:0}
 #settings dt{color:#eef3ff;font-weight:600;margin-top:12px}
 #settings dd{margin-left:0}
-#settings dd button{margin-top:8px;font-size:13px}
+#settings dd button{margin-top:8px;font-size:15px;font-weight:600}
 #settings a{color:#f6b951}
 #settings .muted{white-space:pre-line;color:#9fb0dc}
 #newsList{list-style:none;margin:0;padding:0}
 #newsList li{display:grid;grid-template-columns:3.2em 1fr;gap:8px;padding:5px 0;color:#c3cdea}
 #newsList time{color:var(--gold);font-variant-numeric:tabular-nums}
-#settings #closeSettings{margin-top:14px;border-color:var(--gold);color:var(--gold);font-weight:600;min-height:44px}
+
 
 /* The notebook button carries its count under the icon. */
 #topButtons #journalButton{flex-direction:column;gap:0;font-size:10px;line-height:1;color:var(--gold);font-weight:600}
@@ -360,7 +362,7 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 /* Story card and question chips, under the memo slip. */
 #chips{left:16px;top:calc(64% + 46px * var(--text,1) + 8px);display:flex;gap:8px;opacity:0;visibility:hidden;transition:opacity .3s}
 #chips.on{opacity:1;visibility:visible}
-#chips button{padding:7px 12px;font-size:12.5px}
+#chips button{box-sizing:border-box;min-height:44px;padding:0 16px;font-size:15px;font-weight:600}
 .on-globe #chips{display:none}
 
 /* The notebook: lined paper with a spine, in ink. */
@@ -385,7 +387,7 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 .rowWords{display:grid;min-width:0}
 .rowWords b{font-size:15px;font-weight:600}
 .rowWords small{font-size:12px;color:#6b4a2b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#journal .go{min-width:54px;min-height:36px;padding:4px 12px;border:1.5px solid var(--ink);border-radius:8px;background:#fff8e4;color:var(--ink);font:inherit;font-weight:600}
+#journal .go{min-width:54px;min-height:44px;padding:4px 12px;border:1.5px solid var(--ink);border-radius:12px;background:#fff8e4;color:var(--ink);font:inherit;font-weight:600}
 #journal .go:disabled{opacity:.45}
 .more{grid-column:1 / -1;padding:2px 2px 4px 2px}
 .more p{margin:6px 0}
@@ -396,7 +398,12 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 .tries{margin:8px 0;padding:0;list-style:none;font-size:calc(13.5px * var(--text,1));line-height:1.55}
 .tries b{font-weight:600}
 .tries i{font-style:normal;opacity:.4}
-#journal #closeJournal{margin-top:10px;min-height:44px;border:1.5px solid var(--ink);border-radius:12px;background:#fff8e4;color:var(--ink);font:inherit;font-weight:700}
+/* Every sheet is closed by one square ✕ at its top right (the user, 2026.10.19: "닫기는 ✕로"). */
+.sheetX{position:absolute;top:12px;right:12px;z-index:1;flex:none;width:44px;height:44px;padding:0;display:grid;place-items:center;box-sizing:border-box;border:1.5px solid var(--ink);border-radius:12px;background:#fff8e4;color:var(--ink);cursor:pointer}
+.journalHead,.cardHead{padding-right:52px}
+.sheetHead{padding-right:52px}
+#settings .sheetX{padding:0;border:1px solid var(--glass-line);background:var(--glass-fill);color:#eef3ff}
+#lookSheet .sheetX{box-shadow:0 2px 10px #0004}
 
 /* The question: three choices; a wrong one dims, the right one is stamped. */
 .quizAsk{margin:10px 0 6px;font-weight:600;font-size:calc(14px * var(--text,1))}
@@ -423,7 +430,7 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 #lookSheet ul.more{-webkit-mask-image:linear-gradient(#000 calc(100% - 32px),transparent);mask-image:linear-gradient(#000 calc(100% - 32px),transparent)}
 #lookFoot{display:flex;align-items:center;gap:8px;margin:10px 8px 0}
 #lookSheet #lookCredit{flex:1;margin:0;font-size:11px;opacity:.75}
-#lookSheet #closeLook{flex:0 0 44px;width:44px;height:44px;padding:0;display:grid;place-items:center;border:1.5px solid var(--ink);border-radius:12px;background:none;color:var(--ink)}
+
 /* (Above the unseen squares that answer a touch, `.tap`: one of those, laid over the whole of
    the picture above a spot, covered this button. The user, 2026.10.10: "\"자세히 보기\" 버튼이 안 눌리네".) */
 #walkScene .look{position:absolute;z-index:6;padding:0;border:2px solid rgba(255,217,120,.85);border-radius:6px;background:none;box-shadow:0 0 12px rgba(255,217,120,.55),inset 0 0 14px rgba(255,217,120,.25);animation:lookGlow 2.2s ease-in-out infinite;cursor:pointer}
@@ -444,7 +451,7 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 @keyframes lookGlow{50%{box-shadow:0 0 20px rgba(255,217,120,.9),inset 0 0 18px rgba(255,217,120,.4)}}
 #cardSheet small{display:block;margin:2px 0 10px;font-size:12px;color:#6b4a2b}
 #cardSheet #cardText{margin:0 0 6px;font-size:calc(15px * var(--text,1));line-height:1.7}
-#cardSheet #closeCard{display:block;width:100%;margin-top:16px;min-height:44px;border:1.5px solid var(--ink);border-radius:12px;background:none;color:var(--ink);font:inherit;font-weight:700}
+
 
 /* The opening: a picture, a line, a word from Sora, on a dark page. */
 #opening{width:min(520px,100vw);max-width:100vw;max-height:100dvh;height:100dvh;margin:auto;padding:0;border:0;background:#050330;color:var(--white);overflow:hidden}

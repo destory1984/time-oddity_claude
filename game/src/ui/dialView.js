@@ -104,16 +104,16 @@ export function createDialView(canvas) {
   }
 
   // A small tag of the same glass, edged and lettered in gold.
-  const tagWidth = (text, pad = 8) => { c.font = `600 12px ${UI}`; return Math.max(36, c.measureText(text).width + pad * 2); };
-  function tag(text, x, y, pad = 8, height = 22) {
-    const wide = tagWidth(text, pad);
+  const tagWidth = (text, pad = 8, size = 12) => { c.font = `600 ${size}px ${UI}`; return Math.max(36, c.measureText(text).width + pad * 2); };
+  function tag(text, x, y, pad = 8, height = 22, size = 12, round = 4) {
+    const wide = tagWidth(text, pad, size);
     c.save();
     c.shadowColor = 'rgba(0,0,0,.4)'; c.shadowBlur = 4; c.shadowOffsetY = 1;
     c.fillStyle = TAG;
-    c.beginPath(); c.roundRect(x - wide / 2, y - height / 2, wide, height, 4); c.fill();
+    c.beginPath(); c.roundRect(x - wide / 2, y - height / 2, wide, height, round); c.fill();
     c.restore();
     c.strokeStyle = GOLD; c.lineWidth = 1;
-    c.beginPath(); c.roundRect(x - wide / 2, y - height / 2, wide, height, 4); c.stroke();
+    c.beginPath(); c.roundRect(x - wide / 2, y - height / 2, wide, height, round); c.stroke();
     c.fillStyle = GOLD_LIT; c.textAlign = 'center'; c.textBaseline = 'middle';
     c.fillText(text, x, y + 0.5);
   }
@@ -348,8 +348,9 @@ export function createDialView(canvas) {
     // A tag at each end points to the nearest marked year off the screen; tapping that side
     // of the dial rolls there (see main.js).
     const endY = h - 84;
-    if (older) { const text = `‹  ${older.label}`; tag(text, 12 + tagWidth(text) / 2, endY, 8, 24); }
-    if (newer) { const text = `${newer.label}  ›`; tag(text, w - 12 - tagWidth(text) / 2, endY, 8, 24); }
+    // (They are as large as the other buttons, 44 px high in 15 px letters: 2026.10.19.)
+    if (older) { const text = `‹  ${older.label}`; tag(text, 12 + tagWidth(text, 16, 15) / 2, endY, 16, 44, 15, 12); }
+    if (newer) { const text = `${newer.label}  ›`; tag(text, w - 12 - tagWidth(text, 16, 15) / 2, endY, 16, 44, 15, 12); }
 
     // The needle: a gold arrowhead fixed over the rim, dipping 1 px as a tick passes.
     const dip = performance.now() - kickedAt < KICK_MS ? 1 : 0;
