@@ -517,7 +517,7 @@ function nowRow(list) {
   const li = document.createElement('li');
   li.className = 'now';
   const button = document.createElement('button');
-  button.type = 'button'; button.textContent = '지금 모습 사진 보기';
+  button.type = 'button'; button.textContent = '지금은 어떻게 됐을까?'; // (the user's pick of five, 2026.10.19)
   button.addEventListener('click', (e) => { e.stopPropagation(); openLook(walk.place.now); });
   li.append(button);
   list.append(li);
