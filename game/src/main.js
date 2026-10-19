@@ -516,15 +516,33 @@ function showLookPage(n) {
   const last = n === lookPages.length - 1;
   $('lookSheet').classList.toggle('more', n > 0);
   $('lookText').replaceChildren(...lookPages[n].map((line) => { const li = document.createElement('li'); li.textContent = line; return li; }));
-  $('closeLook').textContent = last ? (lookPages.length > 1 ? `닫기 (${n + 1}/${lookPages.length})` : '닫기') : `다음 쪽 (${n + 1}/${lookPages.length})`;
+  // Two pages are turned by buttons of their own (the user, 2026.10.19: "다음쪽/이전쪽 버튼으로").
+  $('lookPager').hidden = lookPages.length < 2;
+  $('lookPrev').disabled = n === 0;
+  $('lookNext').disabled = last;
+  $('lookPageNo').textContent = `${n + 1} / ${lookPages.length}`;
   $('lookSheet').scrollTop = 0;
 }
-// A touch anywhere on it, or beside it, goes on to the next page, and from the last back to
-// the game (the user, 2026.10.9: "클릭하면, 다시 게임 화면으로").
-$('lookSheet').addEventListener('click', () => {
-  if (lookPage < lookPages.length - 1) { sound.tick(true, false); showLookPage(lookPage + 1); }
-  else $('lookSheet').close();
+// A touch anywhere on it, or beside it, goes back to the game (the user, 2026.10.9: "클릭하면,
+// 다시 게임 화면으로"), but where it has two pages only beside it or on "닫기": a touch on the
+// page is then not to lose the second.
+$('lookSheet').addEventListener('click', (e) => {
+  if (lookPages.length > 1 && e.target !== $('lookSheet') && e.target !== $('closeLook')) return;
+  if (lookPages.length > 1 && e.target === $('lookSheet')) {
+    const box = $('lookSheet').getBoundingClientRect();
+    if (e.clientX >= box.left && e.clientX <= box.right && e.clientY >= box.top && e.clientY <= box.bottom) return;
+  }
+  $('lookSheet').close();
 });
+const turnLook = (way) => (e) => {
+  e.stopPropagation();
+  const n = lookPage + way;
+  if (n < 0 || n >= lookPages.length) return;
+  sound.tick(true, false);
+  showLookPage(n);
+};
+$('lookPrev').addEventListener('click', turnLook(-1));
+$('lookNext').addEventListener('click', turnLook(1));
 // When all is done the slip has a button under it that shows the photograph of the place
 // as it is today once more (the user, 2026.10.9: "도시 미션 클리어하고 나서 나오는 실제 사진을
 // 다시 볼 길이 없네").
