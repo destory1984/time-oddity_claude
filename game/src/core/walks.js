@@ -678,6 +678,14 @@ export const WALKS = {
         '2020년에 다시 이슬람 사원이 되었습니다. 2024년부터 외국에서 온 관광객은 입장료를 내고 위층 복도에 올라 모자이크를 봅니다.',
       ],
       credit: '사진: Arild Vågen, 위키미디어 공용, CC BY-SA 3.0',
+      // A second photograph at the foot of the lines (the user, 2026.10.20: "마지막에 모자이크
+      // 사진도 보여줘"): Wikimedia Commons, "Christ Pantocrator Deesis mosaic Hagia Sophia.jpg"
+      // by Myrabella (public domain), made smaller. The Deesis is 13th-century, in the south gallery.
+      more: {
+        photo: 'photo-mosaic.webp', name: '데이시스 모자이크의 예수',
+        text: '위층 남쪽 복도의 모자이크입니다. 13세기에 작은 돌과 유리 조각을 하나하나 붙여 만들었습니다.',
+        credit: '사진: Myrabella, 위키미디어 공용, 공개 저작물',
+      },
     },
     scenes: [
       {

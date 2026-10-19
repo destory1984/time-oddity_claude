@@ -192,6 +192,7 @@ npm run build
 |---|---|---|---|
 | 로마 | [Rom (IT), Kolosseum -- 2024 -- 0610.jpg](https://commons.wikimedia.org/wiki/File:Rom_%28IT%29,_Kolosseum_--_2024_--_0610.jpg) | Anil Öztas | CC BY 4.0 |
 | 콘스탄티노플 | [Hagia Sophia Mars 2013.jpg](https://commons.wikimedia.org/wiki/File:Hagia_Sophia_Mars_2013.jpg) | Arild Vågen | CC BY-SA 3.0 |
+| 콘스탄티노플(모자이크) | [Christ Pantocrator Deesis mosaic Hagia Sophia.jpg](https://commons.wikimedia.org/wiki/File:Christ_Pantocrator_Deesis_mosaic_Hagia_Sophia.jpg) | Myrabella | 공개 저작물 |
 | 개봉 | [Crab Nebula.jpg](https://commons.wikimedia.org/wiki/File:Crab_Nebula.jpg) | NASA, ESA, J. Hester, A. Loll | 공개 저작물 |
 | 카이로 | [Bab Zuweila, Cairo (1) (52087518412).jpg](https://commons.wikimedia.org/wiki/File:Bab_Zuweila,_Cairo_%281%29_%2852087518412%29.jpg) | Richard Mortel | CC BY 2.0 |
 | 한양 | [Sujeongjeon 2018-09-05.jpg](https://commons.wikimedia.org/wiki/File:Sujeongjeon_2018-09-05.jpg) | De-Shao Liu | CC BY-SA 4.0 |
