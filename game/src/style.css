@@ -402,7 +402,7 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
    buttons at the top (the user, 2026.10.19: "닫기는 ✕로", "X 아이콘은 화면 왼쪽 상단"). The
    sheets stand clear of that row. */
 .sheetX{position:fixed;top:8px;left:8px;z-index:1;flex:none;width:42px;height:42px;padding:0;display:grid;place-items:center;box-sizing:border-box;border:1.5px solid var(--ink);border-radius:12px;background:#fff8e4;color:var(--ink);cursor:pointer}
-#journal[open],#cardSheet[open],#lookSheet[open],#settings[open]{max-width:none;margin-top:58px;margin-bottom:8px;max-height:calc(100dvh - 66px)}
+#journal[open],#cardSheet[open],#settings[open]{max-width:none;margin-top:58px;margin-bottom:8px;max-height:calc(100dvh - 66px)}
 #settings .sheetX{padding:0;border:1px solid var(--glass-line);background:var(--glass-fill);color:#eef3ff}
 .sheetX{box-shadow:0 2px 10px #0006}
 
@@ -419,20 +419,22 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 #cardSheet{width:min(460px,calc(100vw - 16px));max-height:86dvh;overflow-y:auto;padding:20px 20px 16px;border:1px solid #cbb98c;border-radius:6px;background:#fff8e4;color:var(--ink);box-shadow:0 20px 70px #000a}
 #cardSheet h1{margin:0;font-size:20px;font-weight:700}
 /* A thing in the scene looked at closely: a photograph of it as it is now, and what is known of it. */
-#lookSheet{width:min(460px,calc(100vw - 16px));max-height:88dvh;overflow:hidden;padding:12px 12px 16px;border:1px solid #cbb98c;border-radius:6px;background:#fff8e4;color:var(--ink);box-shadow:0 20px 70px #000a}
-#lookSheet[open]{display:flex;flex-direction:column}
-#lookSheet img{display:block;flex:0 0 auto;width:100%;max-height:44dvh;object-fit:contain;border-radius:4px;background:#d9cba8}
-#lookSheet h1{margin:12px 8px 0;font-size:20px;font-weight:700}
-#lookSheet small{display:block;margin:2px 8px 8px;font-size:12px;color:#6b4a2b}
-#lookSheet ul{flex:0 1 auto;min-height:96px;overflow-y:auto;overscroll-behavior:contain;margin:0 8px;padding-left:18px;font-size:calc(15px * var(--text,1));line-height:1.6}
-#lookSheet li{margin:5px 0}
-#journal small.drawn{display:block;margin:2px 0 6px;font-size:12px;opacity:.8}
-/* More lines below: the foot of the lines fades (the user, 2026.10.19: "스크롤로 해"). */
-#lookSheet ul.more{-webkit-mask-image:linear-gradient(#000 calc(100% - 32px),transparent);mask-image:linear-gradient(#000 calc(100% - 32px),transparent)}
-#lookSheet li.shut{list-style:none;margin:12px 0 4px -18px}
+/* The whole screen, read from the top down as one page that scrolls, the photograph first
+   (the user, 2026.10.20: "전체 화면으로 바꿔서, 더 많은 내용을 보여줄 수 있도록", as in vol 1). The
+   ✕ stays at the top left; the page starts under its row. */
+#lookSheet{box-sizing:border-box;width:100vw;max-width:none;height:100dvh;max-height:none;margin:0;padding:58px 16px 24px;overflow-y:auto;overscroll-behavior:contain;border:0;border-radius:0;background:#fff8e4;color:var(--ink)}
+#lookSheet[open]{display:block;max-width:none;max-height:none;margin:0}
+#lookSheet img{display:block;width:100%;max-height:60dvh;object-fit:contain;border-radius:4px;background:#d9cba8}
+#lookFoot{margin:6px 0 0}
+#lookSheet #lookCredit{display:block;margin:0;font-size:11px;color:#6b4a2b;opacity:.8}
+#lookHint{margin:10px 0 0;text-align:center;font-size:13px;color:#6b4a2b}
+#lookHint[hidden]{display:none}
+#lookSheet h1{margin:18px 0 0;font-size:22px;font-weight:700}
+#lookSheet small#lookWhen{display:block;margin:4px 0 12px;font-size:13px;color:#6b4a2b}
+#lookSheet ul{margin:0;padding-left:20px;font-size:calc(16px * var(--text,1));line-height:1.75}
+#lookSheet li{margin:0 0 12px}
+#lookSheet li.shut{list-style:none;margin:20px 0 0 -20px}
 #lookSheet .lookShut{box-sizing:border-box;display:block;width:100%;height:var(--tap);border:1.5px solid var(--ink);border-radius:12px;background:none;color:var(--ink);font:inherit;font-size:15px;font-weight:600}
-#lookFoot{display:flex;align-items:center;gap:8px;margin:10px 8px 0}
-#lookSheet #lookCredit{flex:1;margin:0;font-size:11px;opacity:.75}
 
 /* (Above the unseen squares that answer a touch, `.tap`: one of those, laid over the whole of
    the picture above a spot, covered this button. The user, 2026.10.10: "\"자세히 보기\" 버튼이 안 눌리네".) */

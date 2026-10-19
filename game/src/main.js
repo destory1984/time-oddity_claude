@@ -499,17 +499,17 @@ function openLook(look) {
   $('lookText').replaceChildren(...lines, foot);
   $('lookSheet').showModal();
   // (Only once it is shown: a closed dialog takes no scroll.)
-  $('lookText').scrollTop = 0;
+  $('lookSheet').scrollTop = 0;
   lookMore();
   if (!$('lookPhoto').complete) $('lookPhoto').addEventListener('load', lookMore, { once: true });
 }
-// The photograph stays and the lines under it scroll (the user, 2026.10.19: "스크롤로 해",
-// after pages turned by buttons); while there is more below, their foot fades.
+// The sheet is the whole screen and scrolls as one page (the user, 2026.10.20). Under the
+// photograph a line says there is more below, while the lines are not yet in sight.
 function lookMore() {
-  const text = $('lookText');
-  text.classList.toggle('more', text.scrollTop + text.clientHeight < text.scrollHeight - 2);
+  const sheet = $('lookSheet');
+  $('lookHint').hidden = sheet.scrollTop > 24 || $('lookText').getBoundingClientRect().top < innerHeight - 40;
 }
-$('lookText').addEventListener('scroll', lookMore, { passive: true });
+$('lookSheet').addEventListener('scroll', lookMore, { passive: true });
 // A touch beside it, or on its close button, goes back to the game (the user, 2026.10.9:
 // "클릭하면, 다시 게임 화면으로"); a touch on the lines is not, as they are read by scrolling.
 $('lookSheet').addEventListener('click', (e) => {
