@@ -2021,6 +2021,13 @@ export const WALKS = {
         '법당의 한 나무 기둥 밑에는 부처의 콧구멍만 하다는 구멍이 있습니다. 아이들이 이 구멍으로 기어서 빠져나가 봅니다.',
       ],
       credit: '사진: Zairon, 위키미디어 공용, CC BY 4.0',
+      // The hole under the pillar (the user, 2026.10.20: "이 사진도 추가"): Wikimedia Commons,
+      // "Pillar in Todaiji-Temple in Nara Japan.jpg" by Kucharek (CC BY-SA 3.0), made smaller.
+      more: {
+        photo: 'photo-pillar.webp', name: '기둥 밑의 구멍',
+        text: '아이 하나가 기둥 밑의 구멍을 기어서 빠져나오고 있습니다. 어른에게는 좁지만 아이는 몸을 숙이면 지나갈 수 있습니다.',
+        credit: '사진: Kucharek, 위키미디어 공용, CC BY-SA 3.0',
+      },
     },
     scenes: [
       {

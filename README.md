@@ -207,6 +207,7 @@ npm run build
 | 테노치티틀란 | [Templo Mayor, México D.F., México, 2013-10-16, DD 111.JPG](https://commons.wikimedia.org/wiki/File:Templo_Mayor%2C_M%C3%A9xico_D.F.%2C_M%C3%A9xico%2C_2013-10-16%2C_DD_111.JPG) | Diego Delso | CC BY-SA 3.0 |
 | 기자 | [Great Pyramid of Giza.jpg](https://commons.wikimedia.org/wiki/File:Great_Pyramid_of_Giza.jpg) | kallerna | CC BY-SA 3.0 |
 | 나라 | [Nara Todai-ji Daibutsuden Interior Daibutsu 05.jpg](https://commons.wikimedia.org/wiki/File:Nara_Todai-ji_Daibutsuden_Interior_Daibutsu_05.jpg) | Zairon | CC BY 4.0 |
+| 나라(기둥 구멍) | [Pillar in Todaiji-Temple in Nara Japan.jpg](https://commons.wikimedia.org/wiki/File:Pillar_in_Todaiji-Temple_in_Nara_Japan.jpg) | Kucharek | CC BY-SA 3.0 |
 | 아테네 | [Attica 06-13 Athens 35 Parthenon.jpg](https://commons.wikimedia.org/wiki/File:Attica_06-13_Athens_35_Parthenon.jpg) | A.Savin | CC BY-SA 3.0 |
 | 앙코르 | [Angkor Wat with its reflection (cropped).jpg](https://commons.wikimedia.org/wiki/File:Angkor_Wat_with_its_reflection_%28cropped%29.jpg) | Satdeep Gill | CC BY-SA 4.0 |
 | 바빌론 | [Ishtar gate in Pergamon museum in Berlin..jpg](https://commons.wikimedia.org/wiki/File:Ishtar_gate_in_Pergamon_museum_in_Berlin..jpg) | Radomir Vrbovsky | CC BY-SA 4.0 |
