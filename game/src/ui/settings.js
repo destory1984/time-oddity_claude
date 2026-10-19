@@ -62,7 +62,6 @@ export function createSettings({ onOpen, onClose, today, sound, music, version, 
   // One tune may be heard over and over. (For an hour on 2026.10.9 every tune also had a
   // button of its own to choose it by; the user, having seen it: "배경음악 선택하는거 삭제".)
   function renderSound() {
-    $('musicNow').textContent = music.on() ? '지금은 켜져 있습니다.' : '지금은 꺼져 있습니다.';
     $('musicSwitch').textContent = music.on() ? '배경 음악 끄기' : '배경 음악 켜기';
     $('musicRepeat').setAttribute('aria-pressed', String(music.repeat()));
     $('musicRepeat').textContent = music.repeat() ? '되풀이: 켜짐' : '되풀이: 꺼짐';

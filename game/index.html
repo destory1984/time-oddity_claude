@@ -107,16 +107,16 @@
 <dialog id="settings" aria-labelledby="settingsTitle">
   <div class="sheetHead"><div><h1 id="settingsTitle">설정</h1><small id="appVersion"></small></div><div class="textSize" role="group" aria-label="글자 크기"><button type="button" data-way="-1" aria-label="글자 작게" title="글자 작게">가<span aria-hidden="true">−</span></button><button type="button" data-way="1" aria-label="글자 크게" title="글자 크게">가<span aria-hidden="true">+</span></button></div><button type="button" id="closeSettings" class="sheetX" aria-label="닫기" title="닫기" autofocus><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div id="settingsTabs" role="tablist" aria-label="설정의 갈래">
-    <button type="button" role="tab" data-tab="options" aria-selected="true">설정</button>
-    <button type="button" role="tab" data-tab="help" aria-selected="false">도움말</button>
-    <button type="button" role="tab" data-tab="news" aria-selected="false">바뀐 것</button>
-    <button type="button" role="tab" data-tab="about" aria-selected="false">만든 이</button>
+    <button type="button" role="tab" data-tab="options" aria-selected="true">Options</button>
+    <button type="button" role="tab" data-tab="help" aria-selected="false">Help</button>
+    <button type="button" role="tab" data-tab="news" aria-selected="false">Changes</button>
+    <button type="button" role="tab" data-tab="about" aria-selected="false">About</button>
   </div>
   <div id="settingsBody">
     <section data-tab="options">
       <dl>
         <dt>언어 · Language</dt><dd class="row"><button type="button" id="langKo" lang="ko">한국어</button><button type="button" id="langEn" lang="en">English</button><button type="button" id="langJa" lang="ja">日本語</button><button type="button" id="langZh" lang="zh-Hans">中文</button></dd>
-        <dt>배경 음악</dt><dd><span id="musicNow"></span> 화면 위의 음표 단추로도 켜고 끕니다. 스무 곡(다이얼, 모래시계, 해시계, 첫 장, 마당, 수첩, 옛 편지, 돌탑, 등대, 유리 집, 초승달, 북두칠성, 먼 옛날, 물시계, 종소리, 달력, 열기구, 항구, 망원경, 그믐)이 2분쯤씩 흐릅니다. 순서는 열 때마다 바뀝니다. 소리 파일이 아니라 그 자리에서 만들어 내는 소리입니다.<div class="row one"><button type="button" id="musicSwitch"></button><button type="button" id="musicAnother">다음 곡</button><button type="button" id="musicRepeat"></button></div></dd>
+        <dt>배경 음악</dt><dd><div class="row one"><button type="button" id="musicSwitch"></button><button type="button" id="musicAnother">다음 곡</button><button type="button" id="musicRepeat"></button></div></dd>
         <dt>저장</dt><dd>수첩에 채운 것, 글자 크기, 효과음과 배경 음악을 켜고 끈 것이 이 기기에 남습니다. 서버와 계정은 없습니다.<br><button type="button" id="resetProgress">수첩 비우기</button></dd>
       </dl>
     </section>
