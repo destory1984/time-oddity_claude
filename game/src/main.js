@@ -497,13 +497,27 @@ function openLook(look) {
   const fit = () => {
     const sheet = $('lookSheet');
     if (!sheet.open || lookPage !== 0) return;
-    const first = [...look.text], rest = [];
-    lookPages = [first];
-    showLookPage(0);
-    while (first.length > 1 && sheet.scrollHeight > sheet.clientHeight + 1) {
-      rest.unshift(first.pop());
-      lookPages = [first, rest];
+    const over = () => sheet.scrollHeight > sheet.clientHeight + 1;
+    // On a small screen the photograph is made lower until both pages fit.
+    for (const tall of [44, 38, 32, 26, 20]) {
+      $('lookPhoto').style.maxHeight = `${tall}dvh`;
+      $('lookText').style.minHeight = '';
+      const first = [...look.text], rest = [];
+      lookPages = [first];
       showLookPage(0);
+      while (first.length > 1 && over()) {
+        rest.unshift(first.pop());
+        lookPages = [first, rest];
+        showLookPage(0);
+      }
+      if (!rest.length) return;
+      // The lines keep the room of the first page, so that the buttons stay where they are.
+      $('lookText').style.minHeight = `${$('lookText').offsetHeight}px`;
+      showLookPage(1);
+      const fits = !over();
+      $('lookText').style.minHeight = `${$('lookText').offsetHeight}px`;
+      showLookPage(0);
+      if (fits) return;
     }
   };
   fit();
@@ -514,10 +528,11 @@ let lookPage = 0;
 function showLookPage(n) {
   lookPage = n;
   const last = n === lookPages.length - 1;
-  $('lookSheet').classList.toggle('more', n > 0);
   $('lookText').replaceChildren(...lookPages[n].map((line) => { const li = document.createElement('li'); li.textContent = line; return li; }));
   // Two pages are turned by buttons of their own (the user, 2026.10.19: "다음쪽/이전쪽 버튼으로").
-  $('lookPager').hidden = lookPages.length < 2;
+  // The photograph stays; only the lines under it turn, and "닫기" stands in the same row
+  // (the user, 2026.10.19).
+  for (const id of ['lookPrev', 'lookPageNo', 'lookNext']) $(id).hidden = lookPages.length < 2;
   $('lookPrev').disabled = n === 0;
   $('lookNext').disabled = last;
   $('lookPageNo').textContent = `${n + 1} / ${lookPages.length}`;

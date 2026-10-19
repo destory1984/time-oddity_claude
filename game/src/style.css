@@ -414,18 +414,17 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 #lookSheet{width:min(460px,calc(100vw - 28px));max-height:88dvh;overflow-y:auto;padding:12px 12px 16px;border:1px solid #cbb98c;border-radius:6px;background:#fff8e4;color:var(--ink);box-shadow:0 20px 70px #000a}
 #lookSheet img{display:block;width:100%;max-height:44dvh;object-fit:contain;border-radius:4px;background:#d9cba8}
 #lookPager{display:flex;align-items:center;gap:8px;margin:12px 8px 0}
-#lookPager[hidden]{display:none}
+#lookPager [hidden]{display:none}
 #lookPager button{flex:1;min-height:44px;border:1.5px solid var(--ink);border-radius:12px;background:#f3e6c4;color:var(--ink);font:inherit;font-weight:700}
 #lookPager button:disabled{opacity:.35}
 #lookPageNo{min-width:44px;text-align:center;font-size:13px;color:#6b4a2b}
-#lookSheet.more img,#lookSheet.more #lookCredit{display:none}
 #lookSheet h1{margin:12px 8px 0;font-size:20px;font-weight:700}
 #lookSheet small{display:block;margin:2px 8px 8px;font-size:12px;color:#6b4a2b}
 #lookSheet ul{margin:0 8px;padding-left:18px;font-size:calc(15px * var(--text,1));line-height:1.6}
 #lookSheet li{margin:5px 0}
 #journal small.drawn{display:block;margin:2px 0 6px;font-size:12px;opacity:.8}
 #lookSheet #lookCredit{margin-top:10px;font-size:11px;opacity:.75}
-#lookSheet #closeLook{display:block;width:calc(100% - 16px);margin:12px 8px 0;min-height:44px;border:1.5px solid var(--ink);border-radius:12px;background:none;color:var(--ink);font:inherit;font-weight:700}
+#lookSheet #closeLook{margin:0;background:none}
 /* (Above the unseen squares that answer a touch, `.tap`: one of those, laid over the whole of
    the picture above a spot, covered this button. The user, 2026.10.10: "\"자세히 보기\" 버튼이 안 눌리네".) */
 #walkScene .look{position:absolute;z-index:6;padding:0;border:2px solid rgba(255,217,120,.85);border-radius:6px;background:none;box-shadow:0 0 12px rgba(255,217,120,.55),inset 0 0 14px rgba(255,217,120,.25);animation:lookGlow 2.2s ease-in-out infinite;cursor:pointer}
