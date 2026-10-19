@@ -542,7 +542,7 @@ function showLookPage(n) {
 // 다시 게임 화면으로"), but where it has two pages only beside it or on "닫기": a touch on the
 // page is then not to lose the second.
 $('lookSheet').addEventListener('click', (e) => {
-  if (lookPages.length > 1 && e.target !== $('lookSheet') && e.target !== $('closeLook')) return;
+  if (lookPages.length > 1 && e.target !== $('lookSheet') && !e.target.closest('#closeLook')) return;
   if (lookPages.length > 1 && e.target === $('lookSheet')) {
     const box = $('lookSheet').getBoundingClientRect();
     if (e.clientX >= box.left && e.clientX <= box.right && e.clientY >= box.top && e.clientY <= box.bottom) return;
