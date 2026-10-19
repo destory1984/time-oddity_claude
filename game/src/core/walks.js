@@ -5003,12 +5003,14 @@ export const WALKS = {
   jikji: {
     first: '절에서 쇠 글자로 책을 찍는 날이란다. 책이 잘 찍히도록 도와주렴.',
     dir: 'jikji1377', look: 'paper', pale: true,
-    // (What is said of today: looked up on 2026.10.14, in docs/신기한-사실.md; the picture chosen by the user.)
+    // (What is said of today: looked up on 2026.10.14, in docs/신기한-사실.md; the picture chosen by the user.
+    // How it came to France and Park Byeong-seon: looked up on 2026.10.19, see the square's comment.)
     now: {
       photo: 'photo-now.webp', name: '남은 책 직지', when: '프랑스 국립도서관 · 직지',
       text: [
         '직지는 아래 권 한 권만 남았습니다.',
-        '그 책은 프랑스 국립도서관에 있습니다.',
+        '조선 말 프랑스 외교관이 사 갔고, 1950년에 프랑스 국립도서관에 들어갔습니다.',
+        '1972년, 그 도서관에서 일하던 박병선 박사가 직지를 찾아내 세상에 알렸습니다.',
         '흥덕사 터는 1985년에 파서 찾았습니다.',
       ],
       credit: '사진: 위키미디어 공용, 공개 저작물',
