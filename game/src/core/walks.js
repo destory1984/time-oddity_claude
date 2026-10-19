@@ -2297,6 +2297,14 @@ export const WALKS = {
         '여러 나라가 힘을 모아 지키고 고친 끝에 2004년에 위험 목록에서 빠졌습니다. 지금도 캄보디아의 압사라 기구가 돌 조각을 고치고 있습니다.',
       ],
       credit: '사진: Satdeep Gill, 위키미디어 공용, CC BY-SA 4.0',
+      // Inside (the user, 2026.10.20: "마지막에 앙코르와트 내부 사진 하나 추가"): Wikimedia Commons,
+      // "Cambodia-2322 (3582012570).jpg" by Dennis G. Jarvis (CC BY-SA 2.0), made smaller: the
+      // cruciform cloister Preah Poan, the Gallery of a Thousand Buddhas, with a shrine in it.
+      more: {
+        photo: 'photo-inside.webp', name: '앙코르와트 안의 천 부처 회랑',
+        text: '탑 안쪽의 열십자 모양 회랑입니다. 옛날에는 부처상이 많이 놓여 "천 부처 회랑"이라고 부릅니다. 지금도 사람들이 부처상 앞에 꽃과 향을 올립니다.',
+        credit: '사진: Dennis G. Jarvis, 위키미디어 공용, CC BY-SA 2.0',
+      },
     },
     scenes: [
       {
@@ -3467,6 +3475,7 @@ export const WALKS = {
       photo: 'photo-now.webp', name: '원뿔 탑의 지금 모습', when: '짐바브웨 마스빙고 · 그레이트 짐바브웨',
       text: [
         '큰 담은 높이 11미터쯤, 길이 250미터쯤입니다. 담 안의 원뿔 탑은 높이 9미터쯤이고, 둘 다 지금도 서 있습니다.',
+        '원뿔 탑은 속까지 돌로 꽉 차 있어 들어갈 문도 계단도 없습니다. 왜 쌓았는지 적은 글은 남아 있지 않습니다. 곡식 창고를 본떠, 왕이 곡식을 거두고 나눠 주는 힘을 보인 것이라는 생각이 많습니다.',
         '이 도시는 1400년대부터 장사가 줄어 힘을 잃었고, 1600년대쯤에는 사람들이 떠나 비었습니다.',
         '1871년, 독일의 탐험가 카를 마우흐가 이곳에 와서 무너진 돌담을 둘러보았습니다.',
         '1980년에 새로 선 나라는 이곳의 이름을 따서 나라 이름을 짐바브웨라고 지었습니다. 쇼나 말로 "돌로 지은 집"이라는 뜻입니다.',

@@ -210,6 +210,7 @@ npm run build
 | 나라(기둥 구멍) | [Pillar in Todaiji-Temple in Nara Japan.jpg](https://commons.wikimedia.org/wiki/File:Pillar_in_Todaiji-Temple_in_Nara_Japan.jpg) | Kucharek | CC BY-SA 3.0 |
 | 아테네 | [Attica 06-13 Athens 35 Parthenon.jpg](https://commons.wikimedia.org/wiki/File:Attica_06-13_Athens_35_Parthenon.jpg) | A.Savin | CC BY-SA 3.0 |
 | 앙코르 | [Angkor Wat with its reflection (cropped).jpg](https://commons.wikimedia.org/wiki/File:Angkor_Wat_with_its_reflection_%28cropped%29.jpg) | Satdeep Gill | CC BY-SA 4.0 |
+| 앙코르(회랑 안) | [Cambodia-2322 (3582012570).jpg](https://commons.wikimedia.org/wiki/File:Cambodia-2322_(3582012570).jpg) | Dennis G. Jarvis | CC BY-SA 2.0 |
 | 바빌론 | [Ishtar gate in Pergamon museum in Berlin..jpg](https://commons.wikimedia.org/wiki/File:Ishtar_gate_in_Pergamon_museum_in_Berlin..jpg) | Radomir Vrbovsky | CC BY-SA 4.0 |
 | 사마르칸트 | [Ulugh Beg Observatory inside.jpg](https://commons.wikimedia.org/wiki/File:Ulugh_Beg_Observatory_inside.jpg) | Benjamin Goetzinger | CC BY-SA 4.0 |
 | 치첸이트사 | [Chichen Itza 3.jpg](https://commons.wikimedia.org/wiki/File:Chichen_Itza_3.jpg) | Daniel Schwen | CC BY-SA 4.0 |
