@@ -1,4 +1,4 @@
-// The story card of the square Sora stands on: three sentences in a newspaper voice and
+// The story card of the square Sora stands on: three or four sentences in a newspaper voice and
 // the square's question, on a sheet that comes up over the ground.
 import { squareTitle } from '../core/squares.js';
 import { t } from '../core/i18n.js';

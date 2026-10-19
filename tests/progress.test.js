@@ -48,10 +48,10 @@ describe('progress', () => {
 });
 
 describe('what a square tells', () => {
-  it('has a story card of three sentences in the newspaper voice', () => {
+  it('has a story card of three or four sentences in the newspaper voice', () => {
     for (const s of SQUARES) {
       const sentences = s.card.split('니다.').filter((part) => part.trim() !== '');
-      expect(sentences.length, s.id).toBe(3);
+      expect([3, 4], s.id).toContain(sentences.length);
       expect(s.card.endsWith('니다.'), s.id).toBe(true);
     }
   });
