@@ -13,8 +13,8 @@
 <link rel="stylesheet" href="./fonts/pretendard/pretendardvariable-dynamic-subset.css">
 <link rel="stylesheet" href="./fonts/nanum-pen-script/400.css">
 <link rel="stylesheet" href="./fonts/gaegu/400.css">
-  <script type="module" crossorigin src="./assets/index-Ca6w9K9p.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-oFpDDN11.css">
+  <script type="module" crossorigin src="./assets/index-DGweQttW.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-0ttoXxj8.css">
 </head>
 <body>
 <!-- For testing: shown only on the maker's own machine or home network (core/host.js). -->
@@ -89,27 +89,27 @@
   <div id="openingFoot"><button type="button" id="openingSkip">건너뛰기</button><span id="openingCount"></span><button type="button" id="openingNext" autofocus>다음</button></div>
 </dialog>
 <dialog id="journal" aria-labelledby="journalTitle">
-  <div class="journalHead"><div><h1 id="journalTitle">할머니의 수첩 2권</h1><small id="journalProgress"></small></div><button type="button" id="closeJournal" class="sheetX" aria-label="닫기" title="닫기" autofocus><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="journalHead"><div><h1 id="journalTitle">할머니의 수첩 2권</h1><small id="journalProgress"></small></div><button type="button" id="closeJournal" class="sheetX" aria-label="이전 화면으로" title="이전 화면으로" autofocus><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(0.25 -2.25)"><path d="M9 7L4.5 11.5 9 16"/><path d="M5 11.5h9a5 5 0 0 1 0 10h-2"/></g></svg></button></div>
   <ul id="journalList"></ul>
 </dialog>
 <dialog id="cardSheet" aria-labelledby="cardName">
-  <div class="cardHead"><h1 id="cardName"></h1><button type="button" id="closeCard" class="sheetX" aria-label="닫기" title="닫기" autofocus><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="cardHead"><h1 id="cardName"></h1><button type="button" id="closeCard" class="sheetX" aria-label="이전 화면으로" title="이전 화면으로" autofocus><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(0.25 -2.25)"><path d="M9 7L4.5 11.5 9 16"/><path d="M5 11.5h9a5 5 0 0 1 0 10h-2"/></g></svg></button></div>
   <small id="cardWhen"></small>
   <p id="cardText"></p>
   <div id="cardQuiz" class="quiz"></div>
 </dialog>
 <dialog id="lookSheet" aria-labelledby="lookName">
-  <button type="button" id="closeLook" class="sheetX" aria-label="닫기" title="닫기" autofocus><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button type="button" id="closeLook" class="sheetX" aria-label="이전 화면으로" title="이전 화면으로" autofocus><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(0.25 -2.25)"><path d="M9 7L4.5 11.5 9 16"/><path d="M5 11.5h9a5 5 0 0 1 0 10h-2"/></g></svg></button>
   <img id="lookPhoto" alt="">
   <div id="lookFoot"><small id="lookCredit"></small></div>
   <p id="lookHint">아래로 내리면 자세한 설명이 있습니다 ▾</p>
   <h1 id="lookName"></h1>
   <small id="lookWhen"></small>
   <ul id="lookText"></ul>
-  <div id="lookFull" hidden><button type="button" id="closeLookFull" class="sheetX" aria-label="닫기" title="닫기"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><img alt=""></div>
+  <div id="lookFull" hidden><button type="button" id="closeLookFull" class="sheetX" aria-label="이전 화면으로" title="이전 화면으로"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(0.25 -2.25)"><path d="M9 7L4.5 11.5 9 16"/><path d="M5 11.5h9a5 5 0 0 1 0 10h-2"/></g></svg></button><img alt=""></div>
 </dialog>
 <dialog id="settings" aria-labelledby="settingsTitle">
-  <div class="sheetHead"><div><h1 id="settingsTitle">설정</h1><small id="appVersion"></small></div><div class="textSize" role="group" aria-label="글자 크기"><button type="button" data-way="-1" aria-label="글자 작게" title="글자 작게">가<span aria-hidden="true">−</span></button><button type="button" data-way="1" aria-label="글자 크게" title="글자 크게">가<span aria-hidden="true">+</span></button></div><button type="button" id="closeSettings" class="sheetX" aria-label="닫기" title="닫기" autofocus><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sheetHead"><div><h1 id="settingsTitle">설정</h1><small id="appVersion"></small></div><div class="textSize" role="group" aria-label="글자 크기"><button type="button" data-way="-1" aria-label="글자 작게" title="글자 작게">가<span aria-hidden="true">−</span></button><button type="button" data-way="1" aria-label="글자 크게" title="글자 크게">가<span aria-hidden="true">+</span></button></div><button type="button" id="closeSettings" class="sheetX" aria-label="이전 화면으로" title="이전 화면으로" autofocus><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="translate(0.25 -2.25)"><path d="M9 7L4.5 11.5 9 16"/><path d="M5 11.5h9a5 5 0 0 1 0 10h-2"/></g></svg></button></div>
   <div id="settingsTabs" role="tablist" aria-label="설정의 갈래">
     <button type="button" role="tab" data-tab="options" aria-selected="true">Options</button>
     <button type="button" role="tab" data-tab="help" aria-selected="false">Help</button>
