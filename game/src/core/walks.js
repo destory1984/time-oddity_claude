@@ -1289,6 +1289,14 @@ export const WALKS = {
         '금성이 해 앞을 지나는 일은 아주 드뭅니다. 마지막은 2012년이었고, 다음은 2117년 12월입니다.',
       ],
       credit: '사진: Saga70, 위키미디어 공용, CC BY-SA 4.0',
+      // The lighthouse of 1867 when it was new (the user, 2026.10.20: "1867년에 찍은 사진이나 그림
+      // 없음?"): Wikimedia Commons "Phare de la Pointe Venus.jpg", a photograph taken between 1860
+      // and 1879 by someone unknown (public domain), as it is (512 px wide).
+      more: {
+        photo: 'photo-lighthouse.webp', name: '세운 지 얼마 안 된 비너스 곶 등대',
+        text: '1860년대나 1870년대에 찍은 사진입니다. 찍은 사람은 알려져 있지 않습니다. 야자나무 사이로 1867년에 세운 하얀 등대가 서 있습니다.',
+        credit: '사진: 찍은 이 모름, 위키미디어 공용, 공개 저작물',
+      },
     },
     scenes: [
       {

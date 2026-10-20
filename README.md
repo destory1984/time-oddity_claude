@@ -201,6 +201,7 @@ npm run build
 | 아그라 | [Taj Mahal, Agra, India edit2.jpg](https://commons.wikimedia.org/wiki/File:Taj_Mahal,_Agra,_India_edit2.jpg) | Yann, King of Hearts | CC BY-SA 4.0 |
 | 아그라(안쪽 방) | [Cenotaph of Shah Jahan.jpg](https://commons.wikimedia.org/wiki/File:Cenotaph_of_Shah_Jahan.jpg) | Royroydeb | CC BY-SA 3.0 |
 | 타히티 | [Plage pointe Vénus.jpg](https://commons.wikimedia.org/wiki/File:Plage_pointe_Vénus.jpg) | Saga70 | CC BY-SA 4.0 |
+| 타히티(옛 등대) | [Phare de la Pointe Venus.jpg](https://commons.wikimedia.org/wiki/File:Phare_de_la_Pointe_Venus.jpg) | 모름(1860 → 1879) | 공개 저작물 |
 | 파리 | [Tour Eiffel Wikimedia Commons.jpg](https://commons.wikimedia.org/wiki/File:Tour_Eiffel_Wikimedia_Commons.jpg) | Benh LIEU SONG | 공개 저작물 |
 | 샌프란시스코 | [Golden Gate Bridge as seen from Marshall’s Beach, March 2018.jpg](https://commons.wikimedia.org/wiki/File:Golden_Gate_Bridge_as_seen_from_Marshall%E2%80%99s_Beach,_March_2018.jpg) | Frank Schulenburg | CC BY-SA 4.0 |
 | 도쿄 | [Tokaido Shinkansen N700S & N700A in Tokyo Station.jpg](https://commons.wikimedia.org/wiki/File:Tokaido_Shinkansen_N700S_%26_N700A_in_Tokyo_Station.jpg) | 電車(新幹線)でゴー！ | CC BY-SA 4.0 |
