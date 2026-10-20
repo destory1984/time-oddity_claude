@@ -3334,6 +3334,14 @@ export const WALKS = {
         '돌과 땅이 상하지 않도록, 사람이 많은 철에는 하루에 5,600명까지만 들어갈 수 있습니다.',
       ],
       credit: '사진: Diego Delso, 위키미디어 공용, CC BY-SA 4.0',
+      // From the mountain across (the user, 2026.10.20: "건너편 산에서 찍은 사진도 올려줘"):
+      // Wikimedia Commons, "99 - Machu Picchu - Juin 2009.edit3.jpg" by Martin St-Amant (CC BY-SA 3.0),
+      // made smaller: from the top of Huayna Picchu, the town on its ridge and the road zigzagging up.
+      more: {
+        photo: 'photo-across.webp', name: '건너편 와이나픽추에서 내려다본 마추픽추',
+        text: '마을 뒤에 솟은 뾰족한 산, 와이나픽추의 꼭대기에서 찍었습니다. 마을은 두 봉우리 사이의 좁은 등성이에 앉아 있고, 아래로 버스가 다니는 굽은 길이 보입니다.',
+        credit: '사진: Martin St-Amant, 위키미디어 공용, CC BY-SA 3.0',
+      },
     },
     scenes: [
       {

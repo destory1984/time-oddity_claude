@@ -220,6 +220,7 @@ npm run build
 | 바그다드 | [المدرسة المستنصرية في بغداد (3) cropped edited.jpg](https://commons.wikimedia.org/wiki/File:%D8%A7%D9%84%D9%85%D8%AF%D8%B1%D8%B3%D8%A9_%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D9%86%D8%B5%D8%B1%D9%8A%D8%A9_%D9%81%D9%8A_%D8%A8%D8%BA%D8%AF%D8%A7%D8%AF_%283%29_cropped_edited.jpg) | Taisir Mahdi | CC BY-SA 4.0 |
 | 함양 | [Qin Terracotta Army, Pit 1 18.jpg](https://commons.wikimedia.org/wiki/File:Qin_Terracotta_Army%2C_Pit_1_18.jpg) | Gary Lee Todd | CC0 |
 | 마추픽추 | [Machu Picchu, Perú, 2015-07-30, DD 47.JPG](https://commons.wikimedia.org/wiki/File:Machu_Picchu%2C_Per%C3%BA%2C_2015-07-30%2C_DD_47.JPG) | Diego Delso | CC BY-SA 4.0 |
+| 마추픽추(건너편 산) | [99 - Machu Picchu - Juin 2009.edit3.jpg](https://commons.wikimedia.org/wiki/File:99_-_Machu_Picchu_-_Juin_2009.edit3.jpg) | Martin St-Amant | CC BY-SA 3.0 |
 | 그레이트 짐바브웨 | [Conical Tower - Great Enclosure III (33736918448).jpg](https://commons.wikimedia.org/wiki/File:Conical_Tower_-_Great_Enclosure_III_%2833736918448%29.jpg) | Andrew Moore | CC BY-SA 2.0 |
 | 스톤헨지 | [Stonehenge, Condado de Wiltshire, Inglaterra, 2014-08-12, DD 09.JPG](https://commons.wikimedia.org/wiki/File:Stonehenge%2C_Condado_de_Wiltshire%2C_Inglaterra%2C_2014-08-12%2C_DD_09.JPG) | Diego Delso | CC BY-SA 4.0 |
 | 파도바 | [Galilei telescopes, Museo Galileo, Florence, Inv. 242, 2428, 224088.jpg](https://commons.wikimedia.org/wiki/File:Galilei_telescopes%2C_Museo_Galileo%2C_Florence%2C_Inv._242%2C_2428%2C_224088.jpg) | Zde | CC BY-SA 4.0 |
