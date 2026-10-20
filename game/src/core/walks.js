@@ -7031,7 +7031,7 @@ export const WALKS = {
       credit: '사진: Yuming Huang, 위키미디어 공용, CC BY-SA 4.0',
       // The camp built again and the flyer copied (the user, 2026.10.20: "이것도 사진"): Wikimedia
       // Commons "Wright Brother's Living Quarters and Hangar (4711506389).jpg" by rickpilot_2000
-      // (CC BY 2.0) and "Replica of Wright Brothers' 1903 Flyer, ... (14260685870).jpg" by Ken Lund
+      // (CC BY 2.0) and "Replica of Wright Brothers' 1903 Flyer, ... (14260640449).jpg" by Ken Lund
       // (CC BY-SA 2.0), made smaller.
       more: [
         {
