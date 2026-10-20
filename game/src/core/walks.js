@@ -6669,6 +6669,13 @@ export const WALKS = {
         '1984년에 유네스코 세계유산이 되었습니다. 2019년에는 450만 명이 자유의 여신상을 보러 왔습니다.',
       ],
       credit: '사진: Jakub Hałun, 위키미디어 공용, CC BY 4.0',
+      // Close (the user, 2026.10.20: "근거리 사진 추가"): Wikimedia Commons "CloseUpStatueOfLiberty.jpg"
+      // by Ronile (CC0), made smaller. Seven rays on the crown; copper skin about 2.4 mm thick.
+      more: {
+        photo: 'photo-close.webp', name: '가까이서 본 여신의 얼굴',
+        text: '머리의 관에는 뾰족한 살이 일곱 개 있습니다. 겉은 두께 2.4밀리미터쯤의 얇은 구리판입니다. 처음에는 구릿빛이었는데, 20년쯤 지나며 지금의 푸른빛이 되었습니다.',
+        credit: '사진: Ronile, 위키미디어 공용, CC0',
+      },
     },
     drawn: '그날 바다를 그린 유화처럼, 붓으로 칠했단다.',
     scenes: [

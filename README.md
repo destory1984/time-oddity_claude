@@ -251,6 +251,7 @@ npm run build
 | 런던(1851년 수정궁 안) | [Great Exhibition, Transept looking south, HF Talbot, 1851.jpg](https://commons.wikimedia.org/wiki/File:Great_Exhibition,_Transept_looking_south,_HF_Talbot,_1851.jpg) | 윌리엄 헨리 폭스 탤벗 | 공개 저작물 |
 | 멘로파크 실험실 | [Menlo Park Laboratory of Thomas Edison site of the Invention of the light bulb.JPG](https://commons.wikimedia.org/wiki/File:Menlo_Park_Laboratory_of_Thomas_Edison_site_of_the_Invention_of_the_light_bulb.JPG) | Swampyank | CC BY 3.0 |
 | 자유의 여신상 | [View of Liberty Island from the ferry, NYC, 20231003 1607 2000.jpg](https://commons.wikimedia.org/wiki/File:View_of_Liberty_Island_from_the_ferry,_NYC,_20231003_1607_2000.jpg) | Jakub Hałun | CC BY 4.0 |
+| 뉴욕(가까이서 본 얼굴) | [CloseUpStatueOfLiberty.jpg](https://commons.wikimedia.org/wiki/File:CloseUpStatueOfLiberty.jpg) | Ronile | CC0 |
 | 라이트 형제 기념탑 | [Wright Brothers National Memorial landscape.jpg](https://commons.wikimedia.org/wiki/File:Wright_Brothers_National_Memorial_landscape.jpg) | Yuming Huang | CC BY-SA 4.0 |
 | 가툰 갑문 | [PA-Gatun-schl-03.jpg](https://commons.wikimedia.org/wiki/File:PA-Gatun-schl-03.jpg) | Balou46 | CC BY-SA 4.0 |
 | 순디 농장 | [Principe 1399.jpg](https://commons.wikimedia.org/wiki/File:Principe_1399.jpg) | César J. Pollo | CC BY-SA 4.0 |
