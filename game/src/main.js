@@ -484,7 +484,8 @@ function tapScene(tap) {
 // known of it, on a sheet of its own. The game waits while it is open.
 function openLook(look) {
   if (!walk) return;
-  sound.wake(); sound.page();
+  // No sound of a page as it opens (the user, 2026.10.20: "지금은 어떻게.. 클릭했을 때에 나는 소리 없애줘").
+  sound.wake();
   walkWay = 0; keyWay = 0; walkWant = null;
   $('lookPhoto').src = `./walks/${walk.place.dir}/${look.photo}`;
   $('lookPhoto').alt = look.name;
