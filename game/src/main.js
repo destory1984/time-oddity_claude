@@ -1136,7 +1136,7 @@ for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
     if (panel) (panel.back ?? closePanel)();
     if (walk && canHop(walk, way)) {
       walkWay = 0; keyWay = 0; walkHopping = true;
-      sound.wake(); sound.lift();
+      sound.wake(); sound.lift(); sound.dust(true, HOP_MS);
       walkView.teleport(HOP_MS).then(() => { walkHopping = false; if (!walk || mode !== 'walk') return; hop(walk, way); enterScene(); walkArrive = 'hop'; });
       return;
     }
@@ -1264,7 +1264,10 @@ function frameWalk(dt) {
   if (memoUp) walk.passing = null;
   walkView.carry(walk.place.tale?.thing ? `./walks/${walk.place.dir}/thing.webp` : null, Boolean(walk.tale) && carrying(walk.place.tale, walk.tale));
   walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.poses.find(([, until]) => walkT <= until)?.[0] ?? null, stride, walkHeld?.show ?? null);
-  if (walkArrive) { sound[walkArrive](); walkView.arrive(walkArrive === 'land' ? LAND_IN_MS : HOP_IN_MS); walkArrive = null; }
+  if (walkArrive) {
+    const ms = walkArrive === 'land' ? LAND_IN_MS : HOP_IN_MS;
+    sound[walkArrive](); sound.dust(false, ms); walkView.arrive(ms); walkArrive = null;
+  }
 
   const near = walk.moving ? null : withWhom(walk);
   // There is no button to speak: touching a person is speaking to them (the user,
@@ -1454,7 +1457,7 @@ async function leave() {
   leavingMs = 0;
   if (!fromSite) await wait(LEAVE_MS);
   // From among people she goes up as star dust (the user, 2026.10.20; a ring of gold before).
-  if (fromWalk) { sound.warp(); await walkView.teleport(WARP_CHORD_MS - FADE_MS, true); }
+  if (fromWalk) { sound.warp(); sound.dust(true, WARP_CHORD_MS - FADE_MS); await walkView.teleport(WARP_CHORD_MS - FADE_MS); }
   $('fade').classList.add('on');
   await wait(FADE_MS);
   globe.setActive(true);
@@ -1479,6 +1482,7 @@ function soraDust(going, ms) {
   const img = $('sora');
   const box = img.getBoundingClientRect();
   img.classList.add('dusting');
+  sound.dust(going, ms);
   return whenDrawn(img)
     .then(() => starDust(img, { parent: document.body, fixed: true, left: box.left, top: box.top, w: box.width, h: box.height, going, ms }))
     .then(() => { if (!going) img.classList.remove('dusting'); });

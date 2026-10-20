@@ -157,7 +157,7 @@ npm run build
 ```
 
 - 코드는 `game/`, 시험은 `tests/`(292개), 지은 결과물은 `play/` 에 있다.
-- Vite와 Babylon.js(지구본)로 만들었다. 소리와 배경 음악 스무 곡은 파일이 아니라 그 자리에서 만들어 낸다.
+- Vite와 Babylon.js(지구본)로 만들었다. 소리와 배경 음악 스무 곡은 파일이 아니라 그 자리에서 만들어 낸다. 별빛 가루 소리 하나만 녹음 파일(24KB)이다.
 - 글은 한국어로 쓰고, 다른 세 언어는 한국어 문장을 열쇠로 한 사전(`game/src/i18n/en.json`, `ja.json`, `zh.json`, 2,972문장씩)으로 바꿔 보여 준다. 2026.10.10부터 지은 스물여섯 곳의 글 4,000문장쯤은 아직 옮기지 않아 한국어로 뜬다. `python tools/i18n.py check` 가 사전에 빠진 문장 수를 센다.
 - 그림은 그림 모델에 발주해 받았다. 발주 글은 `docs/art-order-*.md` 에 있다.
 
@@ -185,6 +185,7 @@ npm run build
 
 ## 빌려 쓴 것
 
+- 별빛 가루 소리(`game/public/sounds/stardust.mp3`): 한국저작권위원회, 「잔잔히 밀려오는 파도소리」(2019, 공유마당 G905-13220737), CC BY. https://gongu.copyright.or.kr/gongu/wrt/wrt/view.do?wrtSn=13220737&menuNo=200020 원본(2분 54초)의 19.1초부터 1.9초를 잘라 1.2kHz 아래를 걷어 낸 1권의 파일을 그대로 가져왔다. 앞으로 또 거꾸로 튼다.
 - "최후의 만찬" 사진: 위키미디어 공용의 `Última Cena - Da Vinci 5.jpg`. 1498년에 끝난 그림을 그대로 찍은 것이라 공개 저작물이다. 가로 1280px로 줄여 `game/public/walks/milan1497/photo-supper.webp` 에 넣었다.
 - 서른 곳의 지금 사진(2026.10.13에 열일곱 곳을 더했다): 모두 위키미디어 공용에서 받았다. 가로 1280px 판(에펠탑은 800px)을 WebP로 바꿔 `game/public/walks/<곳>/photo-now.webp` 에 넣었다. 자르거나 고치지 않았다. 사진 파일은 저마다 아래 라이선스를 따른다.
 

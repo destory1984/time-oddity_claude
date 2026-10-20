@@ -1,4 +1,5 @@
-// Sounds, all made with Web Audio: nothing is downloaded and nothing is licensed.
+// Sounds, made with Web Audio, but one: star dust's sprinkle is a recording, volume 1's
+// (game/public/sounds/stardust.mp3, 1.9 s, 24 KB; CC BY, credited in README).
 // The dial's tick is the one settled by ear in docs/dial-proto.html. The other four are
 // placeholders until the user has heard them.
 //
@@ -42,12 +43,57 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
         hush.gain.value = AWAKE_GAIN;
         awake.connect(hush); hush.connect(ac.destination);
         awake.start();
+        loadDust();
       }
       if (ac.state === 'suspended') ac.resume()?.catch?.(() => {});
     } catch {
       failed = true;
       ac = null;
     }
+  }
+
+  // Star dust's sprinkle, volume 1's (oddity/src/ui/sound.js `stardust`; the user,
+  // 2026.10.20: "우주 한량에게 별빛 효과 소리 받아다가, 넣어"): 1.9 s of a wave breaking
+  // (공유마당's "잔잔히 밀려오는 파도소리", CC BY) with its low roar taken out, so that it is
+  // powder thrown. Forward as she scatters, backward as she gathers, its highs 4 dB softer
+  // above 6 kHz, faded over its last half second. Here the dust takes 0.7 to 1.2 s, so it is
+  // played for as long as the dust lasts: the start of it going, the end of it gathering.
+  // Till it has come (or if it cannot), a soft hiss stands in.
+  let dustBuffers = null;
+  function loadDust() {
+    if (typeof fetch !== 'function') return;
+    fetch('./sounds/stardust.mp3')
+      .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(String(r.status)))))
+      .then((bytes) => new Promise((done, fail) => ac.decodeAudioData(bytes, done, fail)))
+      .then((ahead) => {
+        const back = ac.createBuffer(1, ahead.length, ahead.sampleRate);
+        const from = ahead.getChannelData(0);
+        const to = back.getChannelData(0);
+        for (let i = 0; i < from.length; i += 1) to[i] = from[from.length - 1 - i];
+        dustBuffers = [ahead, back];
+      })
+      .catch(() => {});
+  }
+  const DUST_VOLUME = 0.1 * WARP_VOLUME;
+  function dust(at, going, seconds) {
+    const soft = ac.createBiquadFilter();
+    soft.type = 'highshelf'; soft.frequency.value = 6000; soft.gain.value = -4;
+    soft.connect(ac.destination);
+    if (!dustBuffers) {
+      hiss(at, { seconds, from: going ? 4500 : 9000, to: going ? 9000 : 4500, gain: 0.01, type: 'highpass' });
+      return;
+    }
+    const source = ac.createBufferSource();
+    source.buffer = dustBuffers[going ? 0 : 1];
+    const length = Math.min(seconds, source.buffer.duration);
+    const offset = going ? 0 : source.buffer.duration - length;
+    const fade = Math.min(0.5, length / 2);
+    const level = ac.createGain();
+    level.gain.setValueAtTime(DUST_VOLUME, at);
+    level.gain.setValueAtTime(DUST_VOLUME, at + length - fade);
+    level.gain.linearRampToValueAtTime(0, at + length);
+    source.connect(level); level.connect(soft);
+    source.start(at, offset, length);
   }
 
   // Runs a sound's recipe; a fault in the audio graph must never reach the game.
@@ -199,6 +245,8 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
 
   return {
     wake,
+    // Star dust: going (true) or gathering (false), over ms.
+    dust(going, ms) { play((at) => dust(at, going, ms / 1000)); },
     air, airStep, step, rails,
     // A wax cylinder heard through a small tube: the first line of "Au clair de la
     // lune", thin and a little unsteady. A placeholder until the user has heard it.
