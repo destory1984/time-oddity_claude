@@ -1999,6 +1999,14 @@
 "q": 78,
 "sha": "d432be5dfb58eb64803b659e11d336112bb699eb"
 },
+"pole1911/field-far.webp": {
+"q": 78,
+"sha": "aef17049e6040dfff52e8f92bedf682e98a2b1b2"
+},
+"pole1911/field-near.webp": {
+"q": 70,
+"sha": "672ad288f7fdd6da8f62897c79bfa56872a214b7"
+},
 "pole1911/field.webp": {
 "q": 78,
 "sha": "df0c3f5d298fb3b28d4b8e54241e1bfb6f6d97f6"
@@ -2031,9 +2039,25 @@
 "q": 78,
 "sha": "33c84953c540d80fc3b05c7e6831070c6dc72041"
 },
+"pole1911/sled-far.webp": {
+"q": 78,
+"sha": "f1e2705790e4076e0e6c2da93fde9300186f1386"
+},
+"pole1911/sled-near.webp": {
+"q": 70,
+"sha": "fe216a9227a85658d6b940255e38932cdc965515"
+},
 "pole1911/sled.webp": {
 "q": 78,
 "sha": "54de205172743504f428384263ef3da80e7818e4"
+},
+"pole1911/tent-far.webp": {
+"q": 78,
+"sha": "e6bfd32634555b40440ccca6186e7073354c5b87"
+},
+"pole1911/tent-near.webp": {
+"q": 70,
+"sha": "814f52fba8455f161db494ebb936db56cd74eb6c"
 },
 "pole1911/tent.webp": {
 "q": 78,
