@@ -14,8 +14,10 @@ const PAD_TOP = 230;
 // (left, top, w, h in its css px; fixed: the canvas is fixed to the screen instead).
 // flip: her picture is shown turned about. going: breaking up (true) or gathering (false).
 export function starDust(img, { parent, left, top, w, h, fixed = false, flip = false, going, ms }) {
-  w = Math.max(1, Math.round(w));
-  h = Math.max(1, Math.round(h));
+  w = Math.max(1, Math.round(w) || 1);
+  h = Math.max(1, Math.round(h) || 1);
+  left = left || 0;
+  top = top || 0;
   const box = document.createElement('canvas');
   box.className = 'starDust';
   const ratio = Math.min(2, window.devicePixelRatio || 1);
@@ -84,8 +86,14 @@ export function starDust(img, { parent, left, top, w, h, fixed = false, flip = f
   });
 }
 
-// Once the picture has come (on the first frame of a place it may still be on its way).
+// Once the picture has come (on the first frame of a place it may still be on its way); a
+// picture that cannot come, or is slow, is not waited for longer than a second (the dust then
+// goes without specks).
 export function whenDrawn(img) {
   if (img.complete && img.naturalWidth > 0) return Promise.resolve();
-  return new Promise((resolve) => img.addEventListener('load', resolve, { once: true }));
+  return new Promise((resolve) => {
+    img.addEventListener('load', resolve, { once: true });
+    img.addEventListener('error', resolve, { once: true });
+    setTimeout(resolve, 1000);
+  });
 }

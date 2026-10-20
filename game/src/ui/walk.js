@@ -614,20 +614,31 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
 
   // Going and coming as star dust (ui/stardust.js), from and to the Earth and between
   // scenes (the user, 2026.10.20; a ring of gold and a shaft of light before).
+  // (Each going or gathering is a turn: a gathering that was still waiting for her picture
+  // when she was sent on again is dropped, and a fault in the dust never keeps her waiting.)
+  let dustTurn = 0;
   function dust(going, ms) {
     sora.classList.remove('leaving', 'arriving', 'dusting');
     sora.classList.add(going ? 'leaving' : 'dusting', 'dust');
-    return starDust(sora, {
-      parent: scroll, going, ms,
-      left: parseFloat(sora.style.left), top: parseFloat(sora.style.top),
-      w: parseFloat(sora.style.width), h: parseFloat(sora.style.height),
-      flip: sora.style.transform.includes('scaleX(-1)'),
-    }).then(() => { sora.classList.remove('dusting', 'dust'); });
+    const clear = () => { if (!going) sora.classList.remove('dusting', 'dust'); else sora.classList.remove('dust'); };
+    try {
+      return starDust(sora, {
+        parent: scroll, going, ms,
+        left: parseFloat(sora.style.left), top: parseFloat(sora.style.top),
+        w: parseFloat(sora.style.width), h: parseFloat(sora.style.height),
+        flip: sora.style.transform.includes('scaleX(-1)'),
+      }).then(clear);
+    } catch {
+      clear();
+      return Promise.resolve();
+    }
   }
+  function leave(ms) { dustTurn += 1; return dust(true, ms); }
   function gather(ms) {
+    const mine = ++dustTurn;
     sora.classList.remove('leaving');
     sora.classList.add('dusting');
-    return whenDrawn(sora).then(() => dust(false, ms));
+    return whenDrawn(sora).then(() => (mine === dustTurn ? dust(false, ms) : undefined));
   }
 
   // Whoever handed her something to try gives a little start.
@@ -684,7 +695,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     carry(src, held) { carried.src = src; carried.held = held; },
     hand(from, to) { carried.flight = { from, to, start: performance.now() }; },
     // She goes as star dust in ms, and gathers out of it in ms.
-    teleport: (ms) => dust(true, ms),
+    teleport: (ms) => leave(ms),
     arrive: (ms) => gather(ms),
   };
 }
