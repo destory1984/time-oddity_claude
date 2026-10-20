@@ -3812,7 +3812,7 @@ export const WALKS = {
       // Commons "Galilean satellites noborder.jpg", NASA (Galileo spacecraft, public domain), made
       // smaller: Io, Europa, Ganymede, Callisto, nearest Jupiter first, at their true sizes to one another.
       more: {
-        photo: 'photo-moons.webp', name: '갈릴레이가 찾은 목성의 달 넷',
+        photo: 'photo-moons.webp', name: '갈릴레오가 찾은 목성의 달 넷',
         text: '왼쪽부터 이오, 유로파, 가니메데, 칼리스토입니다. 목성에 가까운 차례이고, 서로의 크기는 실제와 같습니다. 1990년대에 탐사선 갈릴레오가 목성 곁에서 찍었습니다.',
         credit: '사진: NASA, 위키미디어 공용, 공개 저작물',
       },
