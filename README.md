@@ -205,6 +205,7 @@ npm run build
 | 할머니의 마을 | [LRO Apollo11 landing site 369440main lroc apollo11 lrg.jpg](https://commons.wikimedia.org/wiki/File:LRO_Apollo11_landing_site_369440main_lroc_apollo11_lrg.jpg) | NASA, GSFC, 애리조나 주립대 | 공개 저작물 |
 | 서울 | [Seoul Sports Complex.jpg](https://commons.wikimedia.org/wiki/File:Seoul_Sports_Complex.jpg) | Seoul Institute | CC BY 4.0 |
 | 테노치티틀란 | [Templo Mayor, México D.F., México, 2013-10-16, DD 111.JPG](https://commons.wikimedia.org/wiki/File:Templo_Mayor%2C_M%C3%A9xico_D.F.%2C_M%C3%A9xico%2C_2013-10-16%2C_DD_111.JPG) | Diego Delso | CC BY-SA 3.0 |
+| 테노치티틀란(코욜샤우키 돌) | [La Coyolxauhqui en el Templo Mayor 2015.jpg](https://commons.wikimedia.org/wiki/File:La_Coyolxauhqui_en_el_Templo_Mayor_2015.jpg) | Mike Peel | CC BY-SA 4.0 |
 | 기자 | [Great Pyramid of Giza.jpg](https://commons.wikimedia.org/wiki/File:Great_Pyramid_of_Giza.jpg) | kallerna | CC BY-SA 3.0 |
 | 나라 | [Nara Todai-ji Daibutsuden Interior Daibutsu 05.jpg](https://commons.wikimedia.org/wiki/File:Nara_Todai-ji_Daibutsuden_Interior_Daibutsu_05.jpg) | Zairon | CC BY 4.0 |
 | 나라(기둥 구멍) | [Pillar in Todaiji-Temple in Nara Japan.jpg](https://commons.wikimedia.org/wiki/File:Pillar_in_Todaiji-Temple_in_Nara_Japan.jpg) | Kucharek | CC BY-SA 3.0 |

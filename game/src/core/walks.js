@@ -1731,6 +1731,14 @@ export const WALKS = {
         '지금은 멕시코시티 한가운데, 큰 성당 바로 옆에 신전 터가 드러나 있습니다.',
       ],
       credit: '사진: Diego Delso, 위키미디어 공용, CC BY-SA 3.0',
+      // One more (the user, 2026.10.20: "사진 한 장 더"): the stone of Coyolxauhqui found in 1978,
+      // Wikimedia Commons "La Coyolxauhqui en el Templo Mayor 2015.jpg" by Mike Peel (CC BY-SA 4.0),
+      // made smaller. About 3.25 m across and 8 tonnes; now in the museum by the site.
+      more: {
+        photo: 'photo-stone.webp', name: '1978년에 찾은 코욜샤우키 돌',
+        text: '지름이 3미터가 넘는 둥근 돌에 달의 여신 코욜샤우키를 새겼습니다. 지금은 신전 터 옆 박물관에 놓여 있습니다.',
+        credit: '사진: Mike Peel, 위키미디어 공용, CC BY-SA 4.0',
+      },
     },
     scenes: [
       {
