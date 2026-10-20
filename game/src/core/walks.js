@@ -3983,6 +3983,14 @@ export const WALKS = {
         '지금의 열기구는 짚불 대신 프로판 가스 불로 뜹니다. 미국의 에드 요스트가 1960년에 이 방식으로 처음 날았습니다.',
       ],
       credit: '사진: Polymagou, 위키미디어 공용, CC BY-SA 4.0',
+      // A print of that day (the user, 2026.10.20: "당시 열기구 그림 잇나?"): Wikimedia Commons
+      // "Experience de la Machine Aërostatique de M. Montgolfier au Chat. de la Muette, le 21 9bre
+      // 1783. - estampe - btv1b550015646.jpg" (Bibliothèque nationale de France, public domain), made smaller.
+      more: {
+        photo: 'photo-print.webp', name: '1783년에 찍어 낸 그날의 판화',
+        text: '라 뮈에트 성 뜰에서 열기구가 떠오르는 모습을 그해에 새겨 찍은 그림입니다. 파란 바탕에 금빛 무늬를 그린 열기구 아래, 불을 피우던 화로가 보입니다.',
+        credit: '그림: 프랑스 국립도서관, 위키미디어 공용, 공개 저작물',
+      },
     },
     scenes: [
       {
