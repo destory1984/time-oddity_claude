@@ -5565,6 +5565,13 @@ export const WALKS = {
         '2025년, 성당 측은 남은 공사를 10년쯤 뒤에 마칠 수 있다고 밝혔습니다. 지금은 영광의 문을 짓고 있습니다.',
       ],
       credit: '사진: ほっきー, 위키미디어 공용, 공개 저작물',
+      // Inside (the user, 2026.10.20: "실내 사진 한 장"): Wikimedia Commons "Nave of Sagrada
+      // Família, Barcelona, 2023.jpg" by Julian Lupyan (CC0), made smaller.
+      more: {
+        photo: 'photo-inside.webp', name: '나무숲 같은 성당 안',
+        text: '가우디는 성당 안을 숲처럼 지었습니다. 기둥이 나무줄기처럼 위로 올라가며 가지를 치고, 천장은 잎이 우거진 듯합니다. 색유리 창으로 들어온 빛이 기둥을 물들입니다.',
+        credit: '사진: Julian Lupyan, 위키미디어 공용, CC0',
+      },
     },
     drawn: '그 무렵 젊은 미로의 풍경화처럼, 하나하나 또렷하게 그렸단다.',
     scenes: [
