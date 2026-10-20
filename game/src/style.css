@@ -405,6 +405,10 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
    buttons at the top (the user, 2026.10.19: "닫기는 ✕로", "X 아이콘은 화면 왼쪽 상단"). The
    sheets stand clear of that row. */
 .sheetX{position:fixed;top:8px;left:8px;z-index:1;flex:none;width:42px;height:42px;padding:0;display:grid;place-items:center;box-sizing:border-box;border:1.5px solid var(--ink);border-radius:12px;background:#fff8e4;color:var(--ink);cursor:pointer}
+/* The way back is volume 1's: an arrow that bends back on itself, "to where you were", on the
+   same blue glass key on every sheet, paper or not (the user, 2026.10.20: "메뉴의 X 버튼들...
+   우주한량에게 물어봐서, 새로운 버튼으로 바꿔줘"; volume 1 chose it of five, "파란색 4"). */
+.sheetX,#settings .sheetX{border:1px solid #9fb4ff66;border-radius:12px;background:#0b1630d9;color:#fff}
 #journal[open],#cardSheet[open]{max-width:none;margin-top:58px;margin-bottom:8px;max-height:calc(100dvh - 66px)}
 #settings .sheetX{padding:0;border:1px solid var(--glass-line);background:var(--glass-fill);color:#eef3ff}
 .sheetX{box-shadow:0 2px 10px #0006}
