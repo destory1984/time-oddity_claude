@@ -1139,6 +1139,14 @@ export const WALKS = {
         '1983년에 유네스코 세계유산이 되었습니다. 2022년 4월부터 1년 동안 500만 명쯤이 다녀갔습니다. 금요일에는 문을 닫습니다.',
       ],
       credit: '사진: Yann, King of Hearts, 위키미디어 공용, CC BY-SA 4.0',
+      // Inside (the user, 2026.10.20: "내부 사진 추가"): Wikimedia Commons "Cenotaph of Shah Jahan.jpg"
+      // by Royroydeb (CC BY-SA 3.0), made smaller: the emperor's cenotaph in the domed hall, its
+      // inlaid flowers, the carved marble screen behind. The true graves are in a room below.
+      more: {
+        photo: 'photo-inside.webp', name: '둥근 지붕 아래의 방',
+        text: '둥근 지붕 아래 방에 뭄타즈 마할과 샤 자한의 관 모양 돌이 나란히 놓여 있습니다. 흰 대리석에 빛깔 있는 돌을 박아 꽃을 새겼고, 둘레를 대리석 창살이 감쌉니다. 두 사람의 진짜 무덤은 그 아래 방에 있습니다.',
+        credit: '사진: Royroydeb, 위키미디어 공용, CC BY-SA 3.0',
+      },
     },
     scenes: [
       {
