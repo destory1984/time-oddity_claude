@@ -3808,6 +3808,14 @@ export const WALKS = {
         '지금은 이 달들을 이오, 유로파, 가니메데, 칼리스토라고 부릅니다. 천문학자 시몬 마리우스가 1614년에 책에 실은 이름입니다.',
       ],
       credit: '사진: Zde, 위키미디어 공용, CC BY-SA 4.0',
+      // The four moons he found (the user, 2026.10.20: "갈릴레오가 발견한 달 사진 추가"): Wikimedia
+      // Commons "Galilean satellites noborder.jpg", NASA (Galileo spacecraft, public domain), made
+      // smaller: Io, Europa, Ganymede, Callisto, nearest Jupiter first, at their true sizes to one another.
+      more: {
+        photo: 'photo-moons.webp', name: '갈릴레이가 찾은 목성의 달 넷',
+        text: '왼쪽부터 이오, 유로파, 가니메데, 칼리스토입니다. 목성에 가까운 차례이고, 서로의 크기는 실제와 같습니다. 1990년대에 탐사선 갈릴레오가 목성 곁에서 찍었습니다.',
+        credit: '사진: NASA, 위키미디어 공용, 공개 저작물',
+      },
     },
     scenes: [
       {

@@ -226,6 +226,7 @@ npm run build
 | 그레이트 짐바브웨 | [Conical Tower - Great Enclosure III (33736918448).jpg](https://commons.wikimedia.org/wiki/File:Conical_Tower_-_Great_Enclosure_III_%2833736918448%29.jpg) | Andrew Moore | CC BY-SA 2.0 |
 | 스톤헨지 | [Stonehenge, Condado de Wiltshire, Inglaterra, 2014-08-12, DD 09.JPG](https://commons.wikimedia.org/wiki/File:Stonehenge%2C_Condado_de_Wiltshire%2C_Inglaterra%2C_2014-08-12%2C_DD_09.JPG) | Diego Delso | CC BY-SA 4.0 |
 | 파도바 | [Galilei telescopes, Museo Galileo, Florence, Inv. 242, 2428, 224088.jpg](https://commons.wikimedia.org/wiki/File:Galilei_telescopes%2C_Museo_Galileo%2C_Florence%2C_Inv._242%2C_2428%2C_224088.jpg) | Zde | CC BY-SA 4.0 |
+| 파도바(목성의 달) | [Galilean satellites noborder.jpg](https://commons.wikimedia.org/wiki/File:Galilean_satellites_noborder.jpg) | NASA | 공개 저작물 |
 | 파리 1783 | [Jardin du Ranelagh, Paris 16e 32.jpg](https://commons.wikimedia.org/wiki/File:Jardin_du_Ranelagh%2C_Paris_16e_32.jpg) | Polymagou | CC BY-SA 4.0 |
 | 시드니 | [Sydney Opera House - Dec 2008.jpg](https://commons.wikimedia.org/wiki/File:Sydney_Opera_House_-_Dec_2008.jpg) | Diliff | CC BY-SA 3.0 |
 | 괴베클리 테페 | [Göbekli Tepe 29.05.2010 Ausgrabung 521.jpg](https://commons.wikimedia.org/wiki/File:G%C3%B6bekli_Tepe_29.05.2010_Ausgrabung_521.jpg) | Volker Höhfeld | CC BY-SA 4.0 |
