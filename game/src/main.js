@@ -494,17 +494,18 @@ function openLook(look) {
   $('lookCredit').textContent = look.credit;
   const lines = look.text.map((line) => { const li = document.createElement('li'); li.textContent = line; return li; });
   // A place may show one more photograph below the lines (`more`), with what it is and whose it is.
-  if (look.more) {
+  // (One, or several: `more` may be a list.)
+  for (const more of [].concat(look.more ?? [])) {
     const li = document.createElement('li');
     li.className = 'more';
     const img = document.createElement('img');
-    img.src = `./walks/${walk.place.dir}/${look.more.photo}`; img.alt = look.more.name; img.loading = 'lazy';
+    img.src = `./walks/${walk.place.dir}/${more.photo}`; img.alt = more.name; img.loading = 'lazy';
     const credit = document.createElement('small');
-    credit.className = 'moreCredit'; credit.textContent = look.more.credit;
+    credit.className = 'moreCredit'; credit.textContent = more.credit;
     const name = document.createElement('b');
-    name.textContent = look.more.name;
+    name.textContent = more.name;
     const text = document.createElement('p');
-    text.textContent = look.more.text;
+    text.textContent = more.text;
     li.append(img, credit, name, text);
     lines.push(li);
   }

@@ -7029,6 +7029,22 @@ export const WALKS = {
         '형제가 쓰던 비행기 창고와 숙소는 옛 사진을 보고 다시 지었습니다. 안내관에는 1903년의 비행기를 똑같이 본떠 만든 것이 있습니다.',
       ],
       credit: '사진: Yuming Huang, 위키미디어 공용, CC BY-SA 4.0',
+      // The camp built again and the flyer copied (the user, 2026.10.20: "이것도 사진"): Wikimedia
+      // Commons "Wright Brother's Living Quarters and Hangar (4711506389).jpg" by rickpilot_2000
+      // (CC BY 2.0) and "Replica of Wright Brothers' 1903 Flyer, ... (14260685870).jpg" by Ken Lund
+      // (CC BY-SA 2.0), made smaller.
+      more: [
+        {
+          photo: 'photo-quarters.webp', name: '다시 지은 형제의 숙소 안',
+          text: '옛 사진을 보고 다시 지은 숙소입니다. 나무 사다리를 올라가 다락에서 잤고, 아래에는 난로와 냄비, 식탁이 있습니다.',
+          credit: '사진: rickpilot_2000, 위키미디어 공용, CC BY 2.0',
+        },
+        {
+          photo: 'photo-flyer.webp', name: '안내관의 1903년 비행기',
+          text: '1903년의 비행기를 똑같이 본떠 만든 것입니다. 날개가 위아래 두 겹이고, 가운데 엔진에서 체인이 뒤쪽 프로펠러 두 개를 돌립니다. 진짜 비행기는 워싱턴의 스미스소니언 항공우주박물관에 있습니다.',
+          credit: '사진: Ken Lund, 위키미디어 공용, CC BY-SA 2.0',
+        },
+      ],
     },
     drawn: '그 무렵 미국 화가의 바닷가 수채화처럼 그렸단다.',
     scenes: [

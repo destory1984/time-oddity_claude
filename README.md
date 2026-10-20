@@ -254,6 +254,8 @@ npm run build
 | 자유의 여신상 | [View of Liberty Island from the ferry, NYC, 20231003 1607 2000.jpg](https://commons.wikimedia.org/wiki/File:View_of_Liberty_Island_from_the_ferry,_NYC,_20231003_1607_2000.jpg) | Jakub Hałun | CC BY 4.0 |
 | 뉴욕(가까이서 본 얼굴) | [CloseUpStatueOfLiberty.jpg](https://commons.wikimedia.org/wiki/File:CloseUpStatueOfLiberty.jpg) | Ronile | CC0 |
 | 라이트 형제 기념탑 | [Wright Brothers National Memorial landscape.jpg](https://commons.wikimedia.org/wiki/File:Wright_Brothers_National_Memorial_landscape.jpg) | Yuming Huang | CC BY-SA 4.0 |
+| 키티호크(다시 지은 숙소) | [Wright Brother's Living Quarters and Hangar (4711506389).jpg](https://commons.wikimedia.org/wiki/File:Wright_Brother's_Living_Quarters_and_Hangar_(4711506389).jpg) | rickpilot_2000 | CC BY 2.0 |
+| 키티호크(본뜬 비행기) | [Replica of Wright Brothers' 1903 Flyer ... (14260685870).jpg](https://commons.wikimedia.org/wiki/File:Replica_of_Wright_Brothers'_1903_Flyer,_Wright_Brothers_National_Memorial_Visitor_Center,_Kill_Devil_Hills,_North_Carolina_(14260685870).jpg) | Ken Lund | CC BY-SA 2.0 |
 | 가툰 갑문 | [PA-Gatun-schl-03.jpg](https://commons.wikimedia.org/wiki/File:PA-Gatun-schl-03.jpg) | Balou46 | CC BY-SA 4.0 |
 | 순디 농장 | [Principe 1399.jpg](https://commons.wikimedia.org/wiki/File:Principe_1399.jpg) | César J. Pollo | CC BY-SA 4.0 |
 | 가가린 발사대 | [Soyuz TMA-10M spacecraft at the Baikonur Cosmodrome launch pad (4).jpg](https://commons.wikimedia.org/wiki/File:Soyuz_TMA-10M_spacecraft_at_the_Baikonur_Cosmodrome_launch_pad_(4).jpg) | Carla Cioffi | 공개 저작물 |
