@@ -1601,6 +1601,13 @@ export const WALKS = {
         '그림을 지키려고 방 안의 공기를 늘 맞춥니다. 미리 표를 사야 하고, 한 번에 40명씩 15분 동안만 볼 수 있습니다.',
       ],
       credit: '사진: Carlo Dell’Orto, 위키미디어 공용, CC BY-SA 3.0',
+      // The painting itself (the user, 2026.10.20: "그림 사진 넣어줘"): the same photograph the wall
+      // shows when touched, Wikimedia Commons "Última Cena - Da Vinci 5.jpg" (public domain).
+      more: {
+        photo: 'photo-supper.webp', name: '레오나르도 다 빈치의 "최후의 만찬"',
+        text: '1498년에 끝난 그림입니다. 수도원 식당의 끝 벽에 가로 8.8미터, 세로 4.6미터 크기로 그렸습니다.',
+        credit: '사진: 위키미디어 공용, 공개 저작물',
+      },
     },
     scenes: [
       {
