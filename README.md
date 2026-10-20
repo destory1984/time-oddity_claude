@@ -256,6 +256,8 @@ npm run build
 | 라이트 형제 기념탑 | [Wright Brothers National Memorial landscape.jpg](https://commons.wikimedia.org/wiki/File:Wright_Brothers_National_Memorial_landscape.jpg) | Yuming Huang | CC BY-SA 4.0 |
 | 키티호크(다시 지은 숙소) | [Wright Brother's Living Quarters and Hangar (4711506389).jpg](https://commons.wikimedia.org/wiki/File:Wright_Brother's_Living_Quarters_and_Hangar_(4711506389).jpg) | rickpilot_2000 | CC BY 2.0 |
 | 키티호크(본뜬 비행기) | [Replica of Wright Brothers' 1903 Flyer ... (14260640449).jpg](https://commons.wikimedia.org/wiki/File:Replica_of_Wright_Brothers'_1903_Flyer,_Wright_Brothers_National_Memorial_Visitor_Center,_Kill_Devil_Hills,_North_Carolina_(14260640449).jpg) | Ken Lund | CC BY-SA 2.0 |
+| 할리스 강(크즐으르마크) | [Kızılırmak River in Avanos.jpg](https://commons.wikimedia.org/wiki/File:K%C4%B1z%C4%B1l%C4%B1rmak_River_in_Avanos.jpg) | Bernard Gagnon | CC BY-SA 3.0 |
+| 남극점 | [Amundsen-scott-south pole station 2007 edit1.jpg](https://commons.wikimedia.org/wiki/File:Amundsen-scott-south_pole_station_2007_edit1.jpg) | 미국 남극 프로그램(NSF) | 공개 저작물 |
 | 가툰 갑문 | [PA-Gatun-schl-03.jpg](https://commons.wikimedia.org/wiki/File:PA-Gatun-schl-03.jpg) | Balou46 | CC BY-SA 4.0 |
 | 순디 농장 | [Principe 1399.jpg](https://commons.wikimedia.org/wiki/File:Principe_1399.jpg) | César J. Pollo | CC BY-SA 4.0 |
 | 가가린 발사대 | [Soyuz TMA-10M spacecraft at the Baikonur Cosmodrome launch pad (4).jpg](https://commons.wikimedia.org/wiki/File:Soyuz_TMA-10M_spacecraft_at_the_Baikonur_Cosmodrome_launch_pad_(4).jpg) | Carla Cioffi | 공개 저작물 |

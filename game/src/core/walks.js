@@ -7872,6 +7872,166 @@ export const WALKS = {
     ],
     reply: '그날 밤 바뀐 이름을 지금은 온 세상이 부른단다.',
   },
+  // The camp of the Lydians on the Halys (the Kizilirmak, in the middle of Turkey) at sunset
+  // on 28 May 585 BC, the day the sun went out in the middle of a battle with the Medes. Drawn
+  // as an Etruscan tomb painting after the Tomb of Hunting and Fishing at Tarquinia (the user's
+  // choice of five tries: the fourth). The pictures are in thales585; the try is the third
+  // scene (the edge of the camp under the eclipsed sun); the tent yard and the water's edge,
+  // before the eclipse in the bright orange of the evening, were ordered after it. Pale: two
+  // of the three skies are light.
+  // Looked up (docs/신기한-사실.md; Herodotus 1.73-1.74 and 1.94) and found so: the Lydians and
+  // the Medes had fought five years, and in the sixth day turned into night in the middle of a
+  // battle; both stopped and made haste to make peace; Thales of Miletus is said to have
+  // foretold it, but only the year; the Halys became the border; the shadow came at evening,
+  // a little before sunset (computed); Lydians fought on horseback; the Medes wore felt caps,
+  // sleeved tunics and trousers (written down about 480 BC); the Lydians are said to have been
+  // the first to strike coins of gold and silver, the earliest of electrum with a lion's head;
+  // they are said to have made up knucklebones and other games (a legend).
+  // Looked up while writing (sardisexpedition.org, "Afiyet Olsun/Bon Appetit!", "Carbonized
+  // foodstuffs"): wheat, barley, lentils, chickpeas, garlic and olive stones burnt in Lydian
+  // houses at Sardis of the mid sixth century; lentil soup and bread dipped in olive oil.
+  // From memory: the dress (linen tunics, mantles, a cloth on women's heads, sandals); round
+  // shields; knucklebones of sheep's ankle bones; the river's red-brown water and its Turkish
+  // name; a horn blown as a signal in the camp.
+  // Made up: every person.
+  // Kept out: fighting, blood and the cause of the war; the kings and Thales (only spoken of:
+  // he said the sun would go out "this year"); the oath with blood; that he foretold the day.
+  thales: {
+    first: '할리스 강가에서 해가 사라지는 날이란다. 진영 일을 도와주렴.',
+    dir: 'thales585', look: 'paper', pale: true,
+    drawn: '그 무렵 바다 건너 에트루리아의 무덤 벽화처럼 그렸단다.',
+    // What is said of today: looked up on 2026.10.20 (docs/신기한-사실.md). The photograph:
+    // Wikimedia Commons, "Kızılırmak River in Avanos.jpg", made smaller.
+    now: {
+      photo: 'photo-now.webp', name: '할리스 강의 지금 모습', when: '튀르키예 아바노스 · 크즐으르마크 강',
+      text: [
+        '할리스 강은 지금 크즐으르마크 강이라고 부릅니다. "붉은 강"이라는 뜻으로, 물에 섞인 붉은 흙빛에서 온 이름입니다.',
+        '튀르키예 안에서만 흐르는 강 가운데 가장 깁니다. 아나톨리아 고원을 크게 돌아 흑해로 흘러듭니다.',
+        '두 군대가 맞선 자리가 강가의 어디였는지는 지금도 모릅니다. 평화를 맺은 뒤 이 강이 두 나라의 경계가 되었습니다.',
+        '리디아의 서울 사르디스는 지금 튀르키예 서쪽 사르트 마을의 유적입니다. 2025년에 "동전의 고향"으로 유네스코 세계유산이 되었습니다.',
+        '탈레스가 살던 밀레토스는 지금 폐허입니다. 강이 날라 온 흙에 옛 항구가 메워져, 지금은 바다에서 10킬로미터쯤 떨어져 있습니다.',
+      ],
+      credit: '사진: Bernard Gagnon, 위키미디어 공용, CC BY-SA 3.0',
+    },
+    scenes: [
+      {
+        id: 'yard', name: '리디아 할리스 강가 진영 천막 마당', short: '진영 천막 마당', zoom: 1.131, ground: 0.720, scale: 0.662, air: 'hush', floor: 'dirt',
+        sora: '천막이 줄지어 서 있어!',
+        people: [
+          { id: 'baker', pass: '국이 넘치지 않게 봐야지.', show: 'soup', name: '빵 굽는 아주머니', x: 0.18, w: 116, h: 298, lines: ['진영 사람들 저녁으로 콩국을 끓였단다.', '빵을 찍어 먹으면 맛있지. 먹어 보련?'],
+            try: { id: 'eat-soup', verb: 'eat', name: '렌틸콩 국과 빵', face: 'yum', sora: '콩국에 빵을 찍으니 고소해!' } },
+          { id: 'groom', pass: '말들이 오늘따라 배가 고픈가 봐.', name: '말 돌보는 아이', x: 0.29, w: 95, h: 243, lines: ['나는 기병 아저씨들의 말을 돌봐요.', '말에게 짚을 먹이는 중이에요.'] },
+          { id: 'weaver', pass: '옷단에 무늬를 하나 더 넣어야지.', name: '옷 짓는 아주머니', x: 0.4, w: 115, h: 301, lines: ['나는 진영 사람들의 옷을 지어 준단다.', '아이 옷도 있어. 입어 보련?'],
+            try: { id: 'wear-lydia585', verb: 'wear', name: '리디아 아이의 옷', outfit: 'lydia585', sora: '옷단에 고운 띠 무늬가 있어!', memo: '리디아 사람들은 리넨으로 지은 긴 웃옷에 허리끈을 맸단다.' } },
+          { id: 'shield', pass: '방패가 반짝반짝해야 기분이 좋지.', name: '방패 닦는 병사', x: 0.51, w: 138, h: 305, lines: ['저녁 먹기 전에 방패를 닦는 중이란다.', '이 둥근 방패는 내가 아끼는 거지.'] },
+          { id: 'steward', pass: '오늘 쓸 것을 다 셈해 두어야지.', show: 'coin', pose: 'see-wow', sora: '동전에 사자 머리가 있어!', memo: '리디아 사람들이 처음으로 금과 은의 동전을 만들었다고 옛 책에 적혔단다.', name: '살림 맡은 아저씨', x: 0.62, w: 126, h: 301, lines: ['진영 살림은 내가 맡아 셈한단다.', '우리 리디아에는 사자를 찍은 동전이 있지.'] },
+          { id: 'jarman', pass: '항아리가 오늘따라 무겁구나.', name: '항아리 나르는 아저씨', x: 0.73, w: 124, h: 320, lines: ['저녁마다 강가에서 물을 길어 온단다.', '진영 사람이 많아 물이 많이 들지.'] },
+          { id: 'jacks', pass: '이번엔 다섯 개를 다 잡을 거야.', show: 'bones', pose: 'see-aha', sora: '작은 뼈로 공기 놀이를 해!', memo: '리디아 사람들이 공기 놀이를 처음 만들었다는 옛이야기가 있단다.', name: '공기 놀이하는 아이', x: 0.85, w: 93, h: 230, lines: ['나는 양 뼈 다섯 개로 공기 놀이를 해요.', '하나를 던지고 땅의 뼈를 집는 거예요.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'river', name: '리디아 할리스 강 물가', short: '강 물가', zoom: 1.131, ground: 0.720, scale: 0.662, air: 'hush', floor: 'dirt',
+        sora: '강이 정말 넓어!',
+        people: [
+          { id: 'washer', pass: '해 지기 전에 다 빨아야지.', name: '빨래하는 아주머니', x: 0.18, w: 93, h: 288, lines: ['강물이 따뜻해서 빨래하기 좋구나.', '해 지기 전에 다 널어야 한단다.'] },
+          { id: 'netman', pass: '오늘은 물고기가 잘 잡히는구나.', name: '그물 걷는 아저씨', x: 0.29, w: 104, h: 298, lines: ['저녁 국에 넣을 물고기를 잡았단다.', '이 강에는 물고기가 많지.'] },
+          { id: 'reedboy', pass: '갈대로 바구니를 엮을 거예요.', show: 'river', pose: 'see-aha', sora: '강물이 붉은 흙빛이야!', memo: '강물이 붉은 흙을 싣고 흐른단다. 지금은 붉은 강이라는 이름으로 부르지.', name: '갈대 베는 아이', x: 0.4, w: 90, h: 226, lines: ['강물 빛깔 좀 보세요. 붉은 흙빛이에요.', '산에서 붉은 흙을 싣고 내려온대요.'] },
+          { id: 'waterman', pass: '물을 넉넉히 길어 가야지.', name: '물 긷는 아저씨', x: 0.51, w: 103, h: 298, lines: ['나는 진영에 물을 길어 나른단다.', '항아리가 많아서 오늘은 손이 모자라구나.'] },
+          { id: 'rider', pass: '말이 물을 실컷 마셨구나.', name: '말에게 물 먹이고 온 기병', x: 0.62, w: 94, h: 320, lines: ['우리 리디아 사람들은 말을 잘 탄단다.', '저녁마다 말에게 강물을 먹이지.'] },
+          { id: 'scout', pass: '강 건너도 조용하구나.', name: '강 건너 보는 병사', x: 0.73, w: 116, h: 299, lines: ['강 건너에 메디아 사람들의 진영이 있단다.', '여러 해째 이 강을 사이에 두고 있지.'] },
+          { id: 'jarkeeper', pass: '빈 항아리가 이렇게 많다니.', name: '항아리 지키는 아저씨', x: 0.85, w: 123, h: 293, lines: ['빈 항아리가 길에 잔뜩 늘어섰단다.', '다 채워야 길을 치울 수 있지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'edge', name: '리디아 할리스 강가 진영 끝', short: '진영 끝', zoom: 1.131, ground: 0.720, scale: 0.662, air: 'hush', floor: 'dirt',
+        sora: '하늘이 이상하게 어두워!',
+        people: [
+          { id: 'oldsoldier', pass: '해가 저물기엔 아직 이른데.', name: '늙은 병사', x: 0.18, w: 138, h: 312, lines: ['밀레토스의 탈레스라는 분 이야기를 들었니?', '올해 해가 사라진다고 했다더구나.'] },
+          { id: 'mother', pass: '하늘이 왜 이렇게 어둑하지?', name: '아이 손 잡은 아주머니', x: 0.29, w: 105, h: 302, lines: ['해 질 녘이지만 이렇게 어두울 때가 아닌데.', '아이 손을 꼭 잡고 있어야겠구나.'] },
+          { id: 'pointer', pass: '저기 별이 떴어요!', name: '하늘 가리키는 아이', x: 0.4, w: 84, h: 213, lines: ['저녁인데 벌써 별이 보여요!', '해가 점점 까맣게 먹혀 들어가요.'] },
+          { id: 'horner', pass: '뿔피리를 불 때가 온 것 같구나.', show: 'corona', name: '뿔피리 부는 병사', x: 0.51, w: 124, h: 320, lines: ['나는 진영에 신호를 부는 병사란다.', '뿔피리 소리는 강 건너까지 들리지.'] },
+          { id: 'guard', pass: '군기가 바람에 펄럭이는구나.', name: '군기 곁의 병사', x: 0.62, w: 107, h: 312, lines: ['나는 우리 진영의 군기를 지킨단다.', '오늘 같은 하늘은 처음 보는구나.'] },
+          { id: 'fireman', pass: '모닥불이 해보다 밝아 보이네.', name: '모닥불 지키는 아저씨', x: 0.73, w: 115, h: 307, lines: ['어두워지니 모닥불을 다시 키워야겠구나.', '장작을 더 넣어야겠어.'] },
+          { id: 'gazer', pass: '강 건너 사람들도 하늘을 봐.', name: '강 건너 보는 아이', x: 0.85, w: 87, h: 259, lines: ['강 건너 사람들도 모두 멈춰 섰어요.', '다들 하늘만 올려다보고 있어요.'] },
+        ],
+        spots: [
+          // The sun gone black in the try (x about 0.58 to 0.63 of the picture).
+          { id: 'sun', from: 0.56, to: 0.65, sora: '해가 까맣게 가려졌어!', memo: '달이 해를 다 가렸단다. 둘레의 흰 빛은 해의 바깥쪽 빛이지.' },
+          // The Median tents small on the hill across the river at the right of the try (x about
+          // 0.88 to 0.98). The Medes are not drawn and cannot be spoken to.
+          { id: 'medes', from: 0.87, to: 0.99, sora: '강 건너에 천막이 보여!', memo: '메디아 사람들의 진영이란다. 펠트 모자를 쓰고 바지를 입었다지.' },
+        ],
+      },
+    ],
+    // "The work of the day" (core/tale.js `work`, as at Darlington): in the tent yard supper is
+    // ready and the baker sends her round to call three who are busy (the boy with the horses,
+    // the soldier cleaning his shield, the girl at knucklebones); at the river the camp is short
+    // of water and she fills the jars with the water carrier (the way up to the camp's edge is
+    // full of empty jars until they are filled); at the edge of the camp the sky goes dark as
+    // the sun is put out, and she blows the horn with the signaller: stop the fighting. The two
+    // peoples then promised, taking each other's hands, not to fight.
+    // Looked up (docs/신기한-사실.md): day turned into night in the middle of a battle; both
+    // stopped and made peace. Made up: the supper, the jars, the horn and every word said.
+    tale: {
+      work: true,
+      ask: '해가 정말 사라질까?',
+      gate: { scene: 'river', open: 2, sora: '빈 항아리가 길을 막고 있어. 못 가.' },
+      steps: [
+        {
+          goal: '천막 마당의 바쁜 사람들에게 저녁 먹으라고 알리렴.', tally: '바쁜 사람 {all}명 가운데 {n}명에게 저녁을 알렸다.',
+          round: [
+            { who: 'groom', lines: ['저녁이 다 됐어요? 말에게 짚만 주고 갈게요.', '알려 줘서 고마워요.'] },
+            { who: 'shield', lines: ['벌써 저녁이구나. 방패는 이따 마저 닦으마.', '콩국 냄새가 여기까지 나는구나.'] },
+            { who: 'jacks', lines: ['한 판만 더 하고 갈게. 너도 해 볼래?', '뼈 하나를 던지고 땅의 뼈를 집는 거야.'] },
+          ],
+          after: [{ who: 'baker', line: '다들 오는구나. 그런데 국 끓일 물이 모자라네.' }],
+          cheer: '저녁을 다 알렸다!',
+          sora: '강가에 물을 길으러 가 보자!',
+          errand: 'supper',
+        },
+        {
+          who: 'waterman', goal: '강 물가의 물 긷는 아저씨와 함께 항아리에 강물을 채우렴.',
+          lines: ['진영에 물이 모자란단다.', '항아리에 강물을 채우자. 같이 하련?'],
+          play: {
+            kind: 'fill', tally: '항아리 {all}개 가운데 {n}개를 채웠다.', ask: '꾹 눌러 물을 담다가 금빛 칸에서 떼렴.', label: '물 담기', hits: 3, zone: [0.65, 0.85], speed: 0.5,
+            good: ['찰랑! 항아리가 찼어!', '한 항아리 더!'], miss: ['앗, 물이 넘쳤어!', '조금 더 담아야 해!'],
+          },
+          after: [{ who: 'jarkeeper', line: '항아리가 다 찼구나. 이제 길을 치우마.' }],
+          cheer: '항아리를 다 채웠다!',
+          sora: '어? 하늘이 갑자기 어두워져!',
+          errand: 'water',
+        },
+        {
+          who: 'horner', goal: '진영 끝의 뿔피리 부는 병사와 함께 신호를 불렴.',
+          lines: ['해가 사라지니 싸움을 멈추라는 명이란다.', '뿔피리로 신호를 불자. 같이 불련?'],
+          play: {
+            kind: 'beat', tally: '뿔피리를 {all}번 가운데 {n}번 박자 맞춰 불었다.', ask: '금빛 불이 켜질 때 뿔피리를 불렴.', label: '뿌우!', hits: 3, zone: [0.42, 0.58], speed: 1.5,
+            good: ['뿌우! 소리가 멀리 퍼져!', '한 번 더!'], miss: ['앗, 박자가 어긋났어!', '조금 일렀어!'], show: 'corona',
+          },
+          cheer: '싸움이 멈췄다!',
+          sora: '두 나라가 손을 맞잡고 싸우지 않기로 약속했다!',
+          errand: 'horn',
+        },
+      ],
+      asides: [
+        { who: 'baker', when: ['S0'], lines: ['저녁 콩국이 다 끓었단다.', '바쁜 사람들에게 먹으러 오라고 알려 주렴.'] },
+        { who: 'jarman', when: ['S1'], lines: ['물 긷는 사람이 강가에서 기다린단다.', '항아리가 많아 혼자서는 벅차지.'] },
+        { who: 'scout', when: ['S1'], lines: ['해가 지려면 아직 조금 남았구나.', '강 건너도 오늘은 조용하구나.'] },
+        { who: 'oldsoldier', when: ['S2'], lines: ['정말로 해가 먹혀 들어가는구나.', '모두 하늘을 보느라 손을 멈췄어.'] },
+        { who: 'gazer', when: ['S3'], lines: ['하늘이 다시 밝아지고 있어요.', '강 건너 진영도 조용해졌어요.'] },
+        { who: 'baker', when: ['S3'], lines: ['하늘이 까매져서 얼마나 놀랐는지 몰라.', '이제 다 함께 저녁을 먹자꾸나.'] },
+      ],
+      done: '저녁을 알리고, 항아리를 채우고, 뿔피리로 싸움을 멈추는 신호를 불었다.',
+    },
+    errands: [
+      { id: 'supper', text: '바쁜 사람들에게 저녁을 알린다.', at: [] },
+      { id: 'water', text: '항아리에 강물을 채운다.', at: [] },
+      { id: 'horn', text: '뿔피리로 싸움을 멈추는 신호를 분다.', at: [] },
+    ],
+    reply: '해가 가려진 날, 두 나라는 싸움을 멈추고 화해했단다.',
+  },
 };
 
 // The far and the fore of every other scene are told from the pictures that are there (the
