@@ -3988,7 +3988,7 @@ export const WALKS = {
       // 1783. - estampe - btv1b550015646.jpg" (Bibliothèque nationale de France, public domain), made smaller.
       more: {
         photo: 'photo-print.webp', name: '1783년에 찍어 낸 그날의 판화',
-        text: '라 뮈에트 성 뜰에서 열기구가 떠오르는 모습을 그해에 새겨 찍은 그림입니다. 파란 바탕에 금빛 무늬를 그린 열기구 아래, 불을 피우던 화로가 보입니다.',
+        text: '라 뮈에트 성 뜰에서 열기구가 떠오르는 모습을 그해에 새겨 찍은 그림입니다. 파란 바탕에 금빛 무늬를 그린 열기구 아래로, 불을 때던 자리에서 연기가 피어오릅니다.',
         credit: '그림: 프랑스 국립도서관, 위키미디어 공용, 공개 저작물',
       },
     },
