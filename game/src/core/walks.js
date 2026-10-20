@@ -7568,6 +7568,14 @@ export const WALKS = {
         '2025년, 러시아는 이 발사대를 카자흐스탄에 돌려주기로 했습니다. 카자흐스탄은 이곳을 우주 박물관으로 꾸밀 계획입니다.',
       ],
       credit: '사진: Carla Cioffi, 위키미디어 공용, 공개 저작물',
+      // Sputnik itself (the user, 2026.10.20: "스푸트니크 사진 추가"): Wikimedia Commons "Sputnik asm.jpg"
+      // (NSSDC, NASA; public domain), made smaller. 58 cm across, 83.6 kg, four antennas; its beep
+      // was heard for three weeks; it fell back and burned up on 4 January 1958.
+      more: {
+        photo: 'photo-sputnik.webp', name: '첫 인공위성 스푸트니크',
+        text: '지름 58센티미터의 반짝이는 쇠공에 긴 안테나 넷을 달았습니다. 하늘을 돌며 "삐, 삐" 하는 전파를 보내, 온 세계 사람들이 라디오로 들었습니다. 석 달쯤 돈 뒤 1958년 1월에 내려와 불타 사라졌습니다.',
+        credit: '사진: NASA, 위키미디어 공용, 공개 저작물',
+      },
     },
     drawn: '그 무렵 소련의 포스터처럼, 평평한 색으로 굵게 그렸단다.',
     scenes: [
