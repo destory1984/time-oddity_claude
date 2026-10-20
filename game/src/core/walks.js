@@ -8032,6 +8032,176 @@ export const WALKS = {
     ],
     reply: '해가 가려진 날, 두 나라는 싸움을 멈추고 화해했단다.',
   },
+  // The South Pole on 14 December 1911: at about three in the afternoon Amundsen and his four
+  // men come to the pole with three sledges and seventeen dogs and plant the flag together.
+  // Drawn as an Antarctic watercolour after Edward Wilson (the user's choice of five tries: the
+  // first). The pictures are in pole1911; the try is the third scene (the camp tent); the
+  // sledge track and the snow field were ordered after it, the five drawn small and far off in
+  // the field. Pale: the sky of the pictures is light.
+  // Looked up on 2026.10.20 (docs/신기한-사실.md: Amundsen's "The South Pole", vol. 2 ch. 12;
+  // his diary for 14 December) and found so: they stopped at about three when the three
+  // sledge meters all showed the distance; a clear morning, then from about ten a breeze from
+  // the south-east and clouds, so the noon sun could not be taken; the sun did not set but
+  // went round the sky; the five held the pole together and planted the flag; the pole was
+  // two ski sticks lashed together; seventeen dogs came to the pole, among those named in the
+  // book Uroa, Mylius, Ring and Suggen; the dogs ate dog pemmican; after the observations in
+  // the night they all had cocoa; their clothes were made after the Inuit's; they came on ski
+  // beside the sledges.
+  // From memory: what pemmican is; the parts of a sextant; the look of the dogs, skis and
+  // sledges.
+  // Made up: every dog's doings, which dogs are where, the cocoa pot by the tent.
+  // Kept out: the dogs that were killed; Scott's party; the numbers of the records; the
+  // Polheim tent (the 17th's: this is "야영 천막"); the five but far off and unnamed (spots).
+  amundsen: {
+    first: '개썰매가 남극점에 닿는 날이란다. 지친 개들을 돌봐 주렴.',
+    dir: 'pole1911', look: 'paper', pale: true,
+    drawn: '그 무렵 남극 탐험대 화가의 수채화처럼 그렸단다.',
+    // What is said of today: looked up on 2026.10.20 (docs/신기한-사실.md). The photograph:
+    // Wikimedia Commons, "Amundsen-scott-south pole station 2007 edit1.jpg" (public domain).
+    now: {
+      photo: 'photo-now.webp', name: '남극점의 지금 모습', when: '남극 남극점 · 아문센-스콧 기지',
+      text: [
+        '남극점 곁에는 1956년에 미국이 세운 아문센-스콧 기지가 있습니다. 두 탐험가의 이름을 함께 붙였습니다.',
+        '기지는 해발 2,835미터의 얼음 위에 있습니다. 여름에는 150명쯤, 해가 뜨지 않는 겨울에는 40명 안팎이 지냅니다.',
+        '얼음판이 한 해에 10미터쯤 움직입니다. 그래서 극점 표지를 해마다 1월 1일에 새 자리로 옮기고, 그해 겨울을 난 대원들이 표지를 새로 꾸밉니다.',
+        '아문센 일행이 남긴 천막은 눈과 얼음에 묻혀 지금은 어디 있는지 아무도 모릅니다. 얼음 밑 17미터쯤에 있으리라고 보는 학자도 있습니다.',
+        '2011년 12월 14일, 100주년을 맞아 노르웨이 총리가 극점에 와서 얼음으로 깎은 아문센의 얼굴을 세웠습니다.',
+      ],
+      credit: '사진: 미국 남극 프로그램(NSF), 위키미디어 공용, 공개 저작물',
+    },
+    scenes: [
+      {
+        id: 'sled', name: '남극 남극점 썰매 길', short: '썰매 길', zoom: 1.202, ground: 0.665, scale: 0.703, air: 'hush', floor: 'dirt',
+        sora: '썰매 자국이 끝없이 이어져!',
+        people: [
+          { id: 'uroa', pass: '우로아가 썰매 줄을 당기며 헐떡인다.', name: '우로아', x: 0.18, w: 90, h: 160, lines: ['우로아가 썰매 맨 앞에서 귀를 쫑긋 세운다.', '우로아가 꼬리를 흔들며 소라를 바라본다.'] },
+          { id: 'mylius', pass: '뮐리우스가 눈 위에 앉아 숨을 고른다.', name: '뮐리우스', x: 0.29, w: 82, h: 153, lines: ['뮐리우스가 고개를 갸웃하며 소라를 본다.', '뮐리우스가 앞발로 눈을 톡톡 건드린다.'] },
+          // Not a dog: it is looked at, not spoken to.
+          { id: 'wheel', show: 'wheel', name: '거리 재는 바퀴', x: 0.4, w: 99, h: 198,
+            try: { id: 'use-wheel', verb: 'use', name: '거리 재는 바퀴', label: '바퀴 볼래', sora: '바퀴가 돌며 온 거리를 센대!', memo: '썰매 뒤의 바퀴가 지나온 거리를 셌단다. 세 바퀴가 다 같은 곳을 가리킬 때 멈췄지.' } },
+          { id: 'ring', pass: '링이 엎드려 앞발에 턱을 괴었다.', name: '링', x: 0.51, w: 60, h: 94, lines: ['링이 엎드린 채 꼬리만 천천히 흔든다.', '링이 썰매 쪽을 보며 코를 킁킁댄다.'] },
+          { id: 'suggen', pass: '수겐이 입을 크게 벌려 하품을 한다.', name: '수겐', x: 0.62, w: 82, h: 158, lines: ['수겐이 하품을 하고 눈 위에 몸을 쭉 뻗는다.', '수겐이 귀를 쫑긋 세우고 앞을 본다.'] },
+          // Not a dog: the furs on a box, to be put on.
+          { id: 'furs', name: '털옷 꾸러미', x: 0.73, w: 106, h: 134,
+            try: { id: 'wear-polar1911', verb: 'wear', name: '1911년 남극 탐험대의 털옷', outfit: 'polar1911', sora: '털옷이 정말 따뜻해!', memo: '탐험대는 북쪽 이누이트 사람들의 옷을 본떠 털옷을 지었단다.' } },
+          { id: 'pemdog', pass: '개가 먹이를 맛있게 씹는다.', show: 'pemmican', pose: 'see-aha', sora: '개도 페미컨을 먹어!', memo: '썰매개들은 개를 위해 만든 페미컨을 먹었단다. 말린 고기와 기름을 굳힌 먹이지.', name: '페미컨 먹는 개', x: 0.85, w: 80, h: 120, lines: ['개가 네모난 먹이 덩어리를 맛있게 씹는다.', '개가 다 먹고 입가를 혀로 핥는다.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'field', name: '남극 남극점 눈 벌판', short: '눈 벌판', zoom: 1.189, ground: 0.675, scale: 0.696, air: 'hush', floor: 'dirt',
+        sora: '사방이 다 평평한 눈 벌판이야!',
+        people: [
+          { id: 'whitedog', pass: '흰 개가 썰매 곁에 얌전히 앉았다.', name: '썰매에 매인 흰 개', x: 0.18, w: 70, h: 100, lines: ['흰 개가 썰매 곁에 앉아 먼 곳을 바라본다.', '흰 개가 하얀 입김을 길게 내뿜는다.'] },
+          { id: 'rolldog', pass: '개가 눈 위에서 데굴데굴 구른다.', name: '눈 위에 뒹구는 개', x: 0.29, w: 82, h: 62, lines: ['개가 눈 위에 등을 대고 네 발을 들어 뒹군다.', '개가 일어나 몸에 묻은 눈을 털어 낸다.'] },
+          // Not a dog: it is looked at, not spoken to.
+          { id: 'skis', show: 'skis', name: '눈에 꽂은 스키', x: 0.4, w: 90, h: 320,
+            try: { id: 'use-skis', verb: 'use', name: '나무 스키', label: '스키 볼래', sora: '스키가 내 키보다 훨씬 길어!', memo: '다섯 사람은 스키를 타고 개썰매 곁을 따라왔단다.' } },
+          { id: 'flagdog', pass: '개가 깃대 쪽을 올려다본다.', show: 'flag', name: '깃대를 올려다보는 개', x: 0.51, w: 72, h: 101, lines: ['개가 앉아서 먼 깃대 쪽을 올려다본다.', '개가 귀를 세우고 꼬리를 천천히 흔든다.'] },
+          { id: 'eardog', pass: '개가 귀를 쫑긋 세웠다.', name: '귀를 세운 개', x: 0.62, w: 66, h: 101, lines: ['개가 귀를 쫑긋 세우고 사방을 둘러본다.', '개가 바람이 부는 쪽으로 고개를 돌린다.'] },
+          { id: 'pawdog', pass: '개가 앞발로 눈을 판다.', name: '앞발로 눈을 파는 개', x: 0.73, w: 76, h: 84, lines: ['개가 앞발로 눈을 파서 작은 구덩이를 만든다.', '개가 구덩이에 코를 박고 엎드린다.'] },
+          { id: 'taildog', pass: '개가 꼬리를 힘차게 흔든다.', name: '꼬리를 흔드는 개', x: 0.85, w: 64, h: 101, lines: ['개가 소라 곁에 와서 꼬리를 흔든다.', '개가 소라의 장갑을 살짝 핥는다.'] },
+        ],
+        spots: [
+          // The five, drawn small and far off in the picture (x 0.55 to 0.70). They are not
+          // named and cannot be spoken to.
+          { id: 'five', name: '깃대를 쥔 다섯 사람', from: 0.55, to: 0.7, sora: '다섯 사람이 깃대를 함께 쥐었어!', memo: '탐험대 다섯 사람이 다 함께 깃대를 쥐고 깃발을 꽂았단다. 오늘은 바빠서 말을 걸 수 없지.' },
+        ],
+      },
+      {
+        id: 'tent', name: '남극 남극점 야영 천막 앞', short: '야영 천막 앞', zoom: 1.188, ground: 0.676, scale: 0.695, air: 'hush', floor: 'dirt',
+        sora: '해가 지지 않고 하늘을 돌아!',
+        people: [
+          { id: 'curldog', pass: '개가 몸을 동그랗게 말았다.', name: '몸을 동그랗게 만 개', x: 0.18, w: 110, h: 86, lines: ['개가 꼬리로 코를 덮고 동그랗게 눕는다.', '개가 눈을 반쯤 뜨고 소라를 본다.'] },
+          { id: 'lickdog', pass: '개가 혀로 눈을 핥는다.', name: '눈을 핥는 개', x: 0.29, w: 76, h: 160, lines: ['개가 목이 말라 혀로 눈을 핥아 먹는다.', '개가 혀를 내밀고 소라를 바라본다.'] },
+          { id: 'linedog', pass: '개가 썰매 줄에 매인 채 쉰다.', name: '썰매 줄에 매인 개', x: 0.4, w: 122, h: 105, lines: ['개가 썰매 줄에 매인 채 엎드려 쉰다.', '개가 고개를 들어 천막 쪽을 본다.'] },
+          { id: 'sitdog', pass: '개가 천막 앞을 지키고 앉았다.', name: '천막 앞에 앉은 개', x: 0.51, w: 84, h: 153, lines: ['개가 천막 앞에 반듯하게 앉아 꼬리를 흔든다.', '개가 천막 안에서 나는 소리에 귀를 세운다.'] },
+          // Not a dog: the pot by the tent, to be tasted.
+          { id: 'cocoa', show: 'cocoa', name: '코코아 냄비', x: 0.62, w: 67, h: 112,
+            try: { id: 'eat-cocoa', verb: 'eat', name: '코코아', face: 'yum', sora: '코코아가 따끈하고 달콤해!', memo: '그날 밤 다섯 사람도 해를 잰 뒤 코코아를 마셨단다.' } },
+          { id: 'gazer', pass: '개가 육분의 곁에 엎드렸다.', show: 'sextant', pose: 'see-wow', sora: '해를 재는 기구야!', memo: '육분의로 해가 얼마나 높이 떴는지 재서 여기가 어디인지 알아냈단다.', name: '육분의 곁의 개', x: 0.73, w: 109, h: 105, lines: ['개가 육분의 곁에 엎드려 하늘을 본다.', '개가 구름 사이의 해를 보고 눈을 깜빡인다.'] },
+          { id: 'sniffdog', pass: '개가 코를 킁킁댄다.', name: '코를 킁킁대는 개', x: 0.85, w: 99, h: 143, lines: ['개가 눈 냄새를 킁킁 맡으며 걷는다.', '개가 소라 곁에 와서 코를 비빈다.'] },
+        ],
+        spots: [
+          // The low sun at the left of the try (x about 0.26).
+          { id: 'sun', from: 0.22, to: 0.31, sora: '해가 지지 않고 낮게 떠 있어!', memo: '여기서는 여름 내내 해가 지지 않고 하늘을 빙 돈단다.' },
+          // The lone flag pole at the right of the try (x about 0.86).
+          { id: 'pole', from: 0.83, to: 0.9, sora: '깃발이 바람에 날려!', memo: '깃대는 스키 지팡이 두 개를 묶어 만들었단다.' },
+        ],
+      },
+    ],
+    // "The work of the day" (core/tale.js `work`; BRIEF-7, the user's choice: she plays with the
+    // dogs and the five stay far off): on the sledge track she goes to the four tired dogs in
+    // harness one by one and strokes them; on the snow field, as the five take hold of the pole
+    // one fist after another, she calls "다섯!" at the fifth and the flag goes in; before the
+    // camp tent she aims the sextant at the sun as it comes out between the clouds, and then
+    // there is cocoa (the person `cocoa`).
+    // Looked up (docs/신기한-사실.md): they stopped at about three in the afternoon when the
+    // three sledge meters showed the distance; the five held the pole together and planted the
+    // flag; clouds came from about ten and the noon sun could not be taken; cocoa after the
+    // observations in the night; Uroa, Mylius, Ring and Suggen are dogs named in the book.
+    // Made up: which dogs were tired and stroked, her calling "다섯!", the sun aimed at three
+    // times, everything the dogs do.
+    tale: {
+      work: true,
+      ask: '남극점에 닿으면 무엇을 할까?',
+      gate: { scene: 'field', open: 2, sora: '깃발을 세우기 전이야. 못 가.' },
+      steps: [
+        {
+          goal: '썰매 길에서 썰매에 매인 개 넷을 쓰다듬어 주렴.', tally: '지친 개 {all}마리 가운데 {n}마리를 쓰다듬어 주었다.',
+          round: [
+            { who: 'uroa', lines: ['우로아가 소라의 장갑에 머리를 비빈다.', '우로아가 꼬리를 흔들며 다시 힘차게 선다.'] },
+            { who: 'mylius', lines: ['뮐리우스가 눈을 감고 소라의 손에 기댄다.', '뮐리우스가 벌떡 일어나 몸을 부르르 턴다.'] },
+            { who: 'ring', lines: ['링이 소라의 손을 핥으며 꼬리를 흔든다.', '링이 기운을 차리고 썰매 곁에 다시 선다.'] },
+            { who: 'suggen', lines: ['수겐이 배를 보이며 더 쓰다듬어 달라고 한다.', '수겐이 꼬리를 흔들며 썰매 줄을 당긴다.'] },
+          ],
+          after: [{ who: 'pemdog', line: '개들이 다시 일어나 썰매 줄을 당긴다.' }],
+          cheer: '개들이 힘을 냈다!',
+          sora: '썰매가 눈 벌판으로 간대! 따라가 보자!',
+          errand: 'pet',
+        },
+        {
+          who: 'flagdog', goal: '눈 벌판에서 다섯 사람이 깃발을 세울 때 맞춰 외치렴.',
+          lines: ['개가 다섯 사람이 쥔 깃대를 올려다본다.', '다섯 손이 하나씩 깃대를 쥐자 개가 귀를 세운다.'],
+          play: {
+            kind: 'beat', tally: '"다섯!"을 {all}번 가운데 {n}번 맞춰 외쳤다.', ask: '넷 다음 금빛 불이 켜질 때 "다섯!" 하렴.', label: '다섯!', hits: 3, zone: [0.42, 0.58], speed: 1.5,
+            good: ['다섯 손이 깃대를 다 쥐었어!', '깃대가 눈에 꽂혔어!'], miss: ['앗, 조금 일렀어!', '앗, 박자가 어긋났어!'], show: 'flag',
+          },
+          after: [{ who: 'whitedog', line: '개들이 깃발을 올려다보며 꼬리를 흔든다.' }],
+          cheer: '깃발이 섰다!',
+          sora: '이제 야영 천막 앞으로 가 보자!',
+          errand: 'flag',
+        },
+        {
+          who: 'gazer', goal: '야영 천막 앞에서 구름 사이로 나온 해를 육분의로 겨누렴.',
+          lines: ['개가 육분의 곁에 엎드려 구름을 본다.', '구름 사이로 해가 나오자 개가 고개를 든다.'],
+          play: {
+            kind: 'aim', tally: '해 겨누기 {all}번 가운데 {n}번을 맞췄다.', ask: '해가 금빛 칸에 올 때 육분의로 겨누렴.', label: '겨눠!', hits: 3, zone: [0.42, 0.58], speed: 0.7,
+            good: ['해가 거울 속에 들어왔어!', '한 번 더 겨눠 보자!'], miss: ['앗, 구름이 해를 가렸어!', '조금 일렀어!'],
+          },
+          after: [{ who: 'sniffdog', line: '개가 해를 올려다보며 꼬리를 흔든다.' }],
+          cheer: '해를 겨눴다!',
+          sora: '해를 겨눴어! 이제 코코아를 마셔 볼까?',
+          errand: 'sun',
+        },
+      ],
+      asides: [
+        { who: 'pemdog', when: ['S0'], lines: ['개가 먹이를 다 먹고 썰매 쪽을 돌아본다.', '썰매에 매인 개 넷이 지쳐 엎드려 있다.'] },
+        { who: 'eardog', when: ['S1'], lines: ['개가 "멈춰!" 하는 소리에 걸음을 멈춘다.', '개가 귀를 세우고 깃대 쪽을 바라본다.'] },
+        { who: 'taildog', when: ['S2'], lines: ['개가 깃발 아래에서 꼬리를 흔든다.', '개가 천막 쪽으로 앞장서 걸어간다.'] },
+        { who: 'sitdog', when: ['S2'], lines: ['개가 천막 앞에서 육분의 쪽을 본다.', '개가 구름이 걷히기를 기다리는 것 같다.'] },
+        { who: 'uroa', when: ['S1', 'S2', 'S3'], lines: ['우로아가 소라를 보고 꼬리를 흔든다.', '우로아가 썰매 줄을 힘차게 당긴다.'] },
+        { who: 'curldog', when: ['S3'], lines: ['개가 해가 지지 않는 하늘 아래 잠든다.', '개가 꿈을 꾸는지 앞발을 꼼지락댄다.'] },
+      ],
+      done: '지친 개들을 쓰다듬고, 깃발이 서는 때를 맞추고, 육분의로 해를 겨눴다.',
+    },
+    errands: [
+      { id: 'pet', text: '썰매에 매인 지친 개 넷을 쓰다듬는다.', at: [] },
+      { id: 'flag', text: '다섯 사람이 깃발을 세울 때 맞춰 외친다.', at: [] },
+      { id: 'sun', text: '구름 사이로 나온 해를 육분의로 겨눈다.', at: [] },
+    ],
+    reply: '그날 썰매개들도 다섯 사람과 함께 남극점에 닿았단다.',
+  },
 };
 
 // The far and the fore of every other scene are told from the pictures that are there (the
