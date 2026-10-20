@@ -1,4 +1,8 @@
 {
+"agra1640/photo-inside.webp": {
+"q": 78,
+"sha": "9e45fb1b7f50cbf68209d7522cdb561866cd1d0d"
+},
 "agra1640/photo-now.webp": {
 "q": 78,
 "sha": "3cc7dd041a7f1a9551befa6a916f2f3a1b1909e3"
@@ -294,6 +298,10 @@
 "baikonur1957/pad.webp": {
 "q": 78,
 "sha": "c4fff948dd082995c0e0c75d2f28cddae9388a97"
+},
+"baikonur1957/photo-now.webp": {
+"q": 78,
+"sha": "607da666fd95974e0d77b6a193096fa20d336aaa"
 },
 "baikonur1957/rail-far.webp": {
 "q": 78,
@@ -659,6 +667,10 @@
 "q": 78,
 "sha": "7250ff93e6e0fb0b60825706b39ba3c46c5b5144"
 },
+"darlington1825/photo-replica.webp": {
+"q": 78,
+"sha": "ee26ab98ecc03cb7d5a2e2c74f5989d8500faa22"
+},
 "darlington1825/show-banner.webp": {
 "q": 78,
 "sha": "8cea192600ba5c37e1f3a2fb6ad26a075ec6a4c1"
@@ -702,6 +714,10 @@
 "dubai2010/lake.webp": {
 "q": 78,
 "sha": "bd6d8ff809c1e136c395a258cc153a39c9355487"
+},
+"dubai2010/photo-now.webp": {
+"q": 78,
+"sha": "0b0a9502e7b426b06f8ef63029eb358d8929eebe"
 },
 "dubai2010/show-dallah.webp": {
 "q": 78,
@@ -1175,6 +1191,18 @@
 "q": 78,
 "sha": "58e063cda38e5badee0171cd4bc623ddb4762ae5"
 },
+"kittyhawk1903/photo-flyer.webp": {
+"q": 78,
+"sha": "b4b598fc6ef33495353b6832b5e12ef5998130b8"
+},
+"kittyhawk1903/photo-now.webp": {
+"q": 78,
+"sha": "baeb66bf9c83a1818698e0b2016b9a7738c1bf48"
+},
+"kittyhawk1903/photo-quarters.webp": {
+"q": 78,
+"sha": "fcd0ff72ee65518d2347159c76be5b4a797dfcb1"
+},
 "kittyhawk1903/show-camera.webp": {
 "q": 78,
 "sha": "21e210463e12fa595c08ae361d54960040721d49"
@@ -1278,6 +1306,10 @@
 "machupicchu1450/gate.webp": {
 "q": 78,
 "sha": "63c9270e9fa5a8a63a441a054fb70aa06ef510d3"
+},
+"machupicchu1450/photo-across.webp": {
+"q": 78,
+"sha": "8de6aff515b20aa908f3f1deffca8a939b951cbb"
 },
 "machupicchu1450/photo-now.webp": {
 "q": 78,
@@ -1555,6 +1587,10 @@
 "q": 78,
 "sha": "d8b03cd327e29983ddea6d2baa6cb6dfb64345be"
 },
+"newyork1886/photo-close.webp": {
+"q": 78,
+"sha": "4615be037483d7e7ce1ddf28c1ab4d1861351f47"
+},
 "newyork1886/photo-now.webp": {
 "q": 78,
 "sha": "91e5763995ae2223f7cfe0ee345d20c0b2c47c59"
@@ -1687,6 +1723,10 @@
 "q": 78,
 "sha": "c98b984eedc72f2d355eea6530a2a2c823afb99c"
 },
+"padua1610/photo-moons.webp": {
+"q": 78,
+"sha": "842c6b4007e896059b05cc8414733be63b53487f"
+},
 "padua1610/photo-now.webp": {
 "q": 78,
 "sha": "57b49bcbeee566d2743db084a030d5155e447fd8"
@@ -1722,6 +1762,10 @@
 "panama1914/lock.webp": {
 "q": 78,
 "sha": "0542ad42d788160d822f15ad9332d6877951853f"
+},
+"panama1914/photo-now.webp": {
+"q": 78,
+"sha": "9494b8f7a4d88d529b10930b17ed5e61078836c1"
 },
 "panama1914/rail-far.webp": {
 "q": 78,
@@ -1782,6 +1826,10 @@
 "paris/hall.webp": {
 "q": 78,
 "sha": "df2ec00b242d61b011045904b4957aabdaf3cf0c"
+},
+"paris/photo-under.webp": {
+"q": 78,
+"sha": "d676593c9e1b2b95ba829db374011695864c2470"
 },
 "paris/show-bridge.webp": {
 "q": 78,
@@ -1951,6 +1999,46 @@
 "q": 78,
 "sha": "d432be5dfb58eb64803b659e11d336112bb699eb"
 },
+"pole1911/field.webp": {
+"q": 78,
+"sha": "df0c3f5d298fb3b28d4b8e54241e1bfb6f6d97f6"
+},
+"pole1911/photo-now.webp": {
+"q": 78,
+"sha": "3b13c41bbc243c4813edcc032c830db82c1e7f80"
+},
+"pole1911/show-cocoa.webp": {
+"q": 78,
+"sha": "4ab961a3157e943ec80452e98c274e7b4e799011"
+},
+"pole1911/show-flag.webp": {
+"q": 78,
+"sha": "112175af27ac70876c4b876079c06e34052b2144"
+},
+"pole1911/show-pemmican.webp": {
+"q": 78,
+"sha": "12044c110ea95f2962d6be923fdade179a616b3a"
+},
+"pole1911/show-sextant.webp": {
+"q": 78,
+"sha": "ea67489b23a50e4bf7b9fb1a6354773cf2bb97f2"
+},
+"pole1911/show-skis.webp": {
+"q": 78,
+"sha": "47db955a089db5621dc542059137533ee94f140d"
+},
+"pole1911/show-wheel.webp": {
+"q": 78,
+"sha": "33c84953c540d80fc3b05c7e6831070c6dc72041"
+},
+"pole1911/sled.webp": {
+"q": 78,
+"sha": "54de205172743504f428384263ef3da80e7818e4"
+},
+"pole1911/tent.webp": {
+"q": 78,
+"sha": "febf0ce69510595a0cd01e126fa1ea0f5673787f"
+},
 "principe1919/drying-far.webp": {
 "q": 78,
 "sha": "20b2266ae40fa823cc8ce0ffd38a4f52000c38e5"
@@ -1975,6 +2063,10 @@
 "q": 78,
 "sha": "7eb079466cfdafdb5c9ed5f41e7d742c42a7745a"
 },
+"principe1919/photo-now.webp": {
+"q": 78,
+"sha": "4155f0eed1363e578cf745300634606ee16eb961"
+},
 "principe1919/scope-far.webp": {
 "q": 78,
 "sha": "3a1e08353f912c44a57fe8c3e72e51ecfae3af0a"
@@ -1989,7 +2081,7 @@
 },
 "principe1919/show-corona.webp": {
 "q": 78,
-"sha": "cb4c1c15997fb35769a37aafb29a153d060f0d68"
+"sha": "8720d0a5ea863bb08ea5f1c93c95f5baee76116c"
 },
 "principe1919/show-mirror.webp": {
 "q": 78,
@@ -2158,6 +2250,10 @@
 "seorabeol640/market.webp": {
 "q": 78,
 "sha": "94f96c6ab8b1f06f353c915bbb71498062c01d43"
+},
+"seorabeol640/photo-night.webp": {
+"q": 78,
+"sha": "56254afd71c0fd28c14214ec04e0513309cd03dc"
 },
 "seorabeol640/photo-now.webp": {
 "q": 78,
@@ -2594,6 +2690,66 @@
 "teotihuacan200/show-pyramid.webp": {
 "q": 78,
 "sha": "f3772337267f1ade8e1c540e247f3361152ed489"
+},
+"thales585/edge-far.webp": {
+"q": 78,
+"sha": "6c4f5be85226b6ec874800d773cfc85247e1b368"
+},
+"thales585/edge-near.webp": {
+"q": 70,
+"sha": "4d5541233a82c14cacfa5f0622a5c936c64d8148"
+},
+"thales585/edge.webp": {
+"q": 78,
+"sha": "12c029b4c86878472fd65fc84db42ade00b0c99b"
+},
+"thales585/photo-now.webp": {
+"q": 78,
+"sha": "a3e046ef5d677bb095081152a2b934e4c018de4c"
+},
+"thales585/river-far.webp": {
+"q": 78,
+"sha": "dd44cfbd01643d663832c7c29c5ba1bd50c9458c"
+},
+"thales585/river-near.webp": {
+"q": 70,
+"sha": "e3377253912a66c5585809ce56ae67f2b294df44"
+},
+"thales585/river.webp": {
+"q": 78,
+"sha": "6df2b540ad95bfea95db4beab11497d13f8d5db6"
+},
+"thales585/show-bones.webp": {
+"q": 78,
+"sha": "eb4877ed864874e93adee19aed24ae83636fd038"
+},
+"thales585/show-coin.webp": {
+"q": 78,
+"sha": "db139bf4764f2db87ed76c4b7cc301d9e37d6f44"
+},
+"thales585/show-corona.webp": {
+"q": 78,
+"sha": "27520f5a331a866164cbcd36dc38d531a459c656"
+},
+"thales585/show-river.webp": {
+"q": 78,
+"sha": "2f2b0565436a369a1c8c4c57210820ff7391c294"
+},
+"thales585/show-soup.webp": {
+"q": 78,
+"sha": "b1cecab6878e286a297e0b155ec7e255a1f76d77"
+},
+"thales585/yard-far.webp": {
+"q": 78,
+"sha": "aa81e21cbc371fcaffaf9f7a8f33c4e09d747613"
+},
+"thales585/yard-near.webp": {
+"q": 70,
+"sha": "a62ae92fd8aa094000a8a9c351911d95d83b0333"
+},
+"thales585/yard.webp": {
+"q": 78,
+"sha": "bbe231a9b5ec809a9a255ac1c24a65b53ee60bcc"
 },
 "timbuktu1327/market-far.webp": {
 "q": 78,
