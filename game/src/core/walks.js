@@ -175,12 +175,20 @@ export const WALKS = {
         // The user, 2026.10.10: "보수 공사비 많이 들어가던데". Looked up at toureiffel.paris: painted twenty
         // times, about once in seven years, about 60 tonnes a time. What it costs differs by source and is left out.
         // The user, 2026.10.10: "보수 비용이 얼마나 들어가는지도 적어. 어른들은 숫자(돈) 좋아해". Reuters, July
-        // 2022, after the magazine Marianne: 60 million euros. The final sum was not found.
-        '녹슬지 않게 일곱 해쯤마다 페인트 60톤으로 다시 칠합니다. 2019년에 시작한 스무 번째 칠에는 6천만 유로가 든다고 보도되었습니다.',
+        // 2022, after the magazine Marianne: 60 million euros. The final sum was not found. In won
+        // (the user, 2026.10.20: "한화로?"): "over 80 billion", true at any rate above 1,334 won a euro.
+        '녹슬지 않게 일곱 해쯤마다 페인트 60톤으로 다시 칠합니다. 2019년에 시작한 스무 번째 칠에는 6천만 유로, 우리 돈으로 800억 원이 넘게 든다고 보도되었습니다.',
         '1991년, 에펠탑이 서 있는 파리의 센강 가가 유네스코 세계유산이 되었습니다.',
         '2022년에는 589만 명쯤이 에펠탑을 찾았습니다. 1889년 박람회 때보다 세 배쯤 많습니다.',
       ],
       credit: '사진: Benh LIEU SONG, 위키미디어 공용, 공개 저작물',
+      // Inside (the user, 2026.10.20: "내부 사진 추가"): Wikimedia Commons "Sous la Tour Eiffel 1.jpg"
+      // by Jebulon (CC0), made smaller: straight up from the middle, under the tower.
+      more: {
+        photo: 'photo-under.webp', name: '탑 한가운데 아래에서 올려다본 모습',
+        text: '네 다리 사이 한가운데에 서서 똑바로 위를 보았습니다. 네 다리가 위로 갈수록 모여 하나가 됩니다. 쇠 조각을 엇갈려 엮어서, 바람이 사이로 빠져나가 가볍고도 튼튼합니다.',
+        credit: '사진: Jebulon, 위키미디어 공용, CC0',
+      },
     },
     scenes: [
       {
