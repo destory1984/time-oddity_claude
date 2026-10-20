@@ -528,9 +528,21 @@ function lookMore() {
   $('lookHint').hidden = sheet.scrollTop > 24 || $('lookText').getBoundingClientRect().top < innerHeight - 40;
 }
 $('lookSheet').addEventListener('scroll', lookMore, { passive: true });
+$('lookSheet').addEventListener('cancel', (e) => { if (!$('lookFull').hidden) { e.preventDefault(); $('lookFull').hidden = true; } });
+$('lookSheet').addEventListener('close', () => { $('lookFull').hidden = true; });
 // A touch beside it, or on its close button, goes back to the game (the user, 2026.10.9:
 // "클릭하면, 다시 게임 화면으로"); a touch on the lines is not, as they are read by scrolling.
 $('lookSheet').addEventListener('click', (e) => {
+  // A photograph touched is shown on the whole screen, on black; a touch anywhere on it, or
+  // its ✕, goes back to the page (the user, 2026.10.20: "사진 클릭하면 전체 화면으로 보여줘").
+  if (!$('lookFull').hidden) { $('lookFull').hidden = true; return; }
+  const photo = e.target.closest('#lookPhoto, #lookText li.more img');
+  if (photo) {
+    const full = $('lookFull').querySelector('img');
+    full.src = photo.src; full.alt = photo.alt;
+    $('lookFull').hidden = false;
+    return;
+  }
   if (e.target.closest('#closeLook, .lookShut')) { $('lookSheet').close(); return; }
   if (e.target !== $('lookSheet')) return;
   const box = $('lookSheet').getBoundingClientRect();
