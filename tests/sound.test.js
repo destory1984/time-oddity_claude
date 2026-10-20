@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createSound } from '../game/src/ui/sound.js';
 
-const playAll = (sound) => { sound.wake(); sound.tick(true, false); sound.tick(false, true); sound.paper(); sound.land(); sound.lift(); sound.hop(); sound.hand(); sound.stamp(); sound.bell(); sound.page(); sound.phonograph(); sound.step('stone', 0); sound.step('dirt', 1); sound.step('wood', 2); sound.air('market'); sound.airStep(60000); sound.air('masons'); sound.airStep(60000); sound.air('works'); sound.airStep(60000); sound.air(null); sound.airStep(16); };
+const playAll = (sound) => { sound.wake(); sound.tick(true, false); sound.tick(false, true); sound.paper(); sound.dust(true, 700); sound.dust(false, 900); sound.hand(); sound.stamp(); sound.bell(); sound.page(); sound.phonograph(); sound.step('stone', 0); sound.step('dirt', 1); sound.step('wood', 2); sound.air('market'); sound.airStep(60000); sound.air('masons'); sound.airStep(60000); sound.air('works'); sound.airStep(60000); sound.air(null); sound.airStep(16); };
 
 describe('createSound', () => {
   it('stays silent without throwing when the browser has no AudioContext', () => {
@@ -44,10 +44,10 @@ describe('muting', () => {
     sound.wake();
     sound.stamp();
     expect(nodes).toBeGreaterThan(0);
-    // The jump brought over from volume 1: sixteen climbing bells, a chord of five, four chimes.
+    // Star dust's sprinkle (till its recording has come, a hiss stands in).
     const quiet = nodes;
-    sound.warp();
-    expect(nodes - quiet).toBeGreaterThan(50);
+    sound.dust(true, 700);
+    expect(nodes).toBeGreaterThan(quiet);
     // A place's own sounds come now and then, and footfalls as she walks.
     for (const kind of ['court', 'street', 'masons', 'chisels', 'arena', 'works', 'palace', 'bridge', 'station', 'train', 'night', 'tv']) {
       const had = nodes;
@@ -68,7 +68,7 @@ describe('muting', () => {
     sound.air('court');
     const before = nodes;
     sound.setMuted(true);
-    sound.stamp(); sound.bell(); sound.page(); sound.warp(); sound.step('wood', 1); sound.airStep(60000);
+    sound.stamp(); sound.bell(); sound.page(); sound.dust(false, 900); sound.step('wood', 1); sound.airStep(60000);
     expect(nodes).toBe(before);
   });
 });

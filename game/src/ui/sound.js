@@ -9,7 +9,7 @@
 // The dial's tick at half the loudness it was settled at: the user, 2026.10.7, "다이얼 돌아가는
 // 소리는 절반으로 줄여줘".
 const TICK = 0.5;
-const WARP_PACE = 0.4;       // volume 1's jump takes 6 s; here its moments come in this share of the time
+const WARP_PACE = 0.4;       // volume 1's jump takes 6 s; here its moments came in this share of the time (its notes are gone since 2026.10.20; the time of going down stays)
 const WARP_VOLUME = 0.8;     // volume 1 plays everything through a master at this level
 // How long after the jump's first note its chord sounds: when the screen should change.
 export const WARP_CHORD_MS = 2720 * WARP_PACE;
@@ -237,11 +237,6 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
     });
   }
 
-  // One note of the jump: a music-box bell with its third harmonic, ringing 1.1 s.
-  const warpBell = (when, freq, volume) => {
-    tone(when, { seconds: 1.1, from: freq, gain: volume * WARP_VOLUME, attack: 0.01 });
-    tone(when, { seconds: 0.35, from: freq * 3, gain: volume * 0.2 * WARP_VOLUME, attack: 0.01 });
-  };
 
   return {
     wake,
@@ -273,66 +268,6 @@ export function createSound(AudioContextClass = globalThis.AudioContext ?? globa
           osc.start(when); osc.stop(when + seconds);
           when += seconds;
         }
-      });
-    },
-    // Going between the Earth and a place: volume 1's jump (oddity/src/ui/sound.js `warp`),
-    // note for note, as the user asked (2026.10.8: "텔레포트 소리는 우주 한량꺼 가져와서
-    // 붙여줘"). Music-box notes climb a five-note scale faster and faster, a wide bright
-    // chord sounds as the screen changes, then a few slow chimes step down. There it runs
-    // six seconds with a six-second flash; here the change of screen comes sooner, so the
-    // moments are brought closer by `pace` (WARP_PACE: the chord falls 1.09 s in) while
-    // each note rings as long as it did.
-    warp() {
-      play((at) => {
-        const pace = WARP_PACE;
-        const bell = (freq, start, volume) => warpBell(at + start * pace, freq, volume);
-        const scale = [392, 440, 523, 587, 659, 784, 880, 1047, 1175, 1319, 1568, 1760, 2093, 2349, 2637, 3136];
-        scale.forEach((freq, k) => {
-          // Bunched toward the end.
-          bell(freq, 2.6 * (1 - (1 - k / scale.length) ** 1.7), 0.03 + 0.045 * (k / scale.length));
-        });
-        // A thin, high shimmer under the climb.
-        tone(at + 0.6 * pace, { seconds: 2.1 * pace, from: 1568, to: 3136, gain: 0.018 * WARP_VOLUME, attack: 0.01 });
-        hiss(at + 1.6 * pace, { seconds: 1.2 * pace, from: 6000, to: 9000, gain: 0.035 * WARP_VOLUME, type: 'highpass' });
-        // Arrival: a wide, bright chord.
-        [1047, 1319, 1568, 2093, 2637].forEach((freq, i) => bell(freq, 2.72 + (i * 0.03) / pace, 0.085 - i * 0.008));
-        tone(at + 2.72 * pace, { seconds: 1.6, from: 523, gain: 0.05 * WARP_VOLUME, attack: 0.01 });
-        // Settling: slow chimes stepping down.
-        [[2093, 3.5], [1568, 4.0], [1319, 4.5], [1047, 5.0]].forEach(([freq, when], i) => bell(freq, when, 0.045 - i * 0.007));
-      });
-    },
-    // She was set down in a shaft of light (0.62 s: she touched the
-    // ground 0.4 s in). Coming down from above the Earth the jump's own chord has just
-    // sounded, so there is only her foot on the ground and one small chime (`land`). The
-    // user, 2026.10.9: "소라가 워프해서 땅에 내려올 때 효과음 넣어".
-    // Since 2026.10.20 she gathers out of star dust for 1.2 s (ui/walk.js DUST_ARRIVE_MS):
-    // her foot is on the ground as the last specks come in.
-    land() {
-      play((at) => {
-        tone(at + 1.1, { seconds: 0.12, from: 170, to: 90, gain: 0.14 });
-        ping(at + 1.12, 1047, 0.6, 0.05);
-      });
-    },
-    // Going to the scene beside this one as star dust (0.7 s, main.js HOP_MS; gathering 0.9 s) is the
-    // jump of volume 1 made small: `lift` is its climb, eight music-box notes bunched toward
-    // the end with the shimmer under them, and `hop` is its arrival, the wide bright chord
-    // with her foot on the ground and three slow chimes stepping down. First these were a
-    // glide of pitch up and one down; the user, 2026.10.9: "장면간 워프 소리가 너무 가벼워....
-    // 우주한량 워프 소리처럼 해줘". Placeholders until heard.
-    lift() {
-      play((at) => {
-        const scale = [523, 659, 784, 1047, 1319, 1568, 2093, 2637];
-        scale.forEach((freq, k) => warpBell(at + 0.65 * (1 - (1 - k / scale.length) ** 1.7), freq, 0.03 + 0.045 * (k / scale.length)));
-        tone(at + 0.05, { seconds: 0.65, from: 1568, to: 3136, gain: 0.018 * WARP_VOLUME, attack: 0.01 });
-        hiss(at + 0.35, { seconds: 0.4, from: 6000, to: 9000, gain: 0.035 * WARP_VOLUME, type: 'highpass' });
-      });
-    },
-    hop() {
-      play((at) => {
-        [1047, 1319, 1568, 2093, 2637].forEach((freq, i) => warpBell(at + i * 0.03, freq, 0.085 - i * 0.008));
-        tone(at, { seconds: 1.6, from: 523, gain: 0.05 * WARP_VOLUME, attack: 0.01 });
-        tone(at + 0.8, { seconds: 0.12, from: 170, to: 90, gain: 0.14 });
-        [[2093, 0.9], [1568, 1.15], [1047, 1.4]].forEach(([freq, when], i) => warpBell(at + when, freq, 0.045 - i * 0.007));
       });
     },
     // A thing changes hands: a small rising pluck, and a chime as it lands.

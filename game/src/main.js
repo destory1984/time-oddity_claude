@@ -1136,7 +1136,8 @@ for (const [id, way] of [['walkPrev', -1], ['walkNext', 1]]) {
     if (panel) (panel.back ?? closePanel)();
     if (walk && canHop(walk, way)) {
       walkWay = 0; keyWay = 0; walkHopping = true;
-      sound.wake(); sound.lift(); sound.dust(true, HOP_MS);
+      // Only the sprinkle of the dust is heard (the user, 2026.10.20: "원래 있던 소리는 없애").
+      sound.wake(); sound.dust(true, HOP_MS);
       walkView.teleport(HOP_MS).then(() => { walkHopping = false; if (!walk || mode !== 'walk') return; hop(walk, way); enterScene(); walkArrive = 'hop'; });
       return;
     }
@@ -1266,7 +1267,7 @@ function frameWalk(dt) {
   walkView.update(walk, performance.now(), walkSora && walkT >= walkSora.from ? walkSora.text : null, walkT / 1000, walkFace?.poses.find(([, until]) => walkT <= until)?.[0] ?? null, stride, walkHeld?.show ?? null);
   if (walkArrive) {
     const ms = walkArrive === 'land' ? LAND_IN_MS : HOP_IN_MS;
-    sound[walkArrive](); sound.dust(false, ms); walkView.arrive(ms); walkArrive = null;
+    sound.dust(false, ms); walkView.arrive(ms); walkArrive = null;
   }
 
   const near = walk.moving ? null : withWhom(walk);
@@ -1428,7 +1429,6 @@ async function land(sq) {
   await settleDial(sq.date.year);
   landing = true;
   stage.classList.add('descending');
-  sound.warp();
   // She breaks into star dust over the Earth (the user, 2026.10.20: "지구본 -> 도시로
   // 들어가는 것도 별빛 효과로 바꿔"; she shrank to a point before).
   await soraDust(true, DESCEND_MS);
@@ -1457,7 +1457,7 @@ async function leave() {
   leavingMs = 0;
   if (!fromSite) await wait(LEAVE_MS);
   // From among people she goes up as star dust (the user, 2026.10.20; a ring of gold before).
-  if (fromWalk) { sound.warp(); sound.dust(true, WARP_CHORD_MS - FADE_MS); await walkView.teleport(WARP_CHORD_MS - FADE_MS); }
+  if (fromWalk) { sound.dust(true, WARP_CHORD_MS - FADE_MS); await walkView.teleport(WARP_CHORD_MS - FADE_MS); }
   $('fade').classList.add('on');
   await wait(FADE_MS);
   globe.setActive(true);
