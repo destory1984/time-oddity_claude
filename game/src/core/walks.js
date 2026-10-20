@@ -6331,6 +6331,14 @@ export const WALKS = {
         '시드넘의 공원에는 지금도 돌계단 터와 공룡 조각 33개가 남아 있습니다. 그 동네와 축구단도 \'크리스털 팰리스\'라는 이름을 씁니다.',
       ],
       credit: '사진: kitmasterbloke, 위키미디어 공용, CC BY 2.0',
+      // Inside, in 1851 (the user, 2026.10.20: "내부 사진 추가"; the hall burned in 1936): Wikimedia
+      // Commons "Great Exhibition, Transept looking south, HF Talbot, 1851.jpg" (public domain), made
+      // smaller: the arched roof over the park's elm trees, and Osler's glass fountain.
+      more: {
+        photo: 'photo-inside.webp', name: '1851년 박람회 때 찍은 수정궁 안',
+        text: '가운데 높은 아치 지붕 아래입니다. 공원에 서 있던 느릅나무를 베지 않고 지붕 안에 품었습니다. 그 앞에 유리로 만든 분수가 있습니다.',
+        credit: '사진: 윌리엄 헨리 폭스 탤벗, 위키미디어 공용, 공개 저작물',
+      },
     },
     drawn: '그 무렵 영국의 젊은 화가들처럼, 잎 하나까지 꼼꼼히 칠했단다.',
     scenes: [
