@@ -51,3 +51,12 @@ describe("the comet's rumours", () => {
     expect(sanitizeProgress(JSON.stringify({ squares: {}, keys: ['nowhere'], rumors: [7, 'x'.repeat(50)] }), ['khufu'])).toMatchObject({ keys: [], rumors: [] });
   });
 });
+
+describe("grandmother's rooftop of 1986", () => {
+  it('stays hidden until her note of 1986 has been read', () => {
+    const roof = HIDDEN.find((h) => h.id === 'roof1986');
+    expect(isOpen(roof, [], [], [])).toBe(false);
+    expect(isOpen(roof, [], [], ['y1986'])).toBe(true);
+    expect(shownPlaces(['roof1986'], [], [], ['y1969'])).toEqual([]);
+  });
+});

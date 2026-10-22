@@ -123,7 +123,7 @@ const PLACES = LIVE.filter((sq) => !isHidden(sq.id)).map((sq) => sq.id);      //
 // The places to be seen now: a hidden one (core/rumors.js) only once its rumours are heard
 // and its year found.
 const heardNow = () => rumorsOf(progress);
-const visible = (ids) => shownPlaces(ids, heardNow(), keysOf(progress));
+const visible = (ids) => shownPlaces(ids, heardNow(), keysOf(progress), notesRead(progress));
 const STOPS = centuryStops(LIVE);
 // Where someone who has been nowhere yet begins: Rome, the oldest of the places, so that
 // the notebook is gone through from the far end of time toward grandmother's own day (the

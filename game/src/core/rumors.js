@@ -27,12 +27,15 @@ export const RUMORS = [
 
 // id: the hidden place (core/squares.js, core/walks.js). needs: the rumours that bring it
 // to light. sum: a question asked in the notebook once they are heard; the year chosen
-// must be `year`, from `choices`.
+// must be `year`, from `choices`. note: grandmother's note (core/notes.js) that must have
+// been read first.
 export const HIDDEN = [
   {
     id: 'dresden1758', needs: ['y1682', 'every76'],
     sum: { ask: '1682 + 76 = ?', choices: [1748, 1758, 1768], year: 1758, opened: '1758년 크리스마스, 드레스덴 근교에 빛이 켜졌다.' },
   },
+  // The end of the goal: the dawn grandmother went up to her rooftop and the clouds hid it.
+  { id: 'roof1986', needs: [], note: 'y1986' },
 ];
 
 export const isHidden = (id) => HIDDEN.some((h) => h.id === id);
@@ -48,12 +51,12 @@ export function rumorsDone(hidden, heard) {
   return hidden.needs.every((id) => heard.includes(id));
 }
 
-// Whether a hidden place is open: its rumours heard and its sum, if any, answered.
-// keys: the hidden places whose sum has been answered.
-export const isOpen = (hidden, heard, keys) => rumorsDone(hidden, heard) && (!hidden.sum || keys.includes(hidden.id));
+// Whether a hidden place is open: its rumours heard, its sum, if any, answered, and its note,
+// if any, read. keys: the hidden places whose sum has been answered; read: the notes read.
+export const isOpen = (hidden, heard, keys, read = []) => rumorsDone(hidden, heard) && (!hidden.sum || keys.includes(hidden.id)) && (!hidden.note || read.includes(hidden.note));
 
 // The ids of the places that are shown: every place that is not hidden, and the hidden
 // ones that are open.
-export function shownPlaces(ids, heard, keys) {
-  return ids.filter((id) => { const h = HIDDEN.find((x) => x.id === id); return !h || isOpen(h, heard, keys); });
+export function shownPlaces(ids, heard, keys, read = []) {
+  return ids.filter((id) => { const h = HIDDEN.find((x) => x.id === id); return !h || isOpen(h, heard, keys, read); });
 }
