@@ -1629,7 +1629,9 @@ function showEraPlaces(stop) {
   const fresh = beenNowhere();
   globe.setBegin(fresh ? START : null);
   // (eraStop() is a new object each call: what it holds is compared, or the list was built again every frame.)
-  const shown = stop ? `${stop.century}:${stop.ids.join()}` : null;
+  // How many of its places still have a rumour of the comet to hear is told with it.
+  const rumorsHere = stop ? stop.ids.filter((id) => RUMORS.some((r) => r.at === id && !heardNow().includes(r.id))).length : 0;
+  const shown = stop ? `${stop.century}:${stop.ids.join()}:${rumorsHere}` : null;
   if (shown === eraPlacesOf && fresh === eraPlacesNew) return;
   eraPlacesOf = shown; eraPlacesNew = fresh;
   const list = $('eraPlaces');
@@ -1644,6 +1646,7 @@ function showEraPlaces(stop) {
   head.textContent = first ? '여기부터 가 보자. 빛나는 곳을 누른다' : t`이 세기에 갈 곳 ${stop.ids.length}`;
   head.classList.toggle('begin', first);
   list.append(head);
+  if (rumorsHere > 0) list.append(Object.assign(document.createElement('span'), { className: 'rumor', textContent: t`☄ 꼬리별 소문이 있는 곳 ${rumorsHere}` }));
 }
 
 // Above the Earth the goal is under the date, with how many of the comet's rumours are
