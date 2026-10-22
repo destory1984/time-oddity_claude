@@ -63,7 +63,7 @@ const SHEET = { market: 0.6, plaza: 0.66, inside: 0.62 };   // how large a sheet
 // as it is today (or of what is left of the thing she came to see), shown on a sheet when
 // all is done there (the user, 2026.10.9: "마지막에 현재 사진을 팝업으로 보여주고, 클릭하면,
 // 다시 게임 화면으로"; asked whether at one place or all: "열세 자리 다"). The photographs are
-// from Wikimedia Commons, each downloaded with the user's leave; README lists them. What the
+// from Wikimedia Commons, each downloaded with the user's leave; docs/빌려-쓴-것.md lists them. What the
 // lines say was written from memory except Constantinople's, which was looked up.
 import { LAYERS } from './layers.js';
 
