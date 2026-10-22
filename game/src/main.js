@@ -13,7 +13,7 @@ import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, 
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
 import { HUSH_S, soraPose } from './core/sora.js';
 import { guideLine } from './core/guide.js';
-import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markBeen, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf, beenOf, errandsOf, metOf, markErrands, markMet, taleOf, markTale, dropErrands } from './core/progress.js';
+import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markBeen, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf, beenOf, errandsOf, metOf, markErrands, markMet, taleOf, markTale, dropErrands, keysOf, markKey } from './core/progress.js';
 import { findsOf } from './core/find.js';
 import { createFindGame } from './ui/find.js';
 import { project } from './core/project.js';
@@ -49,6 +49,7 @@ import { readReply, sendCard, takeCard } from './core/postcard.js';
 import { createPager } from './ui/opening.js';
 import { OPENING } from './core/opening.js';
 import { NOTES, dueNote, noteById, notePages } from './core/notes.js';
+import { GOAL, HIDDEN, RUMORS, isHidden, rumorOf, rumorsDone, rumorsHeard, shownPlaces } from './core/rumors.js';
 import { keepProgressAside,
   loadCards, loadMusic, loadRepeat, saveRepeat, loadMuted, loadOpened, loadOutfit, saveOutfit, loadProgress, saveCards, saveMusic, saveMuted, saveOpened, saveProgress,
 } from './ui/storage.js';
@@ -118,7 +119,11 @@ const OUTFITS = outfitsOf(WALKS);
 // The game is opened in her own clothes every time: what she had on when it was shut is
 // not on her now (the user, 2026.10.8: "왜 옷을 자꾸 다르게 입혀?").
 saveOutfit(null);
-const PLACES = LIVE.map((sq) => sq.id);      // what grandmother's later notes count
+const PLACES = LIVE.filter((sq) => !isHidden(sq.id)).map((sq) => sq.id);      // what grandmother's later notes count
+// The places to be seen now: a hidden one (core/rumors.js) only once its rumours are heard
+// and its year found.
+const metAt = (id) => metOf(progress, id);
+const visible = (ids) => shownPlaces(ids, metAt, keysOf(progress));
 const STOPS = centuryStops(LIVE);
 // Where someone who has been nowhere yet begins: Rome, the oldest of the places, so that
 // the notebook is gone through from the far end of time toward grandmother's own day (the
@@ -165,7 +170,7 @@ let onEra = true;          // above the Earth the century dial is up; once a pla
 const overEarth = () => mode === 'globe' && onEra;
 const GUIDE_ON = false;    // the one line of guidance is switched off in plan v4
 const theDial = () => (overEarth() ? eraDial : dial);
-const eraStop = () => STOPS[eraAt()];
+const eraStop = () => { const stop = STOPS[eraAt()]; return { ...stop, ids: visible(stop.ids) }; };
 let shownEra = null;           // the stop the Earth was last turned to show (none yet: it turns to the first at once)
 const ERA_ASIDE_DEG = 24;      // a century's place comes into sight this far east of her
 let square = null;
@@ -190,7 +195,7 @@ function mark(list) {
   marks = list;
   setMarks(dial, list.map((m) => m.year));
 }
-const globeMarks = () => [...SQUARES.map((sq) => ({ year: sq.date.year, label: sq.name })), { year: today.year, label: '오늘' }];
+const globeMarks = () => [...SQUARES.filter((sq) => visible([sq.id]).length > 0).map((sq) => ({ year: sq.date.year, label: sq.name })), { year: today.year, label: '오늘' }];
 
 // The pager tells the opening (once, the first time; again from the settings) and
 // grandmother's notes.
@@ -272,6 +277,21 @@ const journal = createJournal({
   onWear: (outfit) => putOn(outfit),
   drawn: (id) => WALKS[id]?.drawn ?? null,
   intro: (id) => WALKS[id]?.intro ?? null,
+  shown: (id) => visible([id]).length > 0,
+  // The goal, the comet's rumours heard and the years to be found (core/rumors.js).
+  rumors: () => ({
+    goal: GOAL,
+    heard: rumorsHeard(metAt).map((r) => r.says),
+    total: RUMORS.length,
+    asks: HIDDEN.filter((h) => h.sum && rumorsDone(h, metAt)).map((h) => ({ id: h.id, ...h.sum, found: keysOf(progress).includes(h.id) })),
+  }),
+  onAnswer: (id, year) => {
+    const hidden = HIDDEN.find((h) => h.id === id);
+    if (!hidden || hidden.sum.year !== year) { sound.tick(true, false); return false; }
+    sound.stamp();
+    keep(markKey(progress, id));
+    return true;
+  },
 });
 // She puts on something from the wardrobe, or takes it off (null): at once if she is
 // walking about, and until she leaves the place. Chosen above the Earth, it is on her at
@@ -995,7 +1015,16 @@ function talk(id = null) {
   sound.tick(true, false);
   if (said.over) return;
   if (said.person.sound) sound[said.person.sound]();
+  // A rumour of the comet (core/rumors.js) is written in the notebook when the one who has
+  // it has said it all, the first time only.
+  const rumor = rumorOf(square.id, said.person.id);
+  if (rumor && !metOf(progress, square.id).includes(said.person.id)) walk.told.push(`rumor-${rumor.id}`);
   keep(markMet(progress, square.id, said.person.id));
+  if (rumor && said.last && walk.told.includes(`rumor-${rumor.id}`) && !walk.told.includes(`wrote-${rumor.id}`)) {
+    walk.told.push(`wrote-${rumor.id}`);
+    sound.page();
+    walkView.found(t`수첩에 꼬리별 소문을 적었다 ${rumorsHeard(metAt).length}/${RUMORS.length}`);
+  }
   // What is said for the tale is the tale's: nothing is held up and she makes nothing of it.
   if (said.role) {
     if (said.role === 'step' && said.last) taleSpoke(said.person);
@@ -1756,7 +1785,7 @@ function frame(now) {
   // not to be missed (the user, 2026.10.7: "뭐가 있는지 모르니까, 계속 돌리기만 해").
   showEraPlaces(overEarth() && !held ? eraStop() : null);
   // Only the places of the century the dial rests nearest are on the globe.
-  globe.setShown(overEarth() ? eraStop().ids : target ? [target.id] : LIVE.map((sq) => sq.id));
+  globe.setShown(overEarth() ? eraStop().ids : target ? [target.id] : visible(LIVE.map((sq) => sq.id)));
   if (walk && mode === 'walk') frameWalk(dt);
   else if (site && mode === 'site') frameSite(dt);
   else if (visit && mode !== 'globe') frameGround(dt);

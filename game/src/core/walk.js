@@ -145,7 +145,7 @@ export const touch = (walk, id) => finish(walk, id);
 
 // Speaks to whoever is near. Returns { person, line, errands: [ids done just now], role:
 // their part in the tale as they spoke ('step', 'aside' or null), last: that was the last
-// line of it }, or
+// line of it (of their part, or of their own lines) }, or
 // null when nobody is. Each time, the next of their lines; spoken to once more when the
 // last has been said, they end the talk (line: null, over: true); spoken to after that,
 // they begin again with the first (the user, 2026.10.8: "2개라면, 2개를 출력한 후에 대화를
@@ -175,7 +175,7 @@ export function speak(walk, id = null) {
   walk.goal = null;
   walk.facing = person.x >= walk.x ? 1 : -1;
   const role = part?.role ?? null;
-  return { person, line, errands: finish(walk, person.id), role, last: Boolean(key) && (count + 1) % lines.length === 0 };
+  return { person, line, errands: finish(walk, person.id), role, last: (count + 1) % lines.length === 0 };
 }
 
 // The one she is with: whoever she is hearing, else whoever is nearest. What can be done at

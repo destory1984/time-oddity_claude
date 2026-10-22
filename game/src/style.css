@@ -380,6 +380,16 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 .row.unseen .rowWords{opacity:.7}
 .row.slip{background:rgba(201,138,28,.12)}
 .row.slip .rowWords{padding-left:6px}
+/* The goal at the head of the notebook, the comet's rumours under it and the year they ask for (core/rumors.js). */
+.row.goal{grid-template-columns:1fr;background:rgba(201,138,28,.22);padding-left:6px}
+.row.goal b::before{content:"☄ ";color:#c98a1c}
+.row.rumor{display:block;padding:6px 6px 6px 22px;font-size:13px;position:relative}
+.row.rumor::before{content:"✦";position:absolute;left:6px;color:#c98a1c}
+.row.ask{display:block;padding:8px 6px}
+.row.ask p{margin:0 0 8px}
+.row.ask .choices{display:flex;gap:8px}
+#journal .row.ask .go{width:auto;min-width:64px;padding:0 10px}
+#journal .row.ask .go.wrong{opacity:.45;text-decoration:line-through}
 .rowHead{display:flex;align-items:center;gap:10px;min-width:0;padding:2px 0;border:0;background:none;color:inherit;font:inherit;text-align:left}
 .rowDots{display:flex;gap:4px;flex:none}
 .rowErrands{flex:none;display:grid;place-items:center;width:40px;height:40px;border:1.5px dashed #b9a777;border-radius:50%;font-size:13px;font-weight:600;color:#6b4a2b}

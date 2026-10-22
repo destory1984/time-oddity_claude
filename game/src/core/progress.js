@@ -8,7 +8,7 @@ const blank = () => ({ day: false, sky: false, remains: false, quiz: false, find
 
 import { sanitizeTale } from './tale.js';
 
-export const emptyProgress = () => ({ squares: {}, notes: [] });
+export const emptyProgress = () => ({ squares: {}, notes: [], keys: [] });
 
 const of = (progress, id) => progress.squares[id] ?? blank();
 
@@ -32,6 +32,7 @@ export const isVisited = (progress, id) => of(progress, id).day;
 export const fullProgress = (ids, noteIds) => ({
   squares: Object.fromEntries(ids.map((id) => [id, { day: true, sky: true, remains: true, quiz: true, find: true }])),
   notes: [...noteIds],
+  keys: [],
 });
 
 // ids: the squares that exist. Gives how many have each dot, how many have all three.
@@ -86,6 +87,10 @@ export const markMet = (progress, id, person) => markIn(progress, id, 'met', [pe
 export const notesRead = (progress) => progress.notes ?? [];
 export const markNoteRead = (progress, id) => (notesRead(progress).includes(id) ? progress : { ...progress, notes: [...notesRead(progress), id] });
 
+// The hidden places whose year has been found in the notebook (core/rumors.js), by id.
+export const keysOf = (progress) => progress.keys ?? [];
+export const markKey = (progress, id) => (keysOf(progress).includes(id) ? progress : { ...progress, keys: [...keysOf(progress), id] });
+
 // What was kept, read back: only squares that exist and only true-or-false marks survive.
 // Anything that cannot be read is an empty notebook, never an error.
 // noteIds: the notes that exist.
@@ -109,5 +114,6 @@ export function sanitizeProgress(raw, ids, noteIds = []) {
     if (tale) squares[id].tale = tale;
   }
   const notes = Array.isArray(kept.notes) ? noteIds.filter((id) => kept.notes.includes(id)) : [];
-  return { squares, notes };
+  const keys = Array.isArray(kept.keys) ? ids.filter((id) => kept.keys.includes(id)) : [];
+  return { squares, notes, keys };
 }

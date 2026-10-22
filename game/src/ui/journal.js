@@ -28,10 +28,14 @@ const el = (tag, className, text) => {
 // wardrobe: () => the outfits she has put on ([{ outfit, name, on }]); onWear(outfit or null).
 // tries(id): what can be eaten, worn or used there ([{ verb, name, done }], core/walk.js).
 // errands(id): { done, total } of grandmother's errands there, or null where there are none.
+// shown(id): whether a place is to be listed (a hidden one is not, until it is open).
+// rumors: () => { goal, heard: [what is written], total, asks: [{ id, ask, choices, year,
+// opened, found }] } (core/rumors.js); onAnswer(id, year): a year was chosen, true if right.
 export function createJournal({
   squares, progress, onGo, onSolve, here, canGo = () => true, notes = () => [], onNote = () => {},
   cards = () => ({}), today = () => '', onSend = () => {}, onReply = () => {}, tries = () => [], errands = () => null,
   wardrobe = () => [], onWear = () => {}, drawn = () => null, intro = () => null,
+  shown = () => true, rumors = () => null, onAnswer = () => false,
 }) {
   const dialog = $('journal');
   const ids = squares.map((s) => s.id);
@@ -152,7 +156,36 @@ export function createJournal({
       item.append(words, wear);
       return item;
     });
-    $('journalList').replaceChildren(...squares.map(row), ...clothes, ...slips);
+    $('journalList').replaceChildren(...goal(), ...squares.filter((sq) => shown(sq.id)).map(row), ...clothes, ...slips);
+  }
+
+  // At the head: grandmother's wish, the goal from the first page (the user, 2026.10.22: the
+  // game had none), then the comet's rumours written so far and the years they ask for.
+  let wrong = null;   // the year last chosen wrongly, shown until another is chosen
+  function goal() {
+    const r = rumors();
+    if (!r) return [];
+    const head = el('li', 'row goal');
+    const words = el('span', 'rowWords');
+    words.append(el('b', '', t(r.goal)), el('small', '', t`꼬리별 소문 ${r.heard.length}/${r.total}`));
+    head.append(words);
+    const items = [head];
+    for (const says of r.heard) items.push(el('li', 'row rumor', t(says)));
+    for (const ask of r.asks) {
+      const item = el('li', 'row ask');
+      if (ask.found) { item.append(el('p', 'hand', t(ask.opened))); items.push(item); continue; }
+      item.append(el('p', '', t`꼬리별이 다시 온 해는? ${ask.ask}`));
+      const pick = el('div', 'choices');
+      for (const year of ask.choices) {
+        const b = el('button', `go${wrong === `${ask.id}-${year}` ? ' wrong' : ''}`, String(year));
+        b.type = 'button';
+        b.addEventListener('click', () => { wrong = onAnswer(ask.id, year) ? null : `${ask.id}-${year}`; render(); });
+        pick.append(b);
+      }
+      item.append(pick);
+      items.push(item);
+    }
+    return items;
   }
 
   // The count on the top button: the places with all their errands done.
