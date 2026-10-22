@@ -1,5 +1,5 @@
 // Sounds, made with Web Audio, but one: star dust's sprinkle is a recording, volume 1's
-// (game/public/sounds/stardust.mp3, 1.9 s, 24 KB; CC BY, credited in README).
+// (game/public/sounds/stardust.mp3, 1.9 s, 24 KB; CC BY, credited in docs/빌려-쓴-것.md).
 // The dial's tick is the one settled by ear in docs/dial-proto.html. The other four are
 // placeholders until the user has heard them.
 //
