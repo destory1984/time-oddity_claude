@@ -29,7 +29,8 @@ const el = (tag, className, text) => {
 // tries(id): what can be eaten, worn or used there ([{ verb, name, done }], core/walk.js).
 // errands(id): { done, total } of grandmother's errands there, or null where there are none.
 // shown(id): whether a place is to be listed (a hidden one is not, until it is open).
-// rumors: () => { goal, heard: [what is written], total, asks: [{ id, ask, choices, year,
+// rumors: () => { goal, heard: [what is written], total, seen, days (the days the comet was
+// seen, of those there are), asks: [{ id, ask, choices, year,
 // opened, found }] } (core/rumors.js); onAnswer(id, year): a year was chosen, true if right.
 // rumorsLeft(id): how many of the comet's rumours there are still to be heard there.
 export function createJournal({
@@ -167,10 +168,13 @@ export function createJournal({
   function goal() {
     const r = rumors();
     if (!r) return [];
-    const head = el('li', 'row goal');
+    const all = r.days > 0 && r.seen >= r.days;
+    const head = el('li', `row goal${all ? ' done' : ''}`);
     const words = el('span', 'rowWords');
-    words.append(el('b', '', t(r.goal)), el('small', '', t`꼬리별 소문 ${r.heard.length}/${r.total}`));
+    words.append(el('b', '', t(r.goal)), el('small', '', t`꼬리별 소문 ${r.heard.length}/${r.total} · 꼬리별을 본 날 ${r.seen}/${r.days}`));
     head.append(words);
+    // When every day it came has been seen, a stamp as on a place done.
+    if (all) head.append(el('span', 'rowErrands all', '찾았다'));
     const items = [head];
     for (const says of r.heard) items.push(el('li', 'row rumor', t(says)));
     for (const ask of r.asks) {

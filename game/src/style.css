@@ -384,6 +384,7 @@ dialog{font-family:var(--ui);font-size:calc(14px * var(--text,1));line-height:1.
 .row.slip .rowWords{padding-left:6px}
 /* The goal at the head of the notebook, the comet's rumours under it and the year they ask for (core/rumors.js). */
 .row.goal{grid-template-columns:1fr;background:rgba(201,138,28,.22);padding-left:6px}
+.row.goal.done{grid-template-columns:1fr auto}
 .row.goal b::before{content:"☄ ";color:#c98a1c}
 .row.rumor{display:block;padding:6px 6px 6px 22px;font-size:13px;position:relative}
 .row.rumor::before{content:"✦";position:absolute;left:6px;color:#c98a1c}

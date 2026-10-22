@@ -123,6 +123,9 @@ const PLACES = LIVE.filter((sq) => !isHidden(sq.id)).map((sq) => sq.id);      //
 // The places to be seen now: a hidden one (core/rumors.js) only once its rumours are heard
 // and its year found.
 const heardNow = () => rumorsOf(progress);
+// The days the comet has been seen: the hidden places that are built and whose work is all done.
+const cometDays = () => HIDDEN.filter((h) => WALKS[h.id]);
+const cometsSeen = () => cometDays().filter((h) => WALKS[h.id].errands.every((e) => errandsOf(progress, h.id).includes(e.id)));
 const visible = (ids) => shownPlaces(ids, heardNow(), keysOf(progress), notesRead(progress));
 const STOPS = centuryStops(LIVE);
 // Where someone who has been nowhere yet begins: Rome, the oldest of the places, so that
@@ -284,6 +287,8 @@ const journal = createJournal({
     goal: GOAL,
     heard: rumorsHeard(heardNow()).map((r) => r.says),
     total: RUMORS.length,
+    seen: cometsSeen().length,
+    days: cometDays().length,
     asks: HIDDEN.filter((h) => h.sum && rumorsDone(h, heardNow())).map((h) => ({ id: h.id, ...h.sum, found: keysOf(progress).includes(h.id) })),
   }),
   onAnswer: (id, year) => {
@@ -1644,7 +1649,7 @@ function showEraPlaces(stop) {
 // Above the Earth the goal is under the date, with how many of the comet's rumours are
 // written: what she goes about for is in sight wherever she sets off from (2026.10.22).
 function dateOnGlobe() {
-  const goal = t`☄ ${t(GOAL)} · 소문 ${heardNow().length}/${RUMORS.length}`;
+  const goal = t`☄ ${t(GOAL)} · 소문 ${heardNow().length}/${RUMORS.length} · 본 날 ${cometsSeen().length}/${cometDays().length}`;
   return { dateText: overEarth() ? eraStop().label : t`${formatYear(dial.year)}년`, placeText: '지구 위', subText: goal };
 }
 
