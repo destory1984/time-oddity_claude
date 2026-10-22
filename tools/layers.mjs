@@ -8,6 +8,11 @@ import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 // read from the head of the file (a plain lossy WebP), else 1.
 function aspectOf(path) {
   const b = readFileSync(path);
+  // (A far picture with a clear sky, Prohlis 1758, is an extended WebP: its canvas size is in the VP8X head.)
+  if (b.toString('latin1', 12, 16) === 'VP8X') {
+    const w = b.readUIntLE(24, 3) + 1, h = b.readUIntLE(27, 3) + 1;
+    return Math.round((w / h) * 1000) / 1000;
+  }
   if (b.toString('latin1', 12, 16) !== 'VP8 ') return 1;
   const w = b.readUInt16LE(26) & 0x3fff, h = b.readUInt16LE(28) & 0x3fff;
   return h ? Math.round((w / h) * 1000) / 1000 : 1;

@@ -960,6 +960,36 @@ export const SQUARES = [
     reply: '그날 밤 불꽃 속에 문을 연 탑은 지금도 두바이 하늘에 우뚝 서 있단다.',
     quiz: { question: '그날 식에서 바꾼 탑의 새 이름은?', answer: '부르즈 할리파', proof: '부르즈 할리파로 바꾼다고', wrong: ['부르즈 무함마드', '부르즈 아부다비'] },
   },
+  {
+    // Prohlis by Dresden, Christmas night 1758: the farmer and amateur astronomer Johann Georg
+    // Palitzsch (1723-1788) sees with a telescope the comet Halley had foretold would come back
+    // (the first return of a comet foretold). Hidden until its rumours are heard (core/rumors.js).
+    // Saxony kept the Gregorian calendar by then (from 1700). The hour and the way: the walk's
+    // sky (render/skyCanvas.js with pitch 0) puts the horizon at 60% of the screen and shows up
+    // to about 56 degrees straight ahead on a 375 x 812 screen, 30 degrees either side. The
+    // comet (core/sky.js, data/comets.json from JPL Horizons) stands 45 degrees up at azimuth
+    // 192 at 7 pm local mean time, but there it is at a fifth of the screen's height, behind
+    // grandmother's slip of errands (top 144 to about 215 px). At 9 pm it is 35 degrees up at
+    // azimuth 230: looking south-west (225) it is near the middle of the screen at about a third
+    // of its height, in the open sky over the yard between the house and the barn. The sun is
+    // 45 degrees down and the moon down (49).
+    // Looked up (the storyboard, docs/스토리보드-드레스덴-1758.md, and the brief of 2026.10.22):
+    // seen first on 25 December 1758 at Prohlis; Hoffmann at Dresden saw it on the 28th; Halley
+    // foretold it in 1705 and died in 1742; nearest the sun on 13 March 1759.
+    // From memory: that Prohlis is now a part of Dresden (the storyboard says so); the record of
+    // his sightings kept.
+    // The place is walked about (core/walks.js).
+    no: 49.5, id: 'dresden1758', name: '꼬리별이 돌아온 밤', dateLabel: 'AD 1758.12.25', place: '프롤리스, 작센',
+    lat: 51.008, lon: 13.800,
+    date: { year: 1758, month: 12, day: 25 }, calendar: 'gregorian', hourLocal: 21,
+    facingAz: 225, nightOnLook: false,
+    memo: '예언된 꼬리별이 돌아오는 밤.', sora: '망원경이 하늘을 보고 있어!',
+    memoToday: '남은 것: 팔리치가 남긴 기록.', soraToday: '프롤리스는 지금 드레스덴의 한 동네야.',
+    noteMemo: '1758년 성탄절 밤. 팔리치가 돌아온 꼬리별을 처음 찾았다고 읽음. 그날 밤 달은 지고 없었음.',
+    card: '1758년 12월 25일 밤, 독일 드레스덴 근교 프롤리스의 농부이자 천문가 요한 게오르크 팔리치가 망원경으로 희미한 꼬리별 하나를 찾았습니다. 핼리가 1705년에 돌아온다고 미리 셈해 둔 바로 그 꼬리별이었고, 사흘 뒤에는 드레스덴의 호프만도 그것을 보았습니다. 핼리는 1742년에 세상을 떠나 꼬리별이 돌아오는 것을 보지 못했습니다. 꼬리별은 이듬해 3월 13일에 해에 가장 가까이 다가갔고, 그 뒤로 핼리 혜성이라 불립니다.',
+    reply: '핼리 선생의 셈이 맞았구나. 그 꼬리별은 일흔여섯 해쯤마다 다시 온단다.',
+    quiz: { question: '팔리치는 무엇으로 꼬리별을 찾았나?', answer: '망원경', proof: '망원경으로 희미한 꼬리별 하나를 찾았습니다', wrong: ['맨눈', '쌍안경'] },
+  },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
 

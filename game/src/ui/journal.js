@@ -135,7 +135,7 @@ export function createJournal({
   }
 
   function render() {
-    const count = countProgress(progress(), ids);
+    const count = countProgress(progress(), ids.filter((id) => shown(id)));
     $('journalProgress').textContent = walked() ? t`심부름을 다 한 자리 ${finishedCount()}/${count.total}` : t`날 ${count.day}/${count.total} · 하늘 ${count.sky} · 남은 것 ${count.remains} · 맞힌 문제 ${count.quiz}`;
     const slips = notes().map(({ id, title }) => {
       const item = el('li', 'row slip');
@@ -192,9 +192,9 @@ export function createJournal({
 
   // The count on the top button: the places with all their errands done.
   const walked = () => ids.some((id) => errands(id));
-  const finishedCount = () => ids.filter((id) => { const e = errands(id); return e && e.done >= e.total; }).length;
+  const finishedCount = () => ids.filter((id) => { const e = errands(id); return shown(id) && e && e.done >= e.total; }).length;
   function showCount() {
-    const count = countProgress(progress(), ids);
+    const count = countProgress(progress(), ids.filter((id) => shown(id)));
     $('journalCount').textContent = `${walked() ? finishedCount() : count.complete}/${count.total}`;
     $('journalButton').classList.toggle('has-reply', repliesWaiting(cards(), today()) > 0);
   }

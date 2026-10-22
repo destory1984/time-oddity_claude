@@ -177,12 +177,12 @@ export function createSkyCanvas(canvas) {
         const p = seen(comet.alt, comet.az, 60);
         if (!p) continue;
         const q = project(comet.tailAlt, comet.tailAz, view);
-        const strength = light.stars * fade * clamp(0.35 + (6 - comet.mag) * 0.12, 0.35, 1);
+        const strength = light.stars * fade * clamp(0.6 + (6 - comet.mag) * 0.1, 0.6, 1);
         const tail = c.createLinearGradient(p.x, p.y, q.x, q.y);
         tail.addColorStop(0, `rgba(230,240,255,${0.75 * strength})`);
         tail.addColorStop(1, 'rgba(230,240,255,0)');
         const dx = q.x - p.x, dy = q.y - p.y, len = Math.hypot(dx, dy) || 1;
-        const nx = -dy / len, ny = dx / len, spread = Math.max(2, len * 0.12);
+        const nx = -dy / len, ny = dx / len, spread = Math.max(3, len * 0.14);
         c.fillStyle = tail;
         c.beginPath();
         c.moveTo(p.x + nx * 1.5, p.y + ny * 1.5);
@@ -190,11 +190,11 @@ export function createSkyCanvas(canvas) {
         c.lineTo(q.x - nx * spread, q.y - ny * spread);
         c.lineTo(p.x - nx * 1.5, p.y - ny * 1.5);
         c.closePath(); c.fill();
-        const head = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, 6);
+        const head = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, 8);
         head.addColorStop(0, `rgba(255,255,255,${strength})`);
         head.addColorStop(1, 'rgba(200,220,255,0)');
         c.fillStyle = head;
-        c.beginPath(); c.arc(p.x, p.y, 6, 0, Math.PI * 2); c.fill();
+        c.beginPath(); c.arc(p.x, p.y, 8, 0, Math.PI * 2); c.fill();
         label(comet.name, p.x, p.y, labels * light.stars * fade);
       }
     }

@@ -8217,6 +8217,151 @@ export const WALKS = {
     ],
     reply: '그날 썰매개들도 다섯 사람과 함께 남극점에 닿았단다.',
   },
+  // Prohlis by Dresden on Christmas night 1758: the farmer and astronomer Johann Georg
+  // Palitzsch finds with his telescope the comet Halley had foretold. The first hidden place of
+  // the comet's rumour web (core/rumors.js). Drawn as a candlelit night in oils after the Saxon
+  // court painter Dietrich (the user's choice of five tries: the second). The pictures are in
+  // dresden1758; the try is the second scene (the farmyard), ordered again with its sky
+  // magenta; the village lane and the field on the hill were ordered after it. Night: the sky
+  // of every picture is keyed out and the computed sky of that night, with the comet in it,
+  // stands behind the roofs (not `pale`).
+  // Looked up (the storyboard, docs/스토리보드-드레스덴-1758.md, and the brief of 2026.10.22): he
+  // was a farmer and an astronomer; he saw it on 25 December 1758 with a telescope; Halley had
+  // said it would come back; Hoffmann at Dresden saw it three days later.
+  // From memory: Stollen, Dresden's Christmas bread with raisins and candied peel under sugar;
+  // the stone dome of the Frauenkirche; the post coach and its post horn; candles in the
+  // windows on Christmas night; the warm woollen cloaks of the village.
+  // Made up: everybody but Palitzsch and all they say; the lanterns lowered; the letter given
+  // to the post coach that night and the horn blown as it leaves; that the mason worked on the
+  // Frauenkirche.
+  // Kept out: the war of those years; nobody smokes or drinks.
+  dresden1758: {
+    first: '핼리가 말한 꼬리별이 돌아오는 밤이란다. 팔리치 아저씨를 도와주렴.',
+    dir: 'dresden1758', look: 'paper', night: true,
+    drawn: '그 무렵 작센 궁정 화가의 촛불 밤 그림처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'lane', name: '독일 작센 프롤리스 마을 길', short: '마을 길', zoom: 1.208, ground: 0.660, scale: 0.707, air: 'hush', floor: 'dirt',
+        sora: '창마다 촛불이 켜져 있어!',
+        people: [
+          { id: 'churchman', pass: '성탄 예배가 참 좋았지.', name: '예배에서 돌아오는 아저씨', x: 0.18, w: 148, h: 320, lines: ['성탄 예배를 마치고 집에 가는 길이란다.', '등불이 있어야 눈길에서 안 미끄러지지.'] },
+          { id: 'stollen', pass: '빵이 아직 따뜻하구나.', show: 'stollen', name: '슈톨렌 나르는 아주머니', x: 0.29, w: 119, h: 304, lines: ['성탄에는 집집마다 슈톨렌을 굽는단다.', '설탕을 듬뿍 뿌렸지. 맛보련?'],
+            try: { id: 'eat-stollen', verb: 'eat', name: '슈톨렌', face: 'yum', sora: '건포도가 쫀득하고 달콤해!', memo: '슈톨렌은 드레스덴의 성탄 빵이란다. 겉에 흰 설탕을 듬뿍 뿌리지.' } },
+          { id: 'candlekid', pass: '촛불이 꺼지면 안 돼.', name: '촛불 든 아이', x: 0.4, w: 95, h: 230, lines: ['성탄 밤에는 창마다 촛불을 켜 둬.', '내 촛불은 작게 켜 둘게.'] },
+          { id: 'sledboy', pass: '썰매 타기 딱 좋은 눈이야.', name: '썰매 끄는 아이', x: 0.51, w: 166, h: 258, lines: ['언덕에서 썰매를 타고 내려왔어.', '언덕 위 들판으로 우편 마차가 다녀.'] },
+          { id: 'smith', pass: '오늘은 화덕도 쉬는 날이지.', name: '대장장이', x: 0.62, w: 144, h: 316, lines: ['성탄이라 오늘은 쇠를 안 두드린단다.', '팔리치는 밤마다 하늘을 본다더구나.'] },
+          { id: 'aunt', pass: '우리 애 옷이 작아졌네.', name: '아이 옷을 든 아주머니', x: 0.73, w: 142, h: 294, lines: ['딸아이가 작아서 못 입는 망토란다.', '털을 둘러서 따뜻해. 입어 보련?'],
+            try: { id: 'wear-saxony1758', verb: 'wear', name: '1758년 작센 농촌 아이의 겨울옷', outfit: 'saxony1758', sora: '망토가 두껍고 따뜻해!', memo: '작센 시골 아이들은 두꺼운 모직 망토를 입고 겨울을 났단다.' } },
+          { id: 'granny', pass: '눈이 많이 왔구나.', name: '이웃 할머니', x: 0.85, w: 126, h: 280, lines: ['성탄 밤에는 불을 밝혀 두는 거란다.', '팔리치네 아들은 밤이면 하늘만 본다니까.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'farm', name: '독일 작센 프롤리스 팔리치의 농가 마당', short: '농가 마당', zoom: 1.163, ground: 0.695, scale: 0.681, air: 'hush', floor: 'dirt',
+        sora: '긴 망원경이 하늘을 향해 있어!',
+        people: [
+          { id: 'cowhand', pass: '소들도 성탄 밤엔 푹 쉬어야지.', name: '소 돌보는 일꾼', x: 0.18, w: 106, h: 298, lines: ['소들에게 건초를 넉넉히 주는 중이야.', '주인 어른은 밤새 망원경만 보셔.'] },
+          { id: 'mother', pass: '아들이 또 밤을 새우겠구나.', name: '팔리치의 어머니', x: 0.29, w: 91, h: 267, lines: ['우리 아들은 낮엔 밭을 갈고 밤엔 별을 본단다.', '따뜻한 우유를 갖다주려던 참이야.'] },
+          { id: 'woodgirl', pass: '장작을 더 넣어야겠어.', name: '장작 나르는 아가씨', x: 0.4, w: 85, h: 268, lines: ['밤이 추우니 난로에 장작을 넣어야 해.', '마당 등불은 내가 벌써 작게 줄였어.'] },
+          { id: 'nephew', pass: '삼촌 공책은 별 그림투성이야.', show: 'notebook', pose: 'see-aha', sora: '별 자리를 점으로 그렸어!', memo: '팔리치는 본 별의 자리를 공책에 꼼꼼히 그려 두었단다.', name: '공책 보는 조카', x: 0.5, w: 84, h: 245, lines: ['삼촌은 본 별을 공책에 다 그려 둬.', '어제 그림과 오늘 하늘을 견주는 거야.'] },
+          { id: 'palitzsch', pass: '오늘 밤 하늘은 참 맑구나.', name: '팔리치', x: 0.62, w: 121, h: 320, lines: ['나는 밤마다 핼리 선생이 말한 꼬리별을 찾는단다.', '꼬리별은 일흔여섯 해쯤 뒤에 또 올 거란다.'] },
+          { id: 'lookkid', pass: '나도 망원경 보고 싶어.', name: '구경 온 이웃 아이', x: 0.73, w: 80, h: 212, lines: ['망원경으로 보면 별이 훨씬 많대.', '꼬리별은 꼬리가 달린 별이래.'] },
+          { id: 'dog', pass: '개가 꼬리를 흔든다.', name: '농가의 개', x: 0.85, w: 87, h: 133, lines: ['개가 소라에게 다가와 꼬리를 흔든다.', '개가 망원경 쪽을 보며 귀를 세운다.'] },
+        ],
+        spots: [
+          // The far lights of Dresden in the try (x about 0.62 to 0.85).
+          { id: 'dresden', from: 0.76, to: 0.82, see: [0.62, 0.42, 0.86, 0.55], sora: '저 멀리 드레스덴의 불빛이야!', memo: '언덕 너머 드레스덴에는 둥근 돌 지붕의 성모 교회가 있단다.' },
+        ],
+      },
+      {
+        id: 'hill', name: '독일 작센 프롤리스 언덕 위 들판', short: '언덕 위 들판', zoom: 1.176, ground: 0.685, scale: 0.688, air: 'hush', floor: 'dirt',
+        sora: '저 아래 드레스덴이 반짝여!',
+        people: [
+          { id: 'shepherd', pass: '양들은 우리에 다 넣었어.', name: '개를 데리고 가는 목동', x: 0.15, w: 110, h: 313, lines: ['양들을 다 우리에 넣고 집에 가는 길이야.', '내 개는 어두운 밤길도 잘 찾아.'] },
+          { id: 'stargirl', pass: '별이 너무 많아서 다 못 세겠어.', name: '별을 세는 소녀', x: 0.26, w: 97, h: 263, lines: ['오늘 밤은 별이 정말 많아.', '마을 불빛이 줄어서 별이 더 많아졌어.'] },
+          { id: 'mason', pass: '저 둥근 지붕은 다 돌이란다.', show: 'church', pose: 'see-wow', sora: '둥근 돌 지붕이 보여!', memo: '드레스덴의 성모 교회는 둥근 지붕까지 돌로 쌓은 큰 교회란다.', name: '석공', x: 0.87, w: 156, h: 320, lines: ['젊을 때 저 성모 교회를 짓는 일을 했단다.', '저 둥근 지붕은 다 돌로 쌓은 거야.'] },
+          { id: 'singer', pass: '성탄 노래를 부르며 가요.', name: '노래하는 아이', x: 0.75, w: 89, h: 265, lines: ['성탄 노래를 부르며 집집마다 다녔어.', '목이 쉬어도 오늘은 즐거워.'] },
+          { id: 'passenger', pass: '드레스덴 언니네 가는 길이야.', name: '마차 손님 아주머니', x: 0.37, w: 135, h: 305, lines: ['드레스덴에 사는 언니를 만나러 가.', '마차가 곧 떠난다니 서둘러야지.'] },
+          { id: 'stableboy', pass: '말들이 귀리를 좋아해.', name: '말을 돌보는 소년', x: 0.63, w: 84, h: 305, lines: ['떠나기 전에 말들에게 귀리를 줘.', '말들이 추워서 하얀 김을 내뿜어.'] },
+          { id: 'postilion', pass: '곧 드레스덴으로 떠난다.', name: '우편 마차 마부', x: 0.5, w: 149, h: 320, lines: ['우편 마차가 곧 드레스덴으로 떠난단다.', '떠날 때는 우편 나팔을 불지.'] },
+        ],
+        spots: [
+          // The far lights of Dresden at the right of the picture (x about 0.74 to 0.98).
+          { id: 'city', from: 0.9, to: 0.97, see: [0.74, 0.3, 0.98, 0.48], sora: '드레스덴의 불빛이 반짝여!', memo: '드레스덴은 작센의 큰 도시란다. 엘베 강가에 불빛이 반짝이지.' },
+        ],
+      },
+    ],
+    // "The work of the day" (core/tale.js `work`; the storyboard): in the village lane she asks
+    // three neighbours to lower their lanterns, so that the sky is dark; in the farmyard she
+    // looks along the stars by the Fishes with the telescope until the faint smudge is in it,
+    // and Palitzsch cries out; on the field on the hill she gives his letter to the post coach
+    // for Dresden and the horn is blown as it leaves. The way on from the farmyard is shut
+    // until the comet is found. Palitzsch is the one named person who speaks (like Galileo in
+    // Padua).
+    // Made up: all of it but that he found it with a telescope that night.
+    tale: {
+      work: true,
+      ask: '꼬리별이 돌아오는 밤에 무엇을 할까?',
+      gate: { scene: 'farm', open: 2, sora: '꼬리별을 찾기 전이야. 못 가.' },
+      steps: [
+        {
+          goal: '마을 길의 이웃 셋에게 등불을 낮춰 달라고 하렴.', tally: '이웃 {all}집 가운데 {n}집이 등불을 낮춰 주었다.',
+          round: [
+            { who: 'churchman', lines: ['하늘을 보려면 불빛이 적어야 한다고?', '그래, 이렇게 심지를 낮춰 주마.'] },
+            { who: 'smith', lines: ['팔리치가 부탁했다고? 그럼 낮춰야지.', '자, 등불을 문 안으로 들여놓으마.'] },
+            { who: 'granny', lines: ['성탄 밤에 불을 끄라고?', '꼬리별이라면 나도 보고 싶구나. 끄마.'] },
+          ],
+          after: [{ who: 'candlekid', line: '등불이 낮아지자 하늘에 별이 더 많이 보인다.' }],
+          cheer: '마을이 어두워졌다!',
+          sora: '별이 더 많아졌어! 팔리치 아저씨네 마당으로 가자!',
+          errand: 'lamps',
+        },
+        {
+          who: 'palitzsch', goal: '농가 마당에서 망원경으로 꼬리별을 찾아보렴.',
+          lines: ['얘야, 마을이 어두워지니 별이 잘 보이는구나.', '물고기자리 곁에 뿌연 얼룩이 있나 보렴.'],
+          play: {
+            kind: 'aim', tally: '망원경 겨누기 {all}번 가운데 {n}번을 맞췄다.', ask: '뿌연 얼룩이 금빛 칸에 올 때 누르렴.', label: '여기!', hits: 3, zone: [0.42, 0.58], speed: 0.7,
+            good: ['별 사이에 뿌연 것이 보여!', '얼룩이 또 그 자리에 있어!'], miss: ['앗, 그냥 별이었어!', '조금 지나쳤어!'], show: 'eyepiece',
+          },
+          after: [
+            { who: 'palitzsch', line: '돌아왔다! 핼리 선생 말대로야!' },
+            { who: 'palitzsch', line: '본 시각과 자리를 편지에 적었단다. 마차에 전해 주렴.' },
+          ],
+          cheer: '꼬리별을 찾았다!',
+          sora: '편지를 들고 언덕 위 들판으로 가자!',
+          errand: 'comet',
+        },
+        {
+          who: 'postilion', goal: '언덕 위 들판의 우편 마차에 편지를 전하렴.',
+          lines: ['성탄 밤에 무슨 편지냐?', '꼬리별 소식이라고? 그럼 얼른 가져가마.'],
+          play: {
+            kind: 'beat', tally: '우편 나팔을 {all}번 가운데 {n}번 박자에 맞춰 불었다.', ask: '넷째 금빛 불이 켜질 때 나팔을 불렴.', label: '불어!', hits: 3, zone: [0.42, 0.58], speed: 1.5,
+            good: ['나팔 소리가 들판에 울려!', '말들이 귀를 쫑긋 세웠어!'], miss: ['앗, 조금 일렀어!', '앗, 박자가 어긋났어!'], show: 'coach',
+          },
+          after: [{ who: 'stableboy', line: '마차가 눈길을 따라 드레스덴으로 떠난다.' }],
+          cheer: '편지가 떠났다!',
+          sora: '편지가 드레스덴으로 가! 하늘을 한 번 더 보자!',
+          errand: 'letter',
+        },
+      ],
+      asides: [
+        { who: 'candlekid', when: ['S0'], lines: ['이웃집 등불이 밝아서 별이 잘 안 보여.', '할머니도 등불을 들고 계셔.'] },
+        { who: 'mother', when: ['S0'], lines: ['아들이 마을 불빛이 너무 밝다고 걱정하더구나.', '이웃들에게 등불을 낮춰 달라고 해 보렴.'] },
+        { who: 'nephew', when: ['S1'], lines: ['삼촌이 물고기자리 곁을 보라고 했어.', '뿌연 얼룩이 있으면 그게 꼬리별이래.'] },
+        { who: 'lookkid', when: ['S2'], lines: ['꼬리별을 찾았대! 정말 돌아왔대!', '편지는 언덕 위 마차로 가져가야 해.'] },
+        { who: 'stargirl', when: ['S2'], lines: ['마부 아저씨가 곧 떠난대.', '마차는 들판 가운데에 서 있어.'] },
+        { who: 'palitzsch', when: ['S3'], lines: ['드레스덴의 호프만 선생도 곧 보게 될 거란다.', '꼬리별은 일흔여섯 해쯤 뒤에 또 올 거란다.'] },
+        { who: 'granny', when: ['S1', 'S2', 'S3'], lines: ['꼬리별은 찾았니? 나도 보고 싶구나.', '불은 이제 다시 켜도 되겠지?'] },
+      ],
+      done: '이웃의 등불을 낮추고, 망원경으로 꼬리별을 찾고, 편지를 마차에 전했다.',
+    },
+    errands: [
+      { id: 'lamps', text: '이웃 셋에게 등불을 낮춰 달라고 한다.', at: [] },
+      { id: 'comet', text: '망원경으로 돌아온 꼬리별을 찾는다.', at: [] },
+      { id: 'letter', text: '팔리치의 편지를 우편 마차에 전한다.', at: [] },
+    ],
+    reply: '그날 밤 찾은 꼬리별은 그 뒤로 핼리 혜성이라 불린단다.',
+  },
 };
 
 // The far and the fore of every other scene are told from the pictures that are there (the
