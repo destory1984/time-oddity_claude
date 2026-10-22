@@ -13,7 +13,7 @@ import { createDial, drag, grab, isDecade, nextMark, release, rollTo, setMarks, 
 import { createLook, dragLook, endLook, resetLook } from './core/look.js';
 import { HUSH_S, soraPose } from './core/sora.js';
 import { guideLine } from './core/guide.js';
-import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markBeen, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf, beenOf, errandsOf, metOf, markErrands, markMet, taleOf, markTale, dropErrands, keysOf, markKey } from './core/progress.js';
+import { countProgress, dotsOf, emptyProgress, fillDot, findSolved, fullProgress, isComplete, markBeen, markNoteRead, markTried, notesRead, quizSolved, solveFind, solveQuiz, triedOf, beenOf, errandsOf, metOf, markErrands, markMet, taleOf, markTale, dropErrands, keysOf, markKey, rumorsOf, markRumor } from './core/progress.js';
 import { findsOf } from './core/find.js';
 import { createFindGame } from './ui/find.js';
 import { project } from './core/project.js';
@@ -122,8 +122,8 @@ saveOutfit(null);
 const PLACES = LIVE.filter((sq) => !isHidden(sq.id)).map((sq) => sq.id);      // what grandmother's later notes count
 // The places to be seen now: a hidden one (core/rumors.js) only once its rumours are heard
 // and its year found.
-const metAt = (id) => metOf(progress, id);
-const visible = (ids) => shownPlaces(ids, metAt, keysOf(progress));
+const heardNow = () => rumorsOf(progress);
+const visible = (ids) => shownPlaces(ids, heardNow(), keysOf(progress));
 const STOPS = centuryStops(LIVE);
 // Where someone who has been nowhere yet begins: Rome, the oldest of the places, so that
 // the notebook is gone through from the far end of time toward grandmother's own day (the
@@ -278,13 +278,13 @@ const journal = createJournal({
   drawn: (id) => WALKS[id]?.drawn ?? null,
   intro: (id) => WALKS[id]?.intro ?? null,
   shown: (id) => visible([id]).length > 0,
-  rumorsLeft: (id) => RUMORS.filter((r) => r.at === id && !metAt(id).includes(r.who)).length,
+  rumorsLeft: (id) => RUMORS.filter((r) => r.at === id && !heardNow().includes(r.id)).length,
   // The goal, the comet's rumours heard and the years to be found (core/rumors.js).
   rumors: () => ({
     goal: GOAL,
-    heard: rumorsHeard(metAt).map((r) => r.says),
+    heard: rumorsHeard(heardNow()).map((r) => r.says),
     total: RUMORS.length,
-    asks: HIDDEN.filter((h) => h.sum && rumorsDone(h, metAt)).map((h) => ({ id: h.id, ...h.sum, found: keysOf(progress).includes(h.id) })),
+    asks: HIDDEN.filter((h) => h.sum && rumorsDone(h, heardNow())).map((h) => ({ id: h.id, ...h.sum, found: keysOf(progress).includes(h.id) })),
   }),
   onAnswer: (id, year) => {
     const hidden = HIDDEN.find((h) => h.id === id);
@@ -900,6 +900,8 @@ function playFrame(dt) {
 const COMET_REACH_PX = 44;
 window.addEventListener('pointerdown', (e) => {
   if (!walk || mode !== 'walk' || e.target.closest?.('button, dialog, #walkChoice, #memo, #hud, .sheet')) return;
+  // Outside the sky's play a person, or the mark over one, is theirs to touch even before the comet.
+  if (play?.kind !== 'sky' && e.target.closest?.('#walkPeople')) return;
   const near = skyCanvas.cometsOnPage().find((one) => Math.hypot(one.x - e.clientX, one.y - e.clientY) <= COMET_REACH_PX);
   if (play?.kind === 'sky') {
     e.stopPropagation(); e.preventDefault();
@@ -1047,13 +1049,12 @@ function talk(id = null) {
   if (said.person.sound) sound[said.person.sound]();
   // A rumour of the comet (core/rumors.js) is written in the notebook when the one who has
   // it has said it all, the first time only.
-  const rumor = rumorOf(square.id, said.person.id);
-  if (rumor && !metOf(progress, square.id).includes(said.person.id)) walk.told.push(`rumor-${rumor.id}`);
   keep(markMet(progress, square.id, said.person.id));
-  if (rumor && said.last && walk.told.includes(`rumor-${rumor.id}`) && !walk.told.includes(`wrote-${rumor.id}`)) {
-    walk.told.push(`wrote-${rumor.id}`);
+  const rumor = rumorOf(square.id, said.person.id);
+  if (rumor && said.last && !said.role && !heardNow().includes(rumor.id)) {
+    keep(markRumor(progress, rumor.id));
     sound.page();
-    walkView.found(t`수첩에 꼬리별 소문을 적었다 ${rumorsHeard(metAt).length}/${RUMORS.length}`);
+    walkView.found(t`수첩에 꼬리별 소문을 적었다 ${heardNow().length}/${RUMORS.length}`);
   }
   // What is said for the tale is the tale's: nothing is held up and she makes nothing of it.
   if (said.role) {
@@ -1123,7 +1124,7 @@ function tryNear(id = null) {
 function enterScene() {
   const scene = sceneOf(walk);
   closePanel();
-  walkView.setRumors(RUMORS.filter((r) => r.at === square.id && !metOf(progress, square.id).includes(r.who)).map((r) => r.who));
+  walkView.setRumors(RUMORS.filter((r) => r.at === square.id && !heardNow().includes(r.id)).map((r) => r.who));
   walkView.showScene(walk.place, walk.scene);
   walkFace = null; walkHeld = null;
   walkSora = scene.sora && !walk.told.includes(scene.id) ? { text: scene.sora, until: walkT + 900 + SORA_FOR_MS, from: walkT + 900 } : null;
@@ -1619,8 +1620,10 @@ function showEraPlaces(stop) {
   // Someone who has been nowhere yet is told where to begin: that place glows.
   const fresh = beenNowhere();
   globe.setBegin(fresh ? START : null);
-  if (stop === eraPlacesOf && fresh === eraPlacesNew) return;
-  eraPlacesOf = stop; eraPlacesNew = fresh;
+  // (eraStop() is a new object each call: what it holds is compared, or the list was built again every frame.)
+  const shown = stop ? `${stop.century}:${stop.ids.join()}` : null;
+  if (shown === eraPlacesOf && fresh === eraPlacesNew) return;
+  eraPlacesOf = shown; eraPlacesNew = fresh;
   const list = $('eraPlaces');
   list.hidden = !stop;
   if (!stop) return;
@@ -1638,7 +1641,7 @@ function showEraPlaces(stop) {
 // Above the Earth the goal is under the date, with how many of the comet's rumours are
 // written: what she goes about for is in sight wherever she sets off from (2026.10.22).
 function dateOnGlobe() {
-  const goal = t`☄ ${t(GOAL)} · 소문 ${rumorsHeard(metAt).length}/${RUMORS.length}`;
+  const goal = t`☄ ${t(GOAL)} · 소문 ${heardNow().length}/${RUMORS.length}`;
   return { dateText: overEarth() ? eraStop().label : t`${formatYear(dial.year)}년`, placeText: '지구 위', subText: goal };
 }
 
@@ -1814,7 +1817,8 @@ function frame(now) {
   if (overEarth() && eraDial.resting && shownEra !== eraAt()) {
     shownEra = eraAt();
     const first = squareById(eraStop().ids[0]);
-    globe.spinTo(0, first.lon - ERA_ASIDE_DEG, 0.9);
+    // (A century whose places are all hidden has none to turn to.)
+    if (first) globe.spinTo(0, first.lon - ERA_ASIDE_DEG, 0.9);
   }
   // How many places it has is told beside the Earth: one on the far side of the globe is
   // not to be missed (the user, 2026.10.7: "뭐가 있는지 모르니까, 계속 돌리기만 해").
@@ -1875,6 +1879,9 @@ $('testAll').addEventListener('click', () => {
     if (place.story?.choice) all = markTried(all, id, `chose-${place.story.choice.options[0].id}`);
     for (const scene of place.scenes) all = markBeen(all, id, scene.id);
   }
+  // And every rumour of the comet heard and every hidden day found, or those places stayed hidden.
+  for (const r of RUMORS) all = markRumor(all, r.id);
+  for (const h of HIDDEN) all = markKey(all, h.id);
   saveProgress(all);
   saveOpened();
   location.reload();

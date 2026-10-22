@@ -525,7 +525,7 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       if (node.mark) node.mark.style.display = gone ? 'none' : '';
       node.shade.style.display = gone ? 'none' : '';
       const fresh = !gone && (called || (Boolean(node.mark) && !node.mark.dataset.tale && !((walk.said[node.person.id] ?? 0) > 0 || (node.person.try && walk.tried.includes(node.person.try.id)))));
-      if (node.mark && called && !node.person.show) { node.mark.classList.add('bang'); node.mark.textContent = '!'; }
+      if (node.mark && called && !node.person.show) { node.mark.classList.add('bang'); node.mark.classList.remove('comet'); node.mark.textContent = '!'; }
       node.img.classList.toggle('worth', fresh);
       node.img.classList.toggle('near', Boolean(node.mark) && Math.abs(node.person.x - walk.x) <= 0.05);
       node.img.classList.toggle('speaking', walk.heard?.id === node.person.id);

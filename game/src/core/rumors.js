@@ -6,8 +6,9 @@
 // together bring to light the days the comet came, which are hidden until then.
 //
 // A rumour is heard from one person at one place: the line they say that holds it is one
-// of their two `lines` in core/walks.js, and it is counted as heard once that person has
-// been spoken to (the progress record's `met`), so nothing more is saved for it.
+// of their two `lines` in core/walks.js, and it is written down (the progress record's
+// `rumors`) once they have said their last line. Not from `met`: one spoken to before the
+// rumour was given them, or left after the first line, has not told it.
 // A hidden place shows on the globe once its rumours are heard and, where it has a `sum`,
 // the year it asks for has been chosen in the notebook (the progress record's `keys`).
 // Rumours guide and never shut: every place that is not hidden stays open.
@@ -36,24 +37,23 @@ export const HIDDEN = [
 
 export const isHidden = (id) => HIDDEN.some((h) => h.id === id);
 
-// met(placeId) => the ids of the people spoken to there.
-export const rumorsHeard = (met) => RUMORS.filter((r) => met(r.at).includes(r.who));
+// heard: the ids of the rumours written down.
+export const rumorsHeard = (heard) => RUMORS.filter((r) => heard.includes(r.id));
 
 // The rumour that speaking to this person at this place gives, or null.
 export const rumorOf = (place, person) => RUMORS.find((r) => r.at === place && r.who === person) ?? null;
 
 // Whether a hidden place's rumours are all heard (its sum may still be unanswered).
-export function rumorsDone(hidden, met) {
-  const heard = rumorsHeard(met).map((r) => r.id);
+export function rumorsDone(hidden, heard) {
   return hidden.needs.every((id) => heard.includes(id));
 }
 
 // Whether a hidden place is open: its rumours heard and its sum, if any, answered.
 // keys: the hidden places whose sum has been answered.
-export const isOpen = (hidden, met, keys) => rumorsDone(hidden, met) && (!hidden.sum || keys.includes(hidden.id));
+export const isOpen = (hidden, heard, keys) => rumorsDone(hidden, heard) && (!hidden.sum || keys.includes(hidden.id));
 
 // The ids of the places that are shown: every place that is not hidden, and the hidden
 // ones that are open.
-export function shownPlaces(ids, met, keys) {
-  return ids.filter((id) => { const h = HIDDEN.find((x) => x.id === id); return !h || isOpen(h, met, keys); });
+export function shownPlaces(ids, heard, keys) {
+  return ids.filter((id) => { const h = HIDDEN.find((x) => x.id === id); return !h || isOpen(h, heard, keys); });
 }

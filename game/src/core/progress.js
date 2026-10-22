@@ -8,7 +8,7 @@ const blank = () => ({ day: false, sky: false, remains: false, quiz: false, find
 
 import { sanitizeTale } from './tale.js';
 
-export const emptyProgress = () => ({ squares: {}, notes: [], keys: [] });
+export const emptyProgress = () => ({ squares: {}, notes: [], keys: [], rumors: [] });
 
 const of = (progress, id) => progress.squares[id] ?? blank();
 
@@ -33,6 +33,7 @@ export const fullProgress = (ids, noteIds) => ({
   squares: Object.fromEntries(ids.map((id) => [id, { day: true, sky: true, remains: true, quiz: true, find: true }])),
   notes: [...noteIds],
   keys: [],
+  rumors: [],
 });
 
 // ids: the squares that exist. Gives how many have each dot, how many have all three.
@@ -90,6 +91,9 @@ export const markNoteRead = (progress, id) => (notesRead(progress).includes(id) 
 // The hidden places whose year has been found in the notebook (core/rumors.js), by id.
 export const keysOf = (progress) => progress.keys ?? [];
 export const markKey = (progress, id) => (keysOf(progress).includes(id) ? progress : { ...progress, keys: [...keysOf(progress), id] });
+// The comet's rumours written down (core/rumors.js), by id.
+export const rumorsOf = (progress) => progress.rumors ?? [];
+export const markRumor = (progress, id) => (rumorsOf(progress).includes(id) ? progress : { ...progress, rumors: [...rumorsOf(progress), id] });
 
 // What was kept, read back: only squares that exist and only true-or-false marks survive.
 // Anything that cannot be read is an empty notebook, never an error.
@@ -115,5 +119,6 @@ export function sanitizeProgress(raw, ids, noteIds = []) {
   }
   const notes = Array.isArray(kept.notes) ? noteIds.filter((id) => kept.notes.includes(id)) : [];
   const keys = Array.isArray(kept.keys) ? ids.filter((id) => kept.keys.includes(id)) : [];
-  return { squares, notes, keys };
+  const rumors = Array.isArray(kept.rumors) ? [...new Set(kept.rumors.filter((id) => typeof id === 'string' && id.length <= 40))].slice(0, 60) : [];
+  return { squares, notes, keys, rumors };
 }
