@@ -6,6 +6,7 @@ import {
   SearchLunarEclipse,
 } from 'astronomy-engine';
 import STAR_LIST from '../data/stars.json';
+import COMETS from '../data/comets.json';
 import { astroTime } from './when.js';
 
 const RAD = Math.PI / 180;
@@ -76,6 +77,49 @@ function starsAt(time, observer) {
   });
 }
 
+// Halley's comet on the days it came (core/rumors.js): where JPL Horizons put it, a row a
+// day (data/comets.json: [JD, RA, Dec in J2000 degrees, total magnitude]), drawn between the
+// rows. Its tail points away from the sun along the sky, longer the brighter it is: about
+// 1.5 degrees at magnitude 7 (the Christmas of 1758, a smudge for a telescope) and some 25
+// at magnitude 0 (1066). The tail's length is a guess from its brightness, not computed.
+const unit = (raDeg, decDeg) => {
+  const ra = raDeg * RAD, dec = decDeg * RAD;
+  return [Math.cos(dec) * Math.cos(ra), Math.cos(dec) * Math.sin(ra), Math.sin(dec)];
+};
+const norm = (v) => { const l = Math.hypot(...v) || 1; return v.map((x) => x / l); };
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+export function cometAt(jd) {
+  for (const rows of COMETS.halley) {
+    if (jd < rows[0][0] || jd > rows[rows.length - 1][0]) continue;
+    const i = Math.min(rows.length - 2, Math.floor(jd - rows[0][0]));
+    const [j0, ra0, dec0, m0] = rows[i];
+    const [, ra1, dec1, m1] = rows[i + 1];
+    const f = jd - j0;
+    const a = unit(ra0, dec0), b = unit(ra1, dec1);
+    return { vec: norm(a.map((x, k) => x + (b[k] - x) * f)), mag: m0 + (m1 - m0) * f };
+  }
+  return null;
+}
+function cometsAt(jd, time, observer) {
+  const comet = cometAt(jd);
+  if (!comet) return [];
+  const sunJ = Equator(Body.Sun, time, observer, false, true).vec;
+  const s = norm([sunJ.x, sunJ.y, sunJ.z]);
+  const c = comet.vec;
+  const away = norm(c.map((x, k) => x * dot(c, s) - s[k]));
+  const tailDeg = Math.max(1.5, Math.min(25, (7 - comet.mag) * 3.5 + 1.5));
+  const end = norm(c.map((x, k) => x + away[k] * Math.tan(tailDeg * RAD)));
+  const { rot } = CombineRotation(Rotation_EQJ_EQD(time), Rotation_EQD_HOR(time, observer));
+  const toSky = ([x, y, z]) => {
+    const north = rot[0][0] * x + rot[1][0] * y + rot[2][0] * z;
+    const west = rot[0][1] * x + rot[1][1] * y + rot[2][1] * z;
+    const up = rot[0][2] * x + rot[1][2] * y + rot[2][2] * z;
+    return { alt: Math.asin(Math.max(-1, Math.min(1, up))) / RAD, az: (Math.atan2(-west, north) / RAD + 360) % 360 };
+  };
+  const head = toSky(c), tail = toSky(end);
+  return [{ id: 'halley', name: '핼리 혜성', alt: head.alt, az: head.az, tailAlt: tail.alt, tailAz: tail.az, mag: comet.mag, tailDeg }];
+}
+
 // How deep the moon is in the Earth's shadow: 0 until the partial phase begins, 1 from
 // the start of totality to its end. Looked for only near full moon, and the eclipse
 // found is remembered while the moment stays within a day of it.
@@ -117,7 +161,7 @@ export function skyAt(jd, { lat, lon }) {
     const { alt, az } = place(body, time, observer);
     return { id, name, alt, az, mag: Illumination(body, time).mag };
   });
-  return { sun, moon, planets, stars: starsAt(time, observer) };
+  return { sun, moon, planets, stars: starsAt(time, observer), comets: cometsAt(jd, time, observer) };
 }
 
 const clamp01 = (v) => Math.max(0, Math.min(1, v));
