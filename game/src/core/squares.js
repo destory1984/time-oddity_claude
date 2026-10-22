@@ -14,7 +14,7 @@
 import { t } from './i18n.js';
 import { formatYear } from './when.js';
 
-export const SQUARES = [
+const ALL_SQUARES = [
   {
     // The first leaf: not one of the 120 squares but the day of grandmother's first note.
     // She was fifteen, in a neighbour's yard, watching the Moon landing on television.
@@ -413,6 +413,9 @@ export const SQUARES = [
     // The pole itself has no azimuth, so the square stands a little off it; lon 0 makes
     // hourLocal universal time (about 3 pm, when they arrived). The sun goes round at 23
     // degrees and does not set, so the clock is not run on to "that night".
+    // Set aside (the user, 2026.10.22, of its pin at the bottom of the Earth: "남극점은 선택이
+    // 어렵네.. 일단 가려두자.."): it is not on the Earth or in the notebook until it is let back.
+    aside: true,
     no: 84, id: 'amundsen', name: '남극점', dateLabel: 'AD 1911.12.14', place: '남극점',
     lat: -89.98, lon: 0,
     date: { year: 1911, month: 12, day: 14 }, calendar: 'gregorian', hourLocal: 15,
@@ -1089,7 +1092,10 @@ export const SQUARES = [
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
 
-export const squareById = (id) => SQUARES.find((s) => s.id === id);
+// The squares of the game: all but those set aside for now (`aside`), which are still found by id.
+export const SQUARES = ALL_SQUARES.filter((s) => !s.aside);
+
+export const squareById = (id) => ALL_SQUARES.find((s) => s.id === id);
 
 // How a square is named on screen: its name alone. Its number (its place among the
 // notebook's 120) only keeps the order; shown, it read as a riddle (the user asked what it

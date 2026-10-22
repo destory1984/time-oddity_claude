@@ -1806,10 +1806,25 @@ function globeCount() {
   return { complete: count.complete, visited: count.day, total: count.total };
 }
 
+// The bottom of the words over the Earth (the goal under the date, the era's line), in the
+// stage's own pixels, with a little room.
+function textFloor() {
+  const top = stage.getBoundingClientRect().top;
+  let floor = 0;
+  for (const id of ['subText', 'eraPlaces']) {
+    const node = $(id);
+    if (!node || node.hidden || !node.offsetParent) continue;
+    floor = Math.max(floor, node.getBoundingClientRect().bottom - top);
+  }
+  return floor + 4;
+}
+
 function frameGlobe(dt) {
   globe.render(dt);
-  // She flies at the height of the place nearest her on the upright Earth.
-  stage.style.setProperty('--hoverY', `${globe.hoverY().toFixed(1)}px`);
+  // She flies at the height of the place nearest her on the upright Earth, but never so high
+  // that she hides the date, the goal and the era's line above it (the user, 2026.10.22, of her
+  // over the goal: "가린다"). 132 is how far her top stands above that height (style.css).
+  stage.style.setProperty('--hoverY', `${Math.max(globe.hoverY(), textFloor() + 132).toFixed(1)}px`);
   const now = performance.now();
   const moved = globe.motion();
   const way = mode === 'globe' ? flyPose(moved.dx, moved.dy) : null;

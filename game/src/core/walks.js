@@ -69,7 +69,7 @@ import { LAYERS } from './layers.js';
 
 export const WALKS = {
   colosseum: {
-    first: '오늘은 콜로세움이 처음 문을 여는 날이란다. 심부름 셋을 해 보렴.',
+    first: '오늘은 콜로세움이 처음 문을 여는 날이란다. 잔치가 잘 열리도록 도와주렴.',
     dir: 'rome', look: 'paper',
     drawn: '한 해 전 화산재에 묻힌 폼페이의 벽 그림처럼 그렸단다. 그때 로마의 집마다 있던 그림이지.',
     now: {
@@ -147,19 +147,83 @@ export const WALKS = {
         ],
       },
     ],
+    // "The work of the day" (core/tale.js `work`, as at Darlington, London and Jikji; the user,
+    // 2026.10.22, chose five places to be told so first: docs/스토리보드-그날의-일-다섯.md). The
+    // bread of the market is scored before it sells out; before the gates people who cannot read
+    // the number on their token are read it, and the guard lets the line on; inside, she hauls on
+    // the awning's rope with the sailors until it is spread.
+    // Looked up (docs/신기한-사실.md): the numbers cut over the arches and painted red; Titus threw
+    // wooden balls (Cassius Dio 66.25).
+    // From memory: the sailors of the fleet at Misenum worked the awning; the token bore the gate's
+    // number; the round loaf scored in eight (one was found burnt at Pompeii); many could not read.
+    // Made up: the bread short that day and her scoring it, the guard holding the line, the three
+    // numbers (15, 38, 23), the awning spread at that hour and her hauling on it, every word said.
+    tale: {
+      work: true,
+      ask: '새 경기장이 여는 날, 무엇을 도울까?',
+      gate: { scene: 'plaza', open: 2, sora: '경비병이 줄을 막고 있어. 아직 못 가.' },
+      steps: [
+        {
+          who: 'baker', goal: '시장 거리의 빵 장수를 도와 빵에 금을 그으렴.',
+          lines: ['반죽에 여덟 쪽 금을 그어야 해요.', '손님이 몰려와요. 같이 그어 줄래요?'],
+          play: {
+            kind: 'aim', tally: '빵 {all}개 가운데 {n}개에 금을 그었다.', ask: '하얀 점이 금빛 칸에 올 때 칼을 대렴.', label: '쓱', hits: 3, zone: [0.4, 0.6], speed: 0.7,
+            good: ['반듯하게 그었어!', '하나 더!'], miss: ['앗, 금이 비뚤어졌어!', '조금 늦었어!'],
+          },
+          after: [{ who: 'boy', line: '빵 받았다! 주인님께 뛰어가야지.' }],
+          cheer: '빵에 금을 다 그었다!',
+          sora: '이제 콜로세움 앞 광장으로 가 보자!',
+          errand: 'bread',
+        },
+        {
+          goal: '콜로세움 앞 광장에서 사람들의 문 번호를 읽어 주렴.', tally: '조각 {all}개 가운데 {n}개의 번호를 읽어 주었다.',
+          round: [
+            { who: 'wife', lines: ['조각에 새긴 번호를 못 읽겠구나.', '열다섯이라고? 아, 저쪽 문이구나.'] },
+            { who: 'old', lines: ['눈이 어두워 번호가 안 보이는구나.', '서른여덟이라고? 저기로 가야겠군.'] },
+            { who: 'child', lines: ['내 조각도 봐 줘. 스물셋이야?', '엄마도 스물셋이랬어. 거기 갈래!'] },
+          ],
+          after: [{ who: 'guard', line: '번호를 다 읽었구먼. 들어가시오.' }],
+          cheer: '번호를 다 읽어 주었다!',
+          sora: '줄이 풀렸어! 콜로세움 안으로 가 보자!',
+          errand: 'gates',
+        },
+        {
+          who: 'sailor1', goal: '콜로세움 안의 뱃사람과 함께 차양 줄을 당기렴.',
+          lines: ['해가 높아졌소. 차양을 펴야 하오.', '줄을 같이 당기겠소? 영차!'],
+          play: {
+            kind: 'mash', tally: '차양 줄 {all}개 가운데 {n}개를 당겼다.', ask: '여러 번 눌러 줄을 끝까지 당기렴.', label: '영차!', hits: 3, zone: [0.42, 0.58], speed: 0.12,
+            good: ['영차! 천이 펴졌어!', '한 줄 더!'], miss: ['앗, 줄이 미끄러졌어!', '조금 더 세게!'], show: 'awning',
+          },
+          after: [{ who: 'sailor2', line: '그늘이 졌소. 관중들이 좋아하오.' }, { who: 'clap', line: '황제가 나무 공을 던진다!' }],
+          cheer: '차양을 다 폈다!',
+          sora: '그늘 아래서 행진이 시작돼!',
+          errand: 'awning',
+        },
+      ],
+      asides: [
+        { who: 'maid', when: ['S0'], lines: ['빵집에 줄이 길어요.', '빵 장수 아저씨 혼자 바빠요.'] },
+        { who: 'reader', when: ['S0'], lines: ['오늘의 소식! 빵집에 일손이 모자라오.', '경기장 손님이 다 빵을 사 가오.'] },
+        { who: 'guard', when: ['S0', 'S1'], lines: ['번호를 못 읽는 이가 많소.', '조각을 읽어 주면 줄이 줄겠소.'] },
+        { who: 'ticket', when: ['S1'], lines: ['나는 스물셋 문이지. 읽을 줄 알아.', '저 사람들은 못 읽나 봐.'] },
+        { who: 'usher', when: ['S2'], lines: ['해가 뜨거워 다들 머리를 가리오.', '뱃사람들이 곧 차양을 편다오.'] },
+        { who: 'nuts', when: ['S2'], lines: ['해가 뜨거워. 콩이 다 마르겠어.', '차양이 펴지면 그늘이 져.'] },
+        { who: 'clap', when: ['S3'], lines: ['그늘이 지니 시원하구먼!', '이제 황제가 공을 던질 거야.'] },
+        { who: 'cheer', when: ['S3'], lines: ['그늘에서 보니 행진이 더 멋져.', '천을 흔들자! 황제가 본대.'] },
+      ],
+      done: '빵에 금을 긋고, 문 번호를 읽어 주고, 차양 줄을 당겼다.',
+    },
     errands: [
-      { id: 'garum', text: '시장에서 생선 소스 좀 찍어 먹어 보렴. 냄새가 지독하다더라.', at: ['eat-garum'] },
-      { id: 'toga', text: '토가라는 옷 좀 입어 보렴. 혼자는 못 입는다던데.', at: ['wear-toga'] },
-      { id: 'sailors', text: '경기장 지붕을 뱃사람들이 당긴다던데 정말인지.', at: ['sailor1', 'sailor2'] },
+      { id: 'bread', text: '빵에 여덟 쪽 금을 긋는다.', at: [] },
+      { id: 'gates', text: '문 번호를 읽어 준다.', at: [] },
+      { id: 'awning', text: '차양 줄을 당겨 그늘을 편다.', at: [] },
     ],
-    reply: '그 지독한 걸 먹어 봤구나! 토가는 무겁더냐. 뱃사람 얘기가 정말이었네.',
+    reply: '그 큰 천을 뱃사람들이 돛처럼 다뤘단다. 네 손도 보탰구나.',
   },
   eiffel: {
-    first: '오늘은 에펠탑이 문을 연 날이란다. 박람회에 처음 나온 것들을 찾아보렴.',
-    // Since 2026.10.12 a place where things are found (core/seek.js; the user, of San Francisco
-    // and Tokyo made so: "파리도 이런 식으로 바꿔보자", and of the table of nine: "ㅇㅇ"): what was
-    // first shown to the world at the fair, three of them things that go by (`moving` with `touch`).
-    seek: true,
+    first: '오늘은 에펠탑에 처음 사람들이 오르는 날이란다. 박람회 일을 도와주렴.',
+    // From 2026.10.12 to 2026.10.22 a place where things were found (core/seek.js); since then
+    // told as the work of the day (see the comment before the tale). What was to be found is
+    // still there to be touched, each with its word from Sora and grandmother's memo.
     // Drawn again in the manner of the Impressionists' oils of the streets of Paris (the
     // user, 2026.10.10: "그림체 바꾸자", and of five tries: "1"). The words and errands are
     // as they were. The sky is in the pictures (`pale`), and people speak in bubbles: the
@@ -285,18 +349,75 @@ export const WALKS = {
         spots: [],
       },
     ],
-    // Each is on record (docs/신기한-사실.md section 3). Of the rolling bridge it is on record that
-    // the hall had two; whether they ran on this day was not found.
+    // "The work of the day" (core/tale.js `work`; the user, 2026.10.22, chose five places to be
+    // told so first: docs/스토리보드-그날의-일-다섯.md): at the gate she helps sell tickets until the
+    // line is down; under the tower she gathers three to stand before it for the photographer; in
+    // the hall she sets the phonograph's needle at the head of the cylinder for those waiting.
+    // Looked up (docs/신기한-사실.md section 3): Le Figaro printed on the tower, the first number on
+    // 15 May 1889; 29,922 walked up in the first week, the lifts not yet running; a post box on
+    // each floor; the little train; the théâtrophone.
+    // From memory: that the tower was first opened to people that day; Edison's phonograph at the
+    // fair, heard through tubes to the ears and turned by electricity (so a needle set, not a
+    // spring wound); that a photograph of then wanted those in it to keep still.
+    // Made up: her selling tickets and the one seller, the three gathered for one photograph, her
+    // setting the needle, the hour-long line, every word said.
+    tale: {
+      work: true,
+      ask: '말하는 기계에서는 무슨 소리가 날까?',
+      gate: { scene: 'gate', open: 1, sora: '입구 줄이 꽉 막혔어. 표부터 끊자.' },
+      steps: [
+        {
+          who: 'ticket', goal: '박람회 입구의 표 파는 사람과 함께 표를 끊어 주렴.',
+          lines: ['오늘은 탑이 열려 줄이 끝이 없소.', '표 끊는 걸 좀 거들어 주겠소?'],
+          play: {
+            kind: 'beat', tally: '표 {all}장 가운데 {n}장을 끊었다.', ask: '금빛 불이 켜질 때 표를 끊으렴.', label: '딸깍', hits: 3, zone: [0.42, 0.58], speed: 1.5,
+            good: ['딸깍! 한 분 들어가요!', '다음 분!'], miss: ['앗, 표가 비뚤게 찢겼어!', '조금 일렀어!'],
+          },
+          after: [{ who: 'parasol', line: '줄이 줄었구나. 이제 들어가 보자.' }],
+          cheer: '입구 줄이 다 줄었다!',
+          sora: '이제 탑 아래로 가 보자!',
+          errand: 'ticket',
+        },
+        {
+          goal: '에펠탑 아래의 사진사를 도와 탑 앞에 설 사람을 모으렴.', tally: '사진에 들 {all}명 가운데 {n}명이 모였다.',
+          round: [
+            { who: 'kid', lines: ['사진을 찍는대? 나도 들어갈래!', '아빠, 나 탑 앞에 서 있을게.'] },
+            { who: 'painter', lines: ['사진이라. 그림보다 빠르긴 하지.', '좋소, 붓을 놓고 잠깐 서 주리다.'] },
+            { who: 'postcard', lines: ['어머, 탑 앞에서 사진이라니요.', '엽서를 들고 서 있을게요.'] },
+          ],
+          after: [{ who: 'photo', line: '움직이지 마시오! 찰칵, 다 찍혔소.' }],
+          cheer: '탑 앞에서 사진을 찍었다!',
+          sora: '이제 기계관으로 가 보자!',
+          errand: 'photo',
+        },
+        {
+          who: 'phono', goal: '박람회 기계관의 말하는 기계 지기와 함께 노래를 들려주렴.',
+          lines: ['줄 선 손님이 많아 손이 모자라오.', '통이 돌 때 바늘을 첫머리에 놓아 주오.'],
+          play: {
+            kind: 'aim', tally: '노래를 {all}번 가운데 {n}번 들려주었다.', ask: '하얀 점이 금빛 칸에 올 때 바늘을 놓으렴.', label: '사뿐', hits: 3, zone: [0.42, 0.58], speed: 0.7,
+            good: ['노래가 나와! 손님이 웃어.', '한 번 더!'], miss: ['앗, 노래 중간부터 나와!', '조금 늦었어!'], show: 'phonograph',
+          },
+          after: [{ who: 'queue', line: '세상에, 통에서 사람 목소리가 나네.' }],
+          cheer: '말하는 기계가 노래했다!',
+          sora: '통 속에서 노래가 흘러나와!',
+          errand: 'phono',
+        },
+      ],
+      asides: [
+        { who: 'news', when: ['S0'], lines: ['입구 줄이 저 끝까지 섰어요!', '표 파는 아저씨 혼자 바빠요.'] },
+        { who: 'tophat', when: ['S0'], lines: ['줄이 길구먼. 표 끊는 이가 하나뿐이오.', '나도 저 줄에 서야 하오.'] },
+        { who: 'photo', when: ['S1'], lines: ['탑 앞에 설 사람을 모아 주겠소?', '셋이면 한 장에 꼭 들어가오.'] },
+        { who: 'stairs', when: ['S1'], lines: ['사진사 아저씨가 사람을 찾아요.', '계단 오르기 전에 한 장 찍어 가요.'] },
+        { who: 'engineer', when: ['S2'], lines: ['말하는 기계 줄이 한 시간째요.', '지기 혼자서는 손이 모자라오.'] },
+        { who: 'queue', when: ['S2'], lines: ['한 시간째 줄이야. 언제 들어 보나.', '지기 아저씨를 좀 도와주렴.'] },
+        { who: 'reporter', when: ['S3'], lines: ['기계가 노래를 하다니, 다 적었소.', '오늘 일은 내일 신문에 나오.'] },
+      ],
+      done: '표를 끊고, 탑 앞에서 사진을 찍고, 말하는 기계로 노래를 들려주었다.',
+    },
     errands: [
-      { id: 'tall', scene: 'gate', text: '세상에서 가장 높은 탑', at: ['tall'] },
-      { id: 'train', scene: 'gate', text: '깃발 든 사람과 꼬마 기차', at: ['train', 'ticket'] },
-      { id: 'flags', scene: 'gate', text: '백 년 잔치의 삼색 깃발', at: ['flag-0', 'flag-1', 'flag-2', 'flag-3'] },
-      { id: 'climb', scene: 'tower', text: '계단을 걸어 오르는 사람들', at: ['climb', 'stairs'] },
-      { id: 'press', scene: 'tower', text: '탑 위에서 찍은 신문', at: ['down'] },
-      { id: 'postcard', scene: 'tower', text: '탑 도장이 찍힌 엽서', at: ['postcard'] },
-      { id: 'phono', scene: 'hall', text: '말하는 기계', at: ['table', 'phono', 'use-phono'] },
-      { id: 'opera', scene: 'hall', text: '전화로 듣는 오페라', at: ['opera'] },
-      { id: 'bridge', scene: 'hall', text: '기계 위를 지나가는 다리', at: ['bridge'] },
+      { id: 'ticket', text: '입구에서 표를 끊는다.', at: [] },
+      { id: 'photo', text: '탑 앞에 설 사람을 모은다.', at: [] },
+      { id: 'phono', text: '말하는 기계로 노래를 들려준다.', at: [] },
     ],
     reply: '엘리베이터 없이 그 높은 탑을 걸어 올랐다니. 처음 보는 것투성이였겠구나.',
   },
@@ -308,7 +429,7 @@ export const WALKS = {
   // the ministers' one memorial against them (1444). Still from memory: the letters drawn
   // after the shapes of the mouth, the king's failing eyes, the bowl sundial of his reign.
   hunminjeongeum: {
-    first: '새 글자 스물여덟 자가 세상에 나온 해란다. 심부름 셋을 해 보렴.',
+    first: '새 글자 스물여덟 자가 세상에 나온 해란다. 새 글자를 널리 알리게 도와주렴.',
     // Drawn again in the manner of the woodcuts of the Samgang haengsildo, printed under the
     // same king in 1434 (the user, 2026.10.10: "한양도 그림체 바꾸자.", and of four tries:
     // "1번으로 가자."). The words and errands are as they were. The sky is in the pictures
@@ -389,12 +510,79 @@ export const WALKS = {
         ],
       },
     ],
+    // "The work of the day" (core/tale.js `work`; the user, 2026.10.22, chose five places to be
+    // told so first: docs/스토리보드-그날의-일-다섯.md): she pastes up the notice in the market,
+    // reads the new letters to three before Gwanghwamun, and sews the book with a scholar of the
+    // hall. Grandmother says "the year", not "the day": what was done on the day they were given
+    // out is hardly on record, so nobody says it is that day, there is no feast, and the king is
+    // only seen from afar. (The queen died in the third month of that year; the autumn may have
+    // been one of mourning: not looked up.)
+    // Looked up: as in the place's comment above; Jeong In-ji's preface (Sejong sillok, the 29th
+    // day of the ninth month of the 28th year); the book a national treasure, and of UNESCO's
+    // Memory of the World in 1997.
+    // From memory: the scholars of the hall wrote the explanations; the book printed from wood
+    // blocks and sewn with thread (how many holes is not said); "벼" and "가마" so written then.
+    // Made up: the notice pasted up (as before), the three read to, the guard who holds the gate
+    // until it is done, her sewing the book with the scholar, every word said.
+    tale: {
+      work: true,
+      ask: '새 글자는 어떻게 세상에 나왔을까?',
+      gate: { scene: 'gate', open: 2, sora: '수문장이 대궐 문을 막고 있어. 못 가.' },
+      steps: [
+        {
+          who: 'reader', goal: '저잣거리의 방 읽어 주는 선비를 도와 방을 붙이렴.',
+          lines: ['임금께서 새 글자를 내셨다오.', '이 방을 벽에 붙여야 하오. 거들겠소?'],
+          play: {
+            kind: 'mash', tally: '방 {all}장 가운데 {n}장을 붙였다.', ask: '여러 번 눌러 방 뒤에 풀을 고루 바르렴.', label: '척척', hits: 3, zone: [0.42, 0.58], speed: 0.12,
+            good: ['척! 방이 반듯하게 붙었어!', '한 장 더!'], miss: ['앗, 풀이 모자라 들떴어!', '조금 더 발라야 해!'],
+          },
+          after: [{ who: 'woodboy', line: '저 방에 그림 같은 글자가 있어!' }],
+          cheer: '방을 다 붙였다!',
+          sora: '광화문 앞에도 알리러 가 보자!',
+          errand: 'notice',
+        },
+        {
+          goal: '광화문 앞의 젊은 관리를 도와 새 글자를 세 사람에게 읽어 주렴.', tally: '{all}사람 가운데 {n}사람에게 읽어 주었다.',
+          round: [
+            { who: 'farmer', lines: ['"벼"는 이렇게 쓴다고? 참 쉽구먼.', '이제 내 억울한 일도 적어 보겠소.'] },
+            { who: 'bearer', lines: ['"가마"가 두 글자면 되는구먼.', '어깨 쉴 때 한번 써 봐야겠소.'] },
+            { who: 'elder', lines: ['허허, 소리 나는 대로 적힌다니.', '한 번 읽어나 봅시다.'] },
+          ],
+          after: [{ who: 'official', line: '다 읽어 주었구려. 수고했소.' }, { who: 'guard', line: '집현전 뜰로 드시오. 학사들이 기다리오.' }],
+          cheer: '새 글자를 읽어 주었다!',
+          sora: '대궐 문이 열렸어! 집현전 뜰로 가 보자!',
+          errand: 'read',
+        },
+        {
+          who: 'scholar', goal: '집현전 뜰의 학사와 함께 책을 실로 묶으렴.',
+          lines: ['풀이를 다 써서 책이 되었다오.', '책장을 실로 꿰어 묶겠소. 같이 하겠소?'],
+          play: {
+            kind: 'aim', tally: '구멍 {all}개 가운데 {n}개에 실을 꿰었다.', ask: '하얀 점이 금빛 칸에 올 때 바늘을 꽂으렴.', label: '쏙', hits: 3, zone: [0.42, 0.58], speed: 0.7,
+            good: ['쏙! 실이 꿰어졌어!', '하나 더!'], miss: ['앗, 구멍을 비껴갔어!', '조금 일렀어!'], show: 'letters',
+          },
+          after: [{ who: 'books', line: '다 묶은 책은 볕에 말려 두겠소.' }],
+          cheer: '책이 다 묶였다!',
+          sora: '책 첫머리에 글자 스물여덟 자가 있어!',
+          errand: 'bind',
+        },
+      ],
+      asides: [
+        { who: 'tteok', when: ['S0'], lines: ['선비님이 방을 붙인다는구먼.', '풀 바르는 손이 모자라 보이우.'] },
+        { who: 'guard', when: ['S0', 'S1'], lines: ['대궐 안은 아무나 못 드오.', '새 글자 알리는 일을 마치면 보내 주리다.'] },
+        { who: 'official', when: ['S1'], lines: ['이 종이에 새 글자를 적어 왔소.', '저 세 사람에게 읽어 주겠소?'] },
+        { who: 'water', when: ['S1'], lines: ['방 글자를 아이가 읽어 주었다우.', '나도 친정에 편지를 써 봐야지.'] },
+        { who: 'sleepy', when: ['S2'], lines: ['밤새 풀이를 다 썼소. 하암…', '학사님이 책을 묶으려 기다리오.'] },
+        { who: 'child', when: ['S3'], lines: ['책이 다 묶였어? 나도 볼래!', '내 이름도 그 글자로 썼어.'] },
+        { who: 'scholar', when: ['S3'], lines: ['이제 이 책으로 백성이 배우겠지.', '네 손이 빨라 금세 묶었구나.'] },
+      ],
+      done: '방을 붙이고, 새 글자를 읽어 주고, 책을 실로 묶었다.',
+    },
     errands: [
-      { id: 'news', text: '저잣거리에서 새 글자 소문을 들어 보렴.', at: ['reader'] },
-      { id: 'king', text: '임금님을 멀리서라도 뵙고 오렴.', at: ['sejong'] },
-      { id: 'name', text: '제 이름을 처음 써 본 사람을 찾아보렴.', at: ['child'] },
+      { id: 'notice', text: '저잣거리에 새 글자 방을 붙인다.', at: [] },
+      { id: 'read', text: '광화문 앞에서 새 글자를 읽어 준다.', at: [] },
+      { id: 'bind', text: '집현전 뜰에서 책을 실로 묶는다.', at: [] },
     ],
-    reply: '제 이름을 처음 쓴 아이를 만났구나. 그 글자로 이 수첩을 쓴단다.',
+    reply: '그때 묶은 책 한 권이 지금도 남아 국보가 되었단다.',
   },
   // San Francisco, 27 May 1937: the bridge was opened to people on foot for a day. Looked
   // up on 2026.10.8 and found so: the gates at six, about two hundred thousand, people
@@ -1130,12 +1318,12 @@ export const WALKS = {
   // the two sides alike as in a mirror, the garden in four parts with water between, the
   // blue stone flecked with gold. Not found, and so not said: scaffolding of brick, the
   // length of the ramp, how many kinds of stone, twenty thousand workers.
-  // Made up: the errand of the red stone, the overseer, that the calligrapher takes her up.
+  // Made up: the work of the day (see the comment before the tale), the overseer.
   tajMahal: {
     // Who lived here, for a player who has not heard of them: the first slip of all (the user,
     // 2026.10.13: "사람들이 잘 모르는 문명에 대해서는 간략하게나마 소개하는 페이지를"). Written from memory, then looked up.
     intro: { title: '무굴 사람들', text: '무굴은 인도의 북쪽을 다스린 큰 나라란다. 임금 샤 자한이 먼저 떠난 왕비를 그리며 흰 돌 무덤을 지었지.' },
-    first: '흰 돌 무덤을 한창 짓는 중이란다. 붉은 돌 한 알을 전해 주렴.',
+    first: '흰 돌 무덤을 한창 짓는 중이란다. 일꾼들을 도와주렴.',
     dir: 'agra1640', look: 'paper', pale: true,
     drawn: '무굴의 임금들이 아끼던 작고 꼼꼼한 그림처럼 그렸단다.',
     now: {
@@ -1170,7 +1358,7 @@ export const WALKS = {
             try: { id: 'eat-mango', verb: 'eat', name: '망고', face: 'yum', sora: '망고가 달콤해! 즙이 줄줄 흘러.' } },
           { id: 'girl', pass: '물 가져왔어요, 물!', name: '물 나르는 소녀', x: 0.63, w: 97, h: 264, lines: ['강에서 물을 길어다 날라.', '돌을 켤 때도 물이 많이 든대.'] },
           { id: 'boatman', pass: '배로 돌을 싣고 왔소!', name: '돌 싣고 온 뱃사공', x: 0.75, w: 80, h: 320, lines: ['무거운 돌은 강물로 실어 온다오.', '저 흰 지붕이 날마다 조금씩 자라지.'] },
-          { id: 'jeweller', pass: '어디 보자, 보석 한 알이 비는구나.', name: '보석 장수', x: 0.85, w: 97, h: 296, lines: ['먼 나라에서 온 돌을 판단다.', '빛깔마다 고향이 다르지.'] },
+          { id: 'jeweller', pass: '먼 나라에서 온 돌 보고 가시오.', name: '보석 장수', x: 0.85, w: 97, h: 296, lines: ['먼 나라에서 온 돌을 판단다.', '빛깔마다 고향이 다르지.'] },
         ],
         spots: [],
       },
@@ -1194,7 +1382,7 @@ export const WALKS = {
         sora: '벽이 온통 하얘! 꽃이 새겨져 있어.',
         people: [
           { id: 'apprentice', pass: '스승님, 그릇 여기요.', name: '상감 견습생', x: 0.19, w: 87, h: 244, lines: ['꽃 한 송이 박는 데 여러 날이 걸려.', '나는 아직 돌 고르기만 배워.'] },
-          { id: 'inlayer', pass: '한 알이 모자라는구나…', show: 'flower', pose: 'see-wow', sora: '돌로 만든 꽃이야!', memo: '흰 돌에 홈을 파고 색돌 조각을 꼭 맞게 박았단다. 꽃 한 송이에 조각이 수십 개지.', name: '꽃을 박는 장인', x: 0.3, w: 104, h: 270, lines: ['돌로 꽃을 피우는 일을 한단다.', '시들지 않는 꽃이지.'] },
+          { id: 'inlayer', pass: '홈은 다 팠다. 이제 박기만 하면 돼.', show: 'flower', pose: 'see-wow', sora: '돌로 만든 꽃이야!', memo: '흰 돌에 홈을 파고 색돌 조각을 꼭 맞게 박았단다. 꽃 한 송이에 조각이 수십 개지.', name: '꽃을 박는 장인', x: 0.3, w: 104, h: 270, lines: ['돌로 꽃을 피우는 일을 한단다.', '시들지 않는 꽃이지.'] },
           { id: 'carver', pass: '숨을 참고 톡, 톡 새겨야지.', name: '꽃 새기는 조각가', x: 0.42, w: 113, h: 261, lines: ['이 꽃은 돌을 깎아 도드라지게 했단다.', '한 번 잘못 치면 처음부터지.'] },
           { id: 'architect', pass: '왼쪽과 오른쪽이 똑같아야지.', name: '으뜸 건축가', x: 0.53, w: 149, h: 320, lines: ['이 집은 왼쪽과 오른쪽이 똑같단다.', '거울에 비춘 것처럼 지었지.'] },
           { id: 'polisher', pass: '대리석을 반들반들하게 닦아야지.', name: '대리석 닦는 일꾼', x: 0.65, w: 98, h: 270, lines: ['고운 모래로 문질러 윤을 낸단다.', '해가 뜨면 벽이 눈부시게 빛나지.'] },
@@ -1204,62 +1392,74 @@ export const WALKS = {
         spots: [],
       },
     ],
-    // "The day the white tomb was building" (core/tale.js; the user, 2026.10.9, of the
-    // storyboard: "이대로 지어"): a red stone left behind is taken from the jeweller at the
-    // landing to the master who sets flowers of stone; the overseer will let only workers
-    // up; the calligrapher has her carry his inkpot as his helper; she hands the stone
-    // over, choosing what to say; and the last petal is set.
+    // "The work of the day" (core/tale.js `work`; the user, 2026.10.22, chose five places to be
+    // told so first: docs/스토리보드-그날의-일-다섯.md; before, from 2026.10.9, a red stone carried
+    // from the jeweller to the master who sets flowers). By the river she hauls a great block up
+    // with the mahout and his elephant, in time; in the yard petals of coloured stone are short,
+    // and she grinds them to the line with the cutter, so the overseer lets her up as a worker;
+    // on the tomb she sets the petals with the master, and a flower of stone is whole. The
+    // apprentice is the one who carried the petals up (she carries nothing).
+    // From memory: water used in cutting and grinding stone; polishing with fine sand; coloured
+    // stone ground to the shape of a petal.
+    // Made up: all three works and her part in them, the petals short that day, the overseer
+    // taking a child who works for a worker, every word said. The day is not on record.
     tale: {
-      thing: true,
+      work: true,
       ask: '돌로 꽃을 피울 수 있을까?',
-      gate: { scene: 'yard', open: 3, sora: '감독관이 막고 있어. 못 올라가.' },
+      gate: { scene: 'yard', open: 2, sora: '감독관이 계단을 막고 있어. 일부터 거들자.' },
       steps: [
         {
-          who: 'jeweller', goal: '강가 나루의 보석 장수에게 가 보렴.', holds: '붉은 돌: 보석 장수가 들고 있음',
-          lines: ['얘야, 부탁 하나만 들어주련?', '붉은 돌 한 알이 빠진 채로 올라갔구나.', '꽃잎 하나가 비어 있을 게다. 전해 주련?'],
-          offer: { ask: '붉은 돌을 전해 줄까?', label: '내가 전해 줄게요' },
-          errand: 'took',
-        },
-        {
-          who: 'foreman', goal: '돌 다듬는 마당 끝의 계단으로 가 보렴.', holds: '붉은 돌: 소라가 들고 있음',
-          lines: ['멈춰라. 이 위는 일꾼만 올라간다.', '아이가 다니다 다치면 큰일이지.'],
-          sora: '돌만 전하면 되는데… 어? 누가 불러!',
-        },
-        {
-          who: 'calligrapher', call: '얘야, 이리 와 보렴.', goal: '글씨 쓰는 서예가가 부른다. 가 보렴.', holds: '붉은 돌: 소라가 들고 있음',
-          lines: ['위에 볼일이 있다고? 그럼 이렇게 하자.', '내 먹통을 들어 주렴. 그러면 내 조수란다.'],
-          after: [{ who: 'foreman', line: '서예가 어른의 조수로군. 올라가거라.' }],
-          sora: '조수가 됐어! 올라가자!',
-        },
-        {
-          who: 'inlayer', goal: '흰 무덤 위의 꽃을 박는 장인에게 돌을 전하렴.', holds: '붉은 돌: 소라가 들고 있음',
-          lines: ['누구냐… 그 손에 든 것은?'],
-          choice: {
-            ask: '붉은 돌을 건네며 뭐라고 할까?',
-            options: [
-              { id: 'E1', label: '"한 알이 빠졌대요"', sora: '보석 장수 아저씨가 보석 한 알이 빠졌대요.', says: '오, 이걸 찾고 있었단다. 고맙구나.' },
-              { id: 'E2', label: '"돌로 꽃을 만들어요?"', sora: '정말 돌로 꽃을 만들어요?', says: '그럼. 마침 꽃잎 하나가 비었단다.' },
-            ],
+          who: 'mahout', goal: '강가 공사터의 코끼리 몰이꾼과 함께 큰 돌을 끌어 올리렴.',
+          lines: ['마크라나에서 온 큰 돌을 올린단다.', '내가 부를 때 같이 영차 하련?'],
+          play: {
+            kind: 'beat', tally: '큰 돌을 {all}번 가운데 {n}번 박자 맞춰 끌었다.', ask: '금빛 불이 켜질 때 영차 하고 외치렴.', label: '영차!', hits: 3, zone: [0.42, 0.58], speed: 1.5,
+            good: ['영차! 돌이 쭉 올라가!', '한 번 더!'], miss: ['앗, 박자가 어긋났어!', '조금 일렀어!'],
           },
-          errand: 'gave',
+          after: [{ who: 'boatman', line: '배에서 내린 돌이 다 올라갔구려.' }],
+          cheer: '큰 돌이 다 올라갔다!',
+          sora: '이제 돌 다듬는 마당으로 가 보자!',
+          errand: 'haul',
         },
         {
-          who: 'inlayer', show: true, goal: '장인이 꽃을 다 피우는 것을 보렴.',
-          lines: ['자, 빈자리에 꼭 맞게 넣는다.', '보렴. 이제 꽃 한 송이가 다 피었지.'],
+          who: 'cutter', goal: '돌 다듬는 마당의 돌 켜는 장인과 함께 꽃잎을 갈렴.',
+          lines: ['꽃 한 송이에 꽃잎이 아직 모자라.', '선에 꼭 맞게 갈아 보자. 같이 하련?'],
+          play: {
+            kind: 'aim', tally: '꽃잎 {all}장 가운데 {n}장을 갈았다.', ask: '하얀 점이 금빛 칸에 올 때 누르렴.', label: '사각', hits: 3, zone: [0.43, 0.57], speed: 0.8,
+            good: ['사각! 선에 꼭 맞아!', '한 장 더!'], miss: ['앗, 너무 많이 갈았어!', '조금 덜 갈렸어!'],
+          },
+          after: [{ who: 'foreman', line: '솜씨 좋은 일꾼이로구나. 올라가거라.' }],
+          cheer: '꽃잎을 다 갈았다!',
+          sora: '계단이 열렸어! 흰 무덤 위로 가 보자!',
+          errand: 'petal',
+        },
+        {
+          who: 'inlayer', goal: '흰 무덤 위의 꽃을 박는 장인과 함께 꽃잎을 박으렴.',
+          lines: ['홈은 다 팠고 꽃잎도 올라왔단다.', '살살 눌러 꼭 맞게 넣자. 같이 하련?'],
+          play: {
+            kind: 'fill', tally: '꽃잎 {all}장 가운데 {n}장을 박았다.', ask: '꾹 누르다가 금빛 칸에서 손을 떼렴.', label: '톡', hits: 3, zone: [0.65, 0.85], speed: 0.5,
+            good: ['톡! 꼭 맞게 들어갔어!', '한 장 더!'], miss: ['앗, 너무 세게 눌렀어!', '앗, 덜 들어갔어!'], show: 'flower',
+          },
+          after: [{ who: 'polisher', line: '다 박았으면 내가 반들반들 닦으마.' }],
+          cheer: '돌꽃 한 송이가 피었다!',
           sora: '진짜 꽃이 됐어! 안 시드는 꽃이야.',
-          errand: 'saw',
+          errand: 'flower',
         },
       ],
       asides: [
-        { who: 'jeweller', when: ['S1', 'S2', 'S3', 'S4'], lines: ['장인은 저 흰 무덤 위에 계신단다.', '돌 다듬는 마당을 지나 올라가렴.'] },
-        { who: 'jeweller', when: ['S5'], lines: ['전해 주었구나! 고맙다.', '이제 그 꽃도 다 피었겠구나.'] },
+        { who: 'jeweller', when: ['S0'], lines: ['오늘도 코끼리가 큰 돌을 끄는구나.', '몰이꾼 혼자 힘들어 보이더라.'] },
+        { who: 'foreman', when: ['S0', 'S1'], lines: ['이 위는 일꾼만 올라간다.', '일을 거들면 너도 일꾼이지.'] },
+        { who: 'girl', when: ['S1'], lines: ['돌 켤 때 쓸 물을 길어 놨어.', '마당의 장인께 가 보렴.'] },
+        { who: 'sorter', when: ['S1'], lines: ['꽃잎 돌은 빛깔대로 나눠 두었어.', '장인 아저씨가 너를 기다려.'] },
+        { who: 'apprentice', when: ['S2'], lines: ['네가 간 꽃잎은 내가 담아 왔어.', '스승님께 가 보렴.'] },
+        { who: 'mahout', when: ['S2', 'S3'], lines: ['네 덕에 돌이 금방 올라갔단다.', '저 흰 지붕이 날마다 자라지.'] },
+        { who: 'visitor', when: ['S3'], lines: ['돌로 꽃을 피우다니, 놀라운 솜씨요.', '고향에 가서 꼭 이야기하겠소.'] },
       ],
-      done: '붉은 돌을 전하고, 돌꽃이 피는 것을 보았다.',
+      done: '코끼리와 큰 돌을 끌고, 꽃잎을 갈고, 돌꽃 한 송이를 박았다.',
     },
     errands: [
-      { id: 'took', text: '붉은 돌을 받는다.', at: [] },
-      { id: 'gave', text: '꽃을 박는 장인에게 돌을 전한다.', at: [] },
-      { id: 'saw', text: '돌로 핀 꽃을 본다.', at: [] },
+      { id: 'haul', text: '코끼리와 함께 큰 돌을 끌어 올린다.', at: [] },
+      { id: 'petal', text: '꽃잎 돌을 선에 맞게 간다.', at: [] },
+      { id: 'flower', text: '꽃잎을 박아 돌꽃을 피운다.', at: [] },
     ],
     reply: '그 꽃은 지금도 그 벽에 피어 있단다. 흰 무덤은 그 뒤로도 여러 해를 더 지었지.',
   },
@@ -1883,9 +2083,10 @@ export const WALKS = {
   // water poured on sand before a sledge halves the pull (measured in 2014; the painting of
   // it is some 700 years later); copper chisels and wooden mallets for limestone; the lock
   // of hair children wore. From memory: beer made of bread, rope, the knotted cord.
-  // Made up: the errand of the tally, the foreman, the baker who speaks for her.
+  // Made up: the work of the day (her unloading, baking and hauling; the bread that stops the
+  // sledges), the foreman.
   khufu: {
-    first: '큰 피라미드를 한창 쌓는 중이란다. 돌 조각을 전해 주렴.',
+    first: '큰 피라미드를 한창 쌓는 중이란다. 피라미드가 잘 올라가도록 도와주렴.',
     dir: 'giza2560', look: 'paper', pale: true,
     // As Kaifeng: the eye is a camera and things stand nearer it than the street (the user,
     // 2026.10.12: "대피라미드만 개봉처럼 full로 다 해보자").
@@ -1974,61 +2175,75 @@ export const WALKS = {
         spots: [],
       },
     ],
-    // "The tally" (core/tale.js; the user, 2026.10.10, of the storyboard: "이대로 지어"): Merer
-    // has written on a flake of stone how many blocks he brought today; the foreman keeps
-    // her off the sledge road; the baker shows her the way the bread goes; she hands the
-    // flake to the scribe, choosing what to say; and he shows her the stone going up.
+    // "The work of the day" (core/tale.js `work`; the user, 2026.10.22, chose five places to be
+    // told so first: docs/스토리보드-그날의-일-다섯.md; before, from 2026.10.10, "the tally", a flake
+    // of stone carried from Merer to the scribe). At the harbour she levers white stone off the
+    // boat with the hauler, and Merer writes it down; in the workers' town the bread for the
+    // gang at the sledges is short, and she bakes it with the baker until the sledges rest and
+    // the foreman lets her by; at the foot of the pyramid she hauls on the rope with the gang
+    // in time, over sand wetted before the sledge.
+    // From memory (not looked up again): blocks unloaded with levers and rollers; the conical
+    // moulds buried in embers; gangs hauling a rope together.
+    // Made up: three blocks, three moulds and three hauls of hers that day; the bread short;
+    // the sledges resting while the bread goes up; hauling in time (to the four lights: the
+    // game's shorthand); every word said.
     tale: {
-      thing: true,
+      work: true,
       ask: '돌은 어떻게 저 위로 올라갈까?',
-      gate: { scene: 'village', open: 3, sora: '우두머리가 막고 있어. 못 가.' },
+      gate: { scene: 'village', open: 2, sora: '우두머리가 썰매 길을 막고 있어. 못 가.' },
       steps: [
         {
-          who: 'merer', goal: '물길의 나루에서 감독 메레르에게 가 보렴.', holds: '돌 조각: 메레르가 들고 있음',
-          lines: ['얘야, 심부름 하나 해 주련?', '오늘 실어 온 돌의 수를 여기 적었단다.', '피라미드 발치의 서기에게 전해 주렴.'],
-          offer: { ask: '돌 조각을 전해 줄까?', label: '내가 전해 줄게요' },
-          errand: 'took',
-        },
-        {
-          who: 'foreman', goal: '일꾼 마을 끝의 큰 문으로 가 보렴.', holds: '돌 조각: 소라가 들고 있음',
-          lines: ['멈춰라. 돌 썰매가 지나가는 길이다.', '아이가 다닐 데가 아니야.'],
-          sora: '전해야 하는데… 어? 누가 불러!',
-        },
-        {
-          who: 'baker', call: '얘야, 이리 와 보렴.', goal: '빵 굽는 아주머니가 부른다. 가 보렴.', holds: '돌 조각: 소라가 들고 있음',
-          lines: ['서기님께 가는 길이라고?', '빵 나르는 길로 가면 썰매를 안 만난단다.', '우두머리님께는 내가 말해 주마.'],
-          after: [{ who: 'foreman', line: '빵 길로 가거라. 썰매 길은 안 된다.' }],
-          sora: '빵 길로 가면 된대! 가자!',
-        },
-        {
-          who: 'scribe', goal: '피라미드 발치의 서기에게 돌 조각을 전하렴.', holds: '돌 조각: 소라가 들고 있음',
-          lines: ['어디 보자, 나루에서 온 거냐?'],
-          choice: {
-            ask: '돌 조각을 건네며 뭐라고 할까?',
-            options: [
-              { id: 'E1', label: '"메레르가 보냈어요"', sora: '메레르 아저씨가 보냈어요.', says: '투라의 흰 돌이 왔구나. 잘했다!' },
-              { id: 'E2', label: '"돌이 몇 개예요?"', sora: '오늘 돌이 몇 개 왔어요?', says: '서른 개란다. 하나도 안 빠졌구나.' },
-            ],
+          who: 'hauler', goal: '물길의 나루에서 돌 내리는 일꾼과 함께 배의 돌을 내리렴.',
+          lines: ['투라에서 온 흰 돌을 내려야 한단다.', '지렛대를 같이 눌러 보련?'],
+          play: {
+            kind: 'aim', tally: '돌 {all}개 가운데 {n}개를 내렸다.', ask: '하얀 점이 금빛 칸에 올 때 지렛대를 누르렴.', label: '끙차', hits: 3, zone: [0.4, 0.6], speed: 0.7,
+            good: ['쿵! 돌이 굴림대에 앉았어!', '하나 더!'], miss: ['앗, 돌이 기우뚱해!', '조금 더 기다렸다가!'],
           },
-          errand: 'gave',
+          after: [{ who: 'merer', line: '세 개 내렸구나. 일지에 적어 두마.' }],
+          cheer: '배에서 돌을 내렸다!',
+          sora: '이제 일꾼 마을로 가 보자!',
+          errand: 'unload',
         },
         {
-          who: 'scribe', show: true, goal: '서기가 가리키는 비탈길을 보렴.',
-          lines: ['저기 보렴. 오늘 온 돌이 올라간다.', '썰매 앞에 물을 부으면 잘 나간단다.'],
+          who: 'baker', goal: '일꾼 마을의 빵 굽는 아주머니와 함께 원뿔 빵을 구우렴.',
+          lines: ['썰매 끄는 조가 먹을 빵이 모자라.', '빵틀을 숯불에 묻어 같이 굽자꾸나.'],
+          play: {
+            kind: 'fill', tally: '빵 {all}틀 가운데 {n}틀을 구웠다.', ask: '꾹 눌러 빵을 굽다가 금빛 칸에서 떼렴.', label: '지글', hits: 3, zone: [0.65, 0.85], speed: 0.5,
+            good: ['노릇노릇 잘 구워졌어!', '한 틀 더!'], miss: ['앗, 겉이 탔어!', '앗, 속이 덜 익었어!'],
+          },
+          after: [{ who: 'foreman', line: '빵이 올라가니 썰매도 쉰다. 지나가거라.' }],
+          cheer: '빵을 다 구웠다!',
+          sora: '길이 열렸어! 피라미드 발치로 가 보자!',
+          errand: 'bread',
+        },
+        {
+          who: 'puller', goal: '피라미드 발치에서 줄 끄는 일꾼들과 함께 썰매를 끌렴.',
+          lines: ['빵을 먹었으니 힘이 나는구나.', '물을 부으면 다 같이 끄는 거야.'],
+          play: {
+            kind: 'beat', tally: '썰매를 {all}번 가운데 {n}번 함께 끌었다.', ask: '금빛 불이 켜질 때 줄을 당기렴.', label: '영차!', hits: 3, zone: [0.42, 0.58], speed: 1.5,
+            good: ['영차! 썰매가 쑥 나가!', '한 번 더!'], miss: ['앗, 혼자 당겼어!', '조금 일렀어!'], show: 'sled',
+          },
+          after: [{ who: 'pourer', line: '물을 부으니 잘 미끄러지지?' }, { who: 'scribe', line: '들어온 돌 하나, 적어 두었다.' }],
+          cheer: '돌이 비탈길을 올라간다!',
           sora: '다 같이 끄니까 돌이 올라가!',
-          errand: 'saw',
+          errand: 'sled',
         },
       ],
       asides: [
-        { who: 'merer', when: ['S1', 'S2', 'S3', 'S4'], lines: ['서기는 피라미드 발치에 있단다.', '일꾼 마을을 지나면 나온다.'] },
-        { who: 'merer', when: ['S5'], lines: ['전해 주었구나. 고맙다, 얘야.', '오늘 일지에 네 이야기도 적어야겠다.'] },
+        { who: 'rower', when: ['S0'], lines: ['오늘 배에 흰 돌이 서른 개란다.', '일꾼 혼자 내리느라 바쁘구나.'] },
+        { who: 'merer', when: ['S0'], lines: ['내린 돌은 하나하나 적어 둔단다.', '일꾼을 도와 돌을 내려 주련?'] },
+        { who: 'foreman', when: ['S0', 'S1'], lines: ['썰매가 쉴 때까지는 못 지나간다.', '빵이 올라가면 다들 쉰단다.'] },
+        { who: 'kid', when: ['S1'], lines: ['빵 냄새 맡았어? 아줌마가 바빠.', '아빠네 조가 배고프대.'] },
+        { who: 'waterboy', when: ['S2'], lines: ['물 붓는 아저씨가 썰매 앞에 있어.', '줄 끄는 조에 끼어 보렴.'] },
+        { who: 'ankhhaf', when: ['S3'], lines: ['오늘도 한 단이 올라갔구나.', '너도 힘을 보탰다지?'] },
+        { who: 'merer', when: ['S3'], lines: ['돌이 잘 올라갔다고 들었다.', '오늘 일지에 네 이야기도 적어야겠다.'] },
       ],
-      done: '돌 조각을 전하고, 돌이 오르는 것을 보았다.',
+      done: '돌을 내리고, 빵을 굽고, 썰매를 끌어 돌을 올렸다.',
     },
     errands: [
-      { id: 'took', text: '돌 조각을 받는다.', at: [] },
-      { id: 'gave', text: '서기에게 돌 조각을 전한다.', at: [] },
-      { id: 'saw', text: '돌이 비탈길을 오르는 것을 본다.', at: [] },
+      { id: 'unload', text: '나루에서 지렛대로 배의 돌을 내린다.', at: [] },
+      { id: 'bread', text: '일꾼 마을에서 원뿔 빵을 굽는다.', at: [] },
+      { id: 'sled', text: '줄을 함께 끌어 돌을 비탈길로 올린다.', at: [] },
     ],
     reply: '그 감독의 일지가 사천오백 해 뒤에 나왔단다. 적어 두면 남는 법이지.',
   },

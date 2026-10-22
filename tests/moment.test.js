@@ -7,8 +7,9 @@ const today = { year: 2026, month: 10, day: 7 };
 const at = (id, dial) => momentJd(squareById(id), dial, today);
 
 describe('the four squares', () => {
+  // (84, the South Pole, is set aside for now: the user, 2026.10.22.)
   it('come in the order of their numbers', () => {
-    expect(SQUARES.map((s) => s.no)).toEqual([0, 0.5, 1, 2, 5, 6, 7, 8, 9, 10, 12, 16, 18, 19, 20, 21, 22, 23, 24, 25, 25.5, 27, 28, 29, 30, 31, 31.5, 32, 33, 33.5, 34, 35, 36, 39, 40, 46, 47, 49.5, 50, 54, 60, 64, 73.5, 74, 75, 82, 84, 84.5, 85, 86, 88.5, 94, 104, 107, 110, 112.5, 113, 117]);
+    expect(SQUARES.map((s) => s.no)).toEqual([0, 0.5, 1, 2, 5, 6, 7, 8, 9, 10, 12, 16, 18, 19, 20, 21, 22, 23, 24, 25, 25.5, 27, 28, 29, 30, 31, 31.5, 32, 33, 33.5, 34, 35, 36, 39, 40, 46, 47, 49.5, 50, 54, 60, 64, 73.5, 74, 75, 82, 84.5, 85, 86, 88.5, 94, 104, 107, 110, 112.5, 113, 117]);
   });
   it('keep the memo and Sora lines within 25 characters', () => {
     for (const s of SQUARES) {
