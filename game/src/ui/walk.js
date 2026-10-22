@@ -21,7 +21,7 @@ const SORA_FRONT = 20;
 const FOOT = 0.8;             // feet stand at this share of the screen's height
 const SORA_TALL = 176;        // she is this tall on a 812 px high screen, walking or standing
 const STEP_MS = 150;          // a frame of her walking, and of her standing, lasts this long
-const IDLE_MS = 260;
+const IDLE_MS = 500;   // a breath of two seconds; at 260 she breathed too fast standing still (the user, 2026.10.22)
 const IDLE_ROOM = 256 / 244;  // her standing picture is this much taller than she is in it
 const IDLE_FOOT = 6 / 244;    // and her shoes end this far above its foot
 

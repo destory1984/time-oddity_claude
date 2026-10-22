@@ -6,7 +6,7 @@
 // 대고, 쉬잇~ 하는 움직임 넣어줘", "소리/음악 공통으로 해줘"; here on 2026.10.7: "소리 off,
 // bgm off 할 때마다 소라가 쉬잇~하는 것도 가져와").
 export const HUSH_S = 3;
-const IDLE_FPS = 3;
+const IDLE_FPS = 2;   // as slow as on the ground (ui/walk.js IDLE_MS 500: the user, 2026.10.22)
 const SEE_FPS = 6;
 const FRAMES = 4;
 

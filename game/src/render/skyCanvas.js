@@ -178,8 +178,8 @@ export function createSkyCanvas(canvas) {
       for (const comet of sky.comets ?? []) {
         const p = seen(comet.alt, comet.az, 60);
         if (!p) continue;
-        comets.push({ id: comet.id, x: p.x, y: p.y });
         const q = project(comet.tailAlt, comet.tailAz, view);
+        comets.push({ id: comet.id, x: p.x, y: p.y, tailX: q.x, tailY: q.y });
         const strength = light.stars * fade * clamp(0.85 + (6 - comet.mag) * 0.05, 0.85, 1);
         const tail = c.createLinearGradient(p.x, p.y, q.x, q.y);
         tail.addColorStop(0, `rgba(230,240,255,${0.85 * strength})`);
@@ -207,7 +207,7 @@ export function createSkyCanvas(canvas) {
   // Where on the page the comets drawn last are, for a touch to find them (main.js).
   function cometsOnPage() {
     const box = canvas.getBoundingClientRect();
-    return comets.map((one) => ({ ...one, x: box.left + one.x, y: box.top + one.y }));
+    return comets.map((one) => ({ ...one, x: box.left + one.x, y: box.top + one.y, tailX: box.left + one.tailX, tailY: box.top + one.tailY }));
   }
 
   return { resize, draw, cometsOnPage };

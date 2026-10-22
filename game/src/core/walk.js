@@ -130,6 +130,14 @@ function finish(walk, id) {
 
 // What a person has to say now. As the tale goes on some have other things to say: `then`
 // is [{ after: an errand's id, lines }], and the last of them whose errand is done holds.
+// What one says in passing: once an errand of theirs is done, what they say after it (`then`'s
+// `pass`), so that nobody asks again for what has been done (the user, 2026.10.22, of the
+// telescope in New York: "삼각대 세운 이후로는 삼각대 세우는거 도와달라고 하지마").
+export function passOf(walk, person) {
+  const later = (person.then ?? []).filter((t) => walk.done.includes(t.after) && t.pass);
+  return later.length > 0 ? later[later.length - 1].pass : person.pass;
+}
+
 export function linesOf(walk, person) {
   if (!person?.lines) return null;
   // In a tale whoever has a part in it just now says that, and nothing else.
@@ -268,7 +276,7 @@ export function stepWalk(walk, dtMs, way = 0) {
   const by = walk.hush ? null : overheard(walk);
   // (Whoever the tale calls for calls out to her instead of saying what they always say.)
   const called = by && walk.tale ? callOf(walk.place.tale, walk.tale, by.id) : null;
-  const passed = by ? called ?? by.pass : null;
+  const passed = by ? called ?? passOf(walk, by) : null;
   if ((by?.id ?? null) !== (walk.passing?.id ?? null) || (by && walk.passing.line !== passed)) walk.passing = by ? { id: by.id, line: passed } : null;
   const spot = spotAt(walk);
   if (spot && !walk.seen.includes(spot.id)) {

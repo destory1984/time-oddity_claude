@@ -613,3 +613,7 @@ html.shell body{background:radial-gradient(ellipse at 50% 40%, #0b1430 0%, #0204
 #testBar{position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:60;display:flex;gap:8px;pointer-events:none}
 #testBar button{flex:none;white-space:nowrap;min-height:0;height:15px;padding:0 10px;border:1px dashed #ff9d9d;border-radius:10px;background:#3a0f1acc;color:#ffd0d0;font:10px/13px var(--ui);pointer-events:auto}
 html.shell #testBar{display:none}
+
+/* While the comet is looked for in the sky (main.js frameWalk), grandmother's slip fades away. */
+#errands{transition:opacity .4s}
+body.sky-look #errands{opacity:0;pointer-events:none}

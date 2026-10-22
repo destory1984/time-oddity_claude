@@ -909,12 +909,21 @@ function playFrame(dt) {
 // up it is what is to be done, and a touch elsewhere in the sky is a miss; otherwise she says
 // what it is. Touches on buttons and boxes are theirs.
 const COMET_REACH_PX = 44;
+// How far a touch is from the comet: from its head or anywhere along its tail, which is what
+// catches the eye (the user, 2026.10.22: touched on the tail, it said she had missed).
+function fromComet(one, x, y) {
+  const dx = one.tailX - one.x, dy = one.tailY - one.y, len2 = dx * dx + dy * dy || 1;
+  const k = Math.max(0, Math.min(1, ((x - one.x) * dx + (y - one.y) * dy) / len2));
+  return Math.hypot(one.x + k * dx - x, one.y + k * dy - y);
+}
 window.addEventListener('pointerdown', (e) => {
   if (!walk || mode !== 'walk' || e.target.closest?.('button, dialog, #walkChoice, #memo, #hud, .sheet')) return;
   // Outside the sky's play a person, or the mark over one, is theirs to touch even before the comet.
   if (play?.kind !== 'sky' && e.target.closest?.('#walkPeople')) return;
-  const near = skyCanvas.cometsOnPage().find((one) => Math.hypot(one.x - e.clientX, one.y - e.clientY) <= COMET_REACH_PX);
-  if (play?.kind === 'sky') {
+  const near = skyCanvas.cometsOnPage().find((one) => fromComet(one, e.clientX, e.clientY) <= COMET_REACH_PX);
+  // While the sky's play is up only a touch on the comet, or in the sky above the roofs, is
+  // the play's; below that she walks and speaks as ever (the user: "게임 멈췄어").
+  if (play?.kind === 'sky' && (near || e.clientY < window.innerHeight * 0.45)) {
     e.stopPropagation(); e.preventDefault();
     if (walkT < play.wait) return;
     sound.wake();
@@ -1238,6 +1247,9 @@ window.addEventListener('keyup', (e) => {
 window.addEventListener('blur', () => { keyWay = 0; walkWay = 0; });
 
 function frameWalk(dt) {
+  // While she looks for the comet in the sky, grandmother's slip at the upper left steps aside:
+  // on a wide screen the comet stood under it (the user, 2026.10.22: "꼬리별이 가린다").
+  document.body.classList.toggle('sky-look', play?.kind === 'sky');
   walkT += dt;
   if (play) playFrame(dt);
   // Who the tale calls for, and who is not in this scene just now, for the picture (ui/walk.js).
