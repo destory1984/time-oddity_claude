@@ -49,7 +49,7 @@ import { readReply, sendCard, takeCard } from './core/postcard.js';
 import { createPager } from './ui/opening.js';
 import { OPENING } from './core/opening.js';
 import { NOTES, dueNote, noteById, notePages } from './core/notes.js';
-import { GOAL, HIDDEN, RUMORS, isHidden, rumorOf, rumorsDone, rumorsHeard, shownPlaces } from './core/rumors.js';
+import { GOAL, HIDDEN, RUMORS, rumorOf, rumorsDone, rumorsHeard, shownPlaces } from './core/rumors.js';
 import { keepProgressAside,
   loadCards, loadMusic, loadRepeat, saveRepeat, loadMuted, loadOpened, loadOutfit, saveOutfit, loadProgress, saveCards, saveMusic, saveMuted, saveOpened, saveProgress,
 } from './ui/storage.js';
@@ -119,7 +119,10 @@ const OUTFITS = outfitsOf(WALKS);
 // The game is opened in her own clothes every time: what she had on when it was shut is
 // not on her now (the user, 2026.10.8: "왜 옷을 자꾸 다르게 입혀?").
 saveOutfit(null);
-const PLACES = LIVE.filter((sq) => !isHidden(sq.id)).map((sq) => sq.id);      // what grandmother's later notes count
+// What grandmother's later notes count: every place, the hidden ones too, so that her last
+// leaf opens only when the comet has been seen on every day it came as well (the user,
+// 2026.10.22, of where the goal ends: "다").
+const PLACES = LIVE.map((sq) => sq.id);
 // The places to be seen now: a hidden one (core/rumors.js) only once its rumours are heard
 // and its year found.
 const heardNow = () => rumorsOf(progress);
