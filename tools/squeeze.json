@@ -303,6 +303,10 @@
 "q": 78,
 "sha": "607da666fd95974e0d77b6a193096fa20d336aaa"
 },
+"baikonur1957/photo-sputnik.webp": {
+"q": 78,
+"sha": "af3ec8f604c2d76b6844c87b0c594f6df07252f1"
+},
 "baikonur1957/rail-far.webp": {
 "q": 78,
 "sha": "ce0337f88925db7a4e8be53f2385c8f130df5cf4"
@@ -2203,6 +2207,46 @@
 "q": 78,
 "sha": "12d4f5b6f3eb78caa98eeab56a63985157353079"
 },
+"roof1986/lane-far.webp": {
+"q": 78,
+"sha": "a5e471722bae3df3fcb01d92354d00ddfb29646f"
+},
+"roof1986/lane-near.webp": {
+"q": 70,
+"sha": "0124a14df6bc7df357b9b3b32a5fb046d834939b"
+},
+"roof1986/lane.webp": {
+"q": 78,
+"sha": "fc5bcf41740061387dca6eb47639155faed0c285"
+},
+"roof1986/roof-far.webp": {
+"q": 78,
+"sha": "5cdc7792078babd3d5d853d1d1b70124a285f7c8"
+},
+"roof1986/roof-near.webp": {
+"q": 70,
+"sha": "4fa01ece6bc76afb37b7aef42388c952738a6b11"
+},
+"roof1986/roof.webp": {
+"q": 78,
+"sha": "c1f6636679ca1b66e4f3c9d6b8d3696f260b15e3"
+},
+"roof1986/show-barley.webp": {
+"q": 78,
+"sha": "856bc256b232b7d12d8ee0342f9a2ca648347d4f"
+},
+"roof1986/show-comet.webp": {
+"q": 78,
+"sha": "d0c6d34d5044e6b02019ecfbb33b45852569f555"
+},
+"roof1986/show-hoppang.webp": {
+"q": 78,
+"sha": "a0adf8fc8adb7ba12942d43848aaa46db05321f7"
+},
+"roof1986/show-news.webp": {
+"q": 78,
+"sha": "28a60c0bc671331d4720df649bbe00d1534ac48d"
+},
 "sagrada1925/nativity-far.webp": {
 "q": 78,
 "sha": "1b1f7e313b8b6efa2cec395347ce47ea7c18be49"
@@ -2214,6 +2258,10 @@
 "sagrada1925/nativity.webp": {
 "q": 78,
 "sha": "1a48a4a6798719486979ce124fe58678cef9f06c"
+},
+"sagrada1925/photo-inside.webp": {
+"q": 78,
+"sha": "f9ab5dc0b38c931276b30c69c9ceb0844125801c"
 },
 "sagrada1925/school-far.webp": {
 "q": 78,

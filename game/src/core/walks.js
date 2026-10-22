@@ -8382,6 +8382,145 @@ export const WALKS = {
     ],
     reply: '그날 밤 찾은 꼬리별은 그 뒤로 핼리 혜성이라 불린단다.',
   },
+  // Grandmother's village by Busan before dawn in the spring of 1986: Halley's comet low over the
+  // sea in the south-east. The end of the comet's rumour web (core/rumors.js). Drawn in the 1969
+  // village's manner (yard1969: flat cut-paper pictures, faces in pixels for the talk panel), the
+  // same village seventeen years on. The pictures are in roof1986; the sky of both is keyed out
+  // and the computed sky of that dawn, with the comet in it, stands behind the roofs.
+  // Grandmother at 32 is the woman seen from behind at the stair hut's door, painted into the
+  // rooftop picture: a spot, never spoken to; nothing here says who she is (her note does).
+  // Looked up (2026.10.22): seen low at dawn in March and April 1986, faint and hard to see from
+  // the north; the next return in 2061.
+  // From memory: milk and newspapers brought at dawn, the first bus, dawn prayers, hoppang from
+  // a steamer at the corner shop, barley tea in a thermos, the flat concrete rooftops with their
+  // water tanks, aerials and laundry lines, children's padded jackets.
+  // Made up: everybody and all they say; the neighbours asked up; the tea; the gap in the clouds.
+  // Kept out: nobody smokes or drinks; no phones or cars of today.
+  roof1986: {
+    first: '꼬리별이 온다는 봄날 새벽이란다. 이웃들과 옥상에 올라가 보렴.',
+    dir: 'roof1986', look: 'paper', talk: 'face', night: true,
+    drawn: '이웃집 마당의 그 밤처럼, 종이를 오려 붙인 그림책처럼 그렸단다.',
+    // Today: the comet of that spring, photographed on 8 March 1986 (NASA, W. Liller). The
+    // probes and the size of the nucleus are from memory (docs/넘김.md).
+    now: {
+      photo: 'photo-now.webp', name: '1986년 봄의 핼리 혜성', when: '1986년 3월 8일 · 사진으로 남은 그 꼬리별',
+      text: [
+        '1986년 3월 8일, 미국 항공우주국(NASA)의 관측대가 찍은 핼리 혜성입니다. 그해 봄 북반구에서는 낮고 흐리게 보였지만, 남반구에서는 꼬리가 길게 보였습니다.',
+        '그해 3월, 유럽과 소련과 일본이 보낸 탐사선 다섯 대가 차례로 꼬리별 곁을 지나갔습니다. 사람들은 이것을 "핼리 함대"라고 불렀습니다.',
+        '유럽의 탐사선 조토는 꼬리별의 머리에서 600킬로미터쯤까지 다가가 속의 얼음덩이를 처음으로 찍었습니다. 땅콩처럼 길쭉하고 숯처럼 검었습니다.',
+        '핼리 혜성은 지금 해에서 가장 먼 곳을 지나 다시 돌아오는 중입니다. 다음에 해에 가장 가까이 오는 날은 2061년 7월 28일입니다.',
+      ],
+      credit: '사진: NASA, W. Liller, 위키미디어 공용, 공개 저작물',
+    },
+    scenes: [
+      {
+        id: 'lane', name: '대한민국 부산 할머니의 마을 새벽 골목', short: '새벽 골목', zoom: 1.156, ground: 0.700, scale: 0.677, air: 'hush', floor: 'dirt',
+        sora: '아직 깜깜해. 다들 일찍 나왔네.',
+        people: [
+          { id: 'milk', pass: '우유 왔어요, 우유.', name: '우유 배달 아주머니', x: 0.17, w: 136, h: 305, lines: ['집집마다 새벽 우유를 넣고 다닌단다.', '오늘은 옥상에 불 켜진 집이 많구나.'] },
+          { id: 'paperboy', pass: '신문이요, 새벽 신문!', show: 'news', pose: 'see-aha', sora: '신문에 꼬리별 사진이 있어!', memo: '꼬리별은 일흔여섯 해쯤마다 한 번씩 돌아온단다.', name: '신문 배달 소년', x: 0.28, w: 110, h: 293, lines: ['오늘 신문에 꼬리별 사진이 실렸어.', '새벽에 남동쪽 하늘을 보래.'] },
+          { id: 'prayer', pass: '새벽 공기가 차구나.', name: '새벽 기도 가는 할머니', x: 0.39, w: 106, h: 265, lines: ['새벽 기도에 가는 길이란다.', '꼬리별이 온다는 말은 나도 들었지.'] },
+          { id: 'driver', pass: '첫차 시간에 늦겠다.', name: '첫차 버스 기사 아저씨', x: 0.5, w: 148, h: 320, lines: ['첫 버스를 몰러 차고에 가는 길이야.', '버스 창으로도 하늘을 볼 수 있을까?'] },
+          { id: 'student', pass: '오늘은 구름이 걷혀야 할 텐데.', name: '쌍안경 든 대학생', x: 0.61, w: 117, h: 318, lines: ['쌍안경으로 꼬리별을 보려고 나왔어.', '꼬리별은 바다 쪽 낮은 하늘에 뜬대.'] },
+          { id: 'shop', pass: '호빵이 따끈따끈하다.', show: 'hoppang', name: '가게 문 여는 아저씨', x: 0.72, w: 115, h: 307, lines: ['가게 문을 일찍 열고 호빵을 쪘단다.', '찬 새벽엔 호빵이 최고지. 먹어 보련?'],
+            try: { id: 'eat-hoppang', verb: 'eat', name: '호빵', face: 'yum', sora: '팥이 달고 뜨끈뜨끈해!', memo: '겨울이면 가게 앞 찜통에서 호빵이 김을 냈단다.' } },
+          { id: 'dog', pass: '바둑이가 꼬리를 흔든다.', name: '바둑이', x: 0.85, w: 101, h: 130, lines: ['바둑이가 소라의 운동화 냄새를 맡는다.', '바둑이가 옥상 쪽을 보며 꼬리를 흔든다.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'roof', name: '대한민국 부산 할머니의 마을 옥상', short: '옥상', zoom: 1.143, ground: 0.710, scale: 0.669, air: 'hush', floor: 'stone',
+        sora: '바다가 보여! 하늘엔 구름이 많아.',
+        people: [
+          { id: 'blanketkid', pass: '졸려도 꼬리별은 볼 거야.', name: '담요 두른 아이', x: 0.14, w: 93, h: 197, lines: ['엄마가 담요를 둘러 줬어.', '꼬리별은 정말 꼬리가 있어?'] },
+          { id: 'mom', pass: '얘, 감기 들라.', name: '아이 엄마', x: 0.22, w: 106, h: 296, lines: ['우리 애가 작아서 못 입는 점퍼란다.', '솜을 넣어서 따뜻해. 입어 보련?'],
+            try: { id: 'wear-busan1986', verb: 'wear', name: '1986년 한국 아이의 솜 점퍼', outfit: 'busan1986', sora: '점퍼가 폭신하고 따뜻해!', memo: '그 무렵 아이들은 겨울이면 솜을 넣은 점퍼를 입었단다.' } },
+          { id: 'teaaunt', pass: '보리차 식기 전에 마셔요.', show: 'barley', name: '보온병 든 아주머니', x: 0.3, w: 104, h: 291, lines: ['보리차를 보온병에 담아 왔단다.', '찬 바람엔 따뜻한 게 최고지. 마셔 보련?'],
+            try: { id: 'eat-barley', verb: 'eat', name: '보리차', face: 'yum', sora: '구수하고 따뜻해!', memo: '집집마다 보리를 볶아 끓인 보리차를 마셨단다.' } },
+          { id: 'grandpa', pass: '구름이 좀 걷혀야 할 텐데.', name: '외투 입은 할아버지', x: 0.38, w: 113, h: 310, lines: ['내 평생 꼬리별은 처음 본단다.', '구름이 걷히기를 기다리는 중이야.'] },
+          { id: 'uncle', pass: '손전등은 꺼 둬야지.', name: '손전등 든 아저씨', x: 0.46, w: 133, h: 308, lines: ['불빛이 있으면 별이 잘 안 보인단다.', '그래서 손전등을 꺼 두었지.'] },
+          { id: 'schoolgirl', pass: '별자리판을 맞춰 봐야지.', name: '별자리판 든 언니', x: 0.55, w: 94, h: 275, lines: ['학교에서 꼬리별 이야기를 배웠어.', '별자리판으로 하늘을 맞춰 보는 중이야.'] },
+          { id: 'radio', pass: '라디오에서 꼬리별 얘기를 해.', name: '라디오 든 청년', x: 0.86, w: 118, h: 320, lines: ['라디오에서도 꼬리별 이야기를 한대.', '다음에는 일흔여섯 해쯤 뒤에 온대.'] },
+        ],
+        spots: [
+          // The slice of sea in the south-east, beyond the parapet (x about 0.43 to 0.77 of the picture).
+          { id: 'sea', from: 0.58, to: 0.64, see: [0.43, 0.48, 0.77, 0.6], sora: '바다 위에 고깃배 불빛이 있어.' },
+          // The young woman by the parapet, from behind, looking at the sky over the sea (x about 0.68
+          // to 0.73 of the picture): nobody stands in front of her.
+          { id: 'woman', name: '옥상 담 앞의 젊은 아주머니', from: 0.68, to: 0.74, see: [0.67, 0.43, 0.74, 0.7], sora: '누가 바다 쪽 하늘을 보고 있어.' },
+        ],
+      },
+    ],
+    // "The work of the day" (core/tale.js `work`): in the lane before dawn she asks three
+    // neighbours up to the rooftop to see the comet together; on the rooftop she pours hot barley
+    // tea from a thermos for those waiting in the cold; then, as a gap opens in the clouds, she
+    // finds the comet low over the sea and touches it. The way up from the lane is shut until
+    // the neighbours are asked.
+    // Made up: all of it.
+    tale: {
+      work: true,
+      ask: '꼬리별이 오는 새벽에 무엇을 할까?',
+      gate: { scene: 'lane', open: 1, sora: '이웃들을 먼저 불러야 해.' },
+      steps: [
+        {
+          goal: '골목의 이웃 셋에게 옥상에서 꼬리별을 같이 보자고 하렴.', tally: '이웃 {all}명 가운데 {n}명이 옥상에 오기로 했다.',
+          round: [
+            { who: 'prayer', lines: ['옥상에서 꼬리별을 같이 보자고?', '그래, 기도 가기 전에 잠깐 올라가마.'] },
+            { who: 'student', lines: ['옥상에서 같이 보자고? 좋아!', '쌍안경을 가지고 올라갈게.'] },
+            { who: 'shop', lines: ['옥상에서 꼬리별을 본다고?', '호빵 몇 개 싸 들고 올라가마.'] },
+          ],
+          after: [{ who: 'paperboy', line: '이웃들이 옥상으로 올라가네. 나도 신문 다 돌리고 갈게.' }],
+          cheer: '이웃들이 모였다!',
+          sora: '이웃들이 온대! 옥상으로 올라가자!',
+          errand: 'call',
+        },
+        {
+          who: 'teaaunt', goal: '옥상의 이웃들에게 보리차를 따라 드리렴.',
+          lines: ['새벽 바람이 차구나. 보리차를 끓여 왔단다.', '컵에 넘치지 않게 알맞게 따라 주렴.'],
+          play: {
+            kind: 'fill', tally: '보리차 {all}잔 가운데 {n}잔을 알맞게 따랐다.', ask: '꾹 눌러 보리차를 따르다가 금빛 칸에서 떼렴.', label: '쪼르륵', hits: 3, zone: [0.65, 0.85], speed: 0.5,
+            good: ['따끈한 보리차 한 잔!', '김이 모락모락 나!'], miss: ['앗, 조금 모자라!', '앗, 넘칠 뻔했어!'], show: 'barley',
+          },
+          after: [{ who: 'grandpa', line: '따뜻하구나. 저기 구름이 조금 걷힌다.' }],
+          cheer: '보리차를 다 따랐다!',
+          sora: '구름이 걷혀 가! 바다 쪽 하늘을 보자!',
+          errand: 'tea',
+        },
+        {
+          who: 'schoolgirl', goal: '바다 위 낮은 하늘에서 꼬리별을 찾아 누르렴.',
+          lines: ['꼬리별은 바다 쪽 낮은 하늘에 있대.', '구름 틈에 뿌연 별이 보이면 그거야.'],
+          play: {
+            kind: 'sky', tally: '하늘에서 꼬리별을 {all}번 가운데 {n}번 찾았다.', ask: '바다 위 하늘에서 꼬리별을 찾아 누르렴.', hits: 1,
+            good: ['구름 사이에 뿌연 꼬리별이 있어!'], miss: ['거긴 그냥 구름이야.', '조금 더 바다 쪽을 보렴.'], show: 'comet',
+          },
+          after: [
+            { who: 'uncle', line: '저기다! 바다 위에 뿌연 꼬리가 보인다!' },
+            { who: 'blanketkid', line: '꼬리별이 정말 꼬리를 달고 있어.' },
+          ],
+          cheer: '꼬리별을 찾았다!',
+          sora: '할머니한테 꼭 말해 줄 거야. 꼬리별을 봤다고.',
+          errand: 'comet',
+        },
+      ],
+      asides: [
+        { who: 'milk', when: ['S0'], lines: ['옥상에서 같이 보면 덜 춥고 좋지.', '이웃들에게 같이 보자고 해 보렴.'] },
+        { who: 'driver', when: ['S0'], lines: ['첫차를 몰아야 해서 나는 못 올라간단다.', '버스 창으로 바다 쪽 하늘을 볼게.'] },
+        { who: 'mom', when: ['S1'], lines: ['이웃들 손이 다 시렵단다.', '보온병 든 아주머니를 도와주렴.'] },
+        { who: 'blanketkid', when: ['S1'], lines: ['추워. 따뜻한 거 마시고 싶어.', '꼬리별은 언제 나와?'] },
+        { who: 'radio', when: ['S2'], lines: ['라디오에서 바다 쪽 낮은 하늘을 보래.', '해가 뜨기 전에 찾아야 한대.'] },
+        { who: 'grandpa', when: ['S2'], lines: ['구름이 걷히는 틈을 잘 보거라.', '해가 뜨면 꼬리별은 안 보인단다.'] },
+        { who: 'teaaunt', when: ['S3'], lines: ['보리차 한 잔 더 하렴.', '오늘 새벽은 오래 생각나겠구나.'] },
+        { who: 'schoolgirl', when: ['S3'], lines: ['다음에는 2061년에 온대.', '그때는 나도 할머니가 되어 있겠지.'] },
+      ],
+      done: '이웃들을 옥상에 부르고, 보리차를 따르고, 구름 사이로 꼬리별을 찾았다.',
+    },
+    errands: [
+      { id: 'call', text: '골목의 이웃 셋을 옥상으로 부른다.', at: [] },
+      { id: 'tea', text: '옥상의 이웃들에게 보리차를 따른다.', at: [] },
+      { id: 'comet', text: '구름 사이로 꼬리별을 찾는다.', at: [] },
+    ],
+    reply: '구름 사이로 꼬리별을 봤구나. 다음에는 2061년에 온단다.',
+  },
 };
 
 // The far and the fore of every other scene are told from the pictures that are there (the

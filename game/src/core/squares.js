@@ -993,6 +993,39 @@ export const SQUARES = [
     reply: '핼리 선생의 셈이 맞았구나. 그 꼬리별은 일흔여섯 해쯤마다 다시 온단다.',
     quiz: { question: '팔리치는 무엇으로 꼬리별을 찾았나?', answer: '망원경', proof: '망원경으로 희미한 꼬리별 하나를 찾았습니다', wrong: ['맨눈', '쌍안경'] },
   },
+  {
+    // Grandmother's village by Busan before dawn in the spring of 1986: Halley's comet stands low
+    // over the sea in the south-east. She (32) went up to her rooftop to see it and saw only cloud;
+    // the end of the comet's rumour web (core/rumors.js). Hidden until her note of 1986 is read.
+    // The same village as the first leaf (yard1969), seventeen years on. The day is made up: a
+    // dawn of late March, when the comet was seen low before dawn.
+    // The hour and the way: the walk's sky puts the horizon at 60% of the screen and 30 degrees
+    // either side of the middle, and does not scroll. At 5 local mean time the comet (core/sky.js,
+    // data/comets.json from JPL Horizons) is 16 degrees up, at 42 to 53% of the screen's height:
+    // just where the panel with the speaker's face stands (`talk: 'face'`), and it stays up while
+    // the sky's play is asked. At 4 (about 4:24 Korean time) it is 7 degrees up at azimuth 129,
+    // magnitude 5, its tail toward 12 degrees up at 136; the sun is 25 degrees down and the moon
+    // down (14). Looking 111, its head is about three quarters of the way across and at 55% of the
+    // screen's height: under the panel, right of Sora, over the sea beyond the low parapet where
+    // she stands by the girl with the star chart (the picture's skyline there is the sea's horizon,
+    // at 53% of the picture).
+    // Looked up (2026.10.22): nearest the sun in February 1986 (9 Feb: Incheon city; Wikipedia,
+    // the 8th), with the Earth on the far side of the sun; seen at dawn in March and April, hard
+    // to see from the northern hemisphere, and many failed to see it for city lights; it comes
+    // back in mid-2061 (28 July 2061).
+    // Not found, so not said: that many people in Korea went out to see it.
+    // The place is walked about (core/walks.js).
+    no: 112.5, id: 'roof1986', name: '꼬리별을 기다린 새벽', dateLabel: 'AD 1986.3.20', place: '할머니의 마을',
+    lat: 35.18, lon: 129.08,
+    date: { year: 1986, month: 3, day: 20 }, calendar: 'gregorian', hourLocal: 4,
+    facingAz: 111, nightOnLook: false,
+    memo: '꼬리별을 기다린 새벽 옥상.', sora: '바다 위 하늘이 아직 캄캄해!',
+    memoToday: '남은 것: 2061년에 다시 올 꼬리별.', soraToday: '2061년에는 같이 보자!',
+    noteMemo: '1986년 봄 새벽. 꼬리별이 남동쪽 낮은 하늘에 온다던 날. 그날 새벽 달은 지고 없었음.',
+    card: '핼리 혜성은 1986년 2월 9일에 해에 가장 가까이 다가갔습니다. 그때 꼬리별은 지구에서 보아 해의 건너편에 있어서, 북쪽 나라들에서는 보기가 무척 어려운 때였습니다. 3월과 4월에는 새벽녘 남동쪽 하늘 낮은 곳에 희미하게 떠서, 구름과 도시의 불빛 때문에 못 보고 돌아선 사람이 많았습니다. 핼리 혜성은 2061년 여름에 다시 돌아옵니다.',
+    reply: '그 새벽 옥상에 네가 있었구나. 구름 너머에 꼬리별이 정말 있었지.',
+    quiz: { question: '1986년 봄, 꼬리별은 언제 보였나?', answer: '새벽녘', proof: '새벽녘 남동쪽 하늘', wrong: ['한낮', '해 질 무렵'] },
+  },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
 

@@ -266,3 +266,4 @@ npm run build
 | 부르즈 할리파 | [Dubai Skyline mit Burj Khalifa (18241030269).jpg](https://commons.wikimedia.org/wiki/File:Dubai_Skyline_mit_Burj_Khalifa_(18241030269).jpg) | Tim Reckmann | CC BY 2.0 (탑 둘레를 잘라 씀) |
 | 프롤리스 팔리치 기념비 | [Johann Georg Palitzsch Denkmal Dresden Prohlis.JPG](https://commons.wikimedia.org/wiki/File:Johann_Georg_Palitzsch_Denkmal_Dresden_Prohlis.JPG) | Ubahnverleih | CC BY 3.0 |
 | 팔리치의 초상(1782) | [Johann Georg Palizsch. Line engraving by C. G. Schulze, 1782 Wellcome V0004435.jpg](https://commons.wikimedia.org/wiki/File:Johann_Georg_Palizsch._Line_engraving_by_C._G._Schulze,_1782_Wellcome_V0004435.jpg) | Wellcome Collection | CC BY 4.0 |
+| 1986년 핼리 혜성 | [Lspn comet halley.jpg](https://commons.wikimedia.org/wiki/File:Lspn_comet_halley.jpg) | NASA, W. Liller | 공개 저작물 |

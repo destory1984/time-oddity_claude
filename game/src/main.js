@@ -799,6 +799,9 @@ function openPlay(step) {
   const box = $('walkChoice');
   // The sky's own: nothing to press in the box; the comet in the sky is touched (below).
   if (kind === 'sky') {
+    // What was last said is put away, so that the sky is clear to look in (the face panel of
+    // grandmother's village stood over the comet).
+    walk.heard = null; walk.part = null;
     const count = document.createElement('p');
     count.className = 'playCount';
     count.textContent = tallyOf(spec.tally, 0, spec.hits);
