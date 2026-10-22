@@ -267,3 +267,6 @@ npm run build
 | 프롤리스 팔리치 기념비 | [Johann Georg Palitzsch Denkmal Dresden Prohlis.JPG](https://commons.wikimedia.org/wiki/File:Johann_Georg_Palitzsch_Denkmal_Dresden_Prohlis.JPG) | Ubahnverleih | CC BY 3.0 |
 | 팔리치의 초상(1782) | [Johann Georg Palizsch. Line engraving by C. G. Schulze, 1782 Wellcome V0004435.jpg](https://commons.wikimedia.org/wiki/File:Johann_Georg_Palizsch._Line_engraving_by_C._G._Schulze,_1782_Wellcome_V0004435.jpg) | Wellcome Collection | CC BY 4.0 |
 | 1986년 핼리 혜성 | [Lspn comet halley.jpg](https://commons.wikimedia.org/wiki/File:Lspn_comet_halley.jpg) | NASA, W. Liller | 공개 저작물 |
+| 바이외 태피스트리의 혜성 | [Bayeux Tapestry scene32 Halley comet.jpg](https://commons.wikimedia.org/wiki/File:Bayeux_Tapestry_scene32_Halley_comet.jpg) | Myrabella | 공개 저작물 |
+| 1910년 핼리 혜성 | [Halley's Comet - May 29 1910.jpg](https://commons.wikimedia.org/wiki/File:Halley%27s_Comet_-_May_29_1910.jpg) | E. E. Barnard, Yerkes Observatory | 공개 저작물 |
+| 혜성을 찾는 사람들(1910) | [The comet seekers- looking for Halley's LCCN97506745.jpg](https://commons.wikimedia.org/wiki/File:The_comet_seekers-_looking_for_Halley%27s_LCCN97506745.jpg) | G. D'Amato | 공개 저작물 |

@@ -8541,6 +8541,18 @@ export const WALKS = {
     first: '긴 혜성이 뜬 봄 저녁이란다. 마을 사람들과 수도사님을 도와주렴.',
     dir: 'england1066', look: 'paper', night: true,
     drawn: '그 무렵 잉글랜드의 자수 그림처럼 실로 수놓아 그렸단다.',
+    // Today: the tapestry's comet (Bayeux). Its length, where it hangs and the coast at Pevensey
+    // are from memory (docs/넘김.md).
+    now: {
+      photo: 'photo-now.webp', name: '바이외 태피스트리의 혜성', when: '프랑스 바이외 · 태피스트리 박물관',
+      text: [
+        '1066년의 혜성은 그 뒤 몇 해 안에 만든 긴 자수, 바이외 태피스트리에 남았습니다. 사람들이 손을 들어 혜성을 가리키고, 위에는 "그들이 별을 우러러본다"라고 수놓여 있습니다.',
+        '태피스트리는 길이가 70미터쯤이고 폭은 50센티미터쯤입니다. 지금은 프랑스 노르망디의 바이외에서 볼 수 있습니다.',
+        '페븐시에는 로마 사람들이 쌓은 성벽과 그 뒤에 지은 성이 무너진 채 남아 있습니다. 바다는 그 사이 뒤로 물러나, 성은 지금 바닷가에서 1킬로미터쯤 떨어져 있습니다.',
+        '그날 사람들이 본 혜성은 핼리 혜성이었습니다. 일흔여섯 해쯤마다 돌아오는 혜성이라는 것은 640년쯤 뒤에 핼리가 밝혔습니다.',
+      ],
+      credit: '사진: Myrabella, 위키미디어 공용, 공개 저작물',
+    },
     scenes: [
       {
         id: 'village', name: '잉글랜드 서식스 페븐시 바닷가 마을 길', short: '바닷가 마을', zoom: 1.182, ground: 0.680, scale: 0.692, air: 'hush', floor: 'dirt',
@@ -8674,6 +8686,23 @@ export const WALKS = {
     first: '혜성 소동이 지나간 저녁이란다. 이웃들과 다시 혜성을 찾아보렴.',
     dir: 'newyork1910', look: 'paper', night: true,
     drawn: '그 무렵 뉴욕 화가의 힘찬 밤 그림처럼 그렸단다.',
+    // Today: the comet of that May, photographed (Barnard, Yerkes, 29 May 1910), and London's comet
+    // seekers in The Illustrated London News of 28 May 1910. The rest is from memory (docs/넘김.md).
+    now: {
+      photo: 'photo-now.webp', name: '1910년 5월의 핼리 혜성', when: '1910년 5월 29일 · 미국 여키스 천문대',
+      text: [
+        '천문학자 버너드가 1910년 5월 29일에 찍은 핼리 혜성입니다. 이해에 처음으로 핼리 혜성을 사진으로 많이 남겼습니다.',
+        '지구가 혜성의 꼬리 속을 지난다는 말에 사람들은 알약과 방독면을 샀지만, 아무 일도 일어나지 않았습니다. 꼬리의 기체는 아주 옅었습니다.',
+        '1835년 혜성이 온 해에 태어난 작가 마크 트웨인은 "혜성과 함께 왔으니 혜성과 함께 가겠다"고 했고, 그 말대로 1910년 4월 21일에 세상을 떠났습니다.',
+        '맨해튼의 지붕들 위로는 지금 훨씬 높은 건물들이 섰습니다. 핼리 혜성은 2061년 여름에 다시 이 하늘로 돌아옵니다.',
+      ],
+      credit: '사진: E. E. 버너드, 여키스 천문대, 위키미디어 공용, 공개 저작물',
+      more: {
+        photo: 'photo-seekers.webp', name: '혜성을 찾는 사람들 (1910년 런던)',
+        text: '1910년 5월 28일 런던의 신문에 실린 그림입니다. 밤마다 높은 언덕에 사람들이 모여 혜성을 기다렸습니다.',
+        credit: '그림: G. 다마토, 미국 의회도서관, 위키미디어 공용, 공개 저작물',
+      },
+    },
     scenes: [
       {
         id: 'street', name: '미국 뉴욕 맨해튼 아파트 사이 거리', short: '아파트 거리', zoom: 1.208, ground: 0.660, scale: 0.707, air: 'hush', floor: 'stone',
