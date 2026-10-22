@@ -1326,7 +1326,7 @@ function frameWalk(dt) {
   if (walkNoteAt > 0 && walkT >= walkNoteAt && !reading) {
     walkNoteAt = 0;
     const note = dueNote((id) => isComplete(progress, id), notesRead(progress), PLACES);
-    if (note && (!note.square || note.square === square.id)) { walkWay = 0; keyWay = 0; sound.page(); readNote(note); }
+    if (note && ((!note.square && !note.squares) || note.square === square.id || note.squares?.includes(square.id))) { walkWay = 0; keyWay = 0; sound.page(); readNote(note); }
   }
 
   // The sky of that day and hour, as computed, behind the roofs.
@@ -1745,7 +1745,7 @@ function frameGround(dt) {
   if (noteDueAtMs !== null && visit.t >= noteDueAtMs && mode === 'ground' && !dial.rolling) {
     noteDueAtMs = null;
     const note = dueNote((id) => isComplete(progress, id), notesRead(progress));
-    if (note && note.square === square.id) { sound.page(); readNote(note); }
+    if (note && (note.square === square.id || note.squares?.includes(square.id))) { sound.page(); readNote(note); }
   }
 
   // Words.

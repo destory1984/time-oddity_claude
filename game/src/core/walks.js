@@ -6369,7 +6369,7 @@ export const WALKS = {
           { id: 'bunman', pass: '번 사세요, 갓 구운 번이에요!', show: 'buns', name: '빵집 아저씨', x: 0.51, w: 116, h: 292, lines: ['위에 설탕을 뿌린 달콤한 번이란다.', '유리 집 안에서도 번과 레모네이드를 판대.'],
             try: { id: 'eat-buns', verb: 'eat', name: '설탕 뿌린 번', face: 'yum', sora: '설탕이 바삭바삭하고 빵은 폭신해!' } },
           { id: 'season', pass: '표를 잃어버리면 안 되지.', name: '시즌 표를 든 부인', x: 0.62, w: 124, h: 299, lines: ['오늘은 시즌 표가 있는 사람만 들어가요.', '나는 이 표를 오래전에 샀답니다.'] },
-          { id: 'dressmaker', pass: '오늘 같은 날엔 새 옷이지.', name: '옷 가게 아주머니', x: 0.73, w: 119, h: 292, lines: ['박람회 구경 갈 나들이옷을 짓는단다.', '아이 것도 있어. 입어 보련?'],
+          { id: 'dressmaker', pass: '오늘 같은 날엔 새 옷이지.', name: '옷 가게 아주머니', x: 0.73, w: 119, h: 292, lines: ['노르망디의 긴 자수에는 꼬리별이 수놓여 있다지.', '아이 것도 있어. 입어 보련?'],
             try: { id: 'wear-victoria', verb: 'wear', name: '1851년 런던의 나들이옷', outfit: 'victoria', sora: '치마가 동그랗게 퍼져!', memo: '그 무렵 런던 여자아이들은 넓게 퍼진 치마 밑에 흰 속바지를 입었단다.' } },
           { id: 'sweeper', pass: '비 온 뒤라 길이 질척하네.', name: '길 쓰는 아이', x: 0.85, w: 88, h: 295, lines: ['나는 사람들이 건널 길을 쓸어요.', '오늘은 손님이 아주 많아요.'] },
         ],
@@ -6707,7 +6707,7 @@ export const WALKS = {
           { id: 'flagseller', pass: '깃발 사세요, 두 나라 깃발이요!', show: 'flags', pose: 'see-aha', sora: '깃발이 두 가지야!', memo: '여신상은 프랑스 사람들이 보낸 선물이라 두 나라 깃발을 걸었단다.', name: '깃발 파는 아주머니', x: 0.62, w: 154, h: 312, lines: ['미국 깃발과 프랑스 깃발이란다.', '여신상은 프랑스가 보낸 선물이거든.'] },
           { id: 'coatseller', pass: '오늘은 날이 쌀쌀하구나.', name: '외투 가게 아주머니', x: 0.73, w: 129, h: 320, lines: ['비가 와서 날이 쌀쌀하단다.', '아이 외투도 있어. 입어 보련?'],
             try: { id: 'wear-ny1886', verb: 'wear', name: '1886년 뉴욕의 외투', outfit: 'ny1886', sora: '외투가 따뜻하고 단추가 반짝여!', memo: '그 무렵 뉴욕 아이들은 망토 깃 달린 외투를 입었단다.' } },
-          { id: 'coingrandpa', pass: '이 동전 하나도 보탬이 되었지.', name: '동전 이야기 할아버지', x: 0.85, w: 107, h: 305, lines: ['받침대는 우리가 돈을 모아 지었단다.', '아이들도 동전을 보탰지.'] },
+          { id: 'coingrandpa', pass: '이 동전 하나도 보탬이 되었지.', name: '동전 이야기 할아버지', x: 0.85, w: 107, h: 305, lines: ['받침대는 우리가 돈을 모아 지었단다.', '트웨인 선생은 1835년 꼬리별 해에 태어났단다.'] },
         ],
         spots: [],
       },
@@ -8520,6 +8520,273 @@ export const WALKS = {
       { id: 'comet', text: '구름 사이로 꼬리별을 찾는다.', at: [] },
     ],
     reply: '구름 사이로 꼬리별을 봤구나. 다음에는 2061년에 온단다.',
+  },
+  // A seaside village by Pevensey in Sussex on the evening of 24 April 1066: the long-haired
+  // star stands in the west. A hidden place of the comet's goal (core/rumors.js). Drawn as an
+  // embroidery after the Bayeux Tapestry (the user's choice of five tries: the first), but
+  // nothing here says the embroidery stitched in the game is that one (it was made some years
+  // later, in Normandy's circle). The pictures are in england1066; the try is the first scene
+  // (the village by the sea), ordered again with its sky magenta; the monastery yard and the
+  // hill by the sea were ordered after it. Evening: the sky of every picture is keyed out and
+  // the computed sky, with the comet in it, stands behind the roofs (not `pale`).
+  // Looked up (2026.10.22): the Chronicle has it first seen on 24 April and all the week; some
+  // called it the haired star; people took it for an omen.
+  // From memory: barley bread with honey; wool tunics and cloaks pinned with round brooches;
+  // wattle-and-daub longhouses under thatch; salt boiled from the sea by Pevensey; boats of
+  // overlapping planks.
+  // Made up: everybody and all they say; the monk keeping a chronicle there; the comet drawn in
+  // its margin; the embroiderer on the hill.
+  // Kept out: the battles of that autumn, arms and the king; nobody drinks ale.
+  england1066: {
+    first: '긴 꼬리별이 뜬 봄 저녁이란다. 마을 사람들과 수도사님을 도와주렴.',
+    dir: 'england1066', look: 'paper', night: true,
+    drawn: '그 무렵 잉글랜드의 자수 그림처럼 실로 수놓아 그렸단다.',
+    scenes: [
+      {
+        id: 'village', name: '잉글랜드 서식스 페븐시 바닷가 마을 길', short: '바닷가 마을', zoom: 1.182, ground: 0.680, scale: 0.692, air: 'hush', floor: 'dirt',
+        sora: '지붕이 땅까지 내려온 집이야!',
+        people: [
+          { id: 'fisher', pass: '그물 구멍을 다 기워야지.', name: '그물 깁는 어부', x: 0.18, w: 130, h: 318, lines: ['바다에서 돌아와 그물을 깁는 중이란다.', '저녁마다 서쪽 하늘에 낯선 별이 떠.'] },
+          { id: 'baker', pass: '보리빵이 아직 따뜻하구나.', show: 'bread', name: '보리빵 굽는 아주머니', x: 0.29, w: 135, h: 315, lines: ['보리빵을 막 구워서 꿀을 발랐단다.', '수도원 벌통에서 얻은 꿀이야. 먹어 보련?'],
+            try: { id: 'eat-barleyhoney', verb: 'eat', name: '꿀 바른 보리빵', face: 'yum', sora: '고소하고 달콤해!', memo: '그 무렵 잉글랜드 마을에서는 보리로 빵을 구웠단다.' } },
+          { id: 'spinner', pass: '실이 끊어지면 안 되지.', name: '실 잣는 할머니', x: 0.4, w: 146, h: 299, lines: ['양털로 실을 자아 옷감을 짠단다.', '이 실로 언덕의 아주머니가 수를 놓지.'] },
+          { id: 'elder', pass: '오늘도 바다가 잔잔하구나.', name: '마을 어른', x: 0.51, w: 173, h: 318, lines: ['이 마을에서 예순 해를 살았단다.', '바다 건너 소식은 배가 실어 온단다.'] },
+          { id: 'mother', pass: '딸아이가 훌쩍 컸네.', name: '아이 옷을 든 아주머니', x: 0.62, w: 136, h: 312, lines: ['딸아이가 커서 못 입는 옷이란다.', '양모라서 따뜻해. 입어 보련?'],
+            try: { id: 'wear-anglo1066', verb: 'wear', name: '1066년 앵글로색슨 아이의 양모 옷', outfit: 'anglo1066', sora: '망토가 포근하고 따뜻해!', memo: '그 무렵 아이들은 양모 옷에 망토를 둥근 브로치로 여몄단다.' } },
+          { id: 'goosekid', pass: '거위야, 이쪽으로 오렴.', name: '거위 모는 아이', x: 0.73, w: 138, h: 225, lines: ['거위들을 우리에 넣으러 가는 길이야.', '수도원 마당은 예배당 옆으로 가면 돼.'] },
+          { id: 'woodman', pass: '장작이 꽤 무겁네.', name: '장작 나르는 청년', x: 0.85, w: 135, h: 320, lines: ['저녁 불을 피울 장작을 나르는 중이야.', '오두막 한가운데에 화덕이 있거든.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'abbey', name: '잉글랜드 서식스 페븐시 수도원 마당', short: '수도원 마당', zoom: 1.182, ground: 0.680, scale: 0.692, air: 'hush', floor: 'dirt',
+        sora: '서쪽으로 들판이 넓게 보여!',
+        people: [
+          { id: 'bellringer', pass: '저녁 기도 시간이구나.', name: '종 치는 수도사', x: 0.18, w: 118, h: 320, lines: ['저녁 기도 종을 칠 시간이란다.', '종소리가 바닷가 마을까지 들린단다.'] },
+          { id: 'herbs', pass: '새싹이 많이 올라왔네.', name: '약초 가꾸는 수도사', x: 0.29, w: 161, h: 307, lines: ['이 밭의 약초로 아픈 사람을 돌본단다.', '봄이라 새싹이 많이 올라왔지.'] },
+          { id: 'novice', pass: '잉크를 곱게 갈아야 해.', show: 'chronicle', pose: 'see-aha', sora: '책에 글씨가 빼곡해!', memo: '수도사들은 해마다 일어난 일을 연대기에 적었단다.', name: '잉크 가는 어린 수도사', x: 0.4, w: 112, h: 270, lines: ['연대기에 쓸 잉크를 가는 중이야.', '스승님은 해마다 일어난 일을 적으셔.'] },
+          { id: 'monk', pass: '올봄에는 적을 일이 많구나.', name: '연대기를 적는 수도사', x: 0.51, w: 141, h: 315, lines: ['나는 해마다 일어난 일을 이 책에 적는단다.', '오늘 저녁에도 적을 일이 생길 것 같구나.'] },
+          { id: 'beekeeper', pass: '벌들이 집으로 돌아왔구나.', name: '벌통 지키는 수도사', x: 0.62, w: 131, h: 305, lines: ['짚으로 엮은 벌통에서 꿀을 얻는단다.', '마을 보리빵에 바르는 꿀이 여기서 나가.'] },
+          { id: 'pilgrim', pass: '다리가 좀 아프구나.', name: '순례 온 아주머니', x: 0.73, w: 152, h: 305, lines: ['먼 마을에서 기도하러 왔단다.', '오는 길 내내 그 별을 보며 걸었지.'] },
+          { id: 'goatgirl', pass: '염소야, 얌전히 있어.', name: '염소젖 가져온 아이', x: 0.85, w: 154, h: 252, lines: ['수도원에 염소젖을 가져왔어.', '염소도 하늘을 올려다보는 것 같아.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'hill', name: '잉글랜드 서식스 페븐시 바닷가 언덕', short: '바닷가 언덕', zoom: 1.198, ground: 0.668, scale: 0.701, air: 'hush', floor: 'dirt',
+        sora: '저 아래 바다와 모래톱이 보여!',
+        people: [
+          { id: 'shepherd', pass: '양들아, 이제 쉬자.', name: '양 치는 소년', x: 0.18, w: 138, h: 286, lines: ['양들을 우리에 넣고 별을 보는 중이야.', '여기서는 바다가 다 내려다보여.'] },
+          { id: 'dyer', pass: '붉은 물이 곱게 들었네.', name: '실 물들이는 아주머니', x: 0.29, w: 119, h: 312, lines: ['풀과 뿌리로 양모 실을 물들인단다.', '붉은 실, 푸른 실, 노란 실이 다 있지.'] },
+          { id: 'boatman', pass: '배는 높이 올려 둬야지.', show: 'boats', pose: 'see-wow', sora: '배의 앞뒤가 위로 굽었어!', memo: '그 무렵 배는 널빤지를 겹쳐 대어 만들었단다.', name: '배를 끌어 올리는 어부', x: 0.4, w: 116, h: 319, lines: ['밤 물결에 쓸려 가지 않게 배를 올렸단다.', '봄 바다는 잔잔해서 고기가 잘 잡혀.'] },
+          { id: 'embroiderer', pass: '오늘은 무엇을 수놓을까.', name: '수놓는 아주머니', x: 0.51, w: 111, h: 301, lines: ['나는 천에 실로 그림을 수놓는단다.', '오늘은 하늘의 그 별을 수놓고 싶구나.'] },
+          { id: 'salter', pass: '소금이 하얗게 말랐구나.', name: '소금 굽는 아저씨', x: 0.62, w: 124, h: 320, lines: ['바닷물을 끓여서 소금을 얻는단다.', '이 바닷가 소금은 멀리까지 팔려 가.'] },
+          { id: 'flowergirl', pass: '꽃이 참 많이 피었어.', name: '꽃 따는 아이', x: 0.73, w: 104, h: 239, lines: ['수도원에 드릴 봄꽃을 땄어.', '저 꼬리별도 꽃처럼 예뻐.'] },
+          { id: 'oldman', pass: '오늘 별은 유난히 밝구나.', name: '옛이야기 하는 할아버지', x: 0.85, w: 130, h: 317, lines: ['어릴 때도 꼬리 달린 별 이야기를 들었단다.', '그 별은 오래전에도 왔다고 하지.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The work of the day" (core/tale.js `work`): in the village she asks three villagers what
+    // they make of the long-haired star; in the monastery yard the monk who keeps the chronicle
+    // asks her to find it in the west, and draws it in his book's margin; on the hill she pulls
+    // the thread in time as an embroiderer stitches the comet. The way on from the monastery
+    // yard is shut until the comet is found.
+    // Made up: all of it.
+    tale: {
+      work: true,
+      ask: '꼬리별이 뜬 저녁에 무엇을 할까?',
+      gate: { scene: 'abbey', open: 2, sora: '꼬리별을 찾기 전이야. 못 가.' },
+      steps: [
+        {
+          goal: '마을 사람 셋에게 꼬리별을 어떻게 생각하는지 물어보렴.', tally: '마을 사람 {all}명 가운데 {n}명에게 이야기를 들었다.',
+          round: [
+            { who: 'fisher', lines: ['꼬리 달린 별 말이니? 바람이 바뀔 징조 같구나.', '그래도 나는 내일 또 바다에 나간단다.'] },
+            { who: 'spinner', lines: ['머리카락 난 별이라고들 하지.', '큰일이 오려나 보다고 다들 수군거린단다.'] },
+            { who: 'elder', lines: ['나라에 큰일이 생길 징조라고들 하더구나.', '수도사님께 가서 이 이야기를 전해 다오.'] },
+          ],
+          after: [{ who: 'goosekid', line: '다들 그 별 이야기뿐이야. 수도원에 가 봐.' }],
+          cheer: '이야기를 다 들었다!',
+          sora: '들은 이야기를 수도사님께 전하러 가자!',
+          errand: 'ask',
+        },
+        {
+          who: 'monk', goal: '수도원 마당에서 서쪽 하늘의 꼬리별을 찾아보렴.',
+          lines: ['마을 사람들의 이야기를 전해 주었구나.', '그 별을 책에 적으마. 하늘에서 찾아 주렴.'],
+          play: {
+            kind: 'sky', tally: '하늘에서 꼬리별을 {all}번 가운데 {n}번 찾았다.', ask: '서쪽 하늘에서 꼬리별을 찾아 누르렴.', hits: 1,
+            good: ['긴 꼬리를 단 별이 보여!'], miss: ['거긴 그냥 별이야.', '조금 더 서쪽을 보렴.'], show: 'chronicle',
+          },
+          after: [
+            { who: 'monk', line: '저 별이로구나. 책의 여백에 모양을 그려 두마.' },
+            { who: 'novice', line: '언덕의 수놓는 아주머니도 그 별을 수놓고 싶대.' },
+          ],
+          cheer: '꼬리별을 찾았다!',
+          sora: '언덕으로 가서 수놓는 걸 도와주자!',
+          errand: 'comet',
+        },
+        {
+          who: 'embroiderer', goal: '바닷가 언덕에서 아주머니와 꼬리별을 수놓으렴.',
+          lines: ['그 별을 찾았다고? 모양을 일러 주렴.', '내가 바늘을 넣으면 때맞춰 실을 당겨 주렴.'],
+          play: {
+            kind: 'beat', tally: '꼬리별을 {all}땀 가운데 {n}땀 박자에 맞춰 수놓았다.', ask: '넷째 금빛 불이 켜질 때 실을 당기렴.', label: '당겨!', hits: 3, zone: [0.42, 0.58], speed: 1.5,
+            good: ['한 땀이 곱게 들어갔어!', '꼬리가 길게 자라고 있어!'], miss: ['앗, 실이 엉켰어!', '앗, 조금 일렀어!'], show: 'wool',
+          },
+          after: [{ who: 'flowergirl', line: '천 위에 꼬리별이 생겼어!' }],
+          cheer: '꼬리별을 수놓았다!',
+          sora: '천에도 꼬리별이 떴어! 하늘을 한 번 더 보자!',
+          errand: 'stitch',
+        },
+      ],
+      asides: [
+        { who: 'goosekid', when: ['S0'], lines: ['다들 저녁마다 서쪽 하늘만 봐.', '마을 사람들에게 그 별 이야기를 물어봐.'] },
+        { who: 'woodman', when: ['S0'], lines: ['어른들은 그 별을 두고 말이 많아.', '물어보면 다들 한마디씩 해 줄 거야.'] },
+        { who: 'novice', when: ['S1'], lines: ['스승님이 그 별을 찾고 계셔.', '서쪽 하늘을 잘 보면 돼.'] },
+        { who: 'pilgrim', when: ['S2'], lines: ['수놓는 아주머니는 언덕 위에 계셔.', '실 바구니 곁에 계실 거란다.'] },
+        { who: 'monk', when: ['S3'], lines: ['그 별은 저녁마다 일주일 동안 떴단다.', '뒷날 사람들도 이 책을 읽겠지.'] },
+        { who: 'elder', when: ['S1', 'S2', 'S3'], lines: ['수도사님께 이야기를 전했니?', '별이 뜬 저녁은 바다도 환하구나.'] },
+      ],
+      done: '마을 사람들의 이야기를 듣고, 하늘에서 꼬리별을 찾고, 천에 꼬리별을 수놓았다.',
+    },
+    errands: [
+      { id: 'ask', text: '마을 사람 셋에게 꼬리별 이야기를 듣는다.', at: [] },
+      { id: 'comet', text: '서쪽 하늘에서 꼬리별을 찾는다.', at: [] },
+      { id: 'stitch', text: '수놓는 아주머니와 꼬리별을 수놓는다.', at: [] },
+    ],
+    reply: '사람들은 그 꼬리별을 책에 적고 천에 수놓아 오래 남겼단다.',
+  },
+  // Lower Manhattan on the evening of 24 May 1910: a few days after the night of the comet's
+  // tail, the comet comes out again in the west after sunset. A hidden place of the comet's
+  // goal (core/rumors.js). Drawn as a New York night in oils after George Bellows (the user's
+  // choice of five tries: the fifth). The pictures are in newyork1910; the try is the second
+  // scene (the roof of the tenement), ordered again with its sky magenta; the street and the
+  // park by the river were ordered after it. Evening: the sky of every picture is keyed out and
+  // the computed sky, with the comet in it, stands behind the roofs (not `pale`).
+  // Looked up (2026.10.22): comet pills, gas masks and rooftop comet parties on the night of
+  // the tail; the comet unseen by the sun that night, in the evening sky a few days on.
+  // From memory: Mark Twain, born the year the comet came (1835), died that April (only said);
+  // soft pretzels from carts; sailor dresses; gas lamps and lamplighters; glass plates for
+  // photographs; pigeon coops and water tanks on the roofs.
+  // Made up: everybody and all they say; the paper handed round; the telescope on the roof;
+  // the photographer in the park.
+  // Kept out: smoking, drinking; the fear made fun of.
+  newyork1910: {
+    first: '꼬리별 소동이 지나간 저녁이란다. 이웃들과 다시 꼬리별을 찾아보렴.',
+    dir: 'newyork1910', look: 'paper', night: true,
+    drawn: '그 무렵 뉴욕 화가의 힘찬 밤 그림처럼 그렸단다.',
+    scenes: [
+      {
+        id: 'street', name: '미국 뉴욕 맨해튼 아파트 사이 거리', short: '아파트 거리', zoom: 1.208, ground: 0.660, scale: 0.707, air: 'hush', floor: 'stone',
+        sora: '창마다 불이 켜져 있어!',
+        people: [
+          { id: 'newsboy', pass: '저녁 신문이요, 꼬리별 소식!', show: 'paper', pose: 'see-aha', sora: '신문에 꼬리별 그림이 있어!', memo: '그해 신문들은 날마다 꼬리별 소식을 실었단다.', name: '신문 파는 소년', x: 0.18, w: 92, h: 279, lines: ['꼬리별 소식이 실린 저녁 신문이야!', '알약은 필요 없다고 박사님들이 말했대.'] },
+          { id: 'pillaunt', pass: '이 알약을 다 먹어야 하나.', name: '알약 상자를 든 아주머니', x: 0.29, w: 119, h: 320, lines: ['꼬리별 독을 막는다는 알약을 샀단다.', '지난주에는 정말 무서웠어.'] },
+          { id: 'grocer', pass: '사과가 아주 싱싱하다오.', name: '과일 손수레 아저씨', x: 0.4, w: 110, h: 309, lines: ['날마다 이 거리에서 과일을 판단다.', '저녁이면 손님이 지붕으로 다 올라가.'] },
+          { id: 'pretzel', pass: '프레첼이 따끈따끈하다.', show: 'pretzel', name: '프레첼 파는 아저씨', x: 0.51, w: 119, h: 301, lines: ['갓 구운 프레첼이 따끈따끈하단다.', '소금이 톡톡 박혔지. 먹어 보련?'],
+            try: { id: 'eat-pretzel', verb: 'eat', name: '프레첼', face: 'yum', sora: '짭짤하고 쫄깃해!', memo: '그 무렵 뉴욕 거리에서는 손수레에서 프레첼을 팔았단다.' } },
+          { id: 'stoop', pass: '저녁 바람이 선선하구나.', name: '계단에 앉은 할머니', x: 0.62, w: 110, h: 231, lines: ['저녁마다 이 계단에서 뜨개질을 한단다.', '이 동네 아이들은 내가 다 안단다.'] },
+          { id: 'mom', pass: '딸아이 옷이 작아졌네.', name: '아이 옷을 든 아주머니', x: 0.73, w: 113, h: 308, lines: ['딸아이가 커서 못 입는 원피스란다.', '세일러 깃이 멋지지. 입어 보련?'],
+            try: { id: 'wear-ny1910', verb: 'wear', name: '1910년 뉴욕 아이의 세일러 원피스', outfit: 'ny1910', sora: '깃이 바다처럼 파래!', memo: '그 무렵 뉴욕 아이들은 세일러 깃 옷을 즐겨 입었단다.' } },
+          { id: 'hoopkid', pass: '굴렁쇠야, 굴러라!', name: '굴렁쇠 굴리는 아이', x: 0.85, w: 94, h: 234, lines: ['굴렁쇠를 굴리며 동네를 한 바퀴 돌았어.', '오늘 저녁엔 다들 지붕에 올라간대.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'roof', name: '미국 뉴욕 맨해튼 아파트 지붕', short: '아파트 지붕', zoom: 1.176, ground: 0.685, scale: 0.688, air: 'hush', floor: 'stone',
+        sora: '지붕 위에 물탱크가 있어!',
+        people: [
+          { id: 'laundry', pass: '빨래가 잘 말랐네.', name: '빨래 걷는 아주머니', x: 0.18, w: 116, h: 312, lines: ['밤이슬 맞기 전에 빨래를 걷는 중이야.', '지난주에는 지붕에서 꼬리별 잔치를 했단다.'] },
+          { id: 'pigeon', pass: '비둘기들아, 다 돌아왔니?', name: '비둘기 키우는 소년', x: 0.29, w: 82, h: 296, lines: ['내 비둘기들은 저녁이면 집으로 돌아와.', '비둘기들도 꼬리별을 봤을까?'] },
+          { id: 'neighbor', pass: '이 다리가 왜 안 서지?', show: 'telescope', pose: 'see-wow', sora: '놋쇠 망원경이 반짝여!', memo: '그해 사람들은 지붕에 올라가 꼬리별을 기다렸단다.', name: '망원경 가져온 아저씨', x: 0.4, w: 101, h: 320, lines: ['망원경으로 꼬리별을 보려고 가져왔단다.', '그런데 삼각대 다리가 영 안 서는구나.'] },
+          { id: 'operagirl', pass: '이 안경으로도 보일까?', name: '오페라 안경 든 언니', x: 0.51, w: 109, h: 296, lines: ['극장에서 쓰는 작은 안경을 가져왔어.', '이걸로도 꼬리별이 보일까?'] },
+          { id: 'harmonica', pass: '저녁 바람이 참 좋다.', name: '하모니카 부는 청년', x: 0.62, w: 102, h: 307, lines: ['저녁 바람이 좋아서 하모니카를 불어.', '오늘은 이웃들이 다 지붕에 올라왔어.'] },
+          { id: 'grandpa', pass: '꼬리별을 또 보는구나.', name: '옛 꼬리별을 기억하는 할아버지', x: 0.73, w: 93, h: 312, lines: ['내가 어릴 때인 1835년에도 꼬리별이 왔단다.', '트웨인 선생은 그 꼬리별과 함께 오고 함께 갔지.'] },
+          { id: 'babymom', pass: '아가야, 하늘 좀 보렴.', name: '아기 안은 엄마', x: 0.85, w: 107, h: 310, lines: ['아기에게 꼬리별을 보여 주고 싶어서 왔어.', '이 아이는 다음 꼬리별도 볼 수 있겠지.'] },
+        ],
+        spots: [],
+      },
+      {
+        id: 'park', name: '미국 뉴욕 맨해튼 강가 공원', short: '강가 공원', zoom: 1.176, ground: 0.685, scale: 0.688, air: 'hush', floor: 'stone',
+        sora: '강 건너 하늘이 넓게 보여!',
+        people: [
+          { id: 'lamplighter', pass: '이제 가스등을 켜야지.', name: '가스등 켜는 아저씨', x: 0.18, w: 88, h: 320, lines: ['저녁마다 공원의 가스등을 켠단다.', '오늘은 꼬리별 보라고 조금 늦게 켰지.'] },
+          { id: 'teacher', pass: '얘들아, 서쪽을 보렴.', name: '학생들을 데려온 선생님', x: 0.29, w: 128, h: 301, lines: ['아이들과 꼬리별을 보러 나왔단다.', '꼬리별은 해 진 뒤 서쪽 하늘에 뜬단다.'] },
+          { id: 'pupil', pass: '공책에 다 적어야지.', name: '공책 든 학생', x: 0.4, w: 85, h: 234, lines: ['선생님이 본 것을 공책에 적으래.', '꼬리별 그림도 그려 둘 거야.'] },
+          { id: 'assistant', pass: '유리판은 조심조심.', show: 'plate', pose: 'see-aha', sora: '유리판에 사진을 찍는대!', memo: '그 무렵 사진은 빛을 받는 유리판에 찍었단다.', name: '유리판 상자 든 조수', x: 0.51, w: 93, h: 277, lines: ['사진 유리판을 상자에 담아 왔어.', '빛이 들면 유리판을 못 쓰게 돼.'] },
+          { id: 'photographer', pass: '하늘이 맑아 다행이군.', name: '사진사', x: 0.62, w: 149, h: 318, lines: ['나는 꼬리별을 사진으로 남기려 한단다.', '하늘이 넓어서 어디를 찍을지 모르겠구나.'] },
+          { id: 'sailor', pass: '오늘 강물은 잔잔하네.', name: '배를 매는 뱃사람', x: 0.73, w: 115, h: 303, lines: ['오늘 밤은 강물이 아주 잔잔해.', '배에서도 다들 서쪽 하늘을 봤어.'] },
+          { id: 'oldlady', pass: '참 고운 저녁이구나.', name: '양산 든 할머니', x: 0.85, w: 106, h: 289, lines: ['지난주엔 꼬리 속을 지난다고 다들 겁냈지.', '아무 일 없었으니 참 다행이란다.'] },
+        ],
+        spots: [],
+      },
+    ],
+    // "The work of the day" (core/tale.js `work`): in the street she hands three people the
+    // evening paper that says no comet pills are needed; on the roof she helps the neighbours
+    // set the telescope's legs firm; in the park by the river she finds the comet low in the
+    // west for the photographer, who takes it on a glass plate. The way on from the roof is
+    // shut until the telescope stands.
+    // Made up: all of it.
+    tale: {
+      work: true,
+      ask: '꼬리별이 다시 뜬 저녁에 무엇을 할까?',
+      gate: { scene: 'roof', open: 2, sora: '망원경을 세우기 전이야. 못 가.' },
+      steps: [
+        {
+          goal: '거리의 세 사람에게 저녁 신문을 나눠 주렴.', tally: '신문 {all}부 가운데 {n}부를 나눠 주었다.',
+          round: [
+            { who: 'pillaunt', lines: ['알약이 필요 없다고 신문에 났니?', '휴, 이제야 마음이 놓이는구나.'] },
+            { who: 'grocer', lines: ['꼬리 속을 지난 밤에도 아무 일 없었지.', '신문에도 그렇게 났구나. 잘 읽으마.'] },
+            { who: 'stoop', lines: ['지난주엔 다들 무서워서 창문을 꼭 닫았단다.', '꼬리별이 저녁 하늘에 다시 떴다는구나.'] },
+          ],
+          after: [{ who: 'newsboy', line: '신문을 다 나눠 줬구나! 지붕에서 망원경을 세운대.' }],
+          cheer: '신문을 다 나눠 줬다!',
+          sora: '지붕에서 망원경을 세운대! 올라가자!',
+          errand: 'paper',
+        },
+        {
+          who: 'neighbor', goal: '지붕에서 이웃들과 망원경 다리를 세우렴.',
+          lines: ['얘야, 삼각대 다리를 꽉 눌러 주렴.', '다리가 단단히 서야 꼬리별을 볼 수 있단다.'],
+          play: {
+            kind: 'mash', tally: '삼각대 다리 {all}개 가운데 {n}개를 단단히 세웠다.', ask: '여러 번 눌러 삼각대 다리를 세우렴.', label: '꾹꾹!', hits: 3, zone: [0.42, 0.58], speed: 0.12,
+            good: ['다리 하나가 단단히 섰어!', '망원경이 똑바로 섰어!'], miss: ['앗, 다리가 미끄러졌어!', '조금 더 힘껏 눌러 봐!'], show: 'telescope',
+          },
+          after: [{ who: 'neighbor', line: '망원경이 섰구나! 강가 공원에선 사진사가 꼬리별을 찍는대.' }],
+          cheer: '망원경을 세웠다!',
+          sora: '강가 공원으로 가서 사진사를 돕자!',
+          errand: 'telescope',
+        },
+        {
+          who: 'photographer', goal: '강가 공원에서 서쪽 하늘의 꼬리별을 찾으렴.',
+          lines: ['꼬리별을 찍으러 왔는데 어디 있는지 모르겠구나.', '사진기를 맞추게 하늘에서 찾아 주렴.'],
+          play: {
+            kind: 'sky', tally: '하늘에서 꼬리별을 {all}번 가운데 {n}번 찾았다.', ask: '서쪽 하늘에서 꼬리별을 찾아 누르렴.', hits: 1,
+            good: ['강 건너 하늘에 꼬리별이 있어!'], miss: ['거긴 그냥 별이야.', '조금 더 서쪽 낮은 곳을 보렴.'], show: 'plate',
+          },
+          after: [
+            { who: 'photographer', line: '저기로구나! 유리판에 빛을 오래 담으마.' },
+            { who: 'pupil', line: '꼬리별이 강물 위에 떠 있어.' },
+          ],
+          cheer: '꼬리별을 찾았다!',
+          sora: '꼬리별이 유리판 사진에 남았어!',
+          errand: 'comet',
+        },
+      ],
+      asides: [
+        { who: 'newsboy', when: ['S0'], lines: ['이 신문 좀 사람들에게 나눠 줄래?', '알약 산 사람들이 아직 걱정하거든.'] },
+        { who: 'hoopkid', when: ['S0'], lines: ['신문 든 형이 너를 찾던데?', '거리 사람들에게 신문을 나눠 준대.'] },
+        { who: 'operagirl', when: ['S1'], lines: ['아저씨가 삼각대 다리를 못 세우셔.', '같이 눌러 드리면 금방 설 거야.'] },
+        { who: 'assistant', when: ['S2'], lines: ['선생님이 꼬리별 자리를 찾고 계셔.', '서쪽 낮은 하늘에 있을 거야.'] },
+        { who: 'teacher', when: ['S3'], lines: ['오늘 본 것을 공책에 잘 적어 두렴.', '꼬리별은 일흔여섯 해쯤 뒤에 또 온단다.'] },
+        { who: 'grandpa', when: ['S2', 'S3'], lines: ['꼬리별을 다시 보니 어린 시절이 생각나는구나.', '다음 꼬리별은 너희가 보겠지.'] },
+      ],
+      done: '신문을 나눠 주고, 망원경을 세우고, 사진사와 꼬리별을 찾았다.',
+    },
+    errands: [
+      { id: 'paper', text: '거리의 세 사람에게 신문을 나눠 준다.', at: [] },
+      { id: 'telescope', text: '지붕에서 망원경 삼각대를 세운다.', at: [] },
+      { id: 'comet', text: '서쪽 하늘에서 꼬리별을 찾는다.', at: [] },
+    ],
+    reply: '그 저녁의 꼬리별은 유리판 사진으로도 남았단다.',
   },
 };
 

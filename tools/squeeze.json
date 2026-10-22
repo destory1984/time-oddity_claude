@@ -823,6 +823,58 @@
 "q": 78,
 "sha": "9046927d03b7f4355d7c23ae23be7732236b9c9f"
 },
+"england1066/abbey-far.webp": {
+"q": 78,
+"sha": "16c98b3a60da138aa8ab4856dcab39d6edf40920"
+},
+"england1066/abbey-near.webp": {
+"q": 70,
+"sha": "c1823d98e5c61855466aa87263487fa4fb920f50"
+},
+"england1066/abbey.webp": {
+"q": 78,
+"sha": "61595830c4f14ce87f0a9070e804839d7b794b60"
+},
+"england1066/hill-far.webp": {
+"q": 78,
+"sha": "6d45aae346a53e596627236902254f962b181a22"
+},
+"england1066/hill-near.webp": {
+"q": 70,
+"sha": "7b90b69300c3129da47628e3b468c3524f0e2a1d"
+},
+"england1066/hill.webp": {
+"q": 78,
+"sha": "802b1cc8bcf033edc863b041ca1c420be1be349d"
+},
+"england1066/show-boats.webp": {
+"q": 78,
+"sha": "ec644719fb38f9b27f29a4b06a89a5ebbe7ffec3"
+},
+"england1066/show-bread.webp": {
+"q": 78,
+"sha": "1e1160897a57142bf9f61574ba446ec57907d563"
+},
+"england1066/show-chronicle.webp": {
+"q": 78,
+"sha": "240d92c83a6b3c738bfb22b80d37cbb2322e2435"
+},
+"england1066/show-wool.webp": {
+"q": 78,
+"sha": "5fab2f44701ec3566f6ac6f33c3ccc9ab3b4ebdd"
+},
+"england1066/village-far.webp": {
+"q": 78,
+"sha": "6d588d587b8c5b6d5ca641324493adbc4ad8ab79"
+},
+"england1066/village-near.webp": {
+"q": 70,
+"sha": "89943075ab8248c985eee13d6594f72a14fe14ec"
+},
+"england1066/village.webp": {
+"q": 78,
+"sha": "3d51531aa00336ecd69570b9d196425e6b55e3ac"
+},
 "florence1436/bakery-far.webp": {
 "q": 78,
 "sha": "ede1e51ce903ac572a8d9549df224dccd555cd84"
@@ -1687,6 +1739,58 @@
 "q": 78,
 "sha": "e64acaa95da2f3242bf9081491896e28ba3254c1"
 },
+"newyork1910/park-far.webp": {
+"q": 78,
+"sha": "937a8bcb9947225334d6af7eae8410f60f43fed1"
+},
+"newyork1910/park-near.webp": {
+"q": 70,
+"sha": "37dc430f11780bd540343ded4bbf8ac9bb4ebdf8"
+},
+"newyork1910/park.webp": {
+"q": 78,
+"sha": "ac5ed7a090dda519b1e12e2f9b2ac536b6598da7"
+},
+"newyork1910/roof-far.webp": {
+"q": 78,
+"sha": "a88bccda985decf3eb43c48bc855e652ad0feebc"
+},
+"newyork1910/roof-near.webp": {
+"q": 70,
+"sha": "39dfae2e7db4a8a6119a39e05853da7aeef19ae5"
+},
+"newyork1910/roof.webp": {
+"q": 78,
+"sha": "3080146b759f546b91768d9bc11a4077809f156d"
+},
+"newyork1910/show-paper.webp": {
+"q": 78,
+"sha": "6608c08fd9be99186e4dc2dc0a0ebd370949243c"
+},
+"newyork1910/show-plate.webp": {
+"q": 78,
+"sha": "f7694ced69d8ec26912d077f09c0ceaad4b26626"
+},
+"newyork1910/show-pretzel.webp": {
+"q": 78,
+"sha": "f17aed46ca7f4a75281829150fd2df3cb1eb40cd"
+},
+"newyork1910/show-telescope.webp": {
+"q": 78,
+"sha": "7b540fecc600ae8423d58663b8d9ba130fc18dee"
+},
+"newyork1910/street-far.webp": {
+"q": 78,
+"sha": "ba3ce2f34f81f6ff3d698c680cfa30bf297cbe62"
+},
+"newyork1910/street-near.webp": {
+"q": 70,
+"sha": "c96810e90a6da49263ece57544f3c836b6a953f6"
+},
+"newyork1910/street.webp": {
+"q": 78,
+"sha": "0d18bbb8c9bd1092967cd67fce2ce598142c637f"
+},
 "olympia776/altar-far.webp": {
 "q": 78,
 "sha": "9cc02b2f95e09eeb633367432f809799f9a4e948"
@@ -2218,6 +2322,10 @@
 "roof1986/lane.webp": {
 "q": 78,
 "sha": "fc5bcf41740061387dca6eb47639155faed0c285"
+},
+"roof1986/photo-now.webp": {
+"q": 78,
+"sha": "2c8e8672f2a903c77d4c2248a16da58b5b2f5a4e"
 },
 "roof1986/roof-far.webp": {
 "q": 78,

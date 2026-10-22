@@ -174,7 +174,7 @@ describe('eating, wearing and using what people have', () => {
   });
   it('has a wardrobe: an outfit to put on in most of the places, each by its own name', () => {
     const all = outfitsOf(WALKS);
-    expect(all.map((o) => o.outfit).sort()).toEqual(['abbasid', 'alexandria', 'armor', 'aztec', 'babylon', 'banks1903', 'barcelona', 'busan1986', 'byz', 'chiton', 'dubai2010', 'egypt', 'fedora', 'florence', 'gat', 'gilded', 'gobekli', 'goryeo', 'henge', 'huipil', 'ikat', 'inca', 'ivy', 'java', 'lydia585', 'mali', 'ming', 'mingwinter', 'mughal', 'nara', 'ny1886', 'olympia', 'padua', 'persia', 'polar1911', 'principe1919', 'qin', 'regency', 'rococo', 'sampot', 'sangmo', 'saxony1758', 'silla', 'song', 'steppe1957', 'sydney73', 'taino', 'tapa', 'teo', 'timbuktu', 'toga', 'tophat', 'victoria', 'wrap', 'zone1914']);
+    expect(all.map((o) => o.outfit).sort()).toEqual(['abbasid', 'alexandria', 'anglo1066', 'armor', 'aztec', 'babylon', 'banks1903', 'barcelona', 'busan1986', 'byz', 'chiton', 'dubai2010', 'egypt', 'fedora', 'florence', 'gat', 'gilded', 'gobekli', 'goryeo', 'henge', 'huipil', 'ikat', 'inca', 'ivy', 'java', 'lydia585', 'mali', 'ming', 'mingwinter', 'mughal', 'nara', 'ny1886', 'ny1910', 'olympia', 'padua', 'persia', 'polar1911', 'principe1919', 'qin', 'regency', 'rococo', 'sampot', 'sangmo', 'saxony1758', 'silla', 'song', 'steppe1957', 'sydney73', 'taino', 'tapa', 'teo', 'timbuktu', 'toga', 'tophat', 'victoria', 'wrap', 'zone1914']);
     expect(new Set(all.map((o) => o.name)).size).toBe(all.length);
     // Every place has something to eat or to use as well, so that none is only looked at.
     for (const [id, place] of Object.entries(WALKS)) expect(triesOf(place).length, id).toBeGreaterThanOrEqual(2);

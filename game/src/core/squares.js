@@ -1026,6 +1026,66 @@ export const SQUARES = [
     reply: '그 새벽 옥상에 네가 있었구나. 구름 너머에 꼬리별이 정말 있었지.',
     quiz: { question: '1986년 봄, 꼬리별은 언제 보였나?', answer: '새벽녘', proof: '새벽녘 남동쪽 하늘', wrong: ['한낮', '해 질 무렵'] },
   },
+  {
+    // A seaside village by Pevensey in Sussex, the evening of 24 April 1066 (Julian): Halley's
+    // comet in the west after sunset, the long-haired star of the Anglo-Saxon Chronicle. A
+    // hidden place of the comet's goal (core/rumors.js).
+    // The hour and the way: the walk's sky puts the horizon at 60% of the screen and 30 degrees
+    // either side of the middle, and does not scroll. At a quarter to nine local mean time the
+    // comet (core/sky.js, data/comets.json from JPL Horizons) is 22 degrees up at azimuth 281,
+    // magnitude 1, its tail toward 37 degrees up at 261; the sun is 12 degrees down (the stars,
+    // the comet with them, are drawn only once it is 6 down, in full at 12: at 8 it was not
+    // seen) and the moon down (a thin crescent, 32 down). Facing 265 its head stands right of
+    // the middle at about 43% of the screen's height, over the low marsh beyond the monastery
+    // wall as she stands by the monk, its tail reaching up toward grandmother's slip.
+    // Checked in the browser (temp/england1066-check.png).
+    // Looked up (2026.10.22): the Chronicle (versions C and D) has it first seen on the eve of
+    // the Greater Litany, 24 April, shining all the week; some called it the haired star; it
+    // was taken as an omen. The Bayeux Tapestry shows it with ISTI MIRANT STELLA.
+    // From memory: William of Normandy landed at Pevensey that autumn (28 September 1066);
+    // Pevensey Castle's old walls stand today.
+    // The place is walked about (core/walks.js).
+    no: 25.5, id: 'england1066', name: '꼬리별이 뜬 봄 저녁', dateLabel: 'AD 1066.4.24', place: '서식스, 잉글랜드',
+    lat: 50.82, lon: 0.33,
+    date: { year: 1066, month: 4, day: 24 }, calendar: 'julian', hourLocal: 20.75,
+    facingAz: 265, nightOnLook: false,
+    memo: '머리카락 난 별이 뜬 봄 저녁.', sora: '서쪽 하늘에 꼬리별이 있어!',
+    memoToday: '남은 것: 연대기와 자수 그림.', soraToday: '페븐시엔 지금도 옛 성벽이 있어.',
+    noteMemo: '1066년 봄 저녁. 머리카락 난 별이 서쪽에 떴다고 읽음. 그날 저녁 달은 지고 없었음.',
+    card: '1066년 4월 24일 저녁부터 일주일 동안, 잉글랜드 사람들은 해 진 뒤의 하늘에서 긴 꼬리를 단 별을 보았습니다. 앵글로색슨 연대기는 이 별을 "머리카락 난 별"이라 부르는 사람도 있다고 적었고, 사람들은 큰일이 일어날 징조로 여겼습니다. 그해 가을, 노르망디의 윌리엄이 이 바닷가 페븐시에 배를 대었습니다. 그 뒤에 만든 바이외 태피스트리에도 이 꼬리별이 "사람들이 별을 보고 놀란다"라는 글과 함께 수놓여 있습니다.',
+    reply: '그 별은 일흔여섯 해쯤마다 오는 바로 그 꼬리별이란다.',
+    quiz: { question: '연대기는 그 별을 무엇이라 부른다고 적었나?', answer: '머리카락 난 별', proof: '머리카락 난 별', wrong: ['불타는 칼', '눈물 흘린 별'] },
+  },
+  {
+    // Lower Manhattan, the evening of 24 May 1910: a few days after the night the Earth went
+    // through Halley's comet's tail (18-19 May), when "comet pills" and gas masks were sold and
+    // comet parties held on the roofs, the comet comes out again in the west after sunset. A
+    // hidden place of the comet's goal (core/rumors.js).
+    // The hour and the way: the walk's sky puts the horizon at 60% of the screen and 30 degrees
+    // either side of the middle, and does not scroll. At a quarter to nine local mean time (about
+    // 8:41 by the Eastern clock, 1:41 UT on the 25th) the comet (core/sky.js, data/comets.json
+    // from JPL Horizons) is 25 degrees up at azimuth 261, magnitude 2, its tail toward 33
+    // degrees up at 242; the sun is 14 degrees down (the stars, the comet with them, are drawn
+    // only once it is 6 down, in full at 12); the moon is full and low in the east, behind her.
+    // Facing 250 its head stands a little right of the middle at about 41% of the screen's
+    // height, in the open sky over the river where she stands by the photographer.
+    // Looked up (2026.10.22): cyanogen was found in the tail and the papers said the Earth would
+    // pass through it; comet pills and gas masks were sold and comet parties held on roofs (the
+    // Hotel Knickerbocker's in New York); nothing happened. From the comet's places: on 18-19
+    // May it stood by the sun, and from the 20th-21st it was in the west after sunset.
+    // From memory: Mark Twain, born in 1835 when the comet came, died on 21 April 1910.
+    // The place is walked about (core/walks.js).
+    no: 84.5, id: 'newyork1910', name: '꼬리별이 다시 나온 저녁', dateLabel: 'AD 1910.5.24', place: '뉴욕, 미국',
+    lat: 40.72, lon: -73.99,
+    date: { year: 1910, month: 5, day: 24 }, calendar: 'gregorian', hourLocal: 20.75,
+    facingAz: 250, nightOnLook: false,
+    memo: '꼬리별 소동 뒤의 맑은 저녁.', sora: '서쪽 하늘에 꼬리별이 떴어!',
+    memoToday: '남은 것: 유리판에 찍힌 꼬리별.', soraToday: '그날 찍은 사진들이 지금도 있어.',
+    noteMemo: '1910년 5월 24일 저녁. 꼬리별이 서쪽에 다시 보였다고 읽음. 그날 밤 달은 보름.',
+    card: '1910년 5월 18일, 지구가 핼리 혜성의 꼬리 속을 지나간다는 소식에 놀란 사람들이 "꼬리별 알약"과 방독면을 샀습니다. 뉴욕에서는 지붕에서 밤을 새우는 꼬리별 잔치도 열렸지만, 그날 밤 꼬리별은 해 곁에 있어 보이지 않았고 아무 일도 일어나지 않았습니다. 며칠 뒤 꼬리별은 해 진 뒤의 서쪽 하늘에 다시 나타났습니다. 그해 4월에는 꼬리별이 왔던 1835년에 태어난 작가 마크 트웨인이 세상을 떠났습니다.',
+    reply: '아무 일 없이 지나간 꼬리별이 저녁 하늘에 다시 떴구나.',
+    quiz: { question: '꼬리 속을 지난다는 소식에 사람들이 산 약은?', answer: '꼬리별 알약', proof: '꼬리별 알약', wrong: ['감기약', '별빛 사탕'] },
+  },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);
 

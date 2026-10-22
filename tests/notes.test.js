@@ -8,6 +8,7 @@ describe('grandmother\'s notes', () => {
   it('belong to squares that exist and keep Sora to 25 characters', () => {
     for (const note of NOTES) {
       if (note.square) expect(SQUARES.some((s) => s.id === note.square), note.id).toBe(true);
+      else if (note.squares) for (const id of note.squares) expect(SQUARES.some((s) => s.id === id), `${note.id} ${id}`).toBe(true);
       else expect(note.after === 'all' || note.after > 0, note.id).toBe(true);
       expect(existsSync(`game/public/opening/${note.image}`), note.image).toBe(true);
       expect(note.says.length).toBe(note.text.length + 1);
@@ -52,5 +53,15 @@ describe('grandmother\'s notes', () => {
     const odd = sanitizeProgress(JSON.stringify({ squares: {}, notes: ['y1969', 'nope', 7] }), [], ['y1969']);
     expect(notesRead(odd)).toEqual(['y1969']);
     expect(notesRead(sanitizeProgress('{"squares":{}}', [], ['y1969']))).toEqual([]);
+  });
+});
+
+describe("grandmother's note of 1986", () => {
+  it('falls only when all three days of the comet are done', () => {
+    const done = new Set(['england1066', 'dresden1758']);
+    const due = () => dueNote((id) => done.has(id) || id === 'yard1969' || id === 'seoul88', ['y1969', 'y1988'], []);
+    expect(due()?.id).not.toBe('y1986');
+    done.add('newyork1910');
+    expect(due()?.id).toBe('y1986');
   });
 });

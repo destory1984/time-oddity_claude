@@ -12,8 +12,8 @@
 // read of it in the newspaper: which morning's is not said, for the gates opened in the
 // small hours of the 10th by Korean time); and the last leaf when every place is done.
 //
-// A note falls when its `square` is complete, or when `after` places are ('all': every
-// place that is walked about).
+// A note falls when its `square` is complete (or all its `squares`), or when `after` places
+// are ('all': every place that is walked about).
 export const NOTES = [
   {
     id: 'y1969',
@@ -54,15 +54,15 @@ export const NOTES = [
     ],
     says: ['쪽지가 또 있어!', '담 위에 사람이 저렇게 많이.', '하룻밤에 열렸다고?', '그날도 달은 떠 있었구나.'],
   },
-  // The comet's rumour web (core/rumors.js, 2026.10.22): once the comet has been found in
-  // Prohlis, the day grandmother missed it herself. Reading it brings her rooftop of 1986 to
+  // The comet's rumour web (core/rumors.js, 2026.10.22): once the comet has been seen on the
+  // three days it came (1066, 1758, 1910), the day grandmother missed it herself. Reading it brings her rooftop of 1986 to
   // light. A draft (docs/스토리보드-꼬리별-다음-셋.md), for the user to revise.
   {
     id: 'y1986',
-    square: 'dresden1758',
+    squares: ['england1066', 'dresden1758', 'newyork1910'],
     title: '1986.3',
     image: 'note-1986.png',
-    scene: '꼬리별을 찾고 돌아오자 수첩 사이에서 쪽지가 또 떨어졌다.',
+    scene: '세 번째 꼬리별을 찾고 돌아오자 수첩 사이에서 쪽지가 또 떨어졌다.',
     text: [
       '서른두 살 봄이었단다. 꼬리별이 온다길래 새벽에 옥상에 올라갔지. 보온병에 보리차를 담아서.',
       '그날따라 구름이 잔뜩 꼈단다. 한 시간을 서 있다가 그냥 내려왔지.',
@@ -94,7 +94,7 @@ export const noteById = (id) => NOTES.find((note) => note.id === id);
 // walked about.
 export function dueNote(complete, read, places = []) {
   const done = places.filter((id) => complete(id)).length;
-  const ripe = (note) => (note.square ? complete(note.square) : places.length > 0 && done >= (note.after === 'all' ? places.length : note.after));
+  const ripe = (note) => (note.squares ? note.squares.every(complete) : note.square ? complete(note.square) : places.length > 0 && done >= (note.after === 'all' ? places.length : note.after));
   return NOTES.find((note) => ripe(note) && !read.includes(note.id)) ?? null;
 }
 

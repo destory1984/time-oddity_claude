@@ -21,6 +21,8 @@ export const RUMORS = [
   { id: 'again', at: 'guest1054', who: 'old', says: '개봉의 늙은 관원: 꼬리별은 옛 기록에 여러 번 왔다.' },
   { id: 'y1682', at: 'crystalPalace', who: 'lensman', says: '런던의 망원경 지키는 이: 핼리가 1682년에 본 꼬리별이 1835년에 또 왔다.' },
   { id: 'every76', at: 'crystalPalace', who: 'oldman', says: '런던의 할아버지: 꼬리별은 일흔여섯 해마다 온다.' },
+  { id: 'tapestry', at: 'crystalPalace', who: 'dressmaker', says: '런던의 옷 가게 아주머니: 노르망디의 긴 자수에 꼬리별이 수놓여 있다.' },
+  { id: 'twain', at: 'liberty', who: 'coingrandpa', says: '뉴욕의 할아버지: 트웨인은 1835년 꼬리별이 온 해에 태어났다.' },
   // Heard at the first hidden place itself: the way on to the next return.
   { id: 'next76', at: 'dresden1758', who: 'palitzsch', says: '프롤리스의 팔리치: 꼬리별은 예언대로 1758년에 돌아왔다. 다음은 일흔여섯 해 뒤.' },
 ];
@@ -33,6 +35,13 @@ export const HIDDEN = [
   {
     id: 'dresden1758', needs: ['y1682', 'every76'],
     sum: { ask: '1682 + 76 = ?', choices: [1748, 1758, 1768], year: 1758, opened: '1758년 크리스마스, 드레스덴 근교에 빛이 켜졌다.' },
+  },
+  // The year it first came to an English village: the old star of the records, sewn into cloth.
+  { id: 'england1066', needs: ['again', 'tapestry'] },
+  // The return after Twain's: the old rumour that it comes every seventy-six years or so.
+  {
+    id: 'newyork1910', needs: ['next76', 'twain'],
+    sum: { ask: '1835년의 다음 꼬리별은? (일흔여섯 해쯤 뒤)', choices: [1900, 1910, 1920], year: 1910, opened: '1910년 5월, 뉴욕의 저녁 하늘에 빛이 켜졌다.' },
   },
   // The end of the goal: the dawn grandmother went up to her rooftop and the clouds hid it.
   { id: 'roof1986', needs: [], note: 'y1986' },

@@ -60,3 +60,14 @@ describe("grandmother's rooftop of 1986", () => {
     expect(shownPlaces(['roof1986'], [], [], ['y1969'])).toEqual([]);
   });
 });
+
+describe('the other days the comet came', () => {
+  it('open 1066 with two rumours, and 1910 with two rumours and its year', () => {
+    const england = HIDDEN.find((h) => h.id === 'england1066');
+    const york = HIDDEN.find((h) => h.id === 'newyork1910');
+    expect(isOpen(england, ['again'], [])).toBe(false);
+    expect(isOpen(england, ['again', 'tapestry'], [])).toBe(true);
+    expect(isOpen(york, ['next76', 'twain'], [])).toBe(false);
+    expect(isOpen(york, ['next76', 'twain'], ['newyork1910'])).toBe(true);
+  });
+});
