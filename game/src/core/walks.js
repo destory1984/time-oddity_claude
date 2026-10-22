@@ -763,7 +763,7 @@ export const WALKS = {
         ],
         spots: [],
         taps: [
-          { id: 'banner', show: 'banner', name: '올림픽 현수막', box: [0.397, 0.385, 0.603, 0.45], pose: 'see-aha', sora: ['동그라미 다섯 개! 올림픽이야.', '온 도시가 손님맞이 중이네.'], memo: '아흐레 뒤가 도쿄 올림픽이었단다. 이 기차는 그날에 맞춰 열었지.' },
+          { id: 'banner', show: 'banner', name: '올림픽 현수막', box: [0.397, 0.385, 0.603, 0.45], pose: 'see-aha', sora: ['일장기 현수막이야! 올림픽 손님맞이래.', '온 도시가 손님맞이 중이네.'], memo: '아흐레 뒤가 도쿄 올림픽이었단다. 이 기차는 그날에 맞춰 열었지.' },
         ],
       },
       {
@@ -1719,6 +1719,9 @@ export const WALKS = {
   // a hundred thousand). Not found, and so not said: the price of anything sold in the
   // street, what the volunteers wore, the colour of the telephones and the buses.
   // Grandmother was thirty-four and saw it on television.
+  // Not drawn, for their rights (2026.10.22): Hodori himself and the five rings as a mark.
+  // The stall sells sangmo hats, and the sky shows one ring of six near with the other
+  // smoke apart; the words may still name them.
   seoul88: {
     first: '오늘은 올림픽이 열리는 날이란다. 심부름 셋을 해 보렴.',
     dir: 'seoul88',
@@ -1737,14 +1740,14 @@ export const WALKS = {
     scenes: [
       {
         id: 'road', name: '대한민국 서울 잠실 올림픽로', short: '올림픽로', zoom: 1.08, ground: 0.72, scale: 0.62, air: 'road',
-        sora: '가게마다 호랑이 인형이야!',
+        sora: '가게마다 상모가 걸려 있어!',
         people: [
           { id: 'tourist', pass: '오우, 어디로 가지…', name: '외국인 관광객', x: 0.18, w: 148, h: 320, lines: ['160개국에서 참여했대요. 나도 왔죠!', '동쪽 서쪽이 다 모였어요.'] },
           { id: 'caller', pass: '여보세요? 나야, 나.', name: '전화 거는 회사원', x: 0.28, w: 132, h: 307, lines: ['집에 걸었어. 텔레비전 켜 두라고.', '컬러 방송이 여덟 해째거든.'] },
           { id: 'gimbap', pass: '김밥이요, 김밥!', show: 'clock', pose: 'see-aha', sora: '시계를 한 시간 앞으로 돌렸네!', memo: '그해에는 온 나라가 시계를 한 시간 앞당겨 썼단다.', name: '김밥 장수', x: 0.42, w: 145, h: 297, lines: ['열 시 반에 벌써 시작했어.', '올해는 시계를 한 시간 당겨 쓰잖아. 썸머 타임이라고 하던가?'],
             try: { id: 'eat-gimbap', verb: 'eat', name: '김밥', face: 'yum', sora: '참기름 냄새! 한 줄 다 먹을래.' } },
-          { id: 'vendor', pass: '호돌이 사 가세요, 호돌이!', show: 'hodori', pose: 'see-wow', sora: '상모 쓴 호랑이네! 귀엽다.', memo: '상모의 긴 끈은 서울의 S란다. 이름은 이천이백 통에서 뽑았지. 짝은 호순이야.', name: '기념품 장수', x: 0.58, w: 177, h: 319, lines: ['호돌이요. 상모 쓴 아기 호랑이.', '이름은 온 국민이 지어 보냈다오.'],
-            try: { id: 'wear-sangmo', verb: 'wear', name: '상모', outfit: 'sangmo', sora: '고개를 돌리니 상모 띠가 빙글빙글!', memo: '농악에서 쓰는 모자란다. 호돌이도 이걸 썼지.' } },
+          { id: 'vendor', pass: '상모 사 가세요, 상모!', show: 'sangmo', pose: 'see-wow', sora: '띠가 엄청 길다! 이걸 돌리는 거야?', memo: '그해의 마스코트 호돌이도 상모를 썼단다. 그 긴 띠가 서울의 S를 그렸지.', name: '기념품 장수', x: 0.58, w: 224, h: 320, lines: ['상모요. 마스코트 호랑이도 이걸 썼다오.', '호랑이 이름은 온 국민이 지어 보냈다오.'],
+            try: { id: 'wear-sangmo', verb: 'wear', name: '상모', outfit: 'sangmo', sora: '고개를 돌리니 상모 띠가 빙글빙글!', memo: '농악에서 쓰는 모자란다. 머리를 흔들어 긴 띠를 돌리며 춤추지.' } },
           { id: 'flagboy', pass: '대한민국! 짝짝짝!', name: '깃발 든 아이', x: 0.69, w: 133, h: 276, lines: ['버스 타고 왔어. 나는 칠십 원!', '토큰 말고 회수권 냈어.'] },
           { id: 'guide', pass: '경기장은 이쪽이에요!', name: '자원봉사 누나', x: 0.78, w: 159, h: 299, lines: ['길 안내를 맡았어요. 저쪽이에요.', '자원봉사자가 이만 칠천 명이에요.'] },
           { id: 'traffic', pass: '삐익! 이쪽으로, 이쪽!', name: '교통 정리 아저씨', x: 0.86, w: 183, h: 310, lines: ['천천히, 밀지 말고 가시오.', '칠만 명이 넘게 왔다니, 원.'] },
@@ -1785,7 +1788,7 @@ export const WALKS = {
       },
     ],
     errands: [
-      { id: 'hodori', text: '호돌이를 찾아보렴. 상모 쓴 아기 호랑이란다.', at: ['vendor'] },
+      { id: 'hodori', text: '상모를 찾아보렴. 꼭지에 긴 흰 띠가 달린 모자란다.', at: ['vendor'] },
       { id: 'rings', text: '하늘에 그린 동그라미 다섯을 본 사람을 찾아보렴.', at: ['photo'] },
       { id: 'hoop', text: '굴렁쇠 굴리는 아이를 보고 오렴. 나는 텔레비전으로만 봤단다.', at: ['hoopboy', 'binoc'] },
     ],
