@@ -56,7 +56,7 @@ export const NOTES = [
   },
   // The comet's rumour web (core/rumors.js, 2026.10.22): once the comet has been seen on the
   // three days it came (1066, 1758, 1910), the day grandmother missed it herself. Reading it brings her rooftop of 1986 to
-  // light. A draft (docs/스토리보드-혜성-다음-셋.md), for the user to revise.
+  // light. The user kept the draft as it is (2026.10.22).
   {
     id: 'y1986',
     squares: ['england1066', 'dresden1758', 'newyork1910'],
