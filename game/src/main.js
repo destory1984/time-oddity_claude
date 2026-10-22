@@ -797,6 +797,15 @@ function openPlay(step) {
   openPanel({ ask: spec.ask, back: leave, free: true, options: [] });
   play = { step, kind, hits: 0, at: walkT, wait: walkT + PLAY_WAIT_MS, level: 0, held: false, beat: -1 };
   const box = $('walkChoice');
+  // The sky's own: nothing to press in the box; the comet in the sky is touched (below).
+  if (kind === 'sky') {
+    const count = document.createElement('p');
+    count.className = 'playCount';
+    count.textContent = tallyOf(spec.tally, 0, spec.hits);
+    box.append(count);
+    document.activeElement?.blur?.();
+    return;
+  }
   const bar = document.createElement('div');
   bar.className = `playBar ${kind}`;
   if (kind === 'beat') {
@@ -840,6 +849,7 @@ function pressPlay() {
   sound.wake();
   const { kind } = play;
   const spec = play.step.play;
+  if (kind === 'sky') return;   // the comet itself is touched, not a key or a button
   if (kind === 'fill') { if (!play.held) { play.held = true; play.heldAt = walkT; play.level = 0; play.left = 0; } return; }
   if (kind === 'mash') {
     play.level = Math.min(1, play.level + MASH_PUSH);
@@ -884,6 +894,25 @@ function playFrame(dt) {
   if (play.kind === 'mash') play.level = Math.max(0, play.level - (spec.speed * dt) / 1000);
   bar.querySelector('.fill').style.width = `${play.level * 100}%`;
 }
+// A touch on the comet in the sky (core/sky.js, render/skyCanvas.js). While the sky's play is
+// up it is what is to be done, and a touch elsewhere in the sky is a miss; otherwise she says
+// what it is. Touches on buttons and boxes are theirs.
+const COMET_REACH_PX = 44;
+window.addEventListener('pointerdown', (e) => {
+  if (!walk || mode !== 'walk' || e.target.closest?.('button, dialog, #walkChoice, #memo, #hud, .sheet')) return;
+  const near = skyCanvas.cometsOnPage().find((one) => Math.hypot(one.x - e.clientX, one.y - e.clientY) <= COMET_REACH_PX);
+  if (play?.kind === 'sky') {
+    e.stopPropagation(); e.preventDefault();
+    if (walkT < play.wait) return;
+    sound.wake();
+    if (near) { play.wait = walkT + PLAY_WAIT_MS; playHit(); } else if (e.clientY < window.innerHeight * 0.45) playMissed();
+    return;
+  }
+  if (!near || panelOpen()) return;
+  e.stopPropagation(); e.preventDefault();
+  sound.wake(); sound.tick(false, false);
+  walkSora = { text: '저기 꼬리별이야! 꼬리가 희미하게 보여.', from: walkT, until: walkT + SORA_FOR_MS };
+}, { capture: true });
 function playHit() {
   const { step } = play;
   const spec = step.play;

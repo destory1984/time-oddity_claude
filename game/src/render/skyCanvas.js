@@ -19,6 +19,7 @@ export function createSkyCanvas(canvas) {
   const c = canvas.getContext('2d');
   let w = 0;
   let h = 0;
+  let comets = [];   // where the comets were last drawn, in the canvas's own CSS pixels
 
   function resize() {
     const box = canvas.getBoundingClientRect();
@@ -118,6 +119,7 @@ export function createSkyCanvas(canvas) {
     const horizonY = project(0, camera ? camera.yaw : facingAz, view).y;
     c.globalCompositeOperation = 'source-over';
     c.globalAlpha = 1;
+    comets = [];
     backdrop(light.day, horizonY);
     const fade = 1 - 0.7 * dim;
     const seen = (alt, az, margin = 20) => {
@@ -176,6 +178,7 @@ export function createSkyCanvas(canvas) {
       for (const comet of sky.comets ?? []) {
         const p = seen(comet.alt, comet.az, 60);
         if (!p) continue;
+        comets.push({ id: comet.id, x: p.x, y: p.y });
         const q = project(comet.tailAlt, comet.tailAz, view);
         const strength = light.stars * fade * clamp(0.85 + (6 - comet.mag) * 0.05, 0.85, 1);
         const tail = c.createLinearGradient(p.x, p.y, q.x, q.y);
@@ -201,5 +204,11 @@ export function createSkyCanvas(canvas) {
     }
   }
 
-  return { resize, draw };
+  // Where on the page the comets drawn last are, for a touch to find them (main.js).
+  function cometsOnPage() {
+    const box = canvas.getBoundingClientRect();
+    return comets.map((one) => ({ ...one, x: box.left + one.x, y: box.top + one.y }));
+  }
+
+  return { resize, draw, cometsOnPage };
 }

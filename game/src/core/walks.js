@@ -8340,8 +8340,8 @@ export const WALKS = {
           who: 'palitzsch', goal: '농가 마당에서 망원경으로 꼬리별을 찾아보렴.',
           lines: ['얘야, 마을이 어두워지니 별이 잘 보이는구나.', '물고기자리 곁에 뿌연 얼룩이 있나 보렴.'],
           play: {
-            kind: 'aim', tally: '망원경 겨누기 {all}번 가운데 {n}번을 맞췄다.', ask: '뿌연 얼룩이 금빛 칸에 올 때 누르렴.', label: '여기!', hits: 3, zone: [0.42, 0.58], speed: 0.7,
-            good: ['별 사이에 뿌연 것이 보여!', '얼룩이 또 그 자리에 있어!'], miss: ['앗, 그냥 별이었어!', '조금 지나쳤어!'], show: 'eyepiece',
+            kind: 'sky', tally: '하늘에서 꼬리별을 {all}번 가운데 {n}번 찾았다.', ask: '하늘에서 뿌연 꼬리별을 찾아 누르렴.', hits: 1,
+            good: ['별 사이에 뿌연 것이 보여!'], miss: ['거긴 그냥 별이야.', '조금 더 옆을 보렴.'], show: 'eyepiece',
           },
           after: [
             { who: 'palitzsch', line: '돌아왔다! 핼리 선생 말대로야!' },

@@ -312,7 +312,7 @@ describe('the work of the day', () => {
       expect(new Set(here).size, id).toBe(here.length);
       here.forEach((k) => kinds.add(k));
     }
-    expect([...kinds].sort()).toEqual(['aim', 'beat', 'fill', 'mash']);
+    expect([...kinds].sort()).toEqual(['aim', 'beat', 'fill', 'mash', 'sky']);
   });
   it('is played to the end before it goes on', () => {
     const { tale } = WALKS.darlington;
@@ -337,12 +337,15 @@ describe('the work of the day', () => {
         if (step.cheer) expect(step.cheer.length, step.cheer).toBeLessThanOrEqual(14);
         if (step.play) {
           const { play } = step;
-          expect(['aim', 'fill', 'mash', 'beat']).toContain(play.kind);
+          expect(['aim', 'fill', 'mash', 'beat', 'sky']).toContain(play.kind);
           expect(play.ask.length, play.ask).toBeLessThanOrEqual(30);
           expect(play.hits).toBeGreaterThanOrEqual(1);
-          expect(play.zone[0]).toBeGreaterThan(0);
-          expect(play.zone[1]).toBeLessThan(1);
-          expect(play.zone[1] - play.zone[0]).toBeGreaterThanOrEqual(0.1);
+          // The sky's play has no bar: the comet in the sky is touched.
+          if (play.kind !== 'sky') {
+            expect(play.zone[0]).toBeGreaterThan(0);
+            expect(play.zone[1]).toBeLessThan(1);
+            expect(play.zone[1] - play.zone[0]).toBeGreaterThanOrEqual(0.1);
+          }
           expect(play.good.length * play.miss.length).toBeGreaterThan(0);
           expect(play.tally).toMatch(/\{all\}.*\{n\}.*다\.$/);
         }

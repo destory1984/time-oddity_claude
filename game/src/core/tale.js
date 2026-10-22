@@ -40,8 +40,9 @@
 // within the zone (`speed` sweeps a second); 'fill', hold down as the bar fills (`speed`
 // of it a second) and let go within the zone; 'mash', press fast, each press filling an
 // eighth or so of a bar that sinks back by `speed` a second; 'beat', press as the last of
-// four lights is on (`speed` lights a second). `show` is the picture held up when it is
-// done. It is done by advance(.., 'played').
+// four lights is on (`speed` lights a second); 'sky', find the comet in the computed sky and
+// touch it (no bar, `zone`, `speed` or `label`; the user, 2026.10.22, of Prohlis: "혜성 저걸
+// 누르는거야?"). `show` is the picture held up when it is done. It is done by advance(.., 'played').
 // The state is 'S0' for the first step, 'S1' for the second, and one past the last when
 // the tale is told. A record is never changed in place.
 export const STATES = ['S0', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9'];
