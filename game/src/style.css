@@ -78,6 +78,8 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #walkPeople .mark.off{display:none}
 #walkPeople .mark.bang{display:grid;place-items:center;background:var(--gold);color:#1b1730;font:800 calc(26px * var(--text,1))/1 system-ui,sans-serif;font-style:normal}
 #walkPeople .mark.bang.off{display:none}
+/* One with a rumour of the comet (core/rumors.js): the comet in pale blue on the night colour. */
+#walkPeople .mark.bang.comet{background:#16244a;color:#cfe0ff;border:2px solid var(--gold);font-size:calc(22px * var(--text,1))}
 #walkPeople .person.worth{filter:drop-shadow(0 0 3px rgba(255,214,110,.95)) drop-shadow(0 0 1px rgba(255,214,110,.9))}
 #walk[data-night="1"] #walkPeople .person.worth{filter:brightness(.9) drop-shadow(0 0 3px rgba(255,214,110,.95))}
 @keyframes markBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}

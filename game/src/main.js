@@ -1093,6 +1093,7 @@ function tryNear(id = null) {
 function enterScene() {
   const scene = sceneOf(walk);
   closePanel();
+  walkView.setRumors(RUMORS.filter((r) => r.at === square.id && !metOf(progress, square.id).includes(r.who)).map((r) => r.who));
   walkView.showScene(walk.place, walk.scene);
   walkFace = null; walkHeld = null;
   walkSora = scene.sora && !walk.told.includes(scene.id) ? { text: scene.sora, until: walkT + 900 + SORA_FOR_MS, from: walkT + 900 } : null;

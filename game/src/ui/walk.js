@@ -185,6 +185,10 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
     }
   }
 
+  // The ones here who have a rumour of the comet not yet heard (core/rumors.js): marked with
+  // a small comet, so that the four among hundreds are not walked past (players are not
+  // historians: what is worth going to is shown).
+  let rumorIds = new Set();
   function showScene(walkPlace, index) {
     place = walkPlace;
     scene = place.scenes[index];
@@ -249,13 +253,14 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
       // with a "!" (the user, of one an errand asked for: "얘도 그냥 넘어갈 뻔 함"). Whoever
       // has no mark can be walked past.
       let mark = null;
-      if (worth({ place }, person) || place.tale) {
+      if (worth({ place }, person) || place.tale || rumorIds.has(person.id)) {
         mark = document.createElement('i');
         mark.className = 'mark';
         // In a tale anyone may be called for in their turn: those with nothing else to mark
         // them have a mark that shows only then.
-        if (!worth({ place }, person)) mark.dataset.tale = '1';
+        if (!worth({ place }, person) && !rumorIds.has(person.id)) mark.dataset.tale = '1';
         if (person.show) mark.style.backgroundImage = `url(./walks/${place.dir}/show-${person.show}.webp)`;
+        else if (rumorIds.has(person.id)) { mark.classList.add('bang', 'comet'); mark.textContent = '☄'; }
         else { mark.classList.add('bang'); mark.textContent = '!'; }
         // Touching the mark is touching them (the user, 2026.10.8: "저거 눌러도 대화 시작하게").
         mark.addEventListener('pointerdown', (e) => { e.stopPropagation(); onPerson(person.id); });
@@ -688,6 +693,8 @@ export function createWalkView({ onPerson, onWay, onLook = () => {}, onTap = () 
 
   return {
     showScene, layout, update, nudge, clack, cheer, taste, hint,
+    // ids: the people of the place about to be shown who have a rumour still to tell.
+    setRumors: (ids) => { rumorIds = new Set(ids); },
     // A thing is found: said beside her head, with how many of the scene's that makes.
     found: (text) => taste('yum', text),
     // The thing of the tale: its picture (or null) and whether she has it; and its flight
