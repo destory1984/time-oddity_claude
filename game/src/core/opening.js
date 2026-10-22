@@ -19,5 +19,5 @@ export const OPENING = [
   { image: 'open-dial.png', kind: 'note', text: '장마다 심부름을 셋씩 적어 두었다. 첫 장은 이천 년 전 로마란다. 새 경기장이 문을 여는 날이지.', say: '이천 년 전? 진짜 갈 수 있어?' },
   // The goal, from the first pages (2026.10.22, the comet's rumour web, core/rumors.js): her
   // wish, which the notebook's last leaf (core/notes.js, 2061) already speaks of.
-  { image: 'open-book.png', kind: 'note', text: '그리고 소라야, 나는 평생 꼬리별을 한 번 보고 싶었단다. 끝내 못 봤지.', say: '꼬리별? 내가 찾아볼게!' },
+  { image: 'open-book.png', kind: 'note', text: '그리고 소라야, 나는 평생 혜성을 한 번 보고 싶었단다. 끝내 못 봤지.', say: '혜성? 내가 찾아볼게!' },
 ];

@@ -979,19 +979,19 @@ export const SQUARES = [
     // From memory: that Prohlis is now a part of Dresden (the storyboard says so); the record of
     // his sightings kept.
     // The place is walked about (core/walks.js).
-    no: 49.5, id: 'dresden1758', name: '꼬리별이 돌아온 밤', dateLabel: 'AD 1758.12.25', place: '프롤리스, 작센',
+    no: 49.5, id: 'dresden1758', name: '혜성이 돌아온 밤', dateLabel: 'AD 1758.12.25', place: '프롤리스, 작센',
     lat: 51.008, lon: 13.800,
     date: { year: 1758, month: 12, day: 25 }, calendar: 'gregorian', hourLocal: 20,
     // At 8 in the evening the comet is 41 degrees up at azimuth 211: facing a little short of
     // it, it stands in the open sky between grandmother's slip and the roofs (the user:
-    // "꼬리별 안 보이는데?"; at 9 facing 225 it was by the slip's corner, at 7 under the buttons).
+    // "혜성 안 보이는데?"; at 9 facing 225 it was by the slip's corner, at 7 under the buttons).
     facingAz: 204, nightOnLook: false,
-    memo: '예언된 꼬리별이 돌아오는 밤.', sora: '망원경이 하늘을 보고 있어!',
+    memo: '예언된 혜성이 돌아오는 밤.', sora: '망원경이 하늘을 보고 있어!',
     memoToday: '남은 것: 팔리치가 남긴 기록.', soraToday: '프롤리스는 지금 드레스덴의 한 동네야.',
-    noteMemo: '1758년 성탄절 밤. 팔리치가 돌아온 꼬리별을 처음 찾았다고 읽음. 그날 밤 달은 지고 없었음.',
-    card: '1758년 12월 25일 밤, 독일 드레스덴 근교 프롤리스의 농부이자 천문가 요한 게오르크 팔리치가 망원경으로 희미한 꼬리별 하나를 찾았습니다. 핼리가 1705년에 돌아온다고 미리 셈해 둔 바로 그 꼬리별이었고, 사흘 뒤에는 드레스덴의 호프만도 그것을 보았습니다. 핼리는 1742년에 세상을 떠나 꼬리별이 돌아오는 것을 보지 못했습니다. 꼬리별은 이듬해 3월 13일에 해에 가장 가까이 다가갔고, 그 뒤로 핼리 혜성이라 불립니다.',
-    reply: '핼리 선생의 셈이 맞았구나. 그 꼬리별은 일흔여섯 해쯤마다 다시 온단다.',
-    quiz: { question: '팔리치는 무엇으로 꼬리별을 찾았나?', answer: '망원경', proof: '망원경으로 희미한 꼬리별 하나를 찾았습니다', wrong: ['맨눈', '쌍안경'] },
+    noteMemo: '1758년 성탄절 밤. 팔리치가 돌아온 혜성을 처음 찾았다고 읽음. 그날 밤 달은 지고 없었음.',
+    card: '1758년 12월 25일 밤, 독일 드레스덴 근교 프롤리스의 농부이자 천문가 요한 게오르크 팔리치가 망원경으로 희미한 혜성 하나를 찾았습니다. 핼리가 1705년에 돌아온다고 미리 셈해 둔 바로 그 혜성이었고, 사흘 뒤에는 드레스덴의 호프만도 그것을 보았습니다. 핼리는 1742년에 세상을 떠나 혜성이 돌아오는 것을 보지 못했습니다. 혜성은 이듬해 3월 13일에 해에 가장 가까이 다가갔고, 그 뒤로 핼리 혜성이라 불립니다.',
+    reply: '핼리 선생의 셈이 맞았구나. 그 혜성은 일흔여섯 해쯤마다 다시 온단다.',
+    quiz: { question: '팔리치는 무엇으로 혜성을 찾았나?', answer: '망원경', proof: '망원경으로 희미한 혜성 하나를 찾았습니다', wrong: ['맨눈', '쌍안경'] },
   },
   {
     // Grandmother's village by Busan before dawn in the spring of 1986: Halley's comet stands low
@@ -1015,16 +1015,16 @@ export const SQUARES = [
     // back in mid-2061 (28 July 2061).
     // Not found, so not said: that many people in Korea went out to see it.
     // The place is walked about (core/walks.js).
-    no: 112.5, id: 'roof1986', name: '꼬리별을 기다린 새벽', dateLabel: 'AD 1986.3.20', place: '할머니의 마을',
+    no: 112.5, id: 'roof1986', name: '혜성을 기다린 새벽', dateLabel: 'AD 1986.3.20', place: '할머니의 마을',
     lat: 35.18, lon: 129.08,
     date: { year: 1986, month: 3, day: 20 }, calendar: 'gregorian', hourLocal: 4,
     facingAz: 111, nightOnLook: false,
-    memo: '꼬리별을 기다린 새벽 옥상.', sora: '바다 위 하늘이 아직 캄캄해!',
-    memoToday: '남은 것: 2061년에 다시 올 꼬리별.', soraToday: '2061년에는 같이 보자!',
-    noteMemo: '1986년 봄 새벽. 꼬리별이 남동쪽 낮은 하늘에 온다던 날. 그날 새벽 달은 지고 없었음.',
-    card: '핼리 혜성은 1986년 2월 9일에 해에 가장 가까이 다가갔습니다. 그때 꼬리별은 지구에서 보아 해의 건너편에 있어서, 북쪽 나라들에서는 보기가 무척 어려운 때였습니다. 3월과 4월에는 새벽녘 남동쪽 하늘 낮은 곳에 희미하게 떠서, 구름과 도시의 불빛 때문에 못 보고 돌아선 사람이 많았습니다. 핼리 혜성은 2061년 여름에 다시 돌아옵니다.',
-    reply: '그 새벽 옥상에 네가 있었구나. 구름 너머에 꼬리별이 정말 있었지.',
-    quiz: { question: '1986년 봄, 꼬리별은 언제 보였나?', answer: '새벽녘', proof: '새벽녘 남동쪽 하늘', wrong: ['한낮', '해 질 무렵'] },
+    memo: '혜성을 기다린 새벽 옥상.', sora: '바다 위 하늘이 아직 캄캄해!',
+    memoToday: '남은 것: 2061년에 다시 올 혜성.', soraToday: '2061년에는 같이 보자!',
+    noteMemo: '1986년 봄 새벽. 혜성이 남동쪽 낮은 하늘에 온다던 날. 그날 새벽 달은 지고 없었음.',
+    card: '핼리 혜성은 1986년 2월 9일에 해에 가장 가까이 다가갔습니다. 그때 혜성은 지구에서 보아 해의 건너편에 있어서, 북쪽 나라들에서는 보기가 무척 어려운 때였습니다. 3월과 4월에는 새벽녘 남동쪽 하늘 낮은 곳에 희미하게 떠서, 구름과 도시의 불빛 때문에 못 보고 돌아선 사람이 많았습니다. 핼리 혜성은 2061년 여름에 다시 돌아옵니다.',
+    reply: '그 새벽 옥상에 네가 있었구나. 구름 너머에 혜성이 정말 있었지.',
+    quiz: { question: '1986년 봄, 혜성은 언제 보였나?', answer: '새벽녘', proof: '새벽녘 남동쪽 하늘', wrong: ['한낮', '해 질 무렵'] },
   },
   {
     // A seaside village by Pevensey in Sussex, the evening of 24 April 1066 (Julian): Halley's
@@ -1045,15 +1045,15 @@ export const SQUARES = [
     // From memory: William of Normandy landed at Pevensey that autumn (28 September 1066);
     // Pevensey Castle's old walls stand today.
     // The place is walked about (core/walks.js).
-    no: 25.5, id: 'england1066', name: '꼬리별이 뜬 봄 저녁', dateLabel: 'AD 1066.4.24', place: '서식스, 잉글랜드',
+    no: 25.5, id: 'england1066', name: '혜성이 뜬 봄 저녁', dateLabel: 'AD 1066.4.24', place: '서식스, 잉글랜드',
     lat: 50.82, lon: 0.33,
     date: { year: 1066, month: 4, day: 24 }, calendar: 'julian', hourLocal: 20.75,
     facingAz: 265, nightOnLook: false,
-    memo: '머리카락 난 별이 뜬 봄 저녁.', sora: '서쪽 하늘에 꼬리별이 있어!',
+    memo: '머리카락 난 별이 뜬 봄 저녁.', sora: '서쪽 하늘에 혜성이 있어!',
     memoToday: '남은 것: 연대기와 자수 그림.', soraToday: '페븐시엔 지금도 옛 성벽이 있어.',
     noteMemo: '1066년 봄 저녁. 머리카락 난 별이 서쪽에 떴다고 읽음. 그날 저녁 달은 지고 없었음.',
-    card: '1066년 4월 24일 저녁부터 일주일 동안, 잉글랜드 사람들은 해 진 뒤의 하늘에서 긴 꼬리를 단 별을 보았습니다. 앵글로색슨 연대기는 이 별을 "머리카락 난 별"이라 부르는 사람도 있다고 적었고, 사람들은 큰일이 일어날 징조로 여겼습니다. 그해 가을, 노르망디의 윌리엄이 이 바닷가 페븐시에 배를 대었습니다. 그 뒤에 만든 바이외 태피스트리에도 이 꼬리별이 "사람들이 별을 보고 놀란다"라는 글과 함께 수놓여 있습니다.',
-    reply: '그 별은 일흔여섯 해쯤마다 오는 바로 그 꼬리별이란다.',
+    card: '1066년 4월 24일 저녁부터 일주일 동안, 잉글랜드 사람들은 해 진 뒤의 하늘에서 긴 꼬리를 단 별을 보았습니다. 앵글로색슨 연대기는 이 별을 "머리카락 난 별"이라 부르는 사람도 있다고 적었고, 사람들은 큰일이 일어날 징조로 여겼습니다. 그해 가을, 노르망디의 윌리엄이 이 바닷가 페븐시에 배를 대었습니다. 그 뒤에 만든 바이외 태피스트리에도 이 혜성이 "사람들이 별을 보고 놀란다"라는 글과 함께 수놓여 있습니다.',
+    reply: '그 별은 일흔여섯 해쯤마다 오는 바로 그 혜성이란다.',
     quiz: { question: '연대기는 그 별을 무엇이라 부른다고 적었나?', answer: '머리카락 난 별', proof: '머리카락 난 별', wrong: ['불타는 칼', '눈물 흘린 별'] },
   },
   {
@@ -1075,16 +1075,16 @@ export const SQUARES = [
     // May it stood by the sun, and from the 20th-21st it was in the west after sunset.
     // From memory: Mark Twain, born in 1835 when the comet came, died on 21 April 1910.
     // The place is walked about (core/walks.js).
-    no: 84.5, id: 'newyork1910', name: '꼬리별이 다시 나온 저녁', dateLabel: 'AD 1910.5.24', place: '뉴욕, 미국',
+    no: 84.5, id: 'newyork1910', name: '혜성이 다시 나온 저녁', dateLabel: 'AD 1910.5.24', place: '뉴욕, 미국',
     lat: 40.72, lon: -73.99,
     date: { year: 1910, month: 5, day: 24 }, calendar: 'gregorian', hourLocal: 20.75,
     facingAz: 250, nightOnLook: false,
-    memo: '꼬리별 소동 뒤의 맑은 저녁.', sora: '서쪽 하늘에 꼬리별이 떴어!',
-    memoToday: '남은 것: 유리판에 찍힌 꼬리별.', soraToday: '그날 찍은 사진들이 지금도 있어.',
-    noteMemo: '1910년 5월 24일 저녁. 꼬리별이 서쪽에 다시 보였다고 읽음. 그날 밤 달은 보름.',
-    card: '1910년 5월 18일, 지구가 핼리 혜성의 꼬리 속을 지나간다는 소식에 놀란 사람들이 "꼬리별 알약"과 방독면을 샀습니다. 뉴욕에서는 지붕에서 밤을 새우는 꼬리별 잔치도 열렸지만, 그날 밤 꼬리별은 해 곁에 있어 보이지 않았고 아무 일도 일어나지 않았습니다. 며칠 뒤 꼬리별은 해 진 뒤의 서쪽 하늘에 다시 나타났습니다. 그해 4월에는 꼬리별이 왔던 1835년에 태어난 작가 마크 트웨인이 세상을 떠났습니다.',
-    reply: '아무 일 없이 지나간 꼬리별이 저녁 하늘에 다시 떴구나.',
-    quiz: { question: '꼬리 속을 지난다는 소식에 사람들이 산 약은?', answer: '꼬리별 알약', proof: '꼬리별 알약', wrong: ['감기약', '별빛 사탕'] },
+    memo: '혜성 소동 뒤의 맑은 저녁.', sora: '서쪽 하늘에 혜성이 떴어!',
+    memoToday: '남은 것: 유리판에 찍힌 혜성.', soraToday: '그날 찍은 사진들이 지금도 있어.',
+    noteMemo: '1910년 5월 24일 저녁. 혜성이 서쪽에 다시 보였다고 읽음. 그날 밤 달은 보름.',
+    card: '1910년 5월 18일, 지구가 핼리 혜성의 꼬리 속을 지나간다는 소식에 놀란 사람들이 "혜성 알약"과 방독면을 샀습니다. 뉴욕에서는 지붕에서 밤을 새우는 혜성 잔치도 열렸지만, 그날 밤 혜성은 해 곁에 있어 보이지 않았고 아무 일도 일어나지 않았습니다. 며칠 뒤 혜성은 해 진 뒤의 서쪽 하늘에 다시 나타났습니다. 그해 4월에는 혜성이 왔던 1835년에 태어난 작가 마크 트웨인이 세상을 떠났습니다.',
+    reply: '아무 일 없이 지나간 혜성이 저녁 하늘에 다시 떴구나.',
+    quiz: { question: '꼬리 속을 지난다는 소식에 사람들이 산 약은?', answer: '혜성 알약', proof: '혜성 알약', wrong: ['감기약', '별빛 사탕'] },
   },
 // Kept in the order of the notebook, whatever order they were written in above.
 ].sort((a, b) => a.no - b.no);

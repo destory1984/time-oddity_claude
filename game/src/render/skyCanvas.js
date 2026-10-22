@@ -174,7 +174,7 @@ export function createSkyCanvas(canvas) {
       }
       // Halley's comet (core/sky.js): a soft head and a tail that thins away from the sun.
       // It is drawn larger and brighter than it was: a faint one (magnitude 7, for a
-      // telescope) must still be found by eye in the game (the user: "꼬리별 안 보이는데?").
+      // telescope) must still be found by eye in the game (the user: "혜성 안 보이는데?").
       for (const comet of sky.comets ?? []) {
         const p = seen(comet.alt, comet.az, 60);
         if (!p) continue;

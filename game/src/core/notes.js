@@ -56,15 +56,15 @@ export const NOTES = [
   },
   // The comet's rumour web (core/rumors.js, 2026.10.22): once the comet has been seen on the
   // three days it came (1066, 1758, 1910), the day grandmother missed it herself. Reading it brings her rooftop of 1986 to
-  // light. A draft (docs/스토리보드-꼬리별-다음-셋.md), for the user to revise.
+  // light. A draft (docs/스토리보드-혜성-다음-셋.md), for the user to revise.
   {
     id: 'y1986',
     squares: ['england1066', 'dresden1758', 'newyork1910'],
     title: '1986.3',
     image: 'note-1986.png',
-    scene: '세 번째 꼬리별을 찾고 돌아오자 수첩 사이에서 쪽지가 또 떨어졌다.',
+    scene: '세 번째 혜성을 찾고 돌아오자 수첩 사이에서 쪽지가 또 떨어졌다.',
     text: [
-      '서른두 살 봄이었단다. 꼬리별이 온다길래 새벽에 옥상에 올라갔지. 보온병에 보리차를 담아서.',
+      '서른두 살 봄이었단다. 혜성이 온다길래 새벽에 옥상에 올라갔지. 보온병에 보리차를 담아서.',
       '그날따라 구름이 잔뜩 꼈단다. 한 시간을 서 있다가 그냥 내려왔지.',
       '다음엔 2061년이라더구나. 그때 나는 백일곱 살이야.',
     ],

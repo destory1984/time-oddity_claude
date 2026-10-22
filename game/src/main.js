@@ -933,7 +933,7 @@ window.addEventListener('pointerdown', (e) => {
   if (!near || panelOpen()) return;
   e.stopPropagation(); e.preventDefault();
   sound.wake(); sound.tick(false, false);
-  walkSora = { text: '저기 꼬리별이야! 꼬리가 희미하게 보여.', from: walkT, until: walkT + SORA_FOR_MS };
+  walkSora = { text: '저기 혜성이야! 꼬리가 희미하게 보여.', from: walkT, until: walkT + SORA_FOR_MS };
 }, { capture: true });
 function playHit() {
   const { step } = play;
@@ -1074,7 +1074,7 @@ function talk(id = null) {
   if (rumor && said.last && !said.role && !heardNow().includes(rumor.id)) {
     keep(markRumor(progress, rumor.id));
     sound.page();
-    walkView.found(t`수첩에 꼬리별 소문을 적었다 ${heardNow().length}/${RUMORS.length}`);
+    walkView.found(t`수첩에 혜성 소문을 적었다 ${heardNow().length}/${RUMORS.length}`);
   }
   // What is said for the tale is the tale's: nothing is held up and she makes nothing of it.
   if (said.role) {
@@ -1248,7 +1248,7 @@ window.addEventListener('blur', () => { keyWay = 0; walkWay = 0; });
 
 function frameWalk(dt) {
   // While she looks for the comet in the sky, grandmother's slip at the upper left steps aside:
-  // on a wide screen the comet stood under it (the user, 2026.10.22: "꼬리별이 가린다").
+  // on a wide screen the comet stood under it (the user, 2026.10.22: "혜성이 가린다").
   document.body.classList.toggle('sky-look', play?.kind === 'sky');
   walkT += dt;
   if (play) playFrame(dt);
@@ -1661,7 +1661,7 @@ function showEraPlaces(stop) {
   head.textContent = first ? '여기부터 가 보자. 빛나는 곳을 누른다' : t`이 세기에 갈 곳 ${stop.ids.length}`;
   head.classList.toggle('begin', first);
   list.append(head);
-  if (rumorsHere > 0) list.append(Object.assign(document.createElement('span'), { className: 'rumor', textContent: t`☄ 꼬리별 소문이 있는 곳 ${rumorsHere}` }));
+  if (rumorsHere > 0) list.append(Object.assign(document.createElement('span'), { className: 'rumor', textContent: t`☄ 혜성 소문이 있는 곳 ${rumorsHere}` }));
 }
 
 // Above the Earth the goal is under the date, with how many of the comet's rumours are

@@ -171,7 +171,7 @@ export function createJournal({
     const all = r.days > 0 && r.seen >= r.days;
     const head = el('li', `row goal${all ? ' done' : ''}`);
     const words = el('span', 'rowWords');
-    words.append(el('b', '', t(r.goal)), el('small', '', t`꼬리별 소문 ${r.heard.length}/${r.total} · 꼬리별을 본 날 ${r.seen}/${r.days}`));
+    words.append(el('b', '', t(r.goal)), el('small', '', t`혜성 소문 ${r.heard.length}/${r.total} · 혜성을 본 날 ${r.seen}/${r.days}`));
     head.append(words);
     // When every day it came has been seen, a stamp as on a place done.
     if (all) head.append(el('span', 'rowErrands all', '찾았다'));
@@ -180,7 +180,7 @@ export function createJournal({
     for (const ask of r.asks) {
       const item = el('li', 'row ask');
       if (ask.found) { item.append(el('p', 'hand', t(ask.opened))); items.push(item); continue; }
-      item.append(el('p', '', t`꼬리별이 다시 온 해는? ${ask.ask}`));
+      item.append(el('p', '', t`혜성이 다시 온 해는? ${ask.ask}`));
       const pick = el('div', 'choices');
       for (const year of ask.choices) {
         const b = el('button', `go${wrong === `${ask.id}-${year}` ? ' wrong' : ''}`, String(year));

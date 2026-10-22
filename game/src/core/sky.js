@@ -83,7 +83,7 @@ function starsAt(time, observer) {
 // 1.5 degrees at magnitude 7 (the Christmas of 1758, a smudge for a telescope) and some 25
 // at magnitude 0 (1066). The tail's length is a guess from its brightness, not computed.
 // It is drawn no shorter than DRAWN_TAIL_DEG: true to the sky, the comet of 1758 was a dot
-// beside the stars and could not be found (the user, 2026.10.22: "꼬리별 안 보이는데?").
+// beside the stars and could not be found (the user, 2026.10.22: "혜성 안 보이는데?").
 const DRAWN_TAIL_DEG = 9;
 const unit = (raDeg, decDeg) => {
   const ra = raDeg * RAD, dec = decDeg * RAD;
