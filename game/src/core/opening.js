@@ -1,4 +1,4 @@
-// The opening: five pages shown the first time the game is opened. A picture, a line of
+// The opening: six pages shown the first time the game is opened. A picture, a line of
 // what is seen or a slip of grandmother's note, and a word from Sora under it.
 // Grandmother does not appear; she speaks only through the note.
 //
@@ -17,4 +17,7 @@ export const OPENING = [
   { image: 'open-book.png', kind: 'note', text: '소라야, 이건 내가 책 읽으며 적은 수첩이란다. 가 본 데는 하나도 없다. 다 지난 날이니까.', say: '지난 날엔 어떻게 가?' },
   { image: 'open-dial.png', kind: 'note', text: '지난 날로는 이 다이얼이 데려다줄 게다. 가거든 걸어 다니며 사람들에게 말을 걸어 보렴.', say: '다이얼을 돌리면 되는 거지?' },
   { image: 'open-dial.png', kind: 'note', text: '장마다 심부름을 셋씩 적어 두었다. 첫 장은 이천 년 전 로마란다. 새 경기장이 문을 여는 날이지.', say: '이천 년 전? 진짜 갈 수 있어?' },
+  // The goal, from the first pages (2026.10.22, the comet's rumour web, core/rumors.js): her
+  // wish, which the notebook's last leaf (core/notes.js, 2061) already speaks of.
+  { image: 'open-book.png', kind: 'note', text: '그리고 소라야, 나는 평생 꼬리별을 한 번 보고 싶었단다. 끝내 못 봤지.', say: '꼬리별? 내가 찾아볼게!' },
 ];

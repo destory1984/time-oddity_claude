@@ -235,7 +235,7 @@ body{display:grid;place-items:center;font-family:var(--ui);color:var(--white);fo
 #date span{display:block}
 #subText{color:var(--gold);min-height:1.4em}
 /* Above the Earth: where there is to go in the century the dial rests on, each a button that goes there. */
-#eraPlaces{top:118px;left:14px;display:flex;flex-direction:column;align-items:flex-start;gap:5px;pointer-events:auto}
+#eraPlaces{top:140px;left:14px;display:flex;flex-direction:column;align-items:flex-start;gap:5px;pointer-events:auto}
 #eraPlaces[hidden]{display:none}
 #eraPlaces span{font-size:11px;opacity:.7;padding-left:4px;text-shadow:0 1px 4px rgba(5,3,48,.8)}
 #eraPlaces span.begin{font-size:13px;opacity:1;color:#ffd978}

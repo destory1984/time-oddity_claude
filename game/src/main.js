@@ -1603,8 +1603,11 @@ function showEraPlaces(stop) {
   list.append(head);
 }
 
+// Above the Earth the goal is under the date, with how many of the comet's rumours are
+// written: what she goes about for is in sight wherever she sets off from (2026.10.22).
 function dateOnGlobe() {
-  return { dateText: overEarth() ? eraStop().label : t`${formatYear(dial.year)}년`, placeText: '지구 위', subText: '' };
+  const goal = t`☄ ${t(GOAL)} · 소문 ${rumorsHeard(metAt).length}/${RUMORS.length}`;
+  return { dateText: overEarth() ? eraStop().label : t`${formatYear(dial.year)}년`, placeText: '지구 위', subText: goal };
 }
 
 // One frame at a place in three dimensions: the eye goes where it is wanted, the parts

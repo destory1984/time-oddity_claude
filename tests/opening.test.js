@@ -3,8 +3,8 @@ import { OPENING } from '../game/src/core/opening.js';
 import { SQUARES, squareTitle } from '../game/src/core/squares.js';
 
 describe('the opening', () => {
-  it('is five pages, each with a picture, a line and a word from Sora', () => {
-    expect(OPENING.length).toBe(5);
+  it('is six pages, each with a picture, a line and a word from Sora', () => {
+    expect(OPENING.length).toBe(6);
     for (const page of OPENING) {
       expect(page.image).toMatch(/^[a-z0-9-]+\.png$/);
       expect(page.text.length).toBeGreaterThan(5);
