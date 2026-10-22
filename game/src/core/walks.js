@@ -8241,6 +8241,24 @@ export const WALKS = {
     first: '핼리가 말한 꼬리별이 돌아오는 밤이란다. 팔리치 아저씨를 도와주렴.',
     dir: 'dresden1758', look: 'paper', night: true,
     drawn: '그 무렵 작센 궁정 화가의 촛불 밤 그림처럼 그렸단다.',
+    // Today: the monument the village put up in 1877 (the city of Dresden's history of Prohlis),
+    // and the farmhouse now a museum (palitzsch-museum.de). The estate of the 1970s and 80s, the
+    // crater and the asteroid are from memory (docs/넘김.md).
+    now: {
+      photo: 'photo-now.webp', name: '프롤리스의 지금 모습', when: '독일 드레스덴 프롤리스 · 팔리치 기념비',
+      text: [
+        '프롤리스는 지금 드레스덴 남동쪽의 한 동네입니다. 마을 광장에는 1877년에 마을 사람들이 세운 팔리치 기념비가 있습니다.',
+        '기념비에는 "1723년 6월 11일 프롤리스에서 나서, 1788년 2월 21일 같은 곳에서 죽다"라고 새겨져 있습니다. 팔리치는 평생 이 마을의 농부였습니다.',
+        '옛 마을에 하나 남은 농가는 "팔리치호프"라는 작은 박물관이 되었습니다. 이곳에서 팔리치와 마을의 옛이야기를 볼 수 있습니다.',
+        '달에는 팔리치의 이름을 딴 구덩이가 있고, 그의 이름을 받은 소행성도 있습니다.',
+      ],
+      credit: '사진: Ubahnverleih, 위키미디어 공용, CC BY 3.0',
+      more: {
+        photo: 'photo-portrait.webp', name: '팔리치의 초상 (1782년 동판화)',
+        text: '안톤 그라프가 그리고 슐체가 새긴 초상입니다. 곁에 망원경과 지구의, 그리고 농부답게 보리 이삭이 함께 있습니다.',
+        credit: '그림: 웰컴 컬렉션, 위키미디어 공용, CC BY 4.0',
+      },
+    },
     scenes: [
       {
         id: 'lane', name: '독일 작센 프롤리스 마을 길', short: '마을 길', zoom: 1.208, ground: 0.660, scale: 0.707, air: 'hush', floor: 'dirt',

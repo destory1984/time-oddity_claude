@@ -264,3 +264,5 @@ npm run build
 | 가가린 발사대 | [Soyuz TMA-10M spacecraft at the Baikonur Cosmodrome launch pad (4).jpg](https://commons.wikimedia.org/wiki/File:Soyuz_TMA-10M_spacecraft_at_the_Baikonur_Cosmodrome_launch_pad_(4).jpg) | Carla Cioffi | 공개 저작물 |
 | 바이코누르(스푸트니크) | [Sputnik asm.jpg](https://commons.wikimedia.org/wiki/File:Sputnik_asm.jpg) | NSSDC, NASA | 공개 저작물 |
 | 부르즈 할리파 | [Dubai Skyline mit Burj Khalifa (18241030269).jpg](https://commons.wikimedia.org/wiki/File:Dubai_Skyline_mit_Burj_Khalifa_(18241030269).jpg) | Tim Reckmann | CC BY 2.0 (탑 둘레를 잘라 씀) |
+| 프롤리스 팔리치 기념비 | [Johann Georg Palitzsch Denkmal Dresden Prohlis.JPG](https://commons.wikimedia.org/wiki/File:Johann_Georg_Palitzsch_Denkmal_Dresden_Prohlis.JPG) | Ubahnverleih | CC BY 3.0 |
+| 팔리치의 초상(1782) | [Johann Georg Palizsch. Line engraving by C. G. Schulze, 1782 Wellcome V0004435.jpg](https://commons.wikimedia.org/wiki/File:Johann_Georg_Palizsch._Line_engraving_by_C._G._Schulze,_1782_Wellcome_V0004435.jpg) | Wellcome Collection | CC BY 4.0 |
