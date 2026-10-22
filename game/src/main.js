@@ -278,6 +278,7 @@ const journal = createJournal({
   drawn: (id) => WALKS[id]?.drawn ?? null,
   intro: (id) => WALKS[id]?.intro ?? null,
   shown: (id) => visible([id]).length > 0,
+  rumorsLeft: (id) => RUMORS.filter((r) => r.at === id && !metAt(id).includes(r.who)).length,
   // The goal, the comet's rumours heard and the years to be found (core/rumors.js).
   rumors: () => ({
     goal: GOAL,

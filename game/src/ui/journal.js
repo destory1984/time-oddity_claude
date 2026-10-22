@@ -31,11 +31,12 @@ const el = (tag, className, text) => {
 // shown(id): whether a place is to be listed (a hidden one is not, until it is open).
 // rumors: () => { goal, heard: [what is written], total, asks: [{ id, ask, choices, year,
 // opened, found }] } (core/rumors.js); onAnswer(id, year): a year was chosen, true if right.
+// rumorsLeft(id): how many of the comet's rumours there are still to be heard there.
 export function createJournal({
   squares, progress, onGo, onSolve, here, canGo = () => true, notes = () => [], onNote = () => {},
   cards = () => ({}), today = () => '', onSend = () => {}, onReply = () => {}, tries = () => [], errands = () => null,
   wardrobe = () => [], onWear = () => {}, drawn = () => null, intro = () => null,
-  shown = () => true, rumors = () => null, onAnswer = () => false,
+  shown = () => true, rumors = () => null, onAnswer = () => false, rumorsLeft = () => 0,
 }) {
   const dialog = $('journal');
   const ids = squares.map((s) => s.id);
@@ -58,7 +59,8 @@ export function createJournal({
     if (errand) marks = el('span', `rowErrands${finished ? ' all' : ''}`, finished ? '완료' : `${errand.done}/${errand.total}`);
     else { marks = el('span', 'rowDots'); for (const key of ['day', 'sky', 'remains']) marks.append(el('i', dots[key] ? 'on' : '')); }
     const words = el('span', 'rowWords');
-    words.append(el('b', '', squareTitle(square)), el('small', '', `${t(square.dateLabel)} · ${t(square.place)}`));
+    const left = rumorsLeft(square.id);
+    words.append(el('b', '', squareTitle(square)), el('small', '', `${t(square.dateLabel)} · ${t(square.place)}${left > 0 ? t` · ☄ 소문 ${left}` : ''}`));
     head.append(marks, words);
     head.addEventListener('click', () => { open = open === square.id ? null : square.id; render(); });
 
