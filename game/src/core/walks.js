@@ -13,6 +13,8 @@
 // Errands: grandmother's three; `at` is the people or spots any one of which does it.
 // A scene's `air` is what is heard there now and then (ui/sound.js AIRS) and `floor` what
 // her feet sound on: 'stone' (if not given), 'dirt' or 'wood'.
+// A scene's `facingAz`, if given, is where its computed sky looks, in place of the square's:
+// where the sky of that picture is open (Prohlis's farmyard, so the comet is not behind a branch).
 //
 // A place has one of two looks (the plan's section 4 tries one each). Rome is all pixels.
 // Paris is `look: 'paper'`: flat drawings, with pieces that move on their own (a scene's
@@ -8257,7 +8259,7 @@ export const WALKS = {
         spots: [],
       },
       {
-        id: 'farm', name: '독일 작센 프롤리스 팔리치의 농가 마당', short: '농가 마당', zoom: 1.163, ground: 0.695, scale: 0.681, air: 'hush', floor: 'dirt',
+        id: 'farm', name: '독일 작센 프롤리스 팔리치의 농가 마당', short: '농가 마당', zoom: 1.163, ground: 0.695, scale: 0.681, facingAz: 198, air: 'hush', floor: 'dirt',
         sora: '긴 망원경이 하늘을 향해 있어!',
         people: [
           { id: 'cowhand', pass: '소들도 성탄 밤엔 푹 쉬어야지.', name: '소 돌보는 일꾼', x: 0.18, w: 106, h: 298, lines: ['소들에게 건초를 넉넉히 주는 중이야.', '주인 어른은 밤새 망원경만 보셔.'] },

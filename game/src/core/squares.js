@@ -981,8 +981,11 @@ export const SQUARES = [
     // The place is walked about (core/walks.js).
     no: 49.5, id: 'dresden1758', name: '꼬리별이 돌아온 밤', dateLabel: 'AD 1758.12.25', place: '프롤리스, 작센',
     lat: 51.008, lon: 13.800,
-    date: { year: 1758, month: 12, day: 25 }, calendar: 'gregorian', hourLocal: 21,
-    facingAz: 225, nightOnLook: false,
+    date: { year: 1758, month: 12, day: 25 }, calendar: 'gregorian', hourLocal: 20,
+    // At 8 in the evening the comet is 41 degrees up at azimuth 211: facing a little short of
+    // it, it stands in the open sky between grandmother's slip and the roofs (the user:
+    // "꼬리별 안 보이는데?"; at 9 facing 225 it was by the slip's corner, at 7 under the buttons).
+    facingAz: 204, nightOnLook: false,
     memo: '예언된 꼬리별이 돌아오는 밤.', sora: '망원경이 하늘을 보고 있어!',
     memoToday: '남은 것: 팔리치가 남긴 기록.', soraToday: '프롤리스는 지금 드레스덴의 한 동네야.',
     noteMemo: '1758년 성탄절 밤. 팔리치가 돌아온 꼬리별을 처음 찾았다고 읽음. 그날 밤 달은 지고 없었음.',

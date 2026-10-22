@@ -171,30 +171,31 @@ export function createSkyCanvas(canvas) {
         label(planet.name, p.x, p.y, labels * light.stars * fade);
       }
       // Halley's comet (core/sky.js): a soft head and a tail that thins away from the sun.
-      // A faint one (magnitude 7, for a telescope) is still drawn, dimly, so that it can be
-      // looked for; the brighter it is, the stronger.
+      // It is drawn larger and brighter than it was: a faint one (magnitude 7, for a
+      // telescope) must still be found by eye in the game (the user: "꼬리별 안 보이는데?").
       for (const comet of sky.comets ?? []) {
         const p = seen(comet.alt, comet.az, 60);
         if (!p) continue;
         const q = project(comet.tailAlt, comet.tailAz, view);
-        const strength = light.stars * fade * clamp(0.6 + (6 - comet.mag) * 0.1, 0.6, 1);
+        const strength = light.stars * fade * clamp(0.85 + (6 - comet.mag) * 0.05, 0.85, 1);
         const tail = c.createLinearGradient(p.x, p.y, q.x, q.y);
-        tail.addColorStop(0, `rgba(230,240,255,${0.75 * strength})`);
+        tail.addColorStop(0, `rgba(230,240,255,${0.85 * strength})`);
         tail.addColorStop(1, 'rgba(230,240,255,0)');
         const dx = q.x - p.x, dy = q.y - p.y, len = Math.hypot(dx, dy) || 1;
-        const nx = -dy / len, ny = dx / len, spread = Math.max(3, len * 0.14);
+        const nx = -dy / len, ny = dx / len, spread = Math.max(6, len * 0.16);
         c.fillStyle = tail;
         c.beginPath();
-        c.moveTo(p.x + nx * 1.5, p.y + ny * 1.5);
+        c.moveTo(p.x + nx * 3, p.y + ny * 3);
         c.lineTo(q.x + nx * spread, q.y + ny * spread);
         c.lineTo(q.x - nx * spread, q.y - ny * spread);
-        c.lineTo(p.x - nx * 1.5, p.y - ny * 1.5);
+        c.lineTo(p.x - nx * 3, p.y - ny * 3);
         c.closePath(); c.fill();
-        const head = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, 8);
+        const head = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, 14);
         head.addColorStop(0, `rgba(255,255,255,${strength})`);
+        head.addColorStop(0.25, `rgba(235,242,255,${0.8 * strength})`);
         head.addColorStop(1, 'rgba(200,220,255,0)');
         c.fillStyle = head;
-        c.beginPath(); c.arc(p.x, p.y, 8, 0, Math.PI * 2); c.fill();
+        c.beginPath(); c.arc(p.x, p.y, 14, 0, Math.PI * 2); c.fill();
         label(comet.name, p.x, p.y, labels * light.stars * fade);
       }
     }

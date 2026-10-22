@@ -82,6 +82,9 @@ function starsAt(time, observer) {
 // rows. Its tail points away from the sun along the sky, longer the brighter it is: about
 // 1.5 degrees at magnitude 7 (the Christmas of 1758, a smudge for a telescope) and some 25
 // at magnitude 0 (1066). The tail's length is a guess from its brightness, not computed.
+// It is drawn no shorter than DRAWN_TAIL_DEG: true to the sky, the comet of 1758 was a dot
+// beside the stars and could not be found (the user, 2026.10.22: "꼬리별 안 보이는데?").
+const DRAWN_TAIL_DEG = 9;
 const unit = (raDeg, decDeg) => {
   const ra = raDeg * RAD, dec = decDeg * RAD;
   return [Math.cos(dec) * Math.cos(ra), Math.cos(dec) * Math.sin(ra), Math.sin(dec)];
@@ -108,7 +111,7 @@ function cometsAt(jd, time, observer) {
   const c = comet.vec;
   const away = norm(c.map((x, k) => x * dot(c, s) - s[k]));
   const tailDeg = Math.max(1.5, Math.min(25, (7 - comet.mag) * 3.5 + 1.5));
-  const end = norm(c.map((x, k) => x + away[k] * Math.tan(tailDeg * RAD)));
+  const end = norm(c.map((x, k) => x + away[k] * Math.tan(Math.max(tailDeg, DRAWN_TAIL_DEG) * RAD)));
   const { rot } = CombineRotation(Rotation_EQJ_EQD(time), Rotation_EQD_HOR(time, observer));
   const toSky = ([x, y, z]) => {
     const north = rot[0][0] * x + rot[1][0] * y + rot[2][0] * z;

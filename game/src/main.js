@@ -1292,7 +1292,8 @@ function frameWalk(dt) {
   }
 
   // The sky of that day and hour, as computed, behind the roofs.
-  skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: square.facingAz, pitch: 0 });
+  // A scene may face its own way, where its sky is open (Prohlis: the comet clear of roofs and branches).
+  skyCanvas.draw(skyAt(momentJd(square, { year: square.date.year }, today), square), { facingAz: sceneOf(walk).facingAz ?? square.facingAz, pitch: 0 });
   // (While grandmother's slip is up nobody calls out to her in passing.)
   if (memoUp) walk.passing = null;
   walkView.carry(walk.place.tale?.thing ? `./walks/${walk.place.dir}/thing.webp` : null, Boolean(walk.tale) && carrying(walk.place.tale, walk.tale));
